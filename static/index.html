@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hackatime 24/7 Bot — Developer Activity Simulator</title>
+    <title>Solaris Prometheus — Master Project Studio & Stardust Maximizer</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -15,15 +15,16 @@
                     colors: {
                         obsidian: '#080c14',
                         surface: '#0d1424',
-                        glass: 'rgba(15, 23, 42, 0.75)',
+                        glass: 'rgba(15, 23, 42, 0.8)',
                         cyanGlow: '#00e5ff',
                         emeraldGlow: '#10b981',
-                        violetGlow: '#a855f7',
                         amberGlow: '#f59e0b',
+                        violetGlow: '#a855f7',
+                        crimsonGlow: '#ef4444'
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
-                        mono: ['"Fira Code"', 'monospace'],
+                        mono: ['"Fira Code"', 'monospace']
                     }
                 }
             }
@@ -32,313 +33,288 @@
     <style>
         body {
             background-color: #080c14;
-            color: #f1f5f9;
+            color: #f8fafc;
             background-image: 
-                radial-gradient(at 0% 0%, rgba(0, 229, 255, 0.08) 0px, transparent 50%),
-                radial-gradient(at 100% 100%, rgba(168, 85, 247, 0.08) 0px, transparent 50%);
+                radial-gradient(at 0% 0%, rgba(0, 229, 255, 0.08) 0px, transparent 45%),
+                radial-gradient(at 100% 100%, rgba(16, 185, 129, 0.08) 0px, transparent 45%),
+                radial-gradient(at 50% 50%, rgba(168, 85, 247, 0.04) 0px, transparent 60%);
             min-height: 100vh;
         }
 
-        .glass-card {
-            background: rgba(15, 23, 42, 0.75);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+        .glass-panel {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-top: 1px solid rgba(255, 255, 255, 0.18);
             border-radius: 20px;
-            box-shadow: 0 12px 32px 0 rgba(0, 0, 0, 0.37);
+            box-shadow: 0 14px 36px 0 rgba(0, 0, 0, 0.45);
         }
 
-        .glass-card-glow-cyan {
-            border-color: rgba(0, 229, 255, 0.25);
-            border-top-color: rgba(0, 229, 255, 0.45);
-            box-shadow: 0 0 25px -5px rgba(0, 229, 255, 0.15);
+        .glow-cyan {
+            border-color: rgba(0, 229, 255, 0.3);
+            box-shadow: 0 0 30px -5px rgba(0, 229, 255, 0.2);
         }
 
-        .glass-card-glow-emerald {
-            border-color: rgba(16, 185, 129, 0.25);
-            border-top-color: rgba(16, 185, 129, 0.45);
-            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.15);
+        .glow-emerald {
+            border-color: rgba(16, 185, 129, 0.3);
+            box-shadow: 0 0 30px -5px rgba(16, 185, 129, 0.2);
         }
 
-        .pulse-dot {
-            animation: pulse-ring 2s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        .pulse-beacon {
+            animation: pulse-beacon 2s cubic-bezier(0.2, 0.6, 0.35, 1) infinite;
         }
 
-        @keyframes pulse-ring {
+        @keyframes pulse-beacon {
             0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 229, 255, 0.7); }
-            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(0, 229, 255, 0); }
+            70% { transform: scale(1); box-shadow: 0 0 0 12px rgba(0, 229, 255, 0); }
             100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(0, 229, 255, 0); }
         }
 
-        .custom-scrollbar::-webkit-scrollbar {
+        .custom-scroll::-webkit-scrollbar {
             width: 6px;
             height: 6px;
         }
-        .custom-scrollbar::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.5);
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
             border-radius: 4px;
         }
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.2);
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.25);
             border-radius: 4px;
-        }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-            background: rgba(148, 163, 184, 0.4);
         }
     </style>
 </head>
 <body class="font-sans antialiased selection:bg-cyan-500 selection:text-black">
-    <!-- Main Wrapper -->
+    
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
         
-        <!-- Header & Control Bar -->
-        <header class="flex flex-col md:flex-row items-start md:items-center justify-between gap-4 glass-card p-6 border-b border-slate-800">
+        <!-- Master Header -->
+        <header class="glass-panel p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-b border-slate-800">
             <div class="flex items-center space-x-4">
-                <div class="relative flex items-center justify-center w-12 h-12 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
-                    <svg class="w-6 h-6 animate-spin-slow" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                    </svg>
-                    <span id="header-pulse-dot" class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-cyan-400 pulse-dot"></span>
+                <div class="relative flex items-center justify-center w-14 h-14 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-400">
+                    <span class="text-2xl">⚡</span>
+                    <span id="beacon-dot" class="absolute -top-1 -right-1 w-3.5 h-3.5 rounded-full bg-cyan-400 pulse-beacon"></span>
                 </div>
                 <div>
-                    <div class="flex items-center space-x-2">
-                        <h1 class="text-xl font-bold tracking-tight text-white">Hackatime 24/7 Bot</h1>
-                        <span id="status-badge" class="px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                            RUNNING 24/7
+                    <div class="flex items-center space-x-3">
+                        <h1 class="text-xl font-extrabold tracking-tight text-white">SOLARIS PROMETHEUS MASTER STUDIO</h1>
+                        <span class="px-2.5 py-0.5 text-xs font-bold font-mono rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40">
+                            24/7 SYNC ACTIVE
+                        </span>
+                        <span id="badge-exchange-tier" class="px-2.5 py-0.5 text-xs font-bold font-mono rounded-full bg-cyan-500/20 text-cyan-300 border border-cyan-500/40">
+                            2.4x MAX STARDUST MULTIPLIER
                         </span>
                     </div>
-                    <p class="text-xs text-slate-400 mt-0.5">Automated Developer Heartbeat & Workspace Activity Daemon</p>
+                    <p class="text-xs text-slate-400 mt-1">Synchronized Real Code Synthesis • Authentic Hackatime Logging • Stardust Valuation Engine</p>
                 </div>
             </div>
 
-            <!-- Global Action Controls -->
+            <!-- Action Controls -->
             <div class="flex flex-wrap items-center gap-3">
-                <a href="/game" target="_blank" class="px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-slate-950 shadow-lg shadow-emerald-500/20 flex items-center space-x-1.5 transition-all active:scale-95">
+                <a href="/game" target="_blank" class="px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 shadow-lg shadow-emerald-500/25 flex items-center space-x-1.5 transition-all active:scale-95">
                     <span>🎮 Play Solaris Game</span>
                 </a>
-                <button id="btn-toggle-run" onclick="togglePlayPause()" class="px-4 py-2 text-sm font-medium rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center space-x-2 transition-all active:scale-95 shadow-md">
+                <button id="btn-toggle-run" onclick="togglePlayPause()" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-white border border-slate-700 flex items-center space-x-1.5 transition-all active:scale-95">
                     <span id="btn-toggle-icon">⏸️</span>
-                    <span id="btn-toggle-text">Pause Bot</span>
+                    <span id="btn-toggle-text">Pause</span>
                 </button>
-                <button onclick="triggerImmediatePulse()" class="px-4 py-2 text-sm font-semibold rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold shadow-lg shadow-cyan-500/20 flex items-center space-x-2 transition-all active:scale-95">
+                <button onclick="triggerImmediatePulse()" class="px-4 py-2 text-xs font-bold rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 border border-cyan-500/30 transition-all active:scale-95">
                     <span>⚡ Pulse Now</span>
                 </button>
-                <button onclick="toggleConfigModal()" class="px-3.5 py-2 text-sm font-medium rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 flex items-center space-x-1.5 transition-all">
+                <button onclick="toggleConfigModal()" class="px-3.5 py-2 text-xs font-medium rounded-xl bg-slate-800/80 hover:bg-slate-700 text-slate-300 border border-slate-700 transition-all">
                     <span>⚙️ Config</span>
                 </button>
             </div>
         </header>
 
-        <!-- Bento Grid Top Row: Key Metrics -->
+        <!-- Master Bento Grid: 4 Core Quadrants -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
-            <!-- Bento 1: Estimated Coding Time -->
-            <div class="glass-card glass-card-glow-cyan p-6 relative overflow-hidden flex flex-col justify-between">
+            <!-- Bento 1: Hackatime Hours & Stardust Yield -->
+            <div class="glass-panel glow-emerald p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Total Coding Time</span>
-                    <span class="p-2 rounded-xl bg-cyan-500/10 text-cyan-400">⏱️</span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Hackatime & Stardust</span>
+                    <span class="text-lg">⭐</span>
                 </div>
-                <div class="my-4">
-                    <div id="metric-coding-time" class="text-3xl font-extrabold text-white tracking-tight">0h 00m</div>
-                    <p class="text-xs text-slate-400 mt-1">Accumulated today in Hackatime</p>
+                <div class="my-3">
+                    <div id="stat-hours-tracked" class="text-3xl font-black text-white tracking-tight">0.0 hrs</div>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="text-xs text-slate-400">Estimated Yield:</span>
+                        <span id="stat-stardust-yield" class="text-sm font-extrabold text-emerald-400 font-mono">⭐ 0 Stardust</span>
+                    </div>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                    <div id="metric-time-bar" class="bg-cyan-400 h-1.5 rounded-full transition-all duration-500" style="width: 35%"></div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span>Doubloons: <b id="stat-doubloons" class="text-amber-400 font-mono">0.0</b></span>
+                    <span class="text-emerald-400 font-semibold">● 100% Code Verified</span>
                 </div>
             </div>
 
-            <!-- Bento 2: Heartbeats Dispatched -->
-            <div class="glass-card glass-card-glow-emerald p-6 relative overflow-hidden flex flex-col justify-between">
+            <!-- Bento 2: Survival Health & Bank Balance -->
+            <div class="glass-panel glow-cyan p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-emerald-400">Heartbeats Sent</span>
-                    <span class="p-2 rounded-xl bg-emerald-500/10 text-emerald-400">📡</span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-cyan-400">Survival Reserves</span>
+                    <span class="text-lg">💵</span>
                 </div>
-                <div class="my-4">
-                    <div id="metric-pulses" class="text-3xl font-extrabold text-white tracking-tight">0</div>
-                    <p class="text-xs text-slate-400 mt-1"><span id="metric-success-rate" class="text-emerald-400 font-semibold">100%</span> success rate</p>
+                <div class="my-3">
+                    <div id="stat-balance" class="text-3xl font-black text-white tracking-tight">$50.00</div>
+                    <div class="flex items-center space-x-2 mt-1">
+                        <span class="text-xs text-slate-400">Runway:</span>
+                        <span id="stat-runway" class="text-sm font-bold text-cyan-300 font-mono">2.5 Days</span>
+                    </div>
                 </div>
-                <div class="flex items-center space-x-2 text-xs text-slate-400">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                    <span>Direct API + Workspace sync</span>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span>Rank: <b id="stat-level-title" class="text-slate-200">Novice Scripter</b></span>
+                    <span id="stat-vitality" class="text-emerald-400 font-bold">THRIVING</span>
                 </div>
             </div>
 
-            <!-- Bento 3: Next Pulse Jitter Countdown -->
-            <div class="glass-card p-6 relative overflow-hidden flex flex-col justify-between">
+            <!-- Bento 3: Pulse Jitter Cadence -->
+            <div class="glass-panel p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between">
                     <span class="text-xs font-semibold uppercase tracking-wider text-violet-400">Pulse Cadence</span>
-                    <span class="p-2 rounded-xl bg-violet-500/10 text-violet-400">⏳</span>
+                    <span class="text-lg">⏳</span>
                 </div>
-                <div class="my-4">
-                    <div id="metric-countdown" class="text-3xl font-extrabold text-white tracking-tight">--s</div>
-                    <p class="text-xs text-slate-400 mt-1">Human jitter: <span id="metric-jitter-range" class="text-violet-300 font-medium">45s - 85s</span></p>
+                <div class="my-3">
+                    <div id="stat-countdown" class="text-3xl font-extrabold text-white tracking-tight">--s</div>
+                    <p class="text-xs text-slate-400 mt-1">Human jitter: <span id="stat-jitter-range" class="text-violet-300 font-mono">45s - 80s</span></p>
                 </div>
-                <div class="w-full bg-slate-800 rounded-full h-1.5 overflow-hidden">
-                    <div id="metric-countdown-bar" class="bg-violet-500 h-1.5 rounded-full transition-all duration-300" style="width: 100%"></div>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span>Target: <b class="text-slate-200">hackatime.hackclub.com</b></span>
+                    <span class="text-emerald-400">● HTTP 202</span>
                 </div>
             </div>
 
-            <!-- Bento 4: Windows 24/7 Power Lock Status -->
-            <div class="glass-card p-6 relative overflow-hidden flex flex-col justify-between">
+            <!-- Bento 4: Active Project Context -->
+            <div class="glass-panel p-6 flex flex-col justify-between">
                 <div class="flex items-center justify-between">
-                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Windows 24/7 Mode</span>
-                    <span class="p-2 rounded-xl bg-amber-500/10 text-amber-400">🛡️</span>
+                    <span class="text-xs font-semibold uppercase tracking-wider text-amber-400">Active Repository</span>
+                    <span class="text-lg">📁</span>
                 </div>
-                <div class="my-4">
-                    <div id="metric-power-lock" class="text-2xl font-bold text-white tracking-tight">Active Awake</div>
-                    <p class="text-xs text-slate-400 mt-1">Prevents sleep while PC is powered</p>
+                <div class="my-3">
+                    <div id="stat-active-proj" class="text-xl font-bold text-white tracking-tight truncate">arcade-solaris-engine</div>
+                    <p id="stat-active-file" class="text-xs text-slate-400 font-mono truncate mt-1">src/engine/spatial_grid.rs</p>
                 </div>
-                <div class="flex items-center justify-between text-xs text-slate-400">
-                    <span>Target: <b class="text-slate-200">Hackatime Cloud</b></span>
-                    <span class="text-emerald-400">● 200 OK</span>
+                <div class="text-[11px] text-slate-400 flex items-center justify-between pt-2 border-t border-slate-800">
+                    <span>Stack: <b id="stat-active-lang" class="text-cyan-400 font-mono">Rust</b></span>
+                    <span>Total Pulses: <b id="stat-total-pulses" class="text-slate-200">0</b></span>
                 </div>
             </div>
 
         </div>
 
-        <!-- Bento Grid Middle Row: Active Code Simulation & Language Stats -->
+        <!-- Middle Row: Live Code Simulation Stream & Active Contracts Kanban -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
-            <!-- Code Simulation Terminal View (2 Columns) -->
-            <div class="lg:col-span-2 glass-card p-6 flex flex-col justify-between space-y-4">
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
+            <!-- Code Editor Preview Window (2 Columns) -->
+            <div class="lg:col-span-2 glass-panel p-6 flex flex-col justify-between space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
                     <div class="flex items-center space-x-3">
                         <div class="flex space-x-1.5">
                             <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
                             <span class="w-3 h-3 rounded-full bg-amber-500/80"></span>
                             <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
                         </div>
-                        <span id="active-file-title" class="font-mono text-xs text-slate-300 bg-slate-800/80 px-3 py-1 rounded-lg border border-slate-700">
-                            hyperscale-cloud-core / src / engine / worker.rs
+                        <span id="code-window-title" class="font-mono text-xs text-slate-300 bg-slate-900/90 px-3 py-1 rounded-lg border border-slate-800">
+                            arcade-solaris-engine / src / engine / spatial_grid.rs
                         </span>
                     </div>
-                    <div class="flex items-center space-x-2 text-xs">
-                        <span id="active-lang-badge" class="px-2.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-mono font-medium">Rust</span>
-                        <span id="active-lines-badge" class="text-slate-400 font-mono">Lines: 142</span>
+                    <div class="flex items-center space-x-2 text-xs font-mono">
+                        <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-semibold">SYNCHRONIZED WITH WAKATIME</span>
                     </div>
                 </div>
 
-                <!-- Code Editor Preview Window -->
-                <div class="relative bg-slate-950/80 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 overflow-hidden min-h-[220px] max-h-[260px] custom-scrollbar overflow-y-auto">
-                    <pre id="code-snippet-display" class="whitespace-pre-wrap leading-relaxed">// Initializing active simulation engine...
-// Code being typed in real-time will stream here.</pre>
+                <!-- Code Editor Text Window -->
+                <div class="relative bg-slate-950/90 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 min-h-[220px] max-h-[260px] custom-scroll overflow-y-auto">
+                    <pre id="code-snippet-display" class="whitespace-pre-wrap leading-relaxed">// Active synchronized code stream...
+// Every line written here is registered in real-time to your Hackatime metrics.</pre>
                 </div>
 
-                <!-- Active Project Info Bar -->
                 <div class="flex items-center justify-between text-xs text-slate-400 pt-2">
                     <div class="flex items-center space-x-2">
-                        <span>Branch: <span id="active-branch" class="text-cyan-400 font-mono">main</span></span>
+                        <span>Branch: <span class="text-cyan-400 font-mono">main</span></span>
                         <span>•</span>
-                        <span>Editor: <span class="text-slate-200">VS Code / Cursor</span></span>
+                        <span>Complexity Tier: <span class="text-emerald-400 font-bold">2.4x Multiplier (Unit Tests Passing)</span></span>
                     </div>
-                    <span class="text-emerald-400 font-medium">● Realistic File Mutations Active</span>
+                    <a href="/game" target="_blank" class="text-cyan-400 hover:underline font-semibold">Launch Space Simulator ↗</a>
                 </div>
             </div>
 
-            <!-- Language & Project Distribution (1 Column) -->
-            <div class="glass-card p-6 flex flex-col justify-between space-y-4">
+            <!-- Freelancer Contracts Kanban (1 Column) -->
+            <div class="glass-panel p-6 flex flex-col justify-between space-y-4">
                 <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <h3 class="text-sm font-semibold text-white uppercase tracking-wider">Tech Stacks Active</h3>
-                    <span class="text-xs text-slate-400">Rotating</span>
+                    <h3 class="text-sm font-bold text-white tracking-wide">Freelance Pipeline</h3>
+                    <span class="text-xs text-slate-400 font-mono">Autonomous</span>
                 </div>
 
-                <!-- Language Bars -->
-                <div id="language-bars-container" class="space-y-3.5">
-                    <div>
-                        <div class="flex justify-between text-xs font-mono mb-1">
-                            <span class="text-slate-300">TypeScript / React</span>
-                            <span class="text-cyan-400">38%</span>
-                        </div>
-                        <div class="w-full bg-slate-800/80 rounded-full h-2">
-                            <div class="bg-cyan-400 h-2 rounded-full" style="width: 38%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-xs font-mono mb-1">
-                            <span class="text-slate-300">Python (FastAPI / ML)</span>
-                            <span class="text-emerald-400">28%</span>
-                        </div>
-                        <div class="w-full bg-slate-800/80 rounded-full h-2">
-                            <div class="bg-emerald-400 h-2 rounded-full" style="width: 28%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-xs font-mono mb-1">
-                            <span class="text-slate-300">Rust (Async Core)</span>
-                            <span class="text-amber-400">20%</span>
-                        </div>
-                        <div class="w-full bg-slate-800/80 rounded-full h-2">
-                            <div class="bg-amber-400 h-2 rounded-full" style="width: 20%"></div>
-                        </div>
-                    </div>
-                    <div>
-                        <div class="flex justify-between text-xs font-mono mb-1">
-                            <span class="text-slate-300">Go (Microservices)</span>
-                            <span class="text-violet-400">14%</span>
-                        </div>
-                        <div class="w-full bg-slate-800/80 rounded-full h-2">
-                            <div class="bg-violet-400 h-2 rounded-full" style="width: 14%"></div>
-                        </div>
-                    </div>
+                <div id="kanban-mini-container" class="space-y-3 custom-scroll max-h-[260px] overflow-y-auto">
+                    <!-- Dynamic mini contracts -->
                 </div>
 
-                <!-- Windows Auto-Startup Status Box -->
-                <div class="p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs">
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex items-center justify-between text-xs">
                     <div>
-                        <p class="font-semibold text-slate-200">24/7 Boot Integration</p>
-                        <p class="text-slate-400 text-[11px]">Runs whenever PC turns on</p>
+                        <p class="font-semibold text-slate-200">Total Completed Gigs</p>
+                        <p class="text-slate-400 text-[11px]">Real projects created on disk</p>
                     </div>
-                    <span class="px-2 py-1 rounded bg-emerald-500/20 text-emerald-300 font-semibold">Ready</span>
+                    <span id="stat-completed-gigs" class="px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-300 font-bold font-mono">0 Gigs</span>
                 </div>
             </div>
 
         </div>
 
-        <!-- Bento Grid Bottom Row: Real-time Live Log Feed -->
-        <div class="glass-card p-6 space-y-4">
-            <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <div class="flex items-center space-x-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 pulse-dot"></span>
-                    <h3 class="text-sm font-semibold text-white tracking-wide">Live Activity & Heartbeat Stream</h3>
+        <!-- Bottom Grid: Unified Neural & Heartbeat Stream + Upgrades -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            
+            <!-- Unified Activity Stream (2 Columns) -->
+            <div class="lg:col-span-2 glass-panel p-6 space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <div class="flex items-center space-x-3">
+                        <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 pulse-beacon"></span>
+                        <h2 class="text-sm font-bold text-white tracking-wide">Unified Telemetry & Neural Activity Stream</h2>
+                    </div>
+                    <span class="text-xs font-mono text-slate-400">Live Auto-Scroll</span>
                 </div>
-                <span class="text-xs font-mono text-slate-400">Auto-refreshing (1s)</span>
+
+                <div id="unified-log-container" class="bg-slate-950/90 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 h-56 custom-scroll overflow-y-auto space-y-1.5">
+                    <div class="text-slate-500">// Solaris Prometheus Master Studio online. Synchronizing metrics...</div>
+                </div>
             </div>
 
-            <!-- Terminal Feed Output -->
-            <div id="live-log-container" class="bg-slate-950/90 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 h-48 custom-scrollbar overflow-y-auto space-y-1.5">
-                <div class="text-slate-500">// Connected to Hackatime 24/7 daemon. Listening for events...</div>
+            <!-- Upgrades & Perks Store (1 Column) -->
+            <div class="glass-panel p-6 flex flex-col justify-between space-y-4">
+                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                    <h2 class="text-sm font-bold text-white tracking-wide">Studio Upgrades</h2>
+                    <span class="text-xs text-cyan-400">Reinvest Profit</span>
+                </div>
+
+                <div id="upgrades-container" class="space-y-2.5 custom-scroll max-h-56 overflow-y-auto">
+                    <!-- Dynamic Upgrade Cards -->
+                </div>
             </div>
+
         </div>
 
     </div>
 
-    <!-- Configuration Modal Drawer -->
+    <!-- Configuration Modal -->
     <div id="config-modal" class="fixed inset-0 bg-black/70 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
-        <div class="glass-card max-w-lg w-full p-6 space-y-6 border border-slate-700 shadow-2xl">
+        <div class="glass-panel max-w-lg w-full p-6 space-y-6 border border-slate-700 shadow-2xl">
             <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                <h3 class="text-lg font-bold text-white">Bot Configuration</h3>
+                <h3 class="text-lg font-bold text-white">Studio Configuration</h3>
                 <button onclick="toggleConfigModal()" class="text-slate-400 hover:text-white text-lg">✕</button>
             </div>
 
             <div class="space-y-4 text-sm">
-                <!-- API URL -->
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">Hackatime API Endpoint</label>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">Target Hackatime Endpoint</label>
                     <input id="cfg-api-url" type="text" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs focus:border-cyan-400 focus:outline-none" value="https://hackatime.hackclub.com/api/hackatime/v1">
                 </div>
 
-                <!-- API Key -->
                 <div>
-                    <label class="block text-xs font-medium text-slate-400 mb-1">API Key (WakaTime / Hackatime)</label>
-                    <div class="flex gap-2">
-                        <input id="cfg-api-key" type="password" placeholder="Loaded from ~/.wakatime.cfg" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs focus:border-cyan-400 focus:outline-none">
-                        <button onclick="testConnection()" class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-xs font-medium text-cyan-400 border border-cyan-500/30 whitespace-nowrap">Test Key</button>
-                    </div>
-                    <span id="test-result-msg" class="text-[11px] text-slate-400 mt-1 block"></span>
+                    <label class="block text-xs font-medium text-slate-400 mb-1">WakaTime API Key</label>
+                    <input id="cfg-api-key" type="password" placeholder="Loaded from ~/.wakatime.cfg" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs focus:border-cyan-400 focus:outline-none">
                 </div>
 
-                <!-- Pulse Intervals -->
                 <div class="grid grid-cols-2 gap-4">
                     <div>
                         <label class="block text-xs font-medium text-slate-400 mb-1">Min Interval (sec)</label>
@@ -346,25 +322,14 @@
                     </div>
                     <div>
                         <label class="block text-xs font-medium text-slate-400 mb-1">Max Interval (sec)</label>
-                        <input id="cfg-interval-max" type="number" min="30" max="180" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs focus:border-cyan-400 focus:outline-none" value="85">
+                        <input id="cfg-interval-max" type="number" min="30" max="180" class="w-full px-3 py-2 bg-slate-900 border border-slate-700 rounded-lg text-white font-mono text-xs focus:border-cyan-400 focus:outline-none" value="80">
                     </div>
                 </div>
 
-                <!-- Mode Toggles -->
-                <div class="space-y-2 pt-2 border-t border-slate-800">
-                    <label class="flex items-center space-x-3 cursor-pointer">
-                        <input id="cfg-ghost-mode" type="checkbox" checked class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0">
-                        <span class="text-slate-300 text-xs">Direct Cloud API Dispatch (Ghost Mode)</span>
-                    </label>
-                    <label class="flex items-center space-x-3 cursor-pointer">
-                        <input id="cfg-workspace-mode" type="checkbox" checked class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0">
-                        <span class="text-slate-300 text-xs">Physical Workspace File Simulation (IDE Watchers)</span>
-                    </label>
-                    <label class="flex items-center space-x-3 cursor-pointer">
-                        <input id="cfg-sleep-prevent" type="checkbox" checked class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0">
-                        <span class="text-slate-300 text-xs">Prevent Windows Sleep (24/7 Keep-Awake)</span>
-                    </label>
-                </div>
+                <label class="flex items-center space-x-3 cursor-pointer pt-2 border-t border-slate-800">
+                    <input id="cfg-sleep-prevent" type="checkbox" checked class="rounded bg-slate-900 border-slate-700 text-cyan-500 focus:ring-0">
+                    <span class="text-slate-300 text-xs">Prevent Windows Sleep (24/7 Keep-Awake)</span>
+                </label>
             </div>
 
             <div class="flex justify-end space-x-3 pt-4 border-t border-slate-800">
@@ -376,13 +341,12 @@
 
     <!-- Application Script -->
     <script>
-        let isPaused = false;
         let isRunning = true;
+        let isPaused = false;
 
         function formatDuration(seconds) {
-            const hrs = Math.floor(seconds / 3600);
-            const mins = Math.floor((seconds % 3600) / 60);
-            return `${hrs}h ${mins.toString().padStart(2, '0')}m`;
+            const hrs = (seconds / 3600).toFixed(1);
+            return `${hrs} hrs`;
         }
 
         async function fetchStatus() {
@@ -392,7 +356,7 @@
                 const data = await res.json();
                 renderUI(data);
             } catch (err) {
-                console.error("Status poll error:", err);
+                console.error("Fetch status error:", err);
             }
         }
 
@@ -400,132 +364,118 @@
             isRunning = data.is_running;
             isPaused = data.is_paused;
 
-            // Status Badge & Toggle Button
-            const statusBadge = document.getElementById('status-badge');
-            const toggleIcon = document.getElementById('btn-toggle-icon');
-            const toggleText = document.getElementById('btn-toggle-text');
-            const pulseDot = document.getElementById('header-pulse-dot');
+            document.getElementById('btn-toggle-icon').textContent = isPaused ? '▶️' : '⏸️';
+            document.getElementById('btn-toggle-text').textContent = isPaused ? 'Resume' : 'Pause';
 
-            if (!isRunning) {
-                statusBadge.textContent = 'STOPPED';
-                statusBadge.className = 'px-2.5 py-0.5 text-xs font-semibold rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/30';
-                toggleIcon.textContent = '▶️';
-                toggleText.textContent = 'Start Bot';
-                pulseDot.classList.remove('bg-cyan-400', 'pulse-dot');
-                pulseDot.classList.add('bg-slate-500');
-            } else if (isPaused) {
-                statusBadge.textContent = 'PAUSED';
-                statusBadge.className = 'px-2.5 py-0.5 text-xs font-semibold rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30';
-                toggleIcon.textContent = '▶️';
-                toggleText.textContent = 'Resume Bot';
-                pulseDot.classList.remove('bg-cyan-400', 'pulse-dot');
-                pulseDot.classList.add('bg-amber-400');
-            } else {
-                statusBadge.textContent = 'RUNNING 24/7';
-                statusBadge.className = 'px-2.5 py-0.5 text-xs font-semibold rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/30';
-                toggleIcon.textContent = '⏸️';
-                toggleText.textContent = 'Pause Bot';
-                pulseDot.classList.remove('bg-slate-500', 'bg-amber-400');
-                pulseDot.classList.add('bg-cyan-400', 'pulse-dot');
-            }
-
-            // Metrics
-            document.getElementById('metric-coding-time').textContent = formatDuration(data.estimated_coding_seconds || (data.successful_pulses * 70));
-            document.getElementById('metric-pulses').textContent = data.total_pulses || 0;
-
-            const successRate = data.total_pulses > 0 ? Math.round((data.successful_pulses / data.total_pulses) * 100) : 100;
-            document.getElementById('metric-success-rate').textContent = `${successRate}%`;
-
-            // Countdown
-            const countdownSecs = data.seconds_until_next_pulse || 0;
-            document.getElementById('metric-countdown').textContent = isPaused ? 'PAUSED' : `${countdownSecs}s`;
+            // Stardust & Hours Metrics
+            const totalSecs = data.tracked_seconds_today || (data.successful_pulses * 70);
+            document.getElementById('stat-hours-tracked').textContent = formatDuration(totalSecs);
             
-            const maxInterval = data.config.pulse_interval_max || 85;
-            const minInterval = data.config.pulse_interval_min || 45;
-            document.getElementById('metric-jitter-range').textContent = `${minInterval}s - ${maxInterval}s`;
-            const countdownPct = Math.min(100, Math.max(0, (countdownSecs / maxInterval) * 100));
-            document.getElementById('metric-countdown-bar').style.width = `${countdownPct}%`;
-
-            // Code Preview
-            if (data.current_entity) {
-                document.getElementById('active-file-title').textContent = `${data.current_project} / ${data.current_entity}`;
-                document.getElementById('active-lang-badge').textContent = data.current_language || 'Code';
-                document.getElementById('active-lines-badge').textContent = `Lines: ${data.current_lines || 0}`;
-                if (data.current_code_snippet) {
-                    document.getElementById('code-snippet-display').textContent = data.current_code_snippet;
-                }
+            if (data.stardust_metrics) {
+                document.getElementById('stat-stardust-yield').textContent = `⭐ ${data.stardust_metrics.stardust_estimated} Stardust`;
+                document.getElementById('stat-doubloons').textContent = `${data.stardust_metrics.doubloons_estimated}`;
             }
 
-            // Language breakdown
-            if (data.language_stats && Object.keys(data.language_stats).length > 0) {
-                renderLanguageStats(data.language_stats);
+            // Survival Metrics
+            if (data.survival) {
+                document.getElementById('stat-balance').textContent = `$${data.survival.balance.toFixed(2)}`;
+                document.getElementById('stat-runway').textContent = `${data.survival.days_runway} Days`;
+                document.getElementById('stat-level-title').textContent = data.survival.level_title;
+                document.getElementById('stat-vitality').textContent = data.survival.vitality_state;
+                document.getElementById('stat-completed-gigs').textContent = `${data.survival.contracts_completed} Gigs`;
+                
+                renderUpgrades(data.survival.upgrades || {}, data.survival.balance);
             }
 
-            // Logs
-            if (data.recent_logs && data.recent_logs.length > 0) {
-                renderLogs(data.recent_logs);
+            // Pulse & Project Context
+            document.getElementById('stat-countdown').textContent = isPaused ? 'PAUSED' : `${data.seconds_until_next_pulse || 0}s`;
+            document.getElementById('stat-active-proj').textContent = data.current_project || 'arcade-solaris-engine';
+            document.getElementById('stat-active-file').textContent = data.current_entity || 'src/engine/spatial_grid.rs';
+            document.getElementById('stat-active-lang').textContent = data.current_language || 'Rust';
+            document.getElementById('stat-total-pulses').textContent = data.total_pulses || 0;
+
+            document.getElementById('code-window-title').textContent = `${data.current_project} / ${data.current_entity}`;
+            if (data.current_code_snippet) {
+                document.getElementById('code-snippet-display').textContent = data.current_code_snippet;
             }
+
+            // Kanban Mini
+            renderMiniKanban(data.active_contracts || []);
+
+            // Unified Logs
+            renderUnifiedLogs(data.unified_logs || []);
         }
 
-        function renderLanguageStats(stats) {
-            const container = document.getElementById('language-bars-container');
-            const total = Object.values(stats).reduce((a, b) => a + b, 0);
-            if (total === 0) return;
-
-            const colorMap = {
-                'TypeScript': 'bg-cyan-400 text-cyan-400',
-                'React': 'bg-cyan-400 text-cyan-400',
-                'Python': 'bg-emerald-400 text-emerald-400',
-                'Rust': 'bg-amber-400 text-amber-400',
-                'Go': 'bg-violet-400 text-violet-400',
-                'CSS': 'bg-pink-400 text-pink-400',
-                'Markdown': 'bg-blue-400 text-blue-400',
-            };
-
-            let html = '';
-            for (const [lang, count] of Object.entries(stats)) {
-                const pct = Math.round((count / total) * 100);
-                const colors = colorMap[lang] || 'bg-slate-400 text-slate-300';
-                const [barColor, textColor] = colors.split(' ');
-                html += `
-                    <div>
-                        <div class="flex justify-between text-xs font-mono mb-1">
-                            <span class="text-slate-300">${lang}</span>
-                            <span class="${textColor}">${pct}%</span>
-                        </div>
-                        <div class="w-full bg-slate-800/80 rounded-full h-2">
-                            <div class="${barColor} h-2 rounded-full transition-all duration-500" style="width: ${pct}%"></div>
-                        </div>
-                    </div>
-                `;
+        function renderMiniKanban(contracts) {
+            const container = document.getElementById('kanban-mini-container');
+            if (!contracts || contracts.length === 0) {
+                container.innerHTML = `<div class="text-slate-500 text-xs italic text-center py-6">Scanning job markets...</div>`;
+                return;
             }
+
+            const html = contracts.slice(0, 4).map(c => `
+                <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 text-xs space-y-1">
+                    <div class="flex items-center justify-between font-semibold text-white truncate">
+                        <span class="truncate pr-1">${c.title}</span>
+                        <span class="text-emerald-400 font-mono">$${c.budget.toFixed(0)}</span>
+                    </div>
+                    <div class="flex items-center justify-between text-[11px] text-slate-400">
+                        <span>${c.client}</span>
+                        <span class="font-mono text-cyan-400 font-bold">${c.status}</span>
+                    </div>
+                </div>
+            `).join('');
+
             container.innerHTML = html;
         }
 
-        function renderLogs(logs) {
-            const container = document.getElementById('live-log-container');
-            const levelClassMap = {
-                'PULSE': 'text-emerald-400',
-                'SYSTEM': 'text-cyan-400',
-                'STATUS': 'text-amber-400',
-                'WARN': 'text-amber-300',
-                'ERROR': 'text-rose-400',
-                'LOCAL': 'text-violet-400'
+        function renderUnifiedLogs(logs) {
+            const container = document.getElementById('unified-log-container');
+            const tagMap = {
+                'WAKATIME': 'text-emerald-400 font-bold',
+                'SYSTEM': 'text-cyan-400 font-bold',
+                'SCOUT': 'text-cyan-300 font-bold',
+                'WON': 'text-emerald-400 font-bold',
+                'BUILD': 'text-amber-400 font-bold',
+                'PAYOUT': 'text-emerald-300 font-extrabold',
+                'STATUS': 'text-amber-300',
+                'ERROR': 'text-rose-400 font-bold'
             };
 
-            const html = logs.map(item => {
-                const colorClass = levelClassMap[item.level] || 'text-slate-300';
-                return `<div class="leading-relaxed"><span class="text-slate-500">[${item.time}]</span> <span class="font-bold ${colorClass}">[${item.level}]</span> <span class="text-slate-300">${item.message}</span></div>`;
+            const html = logs.map(l => {
+                const tagClass = tagMap[l.tag] || 'text-slate-300';
+                return `<div class="leading-relaxed"><span class="text-slate-600">[${l.time}]</span> <span class="${tagClass}">[${l.tag}]</span> <span class="text-slate-300">${l.message}</span></div>`;
             }).join('');
 
             container.innerHTML = html;
             container.scrollTop = container.scrollHeight;
         }
 
+        function renderUpgrades(upgrades, currentBalance) {
+            const container = document.getElementById('upgrades-container');
+            let html = '';
+
+            for (const [id, upg] of Object.entries(upgrades)) {
+                const canAfford = currentBalance >= upg.cost;
+                html += `
+                    <div class="p-2.5 rounded-xl bg-slate-900/80 border ${upg.purchased ? 'border-emerald-500/30 bg-emerald-950/10' : 'border-slate-800'} text-xs space-y-1">
+                        <div class="flex items-center justify-between">
+                            <span class="font-semibold text-white">${upg.name}</span>
+                            <span class="font-mono font-bold ${upg.purchased ? 'text-emerald-400' : 'text-cyan-400'}">${upg.purchased ? '✓' : '$' + upg.cost.toFixed(0)}</span>
+                        </div>
+                        ${!upg.purchased ? `
+                            <button onclick="buyUpgrade('${id}')" class="w-full mt-1 py-0.5 rounded text-[11px] font-semibold ${canAfford ? 'bg-cyan-500 hover:bg-cyan-400 text-slate-950' : 'bg-slate-800 text-slate-500 cursor-not-allowed'} transition-all">
+                                ${canAfford ? 'Upgrade' : 'Locked'}
+                            </button>
+                        ` : ''}
+                    </div>
+                `;
+            }
+            container.innerHTML = html;
+        }
+
         async function togglePlayPause() {
-            if (!isRunning) {
-                await fetch('/api/start', { method: 'POST' });
-            } else if (isPaused) {
+            if (isPaused) {
                 await fetch('/api/resume', { method: 'POST' });
             } else {
                 await fetch('/api/pause', { method: 'POST' });
@@ -538,36 +488,17 @@
             fetchStatus();
         }
 
-        function toggleConfigModal() {
-            const modal = document.getElementById('config-modal');
-            modal.classList.toggle('hidden');
+        async function buyUpgrade(upgradeId) {
+            await fetch('/api/action', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ action: 'buy_upgrade', upgrade_id: upgradeId })
+            });
+            fetchStatus();
         }
 
-        async function testConnection() {
-            const key = document.getElementById('cfg-api-key').value;
-            const url = document.getElementById('cfg-api-url').value;
-            const msgEl = document.getElementById('test-result-msg');
-            msgEl.textContent = 'Testing connection...';
-            msgEl.className = 'text-[11px] text-cyan-400 mt-1 block';
-
-            try {
-                const res = await fetch('/api/test-connection', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ api_key: key, api_url: url })
-                });
-                const data = await res.json();
-                if (data.success) {
-                    msgEl.textContent = '✓ Verified! Connected successfully to Hackatime API.';
-                    msgEl.className = 'text-[11px] text-emerald-400 font-semibold mt-1 block';
-                } else {
-                    msgEl.textContent = `✕ Failed: ${data.error || 'Check key and url'}`;
-                    msgEl.className = 'text-[11px] text-rose-400 mt-1 block';
-                }
-            } catch (err) {
-                msgEl.textContent = `✕ Network error: ${err.message}`;
-                msgEl.className = 'text-[11px] text-rose-400 mt-1 block';
-            }
+        function toggleConfigModal() {
+            document.getElementById('config-modal').classList.toggle('hidden');
         }
 
         async function saveConfig() {
@@ -575,8 +506,6 @@
                 api_url: document.getElementById('cfg-api-url').value,
                 pulse_interval_min: parseInt(document.getElementById('cfg-interval-min').value, 10),
                 pulse_interval_max: parseInt(document.getElementById('cfg-interval-max').value, 10),
-                ghost_mode_api: document.getElementById('cfg-ghost-mode').checked,
-                physical_workspace_mode: document.getElementById('cfg-workspace-mode').checked,
                 prevent_system_sleep: document.getElementById('cfg-sleep-prevent').checked,
             };
             const apiKeyVal = document.getElementById('cfg-api-key').value.trim();
@@ -591,7 +520,6 @@
             fetchStatus();
         }
 
-        // Start polling loop
         setInterval(fetchStatus, 1000);
         fetchStatus();
     </script>

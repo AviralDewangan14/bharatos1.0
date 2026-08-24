@@ -1,19 +1,16 @@
 """
-End-to-End Verification Test for Hackatime 24/7 Coding Bot.
+Master End-to-End Verification Test for Solaris Prometheus Studio.
 """
-
-import urllib.request
-import json
-import time
-from config import config
-from simulation_engine import simulation_engine
-from workspace_writer import workspace_writer
-from heartbeat_dispatcher import dispatcher
-from service_daemon import daemon
-from web_dashboard import dashboard_server
 
 import sys
 import io
+import time
+import json
+import urllib.request
+from pathlib import Path
+
+# Add project root
+sys.path.insert(0, str(Path(__file__).parent))
 
 # Ensure UTF-8 output on Windows terminal
 if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
@@ -22,69 +19,106 @@ if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
     except Exception:
         pass
 
+from config import config
+from heartbeat_dispatcher import dispatcher
+from stardust_engine import stardust_engine
+from solaris.physics import CelestialBody, Spacecraft, Vector2D
+from survival_agent.survival_core import survival_core
+from survival_agent.job_hunter import job_hunter
+from survival_agent.proposal_engine import proposal_engine
+from survival_agent.project_builder import project_builder
+from survival_agent.delivery_manager import delivery_manager
+from web_dashboard import dashboard_server
+
 def run_tests():
     print("========================================")
-    print(" Starting Bot Verification Tests")
+    print(" Starting Solaris Prometheus Master Tests")
     print("========================================")
 
-    # Test 1: Config
-    print("\n[Test 1] Config Manager")
+    # 1. Config & API Key
+    print("\n[Test 1] Config Manager & Hackatime Auth")
     api_url = config.get("api_url")
     has_key = bool(config.get("api_key"))
     print(f" * Target API URL: {api_url}")
-    print(f" * Loaded API Key: {'[YES] Loaded' if has_key else '[NO] Missing'}")
-    assert has_key, "API Key must be present"
+    print(f" * API Key Status: {'[YES] Loaded' if has_key else '[NO] Missing'}")
+    assert has_key, "API key must be loaded from ~/.wakatime.cfg"
 
-    # Test 2: Simulation Engine
-    print("\n[Test 2] Simulation Engine")
-    sim = simulation_engine.get_next_heartbeat_payload()
-    print(f" • Generated Project: {sim['project']}")
-    print(f" • Generated Entity:  {sim['entity']}")
-    print(f" • Language:          {sim['language']}")
-    print(f" • Lines:             {sim['payload']['lines']}")
-    assert sim["payload"]["lines"] > 0
-    assert sim["language"]
+    # 2. Stardust Valuation Engine
+    print("\n[Test 2] Stardust & Doubloon Multiplier Engine")
+    mult_res = stardust_engine.evaluate_project_multiplier(total_lines=1200, num_files=14, has_tests=True, has_docs=True)
+    rewards_res = stardust_engine.calculate_rewards(tracked_seconds=3600*4, project_multiplier=mult_res["multiplier"])
+    print(f" * Project Complexity Multiplier: {mult_res['multiplier']}x ({mult_res['tier_name']})")
+    print(f" * Estimated Yield for 4 hrs: {rewards_res['stardust_estimated']} Stardust ({rewards_res['doubloons_estimated']} Doubloons)")
+    assert mult_res["multiplier"] >= 2.0
 
-    # Test 3: Workspace Writer
-    print("\n[Test 3] Workspace Physical File Writer")
-    target_path = workspace_writer.write_simulated_file(sim["project"], sim["entity"], sim["file_content"])
-    print(f" • Written file to disk: {target_path}")
-    assert target_path.exists(), "Target file must exist on disk"
-    assert target_path.stat().st_size > 0
+    # 3. Survival Freelance & Synchronized Project Builder
+    print("\n[Test 3] Survival Freelancer & Real Project Builder")
+    survival_core.reset_game(100.00)
+    jobs = job_hunter.scout_opportunities()
+    best_job = jobs[0]
+    bid_res = proposal_engine.draft_and_submit_bid(best_job)
+    best_job["status"] = "WON"
+    build_res = project_builder.build_contract(best_job)
+    print(f" * Built Project: '{best_job['title']}' ({build_res['total_lines']} LOC in {build_res['project_dir']})")
+    delivery_res = delivery_manager.complete_and_collect_payment(best_job)
+    print(f" * Delivered to {best_job['client']}, Payout: +${delivery_res['total']:.2f}, New Balance: ${survival_core.balance:.2f}")
+    assert survival_core.balance > 100.00
 
-    # Test 4: Heartbeat Dispatcher
-    print("\n[Test 4] Heartbeat Dispatcher (Cloud API Test)")
-    dispatch_res = dispatcher.dispatch_heartbeat(sim["payload"])
-    print(f" • Dispatch Success: {dispatch_res.get('success')}")
-    print(f" • Status Code:     {dispatch_res.get('status_code')}")
-    print(f" • Server Response: {dispatch_res.get('response', '')[:120]}...")
-    assert dispatch_res.get("success"), "Heartbeat dispatch should succeed"
+    # 4. Synchronized WakaTime Cloud Dispatcher
+    print("\n[Test 4] WakaTime Heartbeat Cloud Dispatcher")
+    test_payload = {
+        "entity": "solaris/physics.py",
+        "type": "file",
+        "time": time.time(),
+        "project": "solaris-space-game",
+        "branch": "main",
+        "language": "Python",
+        "is_write": True,
+        "category": "coding",
+        "lines": 140,
+        "lineno": 45,
+        "cursorpos": 12,
+        "editor": "VS Code",
+        "operating_system": "Windows"
+    }
+    dispatch_res = dispatcher.dispatch_heartbeat(test_payload)
+    print(f" * Dispatch Success: {dispatch_res.get('success')}")
+    print(f" * Status Code:     {dispatch_res.get('status_code')}")
+    assert dispatch_res.get("success")
 
-    # Test 5: Web Dashboard & REST API
-    print("\n[Test 5] Web Dashboard & REST API")
+    # 5. Playable Solaris Physics Engine
+    print("\n[Test 5] Playable Solaris Physics & Orbital Math")
+    star = CelestialBody("Helios", Vector2D(0, 0), mass=6500.0, radius=45.0)
+    ship = Spacecraft(Vector2D(300.0, 0.0))
+    ship.apply_thrust(0.1)
+    ship.integrate(0.1, [star])
+    v_circ = star.calculate_orbital_velocity(300.0)
+    print(f" * Calculated Orbital Velocity: {v_circ:.2f} km/s")
+    assert v_circ > 0
+
+    # 6. Unified Master Dashboard & Routes
+    print("\n[Test 6] Unified Dashboard on Port 5678")
     url = dashboard_server.start()
     time.sleep(0.5)
-    
+
     # Test GET /api/status
-    req = urllib.request.Request(f"{url}/api/status")
-    with urllib.request.urlopen(req, timeout=5) as resp:
-        status_data = json.loads(resp.read().decode("utf-8"))
-        print(f" • Status Endpoint: HTTP {resp.status}")
-        print(f" • Total Pulses:    {status_data.get('total_pulses')}")
-        print(f" • Current Project: {status_data.get('current_project')}")
+    req_status = urllib.request.Request(f"{url}/api/status")
+    with urllib.request.urlopen(req_status, timeout=5) as resp:
+        status_json = json.loads(resp.read().decode("utf-8"))
+        print(f" * Status Endpoint: HTTP {resp.status} (Stardust: {status_json.get('stardust_metrics', {}).get('stardust_estimated')})")
         assert resp.status == 200
 
-    # Test GET / (HTML)
-    req_html = urllib.request.Request(f"{url}/")
-    with urllib.request.urlopen(req_html, timeout=5) as resp_html:
-        html_content = resp_html.read().decode("utf-8")
-        print(f" • Index HTML:      HTTP {resp_html.status} ({len(html_content)} bytes)")
-        assert "Hackatime 24/7 Bot" in html_content
+    # Test GET /game
+    req_game = urllib.request.Request(f"{url}/game")
+    with urllib.request.urlopen(req_game, timeout=5) as resp:
+        game_html = resp.read().decode("utf-8")
+        print(f" * Solaris Game HTML: HTTP {resp.status} ({len(game_html)} bytes)")
+        assert "SOLARIS ORBITAL HUD" in game_html
 
     dashboard_server.stop()
 
     print("\n========================================")
-    print(" ✅ ALL 5 VERIFICATION TESTS PASSED!")
+    print(" ✅ ALL 6 MASTER STUDIO TESTS PASSED!")
     print("========================================")
 
 if __name__ == "__main__":

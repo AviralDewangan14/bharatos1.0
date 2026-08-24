@@ -1,7 +1,7 @@
 """
-Web Dashboard Server for 24/7 Hackatime Coding Bot.
-Provides an interactive local HTTP server & REST API to inspect metrics,
-control simulation modes, and configure parameters in real time.
+Unified Master Web Dashboard Server.
+Serves the unified Solaris Prometheus Command Center on http://localhost:5678,
+handling REST telemetry endpoints, playable game routes, and interactive controls.
 """
 
 import os
@@ -12,13 +12,15 @@ from pathlib import Path
 from typing import Optional
 
 from config import config
-from service_daemon import daemon
+from master_daemon import master_daemon
 from heartbeat_dispatcher import dispatcher
+from survival_agent.survival_core import survival_core
 
 STATIC_DIR = Path(__file__).parent / "static"
+SOLARIS_DIR = Path(__file__).parent / "solaris"
 
-class DashboardRequestHandler(SimpleHTTPRequestHandler):
-    """Custom HTTP request handler with REST API and static asset routing."""
+class MasterDashboardHandler(SimpleHTTPRequestHandler):
+    """Custom HTTP request handler with unified REST API and static asset routing."""
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, directory=str(STATIC_DIR), **kwargs)
@@ -43,9 +45,9 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
 
     def do_GET(self):
         if self.path == "/api/status":
-            self._send_json_response(daemon.get_status_snapshot())
+            self._send_json_response(master_daemon.get_master_status())
         elif self.path in ("/game", "/solaris", "/play"):
-            game_path = Path(__file__).parent / "solaris" / "index.html"
+            game_path = SOLARIS_DIR / "index.html"
             if game_path.exists():
                 with open(game_path, "rb") as f:
                     content = f.read()
@@ -55,7 +57,7 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
                 self.end_headers()
                 self.wfile.write(content)
             else:
-                self.send_error(404, "Game HTML not found")
+                self.send_error(404, "Solaris Game HTML not found")
         elif self.path == "/" or self.path.startswith("/index"):
             index_path = STATIC_DIR / "index.html"
             if index_path.exists():
@@ -69,7 +71,6 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
             else:
                 self.send_error(404, "Dashboard HTML not found")
         else:
-            # Fallback to serving static files
             super().do_GET()
 
     def do_POST(self):
@@ -80,17 +81,19 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
         except Exception:
             req_data = {}
 
+        action = req_data.get("action", "")
+
         if self.path == "/api/start":
-            daemon.start()
-            self._send_json_response({"success": True, "message": "Bot daemon started"})
+            master_daemon.start()
+            self._send_json_response({"success": True, "message": "Master daemon started"})
         elif self.path == "/api/pause":
-            daemon.pause()
-            self._send_json_response({"success": True, "message": "Bot daemon paused"})
+            master_daemon.pause()
+            self._send_json_response({"success": True, "message": "Master daemon paused"})
         elif self.path == "/api/resume":
-            daemon.resume()
-            self._send_json_response({"success": True, "message": "Bot daemon resumed"})
+            master_daemon.resume()
+            self._send_json_response({"success": True, "message": "Master daemon resumed"})
         elif self.path == "/api/pulse":
-            daemon.trigger_immediate_pulse()
+            master_daemon.trigger_immediate_pulse()
             self._send_json_response({"success": True, "message": "Immediate pulse triggered"})
         elif self.path == "/api/test-connection":
             res = dispatcher.test_connection(
@@ -98,28 +101,37 @@ class DashboardRequestHandler(SimpleHTTPRequestHandler):
                 api_key=req_data.get("api_key")
             )
             self._send_json_response(res)
+        elif self.path == "/api/action":
+            if action == "buy_upgrade":
+                upg_id = req_data.get("upgrade_id", "")
+                res = survival_core.buy_upgrade(upg_id)
+                self._send_json_response(res)
+            elif action == "reset":
+                survival_core.reset_game(float(req_data.get("starting_cash", 50.00)))
+                master_daemon.active_contracts.clear()
+                self._send_json_response({"success": True, "message": "Survival economy reset"})
+            else:
+                self._send_json_response({"success": True})
         elif self.path == "/api/config":
             updates = {}
-            for key in ["pulse_interval_min", "pulse_interval_max", "ghost_mode_api",
-                        "physical_workspace_mode", "prevent_system_sleep", "api_url", "api_key"]:
+            for key in ["pulse_interval_min", "pulse_interval_max", "prevent_system_sleep", "api_url", "api_key"]:
                 if key in req_data:
                     updates[key] = req_data[key]
             
             if updates:
                 config.update(updates)
-                if "prevent_system_sleep" in updates and daemon.is_running:
-                    daemon._set_windows_sleep_prevention(updates["prevent_system_sleep"])
+                if "prevent_system_sleep" in updates and master_daemon.is_running:
+                    master_daemon._set_windows_sleep_prevention(updates["prevent_system_sleep"])
             self._send_json_response({"success": True, "updated": updates, "config": config.settings})
         else:
             self.send_error(404, "Endpoint not found")
 
     def log_message(self, format, *args):
-        # Suppress noisy HTTP access logs in terminal
         pass
 
 
-class WebDashboardServer:
-    """Manages the lifecycle of the web dashboard HTTP server."""
+class UnifiedDashboardServer:
+    """Manages the lifecycle of the unified web dashboard server."""
 
     def __init__(self, host: Optional[str] = None, port: Optional[int] = None):
         self.host = host or "0.0.0.0"
@@ -128,22 +140,20 @@ class WebDashboardServer:
         self._thread: Optional[threading.Thread] = None
 
     def start(self) -> str:
-        """Starts the Web Dashboard in a background thread and returns the URL."""
         STATIC_DIR.mkdir(parents=True, exist_ok=True)
         server_address = (self.host, self.port)
         
         try:
-            self.httpd = HTTPServer(server_address, DashboardRequestHandler)
+            self.httpd = HTTPServer(server_address, MasterDashboardHandler)
         except OSError:
-            # If port is occupied, try fallback port
             self.port += 1
             server_address = (self.host, self.port)
-            self.httpd = HTTPServer(server_address, DashboardRequestHandler)
+            self.httpd = HTTPServer(server_address, MasterDashboardHandler)
 
-        self._thread = threading.Thread(target=self.httpd.serve_forever, daemon=True, name="WebDashboard")
+        self._thread = threading.Thread(target=self.httpd.serve_forever, daemon=True, name="UnifiedDashboardServer")
         self._thread.start()
-        url = f"http://{self.host}:{self.port}"
-        print(f"[WebDashboard] Live Interactive Dashboard running at: {url}")
+        url = f"http://localhost:{self.port}"
+        print(f"[MasterStudio] Live Unified Command Center running at: {url}")
         return url
 
     def stop(self):
@@ -153,4 +163,4 @@ class WebDashboardServer:
 
 
 # Global server instance
-dashboard_server = WebDashboardServer()
+dashboard_server = UnifiedDashboardServer()

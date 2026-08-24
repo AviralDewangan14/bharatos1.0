@@ -1,15 +1,15 @@
 {
-  "balance": 249.92943633055557,
+  "balance": 249.99888520000002,
   "lifetime_earnings": 150.0,
-  "lifetime_expenses": 0.07056366944444444,
-  "token_costs_total": 0.001119225,
+  "lifetime_expenses": 0.0011148,
+  "token_costs_total": 0.0011148,
   "xp": 150,
   "level": 1,
   "level_title": "Novice Scripter",
   "contracts_completed": 1,
-  "contracts_won": 0,
+  "contracts_won": 1,
   "proposals_sent": 1,
-  "simulated_days_survived": 0.003472222222222222,
+  "simulated_days_survived": 0.0,
   "is_alive": true,
   "upgrades": {
     "speed_boost_v1": {
