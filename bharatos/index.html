@@ -42,22 +42,22 @@
             overflow: hidden;
             margin: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
-            perspective: 1200px;
-            transition: background 0.5s ease;
+            perspective: 1400px;
+            transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Wallpapers */
+        /* Curated Dynamic Wallpapers */
         body.wall-obsidian {
-            background: radial-gradient(circle at 50% 30%, #060b18 0%, #020408 100%);
+            background: radial-gradient(circle at 50% 30%, #081026 0%, #020408 100%);
         }
         body.wall-saffron {
-            background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.15) 0%, #060b18 50%, #020408 100%);
+            background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.22) 0%, #081026 50%, #020408 100%);
         }
         body.wall-emerald {
-            background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.18) 0%, #060b18 50%, #020408 100%);
+            background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.25) 0%, #081026 50%, #020408 100%);
         }
         body.wall-crystal {
-            background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.16) 0%, #070e1e 60%, #020408 100%);
+            background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.22) 0%, #09142b 60%, #020408 100%);
         }
 
         /* --- MODERN MINIMALIST CLEAN BOOT SCREEN --- */
@@ -90,19 +90,20 @@
 
         /* --- ULTRA-CLEAN PROFESSIONAL LIQUID GLASS --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(9, 14, 26, 0.88) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(9, 14, 26, 0.9) 100%);
             backdrop-filter: blur(45px) saturate(240%);
             -webkit-backdrop-filter: blur(45px) saturate(240%);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            border-top: 1px solid rgba(255, 255, 255, 0.35);
-            border-left: 1px solid rgba(255, 255, 255, 0.2);
-            border-radius: 20px;
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-top: 1px solid rgba(255, 255, 255, 0.38);
+            border-left: 1px solid rgba(255, 255, 255, 0.24);
+            border-radius: 22px;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+            transition: transform 0.12s ease-out, box-shadow 0.2s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+            transform-origin: bottom center;
         }
 
         .ultra-liquid-glass:hover {
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.92), inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 0 35px rgba(56, 189, 248, 0.1);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.94), inset 0 1px 2px rgba(255, 255, 255, 0.4), 0 0 35px rgba(56, 189, 248, 0.12);
         }
 
         .specular-glow {
@@ -110,8 +111,80 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
             mix-blend-mode: overlay;
+        }
+
+        /* --- REVOLUTIONARY DYNAMIC ISLAND --- */
+        #dynamic-island-container {
+            transition: all 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.15);
+        }
+        #dynamic-island-container.compact {
+            width: 280px;
+            height: 38px;
+            border-radius: 9999px;
+            padding: 4px 16px;
+        }
+        #dynamic-island-container.expanded {
+            width: 520px;
+            height: 180px;
+            border-radius: 28px;
+            padding: 16px 20px;
+        }
+
+        /* --- HYPER-FLUID GENIE & SPRING WINDOW TRANSITIONS --- */
+        .window-open-genie {
+            animation: genie-expand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .window-minimize-genie {
+            animation: genie-collapse 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+        }
+
+        @keyframes genie-expand {
+            0% {
+                transform: translateY(180px) scale(0.35) scaleY(0.2) rotateX(15deg);
+                opacity: 0;
+                filter: blur(12px);
+            }
+            70% {
+                transform: translateY(-8px) scale(1.02) scaleY(1.01) rotateX(-2deg);
+                opacity: 0.95;
+                filter: blur(0);
+            }
+            100% {
+                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+        }
+
+        @keyframes genie-collapse {
+            0% {
+                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+            40% {
+                transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg);
+                opacity: 0.8;
+                filter: blur(4px);
+            }
+            100% {
+                transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg);
+                opacity: 0;
+                filter: blur(16px);
+            }
+        }
+
+        /* Maximized Window State */
+        .window-maximized {
+            top: 48px !important;
+            left: 16px !important;
+            width: calc(100vw - 32px) !important;
+            height: calc(100vh - 104px) !important;
+            border-radius: 16px !important;
         }
 
         /* --- BOTTOM HORIZON TASKBAR --- */
@@ -123,39 +196,27 @@
             box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
         }
 
-        .taskbar-icon-wrap {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
         .taskbar-item {
             transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease;
             position: relative;
         }
 
         .taskbar-item:hover {
-            transform: translateY(-6px) scale(1.15);
-            background: rgba(255, 255, 255, 0.12);
+            transform: translateY(-6px) scale(1.18);
+            background: rgba(255, 255, 255, 0.14);
         }
 
-        /* --- HYPER-SPRING WINDOW ANIMATIONS --- */
-        .window-open-spring {
-            animation: spring-fluid-open 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-        }
-
-        .window-close-spring {
-            animation: spring-fluid-close 0.22s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
-        }
-
-        @keyframes spring-fluid-open {
-            0% { transform: scale(0.7) translateY(70px) rotateX(10deg); opacity: 0; filter: blur(8px); }
-            100% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
-        }
-
-        @keyframes spring-fluid-close {
-            0% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
-            100% { transform: scale(0.65) translateY(50px) rotateX(-10deg); opacity: 0; filter: blur(10px); }
+        .taskbar-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -3px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 3px;
+            border-radius: 9999px;
+            background: #38bdf8;
+            box-shadow: 0 0 8px #38bdf8;
         }
 
         .custom-scroll::-webkit-scrollbar {
@@ -180,9 +241,8 @@
         </div>
 
         <h1 class="text-3xl font-bold tracking-[0.25em] text-white uppercase font-sans mb-1">BHARAT OS</h1>
-        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • 144 FPS Quantum</p>
+        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • Dynamic Island Quantum</p>
 
-        <!-- Minimal Hairline Progress Bar -->
         <div class="w-72 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
             <div id="minimal-boot-progress" class="bg-gradient-to-r from-saffron via-white to-indiaGreen h-full w-0 transition-all duration-300"></div>
         </div>
@@ -193,7 +253,7 @@
     <!-- Fluid Canvas -->
     <canvas id="fluid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Top Status Bar with Clean Minimal Island -->
+    <!-- Top Status Bar with Clean Minimal Left & Right, and Dynamic Island Center -->
     <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/40 backdrop-blur-md">
         <!-- Left: Sovereign Brand -->
         <div class="flex items-center space-x-3">
@@ -208,21 +268,58 @@
             </div>
         </div>
 
-        <!-- Center: Dynamic Neural Horizon Island -->
-        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="px-5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center space-x-3.5 cursor-pointer shadow-md hover:scale-105 transition-all" title="Open Task Manager (Win+M)">
-            <div class="flex items-center space-x-2">
-                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span class="font-mono text-[11px] text-cyan-300 font-bold" id="island-activity">RAM: 55.4 MB (0.3%)</span>
+        <!-- Center: REVOLUTIONARY DYNAMIC ISLAND (Morphing Pill / Expanded Island) -->
+        <div id="dynamic-island-container" onclick="toggleDynamicIsland()" class="compact bg-slate-950/90 border border-slate-700/90 backdrop-blur-3xl cursor-pointer flex flex-col justify-between overflow-hidden z-50">
+            <!-- Compact Island View -->
+            <div id="island-compact-view" class="w-full h-full flex items-center justify-between">
+                <div class="flex items-center space-x-2">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                    <span class="font-mono text-[11px] text-cyan-300 font-bold">RAM: 55.4 MB</span>
+                </div>
+                <div class="flex items-end space-x-1 h-3">
+                    <div class="w-1 bg-saffron rounded-full animate-bounce" style="height: 60%; animation-duration: 0.6s;"></div>
+                    <div class="w-1 bg-white rounded-full animate-bounce" style="height: 100%; animation-duration: 0.4s;"></div>
+                    <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
+                </div>
+                <div class="flex items-center space-x-1 font-mono text-[11px] text-emerald-400 font-bold">
+                    <span>🛡️</span><span>100%</span>
+                </div>
             </div>
-            <div class="h-3 w-px bg-slate-700"></div>
-            <!-- Live Audio/Load Waveform -->
-            <div class="flex items-end space-x-1 h-3">
-                <div class="w-1 bg-saffron rounded-full animate-bounce" style="height: 60%; animation-duration: 0.6s;"></div>
-                <div class="w-1 bg-white rounded-full animate-bounce" style="height: 100%; animation-duration: 0.4s;"></div>
-                <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
+
+            <!-- Expanded Island View (Revealed on Click) -->
+            <div id="island-expanded-view" class="w-full h-full hidden flex-col justify-between font-mono text-xs">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                    <div class="flex items-center space-x-2">
+                        <span class="text-base">🎵</span>
+                        <div>
+                            <div class="font-bold text-white text-xs">Sovereign Harmonic Symphony (528 Hz)</div>
+                            <div class="text-[10px] text-slate-400">Dolby Atmos Spatial Audio • 48 kHz</div>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 text-[10px] font-bold border border-cyan-500/40">144 FPS VULKAN</span>
+                </div>
+
+                <!-- Island Gauges Grid -->
+                <div class="grid grid-cols-3 gap-3 my-2">
+                    <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">FAST CHARGING</div>
+                        <div class="text-sm font-bold text-emerald-400 mt-0.5">⚡ 94% (42W)</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">TELEMETRY BLOCKED</div>
+                        <div class="text-sm font-bold text-cyan-300 mt-0.5">🛡️ 4,280 Probes</div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">GPU LATENCY</div>
+                        <div class="text-sm font-bold text-amber-300 mt-0.5">🎮 0.8 ms</div>
+                    </div>
+                </div>
+
+                <div class="flex items-center justify-between text-[11px] text-slate-400">
+                    <span>Click anywhere on island to collapse</span>
+                    <span class="text-cyan-300 hover:underline font-bold" onclick="event.stopPropagation(); openWindow('taskmanager-window');">Open Task Manager →</span>
+                </div>
             </div>
-            <div class="h-3 w-px bg-slate-700"></div>
-            <span class="text-[11px] font-mono text-emerald-400 font-bold">🛡️ KAVACH 100%</span>
         </div>
 
         <!-- Right: Language & Shortcuts Help -->
@@ -252,13 +349,13 @@
         </div>
 
         <!-- WINDOW 1: ADVANCED PROPER FILE EXPLORER -->
-        <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('files-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('files-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -301,13 +398,13 @@
         </div>
 
         <!-- WINDOW 2: SOVEREIGN GAMING CENTER & 144 FPS VULKAN ENGINE -->
-        <div id="gaming-window" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="gaming-window" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'gaming-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('gaming-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('gaming-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('gaming-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Game Hub (Vulkan & Direct3D Engine)</span>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -372,13 +469,13 @@
         </div>
 
         <!-- WINDOW 3: SOLARIS GAME EMBEDDED IFRAME -->
-        <div id="solaris-window" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="solaris-window" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'solaris-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('solaris-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('solaris-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('solaris-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Solaris Orbital Flight Simulator (Vulkan 144 FPS)</span>
                 </div>
                 <a href="/game" target="_blank" class="text-xs text-cyan-400 hover:underline font-mono font-bold">Fullscreen ↗</a>
@@ -389,13 +486,13 @@
         </div>
 
         <!-- WINDOW 4: TASK MANAGER -->
-        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('taskmanager-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('taskmanager-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('taskmanager-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Task Manager & Memory Analyzer (Win+M)</span>
                 </div>
                 <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
@@ -413,13 +510,13 @@
         </div>
 
         <!-- WINDOW 5: COMPREHENSIVE MULTI-SECTION SETTINGS APPLICATION -->
-        <div id="settings-window" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="settings-window" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('settings-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('settings-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('settings-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Settings & Control Center (Win+I)</span>
                 </div>
             </div>
@@ -492,8 +589,8 @@
                         <div id="update-changelog-box" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
                             <div class="text-xs font-bold text-cyan-300 uppercase">Latest Swaraj Delta Patches:</div>
                             <p class="text-slate-300">• Prithvi 144 FPS Vulkan & Direct3D Low-Latency GPU Compositor</p>
-                            <p class="text-slate-300">• Kavach Zero-Trust Telemetry Firewall (4,280 foreign probes blocked)</p>
-                            <p class="text-slate-300">• Dual-Pane SovereignFS File Explorer with NVMe storage partition gauge</p>
+                            <p class="text-slate-300">• Dynamic Island Morphing Widget with Live Telemetry & Audio Synthesis</p>
+                            <p class="text-slate-300">• Hyper-Fluid Genie Window Minimizing & Inertial Drag Physics</p>
                         </div>
                     </div>
 
@@ -569,13 +666,13 @@
         </div>
 
         <!-- WINDOW 6: TERMINAL (bsh) -->
-        <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('terminal-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('terminal-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('terminal-window')"></span>
                     <span class="text-xs font-mono text-slate-200 ml-3 font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
                 </div>
             </div>
@@ -595,21 +692,21 @@
     <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
         
         <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
-        <div class="taskbar-icon-wrap">
+        <div class="flex items-center space-x-3">
             <button onclick="openWindow('files-window')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
                 ☸️
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
-            <button id="dock-files" onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
-            <button id="dock-gaming" onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
-            <button id="dock-taskmgr" onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
-            <button id="dock-settings" onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
-            <button id="dock-terminal" onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
+            <button id="dock-files" onclick="toggleWindowFromDock('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
+            <button id="dock-gaming" onclick="toggleWindowFromDock('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
+            <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
+            <button id="dock-settings" onclick="toggleWindowFromDock('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
+            <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
         </div>
 
         <!-- Right: SYSTEM TRAY -->
         <div class="flex items-center space-x-3.5">
-            <button onclick="alert('Wi-Fi 7 Connected: 850 Mbps (Sovereign Mesh)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
+            <button onclick="triggerIslandNotification('📶 Wi-Fi 7 Connected', '850 Mbps Sovereign Mesh Active')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
                 <span>📶</span>
                 <span class="font-bold">850 Mbps</span>
             </button>
@@ -624,7 +721,7 @@
                 <span class="font-bold">Kavach</span>
             </button>
 
-            <button onclick="alert('Volume: 80% (Spatial Audio Dolby Atmos Engine)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Sound Volume">
+            <button onclick="triggerIslandNotification('🔊 Spatial Audio', 'Volume 80% • Dolby Atmos Active')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Sound Volume">
                 <span>🔊</span>
                 <span>80%</span>
             </button>
@@ -639,7 +736,7 @@
         </div>
     </footer>
 
-    <!-- Scripts: Minimal Boot, Settings Switcher, Global Keybindings, & CLI Engine -->
+    <!-- Scripts: Dynamic Island, Genie Physics, Drag Engine, & VFS -->
     <script>
         // --- 1. MINIMAL CLEAN BOOT ENGINE ---
         let bootProgress = 0;
@@ -647,7 +744,7 @@
         const labelEl = document.getElementById('minimal-boot-label');
         const bootMessages = [
             "Initializing 64-bit Memory Paging & VMM...",
-            "Activating Kavach Zero-Trust Enclave...",
+            "Activating Dynamic Island & Kavach Shield...",
             "Loading Prithvi 144 FPS Vulkan Compositor...",
             "Sovereign Desktop Ready..."
         ];
@@ -676,7 +773,139 @@
         }
         setTimeout(runMinimalBoot, 120);
 
-        // --- 2. SETTINGS TAB SWITCHER & WALLPAPER CONTROLLER ---
+        // --- 2. DYNAMIC ISLAND MORPHING ENGINE ---
+        let isIslandExpanded = false;
+        function toggleDynamicIsland() {
+            const island = document.getElementById('dynamic-island-container');
+            const compactView = document.getElementById('island-compact-view');
+            const expandedView = document.getElementById('island-expanded-view');
+            
+            if (!isIslandExpanded) {
+                island.classList.remove('compact');
+                island.classList.add('expanded');
+                compactView.classList.add('hidden');
+                expandedView.classList.remove('hidden');
+                isIslandExpanded = true;
+            } else {
+                island.classList.remove('expanded');
+                island.classList.add('compact');
+                expandedView.classList.add('hidden');
+                compactView.classList.remove('hidden');
+                isIslandExpanded = false;
+            }
+        }
+
+        function triggerIslandNotification(title, msg) {
+            const island = document.getElementById('dynamic-island-container');
+            const compactView = document.getElementById('island-compact-view');
+            const expandedView = document.getElementById('island-expanded-view');
+            
+            compactView.innerHTML = `<div class="w-full flex items-center justify-between font-mono text-xs"><span class="text-cyan-300 font-bold">${title}</span><span class="text-slate-300 text-[11px]">${msg}</span></div>`;
+            island.classList.remove('compact');
+            island.classList.add('expanded');
+            setTimeout(() => {
+                island.classList.remove('expanded');
+                island.classList.add('compact');
+                compactView.innerHTML = `
+                    <div class="flex items-center space-x-2">
+                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                        <span class="font-mono text-[11px] text-cyan-300 font-bold">RAM: 55.4 MB</span>
+                    </div>
+                    <div class="flex items-end space-x-1 h-3">
+                        <div class="w-1 bg-saffron rounded-full animate-bounce" style="height: 60%; animation-duration: 0.6s;"></div>
+                        <div class="w-1 bg-white rounded-full animate-bounce" style="height: 100%; animation-duration: 0.4s;"></div>
+                        <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
+                    </div>
+                    <div class="flex items-center space-x-1 font-mono text-[11px] text-emerald-400 font-bold">
+                        <span>🛡️</span><span>100%</span>
+                    </div>
+                `;
+            }, 3000);
+        }
+
+        // --- 3. REVOLUTIONARY GENIE OPEN / MINIMIZE & MAXIMIZE ENGINE ---
+        let highestZ = 30;
+        function openWindow(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('hidden', 'window-minimize-genie');
+                el.classList.add('window-open-genie');
+                highestZ++;
+                el.style.zIndex = highestZ;
+            }
+        }
+
+        function closeWindow(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('window-open-genie');
+                el.classList.add('window-minimize-genie');
+                setTimeout(() => el.classList.add('hidden'), 300);
+            }
+        }
+
+        function minimizeWindow(id) {
+            closeWindow(id);
+        }
+
+        function toggleWindowFromDock(id) {
+            const el = document.getElementById(id);
+            if (el && !el.classList.contains('hidden')) {
+                minimizeWindow(id);
+            } else {
+                openWindow(id);
+            }
+        }
+
+        function toggleMaximizeWindow(id) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.toggle('window-maximized');
+            }
+        }
+
+        // --- 4. FLUID 3D WINDOW DRAG WITH INERTIAL TILT ---
+        let activeDrag = null;
+        let dragOffset = { x: 0, y: 0 };
+        let lastMouseX = 0;
+
+        function initDrag(e, winId) {
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN') return;
+            const win = document.getElementById(winId);
+            if (!win || win.classList.contains('window-maximized')) return;
+            
+            highestZ++;
+            win.style.zIndex = highestZ;
+            activeDrag = win;
+            dragOffset.x = e.clientX - win.offsetLeft;
+            dragOffset.y = e.clientY - win.offsetTop;
+            lastMouseX = e.clientX;
+            window.addEventListener('mousemove', onDragMove);
+            window.addEventListener('mouseup', onDragEnd);
+        }
+
+        function onDragMove(e) {
+            if (!activeDrag) return;
+            const deltaX = e.clientX - lastMouseX;
+            lastMouseX = e.clientX;
+            
+            // Dynamic tilt based on velocity
+            const tilt = Math.max(-4, Math.min(4, deltaX * 0.4));
+            activeDrag.style.left = `${e.clientX - dragOffset.x}px`;
+            activeDrag.style.top = `${Math.max(40, e.clientY - dragOffset.y)}px`;
+            activeDrag.style.transform = `rotateZ(${tilt}deg) scale(1.01)`;
+        }
+
+        function onDragEnd() {
+            if (activeDrag) {
+                activeDrag.style.transform = `rotateZ(0deg) scale(1)`;
+                activeDrag = null;
+            }
+            window.removeEventListener('mousemove', onDragMove);
+            window.removeEventListener('mouseup', onDragEnd);
+        }
+
+        // --- 5. SETTINGS TAB SWITCHER & WALLPAPERS ---
         function switchSettingsTab(tabKey) {
             ['system', 'wallpaper', 'updates', 'graphics', 'shortcuts', 'battery', 'security'].forEach(k => {
                 const pane = document.getElementById(`tab-pane-${k}`);
@@ -692,6 +921,7 @@
 
         function setWallpaper(className) {
             document.body.className = `${className} relative flex flex-col justify-between select-none`;
+            triggerIslandNotification('🎨 Wallpaper Changed', 'Applied Sovereign Aesthetic');
         }
 
         function checkUpdates() {
@@ -699,15 +929,13 @@
             btn.textContent = 'Checking...';
             setTimeout(() => {
                 btn.textContent = '✓ Up to Date';
-                alert('BharatOS 2026.1 LTS is completely up to date with all cryptographic signatures verified.');
+                triggerIslandNotification('🚀 System Updates', 'BharatOS 2026.1 LTS is Up to Date');
             }, 800);
         }
 
-        // --- 3. GLOBAL KEYBOARD SHORTCUTS LISTENER ---
+        // --- 6. GLOBAL SHORTCUTS LISTENER ---
         window.addEventListener('keydown', (e) => {
-            // Ignore if active in input field
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
             const key = e.key.toLowerCase();
             if (e.metaKey || e.ctrlKey || e.altKey) {
                 if (key === 'e') { e.preventDefault(); openWindow('files-window'); }
@@ -718,7 +946,7 @@
             }
         });
 
-        // --- 4. VFS DUAL PANE ENGINE ---
+        // --- 7. VFS DUAL PANE ENGINE ---
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
@@ -762,7 +990,7 @@
                     } else if (item.name.includes('solaris') || item.name.endsWith('.exe')) {
                         openWindow('gaming-window');
                     } else {
-                        alert(`Opening ${item.name} in sovereign viewer...`);
+                        triggerIslandNotification('📄 File Opened', item.name);
                     }
                 };
                 el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs text-slate-200 font-bold truncate w-full">${item.name}</span><span class="text-[10px] text-slate-500 mt-1">${item.size}</span>`;
@@ -772,7 +1000,7 @@
         function navigateToPath(p) { renderVFS(p); }
         renderVFS("/home/user");
 
-        // --- 5. TASK MANAGER PROCESS MONITOR ---
+        // --- 8. TASK MANAGER PROCESS MONITOR ---
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
@@ -794,7 +1022,7 @@
                     <td class="py-2.5 text-emerald-400">${p.cpu}</td>
                     <td class="py-2.5 text-amber-300">${p.mem}</td>
                     <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300">${p.status}</span></td>
-                    <td class="py-2.5 text-right"><button onclick="alert('Process ${p.pid} terminated.')" class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-500/40 text-rose-300 text-[10px]">End Task</button></td>
+                    <td class="py-2.5 text-right"><button onclick="triggerIslandNotification('⚠️ Process Terminated', 'PID ' + ${p.pid});" class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-500/40 text-rose-300 text-[10px]">End Task</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -802,10 +1030,10 @@
         renderTaskManager();
 
         function purgeMemoryCache() {
-            alert("✓ 12.7 MB Page Cache purged successfully. Free memory expanded.");
+            triggerIslandNotification('⚡ RAM Purged', '12.7 MB Cache Cleared');
         }
 
-        // --- 6. BHARAT SHELL EXPANDED COMMANDS ---
+        // --- 9. BHARAT SHELL ---
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
@@ -834,26 +1062,6 @@
                     out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
                 }
                 out.scrollTop = out.scrollHeight;
-            }
-        }
-
-        // --- 7. WINDOW MANAGEMENT ---
-        let highestZ = 30;
-        function openWindow(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('hidden', 'window-close-spring');
-                el.classList.add('window-open-spring');
-                highestZ++;
-                el.style.zIndex = highestZ;
-            }
-        }
-        function closeWindow(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('window-open-spring');
-                el.classList.add('window-close-spring');
-                setTimeout(() => el.classList.add('hidden'), 220);
             }
         }
 
