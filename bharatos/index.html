@@ -43,6 +43,21 @@
             margin: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             perspective: 1200px;
+            transition: background 0.5s ease;
+        }
+
+        /* Wallpapers */
+        body.wall-obsidian {
+            background: radial-gradient(circle at 50% 30%, #060b18 0%, #020408 100%);
+        }
+        body.wall-saffron {
+            background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.15) 0%, #060b18 50%, #020408 100%);
+        }
+        body.wall-emerald {
+            background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.18) 0%, #060b18 50%, #020408 100%);
+        }
+        body.wall-crystal {
+            background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.16) 0%, #070e1e 60%, #020408 100%);
         }
 
         /* --- MODERN MINIMALIST CLEAN BOOT SCREEN --- */
@@ -73,21 +88,21 @@
             pointer-events: none !important;
         }
 
-        /* --- HYPER-FLUID OPTICAL LIQUID GLASS --- */
+        /* --- ULTRA-CLEAN PROFESSIONAL LIQUID GLASS --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(9, 14, 26, 0.86) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.08) 0%, rgba(9, 14, 26, 0.88) 100%);
             backdrop-filter: blur(45px) saturate(240%);
             -webkit-backdrop-filter: blur(45px) saturate(240%);
-            border: 1px solid rgba(255, 255, 255, 0.16);
-            border-top: 1px solid rgba(255, 255, 255, 0.45);
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 26px;
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(255, 255, 255, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            border-top: 1px solid rgba(255, 255, 255, 0.35);
+            border-left: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 20px;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.25);
             transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
         }
 
         .ultra-liquid-glass:hover {
-            box-shadow: 0 45px 110px rgba(0, 0, 0, 0.95), inset 0 1px 3px rgba(255, 255, 255, 0.45), 0 0 40px rgba(0, 229, 255, 0.15);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.92), inset 0 1px 2px rgba(255, 255, 255, 0.35), 0 0 35px rgba(56, 189, 248, 0.1);
         }
 
         .specular-glow {
@@ -95,76 +110,52 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.1), transparent 70%);
             mix-blend-mode: overlay;
         }
 
-        /* --- BOTTOM HORIZON TASKBAR & GAUSSIAN MAGNETIC WAVE --- */
+        /* --- BOTTOM HORIZON TASKBAR --- */
         .horizon-taskbar {
-            background: rgba(9, 14, 26, 0.9);
+            background: rgba(9, 14, 26, 0.92);
             backdrop-filter: blur(40px) saturate(260%);
             -webkit-backdrop-filter: blur(40px) saturate(260%);
-            border-top: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 -12px 45px rgba(0, 0, 0, 0.75);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.8);
         }
 
         .taskbar-icon-wrap {
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 6px;
         }
 
         .taskbar-item {
-            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease;
             position: relative;
         }
 
         .taskbar-item:hover {
-            transform: translateY(-8px) scale(1.22);
-            background: rgba(255, 255, 255, 0.14);
-            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.35);
+            transform: translateY(-6px) scale(1.15);
+            background: rgba(255, 255, 255, 0.12);
         }
 
-        /* Running Indicator Underline */
-        .taskbar-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 3px;
-            border-radius: 9999px;
-            background: #38bdf8;
-            box-shadow: 0 0 10px #38bdf8;
-        }
-
-        /* --- HYPER-SPRING WINDOW ANIMATIONS (Hooke's Law Elastic Settle) --- */
+        /* --- HYPER-SPRING WINDOW ANIMATIONS --- */
         .window-open-spring {
-            animation: spring-fluid-open 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: spring-fluid-open 0.44s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .window-close-spring {
-            animation: spring-fluid-close 0.24s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+            animation: spring-fluid-close 0.22s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
         }
 
         @keyframes spring-fluid-open {
-            0% { transform: scale(0.6) translateY(90px) rotateX(12deg); opacity: 0; filter: blur(10px); }
+            0% { transform: scale(0.7) translateY(70px) rotateX(10deg); opacity: 0; filter: blur(8px); }
             100% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
         }
 
         @keyframes spring-fluid-close {
             0% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
-            100% { transform: scale(0.55) translateY(70px) rotateX(-12deg); opacity: 0; filter: blur(12px); }
-        }
-
-        /* Folder Push-In Spatial Transition */
-        .vfs-fade-in {
-            animation: vfs-push 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-        @keyframes vfs-push {
-            0% { transform: scale(0.92); opacity: 0; }
-            100% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0.65) translateY(50px) rotateX(-10deg); opacity: 0; filter: blur(10px); }
         }
 
         .custom-scroll::-webkit-scrollbar {
@@ -175,12 +166,12 @@
             background: rgba(15, 23, 42, 0.3);
         }
         .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
     </style>
 </head>
-<body class="relative flex flex-col justify-between select-none">
+<body class="wall-obsidian relative flex flex-col justify-between select-none">
 
     <!-- MODERN MINIMALIST CLEAN BOOT EXPERIENCE -->
     <div id="boot-screen">
@@ -199,26 +190,26 @@
         <div id="minimal-boot-label" class="mt-4 text-[11px] font-mono text-slate-500 tracking-wider">Starting Sovereign Microkernel...</div>
     </div>
 
-    <!-- Fluid Background Canvas -->
+    <!-- Fluid Canvas -->
     <canvas id="fluid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Top Fluid Status Bar with Dynamic Neural Island -->
-    <nav class="relative z-40 px-6 py-2.5 flex items-center justify-between text-xs border-b border-slate-800/50 bg-slate-950/40 backdrop-blur-md">
-        <!-- Left: Sovereign Brand & Atmanirbhar Badge -->
+    <!-- Top Status Bar with Clean Minimal Island -->
+    <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/40 backdrop-blur-md">
+        <!-- Left: Sovereign Brand -->
         <div class="flex items-center space-x-3">
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-gradient-to-r from-saffron/25 via-amber-500/20 to-indiaGreen/25 hover:from-saffron/35 hover:to-indiaGreen/35 border border-saffron/40 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-md">
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
                 <span class="text-sm">☸️</span>
-                <span class="tracking-wide text-xs">BharatOS Liquid</span>
+                <span class="tracking-wide text-xs">BharatOS</span>
             </button>
             <span class="text-slate-600">|</span>
             <div id="os-welcome-banner" class="text-slate-300 font-semibold flex items-center space-x-2">
                 <span>भारत ओएस लिक्विड</span>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">144 FPS QUANTUM</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] border border-emerald-500/30">144 FPS VULKAN</span>
             </div>
         </div>
 
         <!-- Center: Dynamic Neural Horizon Island -->
-        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="px-5 py-1.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 flex items-center space-x-3.5 cursor-pointer shadow-lg hover:scale-105 transition-all" title="Open Task Manager">
+        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="px-5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center space-x-3.5 cursor-pointer shadow-md hover:scale-105 transition-all" title="Open Task Manager (Win+M)">
             <div class="flex items-center space-x-2">
                 <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span class="font-mono text-[11px] text-cyan-300 font-bold" id="island-activity">RAM: 55.4 MB (0.3%)</span>
@@ -234,9 +225,12 @@
             <span class="text-[11px] font-mono text-emerald-400 font-bold">🛡️ KAVACH 100%</span>
         </div>
 
-        <!-- Right: Language Selector -->
+        <!-- Right: Language & Shortcuts Help -->
         <div class="flex items-center space-x-3">
-            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-xl px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
+            <button onclick="openWindow('settings-window'); switchSettingsTab('shortcuts');" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800" title="Keyboard Shortcuts">
+                ⌨️ Win+E/T/G/I
+            </button>
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
                 <option value="hi">हिन्दी</option>
                 <option value="en">English</option>
                 <option value="ta">தமிழ்</option>
@@ -251,13 +245,13 @@
     <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-8 gap-6 z-10 overflow-hidden">
         
         <!-- Center Watermark Logo -->
-        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20 z-0">
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-15 z-0">
             <span class="text-8xl mb-3">☸️</span>
             <h1 class="text-5xl font-extrabold tracking-widest text-white uppercase font-sans">BHARAT OS</h1>
             <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN ENGINE</p>
         </div>
 
-        <!-- WINDOW 1: REDESIGNED ADVANCED PROPER FILE EXPLORER -->
+        <!-- WINDOW 1: ADVANCED PROPER FILE EXPLORER -->
         <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
@@ -284,7 +278,6 @@
 
             <!-- Main File Explorer Dual Pane Layout -->
             <div class="flex-1 flex overflow-hidden">
-                <!-- Left Sidebar: Quick Access & Drives -->
                 <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 flex flex-col justify-between text-xs font-mono">
                     <div class="space-y-1">
                         <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2">Favorites</div>
@@ -295,7 +288,6 @@
                         <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>⚙️</span><span>System Root</span></button>
                     </div>
 
-                    <!-- Drive Storage Gauge -->
                     <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 text-[11px]">
                         <div class="flex justify-between font-bold text-slate-300"><span>Sovereign NVMe (C:)</span><span>12.4 / 512 GB</span></div>
                         <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
@@ -304,8 +296,7 @@
                     </div>
                 </div>
 
-                <!-- Right File Grid / List Container -->
-                <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start vfs-fade-in"></div>
+                <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
             </div>
         </div>
 
@@ -325,7 +316,7 @@
             </div>
 
             <div class="flex-1 p-6 space-y-5 bg-slate-950/80 custom-scroll overflow-y-auto font-mono text-xs">
-                <!-- GPU Performance & Temperature Banner -->
+                <!-- GPU Performance -->
                 <div class="grid grid-cols-4 gap-3">
                     <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
                         <div class="text-[10px] text-slate-400">TARGET FRAMERATE</div>
@@ -345,7 +336,7 @@
                     </div>
                 </div>
 
-                <!-- Pre-Installed Games Library -->
+                <!-- Games -->
                 <div class="space-y-3">
                     <div class="text-xs font-bold text-white uppercase tracking-wider">Installed Sovereign Games</div>
                     <div class="grid grid-cols-3 gap-4">
@@ -405,7 +396,7 @@
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('taskmanager-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Task Manager & Memory Analyzer</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Task Manager & Memory Analyzer (Win+M)</span>
                 </div>
                 <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
             </div>
@@ -421,28 +412,158 @@
             </div>
         </div>
 
-        <!-- WINDOW 5: SETTINGS -->
-        <div id="settings-window" class="absolute top-10 left-44 w-[760px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 5: COMPREHENSIVE MULTI-SECTION SETTINGS APPLICATION -->
+        <div id="settings-window" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('settings-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">System Settings & Power Center</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Settings & Control Center (Win+I)</span>
                 </div>
             </div>
-            <div class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto font-mono text-xs">
-                <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-                    <div class="text-5xl font-black text-emerald-400">94%</div>
-                    <div>
-                        <div class="text-sm font-bold text-white">Battery State: Fast Charging</div>
-                        <div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Power Profile: BALANCED</div>
-                    </div>
+
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Settings Left Navigation Tabs -->
+                <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 space-y-1 text-xs font-mono">
+                    <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2">Categories</div>
+                    <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-800 text-cyan-300 font-bold" id="tab-btn-system">🖥️ System & Specs</button>
+                    <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-wallpaper">🎨 Wallpapers & UI</button>
+                    <button onclick="switchSettingsTab('updates')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-updates">🚀 System Updates (OTA)</button>
+                    <button onclick="switchSettingsTab('graphics')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-graphics">🎮 GPU & 144FPS Drivers</button>
+                    <button onclick="switchSettingsTab('shortcuts')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-shortcuts">⌨️ Keyboard Shortcuts</button>
+                    <button onclick="switchSettingsTab('battery')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-battery">⚡ Battery & Power</button>
+                    <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-security">🛡️ Kavach Zero-Trust</button>
                 </div>
-                <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
-                    <div class="text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
-                    <div class="text-slate-300">4,280 foreign telemetry probes neutralized. 100% on-device residency.</div>
+
+                <!-- Right Settings Content Panes -->
+                <div class="flex-1 bg-slate-950/85 p-6 custom-scroll overflow-y-auto">
+                    
+                    <!-- TAB 1: System & Hardware Specs -->
+                    <div id="tab-pane-system" class="space-y-4 font-mono text-xs">
+                        <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+                            <span class="text-5xl text-saffron">☸️</span>
+                            <div>
+                                <h3 class="text-base font-bold text-white">BharatOS 2026.1 LTS 'Swaraj'</h3>
+                                <p class="text-slate-400">Microkernel: 64-bit Rust (SMP Long Mode) • 144 FPS Engine</p>
+                            </div>
+                        </div>
+                        <div class="grid grid-cols-2 gap-3 text-slate-300">
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800"><div class="text-slate-500">Processor</div><div class="font-bold text-white mt-1">x86_64 SMP (16 Cores Online)</div></div>
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800"><div class="text-slate-500">Installed Memory</div><div class="font-bold text-cyan-300 mt-1">16,384 MB (4-Level Paging)</div></div>
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800"><div class="text-slate-500">GPU Driver</div><div class="font-bold text-emerald-400 mt-1">Vulkan 1.3 Hardware Acceleration</div></div>
+                            <div class="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800"><div class="text-slate-500">Telemetry Status</div><div class="font-bold text-emerald-400 mt-1">100% Zero Foreign Telemetry</div></div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: Wallpapers & Personalization -->
+                    <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
+                        <div class="text-sm font-bold text-white">Curated Sovereign Wallpapers</div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <button onclick="setWallpaper('wall-obsidian')" class="p-4 rounded-2xl border-2 border-cyan-400 bg-slate-950 text-left transition-all hover:scale-105">
+                                <div class="text-sm font-bold text-cyan-300">🌌 Obsidian Void</div>
+                                <div class="text-[11px] text-slate-400 mt-1">Minimal deep dark space (Default)</div>
+                            </button>
+                            <button onclick="setWallpaper('wall-saffron')" class="p-4 rounded-2xl border border-slate-800 bg-gradient-to-br from-amber-950 to-slate-950 text-left transition-all hover:border-saffron hover:scale-105">
+                                <div class="text-sm font-bold text-saffron">🌅 Saffron Aurora</div>
+                                <div class="text-[11px] text-slate-400 mt-1">Sacred warm energy glow</div>
+                            </button>
+                            <button onclick="setWallpaper('wall-emerald')" class="p-4 rounded-2xl border border-slate-800 bg-gradient-to-br from-emerald-950 to-slate-950 text-left transition-all hover:border-emerald-400 hover:scale-105">
+                                <div class="text-sm font-bold text-emerald-400">🌿 Emerald Matrix</div>
+                                <div class="text-[11px] text-slate-400 mt-1">Cyber sovereign grid</div>
+                            </button>
+                            <button onclick="setWallpaper('wall-crystal')" class="p-4 rounded-2xl border border-slate-800 bg-gradient-to-br from-sky-950 to-slate-950 text-left transition-all hover:border-sky-400 hover:scale-105">
+                                <div class="text-sm font-bold text-sky-300">❄️ Himalayan Crystal</div>
+                                <div class="text-[11px] text-slate-400 mt-1">Frosted crystal blue gradient</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- TAB 3: System Updates (OTA) -->
+                    <div id="tab-pane-updates" class="space-y-4 font-mono text-xs hidden">
+                        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <div class="text-sm font-bold text-white">Sovereign Update Status: Up to Date</div>
+                                <div class="text-[11px] text-slate-400 mt-0.5">Current Build: 2026.1.0 LTS (Channel: STABLE_LTS)</div>
+                            </div>
+                            <button onclick="checkUpdates()" id="btn-check-update" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all">Check for Updates</button>
+                        </div>
+                        <div id="update-changelog-box" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+                            <div class="text-xs font-bold text-cyan-300 uppercase">Latest Swaraj Delta Patches:</div>
+                            <p class="text-slate-300">• Prithvi 144 FPS Vulkan & Direct3D Low-Latency GPU Compositor</p>
+                            <p class="text-slate-300">• Kavach Zero-Trust Telemetry Firewall (4,280 foreign probes blocked)</p>
+                            <p class="text-slate-300">• Dual-Pane SovereignFS File Explorer with NVMe storage partition gauge</p>
+                        </div>
+                    </div>
+
+                    <!-- TAB 4: GPU & Gaming Drivers -->
+                    <div id="tab-pane-graphics" class="space-y-4 font-mono text-xs hidden">
+                        <div class="text-sm font-bold text-white">GPU Graphics Acceleration Pipeline</div>
+                        <div class="space-y-3">
+                            <div class="p-3.5 rounded-xl bg-slate-900 border border-emerald-500/50 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div>
+                                    <div class="text-[11px] text-slate-400">Ray-Tracing, Low Overhead, 144+ FPS Framerate Pacing</div>
+                                </div>
+                                <span class="text-xs text-emerald-300 font-bold px-2 py-1 bg-emerald-950 rounded">ENABLED</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-cyan-300">Direct3D 12 WinBridge Translation Layer</div>
+                                    <div class="text-[11px] text-slate-400">Native Windows .EXE DirectX Gaming Compatibility</div>
+                                </div>
+                                <span class="text-xs text-slate-400 px-2 py-1 bg-slate-800 rounded">READY</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-white">Variable Refresh Rate (VRR / G-Sync / FreeSync)</div>
+                                    <div class="text-[11px] text-slate-400">Adaptive tear-free display synchronization</div>
+                                </div>
+                                <span class="text-xs text-cyan-300 font-bold px-2 py-1 bg-cyan-950 rounded">ACTIVE (144 Hz)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 5: Keyboard Shortcuts -->
+                    <div id="tab-pane-shortcuts" class="space-y-3 font-mono text-xs hidden">
+                        <div class="text-sm font-bold text-white">System Keyboard Shortcuts (Global)</div>
+                        <table class="w-full text-left text-slate-300">
+                            <thead>
+                                <tr class="text-slate-500 border-b border-slate-800 pb-2">
+                                    <th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-900">
+                                <tr><td class="py-2 text-cyan-300 font-bold">Win + E</td><td>Open SovereignFS File Explorer</td><td>Files</td></tr>
+                                <tr><td class="py-2 text-emerald-400 font-bold">Win + T</td><td>Open Bharat Shell (bsh) Terminal</td><td>Terminal</td></tr>
+                                <tr><td class="py-2 text-amber-300 font-bold">Win + G</td><td>Toggle 144 FPS Game Hub Overlay</td><td>Gaming</td></tr>
+                                <tr><td class="py-2 text-cyan-300 font-bold">Win + I</td><td>Open System Settings & Control Center</td><td>System</td></tr>
+                                <tr><td class="py-2 text-purple-300 font-bold">Win + M</td><td>Open Task Manager & RAM Analyzer</td><td>Performance</td></tr>
+                                <tr><td class="py-2 text-rose-400 font-bold">Alt + Tab</td><td>3D Spatial Window Switcher</td><td>Windowing</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- TAB 6: Battery -->
+                    <div id="tab-pane-battery" class="space-y-4 font-mono text-xs hidden">
+                        <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900 border border-slate-800">
+                            <div class="text-5xl font-black text-emerald-400">94%</div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Battery State: Fast Charging</div>
+                                <div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Full in 28 mins</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 7: Security -->
+                    <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
+                        <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
+                            <div class="text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
+                            <div class="text-slate-300">4,280 foreign telemetry probes neutralized. 100% on-device residency.</div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -455,7 +576,7 @@
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('terminal-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">bharat-shell (bsh) — sovereign@bharatos:~</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
                 </div>
             </div>
             <div class="flex-1 bg-slate-950/90 p-5 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-1.5" id="terminal-output">
@@ -470,7 +591,7 @@
 
     </main>
 
-    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR WITH GAUSSIAN MAGNETIC WAVE -->
+    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR -->
     <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
         
         <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
@@ -479,46 +600,46 @@
                 ☸️
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
-            <button id="dock-files" onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer">📁</button>
-            <button id="dock-gaming" onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub">🎮</button>
-            <button id="dock-taskmgr" onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager">📊</button>
-            <button id="dock-settings" onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings">⚙️</button>
-            <button id="dock-terminal" onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal">💻</button>
+            <button id="dock-files" onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
+            <button id="dock-gaming" onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
+            <button id="dock-taskmgr" onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
+            <button id="dock-settings" onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
+            <button id="dock-terminal" onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
         </div>
 
-        <!-- Right: UNIQUE PROPER SYSTEM TRAY -->
+        <!-- Right: SYSTEM TRAY -->
         <div class="flex items-center space-x-3.5">
-            <button onclick="alert('Wi-Fi 7 Connected: 850 Mbps (Sovereign Encrypted Mesh)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Wi-Fi 7 (850 Mbps)">
+            <button onclick="alert('Wi-Fi 7 Connected: 850 Mbps (Sovereign Mesh)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
                 <span>📶</span>
                 <span class="font-bold">850 Mbps</span>
             </button>
 
-            <button onclick="openWindow('gaming-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all shadow-sm" title="Game Boost 144 FPS">
+            <button onclick="openWindow('gaming-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all" title="Game Boost 144 FPS">
                 <span>🎮</span>
                 <span class="font-bold">144 FPS</span>
             </button>
 
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all shadow-sm" title="Kavach Zero-Trust Active">
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all" title="Kavach Zero-Trust Active">
                 <span>🛡️</span>
                 <span class="font-bold">Kavach</span>
             </button>
 
-            <button onclick="alert('Volume: 80% (Spatial Audio Dolby Atmos Engine)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Sound Volume">
+            <button onclick="alert('Volume: 80% (Spatial Audio Dolby Atmos Engine)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Sound Volume">
                 <span>🔊</span>
                 <span>80%</span>
             </button>
 
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Battery: 94% (Charging Fast)">
+            <button onclick="openWindow('settings-window'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Battery: 94% (Charging Fast)">
                 <span>⚡ 94%</span>
             </button>
 
-            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs shadow-inner">
+            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs">
                 --:--:-- IST
             </div>
         </div>
     </footer>
 
-    <!-- Scripts: Minimal Boot, Dual-Pane VFS, Specular Tracking, Dynamic Audio -->
+    <!-- Scripts: Minimal Boot, Settings Switcher, Global Keybindings, & CLI Engine -->
     <script>
         // --- 1. MINIMAL CLEAN BOOT ENGINE ---
         let bootProgress = 0;
@@ -555,18 +676,49 @@
         }
         setTimeout(runMinimalBoot, 120);
 
-        // --- 2. 3D SPECULAR LIGHT TRACKING ON MOUSE MOVE ---
-        document.querySelectorAll('.ultra-liquid-glass').forEach(win => {
-            win.addEventListener('mousemove', (e) => {
-                const rect = win.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                win.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                win.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+        // --- 2. SETTINGS TAB SWITCHER & WALLPAPER CONTROLLER ---
+        function switchSettingsTab(tabKey) {
+            ['system', 'wallpaper', 'updates', 'graphics', 'shortcuts', 'battery', 'security'].forEach(k => {
+                const pane = document.getElementById(`tab-pane-${k}`);
+                const btn = document.getElementById(`tab-btn-${k}`);
+                if (pane) pane.classList.add('hidden');
+                if (btn) btn.className = 'w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold';
             });
+            const activePane = document.getElementById(`tab-pane-${tabKey}`);
+            const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
+            if (activePane) activePane.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'w-full text-left px-3 py-2 rounded-xl bg-slate-800 text-cyan-300 font-bold';
+        }
+
+        function setWallpaper(className) {
+            document.body.className = `${className} relative flex flex-col justify-between select-none`;
+        }
+
+        function checkUpdates() {
+            const btn = document.getElementById('btn-check-update');
+            btn.textContent = 'Checking...';
+            setTimeout(() => {
+                btn.textContent = '✓ Up to Date';
+                alert('BharatOS 2026.1 LTS is completely up to date with all cryptographic signatures verified.');
+            }, 800);
+        }
+
+        // --- 3. GLOBAL KEYBOARD SHORTCUTS LISTENER ---
+        window.addEventListener('keydown', (e) => {
+            // Ignore if active in input field
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+            const key = e.key.toLowerCase();
+            if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (key === 'e') { e.preventDefault(); openWindow('files-window'); }
+                if (key === 't') { e.preventDefault(); openWindow('terminal-window'); }
+                if (key === 'g') { e.preventDefault(); openWindow('gaming-window'); }
+                if (key === 'i') { e.preventDefault(); openWindow('settings-window'); }
+                if (key === 'm') { e.preventDefault(); openWindow('taskmanager-window'); }
+            }
         });
 
-        // --- 3. DUAL-PANE VFS ENGINE WITH SPATIAL TRANSITIONS ---
+        // --- 4. VFS DUAL PANE ENGINE ---
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
@@ -599,9 +751,6 @@
             const container = document.getElementById('vfs-file-grid');
             if (!container) return;
             container.innerHTML = '';
-            container.classList.remove('vfs-fade-in');
-            void container.offsetWidth; // Trigger reflow for smooth animation
-            container.classList.add('vfs-fade-in');
 
             (VFS_TREE[path] || []).forEach(item => {
                 const el = document.createElement('div');
@@ -623,26 +772,7 @@
         function navigateToPath(p) { renderVFS(p); }
         renderVFS("/home/user");
 
-        function createNewFilePrompt() {
-            const name = prompt("Enter file name:", "new_file.txt");
-            if (name) {
-                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
-                VFS_TREE[currentVFSPath].push({ name, type: "file", icon: "📄", size: "0 B" });
-                renderVFS(currentVFSPath);
-            }
-        }
-
-        function createNewFolderPrompt() {
-            const name = prompt("Enter folder name:", "new_folder");
-            if (name) {
-                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
-                VFS_TREE[currentVFSPath].push({ name, type: "dir", icon: "📁", size: "0 KB" });
-                VFS_TREE[`${currentVFSPath}/${name}`] = [];
-                renderVFS(currentVFSPath);
-            }
-        }
-
-        // --- 4. TASK MANAGER PROCESS MONITOR ---
+        // --- 5. TASK MANAGER PROCESS MONITOR ---
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
@@ -675,7 +805,7 @@
             alert("✓ 12.7 MB Page Cache purged successfully. Free memory expanded.");
         }
 
-        // --- 5. BHARAT SHELL EXPANDED COMMANDS ---
+        // --- 6. BHARAT SHELL EXPANDED COMMANDS ---
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
@@ -707,7 +837,7 @@
             }
         }
 
-        // --- 6. WINDOW MANAGEMENT & ELASTIC SPRING TRANSITIONS ---
+        // --- 7. WINDOW MANAGEMENT ---
         let highestZ = 30;
         function openWindow(id) {
             const el = document.getElementById(id);
@@ -723,7 +853,7 @@
             if (el) {
                 el.classList.remove('window-open-spring');
                 el.classList.add('window-close-spring');
-                setTimeout(() => el.classList.add('hidden'), 240);
+                setTimeout(() => el.classList.add('hidden'), 220);
             }
         }
 
