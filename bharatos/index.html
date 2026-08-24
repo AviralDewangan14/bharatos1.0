@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BharatOS — Revolutionary Liquid Spatial Desktop</title>
+    <title>BharatOS — Sovereign Quantum PC Operating System</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -16,9 +16,9 @@
                         saffron: '#ff9933',
                         indiaGreen: '#138808',
                         navyAshoka: '#000080',
-                        obsidian: '#020409',
+                        obsidian: '#020408',
                         deepVoid: '#040711',
-                        surface: '#0a101d'
+                        surface: '#090e1a'
                     },
                     fontFamily: {
                         sans: ['"Plus Jakarta Sans"', 'sans-serif'],
@@ -36,7 +36,7 @@
         }
 
         body {
-            background-color: #020409;
+            background-color: #020408;
             color: #f8fafc;
             height: 100vh;
             overflow: hidden;
@@ -45,32 +45,47 @@
             perspective: 1200px;
         }
 
-        /* --- REVOLUTIONARY LIQUID GLASS ENGINE (True Optical Refraction) --- */
+        /* --- MODERN MINIMALIST CLEAN BOOT SCREEN --- */
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+            background: #020408;
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .minimal-emblem {
+            animation: gentle-breath 2.4s ease-in-out infinite alternate;
+        }
+
+        @keyframes gentle-breath {
+            0% { transform: scale(0.96); filter: drop-shadow(0 0 15px rgba(255, 153, 51, 0.2)); opacity: 0.85; }
+            100% { transform: scale(1.04); filter: drop-shadow(0 0 45px rgba(255, 153, 51, 0.6)); opacity: 1; }
+        }
+
+        .fade-out-boot {
+            opacity: 0 !important;
+            transform: scale(1.08) !important;
+            pointer-events: none !important;
+        }
+
+        /* --- ULTRA LIQUID GLASS (Optical Refraction) --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.15) 0%, rgba(10, 16, 29, 0.75) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(9, 14, 26, 0.82) 100%);
             backdrop-filter: blur(40px) saturate(220%);
             -webkit-backdrop-filter: blur(40px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-top: 1px solid rgba(255, 255, 255, 0.45);
-            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
+            border-left: 1px solid rgba(255, 255, 255, 0.25);
             border-radius: 28px;
-            box-shadow: 
-                0 35px 90px rgba(0, 0, 0, 0.8),
-                inset 0 1px 2px rgba(255, 255, 255, 0.35),
-                inset 0 -1px 2px rgba(0, 0, 0, 0.4),
-                0 0 40px rgba(0, 229, 255, 0.12);
-            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
-            transform-style: preserve-3d;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.3);
+            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
 
-        .ultra-liquid-glass:hover {
-            box-shadow: 
-                0 45px 110px rgba(0, 0, 0, 0.9),
-                inset 0 1px 3px rgba(255, 255, 255, 0.45),
-                0 0 50px rgba(255, 153, 51, 0.18);
-        }
-
-        /* Specular Light Reflection Follower */
         .specular-glow {
             position: absolute;
             inset: 0;
@@ -80,181 +95,56 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- DYNAMIC NEURAL HORIZON ISLAND --- */
+        /* Neural Horizon Island */
         .neural-island {
-            background: rgba(10, 16, 29, 0.85);
-            backdrop-filter: blur(30px) saturate(240%);
-            -webkit-backdrop-filter: blur(30px) saturate(240%);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            background: rgba(9, 14, 26, 0.88);
+            backdrop-filter: blur(28px);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-top: 1px solid rgba(255, 255, 255, 0.4);
             border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 229, 255, 0.2);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
         .neural-island:hover {
-            transform: scale(1.03) translateY(2px);
+            transform: scale(1.03);
             border-color: rgba(255, 153, 51, 0.5);
-            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.8), 0 0 45px rgba(255, 153, 51, 0.3);
+            box-shadow: 0 20px 50px rgba(255, 153, 51, 0.25);
         }
 
-        /* --- 3D SUDARSHAN RADIAL COMMAND CHAKRA --- */
-        #chakra-radial-menu {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0);
-            width: 480px;
-            height: 480px;
-            border-radius: 50%;
-            background: radial-gradient(circle, rgba(10, 16, 29, 0.95) 0%, rgba(3, 6, 12, 0.9) 70%, transparent 100%);
-            backdrop-filter: blur(40px);
-            border: 2px solid rgba(255, 153, 51, 0.4);
-            box-shadow: 0 0 100px rgba(255, 153, 51, 0.3), inset 0 0 60px rgba(0, 229, 255, 0.2);
-            z-index: 100;
-            pointer-events: none;
-            opacity: 0;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        #chakra-radial-menu.bloom {
-            transform: translate(-50%, -50%) scale(1);
-            pointer-events: auto;
-            opacity: 1;
-        }
-
-        .radial-node {
-            position: absolute;
-            width: 76px;
-            height: 76px;
-            border-radius: 50%;
-            background: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        /* --- REDESIGNED REVOLUTIONARY CINEMATIC BOOT SEQUENCE --- */
-        #boot-screen {
+        /* Slide-Out Notification Center */
+        #notification-center {
             position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, #060b18 0%, #020409 100%);
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.9s cubic-bezier(0.85, 0, 0.15, 1), transform 0.9s cubic-bezier(0.85, 0, 0.15, 1);
-            overflow: hidden;
+            top: 54px;
+            right: 16px;
+            width: 360px;
+            max-height: calc(100vh - 120px);
+            transform: translateX(420px);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 90;
         }
 
-        /* Swirling Sacred Plasma Orbs */
-        .plasma-orbit-container {
-            position: relative;
-            width: 220px;
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        #notification-center.open {
+            transform: translateX(0);
         }
 
-        .plasma-orb-1 {
-            position: absolute;
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 3px solid rgba(255, 153, 51, 0.7);
-            box-shadow: 0 0 40px rgba(255, 153, 51, 0.6), inset 0 0 20px rgba(255, 153, 51, 0.4);
-            animation: spin-cw 4s linear infinite;
-        }
-
-        .plasma-orb-2 {
-            position: absolute;
-            width: 140px;
-            height: 140px;
-            border-radius: 50%;
-            border: 2px dashed rgba(255, 255, 255, 0.8);
-            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
-            animation: spin-ccw 6s linear infinite;
-        }
-
-        .plasma-orb-3 {
-            position: absolute;
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            border: 3px solid rgba(19, 136, 8, 0.7);
-            box-shadow: 0 0 40px rgba(19, 136, 8, 0.6), inset 0 0 20px rgba(19, 136, 8, 0.4);
-            animation: spin-cw 3s linear infinite;
-        }
-
-        @keyframes spin-cw {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes spin-ccw {
-            from { transform: rotate(360deg); }
-            to { transform: rotate(0deg); }
-        }
-
-        .warp-singularity {
-            opacity: 0 !important;
-            transform: scale(2.2) rotate(45deg) !important;
-            filter: blur(20px) !important;
-            pointer-events: none !important;
-        } .radial-node:hover {
-            transform: scale(1.28) !important;
-            background: rgba(255, 153, 51, 0.25);
-            border-color: #ff9933;
-            box-shadow: 0 0 35px rgba(255, 153, 51, 0.6);
-        }
-
-        /* --- SPRING WINDOW ANIMATIONS --- */
+        /* Spring Window Animations */
         .window-open-spring {
-            animation: spring-3d-open 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: spring-open 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
         }
 
         .window-close-spring {
-            animation: spring-3d-close 0.25s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+            animation: spring-close 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
         }
 
-        @keyframes spring-3d-open {
-            0% { transform: scale(0.6) translateY(80px) rotateX(15deg); opacity: 0; }
-            100% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
+        @keyframes spring-open {
+            0% { transform: scale(0.7) translateY(60px); opacity: 0; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
 
-        @keyframes spring-3d-close {
-            0% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; }
-            100% { transform: scale(0.6) translateY(50px) rotateX(-15deg); opacity: 0; }
-        }
-
-        /* --- 3D SPATIAL STAGE CAROUSEL --- */
-        .spatial-stage-mode .ultra-liquid-glass {
-            transform: scale(0.72) translateY(20px) rotateY(-18deg) !important;
-            opacity: 0.75;
-            filter: blur(2px);
-            cursor: pointer;
-        }
-
-        .spatial-stage-mode .ultra-liquid-glass:hover {
-            transform: scale(0.85) translateY(0) rotateY(0deg) !important;
-            opacity: 1;
-            filter: blur(0);
-        }
-
-        /* Matrix Canvas */
-        #matrix-bg {
-            position: absolute;
-            inset: 0;
-            pointer-events: none;
-            opacity: 0.12;
-            z-index: 1;
+        @keyframes spring-close {
+            0% { transform: scale(1) translateY(0); opacity: 1; }
+            100% { transform: scale(0.7) translateY(40px); opacity: 0; }
         }
 
         .custom-scroll::-webkit-scrollbar {
@@ -268,654 +158,494 @@
             background: rgba(255, 255, 255, 0.25);
             border-radius: 4px;
         }
-
-        .spin-slow {
-            animation: spin-slow 30s linear infinite;
-        }
-        @keyframes spin-slow {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
     </style>
 </head>
 <body class="relative flex flex-col justify-between select-none">
 
-    <!-- REDESIGNED CINEMATIC QUANTUM BOOT SCREEN -->
+    <!-- MODERN MINIMALIST CLEAN BOOT EXPERIENCE (Apple/Tesla Inspired) -->
     <div id="boot-screen">
-        <div class="plasma-orbit-container mb-6">
-            <div class="plasma-orb-1"></div>
-            <div class="plasma-orb-2"></div>
-            <div class="plasma-orb-3"></div>
-            <span class="text-6xl z-10 select-none animate-pulse">☸️</span>
+        <div class="minimal-emblem mb-6">
+            <span class="text-7xl select-none">☸️</span>
         </div>
 
-        <h1 class="text-4xl font-black tracking-widest text-white uppercase font-mono mb-1">BHARAT OS</h1>
-        <p class="text-xs text-saffron tracking-widest font-mono font-extrabold mb-6">SOVEREIGN QUANTUM PC OPERATING SYSTEM • SWARAJ 2026.1 LTS</p>
+        <h1 class="text-3xl font-bold tracking-[0.25em] text-white uppercase font-sans mb-1">BHARAT OS</h1>
+        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS</p>
 
-        <!-- Quantum Boot Stream Terminal -->
-        <div class="w-[660px] bg-slate-950/95 rounded-2xl p-5 border border-slate-800/80 font-mono text-xs text-slate-300 space-y-1.5 shadow-2xl backdrop-blur-xl">
-            <div id="boot-log-stream" class="h-32 overflow-hidden flex flex-col justify-end space-y-1.5">
-                <div class="text-cyan-400 font-bold">// Sovereign Microkernel Bootloader (UEFI Long Mode x86_64)...</div>
-            </div>
-            <!-- Progress Line -->
-            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden mt-3 border border-slate-800">
-                <div id="boot-progress-bar" class="bg-gradient-to-r from-saffron via-amber-400 to-indiaGreen h-full w-0 transition-all duration-300"></div>
-            </div>
+        <!-- Minimal Hairline Progress Bar -->
+        <div class="w-72 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
+            <div id="minimal-boot-progress" class="bg-gradient-to-r from-saffron via-white to-indiaGreen h-full w-0 transition-all duration-300"></div>
         </div>
 
-        <button onclick="skipBoot()" class="mt-6 text-xs text-slate-500 hover:text-slate-300 underline font-mono">Skip Boot Sequence ➔</button>
+        <div id="minimal-boot-label" class="mt-4 text-[11px] font-mono text-slate-500 tracking-wider">Starting Sovereign Microkernel...</div>
     </div>
 
-    <!-- Interactive Spatial Matrix & Energy Wallpaper Canvas -->
-    <canvas id="matrix-bg"></canvas>
+    <!-- Fluid Background Canvas -->
     <canvas id="fluid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
     <!-- Top Fluid Status Bar with Dynamic Neural Island -->
-    <nav class="relative z-40 px-6 py-3 flex items-center justify-between text-xs">
+    <nav class="relative z-40 px-6 py-2.5 flex items-center justify-between text-xs border-b border-slate-800/50 bg-slate-950/40 backdrop-blur-md">
         <!-- Left: Sovereign Brand & Atmanirbhar Badge -->
         <div class="flex items-center space-x-3">
-            <button onclick="toggleChakraBloom()" class="flex items-center space-x-2 px-3.5 py-1.5 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron font-black transition-all hover:scale-105 active:scale-95 shadow-lg shadow-saffron/15 group">
-                <span class="text-base group-hover:rotate-180 transition-transform duration-500">☸️</span>
-                <span class="tracking-wide text-xs">Sudarshan Ring</span>
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-gradient-to-r from-saffron/25 via-amber-500/20 to-indiaGreen/25 hover:from-saffron/35 hover:to-indiaGreen/35 border border-saffron/40 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-md">
+                <span class="text-sm">☸️</span>
+                <span class="tracking-wide text-xs">BharatOS</span>
             </button>
             <span class="text-slate-600">|</span>
-            <div id="os-welcome-banner" class="text-slate-300 font-bold flex items-center space-x-2">
+            <div id="os-welcome-banner" class="text-slate-300 font-semibold flex items-center space-x-2">
                 <span>भारत ओएस लिक्विड</span>
-                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/40">120 FPS QUANTUM</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">120 FPS</span>
             </div>
         </div>
 
-        <!-- Center: Dynamic Neural Horizon Island (World's First Desktop Morphing Island) -->
-        <div id="neural-island" onclick="toggleSpatialStage()" class="neural-island px-6 py-2 flex items-center space-x-4 cursor-pointer">
+        <!-- Center: Dynamic Neural Horizon Island -->
+        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="neural-island px-5 py-1.5 flex items-center space-x-3.5 cursor-pointer" title="Open Task Manager">
             <div class="flex items-center space-x-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-pulse"></span>
-                <span class="font-mono text-xs text-cyan-300 font-extrabold" id="island-activity">WAKATIME 24/7 SYNCING</span>
+                <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+                <span class="font-mono text-[11px] text-cyan-300 font-bold" id="island-activity">RAM: 55.4 MB (0.3%)</span>
             </div>
-            <div class="h-4 w-px bg-slate-700"></div>
-            <!-- Live Audio Waveform Equalizer -->
-            <div class="flex items-end space-x-1 h-3.5">
+            <div class="h-3 w-px bg-slate-700"></div>
+            <!-- Live Audio/Load Waveform -->
+            <div class="flex items-end space-x-1 h-3">
                 <div class="w-1 bg-saffron rounded-full animate-bounce" style="height: 60%; animation-duration: 0.6s;"></div>
                 <div class="w-1 bg-white rounded-full animate-bounce" style="height: 100%; animation-duration: 0.4s;"></div>
                 <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
             </div>
-            <div class="h-4 w-px bg-slate-700"></div>
+            <div class="h-3 w-px bg-slate-700"></div>
             <span class="text-[11px] font-mono text-emerald-400 font-bold">🛡️ KAVACH 100%</span>
         </div>
 
-        <!-- Right: Multilingual Selector, 3D Spatial Switch & IST Clock -->
+        <!-- Right: Battery, Notification Bell, Multilingual Selector & IST Clock -->
         <div class="flex items-center space-x-3">
-            <button onclick="toggleSpatialStage()" class="px-3 py-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-mono font-bold transition-all hover:scale-105" title="Toggle 3D Stage Manager">
-                <span>🎛️ 3D Stage</span>
+            <!-- Battery Indicator -->
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800" title="Battery & Power">
+                <span>⚡ 94%</span>
+                <div class="w-4 h-2.5 rounded-sm border border-emerald-400 p-0.5 flex items-center"><div class="bg-emerald-400 h-full w-[90%] rounded-xs"></div></div>
             </button>
 
-            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-xl px-3 py-1.5 focus:outline-none focus:border-saffron font-bold shadow-inner">
-                <option value="hi">हिन्दी (Hindi)</option>
+            <!-- Notification Bell -->
+            <button onclick="toggleNotificationCenter()" class="relative p-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition-all hover:scale-105" title="Notifications & Action Center">
+                <span>🔔</span>
+                <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-saffron border border-slate-950"></span>
+            </button>
+
+            <!-- Language Selector -->
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-xl px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
+                <option value="hi">हिन्दी</option>
                 <option value="en">English</option>
-                <option value="ta">தமிழ் (Tamil)</option>
-                <option value="te">తెలుగు (Telugu)</option>
-                <option value="bn">বাংলা (Bengali)</option>
-                <option value="mr">मराठी (Marathi)</option>
-                <option value="gu">ગુજરાતી (Gujarati)</option>
-                <option value="kn">ಕನ್ನಡ (Kannada)</option>
-                <option value="ml">മലയാളം (Malayalam)</option>
-                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+                <option value="ta">தமிழ்</option>
+                <option value="te">తెలుగు</option>
+                <option value="bn">বাংলা</option>
+                <option value="mr">मराठी</option>
             </select>
 
-            <div id="ist-clock" class="font-mono text-cyan-300 font-extrabold px-3.5 py-1.5 rounded-xl bg-slate-950/80 border border-slate-800 shadow-inner text-xs">
+            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
                 --:--:-- IST
             </div>
         </div>
     </nav>
 
-    <!-- 3D SUDARSHAN RADIAL COMMAND CHAKRA (Blooms on Click) -->
-    <div id="chakra-radial-menu">
-        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none text-center">
-            <span class="text-4xl animate-pulse">☸️</span>
-            <div class="text-xs font-black text-saffron tracking-widest uppercase mt-1">SUDARSHAN ORBIT</div>
-            <div class="text-[10px] text-slate-400 font-mono">Select Sovereign Command</div>
+    <!-- Slide-Out Action & Notification Center -->
+    <div id="notification-center" class="ultra-liquid-glass p-5 space-y-4 shadow-2xl">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+            <span class="text-xs font-bold text-white uppercase tracking-wider">Action & Notifications</span>
+            <button onclick="toggleNotificationCenter()" class="text-slate-400 hover:text-white text-sm">✕</button>
         </div>
 
-        <!-- 6 Radial Nodes (Orbiting Circle) -->
-        <div onclick="openWindow('files-window'); toggleChakraBloom();" class="radial-node" style="top: 25px; left: 202px;" title="File Explorer">
-            <span class="text-2xl">📁</span>
-            <span class="text-[9px] font-bold text-slate-200 mt-0.5">Files</span>
+        <!-- Quick Toggles -->
+        <div class="grid grid-cols-3 gap-2">
+            <button class="p-2.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-cyan-300 text-[11px] font-bold text-center">📶 Wi-Fi On</button>
+            <button class="p-2.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold text-center">🛡️ Kavach On</button>
+            <button class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 text-[11px] font-bold text-center">⚡ 120 FPS</button>
         </div>
-        <div onclick="openWindow('winbridge-window'); toggleChakraBloom();" class="radial-node" style="top: 105px; left: 365px;" title="WinBridge .EXE">
-            <span class="text-2xl">🚀</span>
-            <span class="text-[9px] font-bold text-cyan-300 mt-0.5">WinBridge</span>
-        </div>
-        <div onclick="openWindow('terminal-window'); toggleChakraBloom();" class="radial-node" style="top: 295px; left: 365px;" title="Terminal">
-            <span class="text-2xl">💻</span>
-            <span class="text-[9px] font-bold text-emerald-300 mt-0.5">Terminal</span>
-        </div>
-        <div onclick="openWindow('code-window'); toggleChakraBloom();" class="radial-node" style="top: 380px; left: 202px;" title="Code Studio">
-            <span class="text-2xl">⚡</span>
-            <span class="text-[9px] font-bold text-amber-300 mt-0.5">IDE</span>
-        </div>
-        <div onclick="openWindow('kavach-window'); toggleChakraBloom();" class="radial-node" style="top: 295px; left: 38px;" title="Kavach Shield">
-            <span class="text-2xl">🛡️</span>
-            <span class="text-[9px] font-bold text-emerald-400 mt-0.5">Kavach</span>
-        </div>
-        <div onclick="openWindow('solaris-window'); toggleChakraBloom();" class="radial-node" style="top: 105px; left: 38px;" title="Solaris Simulator">
-            <span class="text-2xl">🪐</span>
-            <span class="text-[9px] font-bold text-cyan-400 mt-0.5">Solaris</span>
+
+        <!-- Notification Feed -->
+        <div class="space-y-2 max-h-60 overflow-y-auto custom-scroll text-xs">
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                <div class="flex items-center justify-between font-bold text-emerald-400"><span>🛡️ Kavach Firewall</span><span class="text-[10px] text-slate-500">Just now</span></div>
+                <p class="text-slate-300 text-[11px]">4,280 foreign telemetry probes neutralized. 100% on-device residency.</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                <div class="flex items-center justify-between font-bold text-cyan-400"><span>🚀 Hackatime Sync</span><span class="text-[10px] text-slate-500">2m ago</span></div>
+                <p class="text-slate-300 text-[11px]">Active pulse logged on bharatos-sovereign-desktop (HTTP 202 Accepted).</p>
+            </div>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                <div class="flex items-center justify-between font-bold text-amber-400"><span>⚡ Battery Status</span><span class="text-[10px] text-slate-500">5m ago</span></div>
+                <p class="text-slate-300 text-[11px]">Battery at 94% (Charging). Power profile: BALANCED.</p>
+            </div>
         </div>
     </div>
 
-    <!-- Desktop Workspace Canvas with Dynamic Specular Reflection -->
-    <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-8 gap-6 z-10 overflow-hidden" onclick="handleDesktopClick(event)">
+    <!-- Desktop Workspace Canvas -->
+    <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-8 gap-6 z-10 overflow-hidden">
         
-        <!-- Desktop Shortcuts -->
-        <div class="flex flex-col space-y-5 w-28">
-            <button onclick="openWindow('files-window')" class="flex flex-col items-center p-3.5 rounded-3xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-2xl">
+        <!-- Desktop Shortcuts (Left Column) -->
+        <div class="flex flex-col space-y-4 w-28">
+            <button onclick="openWindow('files-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
                 <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">📁</span>
                 <span class="text-xs text-slate-200 font-bold truncate w-full">Explorer</span>
             </button>
 
-            <button onclick="openWindow('winbridge-window')" class="flex flex-col items-center p-3.5 rounded-3xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-2xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">🚀</span>
-                <span class="text-xs text-cyan-300 font-bold truncate w-full">WinBridge</span>
+            <button onclick="openWindow('taskmanager-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
+                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">📊</span>
+                <span class="text-xs text-cyan-300 font-bold truncate w-full">Task Mgr</span>
             </button>
 
-            <button onclick="openWindow('terminal-window')" class="flex flex-col items-center p-3.5 rounded-3xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-2xl">
+            <button onclick="openWindow('settings-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
+                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">⚙️</span>
+                <span class="text-xs text-amber-300 font-bold truncate w-full">Settings</span>
+            </button>
+
+            <button onclick="openWindow('winbridge-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
+                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">🚀</span>
+                <span class="text-xs text-indigo-300 font-bold truncate w-full">WinBridge</span>
+            </button>
+
+            <button onclick="openWindow('terminal-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
                 <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">💻</span>
                 <span class="text-xs text-emerald-300 font-bold truncate w-full">bsh Shell</span>
             </button>
-
-            <button onclick="openWindow('code-window')" class="flex flex-col items-center p-3.5 rounded-3xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-2xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">⚡</span>
-                <span class="text-xs text-amber-300 font-bold truncate w-full">Code IDE</span>
-            </button>
-
-            <button onclick="openWindow('kavach-window')" class="flex flex-col items-center p-3.5 rounded-3xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-2xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">🛡️</span>
-                <span class="text-xs text-emerald-400 font-bold truncate w-full">Kavach</span>
-            </button>
         </div>
 
-        <!-- Center Watermark Logo with Liquid Ambient Glow -->
+        <!-- Center Watermark Logo -->
         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20 z-0">
-            <div class="w-72 h-72 rounded-full border-4 border-dashed border-cyan-400/30 flex items-center justify-center spin-slow mb-4 shadow-2xl shadow-cyan-500/20">
-                <span class="text-8xl">☸️</span>
-            </div>
-            <h1 class="text-6xl font-black tracking-widest text-white uppercase font-mono">BHARAT OS</h1>
-            <p class="text-xs text-saffron mt-2 font-mono tracking-widest font-extrabold">SOVEREIGN QUANTUM DESKTOP • 120 FPS FLUID COMPOSITOR</p>
+            <span class="text-8xl mb-3">☸️</span>
+            <h1 class="text-5xl font-extrabold tracking-widest text-white uppercase font-sans">BHARAT OS</h1>
+            <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 120 FPS FLUID COMPOSITOR</p>
         </div>
 
-        <!-- WINDOW 1: ADVANCED FILE EXPLORER WITH SPECULAR GLASS -->
-        <div id="files-window" class="absolute top-6 left-28 w-[860px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 1: ADVANCED FILE EXPLORER -->
+        <div id="files-window" class="absolute top-6 left-28 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
-            <div class="px-6 py-3.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">SovereignFS Explorer — /home/user</span>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — /home/user</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ New File</button>
-                    <button onclick="createNewFolderPrompt()" class="px-3 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-amber-300 border border-slate-700">+ New Folder</button>
+                    <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ New File</button>
                 </div>
             </div>
 
             <!-- Breadcrumb Path Bar -->
-            <div class="px-6 py-2.5 bg-slate-950/40 border-b border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <div class="flex items-center space-x-1.5 text-slate-400">
+            <div class="px-5 py-2 bg-slate-950/40 border-b border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                <div class="flex items-center space-x-1 text-slate-400">
                     <button onclick="navigateToPath('/home/user')" class="hover:text-cyan-400 font-bold">🏠 /home/user</button>
-                    <span id="vfs-current-breadcrumb" class="text-cyan-300 font-extrabold">/documents</span>
+                    <span id="vfs-current-breadcrumb" class="text-cyan-300 font-bold">/documents</span>
                 </div>
-                <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-52">
+                <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-lg text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-48">
             </div>
 
             <div class="flex-1 flex overflow-hidden">
-                <div class="w-52 bg-slate-950/70 p-4 border-r border-slate-800/80 space-y-1.5 text-xs font-mono">
-                    <div class="text-[11px] text-slate-500 uppercase font-extrabold tracking-wider mb-2">Sovereign VFS</div>
-                    <button onclick="navigateToPath('/home/user')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2.5 font-bold"><span>🏠</span><span>Home</span></button>
-                    <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2.5 font-bold"><span>📄</span><span>Documents</span></button>
-                    <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2.5 font-bold"><span>⚡</span><span>Projects</span></button>
-                    <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2.5 font-bold"><span>⚙️</span><span>System</span></button>
-                    <button onclick="navigateToPath('/apps')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2.5 font-bold"><span>🚀</span><span>Apps</span></button>
+                <div class="w-48 bg-slate-950/70 p-4 border-r border-slate-800/80 space-y-1 text-xs font-mono">
+                    <button onclick="navigateToPath('/home/user')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>🏠</span><span>Home</span></button>
+                    <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>📄</span><span>Documents</span></button>
+                    <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>⚡</span><span>Projects</span></button>
+                    <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>⚙️</span><span>System</span></button>
+                    <button onclick="navigateToPath('/apps')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>🚀</span><span>Apps</span></button>
                 </div>
-                <div id="vfs-file-grid" class="flex-1 p-6 grid grid-cols-3 sm:grid-cols-4 gap-4 bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
+                <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
             </div>
         </div>
 
-        <!-- WINDOW 2: KAVACH WINBRIDGE (.EXE BINARY SUBSYSTEM) -->
-        <div id="winbridge-window" class="absolute top-10 left-40 w-[760px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 2: PROPER TASK MANAGER APPLICATION -->
+        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
-            <div class="px-6 py-3.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('winbridge-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">Kavach WinBridge — Windows .EXE Execution Layer</span>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('taskmanager-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Task Manager & Memory Analyzer</span>
                 </div>
-                <span class="text-xs font-mono text-cyan-300 font-bold px-2.5 py-0.5 rounded-lg bg-cyan-950/60 border border-cyan-500/40">PE32+ ACTIVE</span>
+                <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold transition-all">⚡ Purge RAM Cache</button>
             </div>
-            <div class="flex-1 bg-slate-950/80 p-6 space-y-4 font-mono text-xs custom-scroll overflow-y-auto">
-                <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2">
-                    <div class="text-white font-bold flex items-center justify-between">
-                        <span>Select Windows Executable to Run in Enclave:</span>
-                        <span class="text-emerald-400">● Zero Telemetry Quarantined</span>
+            
+            <!-- Real-time Memory & CPU Meters -->
+            <div class="p-5 bg-slate-950/80 border-b border-slate-800 grid grid-cols-3 gap-4 text-xs font-mono">
+                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="text-slate-400 text-[10px]">TOTAL RAM ALLOCATED</div>
+                    <div class="text-xl font-bold text-cyan-300 mt-1">16,384 MB (16 GB)</div>
+                    <div class="text-[10px] text-emerald-400 mt-1">● 4-Level 64-bit Paging</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="text-slate-400 text-[10px]">MEMORY USED (KERNEL + APPS)</div>
+                    <div class="text-xl font-bold text-amber-400 mt-1" id="tm-used-ram">55.4 MB (0.3%)</div>
+                    <div class="text-[10px] text-slate-400 mt-1">Free: 16,328.6 MB</div>
+                </div>
+                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
+                    <div class="text-slate-400 text-[10px]">CPU SMP USAGE (16 CORES)</div>
+                    <div class="text-xl font-bold text-emerald-400 mt-1">1.8% @ 3.8 GHz</div>
+                    <div class="text-[10px] text-cyan-400 mt-1">120 FPS Compositor Sync</div>
+                </div>
+            </div>
+
+            <!-- Active Processes Table -->
+            <div class="flex-1 bg-slate-950/90 p-5 custom-scroll overflow-y-auto">
+                <table class="w-full text-left font-mono text-xs text-slate-300">
+                    <thead>
+                        <tr class="text-slate-500 border-b border-slate-800 pb-2 text-[11px]">
+                            <th class="pb-2">PID</th>
+                            <th class="pb-2">Process Name</th>
+                            <th class="pb-2">CPU %</th>
+                            <th class="pb-2">RAM (MB)</th>
+                            <th class="pb-2">Status</th>
+                            <th class="pb-2 text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tm-process-tbody" class="divide-y divide-slate-900/80">
+                        <!-- Populated dynamically -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- WINDOW 3: PROPER SETTINGS & BATTERY APPLICATION -->
+        <div id="settings-window" class="absolute top-10 left-44 w-[760px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('settings-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS System Settings & Power Subsystem</span>
+                </div>
+            </div>
+
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Settings Tabs -->
+                <div class="w-48 bg-slate-950/70 p-4 border-r border-slate-800 space-y-1 text-xs font-mono">
+                    <button onclick="switchSettingsTab('battery')" class="w-full text-left px-3 py-2 rounded-lg bg-slate-800/80 text-cyan-300 font-bold" id="tab-btn-battery">⚡ Battery & Power</button>
+                    <button onclick="switchSettingsTab('memory')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-memory">🧠 Memory & VFS</button>
+                    <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-security">🛡️ Kavach Security</button>
+                    <button onclick="switchSettingsTab('display')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-display">✨ Display & 120FPS</button>
+                </div>
+
+                <!-- Tab Content 1: Battery & Power -->
+                <div id="tab-battery" class="flex-1 p-6 space-y-5 bg-slate-950/90 custom-scroll overflow-y-auto">
+                    <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                        <div class="text-5xl font-black text-emerald-400">94%</div>
+                        <div>
+                            <div class="text-sm font-bold text-white">Battery State: Charging (Fast Mode)</div>
+                            <div class="text-xs text-slate-400 font-mono mt-0.5">Battery Health: 98.5% • Full in 28 mins</div>
+                        </div>
                     </div>
-                    <div class="grid grid-cols-2 gap-3 mt-2">
-                        <button onclick="runExeSample('solaris_orbital_game.exe')" class="p-3 rounded-xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-left transition-all">
-                            <div class="text-cyan-300 font-bold">🚀 solaris_orbital_game.exe</div>
-                            <div class="text-[10px] text-slate-400">64-bit PE32+ DirectX/Vulkan Game</div>
-                        </button>
-                        <button onclick="runExeSample('indic_rust_compiler.exe')" class="p-3 rounded-xl bg-slate-950 border border-slate-700 hover:border-cyan-400 text-left transition-all">
-                            <div class="text-amber-300 font-bold">⚙️ indic_rust_compiler.exe</div>
-                            <div class="text-[10px] text-slate-400">x86_64 Native CLI Tool</div>
-                        </button>
+
+                    <div class="space-y-2">
+                        <div class="text-xs font-bold text-slate-300 uppercase font-mono">Power & Performance Profiles</div>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setPowerMode('HIGH_PERFORMANCE')" class="p-3.5 rounded-xl border border-slate-700 bg-slate-900 text-left hover:border-cyan-400">
+                                <div class="text-xs font-bold text-cyan-300">🔥 High Performance</div>
+                                <div class="text-[10px] text-slate-400 mt-1">144 FPS Max Clock</div>
+                            </button>
+                            <button onclick="setPowerMode('BALANCED')" class="p-3.5 rounded-xl border border-emerald-500 bg-emerald-950/30 text-left">
+                                <div class="text-xs font-bold text-emerald-300">⚖️ Balanced (Active)</div>
+                                <div class="text-[10px] text-slate-400 mt-1">Adaptive 120 FPS</div>
+                            </button>
+                            <button onclick="setPowerMode('BATTERY_SAVER')" class="p-3.5 rounded-xl border border-slate-700 bg-slate-900 text-left hover:border-amber-400">
+                                <div class="text-xs font-bold text-amber-300">🌱 Battery Saver</div>
+                                <div class="text-[10px] text-slate-400 mt-1">Max Endurance</div>
+                            </button>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Live WinBridge Execution Log Console -->
-                <div class="p-4 rounded-2xl bg-slate-950 border border-slate-800/80 space-y-1 text-slate-300 min-h-[160px] custom-scroll overflow-y-auto" id="winbridge-console">
-                    <div class="text-emerald-400 font-bold">[WinBridge Kernel] Subsystem initialized. PE32+ Parser & IAT Relocator ready.</div>
-                    <div class="text-slate-500">// Ready to execute native Windows .EXE binaries in sovereign memory space.</div>
+                <!-- Tab Content 2: Memory -->
+                <div id="tab-memory" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
+                    <div class="text-sm font-bold text-white">4-Level 64-bit Paging Configuration</div>
+                    <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Kernel Heap</div><div class="text-cyan-300 font-bold mt-1">12.4 MB</div></div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Page Cache</div><div class="text-amber-300 font-bold mt-1">18.2 MB</div></div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">User Apps</div><div class="text-emerald-300 font-bold mt-1">24.8 MB</div></div>
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Swap Partition</div><div class="text-slate-300 font-bold mt-1">4,096 MB (0 MB Used)</div></div>
+                    </div>
+                </div>
+
+                <!-- Tab Content 3: Security -->
+                <div id="tab-security" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
+                    <div class="text-sm font-bold text-white">Kavach Zero-Trust Hardware Shield</div>
+                    <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/40 text-xs font-mono space-y-2">
+                        <div class="text-emerald-300 font-bold">✓ Zero Foreign Telemetry Active</div>
+                        <div class="text-slate-300">Data Residency: 100% On-Device Encrypted Local Storage</div>
+                        <div class="text-slate-300">Hardware Cipher: AES-256-GCM + ChaCha20-Poly1305</div>
+                    </div>
+                </div>
+
+                <!-- Tab Content 4: Display -->
+                <div id="tab-display" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
+                    <div class="text-sm font-bold text-white">Prithvi Liquid Compositor Settings</div>
+                    <div class="space-y-3 text-xs font-mono">
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span>Compositor Framerate Target</span>
+                            <span class="text-cyan-300 font-bold">120 FPS Fluid</span>
+                        </div>
+                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800">
+                            <span>Optical Glass Refraction Index (n)</span>
+                            <span class="text-amber-300 font-bold">1.48 (Crown Glass)</span>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- WINDOW 3: BHARAT SHELL (bsh) POWERHOUSE TERMINAL -->
-        <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 4: KAVACH WINBRIDGE -->
+        <div id="winbridge-window" class="absolute top-12 left-48 w-[740px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
-            <div class="px-6 py-3.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('terminal-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">bharat-shell (bsh) — sovereign@bharatos:~</span>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('winbridge-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Kavach WinBridge — Windows .EXE Execution</span>
                 </div>
-                <span class="text-[11px] font-mono text-cyan-400 font-bold px-2 py-0.5 rounded bg-cyan-950/40 border border-cyan-500/30">bsh v3.2</span>
             </div>
-            <div class="flex-1 bg-slate-950/90 p-5 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-2" id="terminal-output">
-                <div class="text-saffron font-bold text-sm">🇮🇳 Bharat Shell (bsh) — Sovereign Microkernel CLI</div>
-                <div class="text-slate-400">Type <span class="text-cyan-400 font-bold">'help'</span>, <span class="text-emerald-400 font-bold">'matrix'</span>, <span class="text-amber-400 font-bold">'top'</span>, or <span class="text-cyan-400 font-bold">'neofetch'</span>.</div>
+            <div class="flex-1 bg-slate-950/80 p-5 space-y-3 font-mono text-xs">
+                <button onclick="runExeSample('solaris_orbital_game.exe')" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-left transition-all">
+                    <div class="text-cyan-300 font-bold">▶ Run solaris_orbital_game.exe (64-bit PE32+)</div>
+                </button>
+                <div id="winbridge-console" class="p-4 rounded-xl bg-slate-950 border border-slate-800 min-h-[160px] text-slate-300 custom-scroll overflow-y-auto">
+                    <div class="text-emerald-400 font-bold">[WinBridge Engine] PE32+ Relocation & Win32 IAT translator active.</div>
+                </div>
             </div>
-            <div class="p-3.5 bg-slate-950/70 border-t border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
+        </div>
+
+        <!-- WINDOW 5: BHARAT SHELL (bsh) EXPANDED TERMINAL -->
+        <div id="terminal-window" class="absolute top-14 left-56 w-[740px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('terminal-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">bharat-shell (bsh) — sovereign@bharatos:~</span>
+                </div>
+            </div>
+            <div class="flex-1 bg-slate-950/90 p-5 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-1.5" id="terminal-output">
+                <div class="text-saffron font-bold">🇮🇳 Bharat Shell (bsh) v3.2 — Windows & Linux Command Suite</div>
+                <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'tasklist'</span>, <span class="text-cyan-300 font-bold">'mem'</span>, or <span class="text-emerald-300 font-bold">'systeminfo'</span>.</div>
+            </div>
+            <div class="p-3 bg-slate-950/70 border-t border-slate-800 flex items-center space-x-2 font-mono text-xs">
                 <span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span>
                 <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
             </div>
         </div>
 
-        <!-- WINDOW 4: Indic Code Studio -->
-        <div id="code-window" class="absolute top-14 left-64 w-[740px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
-            <div class="specular-glow"></div>
-            <div class="px-6 py-3.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('code-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">Indic Code Studio — /home/user/projects/orbit.py</span>
-                </div>
-                <button onclick="runCode()" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-slate-950 text-xs font-mono font-bold hover:scale-105 active:scale-95 transition-all shadow-md shadow-emerald-500/20">▶ Run Code</button>
-            </div>
-            <div class="flex-1 flex flex-col bg-slate-950/80">
-                <textarea id="code-editor-area" class="flex-1 p-5 bg-transparent text-slate-200 font-mono text-xs resize-none outline-none custom-scroll leading-relaxed" spellcheck="false"># BharatOS Sovereign Python 3.12 Core
-import math
-
-def calculate_orbital_velocity(mass_kg=5.972e24, radius_m=6.371e6):
-    """Calculates circular orbital velocity in meters/second."""
-    G = 6.67430e-11
-    v_circ = math.sqrt((G * mass_kg) / radius_m)
-    return round(v_circ, 2)
-
-print(f"🇮🇳 BharatOS Space Engine: Orbital Speed = {calculate_orbital_velocity()} m/s")
-print("✓ Sovereignty Status: Verified 100% Local (Zero Telemetry)")
-</textarea>
-                <div id="code-console" class="h-28 bg-slate-900/80 p-4 border-t border-slate-800 font-mono text-xs text-slate-400 custom-scroll overflow-y-auto">
-                    <div>Console Output: Ready</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINDOW 5: Kavach Security Shield -->
-        <div id="kavach-window" class="absolute top-20 left-72 w-[640px] h-[440px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
-            <div class="specular-glow"></div>
-            <div class="px-6 py-3.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('kavach-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">Kavach Zero-Trust Security Shield</span>
-                </div>
-                <span class="text-xs font-mono text-emerald-400 font-bold px-2.5 py-0.5 rounded bg-emerald-950/60 border border-emerald-500/40">● ENCLAVE GUARDING</span>
-            </div>
-            <div class="flex-1 bg-slate-950/80 p-6 space-y-4 font-mono text-xs custom-scroll overflow-y-auto">
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800">
-                        <div class="text-slate-400 text-[11px]">Foreign Telemetry Probes Neutralized</div>
-                        <div class="text-3xl font-black text-emerald-400 mt-1">4,280 Probes</div>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800">
-                        <div class="text-slate-400 text-[11px]">Hardware Cipher Standard</div>
-                        <div class="text-sm font-bold text-cyan-300 mt-2">AES-256-GCM + ChaCha20</div>
-                    </div>
-                </div>
-                <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 space-y-2.5">
-                    <div class="text-slate-200 font-bold">Atmanirbhar Sovereignty Guarantees</div>
-                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>Big Tech Telemetry & Ad-trackers: Neutralized</span></div>
-                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>Data Residency: 100% On-Device Local Storage</span></div>
-                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>Sovereign Microkernel: No Foreign Closed-Source Bloatware</span></div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINDOW 6: Solaris Space Game -->
-        <div id="solaris-window" class="absolute top-6 left-16 w-[860px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
-            <div class="specular-glow"></div>
-            <div class="px-6 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2.5">
-                    <span class="w-3.5 h-3.5 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('solaris-window')"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-extrabold">Solaris Orbital Flight Simulator</span>
-                </div>
-                <a href="/game" target="_blank" class="text-xs text-cyan-400 hover:underline font-mono font-bold">Popout Fullscreen ↗</a>
-            </div>
-            <div class="flex-1 bg-black">
-                <iframe src="/game" class="w-full h-full border-none"></iframe>
-            </div>
-        </div>
-
-        <!-- Liquid File Preview Modal -->
-        <div id="file-modal" class="fixed inset-0 bg-black/70 backdrop-blur-lg z-50 hidden flex items-center justify-center p-4">
-            <div class="ultra-liquid-glass max-w-lg w-full p-6 space-y-4 window-open-spring border border-slate-700 shadow-2xl">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-                    <div class="flex items-center space-x-2">
-                        <span class="text-xl">📄</span>
-                        <h3 id="modal-filename" class="text-sm font-bold text-white font-mono">readme.txt</h3>
-                    </div>
-                    <button onclick="closeFilePreview()" class="text-slate-400 hover:text-white text-lg">✕</button>
-                </div>
-                <pre id="modal-filecontent" class="bg-slate-950/90 p-4 rounded-2xl font-mono text-xs text-slate-200 whitespace-pre-wrap leading-relaxed max-h-64 custom-scroll overflow-y-auto border border-slate-800"></pre>
-                <div class="flex justify-end pt-2">
-                    <button onclick="closeFilePreview()" class="px-5 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold text-xs transition-all shadow-lg shadow-cyan-500/25">Close</button>
-                </div>
-            </div>
-        </div>
-
     </main>
 
-    <!-- Liquid Magnetic Magnification Dock -->
-    <footer class="relative z-40 mx-auto mb-6 px-8 py-3.5 ultra-liquid-glass flex items-center space-x-5 shadow-2xl">
-        <button onclick="toggleChakraBloom()" class="p-3 rounded-2xl bg-gradient-to-r from-saffron/40 via-amber-500/35 to-indiaGreen/40 hover:from-saffron/50 hover:to-indiaGreen/50 border border-saffron/50 text-saffron transition-all duration-300 hover:scale-130 active:scale-95 shadow-xl shadow-saffron/30" title="Sudarshan Radial Ring">
-            <span class="text-2xl">☸️</span>
-        </button>
-        <div class="h-8 w-px bg-slate-700/60"></div>
-        <button onclick="openWindow('files-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="File Explorer">📁</button>
-        <button onclick="openWindow('winbridge-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="WinBridge .EXE">🚀</button>
-        <button onclick="openWindow('terminal-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="Terminal">💻</button>
-        <button onclick="openWindow('code-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="Code Studio">⚡</button>
-        <button onclick="openWindow('kavach-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="Kavach Shield">🛡️</button>
-        <button onclick="openWindow('solaris-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all duration-300 hover:scale-125 active:scale-95 text-2xl" title="Solaris Simulator">🪐</button>
+    <!-- Liquid Magnetic Dock -->
+    <footer class="relative z-40 mx-auto mb-6 px-7 py-3 ultra-liquid-glass flex items-center space-x-4 shadow-2xl">
+        <button onclick="openWindow('files-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="File Explorer">📁</button>
+        <button onclick="openWindow('taskmanager-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Task Manager">📊</button>
+        <button onclick="openWindow('settings-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Settings & Battery">⚙️</button>
+        <button onclick="openWindow('winbridge-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="WinBridge .EXE">🚀</button>
+        <button onclick="openWindow('terminal-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Terminal">💻</button>
     </footer>
 
-    <!-- Acoustic Sound Synthesis Engine -->
+    <!-- Scripts: Minimal Boot, Task Manager, Settings & CLI Engine -->
     <script>
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        
-        function playGlassChime(freq = 528) {
-            try {
-                const osc = audioCtx.createOscillator();
-                const gain = audioCtx.createGain();
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-                osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.3);
-                gain.gain.setValueAtTime(0.15, audioCtx.currentTime);
-                gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.5);
-                osc.connect(gain);
-                gain.connect(audioCtx.destination);
-                osc.start();
-                osc.stop(audioCtx.currentTime + 0.5);
-            } catch(e) {}
-        }
-
-        // --- 0. QUANTUM CINEMATIC BOOT ENGINE ---
-        const quantumBootLogs = [
-            "[ 0.000000 ] BHARAT-KERNEL: CPU 0-15 x86_64 SMP Long Mode Online (0x7FFF0000)",
-            "[ 0.000412 ] VMM: 4-Level 64-bit Paging Tables Initialized (16 GB Physical Frame)",
-            "[ 0.001208 ] KAVACH-SECURITY: Hardware Zero-Trust Enclave Armed [SHA-256: 0x9f83...a1]",
-            "[ 0.002491 ] WINBRIDGE: PE32/PE32+ Windows Subsystem Emulation Engine Active",
-            "[ 0.003810 ] PRITHVI-COMPOSITOR: 120 FPS Wayland/DRM Liquid Glass Buffer Ready",
-            "[ 0.005000 ] SOVEREIGNTY VERIFIED: 100% Local On-Device Residency. Zero Leaks.",
-            "[ READY ] Swaraj 2026.1 LTS Desktop Ready. Initializing Spatial Shell..."
+        // --- 1. MINIMAL CLEAN BOOT ENGINE ---
+        let bootProgress = 0;
+        const progressEl = document.getElementById('minimal-boot-progress');
+        const labelEl = document.getElementById('minimal-boot-label');
+        const bootMessages = [
+            "Initializing 64-bit Memory Paging...",
+            "Activating Kavach Zero-Trust Enclave...",
+            "Loading Prithvi Liquid Compositor...",
+            "Sovereign Desktop Ready..."
         ];
 
-        let bootIdx = 0;
-        function runBootTicker() {
-            const stream = document.getElementById('boot-log-stream');
-            const progress = document.getElementById('boot-progress-bar');
-            if (bootIdx < quantumBootLogs.length) {
-                const el = document.createElement('div');
-                el.className = 'text-cyan-300 font-mono';
-                el.textContent = quantumBootLogs[bootIdx];
-                if (stream) stream.appendChild(el);
-                bootIdx++;
-                if (progress) progress.style.width = `${(bootIdx / quantumBootLogs.length) * 100}%`;
-                setTimeout(runBootTicker, 380);
+        function runMinimalBoot() {
+            if (bootProgress < 100) {
+                bootProgress += 25;
+                if (progressEl) progressEl.style.width = `${bootProgress}%`;
+                const msgIdx = Math.min(Math.floor(bootProgress / 25) - 1, bootMessages.length - 1);
+                if (labelEl && msgIdx >= 0) labelEl.textContent = bootMessages[msgIdx];
+                setTimeout(runMinimalBoot, 350);
             } else {
-                setTimeout(finishBoot, 400);
+                setTimeout(finishMinimalBoot, 300);
             }
         }
 
-        function finishBoot() {
-            playGlassChime(640);
-            const bootScreen = document.getElementById('boot-screen');
-            if (bootScreen) {
-                bootScreen.classList.add('warp-singularity');
+        function finishMinimalBoot() {
+            const screen = document.getElementById('boot-screen');
+            if (screen) {
+                screen.classList.add('fade-out-boot');
                 setTimeout(() => {
-                    bootScreen.style.display = 'none';
+                    screen.style.display = 'none';
                     openWindow('files-window');
-                }, 900);
+                }, 800);
             }
         }
+        setTimeout(runMinimalBoot, 150);
 
-        function skipBoot() {
-            finishBoot();
+        // --- 2. NOTIFICATION CENTER TOGGLE ---
+        function toggleNotificationCenter() {
+            document.getElementById('notification-center').classList.toggle('open');
         }
 
-        setTimeout(runBootTicker, 150);
-
-        // --- 1. SUDARSHAN RADIAL COMMAND CHAKRA ---
-        function toggleChakraBloom() {
-            const menu = document.getElementById('chakra-radial-menu');
-            const isBloom = menu.classList.toggle('bloom');
-            playGlassChime(isBloom ? 640 : 432);
-        }
-
-        function handleDesktopClick(e) {
-            const menu = document.getElementById('chakra-radial-menu');
-            if (menu.classList.contains('bloom') && !menu.contains(e.target) && !e.target.closest('button[onclick*="toggleChakraBloom"]')) {
-                menu.classList.remove('bloom');
-            }
-        }
-
-        // --- 2. 3D SPATIAL STAGE MANAGER ---
-        let isSpatialStage = false;
-        function toggleSpatialStage() {
-            isSpatialStage = !isSpatialStage;
-            document.body.classList.toggle('spatial-stage-mode', isSpatialStage);
-            playGlassChime(isSpatialStage ? 720 : 380);
-            document.getElementById('island-activity').textContent = isSpatialStage ? '3D STAGE ACTIVE' : 'WAKATIME 24/7 SYNCING';
-        }
-
-        // --- 3. DYNAMIC 3D SPECULAR TILT ON DRAG & MOUSE ---
-        document.querySelectorAll('.ultra-liquid-glass').forEach(win => {
-            win.addEventListener('mousemove', (e) => {
-                const rect = win.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                win.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
-                win.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
-
-                // Subtle 3D card tilt
-                const rotX = ((y / rect.height) - 0.5) * -8;
-                const rotY = ((x / rect.width) - 0.5) * 8;
-                if (!document.body.classList.contains('spatial-stage-mode')) {
-                    win.style.transform = `perspective(1000px) rotateX(${rotX}deg) rotateY(${rotY}deg)`;
-                }
+        // --- 3. SETTINGS TABS & POWER MODES ---
+        function switchSettingsTab(tabName) {
+            ['battery', 'memory', 'security', 'display'].forEach(t => {
+                document.getElementById(`tab-${t}`).classList.add('hidden');
+                document.getElementById(`tab-btn-${t}`).className = 'w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold';
             });
-
-            win.addEventListener('mouseleave', () => {
-                if (!document.body.classList.contains('spatial-stage-mode')) {
-                    win.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg)';
-                }
-            });
-        });
-
-        // --- 4. WINBRIDGE .EXE EXECUTION SIMULATOR ---
-        function runExeSample(exeName) {
-            playGlassChime(880);
-            const consoleEl = document.getElementById('winbridge-console');
-            consoleEl.innerHTML += `
-                <div class="mt-2 text-cyan-300 font-bold">▶ [WinBridge Loader] Parsing PE32+ binary: '${exeName}'...</div>
-                <div class="text-slate-300">• Section Mapping: .text (0x140001000), .rdata (0x140004000), .data (0x140006000)</div>
-                <div class="text-slate-300">• Win32 IAT Translation: kernel32.dll!WriteConsoleA -> bsh_stdout_pipe</div>
-                <div class="text-emerald-400 font-bold">✓ Process '${exeName}' active in Kavach Sovereign Enclave (PID ${Math.floor(Math.random()*8000+1000)}). Zero telemetry leak.</div>
-            `;
-            consoleEl.scrollTop = consoleEl.scrollHeight;
+            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
+            document.getElementById(`tab-btn-${tabName}`).className = 'w-full text-left px-3 py-2 rounded-lg bg-slate-800/80 text-cyan-300 font-bold';
         }
 
-        // --- 5. VFS FILE SYSTEM ENGINE ---
-        const VFS_TREE = {
-            "/home/user": [
-                { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
-                { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
-                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB", content: "[Windows 64-bit PE32+ Executable - Run via Kavach WinBridge]" },
-                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB", content: "Welcome to BharatOS Sovereign Operating System.\n\nKey Capabilities:\n1. 100% Local Data Residency\n2. Zero Foreign Telemetry Probes\n3. Hyper-Fluid Liquid Glass UI\n4. Native Indic 10-Language Localization\n5. Bare-Metal Microkernel Architecture" },
-                { name: "kavach.cfg", type: "file", icon: "⚙️", size: "480 B", content: "{\n  \"sovereign_firewall\": true,\n  \"telemetry_block_mode\": \"STRICT_ZERO_TRUST\",\n  \"encryption_cipher\": \"AES-256-GCM + ChaCha20\",\n  \"dns_resolver\": \"sovereign.local.nic.in\",\n  \"data_residency\": \"IN_DEVICE_STORAGE_ONLY\"\n}" },
-                { name: "orbit.py", type: "file", icon: "🐍", size: "820 B", content: "# Orbital Physics Solver\nimport math\nG = 6.67430e-11\nprint(\"Verlet Numerical Integrator initialized.\")" }
-            ],
-            "/home/user/documents": [
-                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB", content: "# Digital Sovereignty for India\nIndependent computing infrastructure with zero dependency on foreign cloud telemetry." },
-                { name: "specs.pdf", type: "file", icon: "📕", size: "450 KB", content: "BharatOS Hardware Architecture Specification v2026.1" }
-            ],
-            "/home/user/projects": [
-                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" },
-                { name: "indic_ai_core", type: "dir", icon: "🧠", size: "120 KB" }
-            ],
-            "/system": [
-                { name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB", content: "[BharatOS Microkernel Binary 64-bit]" },
-                { name: "kavach.dat", type: "file", icon: "🛡️", size: "64 KB", content: "[Kavach Security Rule Engine Matrix]" }
-            ],
-            "/apps": [
-                { name: "terminal.app", type: "file", icon: "💻", size: "240 KB" },
-                { name: "code_studio.app", type: "file", icon: "⚡", size: "512 KB" },
-                { name: "solaris.app", type: "file", icon: "🪐", size: "1.8 MB" }
-            ]
-        };
+        function setPowerMode(mode) {
+            alert(`Power profile set to: ${mode}`);
+        }
 
-        let currentVFSPath = "/home/user";
+        // --- 4. TASK MANAGER PROCESS MONITOR ---
+        const processes = [
+            { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
+            { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
+            { pid: 3, name: "liquid_compositor", cpu: "1.2%", mem: "42.0 MB", status: "120 FPS" },
+            { pid: 4, name: "winbridge_runtime", cpu: "0.3%", mem: "24.0 MB", status: "Idle" },
+            { pid: 5, name: "bharat_shell", cpu: "0.1%", mem: "8.6 MB", status: "Interactive" }
+        ];
 
-        function renderVFS(path) {
-            currentVFSPath = path;
-            document.getElementById('vfs-current-breadcrumb').textContent = path.replace("/home/user", "");
-            const container = document.getElementById('vfs-file-grid');
-            const items = VFS_TREE[path] || [];
-
-            container.innerHTML = '';
-            items.forEach(item => {
-                const el = document.createElement('div');
-                el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/80 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:border-cyan-400/50 hover:bg-slate-800/80 transition-all shadow-lg group';
-                el.onclick = () => {
-                    playGlassChime(500);
-                    if (item.type === 'dir') {
-                        const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
-                        navigateToPath(nextPath);
-                    } else if (item.name.endsWith('.exe')) {
-                        openWindow('winbridge-window');
-                        runExeSample(item.name);
-                    } else {
-                        openFilePreview(item.name, item.content || `[Document: ${item.name}]`);
-                    }
-                };
-
-                el.innerHTML = `
-                    <span class="text-3xl mb-1.5 group-hover:scale-125 transition-transform duration-300">${item.icon}</span>
-                    <span class="text-slate-200 font-bold text-xs truncate w-full">${item.name}</span>
-                    <span class="text-[10px] text-slate-500 mt-1">${item.size}</span>
+        function renderTaskManager() {
+            const tbody = document.getElementById('tm-process-tbody');
+            if (!tbody) return;
+            tbody.innerHTML = '';
+            processes.forEach(p => {
+                const tr = document.createElement('tr');
+                tr.className = 'hover:bg-slate-900/60';
+                tr.innerHTML = `
+                    <td class="py-2.5 font-bold text-cyan-300">${p.pid}</td>
+                    <td class="py-2.5 text-white font-semibold">${p.name}</td>
+                    <td class="py-2.5 text-emerald-400">${p.cpu}</td>
+                    <td class="py-2.5 text-amber-300">${p.mem}</td>
+                    <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300">${p.status}</span></td>
+                    <td class="py-2.5 text-right"><button onclick="killProcess(${p.pid})" class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-500/40 text-rose-300 hover:bg-rose-900 text-[10px]">End Task</button></td>
                 `;
-                container.appendChild(el);
+                tbody.appendChild(tr);
             });
         }
 
-        function navigateToPath(path) {
-            if (VFS_TREE[path]) renderVFS(path);
-            else { VFS_TREE[path] = []; renderVFS(path); }
+        function killProcess(pid) {
+            alert(`Process PID ${pid} terminated safely in sovereign space.`);
         }
 
-        function searchVFS(query) {
-            if (!query) { renderVFS(currentVFSPath); return; }
-            const container = document.getElementById('vfs-file-grid');
-            container.innerHTML = '';
-            for (const [path, items] of Object.entries(VFS_TREE)) {
-                items.forEach(item => {
-                    if (item.name.toLowerCase().includes(query.toLowerCase())) {
-                        const el = document.createElement('div');
-                        el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800 transition-all shadow-md';
-                        el.onclick = () => openFilePreview(item.name, item.content || `File in ${path}`);
-                        el.innerHTML = `
-                            <span class="text-3xl mb-1">${item.icon}</span>
-                            <span class="text-cyan-300 font-bold text-xs truncate w-full">${item.name}</span>
-                            <span class="text-[10px] text-slate-400 mt-1">${path}</span>
-                        `;
-                        container.appendChild(el);
-                    }
-                });
-            }
+        function purgeMemoryCache() {
+            alert("✓ 12.7 MB Page Cache purged successfully. Free memory expanded.");
         }
 
-        function createNewFilePrompt() {
-            const name = prompt("Enter file name (e.g. script.py):", "new_file.txt");
-            if (name) {
-                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
-                VFS_TREE[currentVFSPath].push({ name, type: "file", icon: name.endsWith('.py') ? '🐍' : '📄', size: "0 B", content: "# Empty sovereign file created." });
-                renderVFS(currentVFSPath);
-            }
-        }
+        renderTaskManager();
 
-        function createNewFolderPrompt() {
-            const name = prompt("Enter folder name:", "new_folder");
-            if (name) {
-                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
-                VFS_TREE[currentVFSPath].push({ name, type: "dir", icon: "📁", size: "0 KB" });
-                VFS_TREE[`${currentVFSPath}/${name}`] = [];
-                renderVFS(currentVFSPath);
-            }
-        }
-
-        renderVFS("/home/user");
-
-        // --- 6. BHARAT SHELL (bsh) CLI ---
+        // --- 5. BHARAT SHELL EXPANDED COMMANDS (Windows + Linux) ---
         let cmdHistory = [];
         let historyIdx = -1;
 
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
-            if (e.key === 'ArrowUp') {
-                if (cmdHistory.length > 0) {
-                    if (historyIdx === -1) historyIdx = cmdHistory.length - 1;
-                    else if (historyIdx > 0) historyIdx--;
-                    input.value = cmdHistory[historyIdx];
-                }
-                e.preventDefault(); return;
-            } else if (e.key === 'ArrowDown') {
-                if (historyIdx !== -1 && historyIdx < cmdHistory.length - 1) {
-                    historyIdx++; input.value = cmdHistory[historyIdx];
-                } else {
-                    historyIdx = -1; input.value = '';
-                }
-                e.preventDefault(); return;
-            }
-
             if (e.key === 'Enter') {
                 const val = input.value.trim();
                 if (!val) return;
                 cmdHistory.push(val);
-                historyIdx = -1;
                 input.value = '';
 
                 const out = document.getElementById('terminal-output');
@@ -926,145 +656,106 @@ print("✓ Sovereignty Status: Verified 100% Local (Zero Telemetry)")
 
                 if (cmd === 'help') {
                     out.innerHTML += `
-                        <div class="text-cyan-300 font-bold">Bharat Shell (bsh) Command Suite:</div>
-                        <div class="text-slate-300 grid grid-cols-2 gap-1 mt-1">
-                            <div>• <b class="text-white">help</b>: Show command list</div>
-                            <div>• <b class="text-white">neofetch / sysinfo</b>: OS specs</div>
-                            <div>• <b class="text-white">ls [-l]</b>: List directory files</div>
-                            <div>• <b class="text-white">cd [path]</b>: Change directory</div>
-                            <div>• <b class="text-white">pwd</b>: Print working directory</div>
-                            <div>• <b class="text-white">cat [file]</b>: Read file content</div>
-                            <div>• <b class="text-white">winbridge [file.exe]</b>: Run Windows binary</div>
-                            <div>• <b class="text-white">matrix</b>: Falling code stream</div>
-                            <div>• <b class="text-white">top</b>: Process memory manager</div>
-                            <div>• <b class="text-white">kavach</b>: Security diagnostics</div>
-                            <div>• <b class="text-white">solaris</b>: Launch space game</div>
-                            <div>• <b class="text-white">clear</b>: Wipe buffer</div>
+                        <div class="text-cyan-300 font-bold">Bharat Shell Command Suite (Linux & Windows Compatible):</div>
+                        <div class="grid grid-cols-2 gap-1 text-slate-300 mt-1">
+                            <div>• <b>dir / ls</b>: List files</div>
+                            <div>• <b>cls / clear</b>: Clear screen</div>
+                            <div>• <b>tasklist / ps</b>: Show processes</div>
+                            <div>• <b>taskkill / kill &lt;PID&gt;</b>: End task</div>
+                            <div>• <b>mem / free</b>: Memory stats</div>
+                            <div>• <b>systeminfo / neofetch</b>: OS specs</div>
+                            <div>• <b>ipconfig / ifconfig</b>: Network config</div>
+                            <div>• <b>ver</b>: BharatOS version</div>
+                            <div>• <b>tree</b>: Directory tree</div>
+                            <div>• <b>kavach</b>: Security diagnostics</div>
                         </div>
                     `;
-                } else if (cmd === 'neofetch' || cmd === 'sysinfo') {
-                    out.innerHTML += `
-                        <div class="flex items-center space-x-4 my-2">
-                            <span class="text-5xl text-saffron">☸️</span>
-                            <div>
-                                <div class="text-saffron font-bold text-sm">sovereign@bharatos</div>
-                                <div class="text-slate-400">------------------</div>
-                                <div class="text-slate-300">OS: BharatOS 2026.1 LTS 'Swaraj' (x86_64)</div>
-                                <div class="text-slate-300">Kernel: Bharat Bare-Metal Microkernel v3.2</div>
-                                <div class="text-slate-300">Compositor: Liquid Glass Shader (120 FPS Wayland/DRM)</div>
-                                <div class="text-slate-300">Memory: 38 MB / 16384 MB (Ultra-Lightweight)</div>
-                                <div class="text-slate-300">Subsystem: Kavach WinBridge (.EXE Loader Active)</div>
-                            </div>
-                        </div>
-                    `;
-                } else if (cmd === 'kavach') {
-                    out.innerHTML += `<div class="text-emerald-400 font-bold">🛡️ Kavach Status: 100% SECURE • 4,280 foreign telemetry probes neutralized.</div>`;
-                } else if (cmd === 'pwd') {
-                    out.innerHTML += `<div class="text-cyan-300">${currentVFSPath}</div>`;
-                } else if (cmd === 'ls') {
-                    const items = VFS_TREE[currentVFSPath] || [];
-                    const display = items.map(i => i.type === 'dir' ? `<span class="text-cyan-400 font-bold">${i.name}/</span>` : `<span class="text-slate-200">${i.name}</span>`).join('  ');
-                    out.innerHTML += `<div>${display || 'Empty directory'}</div>`;
-                } else if (cmd === 'winbridge') {
-                    const target = args[1] || "app.exe";
-                    openWindow('winbridge-window');
-                    runExeSample(target);
-                } else if (cmd === 'solaris') {
-                    openWindow('solaris-window');
-                    out.innerHTML += `<div class="text-cyan-300">Launching Solaris Space Flight Simulator...</div>`;
-                } else if (cmd === 'matrix') {
-                    out.innerHTML += `<div class="text-emerald-400 font-mono">01000010 01001000 01000001 01010010 01000001 01010100 01001111 01010011<br>Swaraj Matrix Protocol Engaged.</div>`;
-                } else if (cmd === 'top') {
-                    out.innerHTML += `
-                        <div class="text-slate-300">
-                            PID  PROCESS             CPU%   MEM(MB)  STATUS<br>
-                            1    sovereign_init      0.1    12.4     RUNNING<br>
-                            2    kavach_firewall     0.3    18.2     GUARDING<br>
-                            3    liquid_compositor   1.2    42.0     ACTIVE (120 FPS)<br>
-                            4    winbridge_runtime   0.4    24.0     IDLE
-                        </div>
-                    `;
-                } else if (cmd === 'clear') {
+                } else if (cmd === 'dir' || cmd === 'ls') {
+                    out.innerHTML += `<div>documents/  projects/  solaris_game.exe  readme.txt  kavach.cfg  orbit.py</div>`;
+                } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
+                } else if (cmd === 'tasklist' || cmd === 'ps') {
+                    out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: liquid_compositor (42.0 MB)</div>`;
+                } else if (cmd === 'mem' || cmd === 'free') {
+                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB<br>Paging Mode: 4-Level 64-bit PML4 (4 KB Pages)</div>`;
+                } else if (cmd === 'systeminfo' || cmd === 'neofetch') {
+                    out.innerHTML += `<div>OS: BharatOS 2026.1 LTS 'Swaraj'<br>Microkernel: 64-bit Rust (Bare-Metal)<br>Compositor: Prithvi Liquid Glass (120 FPS)<br>Security: Kavach Zero-Trust Active (AES-256-GCM)</div>`;
+                } else if (cmd === 'ver') {
+                    out.innerHTML += `<div>BharatOS [Version 2026.1.0 LTS Swaraj]</div>`;
+                } else if (cmd === 'ipconfig' || cmd === 'ifconfig') {
+                    out.innerHTML += `<div>Adapter sovereign0: IPv4 192.168.1.108 | DNS: sovereign.local.nic.in (100% Encrypted)</div>`;
                 } else {
-                    out.innerHTML += `<div class="text-rose-400">bsh: command not found: ${cmd}. Type 'help' for command suite.</div>`;
+                    out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
                 }
                 out.scrollTop = out.scrollHeight;
             }
         }
 
-        // --- 7. WINDOW LIFECYCLE & FLUID ANIMATIONS ---
-        let highestZ = 30;
+        // --- 6. VFS ENGINE ---
+        const VFS_TREE = {
+            "/home/user": [
+                { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
+                { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
+                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB" },
+                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB" }
+            ],
+            "/home/user/documents": [
+                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB" }
+            ],
+            "/home/user/projects": [
+                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" }
+            ],
+            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }],
+            "/apps": [{ name: "terminal.app", type: "file", icon: "💻", size: "240 KB" }]
+        };
 
-        function openWindow(winId) {
-            playGlassChime(600);
-            const el = document.getElementById(winId);
+        let currentVFSPath = "/home/user";
+        function renderVFS(path) {
+            currentVFSPath = path;
+            const container = document.getElementById('vfs-file-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            (VFS_TREE[path] || []).forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800 transition-all';
+                el.innerHTML = `<span class="text-3xl mb-1">${item.icon}</span><span class="text-xs text-slate-200 font-bold truncate w-full">${item.name}</span><span class="text-[10px] text-slate-500 mt-1">${item.size}</span>`;
+                container.appendChild(el);
+            });
+        }
+        function navigateToPath(p) { renderVFS(p); }
+        renderVFS("/home/user");
+
+        // Window Handlers
+        let highestZ = 30;
+        function openWindow(id) {
+            const el = document.getElementById(id);
             if (el) {
-                el.classList.remove('hidden');
-                el.classList.remove('window-close-spring');
+                el.classList.remove('hidden', 'window-close-spring');
                 el.classList.add('window-open-spring');
                 highestZ++;
                 el.style.zIndex = highestZ;
             }
         }
-
-        function closeWindow(winId) {
-            playGlassChime(400);
-            const el = document.getElementById(winId);
+        function closeWindow(id) {
+            const el = document.getElementById(id);
             if (el) {
                 el.classList.remove('window-open-spring');
                 el.classList.add('window-close-spring');
-                setTimeout(() => el.classList.add('hidden'), 220);
+                setTimeout(() => el.classList.add('hidden'), 200);
             }
         }
 
-        function openFilePreview(name, content) {
-            document.getElementById('modal-filename').textContent = name;
-            document.getElementById('modal-filecontent').textContent = content;
-            document.getElementById('file-modal').classList.remove('hidden');
-        }
-
-        function closeFilePreview() {
-            document.getElementById('file-modal').classList.add('hidden');
-        }
-
-        const LANG_DICT = {
-            hi: "भारत ओएस लिक्विड",
-            en: "Welcome to BharatOS Quantum Liquid",
-            ta: "பாரத் ஓஎஸ்-க்கு வரவேற்கிறோம்",
-            te: "భారత్ ఓఎస్‌కు స్వాగతం",
-            bn: "ভারত ওএস-এ স্বাগতম",
-            mr: "भारत ओएस मध्ये आपले स्वागत आहे",
-            gu: "ભારત ઓએસમાં આપનું સ્વાગત છે",
-            kn: "ಭಾರತ್ ಓಎಸ್‌ಗೆ ಸುಸ್ವಾಗತ",
-            ml: "ഭారത് ഒഎസിലേക്ക് സ്വാಗതം",
-            pa: "ਭਾਰਤ ਓਐਸ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ"
-        };
-
-        function changeLanguage(langCode) {
-            const welcomeText = LANG_DICT[langCode] || LANG_DICT.en;
-            document.getElementById('os-welcome-banner').firstElementChild.textContent = welcomeText;
+        function runExeSample(name) {
+            const c = document.getElementById('winbridge-console');
+            c.innerHTML += `<div class="mt-1 text-cyan-300 font-bold">▶ Executed '${name}' via WinBridge (PID ${Math.floor(Math.random()*8000+1000)}). Zero telemetry.</div>`;
         }
 
         function updateClock() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-IN', { hour12: false });
-            document.getElementById('ist-clock').textContent = `${timeStr} IST`;
+            document.getElementById('ist-clock').textContent = `${now.toLocaleTimeString('en-IN', { hour12: false })} IST`;
         }
         setInterval(updateClock, 1000);
         updateClock();
-
-        function runCode() {
-            const consoleEl = document.getElementById('code-console');
-            consoleEl.innerHTML = `
-                <div class="text-emerald-400">▶ Executing on Sovereign Bharat Python 3.12 runtime...</div>
-                <div class="text-white">🇮🇳 BharatOS Space Engine: Orbital Speed = 7905.37 m/s</div>
-                <div class="text-cyan-300">✓ Sovereignty Status: Verified 100% Local (Zero Telemetry Leak)</div>
-            `;
-        }
-
-        // Open Files window by default
-        openWindow('files-window');
     </script>
 </body>
 </html>
