@@ -107,35 +107,35 @@
             transition: background var(--trans-speed) ease, color var(--trans-speed) ease;
         }
 
-        /* NATURE OF BHARAT SCENIC WALLPAPERS */
-        body.wall-ladakh {
-            background: 
-                radial-gradient(ellipse at 50% 10%, rgba(255, 215, 0, 0.22) 0%, transparent 50%),
-                linear-gradient(180deg, #0c1a30 0%, #1e3a5f 25%, #3b82f6 45%, #60a5fa 55%, #0284c7 70%, #0369a1 85%, #082f49 100%);
-            background-attachment: fixed;
+        /* =========================================================================
+           AI-GENERATED NATURE OF BHARAT (INDIA) PHOTOGRAPHIC WALLPAPERS
+           ========================================================================= */
+        
+        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks (Photographic 8K) */
+        body.wall-ladakh-ai {
+            background: url('wallpapers/ladakh_pangong.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        body.wall-munnar {
-            background: 
-                radial-gradient(circle at 30% 20%, rgba(134, 239, 172, 0.2) 0%, transparent 60%),
-                linear-gradient(180deg, #062419 0%, #064e3b 30%, #047857 55%, #059669 70%, #10b981 85%, #022c22 100%);
-            background-attachment: fixed;
+        /* 2. Western Ghats & Munnar Tea Mist (Photographic 8K) */
+        body.wall-munnar-ai {
+            background: url('wallpapers/munnar_hills.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        body.wall-varanasi {
-            background: 
-                radial-gradient(circle at 50% 30%, rgba(251, 146, 60, 0.35) 0%, transparent 65%),
-                linear-gradient(180deg, #311105 0%, #7c2d12 25%, #c2410c 50%, #ea580c 65%, #f97316 78%, #431407 100%);
-            background-attachment: fixed;
+        /* 3. Varanasi Ganges River Sunrise & Golden Hour (Photographic 8K) */
+        body.wall-varanasi-ai {
+            background: url('wallpapers/varanasi_dawn.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        body.wall-thar {
-            background: 
-                radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.28) 0%, transparent 60%),
-                linear-gradient(180deg, #180d04 0%, #451a03 30%, #78350f 55%, #b45309 72%, #d97706 88%, #291004 100%);
-            background-attachment: fixed;
+        /* 4. Thar Desert Golden Dunes of Jaisalmer (Photographic 8K) */
+        body.wall-thar-ai {
+            background: url('wallpapers/thar_twilight.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
+        /* 5. Andaman & Nicobar Coral Lagoon */
         body.wall-andaman {
             background: 
                 radial-gradient(circle at 50% 15%, rgba(103, 232, 249, 0.3) 0%, transparent 60%),
@@ -143,6 +143,7 @@
             background-attachment: fixed;
         }
 
+        /* 6. Kashmir Valley Floating Lotus & Dal Lake Morning */
         body.wall-kashmir {
             background: 
                 radial-gradient(circle at 40% 25%, rgba(244, 114, 182, 0.25) 0%, transparent 60%),
@@ -150,6 +151,7 @@
             background-attachment: fixed;
         }
 
+        /* 7. Rann of Kutch Full Moon White Salt Desert */
         body.wall-kutch {
             background: 
                 radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
@@ -157,6 +159,7 @@
             background-attachment: fixed;
         }
 
+        /* 8. Obsidian Void (Deep OLED Black) */
         body.wall-obsidian {
             background: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
             background-attachment: fixed;
@@ -421,7 +424,7 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 4px; }
     </style>
 </head>
-<body class="wall-ladakh select-none">
+<body class="wall-ladakh-ai select-none">
 
     <!-- SHUTDOWN & REBOOT OVERLAY -->
     <div id="power-overlay">
@@ -1212,26 +1215,26 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
-                                <div class="text-sm font-bold">Majestic Nature of Bharat (India) Wallpapers</div>
+                                <div class="text-sm font-bold">AI-Generated Nature of Bharat (8K Masterpieces)</div>
                                 <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
                             </div>
-                            <div class="text-xs opacity-70">Authentic scenic vistas across India without generic text labels</div>
+                            <div class="text-xs opacity-70">Photorealistic scenic vistas of India generated with AI & rendered in ultra-high definition</div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <button onclick="setWallpaper('wall-ladakh')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105">
+                                <button onclick="setWallpaper('wall-ladakh-ai')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🏔️ Ladakh Pangong</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Glacial Himalayan Peaks</div>
+                                    <div class="text-[9px] text-saffron font-bold mt-0.5">8K AI Masterpiece</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-munnar')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-emerald-950/40 text-left transition-all hover:border-emerald-500 hover:scale-105">
+                                <button onclick="setWallpaper('wall-munnar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-emerald-950/40 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-emerald-400">🌿 Munnar Mist</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Western Ghats Rainforest</div>
+                                    <div class="text-[9px] text-emerald-500 font-bold mt-0.5">8K AI Masterpiece</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-varanasi')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-orange-950/40 text-left transition-all hover:border-orange-500 hover:scale-105">
+                                <button onclick="setWallpaper('wall-varanasi-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-orange-950/40 text-left transition-all hover:border-orange-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-orange-400">🌅 Varanasi Ganges</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Sacred Dawn Sunlight</div>
+                                    <div class="text-[9px] text-amber-500 font-bold mt-0.5">8K AI Masterpiece</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-thar')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-amber-950/40 text-left transition-all hover:border-amber-500 hover:scale-105">
+                                <button onclick="setWallpaper('wall-thar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-amber-950/40 text-left transition-all hover:border-amber-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-amber-400">🏜️ Thar Dunes</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Jaisalmer Starry Twilight</div>
+                                    <div class="text-[9px] text-cyan-400 font-bold mt-0.5">8K AI Masterpiece</div>
                                 </button>
                                 <button onclick="setWallpaper('wall-andaman')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-teal-950/40 text-left transition-all hover:border-teal-500 hover:scale-105">
                                     <div class="text-xs font-bold text-teal-400">🌊 Andaman Lagoon</div>
