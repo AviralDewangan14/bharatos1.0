@@ -1,15 +1,15 @@
 {
-  "balance": 6139.217519193495,
-  "lifetime_earnings": 6088.88,
-  "lifetime_expenses": 49.66248080650563,
-  "token_costs_total": 0.023258624999999998,
-  "xp": 6083,
+  "balance": 9169.213241298987,
+  "lifetime_earnings": 9136.53,
+  "lifetime_expenses": 67.31675870101546,
+  "token_costs_total": 0.03044475,
+  "xp": 9129,
   "level": 4,
   "level_title": "Autonomous Tech Agency",
-  "contracts_completed": 15,
-  "contracts_won": 18,
-  "proposals_sent": 24,
-  "simulated_days_survived": 2.4819611090752813,
+  "contracts_completed": 20,
+  "contracts_won": 22,
+  "proposals_sent": 30,
+  "simulated_days_survived": 3.364315697550773,
   "is_alive": true,
   "upgrades": {
     "speed_boost_v1": {
@@ -45,3 +45,4 @@
       "type": "tips"
     }
   }
+}

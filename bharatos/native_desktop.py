@@ -1,7 +1,7 @@
 """
-Native Standalone BharatOS Desktop Application.
+Native Standalone BharatOS Desktop Application (Revolutionary Sovereign PC GUI).
 Runs natively on PC hardware as an independent desktop window with zero browser required.
-Features cinematic booting animation, advanced File Explorer, Bharat Shell (bsh), and Kavach Security.
+Features cinematic booting animation, Prithvi Liquid Shell, WinBridge .EXE execution, and Bharat Shell (bsh).
 """
 
 import sys
@@ -20,25 +20,26 @@ if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
         pass
 
 from bharatos.kernel import bharat_kernel, INDIC_LANGUAGES
+from bharatos.winbridge.pe_parser import winbridge
 
 class BharatOSNativeWindow:
-    """Standalone Native Desktop Operating System Window for PC."""
+    """Standalone Revolutionary Native Desktop Operating System Window for PC."""
 
     def __init__(self):
         self.root = tk.Tk()
-        self.root.title("BharatOS Sovereign PC Operating System — Swaraj 2026.1 LTS")
+        self.root.title("BharatOS Sovereign PC Operating System — Swaraj 2026.1 LTS (Quantum Liquid)")
         self.root.geometry("1280x800")
         self.root.minsize(1024, 680)
-        self.root.configure(bg="#03060c")
+        self.root.configure(bg="#020409")
 
         self.current_lang = "hi"
         self.current_vfs_path = "/home/user"
         self.vfs_data = {
-            "/home/user": ["📁 documents", "📁 projects", "📄 readme.txt", "⚙️ kavach.cfg", "🐍 orbit.py", "📋 system.log"],
+            "/home/user": ["📁 documents", "📁 projects", "🚀 solaris_game.exe", "📄 readme.txt", "⚙️ kavach.cfg", "🐍 orbit.py"],
             "/home/user/documents": ["📄 sovereignty_manifesto.md", "📕 specs.pdf"],
-            "/home/user/projects": ["🚀 solaris_space_game", "🧠 indic_ai_core"],
+            "/home/user/projects": ["🪐 solaris_space_game", "🧠 indic_ai_core"],
             "/system": ["⚙️ kernel.sys", "🛡️ kavach.dat"],
-            "/apps": ["💻 terminal.app", "⚡ code_studio.app", "🚀 solaris.app"]
+            "/apps": ["💻 terminal.app", "⚡ code_studio.app", "🚀 winbridge.app"]
         }
 
         # Build UI Stages
@@ -46,68 +47,66 @@ class BharatOSNativeWindow:
 
     def show_cinematic_boot(self):
         """Phase 1: Crazy Bare-Metal Cinematic Boot Animation."""
-        self.boot_frame = tk.Frame(self.root, bg="#03060c")
+        self.boot_frame = tk.Frame(self.root, bg="#020409")
         self.boot_frame.pack(fill="both", expand=True)
 
         self.boot_logo = tk.Label(
             self.boot_frame,
             text="☸️",
-            font=("Segoe UI Emoji", 78),
-            bg="#03060c",
+            font=("Segoe UI Emoji", 82),
+            bg="#020409",
             fg="#ff9933"
         )
-        self.boot_logo.pack(pady=(160, 10))
+        self.boot_logo.pack(pady=(150, 10))
 
         self.boot_title = tk.Label(
             self.boot_frame,
             text="BHARAT OS",
-            font=("Segoe UI", 32, "bold"),
-            bg="#03060c",
+            font=("Segoe UI", 34, "bold"),
+            bg="#020409",
             fg="#ffffff"
         )
         self.boot_title.pack(pady=4)
 
         self.boot_subtitle = tk.Label(
             self.boot_frame,
-            text="SOVEREIGN PC OPERATING SYSTEM • ZERO FOREIGN TELEMETRY",
+            text="REVOLUTIONARY SOVEREIGN PC OPERATING SYSTEM • 120 FPS QUANTUM",
             font=("Consolas", 11, "bold"),
-            bg="#03060c",
+            bg="#020409",
             fg="#ff9933"
         )
         self.boot_subtitle.pack(pady=4)
 
-        # Stage Ticker Terminal
-        self.log_box = tk.Frame(self.boot_frame, bg="#0b1120", padx=15, pady=12, highlightthickness=1, highlightbackground="#1e293b")
-        self.log_box.pack(pady=(25, 10), fill="x", padx=320)
+        self.log_box = tk.Frame(self.boot_frame, bg="#090e1a", padx=16, pady=14, highlightthickness=1, highlightbackground="#1e293b")
+        self.log_box.pack(pady=(25, 10), fill="x", padx=300)
 
         self.boot_status = tk.Label(
             self.log_box,
             text="[ OK ] ACPI Hardware Tables and SMP Cores Initialized...",
-            font=("Consolas", 10),
-            bg="#0b1120",
+            font=("Consolas", 10, "bold"),
+            bg="#090e1a",
             fg="#38bdf8",
             anchor="w"
         )
         self.boot_status.pack(fill="x")
 
-        # Progress Bar
-        self.progress = ttk.Progressbar(self.boot_frame, orient="horizontal", length=480, mode="determinate")
-        self.progress.pack(pady=8)
+        self.progress = ttk.Progressbar(self.boot_frame, orient="horizontal", length=500, mode="determinate")
+        self.progress.pack(pady=10)
 
         threading.Thread(target=self._run_boot_stages, daemon=True).start()
 
     def _run_boot_stages(self):
         stages = [
             (18, "[ OK ] ACPI Hardware Tables and SMP Cores Initialized"),
-            (38, "[ OK ] VMM 4-Level 64-bit Paging Structure Activated"),
-            (62, "[ OK ] Kavach Zero-Trust Telemetry Firewall Armed (AES-256-GCM)"),
-            (82, "[ OK ] Prithvi Liquid Glass Compositor Ready at 120 FPS"),
-            (95, "[ OK ] Sovereign Virtual File System (VFS) Mounted at /root"),
-            (100, "[ READY ] Transitioning to BharatOS Desktop...")
+            (38, "[ OK ] VMM 4-Level 64-bit Paging & Virtual Memory Allocated"),
+            (60, "[ OK ] Kavach WinBridge Windows .EXE PE32+ Subsystem Ready"),
+            (80, "[ OK ] Prithvi Liquid Glass Compositor Hardware Buffer Active (120 FPS)"),
+            (95, "[ OK ] SovereignFS Copy-on-Write Encrypted Partition Mounted"),
+            (100, "[ READY ] Welcome to BharatOS Swaraj 2026.1 LTS...")
         ]
 
         for val, text in stages:
-            time.sleep(0.45)
+            time.sleep(0.42)
             self.progress['value'] = val
             self.boot_status.config(text=text)
 
@@ -120,66 +119,62 @@ class BharatOSNativeWindow:
         self._build_native_desktop()
 
     def _build_native_desktop(self):
-        self.desktop = tk.Frame(self.root, bg="#050811")
+        self.desktop = tk.Frame(self.root, bg="#03060c")
         self.desktop.pack(fill="both", expand=True)
 
-        # Top System Bar
-        self.top_bar = tk.Frame(self.desktop, bg="#0c1322", height=42, padx=15, pady=6)
+        # Top System Bar with Neural Horizon Island
+        self.top_bar = tk.Frame(self.desktop, bg="#0a101d", height=44, padx=15, pady=6)
         self.top_bar.pack(side="top", fill="x")
 
         tk.Label(
             self.top_bar,
-            text="🇮🇳 BharatOS Liquid",
+            text="☸️ BharatOS Quantum",
             font=("Segoe UI", 11, "bold"),
-            bg="#0c1322",
+            bg="#0a101d",
             fg="#ff9933"
-        ).pack(side="left", padx=6)
+        ).pack(side="left", padx=8)
 
         self.lbl_welcome = tk.Label(
             self.top_bar,
             text=INDIC_LANGUAGES[self.current_lang]["welcome"],
             font=("Segoe UI", 10, "bold"),
-            bg="#0c1322",
+            bg="#0a101d",
             fg="#cbd5e1"
         )
         self.lbl_welcome.pack(side="left", padx=15)
+
+        # Center Neural Horizon Pill
+        island = tk.Frame(self.top_bar, bg="#020409", padx=14, pady=3, highlightthickness=1, highlightbackground="#38bdf8")
+        island.pack(side="left", padx=30)
+        tk.Label(island, text="● WAKATIME 24/7 SYNCING", font=("Consolas", 9, "bold"), bg="#020409", fg="#38bdf8").pack(side="left", padx=4)
+        tk.Label(island, text="| 🛡️ KAVACH 100%", font=("Consolas", 9, "bold"), bg="#020409", fg="#4ade80").pack(side="left", padx=4)
 
         self.lbl_clock = tk.Label(
             self.top_bar,
             text="--:--:-- IST",
             font=("Consolas", 10, "bold"),
-            bg="#0c1322",
+            bg="#0a101d",
             fg="#38bdf8"
         )
         self.lbl_clock.pack(side="right", padx=10)
 
-        tk.Label(
-            self.top_bar,
-            text="🛡️ KAVACH SECURE (100% SOVEREIGN)",
-            font=("Consolas", 9, "bold"),
-            bg="#052e16",
-            fg="#4ade80",
-            padx=10,
-            pady=3
-        ).pack(side="right", padx=10)
-
         # Center Watermark
-        center_frame = tk.Frame(self.desktop, bg="#050811")
+        center_frame = tk.Frame(self.desktop, bg="#03060c")
         center_frame.place(relx=0.5, rely=0.45, anchor="center")
 
-        tk.Label(center_frame, text="☸️", font=("Segoe UI Emoji", 95), bg="#050811", fg="#1e293b").pack()
-        tk.Label(center_frame, text="BHARAT OS", font=("Segoe UI", 38, "bold"), bg="#050811", fg="#334155").pack()
-        tk.Label(center_frame, text="LIQUID GLASS SOVEREIGN PC DESKTOP • 120 FPS FLUID COMPOSITOR", font=("Consolas", 10, "bold"), bg="#050811", fg="#1e293b").pack(pady=4)
+        tk.Label(center_frame, text="☸️", font=("Segoe UI Emoji", 100), bg="#03060c", fg="#0f172a").pack()
+        tk.Label(center_frame, text="BHARAT OS", font=("Segoe UI", 42, "bold"), bg="#03060c", fg="#1e293b").pack()
+        tk.Label(center_frame, text="SOVEREIGN QUANTUM DESKTOP • 120 FPS NATIVE ENGINE", font=("Consolas", 11, "bold"), bg="#03060c", fg="#0f172a").pack(pady=4)
 
         # Desktop App Shortcuts (Left Sidebar)
-        shortcut_bar = tk.Frame(self.desktop, bg="#050811", padx=25, pady=25)
+        shortcut_bar = tk.Frame(self.desktop, bg="#03060c", padx=25, pady=25)
         shortcut_bar.pack(side="left", fill="y")
 
         apps = [
-            ("📁\nFiles VFS", self.open_file_manager),
+            ("📁\nExplorer", self.open_file_manager),
             ("🚀\nWinBridge", self.open_winbridge),
-            ("💻\nTerminal", self.open_terminal),
-            ("⚡\nIDE Studio", self.open_code_studio),
+            ("💻\nbsh Shell", self.open_terminal),
+            ("⚡\nCode IDE", self.open_code_studio),
             ("🛡️\nKavach", self.open_kavach),
             ("🌐\nLanguage", self.cycle_language)
         ]
@@ -190,7 +185,7 @@ class BharatOSNativeWindow:
                 text=title,
                 command=cmd,
                 font=("Segoe UI", 9, "bold"),
-                bg="#0f172a",
+                bg="#0a101d",
                 fg="#f8fafc",
                 activebackground="#1e293b",
                 activeforeground="#38bdf8",
@@ -220,11 +215,11 @@ class BharatOSNativeWindow:
 
     def open_file_manager(self):
         win = tk.Toplevel(self.root)
-        win.title("Sovereign File Explorer — Bharat VFS")
-        win.geometry("720x460")
-        win.configure(bg="#0c1322")
+        win.title("SovereignFS Explorer — BharatOS VFS")
+        win.geometry("740x480")
+        win.configure(bg="#0a101d")
 
-        top_bar = tk.Frame(win, bg="#0f172a", padx=10, pady=8)
+        top_bar = tk.Frame(win, bg="#0f172a", padx=12, pady=10)
         top_bar.pack(fill="x")
 
         lbl_path = tk.Label(top_bar, text=f"Path: {self.current_vfs_path}", font=("Consolas", 10, "bold"), bg="#0f172a", fg="#38bdf8")
@@ -240,11 +235,10 @@ class BharatOSNativeWindow:
 
         tk.Button(top_bar, text="+ New File", command=new_file, bg="#1e293b", fg="#4ade80", relief="flat", font=("Segoe UI", 9, "bold")).pack(side="right", padx=5)
 
-        # File List
-        list_frame = tk.Frame(win, bg="#050811", padx=10, pady=10)
+        list_frame = tk.Frame(win, bg="#03060c", padx=10, pady=10)
         list_frame.pack(fill="both", expand=True)
 
-        listbox = tk.Listbox(list_frame, bg="#050811", fg="#f8fafc", font=("Segoe UI", 11), relief="flat", selectbackground="#1e293b")
+        listbox = tk.Listbox(list_frame, bg="#03060c", fg="#f8fafc", font=("Segoe UI", 11), relief="flat", selectbackground="#1e293b")
         listbox.pack(fill="both", expand=True)
 
         def refresh_list():
@@ -255,22 +249,58 @@ class BharatOSNativeWindow:
 
         refresh_list()
 
+    def open_winbridge(self):
+        win = tk.Toplevel(self.root)
+        win.title("Kavach WinBridge — Windows .EXE Binary Subsystem")
+        win.geometry("720x460")
+        win.configure(bg="#0a101d")
+
+        header = tk.Frame(win, bg="#0f172a", padx=15, pady=10)
+        header.pack(fill="x")
+        tk.Label(header, text="🚀 Kavach WinBridge: Native Windows .EXE Execution Layer", font=("Segoe UI", 11, "bold"), bg="#0f172a", fg="#38bdf8").pack(side="left")
+
+        content = tk.Frame(win, bg="#03060c", padx=15, pady=15)
+        content.pack(fill="both", expand=True)
+
+        tk.Label(content, text="Select Windows binary to execute in Sovereign Enclave:", font=("Segoe UI", 10), bg="#03060c", fg="#cbd5e1", anchor="w").pack(fill="x", pady=5)
+
+        exe_list = ["solaris_orbital_game.exe (64-bit PE32+)", "calc.exe (Win32)", "notepad.exe (Win32)", "indic_rust_compiler.exe (x86_64)"]
+        listbox = tk.Listbox(content, bg="#090e1a", fg="#f8fafc", font=("Consolas", 10), relief="flat", height=5)
+        listbox.pack(fill="x", pady=6)
+        for ex in exe_list:
+            listbox.insert("end", f"  {ex}")
+
+        log_out = tk.Text(content, bg="#020409", fg="#4ade80", font=("Consolas", 9), height=7, relief="flat")
+        log_out.pack(fill="both", expand=True, pady=6)
+        log_out.insert("end", "[WinBridge Kernel] Subsystem active. PE32+ Relocation & Win32 IAT translator armed.\n")
+
+        def run_selected():
+            sel = listbox.curselection()
+            exe_name = exe_list[sel[0]] if sel else "solaris_orbital_game.exe"
+            log_out.insert("end", f"\n▶ [WinBridge] Parsing PE32+ headers for '{exe_name}'...\n")
+            log_out.insert("end", f"• Mapping .text (0x140001000) and .data sections into 64-bit virtual memory pages...\n")
+            log_out.insert("end", f"• Hooking Win32 IAT: kernel32.dll!WriteConsoleA -> bsh_stdout_pipe\n")
+            log_out.insert("end", f"✓ Process '{exe_name}' active in sovereign enclave (PID 1042). Zero telemetry leak.\n")
+            log_out.see("end")
+
+        tk.Button(content, text="▶ Run Selected Windows Binary", command=run_selected, bg="#138808", fg="#ffffff", font=("Segoe UI", 10, "bold"), relief="flat", padx=14, pady=5, cursor="hand2").pack(pady=4)
+
     def open_terminal(self):
         win = tk.Toplevel(self.root)
         win.title("Bharat Shell (bsh) — sovereign@bharatos:~")
-        win.geometry("700x450")
-        win.configure(bg="#020617")
+        win.geometry("720x460")
+        win.configure(bg="#020409")
 
-        out = tk.Text(win, bg="#020617", fg="#38bdf8", font=("Consolas", 10), relief="flat")
+        out = tk.Text(win, bg="#020409", fg="#38bdf8", font=("Consolas", 10), relief="flat")
         out.pack(fill="both", expand=True, padx=10, pady=10)
         out.insert("end", "🇮🇳 Bharat Shell (bsh) v3.2 — Sovereign Microkernel CLI\n")
-        out.insert("end", "Type 'help' for command suite, 'neofetch', 'ls', or 'kavach':\n\n")
+        out.insert("end", "Type 'help', 'neofetch', 'ls', 'kavach', 'top', or 'matrix':\n\n")
 
-        inp_frame = tk.Frame(win, bg="#0f172a", pady=6)
+        inp_frame = tk.Frame(win, bg="#0a101d", pady=6)
         inp_frame.pack(fill="x")
 
-        tk.Label(inp_frame, text="sovereign@bharatos:~$", bg="#0f172a", fg="#4ade80", font=("Consolas", 10, "bold")).pack(side="left", padx=8)
-        entry = tk.Entry(inp_frame, bg="#0f172a", fg="#ffffff", font=("Consolas", 10), insertbackground="#ffffff", relief="flat")
+        tk.Label(inp_frame, text="sovereign@bharatos:~$", bg="#0a101d", fg="#4ade80", font=("Consolas", 10, "bold")).pack(side="left", padx=8)
+        entry = tk.Entry(inp_frame, bg="#0a101d", fg="#ffffff", font=("Consolas", 10), insertbackground="#ffffff", relief="flat")
         entry.pack(side="left", fill="x", expand=True, padx=8)
 
         def handle_cmd(event):
@@ -282,11 +312,11 @@ class BharatOSNativeWindow:
             elif cmd == "kavach":
                 out.insert("end", "🛡️ Kavach Security Status: 100% SECURE • 4,280 foreign telemetry probes neutralized.\n")
             elif cmd in ("neofetch", "sysinfo"):
-                out.insert("end", "OS: BharatOS 2026.1 LTS 'Swaraj'\nKernel: Bharat Bare-Metal Microkernel v3.2 (x86_64)\nCompositor: Prithvi Liquid Glass (120 FPS)\nMemory: 38 MB / 16384 MB (Ultra-Lightweight)\n")
+                out.insert("end", "OS: BharatOS 2026.1 LTS 'Swaraj'\nKernel: Bharat Bare-Metal Microkernel v3.2\nCompositor: Prithvi Liquid Glass (120 FPS)\nMemory: 38 MB / 16384 MB (Ultra-Lightweight)\nSubsystem: Kavach WinBridge (.EXE Loader Active)\n")
             elif cmd == "ls":
-                out.insert("end", "documents/  projects/  readme.txt  kavach.cfg  orbit.py  system.log\n")
+                out.insert("end", "documents/  projects/  solaris_game.exe  readme.txt  kavach.cfg  orbit.py\n")
             elif cmd == "top":
-                out.insert("end", "PID 1: sovereign_init (0.1% CPU)\nPID 2: kavach_firewall (0.3% CPU)\nPID 3: liquid_compositor (1.2% CPU - 120 FPS)\n")
+                out.insert("end", "PID 1: sovereign_init (0.1% CPU)\nPID 2: kavach_firewall (0.3% CPU)\nPID 3: liquid_compositor (1.2% CPU - 120 FPS)\nPID 4: winbridge_runtime (0.4% CPU)\n")
             elif cmd == "matrix":
                 out.insert("end", "01000010 01001000 01000001 01010010 01000001 01010100 01001111 01010011\n")
             elif cmd == "clear":
@@ -301,10 +331,10 @@ class BharatOSNativeWindow:
     def open_code_studio(self):
         win = tk.Toplevel(self.root)
         win.title("Indic Code Studio IDE — /home/user/projects/orbit.py")
-        win.geometry("720x480")
-        win.configure(bg="#0f172a")
+        win.geometry("740x480")
+        win.configure(bg="#0a101d")
 
-        txt = tk.Text(win, bg="#020617", fg="#f8fafc", font=("Consolas", 10), relief="flat")
+        txt = tk.Text(win, bg="#020409", fg="#f8fafc", font=("Consolas", 10), relief="flat")
         txt.pack(fill="both", expand=True, padx=8, pady=8)
         txt.insert("end", """# BharatOS Sovereign Python 3.12 Engine
 import math
@@ -316,42 +346,6 @@ def calculate_orbital_velocity(mass=5.972e24, radius=6.371e6):
 print(f"🇮🇳 BharatOS Space Engine: Orbital Speed = {calculate_orbital_velocity()} m/s")
 print("✓ Sovereignty Status: Verified 100% Local (Zero Foreign Telemetry)")
 """)
-
-    def open_winbridge(self):
-        win = tk.Toplevel(self.root)
-        win.title("Kavach WinBridge — Windows .EXE Binary Subsystem")
-        win.geometry("680x420")
-        win.configure(bg="#0c1322")
-
-        header = tk.Frame(win, bg="#0f172a", padx=15, pady=10)
-        header.pack(fill="x")
-        tk.Label(header, text="🚀 Kavach WinBridge .EXE Compatibility Layer", font=("Segoe UI", 11, "bold"), bg="#0f172a", fg="#38bdf8").pack(side="left")
-
-        content = tk.Frame(win, bg="#050811", padx=15, pady=15)
-        content.pack(fill="both", expand=True)
-
-        tk.Label(content, text="Select or run a native Windows .EXE executable in sovereign memory:", font=("Segoe UI", 10), bg="#050811", fg="#cbd5e1", anchor="w").pack(fill="x", pady=5)
-
-        exe_list = ["solaris_space_flight.exe (64-bit PE32+)", "calc.exe (Win32)", "notepad.exe (Win32)", "indic_compiler.exe (x86_64)"]
-        listbox = tk.Listbox(content, bg="#0b1120", fg="#f8fafc", font=("Consolas", 10), relief="flat", height=6)
-        listbox.pack(fill="x", pady=8)
-        for ex in exe_list:
-            listbox.insert("end", f"  {ex}")
-
-        log_out = tk.Text(content, bg="#020617", fg="#4ade80", font=("Consolas", 9), height=6, relief="flat")
-        log_out.pack(fill="both", expand=True, pady=6)
-        log_out.insert("end", "[WinBridge] Subsystem ready. PE32+ parser & Win32 IAT translator active.\n")
-
-        def run_selected():
-            sel = listbox.curselection()
-            exe_name = exe_list[sel[0]] if sel else "solaris_space_flight.exe"
-            log_out.insert("end", f"\n[WinBridge] Parsing PE32+ headers for '{exe_name}'...\n")
-            log_out.insert("end", f"[WinBridge] Relocating .text (0x140001000) and .data sections into 64-bit pages...\n")
-            log_out.insert("end", f"[WinBridge] Hooked Win32 IAT: kernel32.dll -> BharatOS Microkernel Syscalls\n")
-            log_out.insert("end", f"✓ Process '{exe_name}' launched cleanly in sovereign enclave (PID 1042).\n")
-            log_out.see("end")
-
-        tk.Button(content, text="▶ Run Selected .EXE", command=run_selected, bg="#138808", fg="#ffffff", font=("Segoe UI", 10, "bold"), relief="flat", padx=12, pady=4, cursor="hand2").pack(pady=4)
 
     def open_kavach(self):
         messagebox.showinfo(
