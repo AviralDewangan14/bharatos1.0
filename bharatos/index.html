@@ -42,78 +42,151 @@
             --glass-blur: 40px;
             --glass-opacity: 0.82;
             --trans-speed: 0.28s;
-            --os-scale: 1;
+            --ui-scale: 1;
 
             /* LIGHT PORCELAIN THEME */
             --bg-base: #f8fafc;
-            --bg-gradient: radial-gradient(circle at 50% 20%, #ffffff 0%, #e2e8f0 100%);
             --text-main: #0f172a;
             --text-sub: #334155;
             --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.78);
+            --glass-bg: rgba(255, 255, 255, 0.82);
             --glass-border: rgba(255, 255, 255, 0.95);
             --glass-border-subtle: rgba(203, 213, 225, 0.7);
-            --glass-shadow: 0 25px 70px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 1);
+            --glass-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), inset 0 1px 2px rgba(255, 255, 255, 1);
             --taskbar-bg: rgba(255, 255, 255, 0.88);
             --card-bg: rgba(241, 245, 249, 0.85);
-            --dock-hover-bg: rgba(15, 23, 42, 0.06);
+            --dock-hover-bg: rgba(15, 23, 42, 0.08);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.96) 0%, #e2e8f0 100%);
-            --controls-bg: rgba(15, 23, 42, 0.04);
-            --controls-border: rgba(15, 23, 42, 0.08);
+            --controls-bg: rgba(15, 23, 42, 0.05);
+            --controls-border: rgba(15, 23, 42, 0.12);
         }
 
         [data-theme="dark"] {
             /* DARK OBSIDIAN THEME */
             --bg-base: #020408;
-            --bg-gradient: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
             --text-main: #f8fafc;
             --text-sub: #cbd5e1;
             --text-muted: #64748b;
-            --glass-bg: rgba(9, 14, 26, 0.84);
-            --glass-border: rgba(255, 255, 255, 0.14);
+            --glass-bg: rgba(9, 14, 26, 0.86);
+            --glass-border: rgba(255, 255, 255, 0.16);
             --glass-border-subtle: rgba(255, 255, 255, 0.08);
             --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.25);
             --taskbar-bg: rgba(9, 14, 26, 0.92);
             --card-bg: rgba(15, 23, 42, 0.85);
-            --dock-hover-bg: rgba(255, 255, 255, 0.12);
+            --dock-hover-bg: rgba(255, 255, 255, 0.14);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(14, 23, 42, 0.96) 0%, #020408 100%);
             --controls-bg: rgba(255, 255, 255, 0.06);
-            --controls-border: rgba(255, 255, 255, 0.12);
+            --controls-border: rgba(255, 255, 255, 0.14);
         }
 
+        /* STRICT FULL-VIEWPORT LAYOUT: BOTTOM BAR ALWAYS PINNED & NEVER CUT OFF */
         #screen-root {
-            filter: brightness(var(--os-brightness, 100%));
-            transform: scale(var(--os-scale));
-            transform-origin: center center;
+            position: fixed;
+            inset: 0;
+            width: 100vw;
             height: 100vh;
+            max-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             overflow: hidden;
-            transition: filter 0.15s ease, transform 0.2s ease;
+            filter: brightness(var(--os-brightness, 100%));
+            zoom: var(--ui-scale, 1);
+            transition: filter 0.15s ease;
         }
 
         body {
-            background: var(--bg-gradient);
             background-color: var(--bg-base);
             color: var(--text-main);
             height: 100vh;
+            width: 100vw;
             overflow: hidden;
             margin: 0;
+            padding: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             transition: background var(--trans-speed) ease, color var(--trans-speed) ease;
         }
 
-        body.wall-obsidian { background: var(--bg-gradient); }
-        body.wall-saffron { background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.25) 0%, var(--bg-base) 70%); }
-        body.wall-emerald { background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.25) 0%, var(--bg-base) 70%); }
-        body.wall-crystal { background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.26) 0%, var(--bg-base) 70%); }
-        body.wall-solaris { background: radial-gradient(circle at 70% 20%, rgba(245, 158, 11, 0.28) 0%, var(--bg-base) 70%); }
-        body.wall-ocean { background: radial-gradient(circle at 50% 80%, rgba(14, 116, 144, 0.32) 0%, var(--bg-base) 70%); }
-        body.wall-synthwave { background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.28) 0%, var(--bg-base) 70%); }
-        body.wall-padma { background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.25) 0%, var(--bg-base) 70%); }
+        /* =========================================================================
+           NATURE OF BHARAT (INDIA) SCENIC DYNAMIC WALLPAPERS
+           ========================================================================= */
+        
+        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks */
+        body.wall-ladakh {
+            background: 
+                radial-gradient(ellipse at 50% 10%, rgba(255, 215, 0, 0.22) 0%, transparent 50%),
+                linear-gradient(180deg, #0c1a30 0%, #1e3a5f 25%, #3b82f6 45%, #60a5fa 55%, #0284c7 70%, #0369a1 85%, #082f49 100%);
+            background-attachment: fixed;
+        }
+
+        /* 2. Western Ghats & Munnar Tea Mist (Emerald Rainforest) */
+        body.wall-munnar {
+            background: 
+                radial-gradient(circle at 30% 20%, rgba(134, 239, 172, 0.2) 0%, transparent 60%),
+                linear-gradient(180deg, #062419 0%, #064e3b 30%, #047857 55%, #059669 70%, #10b981 85%, #022c22 100%);
+            background-attachment: fixed;
+        }
+
+        /* 3. Varanasi Ganges Golden Hour (Sacred Dawn Sunlight) */
+        body.wall-varanasi {
+            background: 
+                radial-gradient(circle at 50% 30%, rgba(251, 146, 60, 0.35) 0%, transparent 65%),
+                linear-gradient(180deg, #311105 0%, #7c2d12 25%, #c2410c 50%, #ea580c 65%, #f97316 78%, #431407 100%);
+            background-attachment: fixed;
+        }
+
+        /* 4. Thar Desert Golden Dunes of Jaisalmer (Starry Twilight) */
+        body.wall-thar {
+            background: 
+                radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.28) 0%, transparent 60%),
+                linear-gradient(180deg, #180d04 0%, #451a03 30%, #78350f 55%, #b45309 72%, #d97706 88%, #291004 100%);
+            background-attachment: fixed;
+        }
+
+        /* 5. Andaman & Nicobar Coral Lagoon (Havelock Radhanagar) */
+        body.wall-andaman {
+            background: 
+                radial-gradient(circle at 50% 15%, rgba(103, 232, 249, 0.3) 0%, transparent 60%),
+                linear-gradient(180deg, #042f2e 0%, #0f766e 28%, #14b8a6 52%, #2dd4bf 68%, #0d9488 85%, #134e4a 100%);
+            background-attachment: fixed;
+        }
+
+        /* 6. Kashmir Valley Floating Lotus & Dal Lake Morning */
+        body.wall-kashmir {
+            background: 
+                radial-gradient(circle at 40% 25%, rgba(244, 114, 182, 0.25) 0%, transparent 60%),
+                linear-gradient(180deg, #2e1065 0%, #581c87 30%, #7e22ce 55%, #a855f7 72%, #c084fc 85%, #3b0764 100%);
+            background-attachment: fixed;
+        }
+
+        /* 7. Rann of Kutch Full Moon White Salt Desert */
+        body.wall-kutch {
+            background: 
+                radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
+                linear-gradient(180deg, #020617 0%, #0f172a 35%, #1e293b 60%, #475569 75%, #94a3b8 90%, #cbd5e1 100%);
+            background-attachment: fixed;
+        }
+
+        /* 8. Obsidian Void (Deep OLED Black) */
+        body.wall-obsidian {
+            background: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
+            background-attachment: fixed;
+        }
 
         body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
+
+        /* --- PROCEDURAL SCENIC HORIZON SILHOUETTE --- */
+        .scenic-mountain-layer {
+            position: absolute;
+            bottom: 48px;
+            left: 0;
+            right: 0;
+            height: 180px;
+            pointer-events: none;
+            opacity: 0.25;
+            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
+            mask-image: radial-gradient(ellipse at 50% 100%, black 60%, transparent 100%);
+        }
 
         /* --- SHUTDOWN & REBOOT CINEMATIC OVERLAY --- */
         #power-overlay {
@@ -233,88 +306,91 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- ULTRA-CLEAN PREMIUM MINIMAL LIQUID GLASS WINDOW CONTROLS --- */
-        .modern-glass-controls {
-            display: flex;
+        /* --- FLAWLESS LIQUID GLASS WINDOW ACTION CONTROLS --- */
+        .window-controls-capsule {
+            display: inline-flex;
             align-items: center;
-            gap: 6px;
-            padding: 3px 8px;
+            gap: 7px;
+            padding: 4px 9px;
             background: var(--controls-bg);
             border: 1px solid var(--controls-border);
-            border-radius: 12px;
+            border-radius: 9999px;
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            transition: all 0.2s ease;
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        .modern-glass-controls:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.2);
+        .window-controls-capsule:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: rgba(255, 255, 255, 0.24);
         }
 
-        .glass-btn {
-            width: 12px;
-            height: 12px;
+        .action-circle {
+            width: 13px;
+            height: 13px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             position: relative;
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid transparent;
-            backdrop-filter: blur(12px);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
         }
 
-        .glass-btn .btn-svg {
-            width: 7px;
-            height: 7px;
+        .action-circle .circle-svg {
+            width: 7.5px;
+            height: 7.5px;
             opacity: 0;
-            transform: scale(0.6);
-            transition: all 0.15s ease;
+            transform: scale(0.5);
+            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .modern-glass-controls:hover .glass-btn .btn-svg {
+        .window-controls-capsule:hover .action-circle .circle-svg {
             opacity: 1;
             transform: scale(1);
         }
 
-        .btn-glass-close {
-            background: rgba(244, 63, 94, 0.2);
-            border-color: rgba(244, 63, 94, 0.4);
-            color: #f43f5e;
+        /* 1. Close Button (Rose Coral Frosted Glass) */
+        .circle-close {
+            background: rgba(244, 63, 94, 0.3);
+            border-color: rgba(244, 63, 94, 0.5);
+            color: #ffffff;
         }
-        .btn-glass-close:hover {
-            background: rgba(244, 63, 94, 0.95);
+        .circle-close:hover {
+            background: #f43f5e;
             border-color: #f43f5e;
             color: #ffffff;
             transform: scale(1.18);
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
         }
 
-        .btn-glass-min {
-            background: rgba(245, 158, 11, 0.2);
-            border-color: rgba(245, 158, 11, 0.4);
-            color: #f59e0b;
+        /* 2. Minimize Button (Warm Amber Frosted Glass) */
+        .circle-min {
+            background: rgba(245, 158, 11, 0.3);
+            border-color: rgba(245, 158, 11, 0.5);
+            color: #ffffff;
         }
-        .btn-glass-min:hover {
-            background: rgba(245, 158, 11, 0.95);
+        .circle-min:hover {
+            background: #f59e0b;
             border-color: #f59e0b;
             color: #ffffff;
             transform: scale(1.18);
-            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+            box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
         }
 
-        .btn-glass-max {
-            background: rgba(16, 185, 129, 0.2);
-            border-color: rgba(16, 185, 129, 0.4);
-            color: #10b981;
+        /* 3. Maximize Button (Mint Emerald Frosted Glass) */
+        .circle-max {
+            background: rgba(16, 185, 129, 0.3);
+            border-color: rgba(16, 185, 129, 0.5);
+            color: #ffffff;
         }
-        .btn-glass-max:hover {
-            background: rgba(16, 185, 129, 0.95);
+        .circle-max:hover {
+            background: #10b981;
             border-color: #10b981;
             color: #ffffff;
             transform: scale(1.18);
-            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
         }
 
         /* --- BHARAT ISLAND --- */
@@ -364,6 +440,8 @@
             border-top: 1px solid var(--glass-border);
             box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
             transition: background var(--trans-speed) ease;
+            flex-shrink: 0;
+            height: 48px;
         }
 
         .taskbar-item {
@@ -371,14 +449,14 @@
             position: relative;
         }
         .taskbar-item:hover {
-            transform: translateY(-5px) scale(1.16);
+            transform: translateY(-4px) scale(1.15);
             background: var(--dock-hover-bg);
         }
 
         .taskbar-item.active::after {
             content: '';
             position: absolute;
-            bottom: -3px;
+            bottom: -2px;
             left: 50%;
             transform: translateX(-50%);
             width: 14px;
@@ -403,7 +481,7 @@
         .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 4px; }
     </style>
 </head>
-<body class="wall-obsidian select-none">
+<body class="wall-ladakh select-none">
 
     <!-- SHUTDOWN & REBOOT CINEMATIC OVERLAY -->
     <div id="power-overlay">
@@ -539,7 +617,6 @@
                     <span>🛡️ Kavach Vault:</span>
                     <span class="text-emerald-600 dark:text-emerald-400 font-bold">100% Zero Telemetry</span>
                 </div>
-                <!-- Power Options on Lock Screen -->
                 <div class="flex items-center space-x-2">
                     <button onclick="triggerReboot()" class="hover:text-amber-400" title="Restart">🔄</button>
                     <button onclick="triggerShutdown()" class="hover:text-rose-400" title="Shut Down">⏻</button>
@@ -548,7 +625,7 @@
         </div>
 
         <!-- TOP STATUS BAR -->
-        <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-200 dark:border-slate-800/40 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md">
+        <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-200 dark:border-slate-800/40 bg-white/40 dark:bg-slate-950/40 backdrop-blur-md flex-shrink-0">
             <div class="flex items-center space-x-3">
                 <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 hover:bg-slate-300 dark:hover:bg-slate-800 border border-slate-300 dark:border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
                     <span class="text-sm">☸️</span>
@@ -653,14 +730,11 @@
             </div>
         </nav>
 
-        <!-- DESKTOP WORKSPACE -->
+        <!-- DESKTOP WORKSPACE (CLEAN SCENIC NATURE VIEW WITHOUT WATERMARK TEXT) -->
         <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-12 gap-6 z-10 overflow-hidden">
             
-            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-10 z-0">
-                <span class="text-8xl mb-3">☸️</span>
-                <h1 class="text-5xl font-extrabold tracking-widest uppercase font-sans">BHARAT OS</h1>
-                <p class="text-xs mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN ENGINE</p>
-            </div>
+            <!-- Procedural Scenic Horizon Layer -->
+            <div class="scenic-mountain-layer"></div>
 
             <!-- DESKTOP WIDGETS -->
             <div id="desktop-widgets-panel" class="absolute top-6 right-6 w-80 space-y-4 z-10 transition-all duration-300">
@@ -713,15 +787,16 @@
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="modern-glass-controls">
-                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <!-- REDESIGNED FLAWLESS LIQUID GLASS CONTROLS -->
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Enlarge">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -803,20 +878,20 @@
                 </div>
             </div>
 
-            <!-- APP 2: KAVACH SOVEREIGN DEFENDER (MICROSOFT DEFENDER / IOS LEVEL ZERO-TRUST ANTIVIRUS) -->
+            <!-- APP 2: KAVACH SOVEREIGN DEFENDER -->
             <div id="kavach-window" class="absolute top-8 left-32 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="modern-glass-controls">
-                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('kavach-window', 'dock-defender')" title="Minimize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('kavach-window', 'dock-defender')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('kavach-window')" title="Maximize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('kavach-window')" title="Maximize / Enlarge">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -875,20 +950,20 @@
                 </div>
             </div>
 
-            <!-- APP 3: BHARAT COMMAND PROMPT & POWERSHELL (bsh MASTER CMD CENTER) -->
+            <!-- APP 3: BHARAT COMMAND PROMPT & POWERSHELL -->
             <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="modern-glass-controls">
-                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Enlarge">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -915,15 +990,15 @@
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="modern-glass-controls">
-                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize">
-                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Enlarge">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5"><span>⚙️</span><span>Sovereign Settings & Personalization (Win+I)</span></span>
@@ -941,8 +1016,8 @@
                         </div>
 
                         <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2" id="tab-btn-system"><span>🖥️</span><span>System Specs</span></button>
-                        <button onclick="switchSettingsTab('display')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-display"><span>🖥️</span><span>Display & Refresh</span></button>
-                        <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-wallpaper"><span>🎨</span><span>Glass & Wallpapers</span></button>
+                        <button onclick="switchSettingsTab('display')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-display"><span>🖥️</span><span>Display & Scaling</span></button>
+                        <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-wallpaper"><span>🏞️</span><span>Nature of Bharat</span></button>
                         <button onclick="switchSettingsTab('sound')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-sound"><span>🔊</span><span>Sound & DSP</span></button>
                         <button onclick="switchSettingsTab('shortcuts')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-shortcuts"><span>⌨️</span><span>Keybindings</span></button>
                         <button onclick="switchSettingsTab('updates')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-updates"><span>🚀</span><span>System Updates</span></button>
@@ -970,17 +1045,19 @@
                             </div>
                         </div>
 
+                        <!-- DISPLAY & WINDOWS-STYLE SCALING TAB -->
                         <div id="tab-pane-display" class="space-y-4 font-mono text-xs hidden">
-                            <div class="text-sm font-bold">Display Resolution & Refresh Rate Matrix</div>
+                            <div class="text-sm font-bold">Display Resolution & Viewport Scaling (Windows Fluent Engine)</div>
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
-                                    <div class="font-bold text-cyan-500">🖥️ Screen Resolution</div>
+                                    <div class="font-bold text-cyan-500">🖥️ Screen Scale / Resolution</div>
                                     <select onchange="setDisplayResolution(this.value)" class="w-full p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 font-mono text-xs text-white">
-                                        <option value="1">3840 × 2160 (4K UHD 100% Scale)</option>
-                                        <option value="1.1">2560 × 1440 (2K QHD 110% Scale)</option>
-                                        <option value="1.2">1920 × 1080 (FHD 120% Scale)</option>
-                                        <option value="0.9">1280 × 720 (HD Compact Scale)</option>
+                                        <option value="1">100% Native Scale (3840 × 2160 4K UHD)</option>
+                                        <option value="0.9">90% Compact Scale (2560 × 1440 2K QHD)</option>
+                                        <option value="0.8">80% Dense Studio Scale (1920 × 1080 FHD)</option>
+                                        <option value="1.1">110% High DPI Accessibility Scale</option>
                                     </select>
+                                    <p class="text-[10px] opacity-60">Taskbar remains permanently anchored at the bottom edge at all scales.</p>
                                 </div>
                                 <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
                                     <div class="font-bold text-emerald-500">⚡ Hardware Refresh Rate</div>
@@ -994,21 +1071,46 @@
                             </div>
                         </div>
 
+                        <!-- MAJESTIC NATURE OF BHARAT WALLPAPERS -->
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
-                                <div class="text-sm font-bold">Glass & Theme Studio</div>
+                                <div class="text-sm font-bold">Majestic Nature of Bharat (India) Wallpapers</div>
                                 <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
                             </div>
-                            <div class="text-xs font-bold opacity-75">Curated 8 Dynamic Wallpapers</div>
+                            <div class="text-xs opacity-70">Authentic scenic vistas across India without generic text labels</div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <button onclick="setWallpaper('wall-obsidian')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105"><div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🌌 Obsidian Void</div></button>
-                                <button onclick="setWallpaper('wall-saffron')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-amber-100 dark:from-amber-950 to-slate-100 dark:to-slate-950 text-left transition-all hover:border-saffron hover:scale-105"><div class="text-xs font-bold text-saffron">🌅 Saffron Aurora</div></button>
-                                <button onclick="setWallpaper('wall-emerald')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-emerald-100 dark:from-emerald-950 to-slate-100 dark:to-slate-950 text-left transition-all hover:border-emerald-500 hover:scale-105"><div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">🌿 Emerald Matrix</div></button>
-                                <button onclick="setWallpaper('wall-crystal')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-sky-100 dark:from-sky-950 to-slate-100 dark:to-slate-950 text-left transition-all hover:border-sky-500 hover:scale-105"><div class="text-xs font-bold text-sky-600 dark:text-sky-300">❄️ Himalayan Crystal</div></button>
-                                <button onclick="setWallpaper('wall-solaris')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-amber-100 dark:from-amber-900 to-sky-100 dark:to-sky-950 text-left transition-all hover:border-amber-500 hover:scale-105"><div class="text-xs font-bold text-amber-600 dark:text-amber-300">🪐 Solaris Orbit</div></button>
-                                <button onclick="setWallpaper('wall-ocean')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-cyan-100 dark:from-cyan-950 to-blue-100 dark:to-blue-950 text-left transition-all hover:border-cyan-500 hover:scale-105"><div class="text-xs font-bold text-cyan-600 dark:text-cyan-400">🌊 Ocean Twilight</div></button>
-                                <button onclick="setWallpaper('wall-synthwave')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-purple-100 dark:from-purple-950 to-pink-100 dark:to-pink-950 text-left transition-all hover:border-purple-500 hover:scale-105"><div class="text-xs font-bold text-purple-600 dark:text-purple-300">⚡ Synthwave Cyber</div></button>
-                                <button onclick="setWallpaper('wall-padma')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-rose-100 dark:from-rose-950 to-amber-100 dark:to-amber-950 text-left transition-all hover:border-rose-500 hover:scale-105"><div class="text-xs font-bold text-rose-600 dark:text-rose-300">🪷 Padma Silk</div></button>
+                                <button onclick="setWallpaper('wall-ladakh')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105">
+                                    <div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🏔️ Ladakh Pangong</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Glacial Himalayan Peaks</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-munnar')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-emerald-950/40 text-left transition-all hover:border-emerald-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-emerald-400">🌿 Munnar Mist</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Western Ghats Rainforest</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-varanasi')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-orange-950/40 text-left transition-all hover:border-orange-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-orange-400">🌅 Varanasi Ganges</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Sacred Dawn Sunlight</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-thar')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-amber-950/40 text-left transition-all hover:border-amber-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-amber-400">🏜️ Thar Dunes</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Jaisalmer Starry Twilight</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-andaman')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-teal-950/40 text-left transition-all hover:border-teal-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-teal-400">🌊 Andaman Lagoon</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Havelock Coral Waters</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-kashmir')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-purple-950/40 text-left transition-all hover:border-purple-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-purple-400">🪷 Kashmir Dal Lake</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Valley Lotus Blossom</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-kutch')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-400 hover:scale-105">
+                                    <div class="text-xs font-bold text-slate-300">🌌 Rann of Kutch</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">White Moonlit Salt Desert</div>
+                                </button>
+                                <button onclick="setWallpaper('wall-obsidian')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-black text-left transition-all hover:border-cyan-500 hover:scale-105">
+                                    <div class="text-xs font-bold text-cyan-400">🌌 Obsidian Void</div>
+                                    <div class="text-[9px] opacity-60 mt-0.5">Pure OLED Dark Mode</div>
+                                </button>
                             </div>
                         </div>
 
@@ -1078,7 +1180,7 @@
 
         </main>
 
-        <!-- BOTTOM HORIZON TASKBAR -->
+        <!-- BOTTOM HORIZON TASKBAR (PERMANENTLY ANCHORED AT BOTTOM AT ALL RESOLUTIONS) -->
         <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
             <div class="flex items-center space-x-2.5">
                 <!-- Sudarshan Start Gem -->
@@ -1239,7 +1341,7 @@
             } catch(e) {}
         }
 
-        // Display Controls
+        // Display Controls & Windows-Grade Viewport Scaling
         function setOSBrightness(val) {
             document.documentElement.style.setProperty('--os-brightness', `${val}%`);
             const bVal = document.getElementById('island-bright-val');
@@ -1255,7 +1357,7 @@
         }
 
         function setDisplayResolution(scale) {
-            document.documentElement.style.setProperty('--os-scale', scale);
+            document.documentElement.style.setProperty('--ui-scale', scale);
             playSfx('click');
         }
 
@@ -1356,7 +1458,7 @@
 
         loadUserProfile();
 
-        // Lock Screen Authentication with Error Alert & Shake Physics
+        // Lock Screen Authentication
         function unlockDesktop() {
             const pinInput = document.getElementById('lock-pin-input');
             const alertBox = document.getElementById('lock-pin-alert');
@@ -1429,7 +1531,7 @@
             }, 2000);
         }
 
-        // KAVACH SOVEREIGN DEFENDER SCAN ENGINE
+        // KAVACH DEFENDER SCAN ENGINE
         let scanProgress = 0;
         function startKavachScan() {
             playSfx('click');
@@ -1659,7 +1761,7 @@
         let lastMouseX = 0;
 
         function initDrag(e, winId) {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'SVG') return;
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'SVG' || e.target.tagName === 'line' || e.target.tagName === 'polyline') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
             highestZ++;
