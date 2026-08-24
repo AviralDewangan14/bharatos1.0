@@ -108,61 +108,55 @@
         }
 
         /* =========================================================================
-           AI-GENERATED NATURE OF BHARAT (INDIA) PHOTOGRAPHIC WALLPAPERS
+           AI-GENERATED 4K/8K PHOTOGRAPHIC NATURE OF BHARAT (INDIA) WALLPAPERS
            ========================================================================= */
         
-        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks (Photographic 8K) */
+        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks (Photographic 4K) */
         body.wall-ladakh-ai {
             background: url('wallpapers/ladakh_pangong.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* 2. Western Ghats & Munnar Tea Mist (Photographic 8K) */
+        /* 2. Western Ghats & Munnar Tea Plantation Mist (Photographic 4K) */
         body.wall-munnar-ai {
             background: url('wallpapers/munnar_hills.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* 3. Varanasi Ganges River Sunrise & Golden Hour (Photographic 8K) */
+        /* 3. Varanasi Ganges River Sunrise & Golden Hour (Photographic 4K) */
         body.wall-varanasi-ai {
             background: url('wallpapers/varanasi_dawn.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* 4. Thar Desert Golden Dunes of Jaisalmer (Photographic 8K) */
+        /* 4. Thar Desert Golden Dunes of Jaisalmer (Photographic 4K) */
         body.wall-thar-ai {
             background: url('wallpapers/thar_twilight.jpg') no-repeat center center fixed;
             background-size: cover;
         }
 
-        /* 5. Andaman & Nicobar Coral Lagoon */
-        body.wall-andaman {
-            background: 
-                radial-gradient(circle at 50% 15%, rgba(103, 232, 249, 0.3) 0%, transparent 60%),
-                linear-gradient(180deg, #042f2e 0%, #0f766e 28%, #14b8a6 52%, #2dd4bf 68%, #0d9488 85%, #134e4a 100%);
-            background-attachment: fixed;
+        /* 5. Kashmir Dal Lake Shikaras & Pir Panjal Mountains (Photographic 4K) */
+        body.wall-kashmir-ai {
+            background: url('wallpapers/kashmir_dal.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        /* 6. Kashmir Valley Floating Lotus & Dal Lake Morning */
-        body.wall-kashmir {
-            background: 
-                radial-gradient(circle at 40% 25%, rgba(244, 114, 182, 0.25) 0%, transparent 60%),
-                linear-gradient(180deg, #2e1065 0%, #581c87 30%, #7e22ce 55%, #a855f7 72%, #c084fc 85%, #3b0764 100%);
-            background-attachment: fixed;
+        /* 6. Andaman Radhanagar Beach & Havelock Island Coral Waters (Photographic 4K) */
+        body.wall-andaman-ai {
+            background: url('wallpapers/andaman_beach.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        /* 7. Rann of Kutch Full Moon White Salt Desert */
-        body.wall-kutch {
-            background: 
-                radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
-                linear-gradient(180deg, #020617 0%, #0f172a 35%, #1e293b 60%, #475569 75%, #94a3b8 90%, #cbd5e1 100%);
-            background-attachment: fixed;
+        /* 7. Western Ghats Athirappilly Majestic Rainforest Waterfall (Photographic 4K) */
+        body.wall-waterfall-ai {
+            background: url('wallpapers/waterfall_ghats.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
-        /* 8. Obsidian Void (Deep OLED Black) */
-        body.wall-obsidian {
-            background: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
-            background-attachment: fixed;
+        /* 8. White Rann of Kutch Full Moon Crystalline Salt Desert (Photographic 4K) */
+        body.wall-kutch-ai {
+            background: url('wallpapers/kutch_rann.jpg') no-repeat center center fixed;
+            background-size: cover;
         }
 
         body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
@@ -439,7 +433,7 @@
     </div>
 
     <!-- ONBOARDING MODAL -->
-    <div id="onboarding-modal" class="fixed inset-0 z-[12000] bg-black/85 backdrop-blur-3xl flex items-center justify-center hidden">
+    <div id="onboarding-modal" class="fixed inset-0 z-[12000] bg-slate-900/40 dark:bg-black/85 backdrop-blur-3xl flex items-center justify-center hidden">
         <div class="w-[460px] p-8 ultra-liquid-glass space-y-6 shadow-2xl">
             <div class="text-center space-y-2">
                 <span class="text-5xl">☸️</span>
@@ -450,7 +444,7 @@
             <div class="space-y-4 font-mono text-xs">
                 <div>
                     <label class="block font-bold mb-1">Your Full Name:</label>
-                    <input id="onboard-name-input" type="text" placeholder="e.g. Aviral Sharma" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-sans text-sm">
+                    <input id="onboard-name-input" type="text" placeholder="e.g. Aviral Sharma" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-sans text-sm text-slate-900 dark:text-white">
                 </div>
 
                 <div>
@@ -461,8 +455,8 @@
                 <div>
                     <label class="block font-bold mb-1">Device Form Factor:</label>
                     <div class="grid grid-cols-2 gap-2">
-                        <button type="button" onclick="setDeviceType('desktop')" id="onboard-dev-desktop" class="py-2 rounded-xl bg-slate-900 text-white font-bold border-2 border-cyan-500">🖥️ Desktop PC</button>
-                        <button type="button" onclick="setDeviceType('laptop')" id="onboard-dev-laptop" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-400 font-bold border border-slate-700">💻 Laptop</button>
+                        <button type="button" onclick="setDeviceType('desktop')" id="onboard-dev-desktop" class="py-2 rounded-xl bg-cyan-600 dark:bg-slate-900 text-white font-bold border-2 border-cyan-500">🖥️ Desktop PC</button>
+                        <button type="button" onclick="setDeviceType('laptop')" id="onboard-dev-laptop" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-900 text-slate-500 dark:text-slate-400 font-bold border border-slate-300 dark:border-slate-700">💻 Laptop</button>
                     </div>
                 </div>
             </div>
@@ -833,7 +827,7 @@
             <div id="code-window" class="absolute top-4 left-20 w-[960px] h-[570px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <!-- IDE Titlebar -->
-                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'code-window')">
+                <div class="px-4 py-2 bg-slate-100/90 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'code-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('code-window', 'dock-code')" title="Close">
@@ -866,7 +860,7 @@
                 <!-- IDE Dual Pane Area -->
                 <div class="flex-1 flex overflow-hidden">
                     <!-- Left Activity Bar & Explorer -->
-                    <div class="w-56 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
+                    <div class="w-56 bg-slate-100/90 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
                         <div class="space-y-3">
                             <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-1">Explorer: Rust Engine</div>
                             <div class="space-y-1">
@@ -877,21 +871,21 @@
                             </div>
                         </div>
 
-                        <div class="p-2.5 rounded-xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] space-y-1">
-                            <div class="font-bold text-emerald-500">✓ Rust Analyzer Active</div>
+                        <div class="p-2.5 rounded-xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] space-y-1">
+                            <div class="font-bold text-emerald-600 dark:text-emerald-400">✓ Rust Analyzer Active</div>
                             <div class="opacity-70">0 Errors • 0 Warnings</div>
                         </div>
                     </div>
 
                     <!-- Center Code Editor & Bottom Terminal Output -->
-                    <div class="flex-1 flex flex-col bg-slate-950 overflow-hidden font-mono text-xs">
-                        <div class="flex-1 p-4 custom-scroll overflow-y-auto text-slate-200 flex space-x-3">
+                    <div class="flex-1 flex flex-col bg-slate-50 dark:bg-slate-950 overflow-hidden font-mono text-xs">
+                        <div class="flex-1 p-4 custom-scroll overflow-y-auto text-slate-800 dark:text-slate-200 flex space-x-3">
                             <!-- Line Numbers -->
-                            <div class="text-slate-600 text-right select-none pr-3 border-r border-slate-800 space-y-1 leading-5" id="ide-line-numbers">
+                            <div class="text-slate-400 dark:text-slate-600 text-right select-none pr-3 border-r border-slate-300 dark:border-slate-800 space-y-1 leading-5" id="ide-line-numbers">
                                 1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
                             </div>
                             <!-- Code Content Area -->
-                            <textarea id="ide-code-editor" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-emerald-400 resize-none leading-5 custom-scroll focus:text-white" spellcheck="false">// BharatOS Sovereign Microkernel v2026.1 LTS
+                            <textarea id="ide-code-editor" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-slate-900 dark:text-emerald-400 resize-none leading-5 custom-scroll focus:text-cyan-700 dark:focus:text-white" spellcheck="false">// BharatOS Sovereign Microkernel v2026.1 LTS
 // High Performance 144 FPS Vulkan & SMP Engine
 
 use bharat_os::kernel::smp;
@@ -913,8 +907,8 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
 
                         <!-- IDE Bottom Output Terminal -->
-                        <div class="h-28 bg-slate-900/90 border-t border-slate-800 p-3 font-mono text-[11px] custom-scroll overflow-y-auto space-y-1" id="ide-terminal-output">
-                            <div class="text-slate-400">Indic Code Studio Terminal • Ready to compile. Press 'Run Code (F5)'.</div>
+                        <div class="h-28 bg-slate-100 dark:bg-slate-900/90 border-t border-slate-300 dark:border-slate-800 p-3 font-mono text-[11px] custom-scroll overflow-y-auto space-y-1 text-slate-800 dark:text-slate-200" id="ide-terminal-output">
+                            <div class="text-slate-500 dark:text-slate-400">Indic Code Studio Terminal • Ready to compile. Press 'Run Code (F5)'.</div>
                         </div>
                     </div>
                 </div>
@@ -963,7 +957,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     </div>
 
                     <div class="flex items-center space-x-3">
-                        <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl font-mono text-xs focus:outline-none focus:border-cyan-500 w-56">
+                        <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl font-mono text-xs focus:outline-none focus:border-cyan-500 w-56 text-slate-900 dark:text-white">
                         <div class="flex items-center space-x-1 bg-slate-200 dark:bg-slate-900 p-0.5 rounded-lg border border-slate-300 dark:border-slate-800">
                             <button onclick="setVFSView('grid')" id="vfs-view-grid" class="px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold text-[10px]">Grid</button>
                             <button onclick="setVFSView('list')" id="vfs-view-list" class="px-2 py-0.5 rounded opacity-70 text-[10px]">List</button>
@@ -1040,7 +1034,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <span>Kavach Sovereign Defender — Zero-Trust Ring-0 Shield</span>
                         </span>
                     </div>
-                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 border border-emerald-500/40 text-[10px] font-mono font-bold">100% UNHACKABLE</span>
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold">100% UNHACKABLE</span>
                 </div>
 
                 <div class="flex-1 p-6 bg-slate-50/85 dark:bg-slate-950/85 space-y-5 custom-scroll overflow-y-auto font-mono text-xs">
@@ -1060,7 +1054,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <div id="kavach-scan-progress-box" class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-cyan-500/40 space-y-2 hidden">
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-cyan-600 dark:text-cyan-300">Scanning Kernel & SovereignFS Files...</span>
-                            <span id="scan-files-count" class="text-slate-400 font-mono text-[11px]">0 / 14,820 Files</span>
+                            <span id="scan-files-count" class="text-slate-600 dark:text-slate-400 font-mono text-[11px]">0 / 14,820 Files</span>
                         </div>
                         <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-2 overflow-hidden">
                             <div id="scan-progress-bar" class="bg-gradient-to-r from-cyan-500 via-saffron to-emerald-500 h-full w-0 transition-all duration-200"></div>
@@ -1071,19 +1065,19 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <div class="grid grid-cols-2 gap-3">
                         <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                             <div><div class="font-bold">Real-Time File System Shield</div><div class="text-[10px] opacity-60">Instant I/O malware trap</div></div>
-                            <span class="text-emerald-500 font-bold">ON</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
                         </div>
                         <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                             <div><div class="font-bold">Foreign Telemetry Neutralizer</div><div class="text-[10px] opacity-60">4,280 Probes Blocked</div></div>
-                            <span class="text-emerald-500 font-bold">ON</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
                         </div>
                         <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                             <div><div class="font-bold">Quantum Sandboxing (iOS Style)</div><div class="text-[10px] opacity-60">Total process isolation</div></div>
-                            <span class="text-emerald-500 font-bold">ON</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
                         </div>
                         <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                             <div><div class="font-bold">Kernel PML4 Memory Guard</div><div class="text-[10px] opacity-60">Zero buffer overrun exploits</div></div>
-                            <span class="text-emerald-500 font-bold">ARMED</span>
+                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ARMED</span>
                         </div>
                     </div>
                 </div>
@@ -1094,7 +1088,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                  ========================================================================= -->
             <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
+                <div class="px-5 py-2.5 bg-slate-100/90 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
@@ -1114,15 +1108,15 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     </div>
                 </div>
 
-                <div class="flex-1 bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-emerald-400" id="terminal-output">
+                <div class="flex-1 bg-slate-50 dark:bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-slate-900 dark:text-emerald-400" id="terminal-output">
                     <div class="text-saffron font-bold">BharatOS Sovereign Microkernel [Version 2026.1.0 LTS]</div>
-                    <div class="text-slate-400">(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.</div>
-                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'browser'</span>, <span class="text-purple-300 font-bold">'code'</span>, or <span class="text-cyan-300 font-bold">'shutdown'</span>.</div>
+                    <div class="text-slate-500 dark:text-slate-400">(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.</div>
+                    <div class="text-slate-600 dark:text-slate-400">Type <span class="text-cyan-600 dark:text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-600 dark:text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-600 dark:text-amber-300 font-bold">'browser'</span>, <span class="text-purple-600 dark:text-purple-300 font-bold">'code'</span>, or <span class="text-cyan-600 dark:text-cyan-300 font-bold">'shutdown'</span>.</div>
                 </div>
 
-                <div class="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
-                    <span class="text-emerald-400 font-bold">C:\Users\sovereign&gt;</span>
-                    <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
+                <div class="p-3 bg-slate-100 dark:bg-slate-950 border-t border-slate-200 dark:border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
+                    <span class="text-cyan-700 dark:text-emerald-400 font-bold">C:\Users\sovereign&gt;</span>
+                    <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-slate-900 dark:text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
                 </div>
             </div>
 
@@ -1215,42 +1209,42 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
-                                <div class="text-sm font-bold">AI-Generated Nature of Bharat (8K Masterpieces)</div>
+                                <div class="text-sm font-bold text-cyan-600 dark:text-cyan-300">AI-Generated 4K Nature of Bharat (Photographic Masterpieces)</div>
                                 <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
                             </div>
-                            <div class="text-xs opacity-70">Photorealistic scenic vistas of India generated with AI & rendered in ultra-high definition</div>
+                            <div class="text-xs opacity-70">100% full 4K clarity real photographic landscape vistas of India across all regions</div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <button onclick="setWallpaper('wall-ladakh-ai')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105 shadow-md">
+                                <button onclick="setWallpaper('wall-ladakh-ai')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🏔️ Ladakh Pangong</div>
-                                    <div class="text-[9px] text-saffron font-bold mt-0.5">8K AI Masterpiece</div>
+                                    <div class="text-[9px] text-saffron font-bold mt-0.5">4K Crystal Peaks</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-munnar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-emerald-950/40 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
-                                    <div class="text-xs font-bold text-emerald-400">🌿 Munnar Mist</div>
-                                    <div class="text-[9px] text-emerald-500 font-bold mt-0.5">8K AI Masterpiece</div>
+                                <button onclick="setWallpaper('wall-munnar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">🌿 Munnar Mist</div>
+                                    <div class="text-[9px] text-emerald-500 font-bold mt-0.5">4K Emerald Hills</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-varanasi-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-orange-950/40 text-left transition-all hover:border-orange-500 hover:scale-105 shadow-md">
-                                    <div class="text-xs font-bold text-orange-400">🌅 Varanasi Ganges</div>
-                                    <div class="text-[9px] text-amber-500 font-bold mt-0.5">8K AI Masterpiece</div>
+                                <button onclick="setWallpaper('wall-varanasi-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-orange-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-orange-600 dark:text-orange-400">🌅 Varanasi Ganges</div>
+                                    <div class="text-[9px] text-amber-500 font-bold mt-0.5">4K Sacred Dawn</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-thar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-amber-950/40 text-left transition-all hover:border-amber-500 hover:scale-105 shadow-md">
-                                    <div class="text-xs font-bold text-amber-400">🏜️ Thar Dunes</div>
-                                    <div class="text-[9px] text-cyan-400 font-bold mt-0.5">8K AI Masterpiece</div>
+                                <button onclick="setWallpaper('wall-thar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-amber-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-amber-600 dark:text-amber-400">🏜️ Thar Dunes</div>
+                                    <div class="text-[9px] text-cyan-500 font-bold mt-0.5">4K Twilight Galaxy</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-andaman')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-teal-950/40 text-left transition-all hover:border-teal-500 hover:scale-105">
-                                    <div class="text-xs font-bold text-teal-400">🌊 Andaman Lagoon</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Havelock Coral Waters</div>
+                                <button onclick="setWallpaper('wall-kashmir-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-purple-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-purple-600 dark:text-purple-400">🪷 Kashmir Dal Lake</div>
+                                    <div class="text-[9px] text-purple-500 font-bold mt-0.5">4K Shikara & Snow</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-kashmir')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-purple-950/40 text-left transition-all hover:border-purple-500 hover:scale-105">
-                                    <div class="text-xs font-bold text-purple-400">🪷 Kashmir Dal Lake</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Valley Lotus Blossom</div>
+                                <button onclick="setWallpaper('wall-andaman-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-teal-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-teal-600 dark:text-teal-400">🌊 Andaman Beach</div>
+                                    <div class="text-[9px] text-teal-500 font-bold mt-0.5">4K Havelock Coral</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-kutch')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-900 text-left transition-all hover:border-slate-400 hover:scale-105">
-                                    <div class="text-xs font-bold text-slate-300">🌌 Rann of Kutch</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">White Moonlit Salt Desert</div>
+                                <button onclick="setWallpaper('wall-waterfall-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">🌊 Ghats Waterfall</div>
+                                    <div class="text-[9px] text-emerald-500 font-bold mt-0.5">4K Rainforest Mist</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-obsidian')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-black text-left transition-all hover:border-cyan-500 hover:scale-105">
-                                    <div class="text-xs font-bold text-cyan-400">🌌 Obsidian Void</div>
-                                    <div class="text-[9px] opacity-60 mt-0.5">Pure OLED Dark Mode</div>
+                                <button onclick="setWallpaper('wall-kutch-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-cyan-500 hover:scale-105 shadow-md">
+                                    <div class="text-xs font-bold text-slate-700 dark:text-slate-200">🌌 Rann of Kutch</div>
+                                    <div class="text-[9px] text-cyan-500 font-bold mt-0.5">4K Moonlit Salt</div>
                                 </button>
                             </div>
                         </div>
