@@ -1,0 +1,48 @@
+{
+  "balance": 249.92943633055557,
+  "lifetime_earnings": 150.0,
+  "lifetime_expenses": 0.07056366944444444,
+  "token_costs_total": 0.001119225,
+  "xp": 150,
+  "level": 1,
+  "level_title": "Novice Scripter",
+  "contracts_completed": 1,
+  "contracts_won": 0,
+  "proposals_sent": 1,
+  "simulated_days_survived": 0.003472222222222222,
+  "is_alive": true,
+  "upgrades": {
+    "speed_boost_v1": {
+      "id": "speed_boost_v1",
+      "name": "Compute Acceleration",
+      "desc": "Reduces code generation latency by 35%",
+      "cost": 120.0,
+      "purchased": false,
+      "type": "speed"
+    },
+    "smart_bidding_model": {
+      "id": "smart_bidding_model",
+      "name": "Market Intelligence Engine",
+      "desc": "Boosts proposal win rate by +18%",
+      "cost": 250.0,
+      "purchased": false,
+      "type": "win_rate"
+    },
+    "parallel_subagents": {
+      "id": "parallel_subagents",
+      "name": "Multi-Threaded Worker Swarm",
+      "desc": "Increases max concurrent contracts to 6",
+      "cost": 600.0,
+      "purchased": false,
+      "type": "capacity"
+    },
+    "enterprise_rep": {
+      "id": "enterprise_rep",
+      "name": "Verified Enterprise Badge",
+      "desc": "Clients pay +20% higher tips on delivery",
+      "cost": 1500.0,
+      "purchased": false,
+      "type": "tips"
+    }
+  }
+}
