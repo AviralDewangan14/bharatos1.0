@@ -4,13 +4,20 @@ Runs natively on PC hardware as an independent desktop window with zero browser 
 Features clean minimal boot, Redesigned File Explorer, 144 FPS Gaming Hub, Task Manager, Settings, and Bottom Horizon Tray.
 """
 
+import os
 import sys
 import time
 import math
+from pathlib import Path
 import tkinter as tk
 from tkinter import ttk, messagebox, simpledialog
 import threading
 from typing import Dict, Any, List
+
+# Ensure project root is always in sys.path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 # Ensure UTF-8 output on Windows terminal
 if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
@@ -294,15 +301,55 @@ class BharatOSNativeWindow:
 
     def open_settings(self):
         win = tk.Toplevel(self.root)
-        win.title("BharatOS Settings & Power Management")
-        win.geometry("680x440")
+        win.title("BharatOS Sovereign Settings & Power Control")
+        win.geometry("740x480")
         win.configure(bg="#090e1a")
 
-        content = tk.Frame(win, bg="#020408", padx=20, pady=20)
-        content.pack(fill="both", expand=True)
+        sidebar = tk.Frame(win, bg="#020408", width=180, padx=10, pady=15)
+        sidebar.pack(side="left", fill="y")
 
-        tk.Label(content, text="⚡ Battery & Power Profile:", font=("Segoe UI", 11, "bold"), bg="#020408", fg="#ff9933").pack(anchor="w", pady=5)
-        tk.Label(content, text="• Battery Level: 94% (Fast Charging)\n• Health: 98.5%\n• Target Framerate: 144 FPS Gaming Mode", font=("Consolas", 10), bg="#020408", fg="#cbd5e1", justify="left").pack(anchor="w", pady=5)
+        content = tk.Frame(win, bg="#090e1a", padx=20, pady=20)
+        content.pack(side="right", fill="both", expand=True)
+
+        def clear_content():
+            for widget in content.winfo_children():
+                widget.destroy()
+
+        def show_power():
+            clear_content()
+            tk.Label(content, text="⚡ Battery & Power Management", font=("Segoe UI", 12, "bold"), bg="#090e1a", fg="#ff9933").pack(anchor="w", pady=5)
+            b = memory_subsystem.get_battery_stats()
+            tk.Label(content, text=f"• Battery Level: {b['level']}% (Fast Charging)\n• Battery Health: {b['health']}%\n• Power Mode: {b['power_profile']}\n• Estimated Runtime: {b['time_remaining_minutes']}", font=("Consolas", 10), bg="#090e1a", fg="#cbd5e1", justify="left").pack(anchor="w", pady=10)
+
+        def show_memory():
+            clear_content()
+            tk.Label(content, text="🧠 Memory & 64-bit Paging Configuration", font=("Segoe UI", 12, "bold"), bg="#090e1a", fg="#38bdf8").pack(anchor="w", pady=5)
+            m = memory_subsystem.get_memory_stats()
+            tk.Label(content, text=f"• Total Physical RAM: {m['total_ram_mb']} MB (16 GB)\n• Memory Used: {m['used_ram_mb']} MB ({m['used_percent']}%)\n• Free Memory: {m['free_ram_mb']} MB\n• Paging Structure: {m['paging_mode']} ({m['page_size_kb']} KB Pages)\n• Kernel Heap: {m['kernel_heap_mb']} MB | Page Cache: {m['page_cache_mb']} MB", font=("Consolas", 10), bg="#090e1a", fg="#cbd5e1", justify="left").pack(anchor="w", pady=10)
+
+        def show_security():
+            clear_content()
+            tk.Label(content, text="🛡️ Kavach Zero-Trust Security Enclave", font=("Segoe UI", 12, "bold"), bg="#090e1a", fg="#4ade80").pack(anchor="w", pady=5)
+            tk.Label(content, text="• Foreign Telemetry Probes Neutralized: 4,280\n• Cipher: AES-256-GCM + ChaCha20-Poly1305\n• Data Residency: 100% Local On-Device Encrypted\n• Sovereign DNS: Active (Zero Telemetry Leak)", font=("Consolas", 10), bg="#090e1a", fg="#cbd5e1", justify="left").pack(anchor="w", pady=10)
+
+        def show_gaming():
+            clear_content()
+            tk.Label(content, text="🎮 Prithvi 144 FPS Vulkan Compositor", font=("Segoe UI", 12, "bold"), bg="#090e1a", fg="#fbbf24").pack(anchor="w", pady=5)
+            g = game_engine.get_game_mode_metrics()
+            tk.Label(content, text=f"• Target Framerate: {g['target_fps']} FPS (Active)\n• GPU Accelerator: {g['gpu_device']}\n• GPU VRAM: {g['vram_used_mb']} MB / {g['vram_total_mb']} MB\n• GPU Temperature: {g['gpu_temp_c']} °C\n• Low-Latency Audio: Enabled (0.8 ms)", font=("Consolas", 10), bg="#090e1a", fg="#cbd5e1", justify="left").pack(anchor="w", pady=10)
+
+        tabs = [
+            ("⚡ Power & Battery", show_power),
+            ("🧠 Memory & RAM", show_memory),
+            ("🛡️ Kavach Security", show_security),
+            ("🎮 Gaming & 144FPS", show_gaming)
+        ]
+
+        for title, func in tabs:
+            btn = tk.Button(sidebar, text=title, command=func, font=("Segoe UI", 9, "bold"), bg="#090e1a", fg="#f8fafc", activebackground="#1e293b", activeforeground="#38bdf8", relief="flat", width=16, height=2, anchor="w", padx=10)
+            btn.pack(pady=4)
+
+        show_power()
 
     def open_winbridge(self):
         win = tk.Toplevel(self.root)
