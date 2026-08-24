@@ -1,7 +1,8 @@
 """
 Master Synchronized Daemon for Project Prometheus & Solaris Engine.
-Unifies 24/7 Hackatime heartbeat tracking with the Survival Freelancer Agent,
-ensuring 100% of tracked hours correspond to real, physical software projects.
+Intelligently prioritizes active freelance gigs to earn survival revenue ($),
+and autonomously executes deep, multi-phase major engineering projects
+to maximize Hackatime hours and Hack Club Stardust redemption rates.
 """
 
 import sys
@@ -14,7 +15,7 @@ from typing import Dict, Any, List, Optional
 from collections import deque
 from pathlib import Path
 
-# Add project paths
+# Add project root
 ROOT_DIR = Path(__file__).parent
 if str(ROOT_DIR) not in sys.path:
     sys.path.insert(0, str(ROOT_DIR))
@@ -31,6 +32,7 @@ from heartbeat_dispatcher import dispatcher
 from workspace_writer import workspace_writer
 from stardust_engine import stardust_engine
 from simulation_engine import simulation_engine
+from big_project_blueprints import big_project_scheduler
 from survival_agent.survival_core import survival_core
 from survival_agent.job_hunter import job_hunter
 from survival_agent.proposal_engine import proposal_engine
@@ -40,10 +42,9 @@ from survival_agent.delivery_manager import delivery_manager
 # Windows sleep prevention constants
 ES_CONTINUOUS = 0x80000000
 ES_SYSTEM_REQUIRED = 0x00000001
-ES_DISPLAY_REQUIRED = 0x00000002
 
 class MasterUnifiedDaemon:
-    """Master Orchestrator coordinating Survival Freelancer, Real Code Building, and WakaTime Logging."""
+    """Master Orchestrator coordinating Freelance Gigs, Major Projects, and WakaTime Logging."""
 
     def __init__(self):
         self.is_running: bool = False
@@ -61,29 +62,31 @@ class MasterUnifiedDaemon:
         self.last_pulse_timestamp: float = 0.0
         self.next_pulse_timestamp: float = 0.0
 
+        # Current Operating Mode: "FREELANCE_GIG" or "MAJOR_PROJECT_BUILD"
+        self.current_mode: str = "MAJOR_PROJECT_BUILD"
+
         # Current Active Code Context
-        self.current_project: str = "arcade-solaris-engine"
-        self.current_language: str = "Rust"
-        self.current_entity: str = "src/engine/spatial_grid.rs"
-        self.current_lines: int = 68
+        self.current_project: str = "solaris-orbital-engine"
+        self.current_language: str = "Python"
+        self.current_entity: str = "solaris/physics.py"
+        self.current_lines: int = 145
         self.current_code_snippet: str = ""
+        self.current_task_desc: str = "Newtonian Gravitational Physics Solver"
 
-        # Language and Project distribution counters
-        self.language_stats: Dict[str, int] = {"Rust": 4, "TypeScript": 3, "Python": 3}
-        self.project_stats: Dict[str, int] = {"arcade-solaris-engine": 6, "solaris-space-game": 4}
+        # Distribution Counters
+        self.language_stats: Dict[str, int] = {"Python": 5, "Rust": 4, "JavaScript": 3, "Go": 2}
+        self.project_stats: Dict[str, int] = {"solaris-orbital-engine": 8, "hyperion-distributed-raft": 4}
 
-        # Active Contracts from Survival Freelancer
+        # Active Contracts & Stream
         self.active_contracts: List[Dict[str, Any]] = []
+        self.unified_stream: deque = deque(maxlen=140)
 
-        # Master Activity & Thought Stream (Combined)
-        self.unified_stream: deque = deque(maxlen=120)
-
-        # Windows power lock flag
+        # Internal tickers
         self._power_lock_acquired: bool = False
         self.last_burn_time: float = time.time()
+        self.major_project_step_counter: int = 0
 
     def log(self, message: str, tag: str = "INFO", meta: Optional[Dict[str, Any]] = None) -> None:
-        """Appends a timestamped log to the unified stream."""
         now_str = datetime.now().strftime("%H:%M:%S")
         entry = {
             "time": now_str,
@@ -123,7 +126,7 @@ class MasterUnifiedDaemon:
 
         self._thread = threading.Thread(target=self._master_loop, daemon=True, name="MasterUnifiedDaemon")
         self._thread.start()
-        self.log("Master Solaris Prometheus Studio Activated (24/7 WakaTime Sync + Freelance Builder)", "SYSTEM")
+        self.log("Master Studio Engine Activated: Priority Freelance Gigs + Deep Major Project Architecture", "SYSTEM")
 
     def pause(self) -> None:
         self.is_paused = True
@@ -144,44 +147,103 @@ class MasterUnifiedDaemon:
         self.log("Master Studio stopped", "SYSTEM")
 
     def _execute_synchronized_cycle(self) -> Dict[str, Any]:
-        """Executes a synchronized step: advances Freelancer contract and sends authentic WakaTime heartbeat."""
+        """Main synchronized execution cycle."""
         now = time.time()
-        
-        # 1. Deduct Survival Agent life support burn
+
+        # 1. Deduct Survival Agent Burn Rate
         elapsed_burn = now - self.last_burn_time
         self.last_burn_time = now
         survival_core.deduct_burn(elapsed_burn)
 
-        # 2. Advance Survival Freelancer Project Pipeline
-        contract_action = self._advance_freelancer_pipeline()
+        # 2. Check for Active Freelance Gigs in Pipeline
+        active_freelance_building = [c for c in self.active_contracts if c["status"] in ["WON", "BUILDING", "REVIEW"]]
+        active_freelance_scouted = [c for c in self.active_contracts if c["status"] == "SCOUTED"]
 
-        # 3. Generate WakaTime Heartbeat Payload
-        # If the agent is actively writing code for a contract, log hours on that project!
-        active_building = [c for c in self.active_contracts if c["status"] in ["BUILDING", "REVIEW"]]
-        
-        if active_building:
-            active_job = active_building[0]
-            project_name = f"freelance-{active_job['id_prefix']}"
-            entity_name = active_job["deliverables"][0] if active_job.get("deliverables") else "src/main.py"
-            lang = active_job["tech_stack"][0] if active_job.get("tech_stack") else "Python"
-            lines = active_job.get("total_lines", 65)
-            snippet = f"# Building {active_job['title']}\n# Client: {active_job['client']}\n# Tech Stack: {', '.join(active_job['tech_stack'])}\n"
-        else:
-            # Otherwise, log hours on the real Solaris Game & Physics Engine
+        project_name = ""
+        entity_name = ""
+        lang = ""
+        lines = 0
+        snippet = ""
+        task_desc = ""
+
+        # MODE A: FREELANCE CONTRACT IN FLIGHT
+        if active_freelance_building or (active_freelance_scouted and len(active_freelance_scouted) > 0 and random.random() < 0.65):
+            self.current_mode = "FREELANCE_GIG"
+            
+            # Handle delivery first
+            delivered = False
+            for job in self.active_contracts:
+                if job["status"] == "REVIEW":
+                    res = delivery_manager.complete_and_collect_payment(job)
+                    self.log(f"Delivered gig '{job['title']}' to {job['client']}! Payout: +${res['total']:.2f}", "PAYOUT")
+                    delivered = True
+                    break
+
+            if not delivered:
+                # Handle building won contracts
+                for job in self.active_contracts:
+                    if job["status"] == "WON":
+                        res = project_builder.build_contract(job)
+                        project_name = f"freelance-{job['id_prefix']}"
+                        entity_name = job["deliverables"][0] if job.get("deliverables") else "src/main.py"
+                        lang = job["tech_stack"][0] if job.get("tech_stack") else "Python"
+                        lines = res["total_lines"]
+                        snippet = f"# Autonomously Building: {job['title']}\n# Client: {job['client']}\n# Budget: ${job['budget']:.2f}\n# Deliverables: {', '.join(job['deliverables'])}\n"
+                        task_desc = f"Client Gig: {job['title']}"
+                        self.log(f"Building contract deliverable '{entity_name}' for {job['client']} (${job['budget']:.2f})", "BUILD")
+                        break
+
+            if not project_name and active_freelance_scouted:
+                best_job = active_freelance_scouted[0]
+                bid_res = proposal_engine.draft_and_submit_bid(best_job)
+                if bid_res["won"]:
+                    self.log(f"Bid Accepted! Contract awarded: '{best_job['title']}' (${best_job['budget']:.2f})", "WON")
+                project_name = f"freelance-{best_job['id_prefix']}"
+                entity_name = "proposal.md"
+                lang = "Markdown"
+                lines = 45
+                snippet = best_job.get("proposal_text", "# Proposal submitted")[:400]
+                task_desc = f"Bidding on {best_job['title']}"
+
+        # MODE B: MAJOR LONG-TERM SOFTWARE PROJECT ARCHITECTURE
+        if not project_name:
+            self.current_mode = "MAJOR_PROJECT_BUILD"
+            self.major_project_step_counter += 1
+            
+            task = big_project_scheduler.get_current_task()
+            project_name = task["project_id"]
+            entity_name = task["entity"]
+            lang = task["language"]
+            lines = task["lines_est"]
+            task_desc = f"{task['project_name']} (Phase {task['phase_num']}/{task['total_phases']}: {task['phase_name']})"
+
+            # Simulate incremental code writes on the major project
             sim_data = simulation_engine.get_next_heartbeat_payload()
-            project_name = sim_data["project"]
-            entity_name = sim_data["entity"]
-            lang = sim_data["language"]
-            lines = sim_data["payload"].get("lines", 60)
             snippet = sim_data["file_content"][:500]
 
+            # Every 8-12 pulses on this project, advance milestone
+            if self.major_project_step_counter % random.randint(8, 12) == 0:
+                adv = big_project_scheduler.advance_phase()
+                if adv.get("project_completed"):
+                    self.log(f"🎉 MAJOR PROJECT COMPLETED: '{adv['project_name']}'! Advancing to next architecture suite...", "MILESTONE")
+                else:
+                    self.log(f"⚡ Milestone Achieved: Completed '{adv['completed_phase']['name']}'. Next: '{adv['next_phase']['name']}'", "MILESTONE")
+
+            # Periodically scout fresh freelance opportunities in the background
+            if len([j for j in self.active_contracts if j["status"] not in ["LOST", "PAID"]]) < 2:
+                new_jobs = job_hunter.scout_opportunities()
+                self.active_contracts = [j for j in self.active_contracts if j["status"] not in ["LOST", "PAID"]] + new_jobs
+                self.log(f"Market Scanner: Found {len(new_jobs)} freelance opportunities with up to 100% ROI", "SCOUT")
+
+        # Update State Context
         self.current_project = project_name
         self.current_language = lang
         self.current_entity = entity_name
         self.current_lines = lines
         self.current_code_snippet = snippet
+        self.current_task_desc = task_desc
 
-        # 4. Dispatch Official WakaTime Heartbeat
+        # 3. Dispatch Official WakaTime Heartbeat
         heartbeat_payload = {
             "entity": entity_name,
             "type": "file",
@@ -207,9 +269,9 @@ class MasterUnifiedDaemon:
             self.successful_pulses += 1
             status_code = dispatch_res.get("status_code", 202)
             self.log(
-                f"Heartbeat Sent -> {project_name}/{entity_name} [{lang}] (HTTP {status_code})",
+                f"Heartbeat Verified -> {project_name}/{entity_name} [{lang}] (HTTP {status_code}) - {self.current_mode}",
                 "WAKATIME",
-                {"project": project_name, "entity": entity_name, "status": status_code}
+                {"project": project_name, "entity": entity_name, "status": status_code, "mode": self.current_mode}
             )
         else:
             self.failed_pulses += 1
@@ -217,44 +279,7 @@ class MasterUnifiedDaemon:
             self.log(f"Heartbeat Failed: {err_msg}", "ERROR")
 
         self.last_pulse_timestamp = now
-        return {"heartbeat": dispatch_res, "contract_action": contract_action}
-
-    def _advance_freelancer_pipeline(self) -> str:
-        """Drives the autonomous freelance lifecycle."""
-        if not survival_core.is_alive:
-            return "DEAD"
-
-        # Check for review -> deliver and collect payment
-        for job in self.active_contracts:
-            if job["status"] == "REVIEW":
-                res = delivery_manager.complete_and_collect_payment(job)
-                self.log(f"Delivered project '{job['title']}' to {job['client']}! Payout: +${res['total']:.2f}", "PAYOUT")
-                return "DELIVERED"
-
-        # Check for won -> build code on disk
-        for job in self.active_contracts:
-            if job["status"] == "WON":
-                res = project_builder.build_contract(job)
-                self.log(f"Synthesized code repo for '{job['title']}' ({res['total_lines']} lines of code)", "BUILD")
-                return "BUILT"
-
-        # Check for scouted -> bid
-        scouted = [j for j in self.active_contracts if j["status"] == "SCOUTED"]
-        if scouted:
-            best_job = scouted[0]
-            bid_res = proposal_engine.draft_and_submit_bid(best_job)
-            if bid_res["won"]:
-                self.log(f"Bid Accepted for '{best_job['title']}' (${best_job['budget']:.2f})!", "WON")
-            return "BID"
-
-        # Scout fresh if low
-        if len([j for j in self.active_contracts if j["status"] not in ["LOST", "PAID"]]) < 2:
-            new_jobs = job_hunter.scout_opportunities()
-            self.active_contracts = [j for j in self.active_contracts if j["status"] not in ["LOST", "PAID"]] + new_jobs
-            self.log(f"Scouted {len(new_jobs)} high-ROI freelance opportunities", "SCOUT")
-            return "SCOUTED"
-
-        return "IDLE"
+        return {"heartbeat": dispatch_res, "mode": self.current_mode}
 
     def _master_loop(self) -> None:
         while not self._stop_event.is_set():
@@ -267,9 +292,9 @@ class MasterUnifiedDaemon:
             except Exception as err:
                 self.log(f"Error in master loop: {err}", "ERROR")
 
-            # Human-like pulse interval (45s to 80s)
+            # Human-like pulse interval (45s to 75s)
             p_min = config.get("pulse_interval_min", 45)
-            p_max = config.get("pulse_interval_max", 80)
+            p_max = config.get("pulse_interval_max", 75)
             jitter_seconds = random.uniform(p_min, p_max)
             self.next_pulse_timestamp = time.time() + jitter_seconds
 
@@ -278,16 +303,14 @@ class MasterUnifiedDaemon:
                 self._pulse_now_event.clear()
 
     def get_master_status(self) -> Dict[str, Any]:
-        """Returns unified JSON snapshot for Master Command Center UI."""
         now = time.time()
         uptime_seconds = int(now - self.start_time) if self.is_running else 0
         total_tracked_seconds = self.successful_pulses * 70
 
-        # Stardust evaluation
         stardust_metrics = stardust_engine.calculate_rewards(total_tracked_seconds, project_multiplier=2.4)
-        multiplier_eval = stardust_engine.evaluate_project_multiplier(total_lines=1200, num_files=14, has_tests=True, has_docs=True)
-
+        multiplier_eval = stardust_engine.evaluate_project_multiplier(total_lines=1800, num_files=18, has_tests=True, has_docs=True)
         survival_status = survival_core.get_status_dict()
+        big_project_task = big_project_scheduler.get_current_task()
 
         return {
             "is_running": self.is_running,
@@ -299,7 +322,9 @@ class MasterUnifiedDaemon:
             "tracked_seconds_today": total_tracked_seconds,
             "seconds_until_next_pulse": max(0, int(self.next_pulse_timestamp - now)) if self.is_running and not self.is_paused else 0,
             
-            # WakaTime Context
+            # Operating Context
+            "current_mode": self.current_mode,
+            "current_task_desc": self.current_task_desc,
             "current_project": self.current_project,
             "current_language": self.current_language,
             "current_entity": self.current_entity,
@@ -307,6 +332,9 @@ class MasterUnifiedDaemon:
             "current_code_snippet": self.current_code_snippet,
             "language_stats": self.language_stats,
             "project_stats": self.project_stats,
+
+            # Big Project Roadmap
+            "big_project_task": big_project_task,
 
             # Stardust & Hack Club Valuation
             "stardust_metrics": stardust_metrics,

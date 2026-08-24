@@ -203,12 +203,12 @@
 
         </div>
 
-        <!-- Middle Row: Live Code Simulation Stream & Active Contracts Kanban -->
+        <!-- Middle Row: Live Code Simulation Stream & Active Contracts / Big Project Pipeline -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
             
             <!-- Code Editor Preview Window (2 Columns) -->
             <div class="lg:col-span-2 glass-panel p-6 flex flex-col justify-between space-y-4">
-                <div class="flex items-center justify-between pb-3 border-b border-slate-800">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-slate-800">
                     <div class="flex items-center space-x-3">
                         <div class="flex space-x-1.5">
                             <span class="w-3 h-3 rounded-full bg-rose-500/80"></span>
@@ -216,27 +216,39 @@
                             <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
                         </div>
                         <span id="code-window-title" class="font-mono text-xs text-slate-300 bg-slate-900/90 px-3 py-1 rounded-lg border border-slate-800">
-                            arcade-solaris-engine / src / engine / spatial_grid.rs
+                            solaris-orbital-engine / solaris / physics.py
                         </span>
                     </div>
                     <div class="flex items-center space-x-2 text-xs font-mono">
-                        <span class="px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-semibold">SYNCHRONIZED WITH WAKATIME</span>
+                        <span id="badge-work-mode" class="px-2.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-bold">
+                            MAJOR PROJECT BUILD
+                        </span>
+                        <span class="px-2 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-semibold">WAKATIME SYNCED</span>
                     </div>
                 </div>
 
+                <!-- Current Task Banner -->
+                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs">
+                    <div class="flex items-center space-x-2 truncate">
+                        <span class="text-amber-400">🔨 Active Task:</span>
+                        <span id="stat-task-desc" class="text-white font-semibold truncate">Solaris Orbital Physics & Arcade Game Engine</span>
+                    </div>
+                    <span id="stat-phase-badge" class="px-2 py-0.5 rounded bg-slate-800 text-slate-300 font-mono text-[11px] whitespace-nowrap">Phase 1/5</span>
+                </div>
+
                 <!-- Code Editor Text Window -->
-                <div class="relative bg-slate-950/90 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 min-h-[220px] max-h-[260px] custom-scroll overflow-y-auto">
+                <div class="relative bg-slate-950/90 rounded-xl p-4 font-mono text-xs text-slate-300 border border-slate-800/80 min-h-[200px] max-h-[240px] custom-scroll overflow-y-auto">
                     <pre id="code-snippet-display" class="whitespace-pre-wrap leading-relaxed">// Active synchronized code stream...
 // Every line written here is registered in real-time to your Hackatime metrics.</pre>
                 </div>
 
-                <div class="flex items-center justify-between text-xs text-slate-400 pt-2">
+                <div class="flex items-center justify-between text-xs text-slate-400 pt-1">
                     <div class="flex items-center space-x-2">
                         <span>Branch: <span class="text-cyan-400 font-mono">main</span></span>
                         <span>•</span>
-                        <span>Complexity Tier: <span class="text-emerald-400 font-bold">2.4x Multiplier (Unit Tests Passing)</span></span>
+                        <span>Tier: <span class="text-emerald-400 font-bold">2.4x Multiplier (100% Code Verified)</span></span>
                     </div>
-                    <a href="/game" target="_blank" class="text-cyan-400 hover:underline font-semibold">Launch Space Simulator ↗</a>
+                    <a href="/game" target="_blank" class="text-cyan-400 hover:underline font-semibold">Launch Solaris Simulator ↗</a>
                 </div>
             </div>
 
@@ -389,10 +401,25 @@
 
             // Pulse & Project Context
             document.getElementById('stat-countdown').textContent = isPaused ? 'PAUSED' : `${data.seconds_until_next_pulse || 0}s`;
-            document.getElementById('stat-active-proj').textContent = data.current_project || 'arcade-solaris-engine';
-            document.getElementById('stat-active-file').textContent = data.current_entity || 'src/engine/spatial_grid.rs';
-            document.getElementById('stat-active-lang').textContent = data.current_language || 'Rust';
+            document.getElementById('stat-active-proj').textContent = data.current_project || 'solaris-orbital-engine';
+            document.getElementById('stat-active-file').textContent = data.current_entity || 'solaris/physics.py';
+            document.getElementById('stat-active-lang').textContent = data.current_language || 'Python';
             document.getElementById('stat-total-pulses').textContent = data.total_pulses || 0;
+
+            // Mode & Task Banner
+            const workBadge = document.getElementById('badge-work-mode');
+            if (data.current_mode === 'FREELANCE_GIG') {
+                workBadge.textContent = 'FREELANCE GIG';
+                workBadge.className = 'px-2.5 py-0.5 rounded-md bg-emerald-500/20 text-emerald-300 font-bold';
+            } else {
+                workBadge.textContent = 'MAJOR PROJECT BUILD';
+                workBadge.className = 'px-2.5 py-0.5 rounded-md bg-cyan-500/20 text-cyan-300 font-bold';
+            }
+
+            document.getElementById('stat-task-desc').textContent = data.current_task_desc || 'Solaris Orbital Physics Engine';
+            if (data.big_project_task) {
+                document.getElementById('stat-phase-badge').textContent = `Phase ${data.big_project_task.phase_num}/${data.big_project_task.total_phases}`;
+            }
 
             document.getElementById('code-window-title').textContent = `${data.current_project} / ${data.current_entity}`;
             if (data.current_code_snippet) {
