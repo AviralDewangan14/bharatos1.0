@@ -39,40 +39,52 @@
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
-            --glass-blur: 42px;
-            --glass-opacity: 0.85;
+            --glass-blur: 48px;
+            --glass-opacity: 0.82;
             --trans-speed: 0.28s;
             --os-scale: 1;
 
-            /* LIGHT PORCELAIN THEME */
+            /* LIGHT PORCELAIN ICE LIQUID GLASS */
             --bg-base: #f8fafc;
             --bg-gradient: radial-gradient(circle at 50% 20%, #ffffff 0%, #e2e8f0 100%);
             --text-main: #0f172a;
             --text-sub: #334155;
             --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, var(--glass-opacity));
-            --glass-border: rgba(255, 255, 255, 0.8);
-            --glass-shadow: 0 30px 70px rgba(15, 23, 42, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.95);
+            --glass-bg: rgba(255, 255, 255, 0.78);
+            --glass-border: rgba(255, 255, 255, 0.95);
+            --glass-border-subtle: rgba(203, 213, 225, 0.7);
+            --glass-shadow: 0 25px 70px rgba(15, 23, 42, 0.09), inset 0 1.5px 2px rgba(255, 255, 255, 1);
             --taskbar-bg: rgba(255, 255, 255, 0.88);
             --card-bg: rgba(241, 245, 249, 0.85);
             --dock-hover-bg: rgba(15, 23, 42, 0.06);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.96) 0%, #e2e8f0 100%);
+            --panel-header-bg: rgba(248, 250, 252, 0.8);
+            --input-bg: rgba(255, 255, 255, 0.95);
+            --input-border: #cbd5e1;
+            --cmd-bg: #0f172a;
+            --cmd-text: #f8fafc;
         }
 
         [data-theme="dark"] {
-            /* DARK OBSIDIAN THEME */
+            /* DARK OBSIDIAN VOID LIQUID GLASS */
             --bg-base: #020408;
             --bg-gradient: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
             --text-main: #f8fafc;
             --text-sub: #cbd5e1;
             --text-muted: #64748b;
-            --glass-bg: rgba(9, 14, 26, var(--glass-opacity));
-            --glass-border: rgba(255, 255, 255, 0.14);
-            --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            --glass-bg: rgba(9, 14, 26, 0.84);
+            --glass-border: rgba(255, 255, 255, 0.16);
+            --glass-border-subtle: rgba(255, 255, 255, 0.08);
+            --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.35);
             --taskbar-bg: rgba(9, 14, 26, 0.92);
             --card-bg: rgba(15, 23, 42, 0.85);
             --dock-hover-bg: rgba(255, 255, 255, 0.12);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(14, 23, 42, 0.96) 0%, #020408 100%);
+            --panel-header-bg: rgba(15, 23, 42, 0.8);
+            --input-bg: rgba(2, 4, 8, 0.9);
+            --input-border: #334155;
+            --cmd-bg: #020408;
+            --cmd-text: #4ade80;
         }
 
         #screen-root {
@@ -109,7 +121,7 @@
 
         body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
 
-        /* --- MODERN MINIMALIST BOOT SCREEN --- */
+        /* --- MODERN BOOT SCREEN --- */
         #boot-screen {
             position: fixed;
             inset: 0;
@@ -174,7 +186,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
         }
 
-        /* --- APPLE-GRADE FLUID LIQUID GLASS --- */
+        /* --- ULTRA-PREMIUM LIQUID GLASS SURFACES --- */
         .ultra-liquid-glass {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur)) saturate(240%);
@@ -186,7 +198,7 @@
             transform-origin: bottom center;
         }
         .ultra-liquid-glass:hover {
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.35), 0 0 30px rgba(var(--accent-rgb), 0.14);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25), 0 0 30px rgba(var(--accent-rgb), 0.14);
         }
 
         .specular-glow {
@@ -194,52 +206,98 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16), transparent 70%);
             mix-blend-mode: overlay;
         }
 
-        /* Capsule controls */
-        .fluid-glass-controls {
+        /* --- HYPER-REALISTIC LIQUID GLASS WINDOW ACTION DROPLETS --- */
+        .liquid-glass-cluster {
             display: flex;
             align-items: center;
-            gap: 7px;
-            padding: 4px 10px;
+            gap: 8px;
+            padding: 5px 12px;
             background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            border-top: 1px solid rgba(255, 255, 255, 0.45);
-            border-radius: 14px;
-            backdrop-filter: blur(20px) saturate(220%);
-            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            border-top: 1.5px solid rgba(255, 255, 255, 0.6);
+            border-radius: 16px;
+            backdrop-filter: blur(24px) saturate(220%);
+            -webkit-backdrop-filter: blur(24px) saturate(220%);
+            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 4px 15px rgba(0, 0, 0, 0.15);
         }
 
-        .fluid-glass-btn {
+        .liquid-droplet {
+            width: 15px;
+            height: 15px;
+            border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 14px;
-            height: 14px;
+            cursor: pointer;
+            position: relative;
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.85), inset 0 -1.5px 2px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        .liquid-droplet::before {
+            content: '';
+            position: absolute;
+            top: 2px;
+            left: 3px;
+            width: 5px;
+            height: 3px;
             border-radius: 9999px;
+            background: rgba(255, 255, 255, 0.95);
+            filter: blur(0.3px);
+        }
+
+        .liquid-droplet .glyph {
             font-size: 9px;
             font-weight: 900;
             line-height: 1;
-            cursor: pointer;
-            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.18s ease;
         }
 
-        .fluid-glass-btn .btn-icon { opacity: 0; transform: scale(0.5); transition: all 0.15s ease; }
-        .fluid-glass-controls:hover .fluid-glass-btn .btn-icon { opacity: 1; transform: scale(1); }
+        .liquid-glass-cluster:hover .liquid-droplet .glyph {
+            opacity: 1;
+            transform: scale(1);
+        }
 
-        .btn-fluid-close { background: linear-gradient(135deg, #ff5f56 0%, #e0443e 100%); border: 1px solid rgba(224, 68, 62, 0.8); color: #4d0000; }
-        .btn-fluid-close:hover { transform: scale(1.22); box-shadow: 0 0 12px rgba(255, 95, 86, 0.85); }
+        /* Droplet Close: Ruby Glass */
+        .droplet-close {
+            background: radial-gradient(circle at 35% 35%, #ff7675 0%, #d63031 70%, #901112 100%);
+            border: 0.5px solid rgba(255, 118, 117, 0.8);
+            color: #3b0002;
+        }
+        .droplet-close:hover {
+            transform: scale(1.26);
+            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(235, 47, 6, 0.9);
+        }
 
-        .btn-fluid-minimize { background: linear-gradient(135deg, #ffbd2e 0%, #dea123 100%); border: 1px solid rgba(222, 161, 35, 0.8); color: #5c3c00; }
-        .btn-fluid-minimize:hover { transform: scale(1.22); box-shadow: 0 0 12px rgba(255, 189, 46, 0.85); }
+        /* Droplet Minimize: Amber Golden Glass */
+        .droplet-min {
+            background: radial-gradient(circle at 35% 35%, #ffeaa7 0%, #fdcb6e 70%, #b7791f 100%);
+            border: 0.5px solid rgba(254, 202, 87, 0.8);
+            color: #4a2d00;
+        }
+        .droplet-min:hover {
+            transform: scale(1.26);
+            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(254, 202, 87, 0.9);
+        }
 
-        .btn-fluid-maximize { background: linear-gradient(135deg, #27c93f 0%, #1aab29 100%); border: 1px solid rgba(26, 171, 41, 0.8); color: #004d0d; }
-        .btn-fluid-maximize:hover { transform: scale(1.22); box-shadow: 0 0 12px rgba(39, 201, 63, 0.85); }
+        /* Droplet Maximize: Emerald Glass */
+        .droplet-max {
+            background: radial-gradient(circle at 35% 35%, #55efc4 0%, #00b894 70%, #006241 100%);
+            border: 0.5px solid rgba(85, 239, 196, 0.8);
+            color: #00331b;
+        }
+        .droplet-max:hover {
+            transform: scale(1.26);
+            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(0, 184, 148, 0.9);
+        }
 
-        /* --- BHARAT ISLAND (NEXT-GEN EXPANDED ISLAND) --- */
+        /* --- BHARAT ISLAND --- */
         #dynamic-island-container {
             transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background var(--trans-speed) ease;
             box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(var(--accent-rgb), 0.18);
@@ -444,7 +502,6 @@
                     <span>🛡️ Kavach Vault:</span>
                     <span class="text-emerald-600 dark:text-emerald-400 font-bold">100% Zero Telemetry</span>
                 </div>
-                <!-- Battery on Lock Screen (Hidden on Desktop PC) -->
                 <div id="lock-battery-container" class="flex items-center space-x-2 hidden">
                     <span>⚡ Power:</span>
                     <span class="text-amber-600 dark:text-amber-300 font-bold">94% Fast Charge</span>
@@ -468,15 +525,13 @@
                 </div>
             </div>
 
-            <!-- BHARAT ISLAND (NEXT-GEN ULTRA-EXPANDABLE ISLAND) -->
+            <!-- BHARAT ISLAND -->
             <div id="dynamic-island-container" onclick="toggleDynamicIsland()" class="compact bg-white/95 dark:bg-slate-950/95 border border-slate-300 dark:border-slate-700/90 backdrop-blur-3xl cursor-pointer flex flex-col justify-between overflow-hidden z-50">
-                <!-- Compact HUD -->
                 <div id="island-compact-view" class="w-full h-full flex items-center justify-between">
                     <div class="flex items-center space-x-2">
                         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
                         <span class="font-mono text-[11px] text-cyan-600 dark:text-cyan-300 font-bold">RAM: 55.4 MB</span>
                     </div>
-                    <!-- Laptop Battery Indicator in Island (Hidden on Desktop PC) -->
                     <div id="island-battery-hud" class="flex items-center space-x-1 font-mono text-[11px] text-amber-500 font-bold hidden">
                         <span>⚡</span><span>94%</span>
                     </div>
@@ -498,7 +553,6 @@
                         <button onclick="toggleDynamicIsland()" class="w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-[10px]">✕</button>
                     </div>
 
-                    <!-- Quick Interactive Sliders & Display Refresh Rate -->
                     <div class="grid grid-cols-3 gap-3 my-1">
                         <div class="p-2 rounded-xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 space-y-1">
                             <div class="flex justify-between text-[10px]"><span>☀️ Brightness</span><span id="island-bright-val" class="font-bold text-cyan-500">100%</span></div>
@@ -608,60 +662,148 @@
                 </div>
             </div>
 
-            <!-- APP 1: SOVEREIGNFS EXPLORER -->
-            <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <!-- APP 1: HYPER-ORGANIZED LIQUID GLASS FILE EXPLORER (SOVEREIGNFS STUDIO) -->
+            <div id="files-window" class="absolute top-4 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
+                <!-- Title Header with Liquid Glass Action Cluster -->
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="fluid-glass-controls">
-                            <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close Window"><span class="btn-icon">✕</span></span>
-                            <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize Window"><span class="btn-icon">−</span></span>
-                            <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
+                        <!-- LIQUID GLASS DROPLETS -->
+                        <div class="liquid-glass-cluster">
+                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close"><span class="glyph">✕</span></span>
+                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize"><span class="glyph">−</span></span>
+                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize"><span class="glyph">⤢</span></span>
                         </div>
-                        <span class="text-xs font-mono font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span>📁</span>
+                            <span>SovereignFS Explorer — NVMe Storage (C:)</span>
+                        </span>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <button onclick="playSfx('click'); createNewFilePrompt()" class="px-3 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-cyan-600 dark:text-cyan-300 border border-slate-300 dark:border-slate-700 font-bold">+ New File</button>
+                        <button onclick="playSfx('click'); createNewFolderPrompt()" class="px-3 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-amber-600 dark:text-amber-300 border border-slate-300 dark:border-slate-700 font-bold">+ New Folder</button>
                     </div>
                 </div>
-                <div class="px-5 py-2 bg-slate-50/50 dark:bg-slate-950/40 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                    <div class="flex items-center space-x-1.5 opacity-70">
-                        <button onclick="navigateToPath('/home/user')" class="hover:text-cyan-500 font-bold">🏠 /home/user</button>
-                        <span id="vfs-current-breadcrumb" class="text-cyan-600 dark:text-cyan-300 font-bold">/documents</span>
+
+                <!-- Navigation Ribbon (History, Breadcrumb, Search, View Mode) -->
+                <div class="px-5 py-2 bg-slate-50/60 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
+                    <div class="flex items-center space-x-2">
+                        <div class="flex items-center space-x-1">
+                            <button onclick="vfsGoBack()" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-700 font-bold">←</button>
+                            <button onclick="vfsGoForward()" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-700 font-bold">→</button>
+                        </div>
+                        <div class="flex items-center space-x-1 px-3 py-1 rounded-xl bg-slate-100/90 dark:bg-slate-900 border border-slate-300 dark:border-slate-700">
+                            <span class="opacity-60">🏠 /home/user</span>
+                            <span id="vfs-current-breadcrumb" class="text-cyan-600 dark:text-cyan-300 font-bold">/documents</span>
+                        </div>
                     </div>
-                    <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-700 rounded-lg font-mono text-xs focus:outline-none focus:border-cyan-500 w-52">
+
+                    <div class="flex items-center space-x-3">
+                        <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 rounded-xl font-mono text-xs focus:outline-none focus:border-cyan-500 w-56">
+                        <div class="flex items-center space-x-1 bg-slate-200 dark:bg-slate-900 p-0.5 rounded-lg border border-slate-300 dark:border-slate-800">
+                            <button onclick="setVFSView('grid')" id="vfs-view-grid" class="px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold text-[10px]">Grid</button>
+                            <button onclick="setVFSView('list')" id="vfs-view-list" class="px-2 py-0.5 rounded opacity-70 text-[10px]">List</button>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Main File Explorer Dual Pane Area -->
                 <div class="flex-1 flex overflow-hidden">
-                    <div class="w-56 bg-slate-100/70 dark:bg-slate-950/70 p-4 border-r border-slate-200 dark:border-slate-800/80 flex flex-col justify-between text-xs font-mono">
-                        <div class="space-y-1">
-                            <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-2">Favorites</div>
-                            <button onclick="navigateToPath('/home/user')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>🏠</span><span>Home</span></button>
-                            <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>📄</span><span>Documents</span></button>
-                            <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>⚡</span><span>Projects</span></button>
-                            <button onclick="navigateToPath('/home/user/games')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>🎮</span><span>Games</span></button>
-                            <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>⚙️</span><span>System Root</span></button>
+                    <!-- Left Sidebar Categories -->
+                    <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-4 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
+                        <div class="space-y-3">
+                            <div>
+                                <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-1.5">Quick Access</div>
+                                <div class="space-y-1">
+                                    <button onclick="navigateToPath('/home/user')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>🏠</span><span>Home Root</span></button>
+                                    <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>📄</span><span>Documents</span></button>
+                                    <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>⚡</span><span>Projects</span></button>
+                                    <button onclick="navigateToPath('/home/user/games')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>🎮</span><span>Games</span></button>
+                                </div>
+                            </div>
+
+                            <div>
+                                <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-1.5">Drives & System</div>
+                                <div class="space-y-1">
+                                    <button onclick="navigateToPath('/home/user')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>💾</span><span>NVMe (C:)</span></button>
+                                    <button onclick="navigateToPath('/system')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 flex items-center space-x-2 font-semibold"><span>🛡️</span><span>Kavach Vault (D:)</span></button>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-3 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 space-y-1 text-[11px]">
-                            <div class="flex justify-between font-bold"><span>NVMe (C:)</span><span>12.4 / 512 GB</span></div>
+
+                        <!-- Storage Capacity Card -->
+                        <div class="p-3 rounded-2xl bg-white/70 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 space-y-1.5 text-[11px]">
+                            <div class="flex justify-between font-bold"><span>NVMe Storage</span><span class="text-cyan-600 dark:text-cyan-300">12.4 / 512 GB</span></div>
                             <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-1.5 overflow-hidden"><div class="bg-cyan-500 h-full w-[12%]"></div></div>
                         </div>
                     </div>
+
+                    <!-- Center Files View Grid / List -->
                     <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-50/40 dark:bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
+
+                    <!-- Right Inspector Preview Drawer -->
+                    <div id="vfs-inspector-drawer" class="w-64 bg-slate-100/60 dark:bg-slate-950/60 p-4 border-l border-slate-200 dark:border-slate-800 flex flex-col justify-between font-mono text-xs">
+                        <div class="space-y-3 text-center">
+                            <div id="inspector-icon" class="text-5xl my-2">📄</div>
+                            <div id="inspector-name" class="font-bold text-sm truncate">sovereignty_manifesto.md</div>
+                            <div id="inspector-type" class="text-[11px] opacity-60">Markdown Document</div>
+                            <div class="p-3 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 text-left space-y-1 text-[10px]">
+                                <div class="flex justify-between"><span class="opacity-60">Size:</span><span id="inspector-size" class="font-bold">3.2 KB</span></div>
+                                <div class="flex justify-between"><span class="opacity-60">Location:</span><span id="inspector-loc" class="font-bold truncate">/home/user/docs</span></div>
+                                <div class="flex justify-between"><span class="opacity-60">Security:</span><span class="text-emerald-500 font-bold">AES-256 GCM</span></div>
+                            </div>
+                        </div>
+                        <button onclick="openSelectedFileInEditor()" class="w-full py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400">Open in Editor ↗</button>
+                    </div>
                 </div>
             </div>
 
-            <!-- APP 2: SETTINGS APPLICATION (WITH FULL DISPLAY RESOLUTION & REFRESH CONTROLS) -->
-            <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <!-- APP 2: BHARAT COMMAND PROMPT & POWERSHELL (bsh MASTER CMD CENTER) -->
+            <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="fluid-glass-controls">
-                            <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close Window"><span class="btn-icon">✕</span></span>
-                            <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize Window"><span class="btn-icon">−</span></span>
-                            <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
+                        <div class="liquid-glass-cluster">
+                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close"><span class="glyph">✕</span></span>
+                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize"><span class="glyph">−</span></span>
+                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize"><span class="glyph">⤢</span></span>
                         </div>
-                        <span class="text-xs font-mono font-bold">BharatOS Sovereign Settings & Display Center (Win+I)</span>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span>💻</span>
+                            <span>Bharat Command Prompt (cmd.exe / bsh v4.0) — Administrator</span>
+                        </span>
                     </div>
                 </div>
+
+                <div class="flex-1 bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-emerald-400" id="terminal-output">
+                    <div class="text-saffron font-bold">BharatOS Sovereign Microkernel [Version 2026.1.0 LTS]</div>
+                    <div class="text-slate-400">(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.</div>
+                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'ipconfig'</span>, <span class="text-purple-300 font-bold">'systeminfo'</span>, or <span class="text-cyan-300 font-bold">'cls'</span>.</div>
+                </div>
+
+                <div class="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
+                    <span class="text-emerald-400 font-bold">C:\Users\sovereign&gt;</span>
+                    <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
+                </div>
+            </div>
+
+            <!-- APP 3: SETTINGS & DISPLAY RESOLUTION HUB -->
+            <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="liquid-glass-cluster">
+                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close"><span class="glyph">✕</span></span>
+                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize"><span class="glyph">−</span></span>
+                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize"><span class="glyph">⤢</span></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5"><span>⚙️</span><span>Sovereign Settings & Personalization (Win+I)</span></span>
+                    </div>
+                </div>
+
                 <div class="flex-1 flex overflow-hidden">
-                    <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800/80 space-y-1 text-xs font-mono">
+                    <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800 space-y-1 text-xs font-mono">
                         <div class="p-2.5 rounded-2xl bg-white/60 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center space-x-2.5 mb-3">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
                             <div class="truncate">
@@ -670,7 +812,7 @@
                             </div>
                         </div>
 
-                        <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2" id="tab-btn-system"><span>🖥️</span><span>System & Specs</span></button>
+                        <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2" id="tab-btn-system"><span>🖥️</span><span>System Specs</span></button>
                         <button onclick="switchSettingsTab('display')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-display"><span>🖥️</span><span>Display & Refresh</span></button>
                         <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-wallpaper"><span>🎨</span><span>Glass & Wallpapers</span></button>
                         <button onclick="switchSettingsTab('sound')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-sound"><span>🔊</span><span>Sound & DSP</span></button>
@@ -680,7 +822,6 @@
                     </div>
 
                     <div class="flex-1 bg-slate-50/85 dark:bg-slate-950/85 p-6 custom-scroll overflow-y-auto">
-                        <!-- Tab: System -->
                         <div id="tab-pane-system" class="space-y-4 font-mono text-xs">
                             <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800">
                                 <span class="text-5xl text-saffron">☸️</span>
@@ -701,7 +842,6 @@
                             </div>
                         </div>
 
-                        <!-- Tab: Display Resolution & Refresh Rate -->
                         <div id="tab-pane-display" class="space-y-4 font-mono text-xs hidden">
                             <div class="text-sm font-bold">Display Resolution & Refresh Rate Matrix</div>
                             <div class="grid grid-cols-2 gap-4">
@@ -726,7 +866,6 @@
                             </div>
                         </div>
 
-                        <!-- Tab: Wallpapers -->
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold">Glass & Theme Studio</div>
@@ -745,7 +884,6 @@
                             </div>
                         </div>
 
-                        <!-- Tab: Sound -->
                         <div id="tab-pane-sound" class="space-y-4 font-mono text-xs hidden">
                             <div class="text-sm font-bold">Sound Effects & Spatial DSP Engine</div>
                             <div class="space-y-3">
@@ -760,17 +898,14 @@
                             </div>
                         </div>
 
-                        <!-- Tab: Shortcuts -->
                         <div id="tab-pane-shortcuts" class="space-y-3 font-mono text-xs hidden">
                             <div class="text-sm font-bold">System Keybindings & Hotkeys</div>
                             <table class="w-full text-left">
                                 <thead><tr class="opacity-60 border-b border-slate-300 dark:border-slate-800 pb-2"><th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th></tr></thead>
                                 <tbody class="divide-y divide-slate-200 dark:divide-slate-900">
                                     <tr><td class="py-2 text-cyan-600 dark:text-cyan-300 font-bold">Win + E</td><td>Open SovereignFS Explorer</td><td>Files</td></tr>
-                                    <tr><td class="py-2 text-emerald-600 dark:text-emerald-400 font-bold">Win + T</td><td>Open Bharat Shell (bsh)</td><td>Terminal</td></tr>
-                                    <tr><td class="py-2 text-amber-600 dark:text-amber-300 font-bold">Win + G</td><td>Toggle 144 FPS Game Hub</td><td>Gaming</td></tr>
+                                    <tr><td class="py-2 text-emerald-600 dark:text-emerald-400 font-bold">Win + T</td><td>Open Command Prompt (bsh)</td><td>Terminal</td></tr>
                                     <tr><td class="py-2 text-cyan-600 dark:text-cyan-300 font-bold">Win + I</td><td>Open System Settings</td><td>System</td></tr>
-                                    <tr><td class="py-2 text-purple-600 dark:text-purple-300 font-bold">Win + M</td><td>Open Task Manager</td><td>Performance</td></tr>
                                     <tr><td class="py-2 text-rose-600 dark:text-rose-400 font-bold">Win + L</td><td>Lock Sovereign Desktop</td><td>Security</td></tr>
                                     <tr><td class="py-2 text-sky-600 dark:text-sky-300 font-bold">Win + D</td><td>Toggle Desktop Widgets</td><td>Desktop</td></tr>
                                     <tr><td class="py-2 text-indigo-600 dark:text-indigo-300 font-bold">Win + ?</td><td>Open Shortcuts Cheatsheet</td><td>Help</td></tr>
@@ -778,7 +913,6 @@
                             </table>
                         </div>
 
-                        <!-- Tab: Updates -->
                         <div id="tab-pane-updates" class="space-y-4 font-mono text-xs hidden">
                             <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex items-center justify-between">
                                 <div><div class="text-sm font-bold">Sovereign Update: Up to Date</div><div class="text-[11px] opacity-70 mt-0.5">Build: 2026.1.0 LTS (Channel: STABLE_LTS)</div></div>
@@ -786,7 +920,6 @@
                             </div>
                         </div>
 
-                        <!-- Tab: Security -->
                         <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
                             <div class="p-4 rounded-2xl bg-emerald-100/50 dark:bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
                                 <div class="text-emerald-700 dark:text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
@@ -794,29 +927,6 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- APP 3: TERMINAL (bsh) -->
-            <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
-                <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
-                    <div class="flex items-center space-x-3">
-                        <div class="fluid-glass-controls">
-                            <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close Window"><span class="btn-icon">✕</span></span>
-                            <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize Window"><span class="btn-icon">−</span></span>
-                            <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
-                        </div>
-                        <span class="text-xs font-mono font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
-                    </div>
-                </div>
-                <div class="flex-1 bg-slate-900 dark:bg-slate-950/90 text-slate-100 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5" id="terminal-output">
-                    <div class="text-saffron font-bold">🇮🇳 Bharat Shell (bsh) v4.0 — Windows & Linux Sovereign Suite</div>
-                    <div class="opacity-70">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'tasklist'</span>, <span class="text-cyan-300 font-bold">'mem'</span>, or <span class="text-emerald-300 font-bold">'theme'</span>.</div>
-                </div>
-                <div class="p-3 bg-slate-950 border-t border-slate-800 flex items-center space-x-2 font-mono text-xs">
-                    <span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span>
-                    <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
                 </div>
             </div>
 
@@ -829,7 +939,7 @@
                     </div>
                     <div class="grid grid-cols-2 gap-3 text-xs font-mono">
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + E</span><span>SovereignFS Explorer</span></div>
-                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + T</span><span>Bharat Shell (bsh)</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + T</span><span>Command Prompt (bsh)</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + I</span><span>Settings Hub</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-rose-600 dark:text-rose-400 font-bold">Win + L</span><span>Lock Screen</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-sky-600 dark:text-sky-300 font-bold">Win + D</span><span>Toggle Widgets</span></div>
@@ -849,7 +959,7 @@
                 <div class="h-6 w-px bg-slate-300 dark:bg-slate-700/60"></div>
                 <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
                 <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
-                <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
+                <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Command Prompt (Win+T)">💻</button>
             </div>
 
             <!-- SYSTEM TRAY -->
@@ -867,7 +977,6 @@
                     <span>🔊</span><span id="tray-volume-text">80%</span>
                 </button>
                 
-                <!-- Battery on System Tray (Hidden if Desktop PC) -->
                 <button id="tray-battery-btn" onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all hidden" title="Battery: 94% (Charging Fast)">
                     <span>⚡ 94%</span>
                 </button>
@@ -997,7 +1106,6 @@
 
         // Device Form Factor: Laptop vs Desktop PC
         let deviceType = "desktop";
-
         function setDeviceType(type) {
             deviceType = type;
             const btnD = document.getElementById('onboard-dev-desktop');
@@ -1159,7 +1267,7 @@
             }
         }
 
-        // Theme Engine
+        // Theme Engine (Dark Obsidian / Light Porcelain Ice)
         let currentTheme = 'dark';
         function toggleTheme() {
             playSfx('click');
@@ -1306,7 +1414,7 @@
         let lastMouseX = 0;
 
         function initDrag(e, winId) {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN') return;
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
             highestZ++;
@@ -1374,30 +1482,41 @@
             }
         });
 
-        // VFS
+        // 17. HYPER-ORGANIZED SOVEREIGNFS ENGINE
         const VFS_TREE = {
             "/home/user": [
-                { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
-                { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
-                { name: "games", type: "dir", icon: "🎮", size: "2.4 MB" },
-                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB" },
-                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB" }
+                { name: "documents", type: "dir", icon: "📁", size: "4 KB", mime: "Folder" },
+                { name: "projects", type: "dir", icon: "📁", size: "12 KB", mime: "Folder" },
+                { name: "games", type: "dir", icon: "🎮", size: "2.4 MB", mime: "Folder" },
+                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB", mime: "Executable Application" },
+                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB", mime: "Text File" }
             ],
             "/home/user/documents": [
-                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB" },
-                { name: "specs.pdf", type: "file", icon: "📕", size: "450 KB" }
+                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB", mime: "Markdown Document" },
+                { name: "hardware_specs.pdf", type: "file", icon: "📕", size: "450 KB", mime: "PDF Document" },
+                { name: "vulkan_roadmap.docx", type: "file", icon: "📘", size: "24 KB", mime: "Word Document" }
             ],
             "/home/user/projects": [
-                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" },
-                { name: "indic_ai_core", type: "dir", icon: "🧠", size: "120 KB" }
+                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB", mime: "Project Folder" },
+                { name: "indic_ai_core", type: "dir", icon: "🧠", size: "120 KB", mime: "AI Workspace" }
             ],
             "/home/user/games": [
-                { name: "solaris_flight.app", type: "file", icon: "🪐", size: "1.8 MB" }
+                { name: "solaris_flight.app", type: "file", icon: "🪐", size: "1.8 MB", mime: "3D Flight Simulator" },
+                { name: "chakra_runner.app", type: "file", icon: "⚡", size: "120 KB", mime: "Cyberpunk Game" },
+                { name: "vedic_chess.app", type: "file", icon: "♟️", size: "64 KB", mime: "Vedic Grandmaster" }
             ],
-            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }]
+            "/system": [
+                { name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB", mime: "System Kernel Image" },
+                { name: "kavach_vault.key", type: "file", icon: "🛡️", size: "256 B", mime: "Cryptographic Key" }
+            ]
         };
 
         let currentVFSPath = "/home/user";
+        let vfsHistory = ["/home/user"];
+        let vfsHistoryIdx = 0;
+        let vfsViewMode = "grid";
+        let selectedVFSItem = null;
+
         function renderVFS(path) {
             currentVFSPath = path;
             document.getElementById('vfs-current-breadcrumb').textContent = path.replace("/home/user", "");
@@ -1405,54 +1524,262 @@
             if (!container) return;
             container.innerHTML = '';
 
-            (VFS_TREE[path] || []).forEach(item => {
-                const el = document.createElement('div');
-                el.className = 'p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/90 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-white dark:hover:bg-slate-800/80 transition-all shadow-sm';
-                el.onclick = () => {
-                    playSfx('click');
-                    if (item.type === 'dir') {
-                        const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
-                        navigateToPath(nextPath);
-                    }
-                };
-                el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs font-bold truncate w-full">${item.name}</span><span class="text-[10px] opacity-60 mt-1">${item.size}</span>`;
-                container.appendChild(el);
-            });
+            const items = VFS_TREE[path] || [];
+
+            if (vfsViewMode === 'grid') {
+                container.className = 'flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-50/40 dark:bg-slate-950/50 custom-scroll overflow-y-auto content-start';
+                items.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = 'p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/90 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-white dark:hover:bg-slate-800/80 transition-all shadow-sm';
+                    el.onclick = () => {
+                        playSfx('click');
+                        selectVFSItem(item);
+                        if (item.type === 'dir') {
+                            const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
+                            navigateToPath(nextPath);
+                        }
+                    };
+                    el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs font-bold truncate w-full">${item.name}</span><span class="text-[10px] opacity-60 mt-1">${item.size}</span>`;
+                    container.appendChild(el);
+                });
+            } else {
+                container.className = 'flex-1 p-4 bg-slate-50/40 dark:bg-slate-950/50 custom-scroll overflow-y-auto space-y-1.5';
+                items.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = 'px-4 py-2.5 rounded-xl bg-white/70 dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/90 flex items-center justify-between cursor-pointer hover:bg-white dark:hover:bg-slate-800/80 transition-all text-xs font-mono';
+                    el.onclick = () => {
+                        playSfx('click');
+                        selectVFSItem(item);
+                        if (item.type === 'dir') {
+                            const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
+                            navigateToPath(nextPath);
+                        }
+                    };
+                    el.innerHTML = `<div class="flex items-center space-x-3"><span class="text-xl">${item.icon}</span><span class="font-bold">${item.name}</span></div><div class="flex items-center space-x-4 opacity-70"><span>${item.mime}</span><span>${item.size}</span></div>`;
+                    container.appendChild(el);
+                });
+            }
         }
-        function navigateToPath(p) { renderVFS(p); }
+
+        function selectVFSItem(item) {
+            selectedVFSItem = item;
+            const icon = document.getElementById('inspector-icon');
+            const name = document.getElementById('inspector-name');
+            const type = document.getElementById('inspector-type');
+            const size = document.getElementById('inspector-size');
+            const loc = document.getElementById('inspector-loc');
+
+            if (icon) icon.textContent = item.icon;
+            if (name) name.textContent = item.name;
+            if (type) type.textContent = item.mime || item.type;
+            if (size) size.textContent = item.size;
+            if (loc) loc.textContent = currentVFSPath;
+        }
+
+        function navigateToPath(p) {
+            if (p !== currentVFSPath) {
+                vfsHistory.push(p);
+                vfsHistoryIdx = vfsHistory.length - 1;
+            }
+            renderVFS(p);
+        }
+
+        function vfsGoBack() {
+            if (vfsHistoryIdx > 0) {
+                vfsHistoryIdx--;
+                renderVFS(vfsHistory[vfsHistoryIdx]);
+            }
+        }
+
+        function vfsGoForward() {
+            if (vfsHistoryIdx < vfsHistory.length - 1) {
+                vfsHistoryIdx++;
+                renderVFS(vfsHistory[vfsHistoryIdx]);
+            }
+        }
+
+        function setVFSView(mode) {
+            vfsViewMode = mode;
+            const btnG = document.getElementById('vfs-view-grid');
+            const btnL = document.getElementById('vfs-view-list');
+            if (mode === 'grid') {
+                if (btnG) btnG.className = 'px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold text-[10px]';
+                if (btnL) btnL.className = 'px-2 py-0.5 rounded opacity-70 text-[10px]';
+            } else {
+                if (btnG) btnG.className = 'px-2 py-0.5 rounded opacity-70 text-[10px]';
+                if (btnL) btnL.className = 'px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold text-[10px]';
+            }
+            renderVFS(currentVFSPath);
+        }
+
+        function createNewFilePrompt() {
+            const fname = prompt("Enter new file name:", "new_document.txt");
+            if (fname) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name: fname, type: "file", icon: "📄", size: "0 B", mime: "Text File" });
+                renderVFS(currentVFSPath);
+            }
+        }
+
+        function createNewFolderPrompt() {
+            const dname = prompt("Enter new folder name:", "New Folder");
+            if (dname) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name: dname, type: "dir", icon: "📁", size: "4 KB", mime: "Folder" });
+                renderVFS(currentVFSPath);
+            }
+        }
+
+        function openSelectedFileInEditor() {
+            playSfx('open');
+            openAppWindow('terminal-window', 'dock-terminal');
+        }
+
         renderVFS("/home/user");
 
-        // Terminal
+        // 18. REAL WINDOWS CMD & POWERSHELL MASTER TERMINAL COMMANDS
+        let commandHistory = [];
+        let historyPointer = -1;
+
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
+            if (!input) return;
+
+            if (e.key === 'ArrowUp') {
+                if (commandHistory.length > 0 && historyPointer < commandHistory.length - 1) {
+                    historyPointer++;
+                    input.value = commandHistory[commandHistory.length - 1 - historyPointer];
+                }
+                e.preventDefault();
+                return;
+            } else if (e.key === 'ArrowDown') {
+                if (historyPointer > 0) {
+                    historyPointer--;
+                    input.value = commandHistory[commandHistory.length - 1 - historyPointer];
+                } else {
+                    historyPointer = -1;
+                    input.value = '';
+                }
+                e.preventDefault();
+                return;
+            }
+
             if (e.key === 'Enter') {
                 playSfx('click');
-                const val = input.value.trim();
-                if (!val) return;
+                const rawVal = input.value;
+                const val = rawVal.trim();
                 input.value = '';
+                historyPointer = -1;
+                if (!val) return;
 
+                commandHistory.push(val);
                 const out = document.getElementById('terminal-output');
-                out.innerHTML += `<div><span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span> <span class="text-white">${val}</span></div>`;
-                const cmd = val.split(' ')[0].toLowerCase();
+                out.innerHTML += `<div><span class="text-emerald-400 font-bold">C:\\Users\\sovereign&gt;</span> <span class="text-white">${rawVal}</span></div>`;
+                
+                const parts = val.split(' ');
+                const cmd = parts[0].toLowerCase();
+                const arg = parts.slice(1).join(' ');
 
                 if (cmd === 'help') {
-                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, theme, widgets, lock, clear</div>`;
+                    out.innerHTML += `<div>
+<span class="text-saffron font-bold">Supported Windows CMD & Sovereign Shell Commands:</span><br>
+  DIR / LS          - List files and directories in current path<br>
+  CD [path]         - Change current directory<br>
+  CLS / CLEAR       - Clear command line screen<br>
+  ECHO [text]       - Display messages on screen<br>
+  TYPE [file]       - Display contents of a text file<br>
+  IPCONFIG          - Display network configuration & IP addresses<br>
+  SYSTEMINFO        - Show detailed microkernel & hardware properties<br>
+  TASKLIST / PS     - List running active processes<br>
+  PING [host]       - Ping host address with ICMP echo packets<br>
+  VER               - Display BharatOS version<br>
+  TREE              - Graphically display directory structure<br>
+  MEM / FREE        - Display memory allocation (PML4 paging)<br>
+  THEME             - Toggle Dark / Light Liquid Glass Theme<br>
+  EXPLORER          - Open SovereignFS File Explorer<br>
+  SETTINGS          - Open System Settings Hub<br>
+  LOCK              - Lock Sovereign Desktop Enclave<br>
+  COLOR [attr]      - Change terminal text color (e.g. color 0a)
+</div>`;
+                } else if (cmd === 'cls' || cmd === 'clear') {
+                    out.innerHTML = '';
+                } else if (cmd === 'ver') {
+                    out.innerHTML += `<div>BharatOS [Version 2026.1.0 LTS - Build 1948.Swaraj.x86_64]</div>`;
+                } else if (cmd === 'dir' || cmd === 'ls') {
+                    const items = VFS_TREE[currentVFSPath] || [];
+                    let listing = `<div> Directory of C:${currentVFSPath}<br><br>`;
+                    items.forEach(it => {
+                        const tag = it.type === 'dir' ? '&lt;DIR&gt;' : '     ';
+                        listing += `24/08/2026  03:45 PM    ${tag}          ${it.size.padEnd(8)} ${it.name}<br>`;
+                    });
+                    listing += `<br>               ${items.length} File(s)          12,400,000 bytes free</div>`;
+                    out.innerHTML += listing;
+                } else if (cmd === 'cd') {
+                    if (!arg || arg === '~' || arg === '/') {
+                        currentVFSPath = '/home/user';
+                    } else if (arg === '..') {
+                        currentVFSPath = '/home/user';
+                    } else {
+                        const target = `/home/user/${arg}`;
+                        if (VFS_TREE[target]) currentVFSPath = target;
+                        else out.innerHTML += `<div class="text-rose-400">The system cannot find the path specified: ${arg}</div>`;
+                    }
+                    renderVFS(currentVFSPath);
+                } else if (cmd === 'ipconfig') {
+                    out.innerHTML += `<div>
+BharatOS IP Configuration<br><br>
+Wireless LAN adapter Wi-Fi 7 Mesh:<br>
+   Connection-specific DNS Suffix  . : sov.internal<br>
+   IPv4 Address. . . . . . . . . . . : 192.168.1.144<br>
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>
+   Default Gateway . . . . . . . . . : 192.168.1.1<br>
+   Kavach Zero-Trust Tunnel. . . . . : ARMED (10.24.0.1)
+</div>`;
+                } else if (cmd === 'systeminfo') {
+                    out.innerHTML += `<div>
+OS Name:                   BharatOS Sovereign PC<br>
+OS Version:                2026.1.0 LTS (Rust SMP Microkernel)<br>
+System Manufacturer:       Sovereign Computing Initiative<br>
+Processor:                 x86_64 Multi-Core SMP (16 Logical Cores)<br>
+Total Physical Memory:     16,384 MB (4-Level PML4 Paging)<br>
+Available Physical Memory: 16,328.6 MB<br>
+Display Adapter:           Vulkan 1.3 Hardware Rasterizer (144 Hz)<br>
+Security Shield:           Kavach Zero-Trust Hardware Enclave
+</div>`;
+                } else if (cmd === 'tasklist' || cmd === 'ps') {
+                    out.innerHTML += `<div>
+Image Name                     PID Session Name        Mem Usage<br>
+========================= ======== ================ ============<br>
+sovereign_kernel.sys             1 Services             12,400 K<br>
+kavach_shield.exe                2 Services             18,200 K<br>
+vulkan_compositor.exe            3 Console              42,000 K<br>
+bsh_terminal.exe                 4 Console               8,400 K<br>
+sovereign_fs.exe                 5 Console              14,200 K
+</div>`;
+                } else if (cmd === 'ping') {
+                    const host = arg || '127.0.0.1';
+                    out.innerHTML += `<div>
+Pinging ${host} with 32 bytes of data:<br>
+Reply from ${host}: bytes=32 time=0.2ms TTL=128<br>
+Reply from ${host}: bytes=32 time=0.1ms TTL=128<br>
+Reply from ${host}: bytes=32 time=0.2ms TTL=128<br>
+Ping statistics for ${host}: Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)
+</div>`;
+                } else if (cmd === 'echo') {
+                    out.innerHTML += `<div>${arg}</div>`;
                 } else if (cmd === 'theme') {
                     toggleTheme();
                     out.innerHTML += `<div class="text-cyan-300">Toggled theme to ${currentTheme} mode.</div>`;
-                } else if (cmd === 'widgets') {
-                    toggleWidgets();
-                    out.innerHTML += `<div class="text-cyan-300">Toggled Desktop Widgets.</div>`;
-                } else if (cmd === 'dir' || cmd === 'ls') {
-                    out.innerHTML += `<div>documents/  projects/  games/  solaris_game.exe  readme.txt</div>`;
-                } else if (cmd === 'cls' || cmd === 'clear') {
-                    out.innerHTML = '';
+                } else if (cmd === 'explorer') {
+                    openAppWindow('files-window', 'dock-files');
+                } else if (cmd === 'settings') {
+                    openAppWindow('settings-window', 'dock-settings');
                 } else if (cmd === 'lock') {
                     lockDesktop();
-                } else if (cmd === 'mem' || cmd === 'free') {
-                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
+                } else if (cmd === 'color') {
+                    out.style.color = '#38bdf8';
                 } else {
-                    out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
+                    out.innerHTML += `<div class="text-slate-400">'${cmd}' is recognized and executed in Sovereign Ring-0 memory space.</div>`;
                 }
                 out.scrollTop = out.scrollHeight;
             }
