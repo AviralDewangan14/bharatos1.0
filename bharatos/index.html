@@ -43,7 +43,7 @@
             margin: 0;
             font-family: 'Plus Jakarta Sans', sans-serif;
             perspective: 1400px;
-            transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.3s ease;
         }
 
         /* Curated Dynamic Wallpapers */
@@ -59,10 +59,8 @@
         body.wall-crystal {
             background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.22) 0%, #09142b 60%, #020408 100%);
         }
-
-        /* Night Light Filter */
-        body.night-light {
-            filter: sepia(0.25) hue-rotate(-15deg);
+        body.wall-cyber {
+            background: radial-gradient(circle at 30% 70%, rgba(168, 85, 247, 0.25) 0%, #060919 50%, #020408 100%);
         }
 
         /* --- MODERN MINIMALIST CLEAN BOOT SCREEN --- */
@@ -95,7 +93,7 @@
 
         /* --- ULTRA-CLEAN PROFESSIONAL LIQUID GLASS --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(9, 14, 26, 0.9) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.09) 0%, rgba(9, 14, 26, 0.92) 100%);
             backdrop-filter: blur(45px) saturate(240%);
             -webkit-backdrop-filter: blur(45px) saturate(240%);
             border: 1px solid rgba(255, 255, 255, 0.14);
@@ -120,7 +118,7 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- DYNAMIC ISLAND --- */
+        /* --- REVOLUTIONARY DYNAMIC ISLAND --- */
         #dynamic-island-container {
             transition: all 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.15);
@@ -132,45 +130,120 @@
             padding: 4px 16px;
         }
         #dynamic-island-container.expanded {
-            width: 520px;
-            height: 180px;
+            width: 540px;
+            height: 184px;
             border-radius: 28px;
             padding: 16px 20px;
         }
 
-        /* --- HYPER-FLUID GENIE TRANSITIONS --- */
+        /* --- HYPER-FLUID GENIE & SPRING WINDOW TRANSITIONS --- */
         .window-open-genie {
-            animation: genie-expand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: genie-expand 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .window-minimize-genie {
-            animation: genie-collapse 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+            animation: genie-collapse 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
         }
 
         @keyframes genie-expand {
-            0% { transform: translateY(180px) scale(0.35) scaleY(0.2) rotateX(15deg); opacity: 0; filter: blur(12px); }
-            70% { transform: translateY(-8px) scale(1.02) scaleY(1.01) rotateX(-2deg); opacity: 0.95; filter: blur(0); }
-            100% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
+            0% {
+                transform: translateY(160px) scale(0.4) scaleY(0.25) rotateX(12deg);
+                opacity: 0;
+                filter: blur(12px);
+            }
+            70% {
+                transform: translateY(-6px) scale(1.015) scaleY(1.01) rotateX(-2deg);
+                opacity: 0.96;
+                filter: blur(0);
+            }
+            100% {
+                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
         }
 
         @keyframes genie-collapse {
-            0% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
-            40% { transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg); opacity: 0.8; filter: blur(4px); }
-            100% { transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg); opacity: 0; filter: blur(16px); }
+            0% {
+                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
+                opacity: 1;
+                filter: blur(0);
+            }
+            40% {
+                transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg);
+                opacity: 0.8;
+                filter: blur(4px);
+            }
+            100% {
+                transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg);
+                opacity: 0;
+                filter: blur(16px);
+            }
         }
 
         /* Maximized Window State */
         .window-maximized {
             top: 48px !important;
-            left: 16px !important;
-            width: calc(100vw - 32px) !important;
-            height: calc(100vh - 104px) !important;
-            border-radius: 16px !important;
+            left: 12px !important;
+            width: calc(100vw - 24px) !important;
+            height: calc(100vh - 106px) !important;
+            border-radius: 18px !important;
+        }
+
+        /* Snapping presets */
+        .snap-half-left {
+            top: 48px !important;
+            left: 12px !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(100vh - 106px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-half-right {
+            top: 48px !important;
+            left: calc(50vw + 6px) !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(100vh - 106px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-quad-top-left {
+            top: 48px !important;
+            left: 12px !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(50vh - 56px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-quad-top-right {
+            top: 48px !important;
+            left: calc(50vw + 6px) !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(50vh - 56px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-quad-bottom-left {
+            top: calc(50vh) !important;
+            left: 12px !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(50vh - 58px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-quad-bottom-right {
+            top: calc(50vh) !important;
+            left: calc(50vw + 6px) !important;
+            width: calc(50vw - 18px) !important;
+            height: calc(50vh - 58px) !important;
+            border-radius: 18px !important;
+        }
+        .snap-center-focus {
+            top: 60px !important;
+            left: 15vw !important;
+            width: 70vw !important;
+            height: calc(100vh - 130px) !important;
+            border-radius: 20px !important;
         }
 
         /* --- BOTTOM HORIZON TASKBAR --- */
         .horizon-taskbar {
-            background: rgba(9, 14, 26, 0.92);
+            background: rgba(9, 14, 26, 0.94);
             backdrop-filter: blur(40px) saturate(260%);
             -webkit-backdrop-filter: blur(40px) saturate(260%);
             border-top: 1px solid rgba(255, 255, 255, 0.14);
@@ -200,9 +273,18 @@
             box-shadow: 0 0 8px #38bdf8;
         }
 
+        /* Virtual Workspace Tab indicator */
+        .workspace-btn.active {
+            background: rgba(56, 189, 248, 0.2);
+            border-color: rgba(56, 189, 248, 0.6);
+            color: #38bdf8;
+            font-weight: 700;
+        }
+
+        /* Custom Scrollbar */
         .custom-scroll::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
+            width: 5px;
+            height: 5px;
         }
         .custom-scroll::-webkit-scrollbar-track {
             background: rgba(15, 23, 42, 0.3);
@@ -211,18 +293,105 @@
             background: rgba(255, 255, 255, 0.2);
             border-radius: 4px;
         }
+
+        /* Slide-over Notification Sidebar */
+        #notification-center {
+            transition: transform 0.38s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+        }
+        #notification-center.closed {
+            transform: translateX(105%);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Sudarshan Start Menu */
+        #start-menu {
+            transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+            transform-origin: bottom left;
+        }
+        #start-menu.closed {
+            transform: translateY(20px) scale(0.92);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Mission Control Spatial Grid */
+        #mission-control {
+            transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #mission-control.closed {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Lock Screen */
+        #lock-screen {
+            transition: opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1), transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #lock-screen.unlocked {
+            opacity: 0;
+            transform: scale(1.08) translateY(-40px);
+            pointer-events: none;
+        }
+
+        /* Snapping Dropdown Menu */
+        .snap-menu {
+            display: none;
+        }
+        .has-snap:hover .snap-menu {
+            display: grid;
+        }
     </style>
 </head>
 <body class="wall-obsidian relative flex flex-col justify-between select-none">
 
-    <!-- MODERN MINIMALIST CLEAN BOOT EXPERIENCE -->
+    <!-- ==================== 1. SOVEREIGN LOCK SCREEN ==================== -->
+    <div id="lock-screen" class="fixed inset-0 z-[9999] bg-slate-950/90 backdrop-blur-3xl flex flex-col items-center justify-between p-12 text-white unlocked">
+        <div class="flex items-center justify-between w-full text-xs font-mono text-slate-400">
+            <div class="flex items-center space-x-2">
+                <span class="text-saffron font-bold text-sm">☸️ BharatOS Swaraj 2026.1</span>
+                <span>• Sovereign Enclave Secure</span>
+            </div>
+            <div class="flex items-center space-x-4">
+                <span>📶 Wi-Fi 7 (850 Mbps)</span>
+                <span>⚡ 94% Fast Charging</span>
+            </div>
+        </div>
+
+        <div class="flex flex-col items-center space-y-4">
+            <div class="minimal-emblem text-7xl">☸️</div>
+            <div id="lock-clock" class="text-7xl font-extrabold tracking-tight font-mono text-cyan-300">14:45:00</div>
+            <div id="lock-date" class="text-sm font-medium text-slate-300 tracking-wider">Monday, 24 August 2026 • Saka 1948 Bhadrapada</div>
+            
+            <div class="mt-8 flex flex-col items-center space-y-3 w-80">
+                <div class="text-xs text-slate-400 font-mono">User: <span class="text-white font-bold">sovereign_admin</span> (Root Level)</div>
+                <input id="lock-pin-input" type="password" placeholder="Enter Sovereign PIN (2026)" maxlength="8" class="w-full text-center px-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-700 text-white font-mono text-sm tracking-widest focus:outline-none focus:border-cyan-400 shadow-inner" onkeydown="if(event.key==='Enter') unlockOS()">
+                <div class="flex space-x-2 w-full">
+                    <button onclick="unlockOS()" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-saffron to-amber-500 text-slate-950 font-bold text-xs tracking-wide shadow-lg hover:brightness-110 active:scale-95 transition-all">
+                        🔓 Unlock (PIN 2026)
+                    </button>
+                    <button onclick="unlockOS(true)" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold text-xs border border-slate-700 active:scale-95 transition-all" title="Simulate Biometric Passkey">
+                        🪪 Passkey
+                    </button>
+                </div>
+                <p id="lock-error-msg" class="text-[11px] text-rose-400 font-mono hidden">Invalid PIN. Please use sovereign PIN 2026.</p>
+            </div>
+        </div>
+
+        <div class="flex items-center space-x-6 text-xs text-slate-500 font-mono">
+            <span>🛡️ Kavach Zero-Trust Hardware Shield Active</span>
+            <span>• Press Win+L anytime to lock</span>
+        </div>
+    </div>
+
+    <!-- ==================== 2. MODERN MINIMALIST CLEAN BOOT SCREEN ==================== -->
     <div id="boot-screen">
         <div class="minimal-emblem mb-6">
             <span class="text-7xl select-none">☸️</span>
         </div>
 
         <h1 class="text-3xl font-bold tracking-[0.25em] text-white uppercase font-sans mb-1">BHARAT OS</h1>
-        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • Flagship Quantum Suite</p>
+        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • 144 FPS Vulkan & Indic Workspace Engine</p>
 
         <div class="w-72 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
             <div id="minimal-boot-progress" class="bg-gradient-to-r from-saffron via-white to-indiaGreen h-full w-0 transition-all duration-300"></div>
@@ -231,42 +400,36 @@
         <div id="minimal-boot-label" class="mt-4 text-[11px] font-mono text-slate-500 tracking-wider">Starting Sovereign Microkernel...</div>
     </div>
 
-    <!-- Sovereign Lock Screen Overlay (Win+L) -->
-    <div id="lockscreen-overlay" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-3xl flex flex-col items-center justify-center space-y-6 hidden">
-        <div class="text-7xl text-saffron mb-2">☸️</div>
-        <div id="lock-time" class="text-6xl font-black font-mono text-white">12:00:00</div>
-        <div class="text-sm font-mono text-cyan-300">BharatOS Sovereign Quantum Enclave (Locked)</div>
-        <button onclick="unlockScreen()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen text-slate-950 font-bold text-sm shadow-xl hover:scale-105 transition-all">
-            🔓 Unlock Sovereign Desktop
-        </button>
-    </div>
-
     <!-- Fluid Canvas -->
     <canvas id="fluid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Top Status Bar with Virtual Workspaces, Dynamic Island, and Controls -->
-    <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/40 backdrop-blur-md">
-        <!-- Left: Sovereign Brand & Workspaces Switcher -->
+    <!-- ==================== 3. TOP STATUS BAR WITH VIRTUAL WORKSPACES & DYNAMIC ISLAND ==================== -->
+    <nav class="relative z-40 px-5 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/50 backdrop-blur-md">
+        <!-- Left: Sovereign Brand & Virtual Workspace Pills -->
         <div class="flex items-center space-x-3">
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
+            <button onclick="toggleStartMenu()" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
                 <span class="text-sm">☸️</span>
                 <span class="tracking-wide text-xs">BharatOS</span>
             </button>
             <span class="text-slate-600">|</span>
+
             <!-- Virtual Workspaces Switcher -->
-            <div class="flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 font-mono text-[10px]">
-                <button onclick="switchWorkspace(1)" id="ws-btn-1" class="px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40">1: Core</button>
-                <button onclick="switchWorkspace(2)" id="ws-btn-2" class="px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400">2: Gaming</button>
-                <button onclick="switchWorkspace(3)" id="ws-btn-3" class="px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400">3: Code</button>
+            <div class="flex items-center space-x-1 bg-slate-900/90 p-0.5 rounded-xl border border-slate-800 text-[11px] font-mono">
+                <button onclick="switchWorkspace(1)" id="ws-btn-1" class="workspace-btn active px-2.5 py-0.5 rounded-lg text-slate-300 hover:text-white transition-all">1: Swaraj</button>
+                <button onclick="switchWorkspace(2)" id="ws-btn-2" class="workspace-btn px-2.5 py-0.5 rounded-lg text-slate-400 hover:text-white transition-all">2: Gaming</button>
+                <button onclick="switchWorkspace(3)" id="ws-btn-3" class="workspace-btn px-2.5 py-0.5 rounded-lg text-slate-400 hover:text-white transition-all">3: Indic Dev</button>
+                <button onclick="switchWorkspace(4)" id="ws-btn-4" class="workspace-btn px-2.5 py-0.5 rounded-lg text-slate-400 hover:text-white transition-all">4: Notes & Calc</button>
+                <button onclick="toggleMissionControl()" class="px-1.5 py-0.5 rounded-md hover:bg-slate-800 text-cyan-400 font-bold" title="Mission Control (Win+Tab)">⊞</button>
             </div>
         </div>
 
         <!-- Center: REVOLUTIONARY DYNAMIC ISLAND -->
         <div id="dynamic-island-container" onclick="toggleDynamicIsland()" class="compact bg-slate-950/90 border border-slate-700/90 backdrop-blur-3xl cursor-pointer flex flex-col justify-between overflow-hidden z-50">
+            <!-- Compact Island View -->
             <div id="island-compact-view" class="w-full h-full flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
-                    <span class="font-mono text-[11px] text-cyan-300 font-bold">RAM: 55.4 MB</span>
+                    <span id="island-ram-pill" class="font-mono text-[11px] text-cyan-300 font-bold">RAM: 55.4 MB</span>
                 </div>
                 <div class="flex items-end space-x-1 h-3">
                     <div class="w-1 bg-saffron rounded-full animate-bounce" style="height: 60%; animation-duration: 0.6s;"></div>
@@ -274,10 +437,11 @@
                     <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
                 </div>
                 <div class="flex items-center space-x-1 font-mono text-[11px] text-emerald-400 font-bold">
-                    <span>🛡️</span><span>100%</span>
+                    <span>🛡️</span><span>100% Kavach</span>
                 </div>
             </div>
 
+            <!-- Expanded Island View (Revealed on Click) -->
             <div id="island-expanded-view" class="w-full h-full hidden flex-col justify-between font-mono text-xs">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                     <div class="flex items-center space-x-2">
@@ -290,6 +454,7 @@
                     <span class="px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 text-[10px] font-bold border border-cyan-500/40">144 FPS VULKAN</span>
                 </div>
 
+                <!-- Island Gauges Grid -->
                 <div class="grid grid-cols-3 gap-3 my-2">
                     <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
                         <div class="text-[10px] text-slate-400">FAST CHARGING</div>
@@ -306,30 +471,35 @@
                 </div>
 
                 <div class="flex items-center justify-between text-[11px] text-slate-400">
-                    <span>Click anywhere on island to collapse</span>
+                    <span>Click island to collapse</span>
                     <span class="text-cyan-300 hover:underline font-bold" onclick="event.stopPropagation(); openWindow('taskmanager-window');">Open Task Manager →</span>
                 </div>
             </div>
         </div>
 
-        <!-- Right: Controls & Language -->
-        <div class="flex items-center space-x-3">
-            <button onclick="lockScreen()" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800" title="Lock Screen (Win+L)">
-                🔒 Lock
+        <!-- Right: Action Center, Panchang, Language -->
+        <div class="flex items-center space-x-2.5">
+            <button onclick="toggleNotificationCenter()" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800 flex items-center space-x-1.5" title="Notification Center (Win+N)">
+                <span>🔔</span>
+                <span id="notif-badge" class="w-2 h-2 rounded-full bg-cyan-400"></span>
             </button>
-            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
+            <button onclick="openWindow('panchang-window')" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800" title="Panchang & Calendar">
+                📅 पंचांग
+            </button>
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-lg px-2 py-1 focus:outline-none focus:border-saffron font-medium">
                 <option value="hi">हिन्दी</option>
                 <option value="en">English</option>
                 <option value="ta">தமிழ்</option>
                 <option value="te">తెలుగు</option>
                 <option value="bn">বাংলা</option>
                 <option value="mr">मराठी</option>
+                <option value="sa">संस्कृतम्</option>
             </select>
         </div>
     </nav>
 
-    <!-- Desktop Workspace Canvas -->
-    <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-8 gap-6 z-10 overflow-hidden">
+    <!-- ==================== 4. DESKTOP WORKSPACE CANVAS ==================== -->
+    <main id="desktop-area" class="relative flex-1 p-6 z-10 overflow-hidden">
         
         <!-- Center Watermark Logo -->
         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-15 z-0">
@@ -338,19 +508,30 @@
             <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN ENGINE</p>
         </div>
 
-        <!-- WINDOW 1: ADVANCED PROPER FILE EXPLORER -->
-        <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 1: FILE EXPLORER ==================== -->
+        <div id="files-window" data-workspace="1" class="absolute top-4 left-20 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('files-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('files-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — NVMe (C:)</span>
                 </div>
+                <!-- Window Snapping Helper -->
                 <div class="flex items-center space-x-2">
-                    <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ New File</button>
-                    <button onclick="createNewFolderPrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-amber-300 border border-slate-700">+ New Folder</button>
+                    <div class="relative has-snap">
+                        <button class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-[11px] text-slate-300 font-mono border border-slate-700">🪟 Tile ▾</button>
+                        <div class="snap-menu absolute right-0 top-6 w-36 bg-slate-900/95 border border-slate-700 rounded-xl p-1.5 shadow-2xl z-50 grid grid-cols-2 gap-1 text-[10px] font-mono">
+                            <button onclick="snapWindow('files-window', 'snap-half-left')" class="p-1 rounded hover:bg-slate-800 text-left">Left 50%</button>
+                            <button onclick="snapWindow('files-window', 'snap-half-right')" class="p-1 rounded hover:bg-slate-800 text-left">Right 50%</button>
+                            <button onclick="snapWindow('files-window', 'snap-quad-top-left')" class="p-1 rounded hover:bg-slate-800 text-left">Top Left</button>
+                            <button onclick="snapWindow('files-window', 'snap-quad-top-right')" class="p-1 rounded hover:bg-slate-800 text-left">Top Right</button>
+                            <button onclick="snapWindow('files-window', 'snap-center-focus')" class="col-span-2 p-1 rounded hover:bg-slate-800 text-center text-cyan-300 font-bold">Center Focus</button>
+                        </div>
+                    </div>
+                    <button onclick="createNewFilePrompt()" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ File</button>
+                    <button onclick="createNewFolderPrompt()" class="px-2.5 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-amber-300 border border-slate-700">+ Folder</button>
                 </div>
             </div>
 
@@ -363,6 +544,7 @@
                 <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-lg text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-52">
             </div>
 
+            <!-- Explorer Body -->
             <div class="flex-1 flex overflow-hidden">
                 <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 flex flex-col justify-between text-xs font-mono">
                     <div class="space-y-1">
@@ -375,9 +557,9 @@
                     </div>
 
                     <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 text-[11px]">
-                        <div class="flex justify-between font-bold text-slate-300"><span>Sovereign NVMe (C:)</span><span>12.4 / 512 GB</span></div>
+                        <div class="flex justify-between font-bold text-slate-300"><span>NVMe Storage</span><span>14.2 / 512 GB</span></div>
                         <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
-                            <div class="bg-cyan-400 h-full w-[12%]"></div>
+                            <div class="bg-cyan-400 h-full w-[14%]"></div>
                         </div>
                     </div>
                 </div>
@@ -386,8 +568,306 @@
             </div>
         </div>
 
-        <!-- WINDOW 2: SOVEREIGN GAMING CENTER & 144 FPS VULKAN ENGINE -->
-        <div id="gaming-window" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 2: INDIC CODE STUDIO IDE ==================== -->
+        <div id="ide-window" data-workspace="3" class="absolute top-6 left-16 w-[940px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'ide-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('ide-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('ide-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('ide-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">💻 Indic Code Studio 2026 — Sovereign Microkernel IDE</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="toggleIndicDevanagariMode()" id="ide-indic-mode-btn" class="px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold hover:bg-amber-900/60">
+                        🇮🇳 Devanagari Syntax: OFF
+                    </button>
+                    <button onclick="runIDEScript()" class="px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 text-xs font-mono font-bold flex items-center space-x-1">
+                        <span>▶</span><span>Run Code</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- IDE Tabs -->
+            <div class="px-4 py-1.5 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between font-mono text-xs">
+                <div class="flex items-center space-x-2">
+                    <button onclick="switchIDETab('vedic_primes.py')" id="ide-tab-vedic" class="px-3 py-1 rounded-lg bg-slate-800 text-cyan-300 font-bold border border-slate-700">vedic_primes.py</button>
+                    <button onclick="switchIDETab('isro_trajectory.rs')" id="ide-tab-isro" class="px-3 py-1 rounded-lg hover:bg-slate-900 text-slate-400">isro_trajectory.rs</button>
+                    <button onclick="switchIDETab('kavach_handshake.c')" id="ide-tab-kavach" class="px-3 py-1 rounded-lg hover:bg-slate-900 text-slate-400">kavach_handshake.c</button>
+                </div>
+                <span class="text-[11px] text-slate-500">Language: <span id="ide-lang-label" class="text-slate-300 font-bold">Python 3.12 (Sovereign JIT)</span></span>
+            </div>
+
+            <!-- IDE Editor & Terminal Split -->
+            <div class="flex-1 flex flex-col bg-slate-950/90 overflow-hidden font-mono">
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Line Numbers -->
+                    <div id="ide-line-numbers" class="w-10 bg-slate-950/80 text-slate-600 text-right pr-2 pt-3 select-none text-xs font-mono leading-relaxed border-r border-slate-800">
+                        1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
+                    </div>
+                    <!-- Editor Textarea -->
+                    <textarea id="ide-code-editor" class="flex-1 p-3 bg-transparent text-slate-200 text-xs font-mono leading-relaxed focus:outline-none resize-none custom-scroll" spellcheck="false" oninput="updateIDELineNumbers()"></textarea>
+                </div>
+
+                <!-- Integrated Bottom Console Output -->
+                <div class="h-36 bg-slate-950 border-t border-slate-800 flex flex-col">
+                    <div class="px-4 py-1.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                        <span class="font-bold text-slate-300">Terminal Output & Sovereign Microkernel JIT</span>
+                        <button onclick="clearIDEConsole()" class="hover:text-white">Clear</button>
+                    </div>
+                    <div id="ide-console-output" class="flex-1 p-3 text-xs font-mono text-emerald-400 custom-scroll overflow-y-auto space-y-1">
+                        <div class="text-slate-500">// Ready to compile and execute in BharatOS Ring-0 enclave.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== APP 3: BHARAT SOVEREIGN APP STORE (spkg) ==================== -->
+        <div id="appstore-window" data-workspace="1" class="absolute top-5 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('appstore-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('appstore-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('appstore-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">🛒 Bharat Sovereign App Store — spkg Package Registry</span>
+                </div>
+                <div class="flex items-center space-x-2 text-xs font-mono">
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-bold">✓ NIC / C-DAC Verified Mirror</span>
+                </div>
+            </div>
+
+            <!-- Categories & Search -->
+            <div class="px-6 py-3 bg-slate-950/60 border-b border-slate-800 flex items-center justify-between font-mono text-xs">
+                <div class="flex items-center space-x-2" id="store-cat-filters">
+                    <button onclick="filterAppStore('All')" class="store-cat-btn px-3 py-1 rounded-xl bg-cyan-500 text-slate-950 font-bold">All Apps</button>
+                    <button onclick="filterAppStore('Development')" class="store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800">Development</button>
+                    <button onclick="filterAppStore('Games')" class="store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800">Games</button>
+                    <button onclick="filterAppStore('Productivity')" class="store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800">Productivity</button>
+                    <button onclick="filterAppStore('Security')" class="store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800">Security</button>
+                    <button onclick="filterAppStore('System')" class="store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800">System</button>
+                </div>
+                <input id="store-search-input" oninput="searchAppStore(this.value)" type="text" placeholder="Search Sovereign apps..." class="px-3 py-1 bg-slate-900 border border-slate-700 rounded-lg text-white text-xs w-48 focus:outline-none focus:border-cyan-400">
+            </div>
+
+            <!-- App Store Grid -->
+            <div class="flex-1 p-6 bg-slate-950/80 custom-scroll overflow-y-auto">
+                <div id="store-apps-grid" class="grid grid-cols-2 gap-4"></div>
+            </div>
+        </div>
+
+        <!-- ==================== APP 4: GANITA INDIC CALCULATOR ==================== -->
+        <div id="calculator-window" data-workspace="4" class="absolute top-8 left-32 w-[680px] h-[530px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calculator-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('calculator-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('calculator-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('calculator-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">🧮 Ganita Calculator & Vedic Sutras Solver (Win+C)</span>
+                </div>
+                <div class="flex items-center space-x-1 font-mono text-xs">
+                    <button onclick="switchCalcMode('vedic')" id="calc-tab-vedic" class="px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold">Vedic Math</button>
+                    <button onclick="switchCalcMode('scientific')" id="calc-tab-scientific" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300">Scientific</button>
+                    <button onclick="switchCalcMode('converter')" id="calc-tab-converter" class="px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300">Converter</button>
+                </div>
+            </div>
+
+            <div class="flex-1 bg-slate-950/90 p-5 flex flex-col justify-between font-mono text-xs">
+                
+                <!-- Display -->
+                <div class="bg-slate-900/90 p-4 rounded-2xl border border-slate-800 text-right space-y-1">
+                    <div id="calc-history-disp" class="text-slate-500 text-xs h-4 overflow-hidden">Aryabhata Numerical Core</div>
+                    <div id="calc-main-disp" class="text-3xl font-bold text-cyan-300 font-mono truncate">0</div>
+                </div>
+
+                <!-- Vedic Mode Container -->
+                <div id="calc-vedic-panel" class="my-3 space-y-3">
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="solveVedicSutra('nikhilam')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left">
+                            <div class="font-bold text-amber-300">Nikhilam Sutra</div>
+                            <div class="text-[10px] text-slate-400">All from 9 & Last from 10 (Fast Base Multiplier)</div>
+                        </button>
+                        <button onclick="solveVedicSutra('ekadhikena')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left">
+                            <div class="font-bold text-saffron">Ekadhikena Purvena</div>
+                            <div class="text-[10px] text-slate-400">By One More Than Previous (Squares of 5s)</div>
+                        </button>
+                        <button onclick="solveVedicSutra('urdhva')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left">
+                            <div class="font-bold text-emerald-400">Urdhva Tiryagbhyam</div>
+                            <div class="text-[10px] text-slate-400">Vertically & Crosswise Multiplications</div>
+                        </button>
+                        <button onclick="solveVedicSutra('paravartya')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-left">
+                            <div class="font-bold text-sky-300">Paravartya Yojayet</div>
+                            <div class="text-[10px] text-slate-400">Transpose & Apply (Algebraic Division)</div>
+                        </button>
+                    </div>
+
+                    <!-- Step-by-step breakdown -->
+                    <div id="vedic-step-box" class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-slate-300 text-[11px] space-y-1">
+                        <span class="text-amber-400 font-bold">Vedic Breakdown:</span>
+                        <div id="vedic-step-content">Click any Vedic Sutra above for step-by-step speed mathematics.</div>
+                    </div>
+                </div>
+
+                <!-- Scientific Keypad Grid -->
+                <div id="calc-sc-panel" class="hidden my-2 grid grid-cols-5 gap-2">
+                    <button onclick="calcKey('sin')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">sin</button>
+                    <button onclick="calcKey('cos')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">cos</button>
+                    <button onclick="calcKey('tan')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">tan</button>
+                    <button onclick="calcKey('sqrt')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">√</button>
+                    <button onclick="calcKey('^')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">xʸ</button>
+                    <button onclick="calcKey('pi')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">π</button>
+                    <button onclick="calcKey('log')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-cyan-300">log</button>
+                    <button onclick="calcKey('(')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400">(</button>
+                    <button onclick="calcKey(')')" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-400">)</button>
+                    <button onclick="calcKey('/')" class="p-2 rounded-xl bg-amber-600/60 hover:bg-amber-500 text-white font-bold">÷</button>
+                </div>
+
+                <!-- Converter Panel -->
+                <div id="calc-conv-panel" class="hidden my-3 p-4 rounded-xl bg-slate-900 border border-slate-800 space-y-3">
+                    <div class="text-xs font-bold text-white uppercase">Sovereign Unit & Currency Converter</div>
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="text-[10px] text-slate-400">Convert INR ₹</label>
+                            <input id="conv-inr-in" type="number" value="1000" oninput="runUnitConvert()" class="w-full mt-1 p-2 bg-slate-950 border border-slate-700 rounded-lg text-white font-bold">
+                        </div>
+                        <div>
+                            <label class="text-[10px] text-slate-400">Equivalent USD $ / EUR €</label>
+                            <div id="conv-curr-out" class="mt-1 p-2 bg-slate-950 border border-slate-800 rounded-lg text-emerald-400 font-bold">$12.05 / €11.12</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Standard Numpad -->
+                <div class="grid grid-cols-4 gap-2 font-bold text-sm">
+                    <button onclick="calcClear()" class="p-2.5 rounded-xl bg-rose-950 hover:bg-rose-900 text-rose-300">AC</button>
+                    <button onclick="calcKey('±')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300">±</button>
+                    <button onclick="calcKey('%')" class="p-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300">%</button>
+                    <button onclick="calcKey('/')" class="p-2.5 rounded-xl bg-amber-600/60 hover:bg-amber-500 text-white">÷</button>
+
+                    <button onclick="calcNum(7)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">7</button>
+                    <button onclick="calcNum(8)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">8</button>
+                    <button onclick="calcNum(9)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">9</button>
+                    <button onclick="calcKey('*')" class="p-2.5 rounded-xl bg-amber-600/60 hover:bg-amber-500 text-white">×</button>
+
+                    <button onclick="calcNum(4)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">4</button>
+                    <button onclick="calcNum(5)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">5</button>
+                    <button onclick="calcNum(6)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">6</button>
+                    <button onclick="calcKey('-')" class="p-2.5 rounded-xl bg-amber-600/60 hover:bg-amber-500 text-white">−</button>
+
+                    <button onclick="calcNum(1)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">1</button>
+                    <button onclick="calcNum(2)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">2</button>
+                    <button onclick="calcNum(3)" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">3</button>
+                    <button onclick="calcKey('+')" class="p-2.5 rounded-xl bg-amber-600/60 hover:bg-amber-500 text-white">+</button>
+
+                    <button onclick="calcNum(0)" class="col-span-2 p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">0</button>
+                    <button onclick="calcKey('.')" class="p-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white">.</button>
+                    <button onclick="calcEqual()" class="p-2.5 rounded-xl bg-gradient-to-r from-saffron to-amber-500 hover:brightness-110 text-slate-950 font-black">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== APP 5: PATRA SOVEREIGN NOTES & MARKDOWN ==================== -->
+        <div id="notes-window" data-workspace="4" class="absolute top-6 left-28 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'notes-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('notes-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('notes-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('notes-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">📝 Patra — Sovereign Liquid Glass Markdown Notes</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <button onclick="createNewNote()" class="px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-mono font-bold text-xs">+ New Note</button>
+                    <button onclick="exportCurrentNote()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-xs border border-slate-700">💾 Save to VFS</button>
+                </div>
+            </div>
+
+            <!-- Notes Split Layout -->
+            <div class="flex-1 flex overflow-hidden">
+                <!-- Notes Sidebar -->
+                <div class="w-60 bg-slate-950/80 p-3 border-r border-slate-800 flex flex-col justify-between font-mono text-xs">
+                    <div class="space-y-1 overflow-y-auto custom-scroll" id="notes-list-container"></div>
+                    <div class="pt-2 border-t border-slate-800 text-[10px] text-slate-500 flex justify-between">
+                        <span>Auto-saved to SovereignFS</span>
+                        <span id="notes-count-badge" class="text-cyan-400 font-bold">3 Notes</span>
+                    </div>
+                </div>
+
+                <!-- Note Editor & Live Preview -->
+                <div class="flex-1 flex flex-col bg-slate-950/60">
+                    <!-- Note Formatting Toolbar -->
+                    <div class="px-4 py-2 bg-slate-950/80 border-b border-slate-800 flex items-center space-x-2 text-xs font-mono">
+                        <button onclick="insertNoteMD('**', '**')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold">B</button>
+                        <button onclick="insertNoteMD('*', '*')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-white italic">I</button>
+                        <button onclick="insertNoteMD('### ', '')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-cyan-300">H3</button>
+                        <button onclick="insertNoteMD('`', '`')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-amber-300">Code</button>
+                        <button onclick="insertNoteMD('- [ ] ', '')" class="px-2 py-0.5 rounded bg-slate-900 hover:bg-slate-800 text-emerald-400">Checklist</button>
+                        <div class="h-4 w-px bg-slate-800"></div>
+                        <input id="note-title-input" oninput="updateNoteTitle(this.value)" type="text" class="flex-1 bg-transparent text-white font-bold focus:outline-none border-b border-transparent focus:border-cyan-400 px-2" placeholder="Note Title...">
+                    </div>
+
+                    <!-- Dual Editor / Preview -->
+                    <div class="flex-1 grid grid-cols-2 divide-x divide-slate-800 overflow-hidden">
+                        <textarea id="note-markdown-input" oninput="renderNotePreview()" class="p-4 bg-transparent text-slate-200 font-mono text-xs leading-relaxed resize-none focus:outline-none custom-scroll" placeholder="Write markdown note here..."></textarea>
+                        <div id="note-rendered-preview" class="p-4 custom-scroll overflow-y-auto text-xs text-slate-300 leading-relaxed space-y-2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== APP 6: PANCHANG & SAKA CALENDAR ==================== -->
+        <div id="panchang-window" data-workspace="4" class="absolute top-8 left-36 w-[800px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'panchang-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('panchang-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('panchang-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('panchang-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">📅 National Panchang & Saka Samvat Calendar 2026</span>
+                </div>
+            </div>
+
+            <div class="flex-1 flex p-5 space-x-5 bg-slate-950/85 overflow-hidden font-mono text-xs">
+                <!-- Calendar Grid -->
+                <div class="w-7/12 flex flex-col justify-between p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                    <div class="flex items-center justify-between mb-3">
+                        <button onclick="prevCalMonth()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400">◀</button>
+                        <div id="cal-month-header" class="text-sm font-bold text-cyan-300">August 2026 • Saka 1948</div>
+                        <button onclick="nextCalMonth()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400">▶</button>
+                    </div>
+                    <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-slate-500 font-bold pb-2 border-b border-slate-800">
+                        <span>Su</span><span>Mo</span><span>Tu</span><span>We</span><span>Th</span><span>Fr</span><span>Sa</span>
+                    </div>
+                    <div id="cal-days-grid" class="grid grid-cols-7 gap-1 text-center my-2 text-xs flex-1"></div>
+                </div>
+
+                <!-- Panchang Details & Events -->
+                <div class="w-5/12 flex flex-col justify-between space-y-3">
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-amber-950/40 to-slate-900 border border-amber-500/30 space-y-2">
+                        <div class="text-xs font-bold text-saffron uppercase">Today's Vedic Panchang</div>
+                        <div class="text-[11px] text-slate-300 space-y-1">
+                            <div>• <span class="text-slate-400">Samvat:</span> Saka 1948 (Krodhi)</div>
+                            <div>• <span class="text-slate-400">Masa:</span> Bhadrapada Shukla Paksha</div>
+                            <div>• <span class="text-slate-400">Tithi:</span> Ekadashi (Auspicious)</div>
+                            <div>• <span class="text-slate-400">Nakshatra:</span> Rohini (Moon Orbit)</div>
+                        </div>
+                    </div>
+
+                    <div class="flex-1 p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2 overflow-y-auto custom-scroll">
+                        <div class="text-xs font-bold text-white">Upcoming Sovereign Events</div>
+                        <div class="space-y-1.5 text-[11px] text-slate-300">
+                            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">🚀 <span class="text-cyan-300 font-bold">ISRO Gaganyaan 3</span> — Launch Window</div>
+                            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">🇮🇳 <span class="text-saffron font-bold">National Sovereignty Day</span></div>
+                            <div class="p-2 rounded-lg bg-slate-950 border border-slate-800">⚡ <span class="text-emerald-400 font-bold">BharatOS 2026.2 Update</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== APP 7: SOVEREIGN GAMING CENTER ==================== -->
+        <div id="gaming-window" data-workspace="2" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'gaming-window')">
                 <div class="flex items-center space-x-2">
@@ -402,6 +882,7 @@
             </div>
 
             <div class="flex-1 p-6 space-y-5 bg-slate-950/80 custom-scroll overflow-y-auto font-mono text-xs">
+                <!-- GPU Performance -->
                 <div class="grid grid-cols-4 gap-3">
                     <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
                         <div class="text-[10px] text-slate-400">TARGET FRAMERATE</div>
@@ -421,6 +902,7 @@
                     </div>
                 </div>
 
+                <!-- Games -->
                 <div class="space-y-3">
                     <div class="text-xs font-bold text-white uppercase tracking-wider">Installed Sovereign Games</div>
                     <div class="grid grid-cols-3 gap-4">
@@ -439,7 +921,7 @@
                                 <h4 class="text-sm font-bold text-white mt-2">Chakra Cyber Runner</h4>
                                 <p class="text-[10px] text-slate-400">Fast-Paced Neon Cyberpunk Odyssey</p>
                             </div>
-                            <button onclick="triggerIslandNotification('⚡ Chakra Runner', 'Starting 144 FPS session');" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                            <button onclick="triggerIslandNotification('⚡ Chakra Runner', 'Launching 144 FPS Engine...')" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-3">
@@ -448,15 +930,15 @@
                                 <h4 class="text-sm font-bold text-white mt-2">Vedic Neural Chess</h4>
                                 <p class="text-[10px] text-slate-400">Chaturanga AI Grandmaster Neural Engine</p>
                             </div>
-                            <button onclick="triggerIslandNotification('♟️ Vedic Chess', 'AI Grandmaster active');" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                            <button onclick="triggerIslandNotification('♟️ Vedic Chess', 'Grandmaster AI initialized...')" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <!-- WINDOW 3: SOLARIS GAME EMBEDDED IFRAME -->
-        <div id="solaris-window" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 8: SOLARIS GAME IFRAME ==================== -->
+        <div id="solaris-window" data-workspace="2" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'solaris-window')">
                 <div class="flex items-center space-x-2">
@@ -472,8 +954,8 @@
             </div>
         </div>
 
-        <!-- WINDOW 4: TASK MANAGER -->
-        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 9: TASK MANAGER ==================== -->
+        <div id="taskmanager-window" data-workspace="1" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')">
                 <div class="flex items-center space-x-2">
@@ -496,8 +978,8 @@
             </div>
         </div>
 
-        <!-- WINDOW 5: COMPREHENSIVE SETTINGS APPLICATION -->
-        <div id="settings-window" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 10: SETTINGS ==================== -->
+        <div id="settings-window" data-workspace="1" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                 <div class="flex items-center space-x-2">
@@ -521,6 +1003,7 @@
                 </div>
 
                 <div class="flex-1 bg-slate-950/85 p-6 custom-scroll overflow-y-auto">
+                    <!-- System Tab -->
                     <div id="tab-pane-system" class="space-y-4 font-mono text-xs">
                         <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                             <span class="text-5xl text-saffron">☸️</span>
@@ -537,6 +1020,7 @@
                         </div>
                     </div>
 
+                    <!-- Wallpapers Tab -->
                     <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">Curated Sovereign Wallpapers</div>
                         <div class="grid grid-cols-2 gap-4">
@@ -559,6 +1043,7 @@
                         </div>
                     </div>
 
+                    <!-- Updates Tab -->
                     <div id="tab-pane-updates" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
                             <div>
@@ -567,40 +1052,74 @@
                             </div>
                             <button onclick="checkUpdates()" id="btn-check-update" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all">Check for Updates</button>
                         </div>
+                        <div id="update-changelog-box" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+                            <div class="text-xs font-bold text-cyan-300 uppercase">Latest Swaraj Delta Patches:</div>
+                            <p class="text-slate-300">• Indic Code Studio IDE with Devanagari Syntax & AI Copilot</p>
+                            <p class="text-slate-300">• Ganita Vedic Mathematics & Scientific Calculator</p>
+                            <p class="text-slate-300">• Virtual Workspaces (4 Desktops) & 3D Spatial Window Tiling</p>
+                            <p class="text-slate-300">• Bharat Sovereign App Store with spkg Package Verification</p>
+                        </div>
                     </div>
 
+                    <!-- GPU Tab -->
                     <div id="tab-pane-graphics" class="space-y-4 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">GPU Graphics Acceleration Pipeline</div>
                         <div class="space-y-3">
                             <div class="p-3.5 rounded-xl bg-slate-900 border border-emerald-500/50 flex justify-between items-center">
-                                <div><div class="font-bold text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div><div class="text-[11px] text-slate-400">Ray-Tracing, Low Overhead, 144+ FPS</div></div>
+                                <div>
+                                    <div class="font-bold text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div>
+                                    <div class="text-[11px] text-slate-400">Ray-Tracing, Low Overhead, 144+ FPS Framerate Pacing</div>
+                                </div>
                                 <span class="text-xs text-emerald-300 font-bold px-2 py-1 bg-emerald-950 rounded">ENABLED</span>
+                            </div>
+                            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                                <div>
+                                    <div class="font-bold text-cyan-300">Direct3D 12 WinBridge Translation Layer</div>
+                                    <div class="text-[11px] text-slate-400">Native Windows .EXE DirectX Gaming Compatibility</div>
+                                </div>
+                                <span class="text-xs text-slate-400 px-2 py-1 bg-slate-800 rounded">READY</span>
                             </div>
                         </div>
                     </div>
 
+                    <!-- Shortcuts Tab -->
                     <div id="tab-pane-shortcuts" class="space-y-3 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">System Keyboard Shortcuts (Global)</div>
                         <table class="w-full text-left text-slate-300">
-                            <thead><tr class="text-slate-500 border-b border-slate-800 pb-2"><th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th></tr></thead>
+                            <thead>
+                                <tr class="text-slate-500 border-b border-slate-800 pb-2">
+                                    <th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th>
+                                </tr>
+                            </thead>
                             <tbody class="divide-y divide-slate-900">
+                                <tr><td class="py-2 text-cyan-300 font-bold">Win + 1/2/3/4</td><td>Switch Virtual Workspaces</td><td>Workspace</td></tr>
+                                <tr><td class="py-2 text-cyan-300 font-bold">Win + Tab</td><td>Mission Control Spatial Overview</td><td>Windowing</td></tr>
                                 <tr><td class="py-2 text-cyan-300 font-bold">Win + E</td><td>Open SovereignFS File Explorer</td><td>Files</td></tr>
                                 <tr><td class="py-2 text-emerald-400 font-bold">Win + T</td><td>Open Bharat Shell (bsh) Terminal</td><td>Terminal</td></tr>
+                                <tr><td class="py-2 text-amber-300 font-bold">Win + D</td><td>Open Indic Code Studio IDE</td><td>Dev</td></tr>
+                                <tr><td class="py-2 text-sky-300 font-bold">Win + C</td><td>Open Ganita Calculator</td><td>Productivity</td></tr>
+                                <tr><td class="py-2 text-rose-300 font-bold">Win + P</td><td>Open Patra Markdown Notes</td><td>Productivity</td></tr>
                                 <tr><td class="py-2 text-amber-300 font-bold">Win + G</td><td>Toggle 144 FPS Game Hub Overlay</td><td>Gaming</td></tr>
                                 <tr><td class="py-2 text-cyan-300 font-bold">Win + I</td><td>Open System Settings & Control Center</td><td>System</td></tr>
                                 <tr><td class="py-2 text-purple-300 font-bold">Win + M</td><td>Open Task Manager & RAM Analyzer</td><td>Performance</td></tr>
-                                <tr><td class="py-2 text-rose-400 font-bold">Win + L</td><td>Lock Sovereign Screen</td><td>Security</td></tr>
+                                <tr><td class="py-2 text-emerald-300 font-bold">Win + N</td><td>Toggle Notification Center Sidebar</td><td>System</td></tr>
+                                <tr><td class="py-2 text-rose-400 font-bold">Win + L</td><td>Lock Screen Sovereign Enclave</td><td>Security</td></tr>
                             </tbody>
                         </table>
                     </div>
 
+                    <!-- Battery Tab -->
                     <div id="tab-pane-battery" class="space-y-4 font-mono text-xs hidden">
                         <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                             <div class="text-5xl font-black text-emerald-400">94%</div>
-                            <div><div class="text-sm font-bold text-white">Battery State: Fast Charging</div><div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Full in 28 mins</div></div>
+                            <div>
+                                <div class="text-sm font-bold text-white">Battery State: Fast Charging (42W)</div>
+                                <div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Full in 28 mins</div>
+                            </div>
                         </div>
                     </div>
 
+                    <!-- Security Tab -->
                     <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
                             <div class="text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
@@ -611,123 +1130,8 @@
             </div>
         </div>
 
-        <!-- WINDOW 6: INDIC CODE STUDIO IDE -->
-        <div id="editor-window" class="absolute top-8 left-36 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
-            <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'editor-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('editor-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('editor-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('editor-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Indic Code Studio IDE — main.rs</span>
-                </div>
-                <button onclick="runCodeStudio()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold">▶ Run Code</button>
-            </div>
-            <div class="flex-1 flex bg-slate-950/90 font-mono text-xs overflow-hidden">
-                <div class="w-12 bg-slate-950/80 py-4 text-right pr-3 text-slate-600 select-none border-r border-slate-800">
-                    1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
-                </div>
-                <textarea id="code-editor-textarea" class="flex-1 p-4 bg-transparent outline-none text-emerald-400 font-mono resize-none leading-relaxed" spellcheck="false">// BharatOS Sovereign Microkernel v3.2.0 (Rust)
-#![no_std]
-#![no_main]
-
-#[no_mangle]
-pub extern "C" fn _start() -> ! {
-    println!("☸️ BharatOS Sovereign Kernel Booted on Bare Metal!");
-    println!("🛡️ Kavach Zero-Trust Active (AES-256-GCM)");
-    loop {}
-}</textarea>
-            </div>
-        </div>
-
-        <!-- WINDOW 7: SOVEREIGN APP STORE & PACKAGE MANAGER -->
-        <div id="appstore-window" class="absolute top-10 left-40 w-[840px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
-            <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('appstore-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('appstore-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('appstore-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign App Store (spkg)</span>
-                </div>
-            </div>
-            <div class="flex-1 p-6 space-y-4 bg-slate-950/85 custom-scroll overflow-y-auto font-mono text-xs">
-                <div class="text-xs font-bold text-white uppercase tracking-wider">Featured Sovereign Packages</div>
-                <div class="grid grid-cols-2 gap-4">
-                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-white text-sm">🧠 Indic Code Studio IDE</div>
-                            <div class="text-[11px] text-slate-400 mt-1">Multi-language developer IDE with AI shaper</div>
-                        </div>
-                        <button onclick="installPackage('indic-ide', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-white text-sm">🪐 Solaris Flight Sim</div>
-                            <div class="text-[11px] text-slate-400 mt-1">3D Orbital mechanics space simulator</div>
-                        </div>
-                        <button onclick="installPackage('solaris-sim', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-white text-sm">📐 Vedic Mathematics Suite</div>
-                            <div class="text-[11px] text-slate-400 mt-1">Sutra-based numerical & graphing engine</div>
-                        </div>
-                        <button onclick="installPackage('vedic-math', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
-                    </div>
-                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                        <div>
-                            <div class="font-bold text-white text-sm">🛡️ Kavach Network Diagnostic</div>
-                            <div class="text-[11px] text-slate-400 mt-1">Zero-Trust packet inspector & telemetry shield</div>
-                        </div>
-                        <button onclick="installPackage('kavach-tools', this)" class="px-3 py-1.5 rounded-xl bg-slate-800 text-emerald-400 font-bold">Installed</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINDOW 8: VEDIC & SCIENTIFIC CALCULATOR -->
-        <div id="calc-window" class="absolute top-12 left-48 w-[400px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
-            <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('calc-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('calc-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Vedic Calculator</span>
-                </div>
-            </div>
-            <div class="p-4 bg-slate-950/90 flex flex-col flex-1 font-mono">
-                <div id="calc-display" class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 text-right text-2xl font-bold text-cyan-300 mb-4 h-16 flex items-center justify-end">0</div>
-                <div class="grid grid-cols-4 gap-2 flex-1">
-                    <button onclick="calcInput('C')" class="p-3 bg-rose-950/60 border border-rose-500/40 text-rose-300 rounded-xl font-bold hover:bg-rose-900/60">C</button>
-                    <button onclick="calcInput('(')" class="p-3 bg-slate-900 border border-slate-800 text-slate-300 rounded-xl font-bold hover:bg-slate-800">(</button>
-                    <button onclick="calcInput(')')" class="p-3 bg-slate-900 border border-slate-800 text-slate-300 rounded-xl font-bold hover:bg-slate-800">)</button>
-                    <button onclick="calcInput('/')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">÷</button>
-
-                    <button onclick="calcInput('7')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">7</button>
-                    <button onclick="calcInput('8')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">8</button>
-                    <button onclick="calcInput('9')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">9</button>
-                    <button onclick="calcInput('*')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">×</button>
-
-                    <button onclick="calcInput('4')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">4</button>
-                    <button onclick="calcInput('5')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">5</button>
-                    <button onclick="calcInput('6')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">6</button>
-                    <button onclick="calcInput('-')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">−</button>
-
-                    <button onclick="calcInput('1')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">1</button>
-                    <button onclick="calcInput('2')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">2</button>
-                    <button onclick="calcInput('3')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">3</button>
-                    <button onclick="calcInput('+')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">+</button>
-
-                    <button onclick="calcInput('0')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold col-span-2 hover:bg-slate-800">0</button>
-                    <button onclick="calcInput('.')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">.</button>
-                    <button onclick="calcEquals()" class="p-3 bg-cyan-500 text-slate-950 rounded-xl font-bold hover:bg-cyan-400">=</button>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINDOW 9: TERMINAL (bsh) -->
-        <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- ==================== APP 11: TERMINAL (bsh) ==================== -->
+        <div id="terminal-window" data-workspace="1" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                 <div class="flex items-center space-x-2">
@@ -739,7 +1143,7 @@ pub extern "C" fn _start() -> ! {
             </div>
             <div class="flex-1 bg-slate-950/90 p-5 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-1.5" id="terminal-output">
                 <div class="text-saffron font-bold">🇮🇳 Bharat Shell (bsh) v3.2 — Windows & Linux Command Suite</div>
-                <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'tasklist'</span>, <span class="text-cyan-300 font-bold">'mem'</span>, or <span class="text-emerald-300 font-bold">'systeminfo'</span>.</div>
+                <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'spkg'</span>, <span class="text-cyan-300 font-bold">'calc'</span>, <span class="text-emerald-300 font-bold">'ide'</span>, <span class="text-amber-300 font-bold">'mem'</span>, or <span class="text-emerald-300 font-bold">'systeminfo'</span>.</div>
             </div>
             <div class="p-3 bg-slate-950/70 border-t border-slate-800 flex items-center space-x-2 font-mono text-xs">
                 <span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span>
@@ -749,31 +1153,233 @@ pub extern "C" fn _start() -> ! {
 
     </main>
 
-    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR -->
-    <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
+    <!-- ==================== 5. SUDARSHAN START MENU ==================== -->
+    <div id="start-menu" class="closed absolute bottom-14 left-6 w-[560px] h-[520px] ultra-liquid-glass p-5 flex flex-col justify-between z-50 shadow-2xl">
+        <div class="specular-glow"></div>
+        <!-- Search bar -->
+        <div class="relative">
+            <input id="start-search-input" oninput="filterStartMenu(this.value)" type="text" placeholder="Search apps, files, Vedic tools & settings..." class="w-full px-4 py-2.5 bg-slate-950/80 border border-slate-700/90 rounded-xl text-white font-mono text-xs focus:outline-none focus:border-cyan-400 shadow-inner">
+            <span class="absolute right-3 top-2.5 text-slate-500">🔍</span>
+        </div>
+
+        <!-- Pinned App Grid -->
+        <div class="my-3 space-y-2 flex-1 overflow-y-auto custom-scroll font-mono text-xs">
+            <div class="text-[10px] text-slate-400 uppercase font-bold tracking-wider">Pinned Sovereign Applications</div>
+            <div class="grid grid-cols-4 gap-2.5" id="start-pinned-grid">
+                <button onclick="openWindow('files-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">📁</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Explorer</span>
+                </button>
+                <button onclick="openWindow('ide-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">💻</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Indic IDE</span>
+                </button>
+                <button onclick="openWindow('calculator-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">🧮</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Ganita Calc</span>
+                </button>
+                <button onclick="openWindow('notes-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">📝</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Patra Notes</span>
+                </button>
+                <button onclick="openWindow('appstore-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">🛒</span>
+                    <span class="text-slate-200 font-bold text-[11px]">App Store</span>
+                </button>
+                <button onclick="openWindow('gaming-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">🎮</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Gaming Hub</span>
+                </button>
+                <button onclick="openWindow('terminal-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">⚡</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Terminal</span>
+                </button>
+                <button onclick="openWindow('settings-window'); toggleStartMenu();" class="p-3 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-800 flex flex-col items-center text-center hover:scale-105 transition-all">
+                    <span class="text-2xl mb-1">⚙️</span>
+                    <span class="text-slate-200 font-bold text-[11px]">Settings</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- User Profile & Power Actions -->
+        <div class="pt-3 border-t border-slate-800 flex items-center justify-between font-mono text-xs">
+            <div class="flex items-center space-x-2.5">
+                <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-amber-500 flex items-center justify-center font-bold text-slate-950">SA</div>
+                <div>
+                    <div class="font-bold text-white">sovereign_admin</div>
+                    <div class="text-[10px] text-emerald-400">Ring-0 Microkernel Secure</div>
+                </div>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="lockOS(); toggleStartMenu();" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-sm" title="Lock Screen (Win+L)">🔒</button>
+                <button onclick="triggerIslandNotification('⚡ Sovereign Reboot', 'Restarting Microkernel enclave...'); toggleStartMenu();" class="p-2 rounded-xl bg-slate-900 hover:bg-slate-800 text-slate-300 text-sm" title="Reboot">🔄</button>
+                <button onclick="triggerIslandNotification('🔌 Sovereign Shutdown', 'Saving RAM state to NVMe...'); toggleStartMenu();" class="p-2 rounded-xl bg-rose-950/80 hover:bg-rose-900 text-rose-300 text-sm" title="Power Off">⏻</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==================== 6. NOTIFICATION CENTER SIDEBAR ==================== -->
+    <div id="notification-center" class="closed fixed top-0 right-0 h-full w-[380px] ultra-liquid-glass z-50 p-6 flex flex-col justify-between border-l border-slate-700/80 shadow-2xl">
+        <div class="specular-glow"></div>
+        <div class="space-y-4 font-mono text-xs">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                <div class="font-bold text-sm text-white flex items-center space-x-2">
+                    <span>🔔</span><span>Control Center</span>
+                </div>
+                <button onclick="toggleNotificationCenter()" class="p-1 rounded-lg hover:bg-slate-800 text-slate-400">✕</button>
+            </div>
+
+            <!-- Quick Action Toggles -->
+            <div class="grid grid-cols-2 gap-2">
+                <button onclick="toggleQuickAction(this)" class="p-3 rounded-2xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 flex items-center space-x-2 text-left">
+                    <span class="text-base">📶</span>
+                    <div>
+                        <div class="font-bold text-[11px]">Wi-Fi 7</div>
+                        <div class="text-[9px] text-slate-400">850 Mbps</div>
+                    </div>
+                </button>
+                <button onclick="toggleQuickAction(this)" class="p-3 rounded-2xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 flex items-center space-x-2 text-left">
+                    <span class="text-base">🎮</span>
+                    <div>
+                        <div class="font-bold text-[11px]">144 FPS Game</div>
+                        <div class="text-[9px] text-slate-400">Active</div>
+                    </div>
+                </button>
+                <button onclick="toggleQuickAction(this)" class="p-3 rounded-2xl bg-cyan-500/20 border border-cyan-500/50 text-cyan-300 flex items-center space-x-2 text-left">
+                    <span class="text-base">🛡️</span>
+                    <div>
+                        <div class="font-bold text-[11px]">Kavach Shield</div>
+                        <div class="text-[9px] text-slate-400">100% Zero-Trust</div>
+                    </div>
+                </button>
+                <button onclick="toggleNightLight(this)" id="night-light-btn" class="p-3 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-300 flex items-center space-x-2 text-left">
+                    <span class="text-base">🌙</span>
+                    <div>
+                        <div class="font-bold text-[11px]">Night Spectrum</div>
+                        <div class="text-[9px] text-slate-400">Off</div>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Brightness & Volume Sliders -->
+            <div class="p-3.5 rounded-2xl bg-slate-900/80 border border-slate-800 space-y-3">
+                <div class="space-y-1">
+                    <div class="flex justify-between text-[11px] text-slate-400"><span>☀️ Brightness</span><span id="disp-bright-val">100%</span></div>
+                    <input type="range" min="30" max="120" value="100" oninput="adjustBrightness(this.value)" class="w-full accent-cyan-400 h-1 bg-slate-950 rounded-lg cursor-pointer">
+                </div>
+                <div class="space-y-1">
+                    <div class="flex justify-between text-[11px] text-slate-400"><span>🔊 Spatial Audio</span><span id="disp-vol-val">80%</span></div>
+                    <input type="range" min="0" max="100" value="80" oninput="adjustVolume(this.value)" class="w-full accent-amber-400 h-1 bg-slate-950 rounded-lg cursor-pointer">
+                </div>
+            </div>
+
+            <!-- Notification Feed -->
+            <div class="space-y-2 flex-1 overflow-y-auto custom-scroll" style="max-height: 240px;">
+                <div class="flex justify-between items-center text-[10px] text-slate-500 uppercase font-bold">
+                    <span>Recent Notifications</span>
+                    <button onclick="clearNotifications()" class="text-cyan-400 hover:underline">Clear All</button>
+                </div>
+                <div id="notif-feed-list" class="space-y-2">
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-emerald-400"><span>🛡️ Kavach Security</span><span>Just now</span></div>
+                        <div class="text-[11px] text-slate-300">4,280 foreign telemetry probes neutralized. System enclave isolated.</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
+                        <div class="flex justify-between text-[11px] font-bold text-saffron"><span>🚀 System Update</span><span>10m ago</span></div>
+                        <div class="text-[11px] text-slate-300">BharatOS 2026.1 LTS Swaraj Core is running at peak 144 FPS.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pt-3 border-t border-slate-800 text-[10px] text-slate-500 text-center font-mono">
+            Sovereign OS Control Center • Press Win+N
+        </div>
+    </div>
+
+    <!-- ==================== 7. MISSION CONTROL SPATIAL OVERVIEW ==================== -->
+    <div id="mission-control" class="closed fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-2xl p-10 flex flex-col justify-between text-white">
+        <div class="flex items-center justify-between font-mono text-xs">
+            <div class="text-base font-bold text-cyan-300 flex items-center space-x-2">
+                <span>⊞</span><span>Mission Control — 3D Spatial Virtual Workspaces</span>
+            </div>
+            <button onclick="toggleMissionControl()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold">✕ Close (Esc)</button>
+        </div>
+
+        <!-- 4 Workspace Cards Grid -->
+        <div class="grid grid-cols-4 gap-6 my-6 flex-1">
+            <div onclick="switchWorkspace(1); toggleMissionControl();" class="p-4 rounded-2xl bg-slate-900/80 border-2 border-cyan-400 cursor-pointer hover:scale-105 transition-all flex flex-col justify-between shadow-2xl">
+                <div>
+                    <div class="text-xs font-mono text-cyan-300 font-bold mb-1">Workspace 1</div>
+                    <h3 class="text-sm font-bold text-white">☸️ Swaraj Core</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Explorer, Terminal, App Store</p>
+                </div>
+                <div class="h-32 rounded-xl bg-slate-950/90 border border-slate-800 p-2 flex flex-col justify-center items-center text-slate-500 text-xs font-mono">
+                    <span>📁 SovereignFS Active</span>
+                </div>
+            </div>
+
+            <div onclick="switchWorkspace(2); toggleMissionControl();" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-amber-400 cursor-pointer hover:scale-105 transition-all flex flex-col justify-between shadow-2xl">
+                <div>
+                    <div class="text-xs font-mono text-amber-300 font-bold mb-1">Workspace 2</div>
+                    <h3 class="text-sm font-bold text-white">🎮 Vulkan Gaming</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Solaris Flight Sim & 144 FPS Engine</p>
+                </div>
+                <div class="h-32 rounded-xl bg-slate-950/90 border border-slate-800 p-2 flex flex-col justify-center items-center text-amber-400 text-xs font-mono">
+                    <span>🪐 Solaris 144 FPS</span>
+                </div>
+            </div>
+
+            <div onclick="switchWorkspace(3); toggleMissionControl();" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-emerald-400 cursor-pointer hover:scale-105 transition-all flex flex-col justify-between shadow-2xl">
+                <div>
+                    <div class="text-xs font-mono text-emerald-400 font-bold mb-1">Workspace 3</div>
+                    <h3 class="text-sm font-bold text-white">💻 Indic Code Studio</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Devanagari IDE & Task Manager</p>
+                </div>
+                <div class="h-32 rounded-xl bg-slate-950/90 border border-slate-800 p-2 flex flex-col justify-center items-center text-emerald-400 text-xs font-mono">
+                    <span>💻 JIT Python Compiler</span>
+                </div>
+            </div>
+
+            <div onclick="switchWorkspace(4); toggleMissionControl();" class="p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-sky-400 cursor-pointer hover:scale-105 transition-all flex flex-col justify-between shadow-2xl">
+                <div>
+                    <div class="text-xs font-mono text-sky-300 font-bold mb-1">Workspace 4</div>
+                    <h3 class="text-sm font-bold text-white">📝 Productivity & Vedic</h3>
+                    <p class="text-[11px] text-slate-400 mt-1">Patra Notes, Ganita Calculator, Panchang</p>
+                </div>
+                <div class="h-32 rounded-xl bg-slate-950/90 border border-slate-800 p-2 flex flex-col justify-center items-center text-sky-300 text-xs font-mono">
+                    <span>🧮 Vedic Sutras Solver</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="text-center font-mono text-xs text-slate-400">
+            Click any workspace tile to teleport instantly • Keyboard Shortcut: Win + 1/2/3/4
+        </div>
+    </div>
+
+    <!-- ==================== 8. GROUNDBREAKING BOTTOM HORIZON TASKBAR ==================== -->
+    <footer class="relative z-40 px-5 py-2 horizon-taskbar flex items-center justify-between text-xs">
         
-        <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
-        <div class="flex items-center space-x-3">
-            <button onclick="openWindow('files-window')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
+        <!-- Left: Sudarshan Sovereign Start Gem & App Dock -->
+        <div class="flex items-center space-x-2.5">
+            <button onclick="toggleStartMenu()" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Start Menu">
                 ☸️
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
             <button id="dock-files" onclick="toggleWindowFromDock('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
-            <button id="dock-editor" onclick="toggleWindowFromDock('editor-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Code Studio IDE">📝</button>
-            <button id="dock-appstore" onclick="toggleWindowFromDock('appstore-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store">🛍️</button>
-            <button id="dock-calc" onclick="toggleWindowFromDock('calc-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Vedic Calculator">🧮</button>
+            <button id="dock-ide" onclick="toggleWindowFromDock('ide-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Indic Code Studio (Win+D)">💻</button>
+            <button id="dock-calc" onclick="toggleWindowFromDock('calculator-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Ganita Calculator (Win+C)">🧮</button>
+            <button id="dock-notes" onclick="toggleWindowFromDock('notes-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Patra Notes (Win+P)">📝</button>
+            <button id="dock-appstore" onclick="toggleWindowFromDock('appstore-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store">🛒</button>
             <button id="dock-gaming" onclick="toggleWindowFromDock('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
+            <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">⚡</button>
             <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
             <button id="dock-settings" onclick="toggleWindowFromDock('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
-            <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
         </div>
 
         <!-- Right: SYSTEM TRAY -->
-        <div class="flex items-center space-x-3.5">
-            <button onclick="toggleNightLight()" class="p-1.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-amber-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Toggle Night Light">
-                🌙
-            </button>
-
+        <div class="flex items-center space-x-2.5">
             <button onclick="triggerIslandNotification('📶 Wi-Fi 7 Connected', '850 Mbps Sovereign Mesh Active')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
                 <span>📶</span>
                 <span class="font-bold">850 Mbps</span>
@@ -789,30 +1395,30 @@ pub extern "C" fn _start() -> ! {
                 <span class="font-bold">Kavach</span>
             </button>
 
-            <button onclick="triggerIslandNotification('🔊 Spatial Audio', 'Volume 80% • Dolby Atmos Active')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Sound Volume">
+            <button onclick="toggleNotificationCenter()" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Audio & Notifications">
                 <span>🔊</span>
                 <span>80%</span>
             </button>
 
-            <button onclick="openWindow('settings-window'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Battery: 94% (Charging Fast)">
+            <button onclick="openWindow('settings-window'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Battery: 94% (Fast Charging)">
                 <span>⚡ 94%</span>
             </button>
 
-            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs">
+            <button onclick="toggleNotificationCenter()" id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs hover:border-cyan-500 transition-all">
                 --:--:-- IST
-            </div>
+            </button>
         </div>
     </footer>
 
-    <!-- Master Scripts -->
+    <!-- ==================== 9. JAVASCRIPT MASTER ENGINE ==================== -->
     <script>
-        // Boot Engine
+        // --- 1. BOOT ENGINE ---
         let bootProgress = 0;
         const progressEl = document.getElementById('minimal-boot-progress');
         const labelEl = document.getElementById('minimal-boot-label');
         const bootMessages = [
             "Initializing 64-bit Memory Paging & VMM...",
-            "Activating Dynamic Island & Kavach Shield...",
+            "Activating Virtual Workspaces & Indic Code Studio...",
             "Loading Prithvi 144 FPS Vulkan Compositor...",
             "Sovereign Desktop Ready..."
         ];
@@ -823,9 +1429,9 @@ pub extern "C" fn _start() -> ! {
                 if (progressEl) progressEl.style.width = `${bootProgress}%`;
                 const msgIdx = Math.min(Math.floor(bootProgress / 25) - 1, bootMessages.length - 1);
                 if (labelEl && msgIdx >= 0) labelEl.textContent = bootMessages[msgIdx];
-                setTimeout(runMinimalBoot, 320);
+                setTimeout(runMinimalBoot, 240);
             } else {
-                setTimeout(finishMinimalBoot, 280);
+                setTimeout(finishMinimalBoot, 200);
             }
         }
 
@@ -836,12 +1442,57 @@ pub extern "C" fn _start() -> ! {
                 setTimeout(() => {
                     screen.style.display = 'none';
                     openWindow('files-window');
-                }, 750);
+                }, 600);
             }
         }
-        setTimeout(runMinimalBoot, 120);
+        setTimeout(runMinimalBoot, 100);
 
-        // Dynamic Island Engine
+        // --- 2. VIRTUAL WORKSPACES ENGINE ---
+        let currentWorkspace = 1;
+        function switchWorkspace(id) {
+            currentWorkspace = id;
+            for (let i = 1; i <= 4; i++) {
+                const btn = document.getElementById(`ws-btn-${i}`);
+                if (btn) {
+                    if (i === id) {
+                        btn.className = 'workspace-btn active px-2.5 py-0.5 rounded-lg text-cyan-300 font-bold';
+                    } else {
+                        btn.className = 'workspace-btn px-2.5 py-0.5 rounded-lg text-slate-400 hover:text-white transition-all';
+                    }
+                }
+            }
+
+            // Filter windows based on workspace assignment
+            const allWindows = document.querySelectorAll('[data-workspace]');
+            allWindows.forEach(win => {
+                const ws = parseInt(win.getAttribute('data-workspace') || '1');
+                if (ws === id) {
+                    if (win.dataset.wasOpen === 'true') {
+                        win.classList.remove('hidden');
+                    }
+                } else {
+                    if (!win.classList.contains('hidden')) {
+                        win.dataset.wasOpen = 'true';
+                        win.classList.add('hidden');
+                    }
+                }
+            });
+
+            const wsNames = {
+                1: "Workspace 1: Swaraj Core",
+                2: "Workspace 2: Vulkan 144 FPS Gaming",
+                3: "Workspace 3: Indic Code Studio",
+                4: "Workspace 4: Sovereign Productivity"
+            };
+            triggerIslandNotification('🌐 Virtual Workspace', wsNames[id] || `Workspace ${id}`);
+        }
+
+        function toggleMissionControl() {
+            const mc = document.getElementById('mission-control');
+            if (mc) mc.classList.toggle('closed');
+        }
+
+        // --- 3. DYNAMIC ISLAND ENGINE ---
         let isIslandExpanded = false;
         function toggleDynamicIsland() {
             const island = document.getElementById('dynamic-island-container');
@@ -866,9 +1517,8 @@ pub extern "C" fn _start() -> ! {
         function triggerIslandNotification(title, msg) {
             const island = document.getElementById('dynamic-island-container');
             const compactView = document.getElementById('island-compact-view');
-            const expandedView = document.getElementById('island-expanded-view');
             
-            compactView.innerHTML = `<div class="w-full flex items-center justify-between font-mono text-xs"><span class="text-cyan-300 font-bold">${title}</span><span class="text-slate-300 text-[11px]">${msg}</span></div>`;
+            compactView.innerHTML = `<div class="w-full flex items-center justify-between font-mono text-xs"><span class="text-cyan-300 font-bold truncate">${title}</span><span class="text-slate-300 text-[11px] truncate ml-2">${msg}</span></div>`;
             island.classList.remove('compact');
             island.classList.add('expanded');
             setTimeout(() => {
@@ -885,50 +1535,24 @@ pub extern "C" fn _start() -> ! {
                         <div class="w-1 bg-indiaGreen rounded-full animate-bounce" style="height: 80%; animation-duration: 0.8s;"></div>
                     </div>
                     <div class="flex items-center space-x-1 font-mono text-[11px] text-emerald-400 font-bold">
-                        <span>🛡️</span><span>100%</span>
+                        <span>🛡️</span><span>100% Kavach</span>
                     </div>
                 `;
-            }, 3000);
+            }, 2600);
         }
 
-        // Workspaces Switcher
-        function switchWorkspace(wsId) {
-            [1, 2, 3].forEach(id => {
-                const btn = document.getElementById(`ws-btn-${id}`);
-                if (btn) {
-                    if (id === wsId) {
-                        btn.className = 'px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40';
-                    } else {
-                        btn.className = 'px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400';
-                    }
-                }
-            });
-            triggerIslandNotification(`🖥️ Workspace ${wsId}`, 'Switched Virtual Desktop');
-        }
-
-        // Night Light Toggle
-        function toggleNightLight() {
-            document.body.classList.toggle('night-light');
-            const isNight = document.body.classList.contains('night-light');
-            triggerIslandNotification('🌙 Night Light', isNight ? 'Warm Blue Light Filter Enabled' : 'Disabled');
-        }
-
-        // Lock Screen
-        function lockScreen() {
-            document.getElementById('lockscreen-overlay').classList.remove('hidden');
-        }
-        function unlockScreen() {
-            document.getElementById('lockscreen-overlay').classList.add('hidden');
-            triggerIslandNotification('🔓 Sovereign Enclave', 'Welcome Back sovereign@bharatos');
-        }
-
-        // Window Management
+        // --- 4. WINDOW MANAGER, DRAG & TILING PHYSICS ---
         let highestZ = 30;
         function openWindow(id) {
             const el = document.getElementById(id);
             if (el) {
+                const targetWs = parseInt(el.getAttribute('data-workspace') || '1');
+                if (targetWs !== currentWorkspace) {
+                    switchWorkspace(targetWs);
+                }
                 el.classList.remove('hidden', 'window-minimize-genie');
                 el.classList.add('window-open-genie');
+                el.dataset.wasOpen = 'true';
                 highestZ++;
                 el.style.zIndex = highestZ;
             }
@@ -939,7 +1563,8 @@ pub extern "C" fn _start() -> ! {
             if (el) {
                 el.classList.remove('window-open-genie');
                 el.classList.add('window-minimize-genie');
-                setTimeout(() => el.classList.add('hidden'), 300);
+                el.dataset.wasOpen = 'false';
+                setTimeout(() => el.classList.add('hidden'), 280);
             }
         }
 
@@ -959,20 +1584,33 @@ pub extern "C" fn _start() -> ! {
         function toggleMaximizeWindow(id) {
             const el = document.getElementById(id);
             if (el) {
+                // Clear any snapping classes
+                el.classList.remove('snap-half-left', 'snap-half-right', 'snap-quad-top-left', 'snap-quad-top-right', 'snap-quad-bottom-left', 'snap-quad-bottom-right', 'snap-center-focus');
                 el.classList.toggle('window-maximized');
             }
         }
 
-        // Window Dragging with Inertial Tilt
+        function snapWindow(id, snapClass) {
+            const el = document.getElementById(id);
+            if (el) {
+                el.classList.remove('window-maximized', 'snap-half-left', 'snap-half-right', 'snap-quad-top-left', 'snap-quad-top-right', 'snap-quad-bottom-left', 'snap-quad-bottom-right', 'snap-center-focus');
+                el.classList.add(snapClass);
+                triggerIslandNotification('🪟 Liquid Glass Tiled', snapClass.replace('snap-', '').toUpperCase());
+            }
+        }
+
         let activeDrag = null;
         let dragOffset = { x: 0, y: 0 };
         let lastMouseX = 0;
 
         function initDrag(e, winId) {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN') return;
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
             
+            // Remove snapping class when freely dragged
+            win.classList.remove('snap-half-left', 'snap-half-right', 'snap-quad-top-left', 'snap-quad-top-right', 'snap-quad-bottom-left', 'snap-quad-bottom-right', 'snap-center-focus');
+
             highestZ++;
             win.style.zIndex = highestZ;
             activeDrag = win;
@@ -987,7 +1625,7 @@ pub extern "C" fn _start() -> ! {
             if (!activeDrag) return;
             const deltaX = e.clientX - lastMouseX;
             lastMouseX = e.clientX;
-            const tilt = Math.max(-4, Math.min(4, deltaX * 0.4));
+            const tilt = Math.max(-4, Math.min(4, deltaX * 0.35));
             activeDrag.style.left = `${e.clientX - dragOffset.x}px`;
             activeDrag.style.top = `${Math.max(40, e.clientY - dragOffset.y)}px`;
             activeDrag.style.transform = `rotateZ(${tilt}deg) scale(1.01)`;
@@ -1002,46 +1640,579 @@ pub extern "C" fn _start() -> ! {
             window.removeEventListener('mouseup', onDragEnd);
         }
 
-        // Calculator Logic
-        let calcVal = '0';
-        function calcInput(v) {
-            const disp = document.getElementById('calc-display');
-            if (v === 'C') {
-                calcVal = '0';
+        // --- 5. SUDARSHAN START MENU ---
+        function toggleStartMenu() {
+            const menu = document.getElementById('start-menu');
+            if (menu) menu.classList.toggle('closed');
+        }
+
+        function filterStartMenu(val) {
+            const btns = document.querySelectorAll('#start-pinned-grid button');
+            btns.forEach(btn => {
+                const text = btn.innerText.toLowerCase();
+                btn.style.display = text.includes(val.toLowerCase()) ? 'flex' : 'none';
+            });
+        }
+
+        // --- 6. NOTIFICATION CENTER ---
+        function toggleNotificationCenter() {
+            const nc = document.getElementById('notification-center');
+            if (nc) nc.classList.toggle('closed');
+        }
+
+        function toggleQuickAction(btn) {
+            btn.classList.toggle('bg-cyan-500/20');
+            btn.classList.toggle('border-cyan-500/50');
+            btn.classList.toggle('text-cyan-300');
+            btn.classList.toggle('bg-slate-900/90');
+            btn.classList.toggle('text-slate-500');
+            triggerIslandNotification('⚙️ Quick Action', 'Toggled Sovereign Mode');
+        }
+
+        function toggleNightLight(btn) {
+            const isNight = document.body.style.filter.includes('sepia');
+            if (!isNight) {
+                document.body.style.filter = 'sepia(0.25) saturate(1.1)';
+                btn.classList.add('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+                btn.classList.remove('bg-slate-900/90', 'text-slate-300');
+                btn.querySelector('div div:last-child').textContent = 'Warm On';
             } else {
-                if (calcVal === '0') calcVal = v;
-                else calcVal += v;
-            }
-            disp.textContent = calcVal;
-        }
-
-        function calcEquals() {
-            const disp = document.getElementById('calc-display');
-            try {
-                calcVal = String(eval(calcVal));
-                disp.textContent = calcVal;
-                triggerIslandNotification('🧮 Calculation', `Result: ${calcVal}`);
-            } catch (err) {
-                disp.textContent = 'Error';
+                document.body.style.filter = 'none';
+                btn.classList.remove('bg-amber-500/20', 'border-amber-500/50', 'text-amber-300');
+                btn.classList.add('bg-slate-900/90', 'text-slate-300');
+                btn.querySelector('div div:last-child').textContent = 'Off';
             }
         }
 
-        // Code Studio Runner
-        function runCodeStudio() {
-            triggerIslandNotification('▶ Rust Code Runner', 'Compiling & Executing on Bare Metal...');
+        function adjustBrightness(val) {
+            document.getElementById('disp-bright-val').textContent = `${val}%`;
+            document.body.style.filter = `brightness(${val / 100})`;
         }
 
-        // App Store Installer
-        function installPackage(pkgName, btn) {
-            btn.textContent = 'Installing...';
+        function adjustVolume(val) {
+            document.getElementById('disp-vol-val').textContent = `${val}%`;
+        }
+
+        function clearNotifications() {
+            document.getElementById('notif-feed-list').innerHTML = '<div class="text-slate-500 text-xs py-4 text-center">No new notifications</div>';
+            document.getElementById('notif-badge').style.display = 'none';
+        }
+
+        // --- 7. LOCK SCREEN ENGINE ---
+        function lockOS() {
+            const lock = document.getElementById('lock-screen');
+            if (lock) {
+                lock.classList.remove('unlocked');
+                const pin = document.getElementById('lock-pin-input');
+                if (pin) { pin.value = ''; pin.focus(); }
+            }
+        }
+
+        function unlockOS(bypass = false) {
+            const pin = document.getElementById('lock-pin-input').value;
+            const err = document.getElementById('lock-error-msg');
+            if (bypass || pin === '2026' || pin === 'admin' || pin === '') {
+                document.getElementById('lock-screen').classList.add('unlocked');
+                if (err) err.classList.add('hidden');
+                triggerIslandNotification('🔓 Sovereign Enclave', 'Welcome back, sovereign_admin');
+            } else {
+                if (err) err.classList.remove('hidden');
+            }
+        }
+
+        // --- 8. INDIC CODE STUDIO (IDE) ENGINE ---
+        const IDE_FILES = {
+            "vedic_primes.py": `# BharatOS Sovereign Vedic Prime & Sieve Engine
+# Developed for BharatOS 2026.1 Swaraj Core
+
+def nikhilam_factor(n):
+    """Calculates Vedic Nikhilam complement base 100"""
+    base = 100
+    deficit = base - n
+    print(f"Number: {n}, Deficit from Base {base}: {deficit}")
+    return deficit
+
+def main():
+    print("🇮🇳 Initializing Vedic Prime Sieve...")
+    primes = [p for p in range(2, 50) if all(p % i != 0 for i in range(2, int(p**0.5) + 1))]
+    print(f"Calculated Sovereign Primes: {primes}")
+    nikhilam_factor(97)
+    return "SUCCESS: 100% Ring-0 Verified"
+
+if __name__ == "__main__":
+    result = main()
+    print(result)
+`,
+            "isro_trajectory.rs": `// ISRO Sovereign Orbital Mechanics Trajectory Solver
+// Compiled with BharatOS rustc SMP microkernel compiler
+
+fn calculate_orbital_speed(altitude_km: f64) -> f64 {
+    let earth_radius_km: f64 = 6371.0;
+    let mu_earth: f64 = 398600.4418; // km^3/s^2
+    let r = earth_radius_km + altitude_km;
+    let v = (mu_earth / r).sqrt();
+    println!("Orbit Altitude: {:.2} km | Orbital Velocity: {:.4} km/s", altitude_km, v);
+    v
+}
+
+fn main() {
+    println!("🛰️ Running ISRO Space Mechanics Engine...");
+    let leo_v = calculate_orbital_speed(400.0);
+    println!("Orbital lock acquired at 144 FPS telemetry.");
+}
+`,
+            "kavach_handshake.c": `/* BharatOS Kavach Zero-Trust Encryption Handshake */
+#include <stdio.h>
+#include <stdint.h>
+
+void perform_kavach_handshake(uint64_t session_id) {
+    printf("[KAVACH] Initiating zero-trust AES-256-GCM + ChaCha20 session: 0x%llX\\n", session_id);
+    printf("[KAVACH] Neutralizing 4,280 foreign telemetry probes... DONE\\n");
+    printf("[KAVACH] Sovereign memory isolated in Ring-0 enclave.\\n");
+}
+
+int main() {
+    perform_kavach_handshake(0xB4A4A70500002026ULL);
+    return 0;
+}
+`
+        };
+
+        let currentIDEFile = "vedic_primes.py";
+        let isIndicDevanagariMode = false;
+
+        function switchIDETab(fileName) {
+            currentIDEFile = fileName;
+            ['vedic', 'isro', 'kavach'].forEach(k => {
+                const btn = document.getElementById(`ide-tab-${k}`);
+                if (btn) btn.className = 'px-3 py-1 rounded-lg hover:bg-slate-900 text-slate-400';
+            });
+            if (fileName.includes('vedic')) document.getElementById('ide-tab-vedic').className = 'px-3 py-1 rounded-lg bg-slate-800 text-cyan-300 font-bold border border-slate-700';
+            if (fileName.includes('isro')) document.getElementById('ide-tab-isro').className = 'px-3 py-1 rounded-lg bg-slate-800 text-cyan-300 font-bold border border-slate-700';
+            if (fileName.includes('kavach')) document.getElementById('ide-tab-kavach').className = 'px-3 py-1 rounded-lg bg-slate-800 text-cyan-300 font-bold border border-slate-700';
+
+            const editor = document.getElementById('ide-code-editor');
+            editor.value = IDE_FILES[fileName] || "";
+            updateIDELineNumbers();
+        }
+
+        function updateIDELineNumbers() {
+            const editor = document.getElementById('ide-code-editor');
+            const lines = editor.value.split('\n').length;
+            const lineNumsEl = document.getElementById('ide-line-numbers');
+            let str = '';
+            for (let i = 1; i <= Math.max(lines, 16); i++) {
+                str += `${i}<br>`;
+            }
+            lineNumsEl.innerHTML = str;
+        }
+
+        function toggleIndicDevanagariMode() {
+            isIndicDevanagariMode = !isIndicDevanagariMode;
+            const btn = document.getElementById('ide-indic-mode-btn');
+            const editor = document.getElementById('ide-code-editor');
+            
+            if (isIndicDevanagariMode) {
+                btn.textContent = '🇮🇳 Devanagari Syntax: ON';
+                btn.className = 'px-2.5 py-1 rounded-lg bg-emerald-950 border border-emerald-500/60 text-emerald-300 text-xs font-mono font-bold';
+                // Translate keywords
+                editor.value = editor.value
+                    .replace(/\bdef\b/g, 'कार्य')
+                    .replace(/\bprint\b/g, 'छापें')
+                    .replace(/\breturn\b/g, 'परिणाम')
+                    .replace(/\bif\b/g, 'यदि')
+                    .replace(/\bfor\b/g, 'प्रत्येक')
+                    .replace(/\bin\b/g, 'में');
+            } else {
+                btn.textContent = '🇮🇳 Devanagari Syntax: OFF';
+                btn.className = 'px-2.5 py-1 rounded-lg bg-amber-950/60 border border-amber-500/40 text-amber-300 text-xs font-mono font-bold hover:bg-amber-900/60';
+                editor.value = editor.value
+                    .replace(/\bकार्य\b/g, 'def')
+                    .replace(/\bछापें\b/g, 'print')
+                    .replace(/\bपरिणाम\b/g, 'return')
+                    .replace(/\bयदि\b/g, 'if')
+                    .replace(/\bप्रत्येक\b/g, 'for')
+                    .replace(/\bमें\b/g, 'in');
+            }
+        }
+
+        function runIDEScript() {
+            const out = document.getElementById('ide-console-output');
+            out.innerHTML += `<div class="text-cyan-300 font-bold">▶ Executing '${currentIDEFile}' in Sovereign SMP Microkernel (Ring-0)...</div>`;
             setTimeout(() => {
-                btn.textContent = 'Installed';
-                btn.className = 'px-3 py-1.5 rounded-xl bg-slate-800 text-emerald-400 font-bold';
-                triggerIslandNotification('🛍️ Package Installed', `Successfully installed ${pkgName} into /apps`);
-            }, 1000);
+                if (currentIDEFile.includes('vedic')) {
+                    out.innerHTML += `<div class="text-white">🇮🇳 Initializing Vedic Prime Sieve...</div>`;
+                    out.innerHTML += `<div class="text-white">Calculated Sovereign Primes: [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47]</div>`;
+                    out.innerHTML += `<div class="text-white">Number: 97, Deficit from Base 100: 3</div>`;
+                    out.innerHTML += `<div class="text-emerald-400 font-bold">✓ Process exited with code 0 (Execution Time: 0.84 ms)</div>`;
+                } else if (currentIDEFile.includes('isro')) {
+                    out.innerHTML += `<div class="text-white">🛰️ Running ISRO Space Mechanics Engine...</div>`;
+                    out.innerHTML += `<div class="text-white">Orbit Altitude: 400.00 km | Orbital Velocity: 7.6686 km/s</div>`;
+                    out.innerHTML += `<div class="text-emerald-400 font-bold">✓ Orbit telemetry synchronized at 144 FPS</div>`;
+                } else {
+                    out.innerHTML += `<div class="text-white">[KAVACH] Zero-trust session active (Session: 0xB4A4A70500002026)</div>`;
+                    out.innerHTML += `<div class="text-emerald-400 font-bold">✓ All 4,280 foreign telemetry probes neutralized.</div>`;
+                }
+                out.scrollTop = out.scrollHeight;
+                triggerIslandNotification('⚡ IDE Execution', `Completed '${currentIDEFile}'`);
+            }, 300);
         }
 
-        // Settings Tab Switcher & Wallpapers
+        function clearIDEConsole() {
+            document.getElementById('ide-console-output').innerHTML = '';
+        }
+
+        switchIDETab('vedic_primes.py');
+
+        // --- 9. BHARAT SOVEREIGN APP STORE (spkg) ---
+        const SPKG_APPS = [
+            { id: "indic-ide", name: "Indic Code Studio", cat: "Development", ver: "2.4.0", size: "512 KB", dev: "C-DAC Sovereign Labs", icon: "💻", rating: "5.0 ★", desc: "Devanagari code editor, JIT compiler, AI copilot, and ring-0 debugging.", installed: true },
+            { id: "ganita-calc", name: "Ganita Vedic Calculator", cat: "Productivity", ver: "3.1.0", size: "120 KB", dev: "Aryabhata Math Group", icon: "🧮", rating: "4.9 ★", desc: "Sovereign Indic scientific calculator with one-click Vedic sutras solver.", installed: true },
+            { id: "patra-notes", name: "Patra Notes & Markdown", cat: "Productivity", ver: "2.0.4", size: "180 KB", dev: "BharatOS UX Team", icon: "📝", rating: "4.8 ★", desc: "Liquid Glass live markdown notes editor with SovereignFS local encryption.", installed: true },
+            { id: "panchang-cal", name: "Panchang & Saka Calendar", cat: "System", ver: "2.2.0", size: "95 KB", dev: "Rashtriya Panchang Parishad", icon: "📅", rating: "4.9 ★", desc: "National Saka & Vikram Samvat calendar with astronomical tithi predictions.", installed: true },
+            { id: "solaris-sim", name: "Solaris Space Flight Sim", cat: "Games", ver: "1.8.2", size: "1.8 MB", dev: "ISRO Space Lab", icon: "🪐", rating: "5.0 ★", desc: "3D real orbital flight mechanics simulation powered by Vulkan 144 FPS engine.", installed: true },
+            { id: "chakra-runner", name: "Chakra Cyber Runner", cat: "Games", ver: "1.4.0", size: "1.2 MB", dev: "Swaraj Interactive", icon: "⚡", rating: "4.7 ★", desc: "Fast-paced neon cyberpunk odyssey across futuristic sovereign Indian megacities.", installed: false },
+            { id: "vedic-chess", name: "Vedic Neural Chess", cat: "Games", ver: "2.0.0", size: "450 KB", dev: "Vedic AI Lab", icon: "♟️", rating: "4.9 ★", desc: "Ancient Chaturanga & modern Grandmaster neural network AI opponent.", installed: false },
+            { id: "kavach-tools", name: "Kavach Zero-Trust Suite", cat: "Security", ver: "3.0.1", size: "128 KB", dev: "CERT-In & DRDO", icon: "🛡️", rating: "5.0 ★", desc: "Zero-Trust CLI diagnostic and hardware-enclave telemetry inspection shield.", installed: true },
+            { id: "winbridge-core", name: "WinBridge .EXE Runtime", cat: "System", ver: "1.5.0", size: "340 KB", dev: "BharatOS Core Team", icon: "⚙️", rating: "4.8 ★", desc: "DirectX 12 and Windows PE32/PE64 binary compatibility enclave for PC games.", installed: true },
+            { id: "bharat-browser", name: "Bharat Sovereign Browser", cat: "Productivity", ver: "4.0.0", size: "920 KB", dev: "NIC Sovereign Web", icon: "🌐", rating: "4.8 ★", desc: "Ultra-private zero-telemetry web navigator with built-in DNS-over-HTTPS.", installed: false }
+        ];
+
+        function renderAppStore(apps) {
+            const container = document.getElementById('store-apps-grid');
+            if (!container) return;
+            container.innerHTML = '';
+
+            apps.forEach(app => {
+                const card = document.createElement('div');
+                card.className = 'p-4 rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between space-y-3';
+                card.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <span class="text-4xl p-2 rounded-2xl bg-slate-950 border border-slate-800">${app.icon}</span>
+                        <div class="flex-1">
+                            <div class="flex items-center justify-between">
+                                <h4 class="text-xs font-bold text-white">${app.name}</h4>
+                                <span class="text-[10px] text-amber-400 font-bold">${app.rating}</span>
+                            </div>
+                            <div class="text-[10px] text-slate-400 font-mono mt-0.5">${app.dev} • v${app.ver} (${app.size})</div>
+                            <p class="text-[11px] text-slate-300 mt-2 line-clamp-2">${app.desc}</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between pt-2 border-t border-slate-800/80">
+                        <span class="px-2 py-0.5 rounded-full bg-emerald-950 border border-emerald-500/40 text-emerald-400 text-[10px] font-mono font-bold">🛡️ Zero Telemetry</span>
+                        ${app.installed 
+                            ? `<div class="flex space-x-2"><button onclick="launchApp('${app.id}')" class="px-3 py-1 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">Launch</button><button onclick="uninstallApp('${app.id}')" class="px-2 py-1 rounded-xl bg-slate-800 hover:bg-rose-950 text-slate-400 hover:text-rose-300 text-xs">✕</button></div>`
+                            : `<button onclick="installApp('${app.id}', this)" class="px-4 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">Install</button>`
+                        }
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterAppStore(cat) {
+            const btns = document.querySelectorAll('.store-cat-btn');
+            btns.forEach(b => {
+                if (b.innerText.toLowerCase().includes(cat.toLowerCase()) || (cat === 'All' && b.innerText.includes('All'))) {
+                    b.className = 'store-cat-btn px-3 py-1 rounded-xl bg-cyan-500 text-slate-950 font-bold';
+                } else {
+                    b.className = 'store-cat-btn px-3 py-1 rounded-xl bg-slate-900 text-slate-300 hover:bg-slate-800';
+                }
+            });
+            const filtered = (cat === 'All') ? SPKG_APPS : SPKG_APPS.filter(a => a.cat.toLowerCase() === cat.toLowerCase());
+            renderAppStore(filtered);
+        }
+
+        function searchAppStore(query) {
+            const filtered = SPKG_APPS.filter(a => a.name.toLowerCase().includes(query.toLowerCase()) || a.desc.toLowerCase().includes(query.toLowerCase()));
+            renderAppStore(filtered);
+        }
+
+        function installApp(appId, btnEl) {
+            btnEl.textContent = 'Verifying SHA-256...';
+            btnEl.disabled = true;
+            setTimeout(() => {
+                btnEl.textContent = 'Installing into /apps...';
+                setTimeout(() => {
+                    const target = SPKG_APPS.find(a => a.id === appId);
+                    if (target) target.installed = true;
+                    renderAppStore(SPKG_APPS);
+                    triggerIslandNotification('🛒 Package Installed', `${target ? target.name : appId} installed successfully`);
+                }, 450);
+            }, 400);
+        }
+
+        function uninstallApp(appId) {
+            const target = SPKG_APPS.find(a => a.id === appId);
+            if (target) target.installed = false;
+            renderAppStore(SPKG_APPS);
+            triggerIslandNotification('🗑️ Package Removed', `${target ? target.name : appId} removed`);
+        }
+
+        function launchApp(appId) {
+            if (appId === 'indic-ide') openWindow('ide-window');
+            else if (appId === 'ganita-calc') openWindow('calculator-window');
+            else if (appId === 'patra-notes') openWindow('notes-window');
+            else if (appId === 'panchang-cal') openWindow('panchang-window');
+            else if (appId === 'solaris-sim') openWindow('solaris-window');
+            else if (appId === 'kavach-tools') openWindow('settings-window');
+            else triggerIslandNotification('🚀 Launching App', appId);
+        }
+
+        renderAppStore(SPKG_APPS);
+
+        // --- 10. GANITA CALCULATOR & VEDIC SOLVER ---
+        let calcCurrent = '0';
+        let calcPrev = '';
+        let calcOp = null;
+
+        function calcNum(n) {
+            if (calcCurrent === '0' || calcCurrent === 'Error') calcCurrent = n.toString();
+            else calcCurrent += n.toString();
+            document.getElementById('calc-main-disp').textContent = calcCurrent;
+        }
+
+        function calcKey(k) {
+            if (k === '±') calcCurrent = (parseFloat(calcCurrent) * -1).toString();
+            else if (k === '%') calcCurrent = (parseFloat(calcCurrent) / 100).toString();
+            else if (k === 'sin') calcCurrent = Math.sin(parseFloat(calcCurrent) * Math.PI / 180).toFixed(6).toString();
+            else if (k === 'cos') calcCurrent = Math.cos(parseFloat(calcCurrent) * Math.PI / 180).toFixed(6).toString();
+            else if (k === 'tan') calcCurrent = Math.tan(parseFloat(calcCurrent) * Math.PI / 180).toFixed(6).toString();
+            else if (k === 'sqrt') calcCurrent = Math.sqrt(parseFloat(calcCurrent)).toString();
+            else if (k === 'pi') calcCurrent = Math.PI.toFixed(6).toString();
+            else if (k === 'log') calcCurrent = Math.log10(parseFloat(calcCurrent)).toFixed(6).toString();
+            else if (k === '.') {
+                if (!calcCurrent.includes('.')) calcCurrent += '.';
+            } else {
+                calcOp = k;
+                calcPrev = calcCurrent;
+                calcCurrent = '0';
+                document.getElementById('calc-history-disp').textContent = `${calcPrev} ${calcOp}`;
+            }
+            document.getElementById('calc-main-disp').textContent = calcCurrent;
+        }
+
+        function calcEqual() {
+            if (!calcOp || !calcPrev) return;
+            const a = parseFloat(calcPrev);
+            const b = parseFloat(calcCurrent);
+            let res = 0;
+            if (calcOp === '+') res = a + b;
+            if (calcOp === '-') res = a - b;
+            if (calcOp === '*') res = a * b;
+            if (calcOp === '/') res = b !== 0 ? (a / b) : 'Error';
+            if (calcOp === '^') res = Math.pow(a, b);
+            
+            document.getElementById('calc-history-disp').textContent = `${a} ${calcOp} ${b} =`;
+            calcCurrent = res.toString();
+            document.getElementById('calc-main-disp').textContent = calcCurrent;
+            calcOp = null;
+            calcPrev = '';
+        }
+
+        function calcClear() {
+            calcCurrent = '0';
+            calcPrev = '';
+            calcOp = null;
+            document.getElementById('calc-main-disp').textContent = '0';
+            document.getElementById('calc-history-disp').textContent = 'Ganita Ready';
+        }
+
+        function switchCalcMode(mode) {
+            ['vedic', 'scientific', 'converter'].forEach(m => {
+                const tab = document.getElementById(`calc-tab-${m}`);
+                if (tab) tab.className = 'px-2.5 py-1 rounded-lg bg-slate-900 text-slate-300';
+            });
+            document.getElementById(`calc-tab-${mode}`).className = 'px-2.5 py-1 rounded-lg bg-amber-500 text-slate-950 font-bold';
+
+            document.getElementById('calc-vedic-panel').classList.toggle('hidden', mode !== 'vedic');
+            document.getElementById('calc-sc-panel').classList.toggle('hidden', mode !== 'scientific');
+            document.getElementById('calc-conv-panel').classList.toggle('hidden', mode !== 'converter');
+        }
+
+        function solveVedicSutra(sutra) {
+            const out = document.getElementById('vedic-step-content');
+            if (sutra === 'nikhilam') {
+                calcCurrent = '9506';
+                document.getElementById('calc-main-disp').textContent = '9506';
+                document.getElementById('calc-history-disp').textContent = '98 × 97 (Base 100)';
+                out.innerHTML = `
+                    <div class="text-amber-300 font-bold">Nikhilam Sutra (98 × 97 Base 100):</div>
+                    <div>1. Deficits from base 100: (100-98)= -2, (100-97)= -3</div>
+                    <div>2. Left side: 98 - 3 = 95 (or 97 - 2 = 95)</div>
+                    <div>3. Right side: (-2) × (-3) = 06</div>
+                    <div class="text-emerald-400 font-bold">Answer = 9506 (Calculated in 0.1 ms)</div>
+                `;
+            } else if (sutra === 'ekadhikena') {
+                calcCurrent = '7225';
+                document.getElementById('calc-main-disp').textContent = '7225';
+                document.getElementById('calc-history-disp').textContent = '85² (Ekadhikena Purvena)';
+                out.innerHTML = `
+                    <div class="text-saffron font-bold">Ekadhikena Purvena (85²):</div>
+                    <div>1. First digit: 8. 'One more than 8' is 9.</div>
+                    <div>2. Left side: 8 × 9 = 72</div>
+                    <div>3. Right side: 5² = 25</div>
+                    <div class="text-emerald-400 font-bold">Answer = 7225</div>
+                `;
+            } else if (sutra === 'urdhva') {
+                calcCurrent = '483';
+                document.getElementById('calc-main-disp').textContent = '483';
+                document.getElementById('calc-history-disp').textContent = '21 × 23 (Urdhva Tiryagbhyam)';
+                out.innerHTML = `
+                    <div class="text-emerald-400 font-bold">Urdhva Tiryagbhyam (21 × 23):</div>
+                    <div>1. Vertical Units: 1 × 3 = 3</div>
+                    <div>2. Crosswise: (2×3) + (1×2) = 6 + 2 = 8</div>
+                    <div>3. Vertical Tens: 2 × 2 = 4</div>
+                    <div class="text-emerald-400 font-bold">Answer = 483</div>
+                `;
+            } else {
+                calcCurrent = '14';
+                document.getElementById('calc-main-disp').textContent = '14';
+                document.getElementById('calc-history-disp').textContent = 'Paravartya Algebraic Solver';
+                out.innerHTML = `
+                    <div class="text-sky-300 font-bold">Paravartya Yojayet (Transpose & Apply):</div>
+                    <div>Equation: 3x - 12 = 30</div>
+                    <div>1. Transpose: 3x = 30 + 12 = 42</div>
+                    <div>2. Apply division: x = 42 / 3 = 14</div>
+                    <div class="text-emerald-400 font-bold">Root x = 14</div>
+                `;
+            }
+        }
+
+        function runUnitConvert() {
+            const inr = parseFloat(document.getElementById('conv-inr-in').value) || 0;
+            const usd = (inr / 83.2).toFixed(2);
+            const eur = (inr / 89.8).toFixed(2);
+            document.getElementById('conv-curr-out').textContent = `$${usd} / €${eur}`;
+        }
+
+        // --- 11. PATRA NOTES ENGINE ---
+        const NOTES_STORE = [
+            { id: 1, title: "Sovereign Architecture 2026", content: "### BharatOS 2026.1 Swaraj Manifesto\n\n- **Kernel**: 64-bit Rust Microkernel with SMP Long Mode\n- **Compositor**: Prithvi 144 FPS Vulkan & Direct3D Engine\n- **Security**: 100% Zero-Trust Kavach Telemetry Shield\n- **Storage**: SovereignFS copy-on-write encrypted filesystem" },
+            { id: 2, title: "Vedic Algorithm Notes", content: "### Speed Mathematics Sutras\n\n1. **Nikhilam Navatashcaramam Dashatah**: Base multiplication\n2. **Ekadhikena Purvena**: Squaring numbers ending in 5\n3. **Urdhva Tiryagbhyam**: 2D Crosswise matrix operations" },
+            { id: 3, title: "ISRO Mission Timeline", content: "### Gaganyaan Sovereign Launch Checklist\n\n- [x] Ring-0 real-time telemetry verified\n- [x] Zero foreign telemetry verified\n- [ ] 144 FPS orbital HUD synchronization" }
+        ];
+
+        let activeNoteId = 1;
+
+        function renderNotesList() {
+            const container = document.getElementById('notes-list-container');
+            if (!container) return;
+            container.innerHTML = '';
+            NOTES_STORE.forEach(n => {
+                const el = document.createElement('div');
+                el.className = `p-2.5 rounded-xl cursor-pointer transition-all ${n.id === activeNoteId ? 'bg-slate-800 text-cyan-300 font-bold border border-slate-700' : 'hover:bg-slate-900 text-slate-300'}`;
+                el.onclick = () => selectNote(n.id);
+                el.innerHTML = `<div class="truncate text-xs">${n.title}</div><div class="text-[10px] text-slate-500 truncate mt-0.5">${n.content.slice(0, 30)}...</div>`;
+                container.appendChild(el);
+            });
+            document.getElementById('notes-count-badge').textContent = `${NOTES_STORE.length} Notes`;
+        }
+
+        function selectNote(id) {
+            activeNoteId = id;
+            const note = NOTES_STORE.find(n => n.id === id);
+            if (note) {
+                document.getElementById('note-title-input').value = note.title;
+                document.getElementById('note-markdown-input').value = note.content;
+                renderNotePreview();
+            }
+            renderNotesList();
+        }
+
+        function renderNotePreview() {
+            const raw = document.getElementById('note-markdown-input').value;
+            const note = NOTES_STORE.find(n => n.id === activeNoteId);
+            if (note) note.content = raw;
+
+            // Simple markdown parser
+            let html = raw
+                .replace(/^### (.*$)/gim, '<h3 class="text-sm font-bold text-cyan-300 mt-2">$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2 class="text-base font-bold text-white mt-2">$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1 class="text-lg font-bold text-saffron mt-2">$1</h1>')
+                .replace(/\*\*(.*)\*\*/gim, '<strong class="text-white">$1</strong>')
+                .replace(/\*(.*)\*/gim, '<em class="text-slate-200">$1</em>')
+                .replace(/`([^`]+)`/gim, '<code class="px-1.5 py-0.5 rounded bg-slate-900 text-amber-300 font-mono text-[11px]">$1</code>')
+                .replace(/^- \[ \] (.*$)/gim, '<div class="flex items-center space-x-2"><input type="checkbox" class="accent-cyan-400"> <span>$1</span></div>')
+                .replace(/^- \[x\] (.*$)/gim, '<div class="flex items-center space-x-2 text-slate-400 line-through"><input type="checkbox" checked class="accent-cyan-400"> <span>$1</span></div>')
+                .replace(/^- (.*$)/gim, '<li class="ml-4 list-disc">$1</li>')
+                .replace(/\n/gim, '<br>');
+
+            document.getElementById('note-rendered-preview').innerHTML = html;
+        }
+
+        function updateNoteTitle(title) {
+            const note = NOTES_STORE.find(n => n.id === activeNoteId);
+            if (note) {
+                note.title = title;
+                renderNotesList();
+            }
+        }
+
+        function createNewNote() {
+            const newId = Date.now();
+            NOTES_STORE.push({
+                id: newId,
+                title: "Untitled Sovereign Note",
+                content: "### New Note\n\nStart writing in Markdown..."
+            });
+            selectNote(newId);
+            triggerIslandNotification('📝 Note Created', 'New note added to SovereignFS');
+        }
+
+        function insertNoteMD(before, after) {
+            const input = document.getElementById('note-markdown-input');
+            const start = input.selectionStart;
+            const end = input.selectionEnd;
+            const text = input.value;
+            const sel = text.substring(start, end);
+            input.value = text.substring(0, start) + before + sel + after + text.substring(end);
+            renderNotePreview();
+        }
+
+        function exportCurrentNote() {
+            const note = NOTES_STORE.find(n => n.id === activeNoteId);
+            triggerIslandNotification('💾 Note Exported', `${note ? note.title : 'Note'} saved into /home/user/documents`);
+        }
+
+        selectNote(1);
+
+        // --- 12. PANCHANG & CALENDAR ---
+        let calMonth = 7; // August (0-indexed)
+        let calYear = 2026;
+
+        function renderCalendar() {
+            const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+            document.getElementById('cal-month-header').textContent = `${months[calMonth]} ${calYear} • Saka ${calYear - 78}`;
+
+            const firstDay = new Date(calYear, calMonth, 1).getDay();
+            const daysInMonth = new Date(calYear, calMonth + 1, 0).getDate();
+            const grid = document.getElementById('cal-days-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+
+            for (let i = 0; i < firstDay; i++) {
+                grid.innerHTML += `<div class="p-2 text-slate-700"></div>`;
+            }
+            for (let d = 1; d <= daysInMonth; d++) {
+                const isToday = (d === 24 && calMonth === 7 && calYear === 2026);
+                grid.innerHTML += `<div class="p-2 rounded-xl text-center cursor-pointer transition-all ${isToday ? 'bg-gradient-to-r from-saffron to-amber-500 text-slate-950 font-black shadow-lg scale-105' : 'hover:bg-slate-800 text-slate-300'}">${d}</div>`;
+            }
+        }
+
+        function prevCalMonth() {
+            calMonth--;
+            if (calMonth < 0) { calMonth = 11; calYear--; }
+            renderCalendar();
+        }
+        function nextCalMonth() {
+            calMonth++;
+            if (calMonth > 11) { calMonth = 0; calYear++; }
+            renderCalendar();
+        }
+        renderCalendar();
+
+        // --- 13. SETTINGS ENGINE ---
         function switchSettingsTab(tabKey) {
             ['system', 'wallpaper', 'updates', 'graphics', 'shortcuts', 'battery', 'security'].forEach(k => {
                 const pane = document.getElementById(`tab-pane-${k}`);
@@ -1062,39 +2233,27 @@ pub extern "C" fn _start() -> ! {
 
         function checkUpdates() {
             const btn = document.getElementById('btn-check-update');
-            btn.textContent = 'Checking...';
+            btn.textContent = 'Checking C-DAC mirror...';
             setTimeout(() => {
                 btn.textContent = '✓ Up to Date';
                 triggerIslandNotification('🚀 System Updates', 'BharatOS 2026.1 LTS is Up to Date');
-            }, 800);
+            }, 600);
         }
 
-        // Global Shortcuts
-        window.addEventListener('keydown', (e) => {
-            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-            const key = e.key.toLowerCase();
-            if (e.metaKey || e.ctrlKey || e.altKey) {
-                if (key === 'e') { e.preventDefault(); openWindow('files-window'); }
-                if (key === 't') { e.preventDefault(); openWindow('terminal-window'); }
-                if (key === 'g') { e.preventDefault(); openWindow('gaming-window'); }
-                if (key === 'i') { e.preventDefault(); openWindow('settings-window'); }
-                if (key === 'm') { e.preventDefault(); openWindow('taskmanager-window'); }
-                if (key === 'l') { e.preventDefault(); lockScreen(); }
-            }
-        });
-
-        // VFS Dual Pane
+        // --- 14. VFS DUAL PANE FILE EXPLORER ---
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
                 { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
                 { name: "games", type: "dir", icon: "🎮", size: "2.4 MB" },
+                { name: "vedic_math_solver.py", type: "file", icon: "🧮", size: "3.4 KB" },
                 { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB" },
                 { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB" }
             ],
             "/home/user/documents": [
                 { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB" },
-                { name: "specs.pdf", type: "file", icon: "📕", size: "450 KB" }
+                { name: "specs.pdf", type: "file", icon: "📕", size: "450 KB" },
+                { name: "notes_backup.json", type: "file", icon: "📝", size: "14 KB" }
             ],
             "/home/user/projects": [
                 { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" },
@@ -1105,8 +2264,12 @@ pub extern "C" fn _start() -> ! {
                 { name: "chakra_runner.app", type: "file", icon: "⚡", size: "120 KB" },
                 { name: "vedic_chess.app", type: "file", icon: "♟️", size: "64 KB" }
             ],
-            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }],
-            "/apps": [{ name: "terminal.app", type: "file", icon: "💻", size: "240 KB" }]
+            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }, { name: "vulkan_compositor.so", type: "file", icon: "🎮", size: "820 KB" }],
+            "/apps": [
+                { name: "indic_ide.app", type: "file", icon: "💻", size: "512 KB" },
+                { name: "ganita_calc.app", type: "file", icon: "🧮", size: "120 KB" },
+                { name: "patra_notes.app", type: "file", icon: "📝", size: "180 KB" }
+            ]
         };
 
         let currentVFSPath = "/home/user";
@@ -1126,6 +2289,10 @@ pub extern "C" fn _start() -> ! {
                         navigateToPath(nextPath);
                     } else if (item.name.includes('solaris') || item.name.endsWith('.exe')) {
                         openWindow('gaming-window');
+                    } else if (item.name.endsWith('.py') || item.name.endsWith('.rs')) {
+                        openWindow('ide-window');
+                    } else if (item.name.endsWith('.md') || item.name.includes('notes')) {
+                        openWindow('notes-window');
                     } else {
                         triggerIslandNotification('📄 File Opened', item.name);
                     }
@@ -1135,15 +2302,45 @@ pub extern "C" fn _start() -> ! {
             });
         }
         function navigateToPath(p) { renderVFS(p); }
+        function searchVFS(query) {
+            const container = document.getElementById('vfs-file-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            Object.values(VFS_TREE).flat().filter(item => item.name.toLowerCase().includes(query.toLowerCase())).forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/90 flex flex-col items-center text-center cursor-pointer hover:scale-105 transition-all';
+                el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs text-slate-200 font-bold truncate w-full">${item.name}</span><span class="text-[10px] text-slate-500 mt-1">${item.size}</span>`;
+                container.appendChild(el);
+            });
+        }
+        function createNewFilePrompt() {
+            const name = prompt("Enter new file name:", "new_script.py");
+            if (name) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name: name, type: "file", icon: "📄", size: "0 B" });
+                renderVFS(currentVFSPath);
+                triggerIslandNotification('📄 File Created', name);
+            }
+        }
+        function createNewFolderPrompt() {
+            const name = prompt("Enter new folder name:", "new_folder");
+            if (name) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name: name, type: "dir", icon: "📁", size: "4 KB" });
+                renderVFS(currentVFSPath);
+                triggerIslandNotification('📁 Folder Created', name);
+            }
+        }
         renderVFS("/home/user");
 
-        // Task Manager Monitor
+        // --- 15. TASK MANAGER PROCESS MONITOR ---
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
             { pid: 3, name: "vulkan_compositor", cpu: "1.4%", mem: "42.0 MB", status: "144 FPS" },
-            { pid: 4, name: "solaris_space_game", cpu: "2.1%", mem: "84.0 MB", status: "Active" },
-            { pid: 5, name: "indic_code_studio", cpu: "0.8%", mem: "28.4 MB", status: "Editing" }
+            { pid: 4, name: "indic_code_studio", cpu: "0.8%", mem: "28.5 MB", status: "Active" },
+            { pid: 5, name: "ganita_calculator", cpu: "0.2%", mem: "12.0 MB", status: "Idle" },
+            { pid: 6, name: "bharat_shell", cpu: "0.1%", mem: "8.6 MB", status: "Interactive" }
         ];
 
         function renderTaskManager() {
@@ -1165,12 +2362,11 @@ pub extern "C" fn _start() -> ! {
             });
         }
         renderTaskManager();
-
         function purgeMemoryCache() {
-            triggerIslandNotification('⚡ RAM Purged', '12.7 MB Cache Cleared');
+            triggerIslandNotification('⚡ RAM Purged', '16.4 MB Page Cache Cleared');
         }
 
-        // Bharat Shell
+        // --- 16. BHARAT SHELL (BSH) ---
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
@@ -1183,24 +2379,34 @@ pub extern "C" fn _start() -> ! {
                 const cmd = val.split(' ')[0].toLowerCase();
 
                 if (cmd === 'help') {
-                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, neofetch, ipconfig, cls, clear, ver, game, code, calc</div>`;
+                    out.innerHTML += `<div>Commands: dir, ls, spkg, ide, calc, notes, game, tasklist, ps, mem, free, systeminfo, neofetch, cls, clear, lock</div>`;
                 } else if (cmd === 'dir' || cmd === 'ls') {
-                    out.innerHTML += `<div>documents/  projects/  games/  solaris_game.exe  readme.txt</div>`;
+                    out.innerHTML += `<div>documents/  projects/  games/  vedic_math_solver.py  solaris_game.exe  readme.txt</div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
-                } else if (cmd === 'tasklist' || cmd === 'ps') {
-                    out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: vulkan_compositor (42.0 MB - 144 FPS)</div>`;
-                } else if (cmd === 'code') {
-                    openWindow('editor-window');
-                    out.innerHTML += `<div class="text-cyan-300">Launching Indic Code Studio IDE...</div>`;
+                } else if (cmd === 'spkg') {
+                    openWindow('appstore-window');
+                    out.innerHTML += `<div class="text-cyan-300">spkg: Launched Sovereign App Store GUI.</div>`;
+                } else if (cmd === 'ide') {
+                    openWindow('ide-window');
+                    out.innerHTML += `<div class="text-emerald-300">ide: Launched Indic Code Studio.</div>`;
                 } else if (cmd === 'calc') {
-                    openWindow('calc-window');
-                    out.innerHTML += `<div class="text-amber-300">Launching Vedic Calculator...</div>`;
-                } else if (cmd === 'mem' || cmd === 'free') {
-                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
+                    openWindow('calculator-window');
+                    out.innerHTML += `<div class="text-amber-300">calc: Launched Ganita Vedic Calculator.</div>`;
+                } else if (cmd === 'notes') {
+                    openWindow('notes-window');
+                    out.innerHTML += `<div class="text-sky-300">notes: Launched Patra Notes Editor.</div>`;
                 } else if (cmd === 'game') {
                     openWindow('gaming-window');
                     out.innerHTML += `<div class="text-cyan-300">Launching Sovereign Game Hub (144 FPS)...</div>`;
+                } else if (cmd === 'lock') {
+                    lockOS();
+                } else if (cmd === 'tasklist' || cmd === 'ps') {
+                    out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: vulkan_compositor (42.0 MB - 144 FPS)<br>PID 4: indic_code_studio (28.5 MB)</div>`;
+                } else if (cmd === 'mem' || cmd === 'free') {
+                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
+                } else if (cmd === 'systeminfo' || cmd === 'neofetch') {
+                    out.innerHTML += `<div>OS: BharatOS 2026.1 LTS 'Swaraj'<br>Kernel: 64-bit Rust Microkernel (SMP Long Mode)<br>Compositor: Prithvi 144 FPS Vulkan Engine<br>Security: Kavach Zero-Trust Shield (100% Active)</div>`;
                 } else {
                     out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
                 }
@@ -1208,12 +2414,46 @@ pub extern "C" fn _start() -> ! {
             }
         }
 
+        // --- 17. GLOBAL SHORTCUTS LISTENER ---
+        window.addEventListener('keydown', (e) => {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+            const key = e.key.toLowerCase();
+            
+            // Win + 1/2/3/4 for Virtual Workspaces
+            if ((e.metaKey || e.ctrlKey || e.altKey) && ['1','2','3','4'].includes(e.key)) {
+                e.preventDefault();
+                switchWorkspace(parseInt(e.key));
+                return;
+            }
+
+            if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (key === 'tab') { e.preventDefault(); toggleMissionControl(); }
+                if (key === 'e') { e.preventDefault(); openWindow('files-window'); }
+                if (key === 't') { e.preventDefault(); openWindow('terminal-window'); }
+                if (key === 'd') { e.preventDefault(); openWindow('ide-window'); }
+                if (key === 'c') { e.preventDefault(); openWindow('calculator-window'); }
+                if (key === 'p') { e.preventDefault(); openWindow('notes-window'); }
+                if (key === 'g') { e.preventDefault(); openWindow('gaming-window'); }
+                if (key === 'i') { e.preventDefault(); openWindow('settings-window'); }
+                if (key === 'm') { e.preventDefault(); openWindow('taskmanager-window'); }
+                if (key === 'n') { e.preventDefault(); toggleNotificationCenter(); }
+                if (key === 'l') { e.preventDefault(); lockOS(); }
+            }
+            if (e.key === 'Escape') {
+                document.getElementById('mission-control').classList.add('closed');
+                document.getElementById('start-menu').classList.add('closed');
+                document.getElementById('notification-center').classList.add('closed');
+            }
+        });
+
+        // --- 18. LIVE CLOCK ENGINE ---
         function updateClock() {
             const now = new Date();
-            const timeStr = now.toLocaleTimeString('en-IN', { hour12: false });
-            document.getElementById('ist-clock').textContent = `${timeStr} IST`;
-            const lockEl = document.getElementById('lock-time');
-            if (lockEl) lockEl.textContent = timeStr;
+            const timeStr = `${now.toLocaleTimeString('en-IN', { hour12: false })} IST`;
+            const clockEl = document.getElementById('ist-clock');
+            if (clockEl) clockEl.textContent = timeStr;
+            const lockClockEl = document.getElementById('lock-clock');
+            if (lockClockEl) lockClockEl.textContent = timeStr.replace(' IST', '');
         }
         setInterval(updateClock, 1000);
         updateClock();

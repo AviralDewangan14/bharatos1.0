@@ -25,6 +25,7 @@ from bharatos.net.network_stack import network_stack
 from bharatos.audio.audio_engine import audio_engine
 from bharatos.pkg.sovereign_pkg import spkg
 from bharatos.kernel.hardware_scaler import hardware_scaler
+from bharatos.desktop.workspaces import workspace_manager
 
 def test_all():
     print("====================================================================")
@@ -37,14 +38,14 @@ def test_all():
     assert m["page_size_kb"] == 4
     freed = memory_subsystem.purge_page_cache()
     assert freed > 0
-    print(" [1/8] ✓ 64-bit Virtual Memory Manager (4-Level Paging) PASSED")
+    print(" [1/9] ✓ 64-bit Virtual Memory Manager (4-Level Paging) PASSED")
 
     # 2. SovereignFS File System Test
     fs_res = sovereign_fs.create_file(1, "master_manifest.txt", b"BHARATOS_SOVEREIGN_SYSTEM_READY")
     assert fs_res["success"] is True
     read_data = sovereign_fs.read_file(fs_res["inode_id"])
     assert read_data == b"BHARATOS_SOVEREIGN_SYSTEM_READY"
-    print(" [2/8] ✓ SovereignFS Copy-on-Write Encrypted File System PASSED")
+    print(" [2/9] ✓ SovereignFS Copy-on-Write Encrypted File System PASSED")
 
     # 3. WinBridge .EXE Subsystem Test
     mock_pe = bytearray(1024)
@@ -56,13 +57,13 @@ def test_all():
     struct.pack_into("<H", mock_pe, 0x98, 0x20B)
     load_res = winbridge.load_exe("system_tool.exe", bytes(mock_pe))
     assert load_res["success"] is True
-    print(" [3/8] ✓ Kavach WinBridge Windows PE32/PE32+ Binary Loader PASSED")
+    print(" [3/9] ✓ Kavach WinBridge Windows PE32/PE32+ Binary Loader PASSED")
 
     # 4. Gaming Engine Test
     g = game_engine.get_game_mode_metrics()
     assert g["target_fps"] == 144
     assert g["games_count"] >= 3
-    print(" [4/8] ✓ Prithvi 144 FPS Vulkan & Direct3D Gaming Engine PASSED")
+    print(" [4/9] ✓ Prithvi 144 FPS Vulkan & Direct3D Gaming Engine PASSED")
 
     # 5. Network Stack Test
     net = network_stack.get_interface_info()
@@ -71,29 +72,40 @@ def test_all():
     assert dns_res["resolved"] is True
     blocked_res = network_stack.resolve_domain("telemetry.microsoft.com")
     assert blocked_res["resolved"] is False
-    print(" [5/8] ✓ Sovereign TCP/IP Network Stack & Zero-Trust DNS PASSED")
+    print(" [5/9] ✓ Sovereign TCP/IP Network Stack & Zero-Trust DNS PASSED")
 
     # 6. Audio Engine Test
     audio = audio_engine.get_audio_status()
     assert audio["sample_rate_hz"] == 48000
     samples = audio_engine.synthesize_harmonic_tone(528.0, 0.05)
     assert len(samples) > 0
-    print(" [6/8] ✓ 3D Spatial Audio Engine & Harmonic DSP Synthesizer PASSED")
+    print(" [6/9] ✓ 3D Spatial Audio Engine & Harmonic DSP Synthesizer PASSED")
 
-    # 7. Package Manager Test
-    spkg_res = spkg.install("indic-ide")
+    # 7. Package Manager & App Store Test
+    spkg_res = spkg.install("ganita-calc")
     assert spkg_res["success"] is True
-    assert "indic-ide" in spkg.list_installed()
-    print(" [7/8] ✓ Bharat Sovereign Package Manager (spkg) PASSED")
+    assert "ganita-calc" in spkg.list_installed()
+    search_res = spkg.search("Vedic")
+    assert len(search_res) > 0
+    print(" [7/9] ✓ Bharat Sovereign Package Manager & App Store Catalog PASSED")
 
     # 8. Adaptive Hardware Scaler Test
     hw = hardware_scaler.auto_detect_hardware()
     assert hw["cpu_cores"] > 0
     assert hw["vulkan_support"] is True
-    print(" [8/8] ✓ Adaptive Low-End to High-End Hardware Scaler PASSED")
+    print(" [8/9] ✓ Adaptive Low-End to High-End Hardware Scaler PASSED")
+
+    # 9. Virtual Workspaces & Window Tiling Manager Test
+    ws_res = workspace_manager.switch_workspace(2)
+    assert ws_res["success"] is True
+    assert workspace_manager.active_workspace_id == 2
+    tile_bounds = workspace_manager.calculate_tiling_bounds("HALF_LEFT", 1920, 1080)
+    assert tile_bounds["width"] > 0 and tile_bounds["height"] > 0
+    workspace_manager.switch_workspace(1) # Reset to 1
+    print(" [9/9] ✓ Virtual Workspaces & 3D Spatial Window Tiling Manager PASSED")
 
     print("====================================================================")
-    print("    🏆 100% OF ALL 8 BHARATOS OS CORE SUBSYSTEMS PASSED CLEANLY!    ")
+    print("    🏆 100% OF ALL 9 BHARATOS OS CORE SUBSYSTEMS PASSED CLEANLY!    ")
     print("====================================================================")
 
 if __name__ == "__main__":

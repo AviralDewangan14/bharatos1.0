@@ -4,6 +4,12 @@ Unit Tests for Kavach WinBridge Windows .EXE PE32/PE32+ Binary Compatibility Lay
 
 import sys
 import struct
+from pathlib import Path
+
+# Ensure project root is in sys.path
+PROJECT_ROOT = Path(__file__).resolve().parent.parent
+if str(PROJECT_ROOT) not in sys.path:
+    sys.path.insert(0, str(PROJECT_ROOT))
 
 # Ensure UTF-8 output on Windows terminal
 if sys.platform == "win32" and hasattr(sys.stdout, "reconfigure"):
@@ -59,27 +65,21 @@ def test_winbridge_execution():
     raw_exe = generate_synthetic_pe_binary()
     res = winbridge.load_exe("solaris_space_game.exe", raw_exe)
     assert res["success"] is True
-    assert "solaris_space_game.exe" in winbridge.loaded_binaries
-    
-    # Test Win32 syscall translation
-    out = winbridge.execute_mock_win32_call("MessageBoxA", ["Solaris", "Welcome to BharatOS WinBridge"])
-    assert out["result"] == "IDOK"
-    print("✓ Kavach WinBridge Win32 API Emulation Passed")
+    assert res["binary_info"]["status"] == "LOADED_IN_SOVEREIGN_ENCLAVE"
+    assert res["binary_info"]["telemetry_quarantined"] is True
 
-def test_sovereign_fs():
-    res = sovereign_fs.create_file(1, "app.exe", b"MZ_EXECUTABLE_DATA_IN_SOVEREIGN_FS")
-    assert res["success"] is True
-    read_back = sovereign_fs.read_file(res["inode_id"])
-    assert read_back == b"MZ_EXECUTABLE_DATA_IN_SOVEREIGN_FS"
-    print("✓ SovereignFS Block Allocation & Read/Write Passed")
+    # Test Win32 API Call emulation
+    msg_res = winbridge.execute_mock_win32_call("MessageBoxA", ["BharatOS Enclave", "Launching Solaris Vulkan engine"])
+    assert msg_res["result"] == "IDOK"
+    assert msg_res["dialog"] == "BharatOS Enclave"
+    print("✓ Kavach WinBridge Execution & Win32 API Call Shim Passed")
 
 if __name__ == "__main__":
-    print("====================================================================")
-    print(" Running BharatOS WinBridge & SovereignFS Test Suite")
-    print("====================================================================")
+    print("==============================================")
+    print(" Running BharatOS WinBridge Compatibility Tests")
+    print("==============================================")
     test_pe_parsing()
     test_winbridge_execution()
-    test_sovereign_fs()
-    print("====================================================================")
-    print(" ✅ ALL WINBRIDGE & SOVEREIGN FS TESTS PASSED!")
-    print("====================================================================")
+    print("==============================================")
+    print(" ✅ ALL WINBRIDGE COMPATIBILITY TESTS PASSED!")
+    print("==============================================")
