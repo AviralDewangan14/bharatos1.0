@@ -97,20 +97,21 @@ class BharatOSNativeWindow:
 
     def _run_boot_stages(self):
         stages = [
-            (18, "[ OK ] ACPI Hardware Tables and SMP Cores Initialized"),
-            (38, "[ OK ] VMM 4-Level 64-bit Paging & Virtual Memory Allocated"),
-            (60, "[ OK ] Kavach WinBridge Windows .EXE PE32+ Subsystem Ready"),
-            (80, "[ OK ] Prithvi Liquid Glass Compositor Hardware Buffer Active (120 FPS)"),
-            (95, "[ OK ] SovereignFS Copy-on-Write Encrypted Partition Mounted"),
-            (100, "[ READY ] Welcome to BharatOS Swaraj 2026.1 LTS...")
+            (14, "[ 0.000000 ] BHARAT-KERNEL: CPU 0-15 x86_64 SMP Long Mode Online (0x7FFF0000)"),
+            (32, "[ 0.000412 ] VMM: 4-Level 64-bit Paging Tables Initialized (16 GB Physical Frame)"),
+            (52, "[ 0.001208 ] KAVACH-SECURITY: Hardware Zero-Trust Enclave Armed [SHA-256: 0x9f83...a1]"),
+            (72, "[ 0.002491 ] WINBRIDGE: PE32/PE32+ Windows Subsystem Emulation Engine Active"),
+            (88, "[ 0.003810 ] PRITHVI-COMPOSITOR: 120 FPS Wayland/DRM Liquid Glass Buffer Ready"),
+            (96, "[ 0.005000 ] SOVEREIGNTY VERIFIED: 100% Local On-Device Residency. Zero Leaks."),
+            (100, "[ READY ] Welcome to BharatOS Swaraj 2026.1 LTS Quantum Liquid Desktop...")
         ]
 
         for val, text in stages:
-            time.sleep(0.42)
+            time.sleep(0.38)
             self.progress['value'] = val
             self.boot_status.config(text=text)
 
-        time.sleep(0.4)
+        time.sleep(0.35)
         self.root.after(0, self.transition_to_desktop)
 
     def transition_to_desktop(self):

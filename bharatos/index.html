@@ -139,8 +139,76 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
+        /* --- REDESIGNED REVOLUTIONARY CINEMATIC BOOT SEQUENCE --- */
+        #boot-screen {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, #060b18 0%, #020409 100%);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.9s cubic-bezier(0.85, 0, 0.15, 1), transform 0.9s cubic-bezier(0.85, 0, 0.15, 1);
+            overflow: hidden;
+        }
 
-        .radial-node:hover {
+        /* Swirling Sacred Plasma Orbs */
+        .plasma-orbit-container {
+            position: relative;
+            width: 220px;
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .plasma-orb-1 {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            border: 3px solid rgba(255, 153, 51, 0.7);
+            box-shadow: 0 0 40px rgba(255, 153, 51, 0.6), inset 0 0 20px rgba(255, 153, 51, 0.4);
+            animation: spin-cw 4s linear infinite;
+        }
+
+        .plasma-orb-2 {
+            position: absolute;
+            width: 140px;
+            height: 140px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255, 255, 255, 0.8);
+            box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+            animation: spin-ccw 6s linear infinite;
+        }
+
+        .plasma-orb-3 {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 3px solid rgba(19, 136, 8, 0.7);
+            box-shadow: 0 0 40px rgba(19, 136, 8, 0.6), inset 0 0 20px rgba(19, 136, 8, 0.4);
+            animation: spin-cw 3s linear infinite;
+        }
+
+        @keyframes spin-cw {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes spin-ccw {
+            from { transform: rotate(360deg); }
+            to { transform: rotate(0deg); }
+        }
+
+        .warp-singularity {
+            opacity: 0 !important;
+            transform: scale(2.2) rotate(45deg) !important;
+            filter: blur(20px) !important;
+            pointer-events: none !important;
+        } .radial-node:hover {
             transform: scale(1.28) !important;
             background: rgba(255, 153, 51, 0.25);
             border-color: #ff9933;
@@ -211,6 +279,32 @@
     </style>
 </head>
 <body class="relative flex flex-col justify-between select-none">
+
+    <!-- REDESIGNED CINEMATIC QUANTUM BOOT SCREEN -->
+    <div id="boot-screen">
+        <div class="plasma-orbit-container mb-6">
+            <div class="plasma-orb-1"></div>
+            <div class="plasma-orb-2"></div>
+            <div class="plasma-orb-3"></div>
+            <span class="text-6xl z-10 select-none animate-pulse">☸️</span>
+        </div>
+
+        <h1 class="text-4xl font-black tracking-widest text-white uppercase font-mono mb-1">BHARAT OS</h1>
+        <p class="text-xs text-saffron tracking-widest font-mono font-extrabold mb-6">SOVEREIGN QUANTUM PC OPERATING SYSTEM • SWARAJ 2026.1 LTS</p>
+
+        <!-- Quantum Boot Stream Terminal -->
+        <div class="w-[660px] bg-slate-950/95 rounded-2xl p-5 border border-slate-800/80 font-mono text-xs text-slate-300 space-y-1.5 shadow-2xl backdrop-blur-xl">
+            <div id="boot-log-stream" class="h-32 overflow-hidden flex flex-col justify-end space-y-1.5">
+                <div class="text-cyan-400 font-bold">// Sovereign Microkernel Bootloader (UEFI Long Mode x86_64)...</div>
+            </div>
+            <!-- Progress Line -->
+            <div class="w-full bg-slate-900 rounded-full h-2 overflow-hidden mt-3 border border-slate-800">
+                <div id="boot-progress-bar" class="bg-gradient-to-r from-saffron via-amber-400 to-indiaGreen h-full w-0 transition-all duration-300"></div>
+            </div>
+        </div>
+
+        <button onclick="skipBoot()" class="mt-6 text-xs text-slate-500 hover:text-slate-300 underline font-mono">Skip Boot Sequence ➔</button>
+    </div>
 
     <!-- Interactive Spatial Matrix & Energy Wallpaper Canvas -->
     <canvas id="matrix-bg"></canvas>
@@ -578,6 +672,52 @@ print("✓ Sovereignty Status: Verified 100% Local (Zero Telemetry)")
                 osc.stop(audioCtx.currentTime + 0.5);
             } catch(e) {}
         }
+
+        // --- 0. QUANTUM CINEMATIC BOOT ENGINE ---
+        const quantumBootLogs = [
+            "[ 0.000000 ] BHARAT-KERNEL: CPU 0-15 x86_64 SMP Long Mode Online (0x7FFF0000)",
+            "[ 0.000412 ] VMM: 4-Level 64-bit Paging Tables Initialized (16 GB Physical Frame)",
+            "[ 0.001208 ] KAVACH-SECURITY: Hardware Zero-Trust Enclave Armed [SHA-256: 0x9f83...a1]",
+            "[ 0.002491 ] WINBRIDGE: PE32/PE32+ Windows Subsystem Emulation Engine Active",
+            "[ 0.003810 ] PRITHVI-COMPOSITOR: 120 FPS Wayland/DRM Liquid Glass Buffer Ready",
+            "[ 0.005000 ] SOVEREIGNTY VERIFIED: 100% Local On-Device Residency. Zero Leaks.",
+            "[ READY ] Swaraj 2026.1 LTS Desktop Ready. Initializing Spatial Shell..."
+        ];
+
+        let bootIdx = 0;
+        function runBootTicker() {
+            const stream = document.getElementById('boot-log-stream');
+            const progress = document.getElementById('boot-progress-bar');
+            if (bootIdx < quantumBootLogs.length) {
+                const el = document.createElement('div');
+                el.className = 'text-cyan-300 font-mono';
+                el.textContent = quantumBootLogs[bootIdx];
+                if (stream) stream.appendChild(el);
+                bootIdx++;
+                if (progress) progress.style.width = `${(bootIdx / quantumBootLogs.length) * 100}%`;
+                setTimeout(runBootTicker, 380);
+            } else {
+                setTimeout(finishBoot, 400);
+            }
+        }
+
+        function finishBoot() {
+            playGlassChime(640);
+            const bootScreen = document.getElementById('boot-screen');
+            if (bootScreen) {
+                bootScreen.classList.add('warp-singularity');
+                setTimeout(() => {
+                    bootScreen.style.display = 'none';
+                    openWindow('files-window');
+                }, 900);
+            }
+        }
+
+        function skipBoot() {
+            finishBoot();
+        }
+
+        setTimeout(runBootTicker, 150);
 
         // --- 1. SUDARSHAN RADIAL COMMAND CHAKRA ---
         function toggleChakraBloom() {
