@@ -39,7 +39,7 @@
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
-            --glass-blur: 48px;
+            --glass-blur: 40px;
             --glass-opacity: 0.82;
             --trans-speed: 0.28s;
             --os-scale: 1;
@@ -53,16 +53,13 @@
             --glass-bg: rgba(255, 255, 255, 0.78);
             --glass-border: rgba(255, 255, 255, 0.95);
             --glass-border-subtle: rgba(203, 213, 225, 0.7);
-            --glass-shadow: 0 25px 70px rgba(15, 23, 42, 0.09), inset 0 1.5px 2px rgba(255, 255, 255, 1);
+            --glass-shadow: 0 25px 70px rgba(15, 23, 42, 0.08), inset 0 1px 2px rgba(255, 255, 255, 1);
             --taskbar-bg: rgba(255, 255, 255, 0.88);
             --card-bg: rgba(241, 245, 249, 0.85);
             --dock-hover-bg: rgba(15, 23, 42, 0.06);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.96) 0%, #e2e8f0 100%);
-            --panel-header-bg: rgba(248, 250, 252, 0.8);
-            --input-bg: rgba(255, 255, 255, 0.95);
-            --input-border: #cbd5e1;
-            --cmd-bg: #0f172a;
-            --cmd-text: #f8fafc;
+            --controls-bg: rgba(15, 23, 42, 0.04);
+            --controls-border: rgba(15, 23, 42, 0.08);
         }
 
         [data-theme="dark"] {
@@ -73,18 +70,15 @@
             --text-sub: #cbd5e1;
             --text-muted: #64748b;
             --glass-bg: rgba(9, 14, 26, 0.84);
-            --glass-border: rgba(255, 255, 255, 0.16);
+            --glass-border: rgba(255, 255, 255, 0.14);
             --glass-border-subtle: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.25);
             --taskbar-bg: rgba(9, 14, 26, 0.92);
             --card-bg: rgba(15, 23, 42, 0.85);
             --dock-hover-bg: rgba(255, 255, 255, 0.12);
             --lock-bg: radial-gradient(circle at 50% 40%, rgba(14, 23, 42, 0.96) 0%, #020408 100%);
-            --panel-header-bg: rgba(15, 23, 42, 0.8);
-            --input-bg: rgba(2, 4, 8, 0.9);
-            --input-border: #334155;
-            --cmd-bg: #020408;
-            --cmd-text: #4ade80;
+            --controls-bg: rgba(255, 255, 255, 0.06);
+            --controls-border: rgba(255, 255, 255, 0.12);
         }
 
         #screen-root {
@@ -186,19 +180,19 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
         }
 
-        /* --- ULTRA-PREMIUM LIQUID GLASS SURFACES --- */
+        /* --- ULTRA-MODERN CLEAN LIQUID GLASS SURFACES --- */
         .ultra-liquid-glass {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur)) saturate(240%);
             -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(240%);
             border: 1px solid var(--glass-border);
-            border-radius: 24px;
+            border-radius: 20px;
             box-shadow: var(--glass-shadow);
             transition: transform 0.12s ease-out, box-shadow 0.2s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), background var(--trans-speed) ease;
             transform-origin: bottom center;
         }
         .ultra-liquid-glass:hover {
-            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.25), 0 0 30px rgba(var(--accent-rgb), 0.14);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.22), 0 0 30px rgba(var(--accent-rgb), 0.12);
         }
 
         .specular-glow {
@@ -206,95 +200,95 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
             mix-blend-mode: overlay;
         }
 
-        /* --- HYPER-REALISTIC LIQUID GLASS WINDOW ACTION DROPLETS --- */
-        .liquid-glass-cluster {
+        /* --- ULTRA-CLEAN PREMIUM MINIMAL LIQUID GLASS WINDOW CONTROLS --- */
+        .modern-glass-controls {
             display: flex;
             align-items: center;
-            gap: 8px;
-            padding: 5px 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            border-top: 1.5px solid rgba(255, 255, 255, 0.6);
-            border-radius: 16px;
-            backdrop-filter: blur(24px) saturate(220%);
-            -webkit-backdrop-filter: blur(24px) saturate(220%);
-            box-shadow: inset 0 1px 3px rgba(255, 255, 255, 0.4), 0 4px 15px rgba(0, 0, 0, 0.15);
+            gap: 6px;
+            padding: 3px 8px;
+            background: var(--controls-bg);
+            border: 1px solid var(--controls-border);
+            border-radius: 12px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: all 0.2s ease;
+        }
+        .modern-glass-controls:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
         }
 
-        .liquid-droplet {
-            width: 15px;
-            height: 15px;
+        .glass-btn {
+            width: 12px;
+            height: 12px;
             border-radius: 9999px;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             position: relative;
-            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.85), inset 0 -1.5px 2px rgba(0, 0, 0, 0.3), 0 3px 8px rgba(0, 0, 0, 0.25);
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            border: 1px solid transparent;
+            backdrop-filter: blur(12px);
         }
 
-        .liquid-droplet::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 3px;
-            width: 5px;
-            height: 3px;
-            border-radius: 9999px;
-            background: rgba(255, 255, 255, 0.95);
-            filter: blur(0.3px);
-        }
-
-        .liquid-droplet .glyph {
-            font-size: 9px;
-            font-weight: 900;
-            line-height: 1;
+        .glass-btn .btn-svg {
+            width: 7px;
+            height: 7px;
             opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.18s ease;
+            transform: scale(0.6);
+            transition: all 0.15s ease;
         }
 
-        .liquid-glass-cluster:hover .liquid-droplet .glyph {
+        .modern-glass-controls:hover .glass-btn .btn-svg {
             opacity: 1;
             transform: scale(1);
         }
 
-        /* Droplet Close: Ruby Glass */
-        .droplet-close {
-            background: radial-gradient(circle at 35% 35%, #ff7675 0%, #d63031 70%, #901112 100%);
-            border: 0.5px solid rgba(255, 118, 117, 0.8);
-            color: #3b0002;
+        /* Clean Minimal Glass Close */
+        .btn-glass-close {
+            background: rgba(244, 63, 94, 0.2);
+            border-color: rgba(244, 63, 94, 0.4);
+            color: #f43f5e;
         }
-        .droplet-close:hover {
-            transform: scale(1.26);
-            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(235, 47, 6, 0.9);
-        }
-
-        /* Droplet Minimize: Amber Golden Glass */
-        .droplet-min {
-            background: radial-gradient(circle at 35% 35%, #ffeaa7 0%, #fdcb6e 70%, #b7791f 100%);
-            border: 0.5px solid rgba(254, 202, 87, 0.8);
-            color: #4a2d00;
-        }
-        .droplet-min:hover {
-            transform: scale(1.26);
-            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(254, 202, 87, 0.9);
+        .btn-glass-close:hover {
+            background: rgba(244, 63, 94, 0.95);
+            border-color: #f43f5e;
+            color: #ffffff;
+            transform: scale(1.18);
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
         }
 
-        /* Droplet Maximize: Emerald Glass */
-        .droplet-max {
-            background: radial-gradient(circle at 35% 35%, #55efc4 0%, #00b894 70%, #006241 100%);
-            border: 0.5px solid rgba(85, 239, 196, 0.8);
-            color: #00331b;
+        /* Clean Minimal Glass Minimize */
+        .btn-glass-min {
+            background: rgba(245, 158, 11, 0.2);
+            border-color: rgba(245, 158, 11, 0.4);
+            color: #f59e0b;
         }
-        .droplet-max:hover {
-            transform: scale(1.26);
-            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 1), 0 0 14px rgba(0, 184, 148, 0.9);
+        .btn-glass-min:hover {
+            background: rgba(245, 158, 11, 0.95);
+            border-color: #f59e0b;
+            color: #ffffff;
+            transform: scale(1.18);
+            box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
+        }
+
+        /* Clean Minimal Glass Maximize */
+        .btn-glass-max {
+            background: rgba(16, 185, 129, 0.2);
+            border-color: rgba(16, 185, 129, 0.4);
+            color: #10b981;
+        }
+        .btn-glass-max:hover {
+            background: rgba(16, 185, 129, 0.95);
+            border-color: #10b981;
+            color: #ffffff;
+            transform: scale(1.18);
+            box-shadow: 0 0 10px rgba(16, 185, 129, 0.5);
         }
 
         /* --- BHARAT ISLAND --- */
@@ -311,7 +305,7 @@
         #dynamic-island-container.expanded {
             width: 580px;
             height: 250px;
-            border-radius: 28px;
+            border-radius: 26px;
             padding: 18px 24px;
         }
 
@@ -373,7 +367,7 @@
             backdrop-filter: blur(35px) saturate(220%);
             -webkit-backdrop-filter: blur(35px) saturate(220%);
             border: 1px solid var(--glass-border);
-            border-radius: 22px;
+            border-radius: 20px;
             box-shadow: var(--glass-shadow);
             transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.2s ease, background var(--trans-speed) ease;
         }
@@ -665,14 +659,20 @@
             <!-- APP 1: HYPER-ORGANIZED LIQUID GLASS FILE EXPLORER (SOVEREIGNFS STUDIO) -->
             <div id="files-window" class="absolute top-4 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <!-- Title Header with Liquid Glass Action Cluster -->
+                <!-- Title Header with Ultra-Clean Minimal Liquid Glass Controls -->
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                     <div class="flex items-center space-x-3">
-                        <!-- LIQUID GLASS DROPLETS -->
-                        <div class="liquid-glass-cluster">
-                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close"><span class="glyph">✕</span></span>
-                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize"><span class="glyph">−</span></span>
-                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize"><span class="glyph">⤢</span></span>
+                        <!-- ULTRA-CLEAN MODERN LIQUID GLASS CONTROLS -->
+                        <div class="modern-glass-controls">
+                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
                             <span>📁</span>
@@ -686,7 +686,7 @@
                     </div>
                 </div>
 
-                <!-- Navigation Ribbon (History, Breadcrumb, Search, View Mode) -->
+                <!-- Navigation Ribbon -->
                 <div class="px-5 py-2 bg-slate-50/60 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
                     <div class="flex items-center space-x-2">
                         <div class="flex items-center space-x-1">
@@ -710,7 +710,6 @@
 
                 <!-- Main File Explorer Dual Pane Area -->
                 <div class="flex-1 flex overflow-hidden">
-                    <!-- Left Sidebar Categories -->
                     <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-4 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
                         <div class="space-y-3">
                             <div>
@@ -732,17 +731,14 @@
                             </div>
                         </div>
 
-                        <!-- Storage Capacity Card -->
                         <div class="p-3 rounded-2xl bg-white/70 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-800 space-y-1.5 text-[11px]">
                             <div class="flex justify-between font-bold"><span>NVMe Storage</span><span class="text-cyan-600 dark:text-cyan-300">12.4 / 512 GB</span></div>
                             <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-1.5 overflow-hidden"><div class="bg-cyan-500 h-full w-[12%]"></div></div>
                         </div>
                     </div>
 
-                    <!-- Center Files View Grid / List -->
                     <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-50/40 dark:bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
 
-                    <!-- Right Inspector Preview Drawer -->
                     <div id="vfs-inspector-drawer" class="w-64 bg-slate-100/60 dark:bg-slate-950/60 p-4 border-l border-slate-200 dark:border-slate-800 flex flex-col justify-between font-mono text-xs">
                         <div class="space-y-3 text-center">
                             <div id="inspector-icon" class="text-5xl my-2">📄</div>
@@ -764,10 +760,16 @@
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="liquid-glass-cluster">
-                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close"><span class="glyph">✕</span></span>
-                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize"><span class="glyph">−</span></span>
-                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize"><span class="glyph">⤢</span></span>
+                        <div class="modern-glass-controls">
+                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
                             <span>💻</span>
@@ -793,10 +795,16 @@
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                     <div class="flex items-center space-x-3">
-                        <div class="liquid-glass-cluster">
-                            <span class="liquid-droplet droplet-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close"><span class="glyph">✕</span></span>
-                            <span class="liquid-droplet droplet-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize"><span class="glyph">−</span></span>
-                            <span class="liquid-droplet droplet-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize"><span class="glyph">⤢</span></span>
+                        <div class="modern-glass-controls">
+                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5"><span>⚙️</span><span>Sovereign Settings & Personalization (Win+I)</span></span>
                     </div>
@@ -1267,7 +1275,7 @@
             }
         }
 
-        // Theme Engine (Dark Obsidian / Light Porcelain Ice)
+        // Theme Engine
         let currentTheme = 'dark';
         function toggleTheme() {
             playSfx('click');
@@ -1414,7 +1422,7 @@
         let lastMouseX = 0;
 
         function initDrag(e, winId) {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT') return;
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'SVG') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
             highestZ++;
