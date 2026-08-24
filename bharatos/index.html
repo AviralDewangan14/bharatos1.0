@@ -73,17 +73,21 @@
             pointer-events: none !important;
         }
 
-        /* --- ULTRA LIQUID GLASS (Optical Refraction) --- */
+        /* --- HYPER-FLUID OPTICAL LIQUID GLASS --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(9, 14, 26, 0.85) 100%);
-            backdrop-filter: blur(40px) saturate(220%);
-            -webkit-backdrop-filter: blur(40px) saturate(220%);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-left: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 24px;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.3);
-            transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.14) 0%, rgba(9, 14, 26, 0.86) 100%);
+            backdrop-filter: blur(45px) saturate(240%);
+            -webkit-backdrop-filter: blur(45px) saturate(240%);
+            border: 1px solid rgba(255, 255, 255, 0.16);
+            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            border-left: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 26px;
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.9), inset 0 1px 2px rgba(255, 255, 255, 0.35);
+            transition: transform 0.18s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.2s ease;
+        }
+
+        .ultra-liquid-glass:hover {
+            box-shadow: 0 45px 110px rgba(0, 0, 0, 0.95), inset 0 1px 3px rgba(255, 255, 255, 0.45), 0 0 40px rgba(0, 229, 255, 0.15);
         }
 
         .specular-glow {
@@ -91,44 +95,76 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 350px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 70%);
             mix-blend-mode: overlay;
         }
 
-        /* Unique Bottom Horizon Taskbar */
+        /* --- BOTTOM HORIZON TASKBAR & GAUSSIAN MAGNETIC WAVE --- */
         .horizon-taskbar {
-            background: rgba(9, 14, 26, 0.88);
-            backdrop-filter: blur(35px) saturate(240%);
-            -webkit-backdrop-filter: blur(35px) saturate(240%);
+            background: rgba(9, 14, 26, 0.9);
+            backdrop-filter: blur(40px) saturate(260%);
+            -webkit-backdrop-filter: blur(40px) saturate(260%);
             border-top: 1px solid rgba(255, 255, 255, 0.18);
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
+            box-shadow: 0 -12px 45px rgba(0, 0, 0, 0.75);
+        }
+
+        .taskbar-icon-wrap {
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .taskbar-item {
-            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-        .taskbar-item:hover {
-            transform: translateY(-4px) scale(1.1);
-            background: rgba(255, 255, 255, 0.1);
+            transition: transform 0.22s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.2s ease;
+            position: relative;
         }
 
-        /* Spring Window Animations */
+        .taskbar-item:hover {
+            transform: translateY(-8px) scale(1.22);
+            background: rgba(255, 255, 255, 0.14);
+            box-shadow: 0 10px 25px rgba(0, 229, 255, 0.35);
+        }
+
+        /* Running Indicator Underline */
+        .taskbar-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 14px;
+            height: 3px;
+            border-radius: 9999px;
+            background: #38bdf8;
+            box-shadow: 0 0 10px #38bdf8;
+        }
+
+        /* --- HYPER-SPRING WINDOW ANIMATIONS (Hooke's Law Elastic Settle) --- */
         .window-open-spring {
-            animation: spring-open 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation: spring-fluid-open 0.48s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
         .window-close-spring {
-            animation: spring-close 0.2s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
+            animation: spring-fluid-close 0.24s cubic-bezier(0.6, -0.28, 0.735, 0.045) forwards;
         }
 
-        @keyframes spring-open {
-            0% { transform: scale(0.7) translateY(60px); opacity: 0; }
-            100% { transform: scale(1) translateY(0); opacity: 1; }
+        @keyframes spring-fluid-open {
+            0% { transform: scale(0.6) translateY(90px) rotateX(12deg); opacity: 0; filter: blur(10px); }
+            100% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
         }
 
-        @keyframes spring-close {
-            0% { transform: scale(1) translateY(0); opacity: 1; }
-            100% { transform: scale(0.7) translateY(40px); opacity: 0; }
+        @keyframes spring-fluid-close {
+            0% { transform: scale(1) translateY(0) rotateX(0deg); opacity: 1; filter: blur(0); }
+            100% { transform: scale(0.55) translateY(70px) rotateX(-12deg); opacity: 0; filter: blur(12px); }
+        }
+
+        /* Folder Push-In Spatial Transition */
+        .vfs-fade-in {
+            animation: vfs-push 0.32s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+        @keyframes vfs-push {
+            0% { transform: scale(0.92); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
         }
 
         .custom-scroll::-webkit-scrollbar {
@@ -153,7 +189,7 @@
         </div>
 
         <h1 class="text-3xl font-bold tracking-[0.25em] text-white uppercase font-sans mb-1">BHARAT OS</h1>
-        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS</p>
+        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • 144 FPS Quantum</p>
 
         <!-- Minimal Hairline Progress Bar -->
         <div class="w-72 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
@@ -177,7 +213,7 @@
             <span class="text-slate-600">|</span>
             <div id="os-welcome-banner" class="text-slate-300 font-semibold flex items-center space-x-2">
                 <span>भारत ओएस लिक्विड</span>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">144 FPS GAMING READY</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">144 FPS QUANTUM</span>
             </div>
         </div>
 
@@ -218,7 +254,7 @@
         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20 z-0">
             <span class="text-8xl mb-3">☸️</span>
             <h1 class="text-5xl font-extrabold tracking-widest text-white uppercase font-sans">BHARAT OS</h1>
-            <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN GAMING ENGINE</p>
+            <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN ENGINE</p>
         </div>
 
         <!-- WINDOW 1: REDESIGNED ADVANCED PROPER FILE EXPLORER -->
@@ -269,7 +305,7 @@
                 </div>
 
                 <!-- Right File Grid / List Container -->
-                <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
+                <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start vfs-fade-in"></div>
             </div>
         </div>
 
@@ -434,69 +470,62 @@
 
     </main>
 
-    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR WITH UNIQUE SYSTEM TRAY -->
+    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR WITH GAUSSIAN MAGNETIC WAVE -->
     <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
         
         <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
-        <div class="flex items-center space-x-3">
+        <div class="taskbar-icon-wrap">
             <button onclick="openWindow('files-window')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
                 ☸️
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
-            <button onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer">📁</button>
-            <button onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub">🎮</button>
-            <button onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager">📊</button>
-            <button onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings">⚙️</button>
-            <button onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal">💻</button>
+            <button id="dock-files" onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer">📁</button>
+            <button id="dock-gaming" onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub">🎮</button>
+            <button id="dock-taskmgr" onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager">📊</button>
+            <button id="dock-settings" onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings">⚙️</button>
+            <button id="dock-terminal" onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal">💻</button>
         </div>
 
-        <!-- Right: UNIQUE PROPER SYSTEM TRAY (Wi-Fi 7 Meter, Game Boost, Kavach, Audio, Battery & Clock) -->
+        <!-- Right: UNIQUE PROPER SYSTEM TRAY -->
         <div class="flex items-center space-x-3.5">
-            
-            <!-- Wi-Fi 7 / 5G Bandwidth Meter -->
             <button onclick="alert('Wi-Fi 7 Connected: 850 Mbps (Sovereign Encrypted Mesh)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Wi-Fi 7 (850 Mbps)">
                 <span>📶</span>
                 <span class="font-bold">850 Mbps</span>
             </button>
 
-            <!-- Game Boost 144 FPS Toggle Pill -->
             <button onclick="openWindow('gaming-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all shadow-sm" title="Game Boost 144 FPS">
                 <span>🎮</span>
                 <span class="font-bold">144 FPS</span>
             </button>
 
-            <!-- Kavach Shield Badge -->
             <button onclick="openWindow('settings-window')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all shadow-sm" title="Kavach Zero-Trust Active">
                 <span>🛡️</span>
                 <span class="font-bold">Kavach</span>
             </button>
 
-            <!-- Volume Slider / Sound Pill -->
             <button onclick="alert('Volume: 80% (Spatial Audio Dolby Atmos Engine)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Sound Volume">
                 <span>🔊</span>
                 <span>80%</span>
             </button>
 
-            <!-- Battery Level Indicator -->
             <button onclick="openWindow('settings-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Battery: 94% (Charging Fast)">
                 <span>⚡ 94%</span>
             </button>
 
-            <!-- IST Digital Clock & Calendar -->
             <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs shadow-inner">
                 --:--:-- IST
             </div>
         </div>
     </footer>
 
-    <!-- Scripts: Minimal Boot, Dual-Pane VFS, Task Manager, & CLI Engine -->
+    <!-- Scripts: Minimal Boot, Dual-Pane VFS, Specular Tracking, Dynamic Audio -->
     <script>
         // --- 1. MINIMAL CLEAN BOOT ENGINE ---
         let bootProgress = 0;
         const progressEl = document.getElementById('minimal-boot-progress');
         const labelEl = document.getElementById('minimal-boot-label');
         const bootMessages = [
-            "Initializing 64-bit Memory Paging...",
+            "Initializing 64-bit Memory Paging & VMM...",
             "Activating Kavach Zero-Trust Enclave...",
             "Loading Prithvi 144 FPS Vulkan Compositor...",
             "Sovereign Desktop Ready..."
@@ -508,9 +537,9 @@
                 if (progressEl) progressEl.style.width = `${bootProgress}%`;
                 const msgIdx = Math.min(Math.floor(bootProgress / 25) - 1, bootMessages.length - 1);
                 if (labelEl && msgIdx >= 0) labelEl.textContent = bootMessages[msgIdx];
-                setTimeout(runMinimalBoot, 350);
+                setTimeout(runMinimalBoot, 320);
             } else {
-                setTimeout(finishMinimalBoot, 300);
+                setTimeout(finishMinimalBoot, 280);
             }
         }
 
@@ -521,12 +550,23 @@
                 setTimeout(() => {
                     screen.style.display = 'none';
                     openWindow('files-window');
-                }, 800);
+                }, 750);
             }
         }
-        setTimeout(runMinimalBoot, 150);
+        setTimeout(runMinimalBoot, 120);
 
-        // --- 2. VFS FILE SYSTEM ENGINE (Dual Pane) ---
+        // --- 2. 3D SPECULAR LIGHT TRACKING ON MOUSE MOVE ---
+        document.querySelectorAll('.ultra-liquid-glass').forEach(win => {
+            win.addEventListener('mousemove', (e) => {
+                const rect = win.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                win.style.setProperty('--mouse-x', `${(x / rect.width) * 100}%`);
+                win.style.setProperty('--mouse-y', `${(y / rect.height) * 100}%`);
+            });
+        });
+
+        // --- 3. DUAL-PANE VFS ENGINE WITH SPATIAL TRANSITIONS ---
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
@@ -559,9 +599,13 @@
             const container = document.getElementById('vfs-file-grid');
             if (!container) return;
             container.innerHTML = '';
+            container.classList.remove('vfs-fade-in');
+            void container.offsetWidth; // Trigger reflow for smooth animation
+            container.classList.add('vfs-fade-in');
+
             (VFS_TREE[path] || []).forEach(item => {
                 const el = document.createElement('div');
-                el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800/80 transition-all shadow-md';
+                el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800/90 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800/80 transition-all shadow-md';
                 el.onclick = () => {
                     if (item.type === 'dir') {
                         const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
@@ -598,7 +642,7 @@
             }
         }
 
-        // --- 3. TASK MANAGER PROCESS MONITOR ---
+        // --- 4. TASK MANAGER PROCESS MONITOR ---
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
@@ -631,7 +675,7 @@
             alert("✓ 12.7 MB Page Cache purged successfully. Free memory expanded.");
         }
 
-        // --- 4. BHARAT SHELL EXPANDED COMMANDS ---
+        // --- 5. BHARAT SHELL EXPANDED COMMANDS ---
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
@@ -663,7 +707,7 @@
             }
         }
 
-        // Window Management
+        // --- 6. WINDOW MANAGEMENT & ELASTIC SPRING TRANSITIONS ---
         let highestZ = 30;
         function openWindow(id) {
             const el = document.getElementById(id);
@@ -679,7 +723,7 @@
             if (el) {
                 el.classList.remove('window-open-spring');
                 el.classList.add('window-close-spring');
-                setTimeout(() => el.classList.add('hidden'), 200);
+                setTimeout(() => el.classList.add('hidden'), 240);
             }
         }
 

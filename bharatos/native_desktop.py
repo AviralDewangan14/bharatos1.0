@@ -63,9 +63,11 @@ def launch_native_desktop():
 
         api = SovereignOSApi()
         
+        app_target_url = "http://localhost:5678/bharatos"
+        
         window = webview.create_window(
             title="BharatOS Sovereign PC Operating System — Swaraj 2026.1 LTS",
-            url=str(HTML_INDEX_PATH),
+            url=app_target_url,
             js_api=api,
             width=1366,
             height=860,
