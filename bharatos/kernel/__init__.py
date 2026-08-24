@@ -1,5 +1,5 @@
 """
-BharatOS Sovereign Kernel & System Services.
+BharatOS Sovereign Kernel & System Services Package.
 Zero-telemetry, privacy-hardened, multilingual operating system abstraction for PCs.
 """
 
@@ -46,13 +46,18 @@ class SovereignVFS:
                         "projects": {
                             "solaris_orbital": "N-Body Orbital Physics Simulator Engine",
                             "indic_ai": "Multilingual Indic Natural Language Core"
+                        },
+                        "games": {
+                            "solaris.app": "Solaris Space Flight Simulator",
+                            "chakra.app": "Chakra Cyber Runner"
                         }
                     }
                 },
                 "apps": {
                     "terminal.app": "Bharat Sovereign Terminal v2.4",
                     "code_studio.app": "Indic Code Studio IDE",
-                    "kavach_shield.app": "Kavach Zero-Trust Security Firewall"
+                    "kavach_shield.app": "Kavach Zero-Trust Security Firewall",
+                    "gaming_hub.app": "144 FPS Vulkan Game Hub"
                 }
             }
         }
@@ -98,29 +103,30 @@ class BharatOSKernel:
         self.running_processes: List[Dict[str, Any]] = [
             {"pid": 1, "name": "sovereign_init", "cpu": 0.2, "mem_mb": 12.4, "status": "RUNNING"},
             {"pid": 2, "name": "kavach_firewall", "cpu": 0.4, "mem_mb": 18.2, "status": "GUARDING"},
-            {"pid": 3, "name": "indic_compositor", "cpu": 1.1, "mem_mb": 42.0, "status": "ACTIVE"},
-            {"pid": 4, "name": "prithvi_desktop_wm", "cpu": 0.8, "mem_mb": 35.6, "status": "ACTIVE"}
+            {"pid": 3, "name": "liquid_compositor", "cpu": 1.2, "mem_mb": 42.0, "status": "ACTIVE (144 FPS)"},
+            {"pid": 4, "name": "winbridge_runtime", "cpu": 0.3, "mem_mb": 24.0, "status": "IDLE"}
         ]
 
-    def set_language(self, lang_code: str) -> Dict[str, str]:
+    def switch_language(self, lang_code: str) -> Dict[str, str]:
         if lang_code in INDIC_LANGUAGES:
             self.active_language = lang_code
-        return INDIC_LANGUAGES.get(self.active_language, INDIC_LANGUAGES["en"])
+            return INDIC_LANGUAGES[lang_code]
+        return INDIC_LANGUAGES["hi"]
 
-    def get_system_snapshot(self) -> Dict[str, Any]:
-        lang_info = INDIC_LANGUAGES.get(self.active_language, INDIC_LANGUAGES["en"])
+    def set_language(self, lang_code: str) -> Dict[str, str]:
+        return self.switch_language(lang_code)
+
+    def get_system_status(self) -> Dict[str, Any]:
         return {
-            "os_name": "BharatOS",
-            "version": self.os_version,
-            "active_language": self.active_language,
-            "language_name": lang_info["name"],
-            "welcome_message": lang_info["welcome"],
-            "supported_languages": INDIC_LANGUAGES,
+            "os": self.os_version,
+            "arch": "x86_64 Long Mode (4-Level Paging)",
+            "language": INDIC_LANGUAGES[self.active_language]["name"],
+            "welcome_message": INDIC_LANGUAGES[self.active_language]["welcome"],
             "security": self.kavach.scan_system_integrity(),
-            "processes": self.running_processes,
-            "vfs_home": self.vfs.list_dir("/home/user")
+            "uptime_seconds": 12480,
+            "processes_count": len(self.running_processes)
         }
 
 
-# Global kernel instance
+# Global Bharat Kernel instance
 bharat_kernel = BharatOSKernel()
