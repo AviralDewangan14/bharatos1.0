@@ -75,13 +75,13 @@
 
         /* --- ULTRA LIQUID GLASS (Optical Refraction) --- */
         .ultra-liquid-glass {
-            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(9, 14, 26, 0.82) 100%);
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, rgba(9, 14, 26, 0.85) 100%);
             backdrop-filter: blur(40px) saturate(220%);
             -webkit-backdrop-filter: blur(40px) saturate(220%);
             border: 1px solid rgba(255, 255, 255, 0.15);
             border-top: 1px solid rgba(255, 255, 255, 0.4);
             border-left: 1px solid rgba(255, 255, 255, 0.25);
-            border-radius: 28px;
+            border-radius: 24px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.85), inset 0 1px 2px rgba(255, 255, 255, 0.3);
             transition: transform 0.15s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
@@ -95,37 +95,21 @@
             mix-blend-mode: overlay;
         }
 
-        /* Neural Horizon Island */
-        .neural-island {
+        /* Unique Bottom Horizon Taskbar */
+        .horizon-taskbar {
             background: rgba(9, 14, 26, 0.88);
-            backdrop-filter: blur(28px);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-top: 1px solid rgba(255, 255, 255, 0.4);
-            border-radius: 30px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            backdrop-filter: blur(35px) saturate(240%);
+            -webkit-backdrop-filter: blur(35px) saturate(240%);
+            border-top: 1px solid rgba(255, 255, 255, 0.18);
+            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.7);
         }
 
-        .neural-island:hover {
-            transform: scale(1.03);
-            border-color: rgba(255, 153, 51, 0.5);
-            box-shadow: 0 20px 50px rgba(255, 153, 51, 0.25);
+        .taskbar-item {
+            transition: all 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
         }
-
-        /* Slide-Out Notification Center */
-        #notification-center {
-            position: fixed;
-            top: 54px;
-            right: 16px;
-            width: 360px;
-            max-height: calc(100vh - 120px);
-            transform: translateX(420px);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 90;
-        }
-
-        #notification-center.open {
-            transform: translateX(0);
+        .taskbar-item:hover {
+            transform: translateY(-4px) scale(1.1);
+            background: rgba(255, 255, 255, 0.1);
         }
 
         /* Spring Window Animations */
@@ -162,7 +146,7 @@
 </head>
 <body class="relative flex flex-col justify-between select-none">
 
-    <!-- MODERN MINIMALIST CLEAN BOOT EXPERIENCE (Apple/Tesla Inspired) -->
+    <!-- MODERN MINIMALIST CLEAN BOOT EXPERIENCE -->
     <div id="boot-screen">
         <div class="minimal-emblem mb-6">
             <span class="text-7xl select-none">☸️</span>
@@ -188,17 +172,17 @@
         <div class="flex items-center space-x-3">
             <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-gradient-to-r from-saffron/25 via-amber-500/20 to-indiaGreen/25 hover:from-saffron/35 hover:to-indiaGreen/35 border border-saffron/40 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-md">
                 <span class="text-sm">☸️</span>
-                <span class="tracking-wide text-xs">BharatOS</span>
+                <span class="tracking-wide text-xs">BharatOS Liquid</span>
             </button>
             <span class="text-slate-600">|</span>
             <div id="os-welcome-banner" class="text-slate-300 font-semibold flex items-center space-x-2">
                 <span>भारत ओएस लिक्विड</span>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">120 FPS</span>
+                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 font-mono text-[10px] border border-emerald-500/30">144 FPS GAMING READY</span>
             </div>
         </div>
 
         <!-- Center: Dynamic Neural Horizon Island -->
-        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="neural-island px-5 py-1.5 flex items-center space-x-3.5 cursor-pointer" title="Open Task Manager">
+        <div id="neural-island" onclick="openWindow('taskmanager-window')" class="px-5 py-1.5 rounded-2xl bg-slate-900/80 border border-slate-700/80 flex items-center space-x-3.5 cursor-pointer shadow-lg hover:scale-105 transition-all" title="Open Task Manager">
             <div class="flex items-center space-x-2">
                 <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
                 <span class="font-mono text-[11px] text-cyan-300 font-bold" id="island-activity">RAM: 55.4 MB (0.3%)</span>
@@ -214,21 +198,8 @@
             <span class="text-[11px] font-mono text-emerald-400 font-bold">🛡️ KAVACH 100%</span>
         </div>
 
-        <!-- Right: Battery, Notification Bell, Multilingual Selector & IST Clock -->
+        <!-- Right: Language Selector -->
         <div class="flex items-center space-x-3">
-            <!-- Battery Indicator -->
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800" title="Battery & Power">
-                <span>⚡ 94%</span>
-                <div class="w-4 h-2.5 rounded-sm border border-emerald-400 p-0.5 flex items-center"><div class="bg-emerald-400 h-full w-[90%] rounded-xs"></div></div>
-            </button>
-
-            <!-- Notification Bell -->
-            <button onclick="toggleNotificationCenter()" class="relative p-1.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-slate-300 transition-all hover:scale-105" title="Notifications & Action Center">
-                <span>🔔</span>
-                <span class="absolute -top-1 -right-1 w-2.5 h-2.5 rounded-full bg-saffron border border-slate-950"></span>
-            </button>
-
-            <!-- Language Selector -->
             <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-xl px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
                 <option value="hi">हिन्दी</option>
                 <option value="en">English</option>
@@ -237,281 +208,211 @@
                 <option value="bn">বাংলা</option>
                 <option value="mr">मराठी</option>
             </select>
-
-            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
-                --:--:-- IST
-            </div>
         </div>
     </nav>
-
-    <!-- Slide-Out Action & Notification Center -->
-    <div id="notification-center" class="ultra-liquid-glass p-5 space-y-4 shadow-2xl">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800">
-            <span class="text-xs font-bold text-white uppercase tracking-wider">Action & Notifications</span>
-            <button onclick="toggleNotificationCenter()" class="text-slate-400 hover:text-white text-sm">✕</button>
-        </div>
-
-        <!-- Quick Toggles -->
-        <div class="grid grid-cols-3 gap-2">
-            <button class="p-2.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-cyan-300 text-[11px] font-bold text-center">📶 Wi-Fi On</button>
-            <button class="p-2.5 rounded-xl bg-emerald-950/50 border border-emerald-500/40 text-emerald-300 text-[11px] font-bold text-center">🛡️ Kavach On</button>
-            <button class="p-2.5 rounded-xl bg-slate-900 border border-slate-700 text-slate-300 text-[11px] font-bold text-center">⚡ 120 FPS</button>
-        </div>
-
-        <!-- Notification Feed -->
-        <div class="space-y-2 max-h-60 overflow-y-auto custom-scroll text-xs">
-            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                <div class="flex items-center justify-between font-bold text-emerald-400"><span>🛡️ Kavach Firewall</span><span class="text-[10px] text-slate-500">Just now</span></div>
-                <p class="text-slate-300 text-[11px]">4,280 foreign telemetry probes neutralized. 100% on-device residency.</p>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                <div class="flex items-center justify-between font-bold text-cyan-400"><span>🚀 Hackatime Sync</span><span class="text-[10px] text-slate-500">2m ago</span></div>
-                <p class="text-slate-300 text-[11px]">Active pulse logged on bharatos-sovereign-desktop (HTTP 202 Accepted).</p>
-            </div>
-            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1">
-                <div class="flex items-center justify-between font-bold text-amber-400"><span>⚡ Battery Status</span><span class="text-[10px] text-slate-500">5m ago</span></div>
-                <p class="text-slate-300 text-[11px]">Battery at 94% (Charging). Power profile: BALANCED.</p>
-            </div>
-        </div>
-    </div>
 
     <!-- Desktop Workspace Canvas -->
     <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-8 gap-6 z-10 overflow-hidden">
         
-        <!-- Desktop Shortcuts (Left Column) -->
-        <div class="flex flex-col space-y-4 w-28">
-            <button onclick="openWindow('files-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">📁</span>
-                <span class="text-xs text-slate-200 font-bold truncate w-full">Explorer</span>
-            </button>
-
-            <button onclick="openWindow('taskmanager-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">📊</span>
-                <span class="text-xs text-cyan-300 font-bold truncate w-full">Task Mgr</span>
-            </button>
-
-            <button onclick="openWindow('settings-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">⚙️</span>
-                <span class="text-xs text-amber-300 font-bold truncate w-full">Settings</span>
-            </button>
-
-            <button onclick="openWindow('winbridge-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">🚀</span>
-                <span class="text-xs text-indigo-300 font-bold truncate w-full">WinBridge</span>
-            </button>
-
-            <button onclick="openWindow('terminal-window')" class="flex flex-col items-center p-3 rounded-2xl ultra-liquid-glass hover:scale-110 active:scale-95 group text-center shadow-xl">
-                <span class="text-3xl mb-1 group-hover:scale-125 transition-transform duration-300">💻</span>
-                <span class="text-xs text-emerald-300 font-bold truncate w-full">bsh Shell</span>
-            </button>
-        </div>
-
         <!-- Center Watermark Logo -->
         <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20 z-0">
             <span class="text-8xl mb-3">☸️</span>
             <h1 class="text-5xl font-extrabold tracking-widest text-white uppercase font-sans">BHARAT OS</h1>
-            <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 120 FPS FLUID COMPOSITOR</p>
+            <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN GAMING ENGINE</p>
         </div>
 
-        <!-- WINDOW 1: ADVANCED FILE EXPLORER -->
-        <div id="files-window" class="absolute top-6 left-28 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 1: REDESIGNED ADVANCED PROPER FILE EXPLORER -->
+        <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — /home/user</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ New File</button>
+                    <button onclick="createNewFolderPrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-amber-300 border border-slate-700">+ New Folder</button>
                 </div>
             </div>
 
-            <!-- Breadcrumb Path Bar -->
+            <!-- Path Bar & Search -->
             <div class="px-5 py-2 bg-slate-950/40 border-b border-slate-800/80 flex items-center justify-between text-xs font-mono">
-                <div class="flex items-center space-x-1 text-slate-400">
+                <div class="flex items-center space-x-1.5 text-slate-400">
                     <button onclick="navigateToPath('/home/user')" class="hover:text-cyan-400 font-bold">🏠 /home/user</button>
                     <span id="vfs-current-breadcrumb" class="text-cyan-300 font-bold">/documents</span>
                 </div>
-                <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-lg text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-48">
+                <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-lg text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-52">
             </div>
 
+            <!-- Main File Explorer Dual Pane Layout -->
             <div class="flex-1 flex overflow-hidden">
-                <div class="w-48 bg-slate-950/70 p-4 border-r border-slate-800/80 space-y-1 text-xs font-mono">
-                    <button onclick="navigateToPath('/home/user')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>🏠</span><span>Home</span></button>
-                    <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>📄</span><span>Documents</span></button>
-                    <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>⚡</span><span>Projects</span></button>
-                    <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>⚙️</span><span>System</span></button>
-                    <button onclick="navigateToPath('/apps')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-bold"><span>🚀</span><span>Apps</span></button>
+                <!-- Left Sidebar: Quick Access & Drives -->
+                <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 flex flex-col justify-between text-xs font-mono">
+                    <div class="space-y-1">
+                        <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2">Favorites</div>
+                        <button onclick="navigateToPath('/home/user')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>🏠</span><span>Home</span></button>
+                        <button onclick="navigateToPath('/home/user/documents')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>📄</span><span>Documents</span></button>
+                        <button onclick="navigateToPath('/home/user/projects')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>⚡</span><span>Projects</span></button>
+                        <button onclick="navigateToPath('/home/user/games')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>🎮</span><span>Games</span></button>
+                        <button onclick="navigateToPath('/system')" class="w-full text-left px-3 py-1.5 rounded-lg hover:bg-slate-800/80 text-slate-300 flex items-center space-x-2 font-semibold"><span>⚙️</span><span>System Root</span></button>
+                    </div>
+
+                    <!-- Drive Storage Gauge -->
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-1 text-[11px]">
+                        <div class="flex justify-between font-bold text-slate-300"><span>Sovereign NVMe (C:)</span><span>12.4 / 512 GB</span></div>
+                        <div class="w-full bg-slate-950 rounded-full h-1.5 overflow-hidden">
+                            <div class="bg-cyan-400 h-full w-[12%]"></div>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- Right File Grid / List Container -->
                 <div id="vfs-file-grid" class="flex-1 p-5 grid grid-cols-3 sm:grid-cols-4 gap-3 bg-slate-950/50 custom-scroll overflow-y-auto content-start"></div>
             </div>
         </div>
 
-        <!-- WINDOW 2: PROPER TASK MANAGER APPLICATION -->
-        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 2: SOVEREIGN GAMING CENTER & 144 FPS VULKAN ENGINE -->
+        <div id="gaming-window" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('gaming-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Game Hub (Vulkan & Direct3D Engine)</span>
+                </div>
+                <div class="flex items-center space-x-2">
+                    <span class="px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-bold">🎮 144 FPS ACTIVE</span>
+                </div>
+            </div>
+
+            <div class="flex-1 p-6 space-y-5 bg-slate-950/80 custom-scroll overflow-y-auto font-mono text-xs">
+                <!-- GPU Performance & Temperature Banner -->
+                <div class="grid grid-cols-4 gap-3">
+                    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">TARGET FRAMERATE</div>
+                        <div class="text-lg font-bold text-cyan-300 mt-1">144.0 FPS</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">GPU VRAM ALLOCATED</div>
+                        <div class="text-lg font-bold text-emerald-400 mt-1">420 MB / 8 GB</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">GPU TEMPERATURE</div>
+                        <div class="text-lg font-bold text-amber-300 mt-1">46.5 °C (Cool)</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
+                        <div class="text-[10px] text-slate-400">LATENCY PIPELINE</div>
+                        <div class="text-lg font-bold text-indigo-300 mt-1">0.8 ms (Ultra-Low)</div>
+                    </div>
+                </div>
+
+                <!-- Pre-Installed Games Library -->
+                <div class="space-y-3">
+                    <div class="text-xs font-bold text-white uppercase tracking-wider">Installed Sovereign Games</div>
+                    <div class="grid grid-cols-3 gap-4">
+                        <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-cyan-400 transition-all flex flex-col justify-between space-y-3">
+                            <div>
+                                <span class="text-4xl">🪐</span>
+                                <h4 class="text-sm font-bold text-white mt-2">Solaris: Space Flight</h4>
+                                <p class="text-[10px] text-slate-400">3D Real Orbital Mechanics Simulator (Vulkan)</p>
+                            </div>
+                            <button onclick="openWindow('solaris-window'); closeWindow('gaming-window');" class="w-full py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-amber-400 transition-all flex flex-col justify-between space-y-3">
+                            <div>
+                                <span class="text-4xl">⚡</span>
+                                <h4 class="text-sm font-bold text-white mt-2">Chakra Cyber Runner</h4>
+                                <p class="text-[10px] text-slate-400">Fast-Paced Neon Cyberpunk Odyssey</p>
+                            </div>
+                            <button onclick="alert('Launching Chakra Cyber Runner in 144 FPS Mode...')" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-3">
+                            <div>
+                                <span class="text-4xl">♟️</span>
+                                <h4 class="text-sm font-bold text-white mt-2">Vedic Neural Chess</h4>
+                                <p class="text-[10px] text-slate-400">Chaturanga AI Grandmaster Neural Engine</p>
+                            </div>
+                            <button onclick="alert('Launching Vedic Neural Chess engine...')" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 3: SOLARIS GAME EMBEDDED IFRAME -->
+        <div id="solaris-window" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('solaris-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Solaris Orbital Flight Simulator (Vulkan 144 FPS)</span>
+                </div>
+                <a href="/game" target="_blank" class="text-xs text-cyan-400 hover:underline font-mono font-bold">Fullscreen ↗</a>
+            </div>
+            <div class="flex-1 bg-black">
+                <iframe src="/game" class="w-full h-full border-none"></iframe>
+            </div>
+        </div>
+
+        <!-- WINDOW 4: TASK MANAGER -->
+        <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('taskmanager-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Task Manager & Memory Analyzer</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Task Manager & Memory Analyzer</span>
                 </div>
-                <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold transition-all">⚡ Purge RAM Cache</button>
+                <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
             </div>
-            
-            <!-- Real-time Memory & CPU Meters -->
-            <div class="p-5 bg-slate-950/80 border-b border-slate-800 grid grid-cols-3 gap-4 text-xs font-mono">
-                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                    <div class="text-slate-400 text-[10px]">TOTAL RAM ALLOCATED</div>
-                    <div class="text-xl font-bold text-cyan-300 mt-1">16,384 MB (16 GB)</div>
-                    <div class="text-[10px] text-emerald-400 mt-1">● 4-Level 64-bit Paging</div>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                    <div class="text-slate-400 text-[10px]">MEMORY USED (KERNEL + APPS)</div>
-                    <div class="text-xl font-bold text-amber-400 mt-1" id="tm-used-ram">55.4 MB (0.3%)</div>
-                    <div class="text-[10px] text-slate-400 mt-1">Free: 16,328.6 MB</div>
-                </div>
-                <div class="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                    <div class="text-slate-400 text-[10px]">CPU SMP USAGE (16 CORES)</div>
-                    <div class="text-xl font-bold text-emerald-400 mt-1">1.8% @ 3.8 GHz</div>
-                    <div class="text-[10px] text-cyan-400 mt-1">120 FPS Compositor Sync</div>
-                </div>
-            </div>
-
-            <!-- Active Processes Table -->
             <div class="flex-1 bg-slate-950/90 p-5 custom-scroll overflow-y-auto">
                 <table class="w-full text-left font-mono text-xs text-slate-300">
                     <thead>
                         <tr class="text-slate-500 border-b border-slate-800 pb-2 text-[11px]">
-                            <th class="pb-2">PID</th>
-                            <th class="pb-2">Process Name</th>
-                            <th class="pb-2">CPU %</th>
-                            <th class="pb-2">RAM (MB)</th>
-                            <th class="pb-2">Status</th>
-                            <th class="pb-2 text-right">Action</th>
+                            <th class="pb-2">PID</th><th>Process Name</th><th>CPU %</th><th>RAM (MB)</th><th>Status</th><th class="text-right">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="tm-process-tbody" class="divide-y divide-slate-900/80">
-                        <!-- Populated dynamically -->
-                    </tbody>
+                    <tbody id="tm-process-tbody" class="divide-y divide-slate-900/80"></tbody>
                 </table>
             </div>
         </div>
 
-        <!-- WINDOW 3: PROPER SETTINGS & BATTERY APPLICATION -->
-        <div id="settings-window" class="absolute top-10 left-44 w-[760px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 5: SETTINGS -->
+        <div id="settings-window" class="absolute top-10 left-44 w-[760px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
                 <div class="flex items-center space-x-2">
                     <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('settings-window')"></span>
                     <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
                     <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS System Settings & Power Subsystem</span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">System Settings & Power Center</span>
                 </div>
             </div>
-
-            <div class="flex-1 flex overflow-hidden">
-                <!-- Settings Tabs -->
-                <div class="w-48 bg-slate-950/70 p-4 border-r border-slate-800 space-y-1 text-xs font-mono">
-                    <button onclick="switchSettingsTab('battery')" class="w-full text-left px-3 py-2 rounded-lg bg-slate-800/80 text-cyan-300 font-bold" id="tab-btn-battery">⚡ Battery & Power</button>
-                    <button onclick="switchSettingsTab('memory')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-memory">🧠 Memory & VFS</button>
-                    <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-security">🛡️ Kavach Security</button>
-                    <button onclick="switchSettingsTab('display')" class="w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold" id="tab-btn-display">✨ Display & 120FPS</button>
-                </div>
-
-                <!-- Tab Content 1: Battery & Power -->
-                <div id="tab-battery" class="flex-1 p-6 space-y-5 bg-slate-950/90 custom-scroll overflow-y-auto">
-                    <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
-                        <div class="text-5xl font-black text-emerald-400">94%</div>
-                        <div>
-                            <div class="text-sm font-bold text-white">Battery State: Charging (Fast Mode)</div>
-                            <div class="text-xs text-slate-400 font-mono mt-0.5">Battery Health: 98.5% • Full in 28 mins</div>
-                        </div>
-                    </div>
-
-                    <div class="space-y-2">
-                        <div class="text-xs font-bold text-slate-300 uppercase font-mono">Power & Performance Profiles</div>
-                        <div class="grid grid-cols-3 gap-3">
-                            <button onclick="setPowerMode('HIGH_PERFORMANCE')" class="p-3.5 rounded-xl border border-slate-700 bg-slate-900 text-left hover:border-cyan-400">
-                                <div class="text-xs font-bold text-cyan-300">🔥 High Performance</div>
-                                <div class="text-[10px] text-slate-400 mt-1">144 FPS Max Clock</div>
-                            </button>
-                            <button onclick="setPowerMode('BALANCED')" class="p-3.5 rounded-xl border border-emerald-500 bg-emerald-950/30 text-left">
-                                <div class="text-xs font-bold text-emerald-300">⚖️ Balanced (Active)</div>
-                                <div class="text-[10px] text-slate-400 mt-1">Adaptive 120 FPS</div>
-                            </button>
-                            <button onclick="setPowerMode('BATTERY_SAVER')" class="p-3.5 rounded-xl border border-slate-700 bg-slate-900 text-left hover:border-amber-400">
-                                <div class="text-xs font-bold text-amber-300">🌱 Battery Saver</div>
-                                <div class="text-[10px] text-slate-400 mt-1">Max Endurance</div>
-                            </button>
-                        </div>
+            <div class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto font-mono text-xs">
+                <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900/60 border border-slate-800">
+                    <div class="text-5xl font-black text-emerald-400">94%</div>
+                    <div>
+                        <div class="text-sm font-bold text-white">Battery State: Fast Charging</div>
+                        <div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Power Profile: BALANCED</div>
                     </div>
                 </div>
-
-                <!-- Tab Content 2: Memory -->
-                <div id="tab-memory" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
-                    <div class="text-sm font-bold text-white">4-Level 64-bit Paging Configuration</div>
-                    <div class="grid grid-cols-2 gap-3 text-xs font-mono">
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Kernel Heap</div><div class="text-cyan-300 font-bold mt-1">12.4 MB</div></div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Page Cache</div><div class="text-amber-300 font-bold mt-1">18.2 MB</div></div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">User Apps</div><div class="text-emerald-300 font-bold mt-1">24.8 MB</div></div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800"><div class="text-slate-400">Swap Partition</div><div class="text-slate-300 font-bold mt-1">4,096 MB (0 MB Used)</div></div>
-                    </div>
-                </div>
-
-                <!-- Tab Content 3: Security -->
-                <div id="tab-security" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
-                    <div class="text-sm font-bold text-white">Kavach Zero-Trust Hardware Shield</div>
-                    <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/40 text-xs font-mono space-y-2">
-                        <div class="text-emerald-300 font-bold">✓ Zero Foreign Telemetry Active</div>
-                        <div class="text-slate-300">Data Residency: 100% On-Device Encrypted Local Storage</div>
-                        <div class="text-slate-300">Hardware Cipher: AES-256-GCM + ChaCha20-Poly1305</div>
-                    </div>
-                </div>
-
-                <!-- Tab Content 4: Display -->
-                <div id="tab-display" class="flex-1 p-6 space-y-4 bg-slate-950/90 custom-scroll overflow-y-auto hidden">
-                    <div class="text-sm font-bold text-white">Prithvi Liquid Compositor Settings</div>
-                    <div class="space-y-3 text-xs font-mono">
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <span>Compositor Framerate Target</span>
-                            <span class="text-cyan-300 font-bold">120 FPS Fluid</span>
-                        </div>
-                        <div class="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <span>Optical Glass Refraction Index (n)</span>
-                            <span class="text-amber-300 font-bold">1.48 (Crown Glass)</span>
-                        </div>
-                    </div>
+                <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
+                    <div class="text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
+                    <div class="text-slate-300">4,280 foreign telemetry probes neutralized. 100% on-device residency.</div>
                 </div>
             </div>
         </div>
 
-        <!-- WINDOW 4: KAVACH WINBRIDGE -->
-        <div id="winbridge-window" class="absolute top-12 left-48 w-[740px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
-            <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('winbridge-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Kavach WinBridge — Windows .EXE Execution</span>
-                </div>
-            </div>
-            <div class="flex-1 bg-slate-950/80 p-5 space-y-3 font-mono text-xs">
-                <button onclick="runExeSample('solaris_orbital_game.exe')" class="w-full p-3 rounded-xl bg-slate-900 border border-slate-700 hover:border-cyan-400 text-left transition-all">
-                    <div class="text-cyan-300 font-bold">▶ Run solaris_orbital_game.exe (64-bit PE32+)</div>
-                </button>
-                <div id="winbridge-console" class="p-4 rounded-xl bg-slate-950 border border-slate-800 min-h-[160px] text-slate-300 custom-scroll overflow-y-auto">
-                    <div class="text-emerald-400 font-bold">[WinBridge Engine] PE32+ Relocation & Win32 IAT translator active.</div>
-                </div>
-            </div>
-        </div>
-
-        <!-- WINDOW 5: BHARAT SHELL (bsh) EXPANDED TERMINAL -->
-        <div id="terminal-window" class="absolute top-14 left-56 w-[740px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
+        <!-- WINDOW 6: TERMINAL (bsh) -->
+        <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-spring">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle">
                 <div class="flex items-center space-x-2">
@@ -533,16 +434,62 @@
 
     </main>
 
-    <!-- Liquid Magnetic Dock -->
-    <footer class="relative z-40 mx-auto mb-6 px-7 py-3 ultra-liquid-glass flex items-center space-x-4 shadow-2xl">
-        <button onclick="openWindow('files-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="File Explorer">📁</button>
-        <button onclick="openWindow('taskmanager-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Task Manager">📊</button>
-        <button onclick="openWindow('settings-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Settings & Battery">⚙️</button>
-        <button onclick="openWindow('winbridge-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="WinBridge .EXE">🚀</button>
-        <button onclick="openWindow('terminal-window')" class="p-2.5 rounded-2xl hover:bg-slate-800/80 transition-all hover:scale-125 active:scale-95 text-2xl" title="Terminal">💻</button>
+    <!-- GROUNDBREAKING BOTTOM HORIZON TASKBAR WITH UNIQUE SYSTEM TRAY -->
+    <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
+        
+        <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
+        <div class="flex items-center space-x-3">
+            <button onclick="openWindow('files-window')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
+                ☸️
+            </button>
+            <div class="h-6 w-px bg-slate-700/60"></div>
+            <button onclick="openWindow('files-window')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer">📁</button>
+            <button onclick="openWindow('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub">🎮</button>
+            <button onclick="openWindow('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager">📊</button>
+            <button onclick="openWindow('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings">⚙️</button>
+            <button onclick="openWindow('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal">💻</button>
+        </div>
+
+        <!-- Right: UNIQUE PROPER SYSTEM TRAY (Wi-Fi 7 Meter, Game Boost, Kavach, Audio, Battery & Clock) -->
+        <div class="flex items-center space-x-3.5">
+            
+            <!-- Wi-Fi 7 / 5G Bandwidth Meter -->
+            <button onclick="alert('Wi-Fi 7 Connected: 850 Mbps (Sovereign Encrypted Mesh)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Wi-Fi 7 (850 Mbps)">
+                <span>📶</span>
+                <span class="font-bold">850 Mbps</span>
+            </button>
+
+            <!-- Game Boost 144 FPS Toggle Pill -->
+            <button onclick="openWindow('gaming-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all shadow-sm" title="Game Boost 144 FPS">
+                <span>🎮</span>
+                <span class="font-bold">144 FPS</span>
+            </button>
+
+            <!-- Kavach Shield Badge -->
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all shadow-sm" title="Kavach Zero-Trust Active">
+                <span>🛡️</span>
+                <span class="font-bold">Kavach</span>
+            </button>
+
+            <!-- Volume Slider / Sound Pill -->
+            <button onclick="alert('Volume: 80% (Spatial Audio Dolby Atmos Engine)')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-slate-300 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Sound Volume">
+                <span>🔊</span>
+                <span>80%</span>
+            </button>
+
+            <!-- Battery Level Indicator -->
+            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all shadow-sm" title="Battery: 94% (Charging Fast)">
+                <span>⚡ 94%</span>
+            </button>
+
+            <!-- IST Digital Clock & Calendar -->
+            <div id="ist-clock" class="font-mono text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-950/90 border border-slate-800 text-xs shadow-inner">
+                --:--:-- IST
+            </div>
+        </div>
     </footer>
 
-    <!-- Scripts: Minimal Boot, Task Manager, Settings & CLI Engine -->
+    <!-- Scripts: Minimal Boot, Dual-Pane VFS, Task Manager, & CLI Engine -->
     <script>
         // --- 1. MINIMAL CLEAN BOOT ENGINE ---
         let bootProgress = 0;
@@ -551,7 +498,7 @@
         const bootMessages = [
             "Initializing 64-bit Memory Paging...",
             "Activating Kavach Zero-Trust Enclave...",
-            "Loading Prithvi Liquid Compositor...",
+            "Loading Prithvi 144 FPS Vulkan Compositor...",
             "Sovereign Desktop Ready..."
         ];
 
@@ -579,31 +526,84 @@
         }
         setTimeout(runMinimalBoot, 150);
 
-        // --- 2. NOTIFICATION CENTER TOGGLE ---
-        function toggleNotificationCenter() {
-            document.getElementById('notification-center').classList.toggle('open');
-        }
+        // --- 2. VFS FILE SYSTEM ENGINE (Dual Pane) ---
+        const VFS_TREE = {
+            "/home/user": [
+                { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
+                { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
+                { name: "games", type: "dir", icon: "🎮", size: "2.4 MB" },
+                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB" },
+                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB" }
+            ],
+            "/home/user/documents": [
+                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB" },
+                { name: "specs.pdf", type: "file", icon: "📕", size: "450 KB" }
+            ],
+            "/home/user/projects": [
+                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" },
+                { name: "indic_ai_core", type: "dir", icon: "🧠", size: "120 KB" }
+            ],
+            "/home/user/games": [
+                { name: "solaris_flight.app", type: "file", icon: "🪐", size: "1.8 MB" },
+                { name: "chakra_runner.app", type: "file", icon: "⚡", size: "120 KB" },
+                { name: "vedic_chess.app", type: "file", icon: "♟️", size: "64 KB" }
+            ],
+            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }],
+            "/apps": [{ name: "terminal.app", type: "file", icon: "💻", size: "240 KB" }]
+        };
 
-        // --- 3. SETTINGS TABS & POWER MODES ---
-        function switchSettingsTab(tabName) {
-            ['battery', 'memory', 'security', 'display'].forEach(t => {
-                document.getElementById(`tab-${t}`).classList.add('hidden');
-                document.getElementById(`tab-btn-${t}`).className = 'w-full text-left px-3 py-2 rounded-lg hover:bg-slate-800/50 text-slate-300 font-bold';
+        let currentVFSPath = "/home/user";
+        function renderVFS(path) {
+            currentVFSPath = path;
+            document.getElementById('vfs-current-breadcrumb').textContent = path.replace("/home/user", "");
+            const container = document.getElementById('vfs-file-grid');
+            if (!container) return;
+            container.innerHTML = '';
+            (VFS_TREE[path] || []).forEach(item => {
+                const el = document.createElement('div');
+                el.className = 'p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800/80 transition-all shadow-md';
+                el.onclick = () => {
+                    if (item.type === 'dir') {
+                        const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
+                        navigateToPath(nextPath);
+                    } else if (item.name.includes('solaris') || item.name.endsWith('.exe')) {
+                        openWindow('gaming-window');
+                    } else {
+                        alert(`Opening ${item.name} in sovereign viewer...`);
+                    }
+                };
+                el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs text-slate-200 font-bold truncate w-full">${item.name}</span><span class="text-[10px] text-slate-500 mt-1">${item.size}</span>`;
+                container.appendChild(el);
             });
-            document.getElementById(`tab-${tabName}`).classList.remove('hidden');
-            document.getElementById(`tab-btn-${tabName}`).className = 'w-full text-left px-3 py-2 rounded-lg bg-slate-800/80 text-cyan-300 font-bold';
+        }
+        function navigateToPath(p) { renderVFS(p); }
+        renderVFS("/home/user");
+
+        function createNewFilePrompt() {
+            const name = prompt("Enter file name:", "new_file.txt");
+            if (name) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name, type: "file", icon: "📄", size: "0 B" });
+                renderVFS(currentVFSPath);
+            }
         }
 
-        function setPowerMode(mode) {
-            alert(`Power profile set to: ${mode}`);
+        function createNewFolderPrompt() {
+            const name = prompt("Enter folder name:", "new_folder");
+            if (name) {
+                if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                VFS_TREE[currentVFSPath].push({ name, type: "dir", icon: "📁", size: "0 KB" });
+                VFS_TREE[`${currentVFSPath}/${name}`] = [];
+                renderVFS(currentVFSPath);
+            }
         }
 
-        // --- 4. TASK MANAGER PROCESS MONITOR ---
+        // --- 3. TASK MANAGER PROCESS MONITOR ---
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
-            { pid: 3, name: "liquid_compositor", cpu: "1.2%", mem: "42.0 MB", status: "120 FPS" },
-            { pid: 4, name: "winbridge_runtime", cpu: "0.3%", mem: "24.0 MB", status: "Idle" },
+            { pid: 3, name: "vulkan_compositor", cpu: "1.4%", mem: "42.0 MB", status: "144 FPS" },
+            { pid: 4, name: "solaris_space_game", cpu: "2.1%", mem: "84.0 MB", status: "Active" },
             { pid: 5, name: "bharat_shell", cpu: "0.1%", mem: "8.6 MB", status: "Interactive" }
         ];
 
@@ -620,70 +620,42 @@
                     <td class="py-2.5 text-emerald-400">${p.cpu}</td>
                     <td class="py-2.5 text-amber-300">${p.mem}</td>
                     <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800 text-[10px] text-slate-300">${p.status}</span></td>
-                    <td class="py-2.5 text-right"><button onclick="killProcess(${p.pid})" class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-500/40 text-rose-300 hover:bg-rose-900 text-[10px]">End Task</button></td>
+                    <td class="py-2.5 text-right"><button onclick="alert('Process ${p.pid} terminated.')" class="px-2 py-0.5 rounded bg-rose-950/60 border border-rose-500/40 text-rose-300 text-[10px]">End Task</button></td>
                 `;
                 tbody.appendChild(tr);
             });
         }
-
-        function killProcess(pid) {
-            alert(`Process PID ${pid} terminated safely in sovereign space.`);
-        }
+        renderTaskManager();
 
         function purgeMemoryCache() {
             alert("✓ 12.7 MB Page Cache purged successfully. Free memory expanded.");
         }
 
-        renderTaskManager();
-
-        // --- 5. BHARAT SHELL EXPANDED COMMANDS (Windows + Linux) ---
-        let cmdHistory = [];
-        let historyIdx = -1;
-
+        // --- 4. BHARAT SHELL EXPANDED COMMANDS ---
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
                 const val = input.value.trim();
                 if (!val) return;
-                cmdHistory.push(val);
                 input.value = '';
 
                 const out = document.getElementById('terminal-output');
                 out.innerHTML += `<div><span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span> <span class="text-white">${val}</span></div>`;
-
-                const args = val.split(' ');
-                const cmd = args[0].toLowerCase();
+                const cmd = val.split(' ')[0].toLowerCase();
 
                 if (cmd === 'help') {
-                    out.innerHTML += `
-                        <div class="text-cyan-300 font-bold">Bharat Shell Command Suite (Linux & Windows Compatible):</div>
-                        <div class="grid grid-cols-2 gap-1 text-slate-300 mt-1">
-                            <div>• <b>dir / ls</b>: List files</div>
-                            <div>• <b>cls / clear</b>: Clear screen</div>
-                            <div>• <b>tasklist / ps</b>: Show processes</div>
-                            <div>• <b>taskkill / kill &lt;PID&gt;</b>: End task</div>
-                            <div>• <b>mem / free</b>: Memory stats</div>
-                            <div>• <b>systeminfo / neofetch</b>: OS specs</div>
-                            <div>• <b>ipconfig / ifconfig</b>: Network config</div>
-                            <div>• <b>ver</b>: BharatOS version</div>
-                            <div>• <b>tree</b>: Directory tree</div>
-                            <div>• <b>kavach</b>: Security diagnostics</div>
-                        </div>
-                    `;
+                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, neofetch, ipconfig, cls, clear, ver, game</div>`;
                 } else if (cmd === 'dir' || cmd === 'ls') {
-                    out.innerHTML += `<div>documents/  projects/  solaris_game.exe  readme.txt  kavach.cfg  orbit.py</div>`;
+                    out.innerHTML += `<div>documents/  projects/  games/  solaris_game.exe  readme.txt</div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
                 } else if (cmd === 'tasklist' || cmd === 'ps') {
-                    out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: liquid_compositor (42.0 MB)</div>`;
+                    out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: vulkan_compositor (42.0 MB - 144 FPS)</div>`;
                 } else if (cmd === 'mem' || cmd === 'free') {
-                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB<br>Paging Mode: 4-Level 64-bit PML4 (4 KB Pages)</div>`;
-                } else if (cmd === 'systeminfo' || cmd === 'neofetch') {
-                    out.innerHTML += `<div>OS: BharatOS 2026.1 LTS 'Swaraj'<br>Microkernel: 64-bit Rust (Bare-Metal)<br>Compositor: Prithvi Liquid Glass (120 FPS)<br>Security: Kavach Zero-Trust Active (AES-256-GCM)</div>`;
-                } else if (cmd === 'ver') {
-                    out.innerHTML += `<div>BharatOS [Version 2026.1.0 LTS Swaraj]</div>`;
-                } else if (cmd === 'ipconfig' || cmd === 'ifconfig') {
-                    out.innerHTML += `<div>Adapter sovereign0: IPv4 192.168.1.108 | DNS: sovereign.local.nic.in (100% Encrypted)</div>`;
+                    out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
+                } else if (cmd === 'game') {
+                    openWindow('gaming-window');
+                    out.innerHTML += `<div class="text-cyan-300">Launching Sovereign Game Hub (144 FPS)...</div>`;
                 } else {
                     out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
                 }
@@ -691,41 +663,7 @@
             }
         }
 
-        // --- 6. VFS ENGINE ---
-        const VFS_TREE = {
-            "/home/user": [
-                { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
-                { name: "projects", type: "dir", icon: "📁", size: "12 KB" },
-                { name: "solaris_game.exe", type: "file", icon: "🚀", size: "1.4 MB" },
-                { name: "readme.txt", type: "file", icon: "📄", size: "1.2 KB" }
-            ],
-            "/home/user/documents": [
-                { name: "sovereignty_manifesto.md", type: "file", icon: "📄", size: "3.2 KB" }
-            ],
-            "/home/user/projects": [
-                { name: "solaris_space_game", type: "dir", icon: "🪐", size: "84 KB" }
-            ],
-            "/system": [{ name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB" }],
-            "/apps": [{ name: "terminal.app", type: "file", icon: "💻", size: "240 KB" }]
-        };
-
-        let currentVFSPath = "/home/user";
-        function renderVFS(path) {
-            currentVFSPath = path;
-            const container = document.getElementById('vfs-file-grid');
-            if (!container) return;
-            container.innerHTML = '';
-            (VFS_TREE[path] || []).forEach(item => {
-                const el = document.createElement('div');
-                el.className = 'p-3 rounded-2xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-slate-800 transition-all';
-                el.innerHTML = `<span class="text-3xl mb-1">${item.icon}</span><span class="text-xs text-slate-200 font-bold truncate w-full">${item.name}</span><span class="text-[10px] text-slate-500 mt-1">${item.size}</span>`;
-                container.appendChild(el);
-            });
-        }
-        function navigateToPath(p) { renderVFS(p); }
-        renderVFS("/home/user");
-
-        // Window Handlers
+        // Window Management
         let highestZ = 30;
         function openWindow(id) {
             const el = document.getElementById(id);
@@ -743,11 +681,6 @@
                 el.classList.add('window-close-spring');
                 setTimeout(() => el.classList.add('hidden'), 200);
             }
-        }
-
-        function runExeSample(name) {
-            const c = document.getElementById('winbridge-console');
-            c.innerHTML += `<div class="mt-1 text-cyan-300 font-bold">▶ Executed '${name}' via WinBridge (PID ${Math.floor(Math.random()*8000+1000)}). Zero telemetry.</div>`;
         }
 
         function updateClock() {
