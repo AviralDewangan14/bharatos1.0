@@ -60,6 +60,11 @@
             background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.22) 0%, #09142b 60%, #020408 100%);
         }
 
+        /* Night Light Filter */
+        body.night-light {
+            filter: sepia(0.25) hue-rotate(-15deg);
+        }
+
         /* --- MODERN MINIMALIST CLEAN BOOT SCREEN --- */
         #boot-screen {
             position: fixed;
@@ -115,7 +120,7 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- REVOLUTIONARY DYNAMIC ISLAND --- */
+        /* --- DYNAMIC ISLAND --- */
         #dynamic-island-container {
             transition: all 0.48s cubic-bezier(0.34, 1.56, 0.64, 1);
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8), 0 0 25px rgba(56, 189, 248, 0.15);
@@ -133,7 +138,7 @@
             padding: 16px 20px;
         }
 
-        /* --- HYPER-FLUID GENIE & SPRING WINDOW TRANSITIONS --- */
+        /* --- HYPER-FLUID GENIE TRANSITIONS --- */
         .window-open-genie {
             animation: genie-expand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
@@ -143,39 +148,15 @@
         }
 
         @keyframes genie-expand {
-            0% {
-                transform: translateY(180px) scale(0.35) scaleY(0.2) rotateX(15deg);
-                opacity: 0;
-                filter: blur(12px);
-            }
-            70% {
-                transform: translateY(-8px) scale(1.02) scaleY(1.01) rotateX(-2deg);
-                opacity: 0.95;
-                filter: blur(0);
-            }
-            100% {
-                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
-                opacity: 1;
-                filter: blur(0);
-            }
+            0% { transform: translateY(180px) scale(0.35) scaleY(0.2) rotateX(15deg); opacity: 0; filter: blur(12px); }
+            70% { transform: translateY(-8px) scale(1.02) scaleY(1.01) rotateX(-2deg); opacity: 0.95; filter: blur(0); }
+            100% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
         }
 
         @keyframes genie-collapse {
-            0% {
-                transform: translateY(0) scale(1) scaleY(1) rotateX(0deg);
-                opacity: 1;
-                filter: blur(0);
-            }
-            40% {
-                transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg);
-                opacity: 0.8;
-                filter: blur(4px);
-            }
-            100% {
-                transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg);
-                opacity: 0;
-                filter: blur(16px);
-            }
+            0% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
+            40% { transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg); opacity: 0.8; filter: blur(4px); }
+            100% { transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg); opacity: 0; filter: blur(16px); }
         }
 
         /* Maximized Window State */
@@ -241,7 +222,7 @@
         </div>
 
         <h1 class="text-3xl font-bold tracking-[0.25em] text-white uppercase font-sans mb-1">BHARAT OS</h1>
-        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • Dynamic Island Quantum</p>
+        <p class="text-xs text-slate-400 tracking-[0.3em] font-sans font-medium uppercase mb-10">Sovereign 2026.1 LTS • Flagship Quantum Suite</p>
 
         <div class="w-72 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800/80">
             <div id="minimal-boot-progress" class="bg-gradient-to-r from-saffron via-white to-indiaGreen h-full w-0 transition-all duration-300"></div>
@@ -250,27 +231,38 @@
         <div id="minimal-boot-label" class="mt-4 text-[11px] font-mono text-slate-500 tracking-wider">Starting Sovereign Microkernel...</div>
     </div>
 
+    <!-- Sovereign Lock Screen Overlay (Win+L) -->
+    <div id="lockscreen-overlay" class="fixed inset-0 z-50 bg-slate-950/85 backdrop-blur-3xl flex flex-col items-center justify-center space-y-6 hidden">
+        <div class="text-7xl text-saffron mb-2">☸️</div>
+        <div id="lock-time" class="text-6xl font-black font-mono text-white">12:00:00</div>
+        <div class="text-sm font-mono text-cyan-300">BharatOS Sovereign Quantum Enclave (Locked)</div>
+        <button onclick="unlockScreen()" class="px-8 py-3 rounded-2xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen text-slate-950 font-bold text-sm shadow-xl hover:scale-105 transition-all">
+            🔓 Unlock Sovereign Desktop
+        </button>
+    </div>
+
     <!-- Fluid Canvas -->
     <canvas id="fluid-canvas" class="absolute inset-0 w-full h-full pointer-events-none z-0"></canvas>
 
-    <!-- Top Status Bar with Clean Minimal Left & Right, and Dynamic Island Center -->
+    <!-- Top Status Bar with Virtual Workspaces, Dynamic Island, and Controls -->
     <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/40 backdrop-blur-md">
-        <!-- Left: Sovereign Brand -->
+        <!-- Left: Sovereign Brand & Workspaces Switcher -->
         <div class="flex items-center space-x-3">
             <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
                 <span class="text-sm">☸️</span>
                 <span class="tracking-wide text-xs">BharatOS</span>
             </button>
             <span class="text-slate-600">|</span>
-            <div id="os-welcome-banner" class="text-slate-300 font-semibold flex items-center space-x-2">
-                <span>भारत ओएस लिक्विड</span>
-                <span class="px-2 py-0.5 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] border border-emerald-500/30">144 FPS VULKAN</span>
+            <!-- Virtual Workspaces Switcher -->
+            <div class="flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 font-mono text-[10px]">
+                <button onclick="switchWorkspace(1)" id="ws-btn-1" class="px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40">1: Core</button>
+                <button onclick="switchWorkspace(2)" id="ws-btn-2" class="px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400">2: Gaming</button>
+                <button onclick="switchWorkspace(3)" id="ws-btn-3" class="px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400">3: Code</button>
             </div>
         </div>
 
-        <!-- Center: REVOLUTIONARY DYNAMIC ISLAND (Morphing Pill / Expanded Island) -->
+        <!-- Center: REVOLUTIONARY DYNAMIC ISLAND -->
         <div id="dynamic-island-container" onclick="toggleDynamicIsland()" class="compact bg-slate-950/90 border border-slate-700/90 backdrop-blur-3xl cursor-pointer flex flex-col justify-between overflow-hidden z-50">
-            <!-- Compact Island View -->
             <div id="island-compact-view" class="w-full h-full flex items-center justify-between">
                 <div class="flex items-center space-x-2">
                     <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
@@ -286,7 +278,6 @@
                 </div>
             </div>
 
-            <!-- Expanded Island View (Revealed on Click) -->
             <div id="island-expanded-view" class="w-full h-full hidden flex-col justify-between font-mono text-xs">
                 <div class="flex items-center justify-between border-b border-slate-800 pb-2">
                     <div class="flex items-center space-x-2">
@@ -299,7 +290,6 @@
                     <span class="px-2 py-0.5 rounded-full bg-cyan-950 text-cyan-300 text-[10px] font-bold border border-cyan-500/40">144 FPS VULKAN</span>
                 </div>
 
-                <!-- Island Gauges Grid -->
                 <div class="grid grid-cols-3 gap-3 my-2">
                     <div class="p-2 rounded-xl bg-slate-900/80 border border-slate-800">
                         <div class="text-[10px] text-slate-400">FAST CHARGING</div>
@@ -322,10 +312,10 @@
             </div>
         </div>
 
-        <!-- Right: Language & Shortcuts Help -->
+        <!-- Right: Controls & Language -->
         <div class="flex items-center space-x-3">
-            <button onclick="openWindow('settings-window'); switchSettingsTab('shortcuts');" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800" title="Keyboard Shortcuts">
-                ⌨️ Win+E/T/G/I
+            <button onclick="lockScreen()" class="px-2.5 py-1 rounded-lg bg-slate-900/80 hover:bg-slate-800 text-slate-300 font-mono text-[11px] border border-slate-800" title="Lock Screen (Win+L)">
+                🔒 Lock
             </button>
             <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900/90 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
                 <option value="hi">हिन्दी</option>
@@ -373,7 +363,6 @@
                 <input id="vfs-search-input" oninput="searchVFS(this.value)" type="text" placeholder="Search SovereignFS..." class="px-3 py-1 bg-slate-900/90 border border-slate-700 rounded-lg text-white font-mono text-xs focus:outline-none focus:border-cyan-400 w-52">
             </div>
 
-            <!-- Main File Explorer Dual Pane Layout -->
             <div class="flex-1 flex overflow-hidden">
                 <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 flex flex-col justify-between text-xs font-mono">
                     <div class="space-y-1">
@@ -413,7 +402,6 @@
             </div>
 
             <div class="flex-1 p-6 space-y-5 bg-slate-950/80 custom-scroll overflow-y-auto font-mono text-xs">
-                <!-- GPU Performance -->
                 <div class="grid grid-cols-4 gap-3">
                     <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
                         <div class="text-[10px] text-slate-400">TARGET FRAMERATE</div>
@@ -433,7 +421,6 @@
                     </div>
                 </div>
 
-                <!-- Games -->
                 <div class="space-y-3">
                     <div class="text-xs font-bold text-white uppercase tracking-wider">Installed Sovereign Games</div>
                     <div class="grid grid-cols-3 gap-4">
@@ -452,7 +439,7 @@
                                 <h4 class="text-sm font-bold text-white mt-2">Chakra Cyber Runner</h4>
                                 <p class="text-[10px] text-slate-400">Fast-Paced Neon Cyberpunk Odyssey</p>
                             </div>
-                            <button onclick="alert('Launching Chakra Cyber Runner in 144 FPS Mode...')" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                            <button onclick="triggerIslandNotification('⚡ Chakra Runner', 'Starting 144 FPS session');" class="w-full py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-emerald-400 transition-all flex flex-col justify-between space-y-3">
@@ -461,7 +448,7 @@
                                 <h4 class="text-sm font-bold text-white mt-2">Vedic Neural Chess</h4>
                                 <p class="text-[10px] text-slate-400">Chaturanga AI Grandmaster Neural Engine</p>
                             </div>
-                            <button onclick="alert('Launching Vedic Neural Chess engine...')" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                            <button onclick="triggerIslandNotification('♟️ Vedic Chess', 'AI Grandmaster active');" class="w-full py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
                         </div>
                     </div>
                 </div>
@@ -509,7 +496,7 @@
             </div>
         </div>
 
-        <!-- WINDOW 5: COMPREHENSIVE MULTI-SECTION SETTINGS APPLICATION -->
+        <!-- WINDOW 5: COMPREHENSIVE SETTINGS APPLICATION -->
         <div id="settings-window" class="absolute top-6 left-28 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
@@ -522,7 +509,6 @@
             </div>
 
             <div class="flex-1 flex overflow-hidden">
-                <!-- Settings Left Navigation Tabs -->
                 <div class="w-56 bg-slate-950/70 p-4 border-r border-slate-800/80 space-y-1 text-xs font-mono">
                     <div class="text-[10px] text-slate-500 uppercase font-bold tracking-wider mb-2">Categories</div>
                     <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-800 text-cyan-300 font-bold" id="tab-btn-system">🖥️ System & Specs</button>
@@ -534,10 +520,7 @@
                     <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/60 text-slate-300 font-bold" id="tab-btn-security">🛡️ Kavach Zero-Trust</button>
                 </div>
 
-                <!-- Right Settings Content Panes -->
                 <div class="flex-1 bg-slate-950/85 p-6 custom-scroll overflow-y-auto">
-                    
-                    <!-- TAB 1: System & Hardware Specs -->
                     <div id="tab-pane-system" class="space-y-4 font-mono text-xs">
                         <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                             <span class="text-5xl text-saffron">☸️</span>
@@ -554,7 +537,6 @@
                         </div>
                     </div>
 
-                    <!-- TAB 2: Wallpapers & Personalization -->
                     <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">Curated Sovereign Wallpapers</div>
                         <div class="grid grid-cols-2 gap-4">
@@ -577,7 +559,6 @@
                         </div>
                     </div>
 
-                    <!-- TAB 3: System Updates (OTA) -->
                     <div id="tab-pane-updates" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex items-center justify-between">
                             <div>
@@ -586,86 +567,166 @@
                             </div>
                             <button onclick="checkUpdates()" id="btn-check-update" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all">Check for Updates</button>
                         </div>
-                        <div id="update-changelog-box" class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
-                            <div class="text-xs font-bold text-cyan-300 uppercase">Latest Swaraj Delta Patches:</div>
-                            <p class="text-slate-300">• Prithvi 144 FPS Vulkan & Direct3D Low-Latency GPU Compositor</p>
-                            <p class="text-slate-300">• Dynamic Island Morphing Widget with Live Telemetry & Audio Synthesis</p>
-                            <p class="text-slate-300">• Hyper-Fluid Genie Window Minimizing & Inertial Drag Physics</p>
-                        </div>
                     </div>
 
-                    <!-- TAB 4: GPU & Gaming Drivers -->
                     <div id="tab-pane-graphics" class="space-y-4 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">GPU Graphics Acceleration Pipeline</div>
                         <div class="space-y-3">
                             <div class="p-3.5 rounded-xl bg-slate-900 border border-emerald-500/50 flex justify-between items-center">
-                                <div>
-                                    <div class="font-bold text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div>
-                                    <div class="text-[11px] text-slate-400">Ray-Tracing, Low Overhead, 144+ FPS Framerate Pacing</div>
-                                </div>
+                                <div><div class="font-bold text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div><div class="text-[11px] text-slate-400">Ray-Tracing, Low Overhead, 144+ FPS</div></div>
                                 <span class="text-xs text-emerald-300 font-bold px-2 py-1 bg-emerald-950 rounded">ENABLED</span>
-                            </div>
-                            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                                <div>
-                                    <div class="font-bold text-cyan-300">Direct3D 12 WinBridge Translation Layer</div>
-                                    <div class="text-[11px] text-slate-400">Native Windows .EXE DirectX Gaming Compatibility</div>
-                                </div>
-                                <span class="text-xs text-slate-400 px-2 py-1 bg-slate-800 rounded">READY</span>
-                            </div>
-                            <div class="p-3.5 rounded-xl bg-slate-900 border border-slate-800 flex justify-between items-center">
-                                <div>
-                                    <div class="font-bold text-white">Variable Refresh Rate (VRR / G-Sync / FreeSync)</div>
-                                    <div class="text-[11px] text-slate-400">Adaptive tear-free display synchronization</div>
-                                </div>
-                                <span class="text-xs text-cyan-300 font-bold px-2 py-1 bg-cyan-950 rounded">ACTIVE (144 Hz)</span>
                             </div>
                         </div>
                     </div>
 
-                    <!-- TAB 5: Keyboard Shortcuts -->
                     <div id="tab-pane-shortcuts" class="space-y-3 font-mono text-xs hidden">
                         <div class="text-sm font-bold text-white">System Keyboard Shortcuts (Global)</div>
                         <table class="w-full text-left text-slate-300">
-                            <thead>
-                                <tr class="text-slate-500 border-b border-slate-800 pb-2">
-                                    <th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th>
-                                </tr>
-                            </thead>
+                            <thead><tr class="text-slate-500 border-b border-slate-800 pb-2"><th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th></tr></thead>
                             <tbody class="divide-y divide-slate-900">
                                 <tr><td class="py-2 text-cyan-300 font-bold">Win + E</td><td>Open SovereignFS File Explorer</td><td>Files</td></tr>
                                 <tr><td class="py-2 text-emerald-400 font-bold">Win + T</td><td>Open Bharat Shell (bsh) Terminal</td><td>Terminal</td></tr>
                                 <tr><td class="py-2 text-amber-300 font-bold">Win + G</td><td>Toggle 144 FPS Game Hub Overlay</td><td>Gaming</td></tr>
                                 <tr><td class="py-2 text-cyan-300 font-bold">Win + I</td><td>Open System Settings & Control Center</td><td>System</td></tr>
                                 <tr><td class="py-2 text-purple-300 font-bold">Win + M</td><td>Open Task Manager & RAM Analyzer</td><td>Performance</td></tr>
-                                <tr><td class="py-2 text-rose-400 font-bold">Alt + Tab</td><td>3D Spatial Window Switcher</td><td>Windowing</td></tr>
+                                <tr><td class="py-2 text-rose-400 font-bold">Win + L</td><td>Lock Sovereign Screen</td><td>Security</td></tr>
                             </tbody>
                         </table>
                     </div>
 
-                    <!-- TAB 6: Battery -->
                     <div id="tab-pane-battery" class="space-y-4 font-mono text-xs hidden">
                         <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-900 border border-slate-800">
                             <div class="text-5xl font-black text-emerald-400">94%</div>
-                            <div>
-                                <div class="text-sm font-bold text-white">Battery State: Fast Charging</div>
-                                <div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Full in 28 mins</div>
-                            </div>
+                            <div><div class="text-sm font-bold text-white">Battery State: Fast Charging</div><div class="text-xs text-slate-400 mt-0.5">Health: 98.5% • Full in 28 mins</div></div>
                         </div>
                     </div>
 
-                    <!-- TAB 7: Security -->
                     <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
                             <div class="text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
                             <div class="text-slate-300">4,280 foreign telemetry probes neutralized. 100% on-device residency.</div>
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
 
-        <!-- WINDOW 6: TERMINAL (bsh) -->
+        <!-- WINDOW 6: INDIC CODE STUDIO IDE -->
+        <div id="editor-window" class="absolute top-8 left-36 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'editor-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('editor-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('editor-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('editor-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Indic Code Studio IDE — main.rs</span>
+                </div>
+                <button onclick="runCodeStudio()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold">▶ Run Code</button>
+            </div>
+            <div class="flex-1 flex bg-slate-950/90 font-mono text-xs overflow-hidden">
+                <div class="w-12 bg-slate-950/80 py-4 text-right pr-3 text-slate-600 select-none border-r border-slate-800">
+                    1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11
+                </div>
+                <textarea id="code-editor-textarea" class="flex-1 p-4 bg-transparent outline-none text-emerald-400 font-mono resize-none leading-relaxed" spellcheck="false">// BharatOS Sovereign Microkernel v3.2.0 (Rust)
+#![no_std]
+#![no_main]
+
+#[no_mangle]
+pub extern "C" fn _start() -> ! {
+    println!("☸️ BharatOS Sovereign Kernel Booted on Bare Metal!");
+    println!("🛡️ Kavach Zero-Trust Active (AES-256-GCM)");
+    loop {}
+}</textarea>
+            </div>
+        </div>
+
+        <!-- WINDOW 7: SOVEREIGN APP STORE & PACKAGE MANAGER -->
+        <div id="appstore-window" class="absolute top-10 left-40 w-[840px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('appstore-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('appstore-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('appstore-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign App Store (spkg)</span>
+                </div>
+            </div>
+            <div class="flex-1 p-6 space-y-4 bg-slate-950/85 custom-scroll overflow-y-auto font-mono text-xs">
+                <div class="text-xs font-bold text-white uppercase tracking-wider">Featured Sovereign Packages</div>
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white text-sm">🧠 Indic Code Studio IDE</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Multi-language developer IDE with AI shaper</div>
+                        </div>
+                        <button onclick="installPackage('indic-ide', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white text-sm">🪐 Solaris Flight Sim</div>
+                            <div class="text-[11px] text-slate-400 mt-1">3D Orbital mechanics space simulator</div>
+                        </div>
+                        <button onclick="installPackage('solaris-sim', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white text-sm">📐 Vedic Mathematics Suite</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Sutra-based numerical & graphing engine</div>
+                        </div>
+                        <button onclick="installPackage('vedic-math', this)" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">Install</button>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 flex justify-between items-center">
+                        <div>
+                            <div class="font-bold text-white text-sm">🛡️ Kavach Network Diagnostic</div>
+                            <div class="text-[11px] text-slate-400 mt-1">Zero-Trust packet inspector & telemetry shield</div>
+                        </div>
+                        <button onclick="installPackage('kavach-tools', this)" class="px-3 py-1.5 rounded-xl bg-slate-800 text-emerald-400 font-bold">Installed</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 8: VEDIC & SCIENTIFIC CALCULATOR -->
+        <div id="calc-window" class="absolute top-12 left-48 w-[400px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div class="specular-glow"></div>
+            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('calc-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('calc-window')"></span>
+                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Vedic Calculator</span>
+                </div>
+            </div>
+            <div class="p-4 bg-slate-950/90 flex flex-col flex-1 font-mono">
+                <div id="calc-display" class="w-full bg-slate-900 border border-slate-800 rounded-2xl p-4 text-right text-2xl font-bold text-cyan-300 mb-4 h-16 flex items-center justify-end">0</div>
+                <div class="grid grid-cols-4 gap-2 flex-1">
+                    <button onclick="calcInput('C')" class="p-3 bg-rose-950/60 border border-rose-500/40 text-rose-300 rounded-xl font-bold hover:bg-rose-900/60">C</button>
+                    <button onclick="calcInput('(')" class="p-3 bg-slate-900 border border-slate-800 text-slate-300 rounded-xl font-bold hover:bg-slate-800">(</button>
+                    <button onclick="calcInput(')')" class="p-3 bg-slate-900 border border-slate-800 text-slate-300 rounded-xl font-bold hover:bg-slate-800">)</button>
+                    <button onclick="calcInput('/')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">÷</button>
+
+                    <button onclick="calcInput('7')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">7</button>
+                    <button onclick="calcInput('8')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">8</button>
+                    <button onclick="calcInput('9')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">9</button>
+                    <button onclick="calcInput('*')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">×</button>
+
+                    <button onclick="calcInput('4')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">4</button>
+                    <button onclick="calcInput('5')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">5</button>
+                    <button onclick="calcInput('6')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">6</button>
+                    <button onclick="calcInput('-')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">−</button>
+
+                    <button onclick="calcInput('1')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">1</button>
+                    <button onclick="calcInput('2')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">2</button>
+                    <button onclick="calcInput('3')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">3</button>
+                    <button onclick="calcInput('+')" class="p-3 bg-amber-950/60 border border-amber-500/40 text-amber-300 rounded-xl font-bold hover:bg-amber-900/60">+</button>
+
+                    <button onclick="calcInput('0')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold col-span-2 hover:bg-slate-800">0</button>
+                    <button onclick="calcInput('.')" class="p-3 bg-slate-900/80 border border-slate-800 text-white rounded-xl font-bold hover:bg-slate-800">.</button>
+                    <button onclick="calcEquals()" class="p-3 bg-cyan-500 text-slate-950 rounded-xl font-bold hover:bg-cyan-400">=</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 9: TERMINAL (bsh) -->
         <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
@@ -698,6 +759,9 @@
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
             <button id="dock-files" onclick="toggleWindowFromDock('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
+            <button id="dock-editor" onclick="toggleWindowFromDock('editor-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Code Studio IDE">📝</button>
+            <button id="dock-appstore" onclick="toggleWindowFromDock('appstore-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store">🛍️</button>
+            <button id="dock-calc" onclick="toggleWindowFromDock('calc-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Vedic Calculator">🧮</button>
             <button id="dock-gaming" onclick="toggleWindowFromDock('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
             <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
             <button id="dock-settings" onclick="toggleWindowFromDock('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
@@ -706,6 +770,10 @@
 
         <!-- Right: SYSTEM TRAY -->
         <div class="flex items-center space-x-3.5">
+            <button onclick="toggleNightLight()" class="p-1.5 rounded-xl bg-slate-900/80 border border-slate-700/80 text-amber-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Toggle Night Light">
+                🌙
+            </button>
+
             <button onclick="triggerIslandNotification('📶 Wi-Fi 7 Connected', '850 Mbps Sovereign Mesh Active')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-cyan-300 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
                 <span>📶</span>
                 <span class="font-bold">850 Mbps</span>
@@ -736,9 +804,9 @@
         </div>
     </footer>
 
-    <!-- Scripts: Dynamic Island, Genie Physics, Drag Engine, & VFS -->
+    <!-- Master Scripts -->
     <script>
-        // --- 1. MINIMAL CLEAN BOOT ENGINE ---
+        // Boot Engine
         let bootProgress = 0;
         const progressEl = document.getElementById('minimal-boot-progress');
         const labelEl = document.getElementById('minimal-boot-label');
@@ -773,7 +841,7 @@
         }
         setTimeout(runMinimalBoot, 120);
 
-        // --- 2. DYNAMIC ISLAND MORPHING ENGINE ---
+        // Dynamic Island Engine
         let isIslandExpanded = false;
         function toggleDynamicIsland() {
             const island = document.getElementById('dynamic-island-container');
@@ -823,7 +891,38 @@
             }, 3000);
         }
 
-        // --- 3. REVOLUTIONARY GENIE OPEN / MINIMIZE & MAXIMIZE ENGINE ---
+        // Workspaces Switcher
+        function switchWorkspace(wsId) {
+            [1, 2, 3].forEach(id => {
+                const btn = document.getElementById(`ws-btn-${id}`);
+                if (btn) {
+                    if (id === wsId) {
+                        btn.className = 'px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40';
+                    } else {
+                        btn.className = 'px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400';
+                    }
+                }
+            });
+            triggerIslandNotification(`🖥️ Workspace ${wsId}`, 'Switched Virtual Desktop');
+        }
+
+        // Night Light Toggle
+        function toggleNightLight() {
+            document.body.classList.toggle('night-light');
+            const isNight = document.body.classList.contains('night-light');
+            triggerIslandNotification('🌙 Night Light', isNight ? 'Warm Blue Light Filter Enabled' : 'Disabled');
+        }
+
+        // Lock Screen
+        function lockScreen() {
+            document.getElementById('lockscreen-overlay').classList.remove('hidden');
+        }
+        function unlockScreen() {
+            document.getElementById('lockscreen-overlay').classList.add('hidden');
+            triggerIslandNotification('🔓 Sovereign Enclave', 'Welcome Back sovereign@bharatos');
+        }
+
+        // Window Management
         let highestZ = 30;
         function openWindow(id) {
             const el = document.getElementById(id);
@@ -864,7 +963,7 @@
             }
         }
 
-        // --- 4. FLUID 3D WINDOW DRAG WITH INERTIAL TILT ---
+        // Window Dragging with Inertial Tilt
         let activeDrag = null;
         let dragOffset = { x: 0, y: 0 };
         let lastMouseX = 0;
@@ -888,8 +987,6 @@
             if (!activeDrag) return;
             const deltaX = e.clientX - lastMouseX;
             lastMouseX = e.clientX;
-            
-            // Dynamic tilt based on velocity
             const tilt = Math.max(-4, Math.min(4, deltaX * 0.4));
             activeDrag.style.left = `${e.clientX - dragOffset.x}px`;
             activeDrag.style.top = `${Math.max(40, e.clientY - dragOffset.y)}px`;
@@ -905,7 +1002,46 @@
             window.removeEventListener('mouseup', onDragEnd);
         }
 
-        // --- 5. SETTINGS TAB SWITCHER & WALLPAPERS ---
+        // Calculator Logic
+        let calcVal = '0';
+        function calcInput(v) {
+            const disp = document.getElementById('calc-display');
+            if (v === 'C') {
+                calcVal = '0';
+            } else {
+                if (calcVal === '0') calcVal = v;
+                else calcVal += v;
+            }
+            disp.textContent = calcVal;
+        }
+
+        function calcEquals() {
+            const disp = document.getElementById('calc-display');
+            try {
+                calcVal = String(eval(calcVal));
+                disp.textContent = calcVal;
+                triggerIslandNotification('🧮 Calculation', `Result: ${calcVal}`);
+            } catch (err) {
+                disp.textContent = 'Error';
+            }
+        }
+
+        // Code Studio Runner
+        function runCodeStudio() {
+            triggerIslandNotification('▶ Rust Code Runner', 'Compiling & Executing on Bare Metal...');
+        }
+
+        // App Store Installer
+        function installPackage(pkgName, btn) {
+            btn.textContent = 'Installing...';
+            setTimeout(() => {
+                btn.textContent = 'Installed';
+                btn.className = 'px-3 py-1.5 rounded-xl bg-slate-800 text-emerald-400 font-bold';
+                triggerIslandNotification('🛍️ Package Installed', `Successfully installed ${pkgName} into /apps`);
+            }, 1000);
+        }
+
+        // Settings Tab Switcher & Wallpapers
         function switchSettingsTab(tabKey) {
             ['system', 'wallpaper', 'updates', 'graphics', 'shortcuts', 'battery', 'security'].forEach(k => {
                 const pane = document.getElementById(`tab-pane-${k}`);
@@ -933,7 +1069,7 @@
             }, 800);
         }
 
-        // --- 6. GLOBAL SHORTCUTS LISTENER ---
+        // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             const key = e.key.toLowerCase();
@@ -943,10 +1079,11 @@
                 if (key === 'g') { e.preventDefault(); openWindow('gaming-window'); }
                 if (key === 'i') { e.preventDefault(); openWindow('settings-window'); }
                 if (key === 'm') { e.preventDefault(); openWindow('taskmanager-window'); }
+                if (key === 'l') { e.preventDefault(); lockScreen(); }
             }
         });
 
-        // --- 7. VFS DUAL PANE ENGINE ---
+        // VFS Dual Pane
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
@@ -1000,13 +1137,13 @@
         function navigateToPath(p) { renderVFS(p); }
         renderVFS("/home/user");
 
-        // --- 8. TASK MANAGER PROCESS MONITOR ---
+        // Task Manager Monitor
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
             { pid: 3, name: "vulkan_compositor", cpu: "1.4%", mem: "42.0 MB", status: "144 FPS" },
             { pid: 4, name: "solaris_space_game", cpu: "2.1%", mem: "84.0 MB", status: "Active" },
-            { pid: 5, name: "bharat_shell", cpu: "0.1%", mem: "8.6 MB", status: "Interactive" }
+            { pid: 5, name: "indic_code_studio", cpu: "0.8%", mem: "28.4 MB", status: "Editing" }
         ];
 
         function renderTaskManager() {
@@ -1033,7 +1170,7 @@
             triggerIslandNotification('⚡ RAM Purged', '12.7 MB Cache Cleared');
         }
 
-        // --- 9. BHARAT SHELL ---
+        // Bharat Shell
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
@@ -1046,13 +1183,19 @@
                 const cmd = val.split(' ')[0].toLowerCase();
 
                 if (cmd === 'help') {
-                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, neofetch, ipconfig, cls, clear, ver, game</div>`;
+                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, neofetch, ipconfig, cls, clear, ver, game, code, calc</div>`;
                 } else if (cmd === 'dir' || cmd === 'ls') {
                     out.innerHTML += `<div>documents/  projects/  games/  solaris_game.exe  readme.txt</div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
                 } else if (cmd === 'tasklist' || cmd === 'ps') {
                     out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: vulkan_compositor (42.0 MB - 144 FPS)</div>`;
+                } else if (cmd === 'code') {
+                    openWindow('editor-window');
+                    out.innerHTML += `<div class="text-cyan-300">Launching Indic Code Studio IDE...</div>`;
+                } else if (cmd === 'calc') {
+                    openWindow('calc-window');
+                    out.innerHTML += `<div class="text-amber-300">Launching Vedic Calculator...</div>`;
                 } else if (cmd === 'mem' || cmd === 'free') {
                     out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
                 } else if (cmd === 'game') {
@@ -1067,7 +1210,10 @@
 
         function updateClock() {
             const now = new Date();
-            document.getElementById('ist-clock').textContent = `${now.toLocaleTimeString('en-IN', { hour12: false })} IST`;
+            const timeStr = now.toLocaleTimeString('en-IN', { hour12: false });
+            document.getElementById('ist-clock').textContent = `${timeStr} IST`;
+            const lockEl = document.getElementById('lock-time');
+            if (lockEl) lockEl.textContent = timeStr;
         }
         setInterval(updateClock, 1000);
         updateClock();
