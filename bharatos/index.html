@@ -79,7 +79,7 @@
             --controls-border: rgba(255, 255, 255, 0.14);
         }
 
-        /* STRICT FULL-VIEWPORT LAYOUT: BOTTOM BAR ALWAYS PINNED & NEVER CUT OFF */
+        /* STRICT FULL-VIEWPORT LAYOUT: BOTTOM BAR ALWAYS PINNED */
         #screen-root {
             position: fixed;
             inset: 0;
@@ -107,11 +107,7 @@
             transition: background var(--trans-speed) ease, color var(--trans-speed) ease;
         }
 
-        /* =========================================================================
-           NATURE OF BHARAT (INDIA) SCENIC DYNAMIC WALLPAPERS
-           ========================================================================= */
-        
-        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks */
+        /* NATURE OF BHARAT SCENIC WALLPAPERS */
         body.wall-ladakh {
             background: 
                 radial-gradient(ellipse at 50% 10%, rgba(255, 215, 0, 0.22) 0%, transparent 50%),
@@ -119,7 +115,6 @@
             background-attachment: fixed;
         }
 
-        /* 2. Western Ghats & Munnar Tea Mist (Emerald Rainforest) */
         body.wall-munnar {
             background: 
                 radial-gradient(circle at 30% 20%, rgba(134, 239, 172, 0.2) 0%, transparent 60%),
@@ -127,7 +122,6 @@
             background-attachment: fixed;
         }
 
-        /* 3. Varanasi Ganges Golden Hour (Sacred Dawn Sunlight) */
         body.wall-varanasi {
             background: 
                 radial-gradient(circle at 50% 30%, rgba(251, 146, 60, 0.35) 0%, transparent 65%),
@@ -135,7 +129,6 @@
             background-attachment: fixed;
         }
 
-        /* 4. Thar Desert Golden Dunes of Jaisalmer (Starry Twilight) */
         body.wall-thar {
             background: 
                 radial-gradient(ellipse at 80% 20%, rgba(245, 158, 11, 0.28) 0%, transparent 60%),
@@ -143,7 +136,6 @@
             background-attachment: fixed;
         }
 
-        /* 5. Andaman & Nicobar Coral Lagoon (Havelock Radhanagar) */
         body.wall-andaman {
             background: 
                 radial-gradient(circle at 50% 15%, rgba(103, 232, 249, 0.3) 0%, transparent 60%),
@@ -151,7 +143,6 @@
             background-attachment: fixed;
         }
 
-        /* 6. Kashmir Valley Floating Lotus & Dal Lake Morning */
         body.wall-kashmir {
             background: 
                 radial-gradient(circle at 40% 25%, rgba(244, 114, 182, 0.25) 0%, transparent 60%),
@@ -159,7 +150,6 @@
             background-attachment: fixed;
         }
 
-        /* 7. Rann of Kutch Full Moon White Salt Desert */
         body.wall-kutch {
             background: 
                 radial-gradient(circle at 50% 20%, rgba(255, 255, 255, 0.35) 0%, transparent 55%),
@@ -167,7 +157,6 @@
             background-attachment: fixed;
         }
 
-        /* 8. Obsidian Void (Deep OLED Black) */
         body.wall-obsidian {
             background: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
             background-attachment: fixed;
@@ -175,7 +164,6 @@
 
         body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
 
-        /* --- PROCEDURAL SCENIC HORIZON SILHOUETTE --- */
         .scenic-mountain-layer {
             position: absolute;
             bottom: 48px;
@@ -188,7 +176,7 @@
             mask-image: radial-gradient(ellipse at 50% 100%, black 60%, transparent 100%);
         }
 
-        /* --- SHUTDOWN & REBOOT CINEMATIC OVERLAY --- */
+        /* SHUTDOWN OVERLAY */
         #power-overlay {
             position: fixed;
             inset: 0;
@@ -202,12 +190,9 @@
             pointer-events: none;
             transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        #power-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
+        #power-overlay.active { opacity: 1; pointer-events: auto; }
 
-        /* --- MODERN BOOT SCREEN --- */
+        /* BOOT SCREEN */
         #boot-screen {
             position: fixed;
             inset: 0;
@@ -227,7 +212,7 @@
         }
         .fade-out-boot { opacity: 0 !important; transform: scale(1.06) !important; pointer-events: none !important; }
 
-        /* --- SOVEREIGN LOCK SCREEN --- */
+        /* LOCK SCREEN */
         #lock-screen {
             position: fixed;
             inset: 0;
@@ -272,9 +257,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
         }
 
-        .shake-error {
-            animation: input-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
-        }
+        .shake-error { animation: input-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
         @keyframes input-shake {
             10%, 90% { transform: translate3d(-2px, 0, 0); }
             20%, 80% { transform: translate3d(4px, 0, 0); }
@@ -282,7 +265,7 @@
             40%, 60% { transform: translate3d(6px, 0, 0); }
         }
 
-        /* --- ULTRA-MODERN CLEAN LIQUID GLASS SURFACES --- */
+        /* ULTRA-MODERN LIQUID GLASS SURFACES */
         .ultra-liquid-glass {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur)) saturate(240%);
@@ -306,7 +289,7 @@
             mix-blend-mode: overlay;
         }
 
-        /* --- FLAWLESS LIQUID GLASS WINDOW ACTION CONTROLS --- */
+        /* FLAWLESS LIQUID GLASS WINDOW ACTION CONTROLS */
         .window-controls-capsule {
             display: inline-flex;
             align-items: center;
@@ -351,65 +334,22 @@
             transform: scale(1);
         }
 
-        /* 1. Close Button (Rose Coral Frosted Glass) */
-        .circle-close {
-            background: rgba(244, 63, 94, 0.3);
-            border-color: rgba(244, 63, 94, 0.5);
-            color: #ffffff;
-        }
-        .circle-close:hover {
-            background: #f43f5e;
-            border-color: #f43f5e;
-            color: #ffffff;
-            transform: scale(1.18);
-            box-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
-        }
+        .circle-close { background: rgba(244, 63, 94, 0.3); border-color: rgba(244, 63, 94, 0.5); color: #ffffff; }
+        .circle-close:hover { background: #f43f5e; border-color: #f43f5e; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
 
-        /* 2. Minimize Button (Warm Amber Frosted Glass) */
-        .circle-min {
-            background: rgba(245, 158, 11, 0.3);
-            border-color: rgba(245, 158, 11, 0.5);
-            color: #ffffff;
-        }
-        .circle-min:hover {
-            background: #f59e0b;
-            border-color: #f59e0b;
-            color: #ffffff;
-            transform: scale(1.18);
-            box-shadow: 0 0 12px rgba(245, 158, 11, 0.6);
-        }
+        .circle-min { background: rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.5); color: #ffffff; }
+        .circle-min:hover { background: #f59e0b; border-color: #f59e0b; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(245, 158, 11, 0.6); }
 
-        /* 3. Maximize Button (Mint Emerald Frosted Glass) */
-        .circle-max {
-            background: rgba(16, 185, 129, 0.3);
-            border-color: rgba(16, 185, 129, 0.5);
-            color: #ffffff;
-        }
-        .circle-max:hover {
-            background: #10b981;
-            border-color: #10b981;
-            color: #ffffff;
-            transform: scale(1.18);
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.6);
-        }
+        .circle-max { background: rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.5); color: #ffffff; }
+        .circle-max:hover { background: #10b981; border-color: #10b981; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); }
 
-        /* --- BHARAT ISLAND --- */
+        /* BHARAT ISLAND */
         #dynamic-island-container {
             transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background var(--trans-speed) ease;
             box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(var(--accent-rgb), 0.18);
         }
-        #dynamic-island-container.compact {
-            width: 320px;
-            height: 38px;
-            border-radius: 9999px;
-            padding: 4px 16px;
-        }
-        #dynamic-island-container.expanded {
-            width: 580px;
-            height: 250px;
-            border-radius: 26px;
-            padding: 18px 24px;
-        }
+        #dynamic-island-container.compact { width: 320px; height: 38px; border-radius: 9999px; padding: 4px 16px; }
+        #dynamic-island-container.expanded { width: 580px; height: 250px; border-radius: 26px; padding: 18px 24px; }
 
         .window-open-genie { animation: app-expand 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .window-minimize-genie { animation: app-collapse 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
@@ -483,7 +423,7 @@
 </head>
 <body class="wall-ladakh select-none">
 
-    <!-- SHUTDOWN & REBOOT CINEMATIC OVERLAY -->
+    <!-- SHUTDOWN & REBOOT OVERLAY -->
     <div id="power-overlay">
         <div class="minimal-emblem mb-6">
             <span class="text-7xl select-none">☸️</span>
@@ -495,7 +435,7 @@
         </div>
     </div>
 
-    <!-- ONBOARDING SETUP MODAL -->
+    <!-- ONBOARDING MODAL -->
     <div id="onboarding-modal" class="fixed inset-0 z-[12000] bg-black/85 backdrop-blur-3xl flex items-center justify-center hidden">
         <div class="w-[460px] p-8 ultra-liquid-glass space-y-6 shadow-2xl">
             <div class="text-center space-y-2">
@@ -588,7 +528,6 @@
                     <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
                 </div>
 
-                <!-- Alert message on invalid PIN -->
                 <div id="lock-pin-alert" class="w-full text-center px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden">
                     ⚠️ Invalid PIN! Security Enclave Guarded.
                 </div>
@@ -716,7 +655,6 @@
                     ⌨️ Shortcuts
                 </button>
 
-                <!-- Power Menu Button in Nav -->
                 <div class="relative group">
                     <button class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-mono text-[11px] border border-rose-500/40 flex items-center space-x-1" title="Power Options">
                         <span>⏻</span><span>Power</span>
@@ -730,10 +668,9 @@
             </div>
         </nav>
 
-        <!-- DESKTOP WORKSPACE (CLEAN SCENIC NATURE VIEW WITHOUT WATERMARK TEXT) -->
+        <!-- DESKTOP WORKSPACE (CLEAN SCENIC NATURE VIEW) -->
         <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-12 gap-6 z-10 overflow-hidden">
             
-            <!-- Procedural Scenic Horizon Layer -->
             <div class="scenic-mountain-layer"></div>
 
             <!-- DESKTOP WIDGETS -->
@@ -782,21 +719,220 @@
                 </div>
             </div>
 
-            <!-- APP 1: HYPER-ORGANIZED LIQUID GLASS FILE EXPLORER (SOVEREIGNFS STUDIO) -->
+            <!-- =========================================================================
+                 APP 1: GARUD SOVEREIGN WEB BROWSER (FLAGSHIP BROWSER)
+                 ========================================================================= -->
+            <div id="browser-window" class="absolute top-4 left-16 w-[980px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Browser Title & Tabs Bar -->
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'browser-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('browser-window', 'dock-browser')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('browser-window', 'dock-browser')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('browser-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+
+                        <!-- Browser Tabs -->
+                        <div class="flex items-center space-x-1">
+                            <div class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-cyan-600 dark:text-cyan-300 shadow-sm">
+                                <span>🌐</span><span>Garud Start Hub</span>
+                            </div>
+                            <div class="flex items-center space-x-2 px-3 py-1 rounded-xl opacity-60 hover:opacity-100 text-xs cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">
+                                <span>🛰️</span><span>ISRO Space</span>
+                            </div>
+                            <button onclick="playSfx('click')" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xs opacity-70 hover:opacity-100 font-bold">+</button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2 text-[11px] font-mono text-emerald-500 font-bold">
+                        <span>🛡️ Zero Trackers</span>
+                    </div>
+                </div>
+
+                <!-- Browser Omnibar Navigation Ribbon -->
+                <div class="px-4 py-2 bg-slate-50/70 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between space-x-3 text-xs font-mono">
+                    <div class="flex items-center space-x-1.5">
+                        <button onclick="browserGoBack()" class="w-7 h-7 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-700 font-bold">←</button>
+                        <button onclick="browserGoForward()" class="w-7 h-7 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-700 font-bold">→</button>
+                        <button onclick="browserReload()" class="w-7 h-7 rounded-xl bg-slate-200 dark:bg-slate-800 flex items-center justify-center hover:bg-slate-300 dark:hover:bg-slate-700 font-bold">🔄</button>
+                    </div>
+
+                    <div class="flex-1 flex items-center px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 space-x-2 shadow-inner">
+                        <span class="text-emerald-500 text-xs">🔒</span>
+                        <input id="browser-url-input" type="text" value="https://garud.sovereign.in" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-cyan-600 dark:text-cyan-300" onkeydown="if(event.key==='Enter') executeBrowserSearch(this.value)">
+                        <button onclick="executeBrowserSearch(document.getElementById('browser-url-input').value)" class="text-xs text-saffron font-bold">Go ➔</button>
+                    </div>
+
+                    <div class="flex items-center space-x-1">
+                        <button onclick="navigateBrowserUrl('https://isro.gov.in')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🛰️ ISRO</button>
+                        <button onclick="navigateBrowserUrl('https://github.com/sovereign')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">💻 GitHub</button>
+                        <button onclick="navigateBrowserUrl('https://ai.bharat.in')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🤖 AI Hub</button>
+                    </div>
+                </div>
+
+                <!-- Browser Web Viewport -->
+                <div id="browser-viewport" class="flex-1 bg-white dark:bg-slate-950 p-6 custom-scroll overflow-y-auto font-sans">
+                    <!-- Default Garud Start Page -->
+                    <div id="browser-page-home" class="max-w-3xl mx-auto space-y-6 text-center pt-8">
+                        <div class="flex flex-col items-center space-y-2">
+                            <span class="text-6xl">🦅</span>
+                            <h2 class="text-2xl font-extrabold tracking-wide">Garud Sovereign Web</h2>
+                            <p class="text-xs text-slate-400 font-mono">Fast • Zero-Tracking • Quantum DNS Protection</p>
+                        </div>
+
+                        <!-- Browser Search Box -->
+                        <div class="flex items-center px-5 py-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border-2 border-cyan-500/50 shadow-xl space-x-3 text-left">
+                            <span class="text-lg">🔍</span>
+                            <input id="garud-search-box" type="text" placeholder="Search Sovereign Web, research papers, ISRO telemetry or enter URL..." class="flex-1 bg-transparent border-none outline-none font-sans text-sm" onkeydown="if(event.key==='Enter') executeGarudSearch(this.value)">
+                            <button onclick="executeGarudSearch(document.getElementById('garud-search-box').value)" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-saffron to-indiaGreen text-slate-950 font-bold text-xs">Search</button>
+                        </div>
+
+                        <!-- Quick Speed Dials -->
+                        <div class="grid grid-cols-4 gap-4 text-xs font-mono pt-4">
+                            <div onclick="navigateBrowserUrl('https://isro.gov.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
+                                <span class="text-3xl">🛰️</span>
+                                <div class="font-bold">ISRO Telemetry</div>
+                                <div class="text-[10px] opacity-60">Gaganyaan Mission</div>
+                            </div>
+                            <div onclick="navigateBrowserUrl('https://ai.bharat.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
+                                <span class="text-3xl">🧠</span>
+                                <div class="font-bold">Indic AI Models</div>
+                                <div class="text-[10px] opacity-60">22 Scheduled Languages</div>
+                            </div>
+                            <div onclick="navigateBrowserUrl('https://github.com/sovereign')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
+                                <span class="text-3xl">📦</span>
+                                <div class="font-bold">Sovereign Git</div>
+                                <div class="text-[10px] opacity-60">Rust & Vulkan Repos</div>
+                            </div>
+                            <div onclick="navigateBrowserUrl('https://ddnews.gov.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
+                                <span class="text-3xl">📰</span>
+                                <div class="font-bold">National Dispatch</div>
+                                <div class="text-[10px] opacity-60">Live News & Feeds</div>
+                            </div>
+                        </div>
+
+                        <!-- Dynamic Search Results Container -->
+                        <div id="browser-search-results" class="text-left space-y-3 pt-4 hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 2: INDIC CODE STUDIO (VS CODE PROFESSIONAL IDE)
+                 ========================================================================= -->
+            <div id="code-window" class="absolute top-4 left-20 w-[960px] h-[570px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- IDE Titlebar -->
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'code-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('code-window', 'dock-code')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('code-window', 'dock-code')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('code-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-cyan-500">⚡</span>
+                            <span>Indic Code Studio — main.rs [Rust SMP Workspace]</span>
+                        </span>
+                    </div>
+
+                    <!-- Run & Build Controls -->
+                    <div class="flex items-center space-x-2">
+                        <button onclick="runIdeCode()" id="btn-ide-run" class="px-3 py-1 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs font-mono flex items-center space-x-1.5 shadow-md">
+                            <span>▶</span><span>Run Code (F5)</span>
+                        </button>
+                        <button onclick="formatIdeCode()" class="px-2.5 py-1 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-cyan-600 dark:text-cyan-300 font-bold">
+                            Format
+                        </button>
+                    </div>
+                </div>
+
+                <!-- IDE Dual Pane Area -->
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Left Activity Bar & Explorer -->
+                    <div class="w-56 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
+                        <div class="space-y-3">
+                            <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-1">Explorer: Rust Engine</div>
+                            <div class="space-y-1">
+                                <button onclick="loadIdeFile('main.rs')" id="ide-file-main" class="w-full text-left px-2.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2"><span>🦀</span><span>src/main.rs</span></button>
+                                <button onclick="loadIdeFile('kernel.rs')" id="ide-file-kernel" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>src/kernel.rs</span></button>
+                                <button onclick="loadIdeFile('vulkan.rs')" id="ide-file-vulkan" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚡</span><span>src/vulkan.rs</span></button>
+                                <button onclick="loadIdeFile('cargo.toml')" id="ide-file-cargo" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📦</span><span>Cargo.toml</span></button>
+                            </div>
+                        </div>
+
+                        <div class="p-2.5 rounded-xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] space-y-1">
+                            <div class="font-bold text-emerald-500">✓ Rust Analyzer Active</div>
+                            <div class="opacity-70">0 Errors • 0 Warnings</div>
+                        </div>
+                    </div>
+
+                    <!-- Center Code Editor & Bottom Terminal Output -->
+                    <div class="flex-1 flex flex-col bg-slate-950 overflow-hidden font-mono text-xs">
+                        <div class="flex-1 p-4 custom-scroll overflow-y-auto text-slate-200 flex space-x-3">
+                            <!-- Line Numbers -->
+                            <div class="text-slate-600 text-right select-none pr-3 border-r border-slate-800 space-y-1 leading-5" id="ide-line-numbers">
+                                1<br>2<br>3<br>4<br>5<br>6<br>7<br>8<br>9<br>10<br>11<br>12<br>13<br>14<br>15
+                            </div>
+                            <!-- Code Content Area -->
+                            <textarea id="ide-code-editor" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-emerald-400 resize-none leading-5 custom-scroll focus:text-white" spellcheck="false">// BharatOS Sovereign Microkernel v2026.1 LTS
+// High Performance 144 FPS Vulkan & SMP Engine
+
+use bharat_os::kernel::smp;
+use bharat_os::vulkan::PrithviPacer;
+
+#[no_mangle]
+pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
+    println!("☸️ Initializing BharatOS Quantum Enclave...");
+    
+    let cores = smp::detect_cores();
+    println!("✓ SMP Online: {} Logical Cores armed.", cores);
+
+    let compositor = PrithviPacer::new(144.0)?;
+    compositor.bind_framebuffer()?;
+    println!("✓ Prithvi 144 Hz Vulkan Compositor running.");
+
+    Ok(())
+}</textarea>
+                        </div>
+
+                        <!-- IDE Bottom Output Terminal -->
+                        <div class="h-28 bg-slate-900/90 border-t border-slate-800 p-3 font-mono text-[11px] custom-scroll overflow-y-auto space-y-1" id="ide-terminal-output">
+                            <div class="text-slate-400">Indic Code Studio Terminal • Ready to compile. Press 'Run Code (F5)'.</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 3: HYPER-ORGANIZED SOVEREIGNFS EXPLORER
+                 ========================================================================= -->
             <div id="files-window" class="absolute top-4 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                     <div class="flex items-center space-x-3">
-                        <!-- REDESIGNED FLAWLESS LIQUID GLASS CONTROLS -->
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
                             <span class="action-circle circle-min" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Enlarge">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('files-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -878,20 +1014,22 @@
                 </div>
             </div>
 
-            <!-- APP 2: KAVACH SOVEREIGN DEFENDER -->
+            <!-- =========================================================================
+                 APP 4: KAVACH SOVEREIGN DEFENDER
+                 ========================================================================= -->
             <div id="kavach-window" class="absolute top-8 left-32 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
                             <span class="action-circle circle-min" onclick="minimizeAppWindow('kavach-window', 'dock-defender')" title="Minimize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('kavach-window')" title="Maximize / Enlarge">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('kavach-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -916,7 +1054,6 @@
                         </button>
                     </div>
 
-                    <!-- Live Scanning Progress Animation -->
                     <div id="kavach-scan-progress-box" class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-cyan-500/40 space-y-2 hidden">
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-cyan-600 dark:text-cyan-300">Scanning Kernel & SovereignFS Files...</span>
@@ -928,7 +1065,6 @@
                         <div id="scan-current-file" class="text-[10px] opacity-60 truncate">Scanning: /system/kernel.sys...</div>
                     </div>
 
-                    <!-- Real-Time Defender Shields Matrix -->
                     <div class="grid grid-cols-2 gap-3">
                         <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                             <div><div class="font-bold">Real-Time File System Shield</div><div class="text-[10px] opacity-60">Instant I/O malware trap</div></div>
@@ -950,20 +1086,22 @@
                 </div>
             </div>
 
-            <!-- APP 3: BHARAT COMMAND PROMPT & POWERSHELL -->
+            <!-- =========================================================================
+                 APP 5: BHARAT COMMAND PROMPT & POWERSHELL
+                 ========================================================================= -->
             <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
                             <span class="action-circle circle-min" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Enlarge">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
@@ -976,7 +1114,7 @@
                 <div class="flex-1 bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-emerald-400" id="terminal-output">
                     <div class="text-saffron font-bold">BharatOS Sovereign Microkernel [Version 2026.1.0 LTS]</div>
                     <div class="text-slate-400">(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.</div>
-                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'ipconfig'</span>, <span class="text-purple-300 font-bold">'systeminfo'</span>, or <span class="text-cyan-300 font-bold">'shutdown'</span>.</div>
+                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'browser'</span>, <span class="text-purple-300 font-bold">'code'</span>, or <span class="text-cyan-300 font-bold">'shutdown'</span>.</div>
                 </div>
 
                 <div class="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
@@ -985,20 +1123,22 @@
                 </div>
             </div>
 
-            <!-- APP 4: SETTINGS & DISPLAY RESOLUTION HUB -->
+            <!-- =========================================================================
+                 APP 6: SETTINGS & DISPLAY RESOLUTION HUB
+                 ========================================================================= -->
             <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
                             </span>
                             <span class="action-circle circle-min" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
                             </span>
-                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Enlarge">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('settings-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5"><span>⚙️</span><span>Sovereign Settings & Personalization (Win+I)</span></span>
@@ -1045,7 +1185,6 @@
                             </div>
                         </div>
 
-                        <!-- DISPLAY & WINDOWS-STYLE SCALING TAB -->
                         <div id="tab-pane-display" class="space-y-4 font-mono text-xs hidden">
                             <div class="text-sm font-bold">Display Resolution & Viewport Scaling (Windows Fluent Engine)</div>
                             <div class="grid grid-cols-2 gap-4">
@@ -1071,7 +1210,6 @@
                             </div>
                         </div>
 
-                        <!-- MAJESTIC NATURE OF BHARAT WALLPAPERS -->
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold">Majestic Nature of Bharat (India) Wallpapers</div>
@@ -1133,12 +1271,12 @@
                             <table class="w-full text-left">
                                 <thead><tr class="opacity-60 border-b border-slate-300 dark:border-slate-800 pb-2"><th class="pb-2">Shortcut</th><th class="pb-2">Action</th><th class="pb-2">Category</th></tr></thead>
                                 <tbody class="divide-y divide-slate-200 dark:divide-slate-900">
+                                    <tr><td class="py-2 text-cyan-600 dark:text-cyan-300 font-bold">Win + B</td><td>Open Garud Web Browser</td><td>Browser</td></tr>
+                                    <tr><td class="py-2 text-purple-600 dark:text-purple-300 font-bold">Win + C</td><td>Open Indic Code Studio</td><td>Development</td></tr>
                                     <tr><td class="py-2 text-cyan-600 dark:text-cyan-300 font-bold">Win + E</td><td>Open SovereignFS Explorer</td><td>Files</td></tr>
                                     <tr><td class="py-2 text-emerald-600 dark:text-emerald-400 font-bold">Win + T</td><td>Open Command Prompt (bsh)</td><td>Terminal</td></tr>
                                     <tr><td class="py-2 text-cyan-600 dark:text-cyan-300 font-bold">Win + I</td><td>Open System Settings</td><td>System</td></tr>
                                     <tr><td class="py-2 text-rose-600 dark:text-rose-400 font-bold">Win + L</td><td>Lock Sovereign Desktop</td><td>Security</td></tr>
-                                    <tr><td class="py-2 text-sky-600 dark:text-sky-300 font-bold">Win + D</td><td>Toggle Desktop Widgets</td><td>Desktop</td></tr>
-                                    <tr><td class="py-2 text-indigo-600 dark:text-indigo-300 font-bold">Win + ?</td><td>Open Shortcuts Cheatsheet</td><td>Help</td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1168,19 +1306,19 @@
                         <button onclick="closeKeybindingsModal()" class="w-6 h-6 rounded-full bg-slate-200 dark:bg-slate-800 opacity-70 hover:opacity-100 flex items-center justify-center">✕</button>
                     </div>
                     <div class="grid grid-cols-2 gap-3 text-xs font-mono">
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + B</span><span>Garud Web Browser</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-purple-600 dark:text-purple-300 font-bold">Win + C</span><span>Indic Code Studio</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + E</span><span>SovereignFS Explorer</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + T</span><span>Command Prompt (bsh)</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + I</span><span>Settings Hub</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-rose-600 dark:text-rose-400 font-bold">Win + L</span><span>Lock Screen</span></div>
-                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-sky-600 dark:text-sky-300 font-bold">Win + D</span><span>Toggle Widgets</span></div>
-                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-indigo-600 dark:text-indigo-300 font-bold">Win + ?</span><span>Shortcuts Cheatsheet</span></div>
                     </div>
                 </div>
             </div>
 
         </main>
 
-        <!-- BOTTOM HORIZON TASKBAR (PERMANENTLY ANCHORED AT BOTTOM AT ALL RESOLUTIONS) -->
+        <!-- BOTTOM HORIZON TASKBAR -->
         <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
             <div class="flex items-center space-x-2.5">
                 <!-- Sudarshan Start Gem -->
@@ -1188,8 +1326,8 @@
                     <button class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Start Menu">
                         ☸️
                     </button>
-                    <!-- Sudarshan Start Popup Menu -->
-                    <div class="absolute left-0 bottom-full mb-3 w-64 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50">
+                    <!-- Start Menu Popup -->
+                    <div class="absolute left-0 bottom-full mb-3 w-72 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50">
                         <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
                             <div>
@@ -1198,8 +1336,10 @@
                             </div>
                         </div>
                         <div class="space-y-1">
+                            <button onclick="openAppWindow('browser-window', 'dock-browser')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-500 font-bold"><span>🌐</span><span>Garud Browser</span></button>
+                            <button onclick="openAppWindow('code-window', 'dock-code')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-400 font-bold"><span>⚡</span><span>Indic Code Studio</span></button>
                             <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📁</span><span>File Explorer</span></button>
-                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>🛡️</span><span>Kavach Defender</span></button>
+                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender</span></button>
                             <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>💻</span><span>Command Prompt</span></button>
                             <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>Settings</span></button>
                         </div>
@@ -1212,10 +1352,13 @@
                 </div>
 
                 <div class="h-6 w-px bg-slate-300 dark:bg-slate-700/60"></div>
+                <!-- Flagship Applications Dock -->
+                <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="taskbar-item p-2 rounded-xl text-xl" title="Garud Web Browser (Win+B)">🌐</button>
+                <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="taskbar-item p-2 rounded-xl text-xl" title="Indic Code Studio (Win+C)">⚡</button>
                 <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
                 <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender">🛡️</button>
-                <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
                 <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Command Prompt (Win+T)">💻</button>
+                <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
             </div>
 
             <!-- SYSTEM TRAY -->
@@ -1341,7 +1484,7 @@
             } catch(e) {}
         }
 
-        // Display Controls & Windows-Grade Viewport Scaling
+        // Display Controls & Viewport Scaling
         function setOSBrightness(val) {
             document.documentElement.style.setProperty('--os-brightness', `${val}%`);
             const bVal = document.getElementById('island-bright-val');
@@ -1367,7 +1510,7 @@
             playSfx('click');
         }
 
-        // Device Form Factor: Laptop vs Desktop PC
+        // Device Form Factor
         let deviceType = "desktop";
         function setDeviceType(type) {
             deviceType = type;
@@ -1495,7 +1638,7 @@
             }
         }
 
-        // CINEMATIC SHUTDOWN & REBOOT ENGINE
+        // CINEMATIC SHUTDOWN & REBOOT
         function triggerShutdown() {
             playSfx('close');
             const overlay = document.getElementById('power-overlay');
@@ -1531,7 +1674,227 @@
             }, 2000);
         }
 
-        // KAVACH DEFENDER SCAN ENGINE
+        // =========================================================================
+        // GARUD SOVEREIGN WEB BROWSER ENGINE
+        // =========================================================================
+        function navigateBrowserUrl(url) {
+            playSfx('open');
+            openAppWindow('browser-window', 'dock-browser');
+            const input = document.getElementById('browser-url-input');
+            const viewport = document.getElementById('browser-viewport');
+            if (input) input.value = url;
+
+            if (url.includes('isro.gov.in')) {
+                viewport.innerHTML = `
+                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
+                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-4xl">🛰️</span>
+                            <div>
+                                <h1 class="text-xl font-bold">ISRO Space Operations Center</h1>
+                                <p class="text-xs text-slate-400 font-mono">Gaganyaan H1 Human Spaceflight Mission Control</p>
+                            </div>
+                        </div>
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-500 text-xs font-mono font-bold">LIVE TELEMETRY: SYNCED</span>
+                    </div>
+
+                    <div class="grid grid-cols-3 gap-4 font-mono text-xs">
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="opacity-60">Orbital Altitude</div>
+                            <div class="text-lg font-bold text-cyan-500">400.2 km LEO</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="opacity-60">Orbital Velocity</div>
+                            <div class="text-lg font-bold text-emerald-500">7.68 km/s (27,650 km/h)</div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="opacity-60">Cryogenic Stage (CE-20)</div>
+                            <div class="text-lg font-bold text-saffron">Pressure Nominal</div>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                        <h3 class="font-bold text-sm">Mission Milestones & Trajectory</h3>
+                        <p class="text-xs text-slate-400 leading-relaxed">
+                            The Gaganyaan crew module telemetry has successfully locked with the IDRSS space data relay constellation. All life support systems and NavIC quantum navigation receivers are operational at 100% efficiency.
+                        </p>
+                    </div>
+                </div>`;
+            } else if (url.includes('github.com')) {
+                viewport.innerHTML = `
+                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
+                    <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                        <span class="text-4xl">🐙</span>
+                        <div>
+                            <h1 class="text-xl font-bold">Sovereign India Open Source Repositories</h1>
+                            <p class="text-xs text-slate-400 font-mono">github.com/sovereign • 124 Open Repositories</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                            <div class="flex justify-between font-bold text-cyan-500"><span>bharat-os-kernel</span><span>★ 4.8k</span></div>
+                            <p class="text-[11px] opacity-70 font-sans">Pure Rust 64-bit microkernel with 4-level PML4 paging and zero telemetry.</p>
+                            <div class="flex items-center space-x-2 text-[10px] text-amber-500"><span>● Rust 98.2%</span><span>● Assembly 1.8%</span></div>
+                        </div>
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                            <div class="flex justify-between font-bold text-emerald-500"><span>prithvi-vulkan-compositor</span><span>★ 3.2k</span></div>
+                            <p class="text-[11px] opacity-70 font-sans">144 FPS spatial liquid-glass compositor with sub-millisecond frame pacing.</p>
+                            <div class="flex items-center space-x-2 text-[10px] text-cyan-500"><span>● C++23 85%</span><span>● GLSL 15%</span></div>
+                        </div>
+                    </div>
+                </div>`;
+            } else if (url.includes('ai.bharat.in')) {
+                viewport.innerHTML = `
+                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
+                    <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                        <span class="text-4xl">🧠</span>
+                        <div>
+                            <h1 class="text-xl font-bold">Indic AI Sovereign Neural Studio</h1>
+                            <p class="text-xs text-slate-400 font-mono">High-Speed On-Device LLMs across 22 Scheduled Indian Languages</p>
+                        </div>
+                    </div>
+
+                    <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/30 space-y-3">
+                        <div class="font-bold text-sm text-cyan-400">⚡ Live On-Device Inference Engine (4-bit Quantized)</div>
+                        <p class="text-xs opacity-75">BharatGPT v4.0 is running with hardware NPU acceleration on your device with 0ms network latency.</p>
+                    </div>
+                </div>`;
+            }
+        }
+
+        function executeGarudSearch(query) {
+            playSfx('click');
+            const q = query.trim().toLowerCase();
+            const results = document.getElementById('browser-search-results');
+            if (!results) return;
+
+            results.classList.remove('hidden');
+            results.innerHTML = `
+            <div class="font-bold text-xs font-mono text-cyan-500 mb-2">Search Results for "${query}":</div>
+            <div class="space-y-3">
+                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                    <div class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">ISRO Official Space Mission Telemetry</div>
+                    <div class="text-xs text-slate-400">Live flight logs, Gaganyaan orbital coordinates, and launch timelines.</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                    <div class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://ai.bharat.in')">Bharat Indic AI Intelligence Models</div>
+                    <div class="text-xs text-slate-400">Neural models supporting Hindi, Sanskrit, Tamil, Telugu, Bengali, Marathi, and Kannada.</div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                    <div class="text-purple-600 dark:text-purple-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://github.com/sovereign')">BharatOS Sovereign Microkernel Documentation</div>
+                    <div class="text-xs text-slate-400">Architecture specifications for 64-bit Rust SMP kernel and zero telemetry enclaves.</div>
+                </div>
+            </div>`;
+        }
+
+        function executeBrowserSearch(val) {
+            if (val.startsWith('http://') || val.startsWith('https://')) navigateBrowserUrl(val);
+            else executeGarudSearch(val);
+        }
+
+        function browserGoBack() { playSfx('click'); navigateBrowserUrl('https://garud.sovereign.in'); }
+        function browserGoForward() { playSfx('click'); navigateBrowserUrl('https://isro.gov.in'); }
+        function browserReload() { playSfx('click'); }
+
+        // =========================================================================
+        // INDIC CODE STUDIO (VS CODE IDE ENGINE)
+        // =========================================================================
+        const IDE_FILES = {
+            "main.rs": `// BharatOS Sovereign Microkernel v2026.1 LTS
+// High Performance 144 FPS Vulkan & SMP Engine
+
+use bharat_os::kernel::smp;
+use bharat_os::vulkan::PrithviPacer;
+
+#[no_mangle]
+pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
+    println!("☸️ Initializing BharatOS Quantum Enclave...");
+    
+    let cores = smp::detect_cores();
+    println!("✓ SMP Online: {} Logical Cores armed.", cores);
+
+    let compositor = PrithviPacer::new(144.0)?;
+    compositor.bind_framebuffer()?;
+    println!("✓ Prithvi 144 Hz Vulkan Compositor running.");
+
+    Ok(())
+}`,
+            "kernel.rs": `// BharatOS Kernel Core & Memory Paging
+pub struct MemoryManager {
+    pml4_root: u64,
+    allocated_pages: usize,
+}
+
+impl MemoryManager {
+    pub fn new() -> Self {
+        Self { pml4_root: 0x100000, allocated_pages: 512 }
+    }
+}`,
+            "vulkan.rs": `// Prithvi Vulkan 1.3 Display Compositor
+pub struct PrithviPacer {
+    refresh_rate: f64,
+    vsync_enabled: bool,
+}
+
+impl PrithviPacer {
+    pub fn new(hz: f64) -> Result<Self, ()> {
+        Ok(Self { refresh_rate: hz, vsync_enabled: true })
+    }
+}`,
+            "cargo.toml": `[package]
+name = "bharat_os_core"
+version = "2026.1.0"
+edition = "2024"
+
+[dependencies]
+spin = "0.9"
+vulkano = "0.34"`
+        };
+
+        function loadIdeFile(fname) {
+            playSfx('click');
+            ['main', 'kernel', 'vulkan', 'cargo'].forEach(k => {
+                const b = document.getElementById(`ide-file-${k}`);
+                if (b) b.className = 'w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2';
+            });
+            const key = fname.split('.')[0];
+            const activeBtn = document.getElementById(`ide-file-${key}`);
+            if (activeBtn) activeBtn.className = 'w-full text-left px-2.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2';
+
+            const editor = document.getElementById('ide-code-editor');
+            if (editor && IDE_FILES[fname]) editor.value = IDE_FILES[fname];
+        }
+
+        function runIdeCode() {
+            playSfx('click');
+            const out = document.getElementById('ide-terminal-output');
+            const btn = document.getElementById('btn-ide-run');
+            if (btn) { btn.disabled = true; btn.textContent = 'Compiling...'; }
+
+            out.innerHTML += `<div class="text-cyan-400 font-bold pt-1">Compiling workspace with rustc 1.82-nightly (Sovereign Target x86_64-bharat)...</div>`;
+            out.scrollTop = out.scrollHeight;
+
+            setTimeout(() => {
+                playSfx('unlock');
+                out.innerHTML += `
+                <div class="text-emerald-400 font-bold">✓ Finished release [optimized] target(s) in 0.42s</div>
+                <div class="text-white">☸️ Initializing BharatOS Quantum Enclave...</div>
+                <div class="text-emerald-400">✓ SMP Online: 16 Logical Cores armed.</div>
+                <div class="text-emerald-400">✓ Prithvi 144 Hz Vulkan Compositor running. (0.8 ms frame latency)</div>`;
+                out.scrollTop = out.scrollHeight;
+                if (btn) { btn.disabled = false; btn.textContent = '▶ Run Code (F5)'; }
+            }, 600);
+        }
+
+        function formatIdeCode() {
+            playSfx('click');
+            const out = document.getElementById('ide-terminal-output');
+            out.innerHTML += `<div class="text-cyan-400">rustfmt: Code formatted according to BharatOS Rust Style Guidelines.</div>`;
+            out.scrollTop = out.scrollHeight;
+        }
+
+        // KAVACH DEFENDER SCAN
         let scanProgress = 0;
         function startKavachScan() {
             playSfx('click');
@@ -1761,7 +2124,7 @@
         let lastMouseX = 0;
 
         function initDrag(e, winId) {
-            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'SVG' || e.target.tagName === 'line' || e.target.tagName === 'polyline') return;
+            if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SVG' || e.target.tagName === 'line' || e.target.tagName === 'polyline') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
             highestZ++;
@@ -1820,6 +2183,8 @@
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             const key = e.key.toLowerCase();
             if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
+                if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
                 if (key === 'e') { e.preventDefault(); openAppWindow('files-window', 'dock-files'); }
                 if (key === 't') { e.preventDefault(); openAppWindow('terminal-window', 'dock-terminal'); }
                 if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
@@ -1977,7 +2342,7 @@
 
         function openSelectedFileInEditor() {
             playSfx('open');
-            openAppWindow('terminal-window', 'dock-terminal');
+            openAppWindow('code-window', 'dock-code');
         }
 
         renderVFS("/home/user");
@@ -2028,6 +2393,8 @@
                 if (cmd === 'help') {
                     out.innerHTML += `<div>
 <span class="text-saffron font-bold">Supported Commands:</span><br>
+  BROWSER [url]     - Launch Garud Sovereign Web Browser<br>
+  CODE [file]       - Open Indic Code Studio (VS Code IDE)<br>
   DIR / LS          - List files and directories<br>
   CD [path]         - Change current directory<br>
   CLS / CLEAR       - Clear command screen<br>
@@ -2041,6 +2408,11 @@
 </div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
+                } else if (cmd === 'browser') {
+                    openAppWindow('browser-window', 'dock-browser');
+                    if (arg) navigateBrowserUrl(arg);
+                } else if (cmd === 'code') {
+                    openAppWindow('code-window', 'dock-code');
                 } else if (cmd === 'shutdown') {
                     triggerShutdown();
                 } else if (cmd === 'restart' || cmd === 'reboot') {
