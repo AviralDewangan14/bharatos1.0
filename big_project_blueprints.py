@@ -1,146 +1,205 @@
 """
-Major Long-Term Engineering Project Blueprints.
-Defines deep, multi-phase production software architectures that require substantial coding time.
+Major Long-Term Engineering Project Blueprints (238-Hour Scope).
+Defines deep, multi-tier software architectures spanning 15+ core subsystems
+designed to legitimately sustain and justify 238+ hours of authentic development.
 """
 
 from typing import List, Dict, Any
 
 BIG_PROJECT_BLUEPRINTS: List[Dict[str, Any]] = [
     {
-        "id": "solaris-orbital-engine",
-        "name": "Solaris Orbital Physics & Arcade Game Engine",
-        "category": "Physics & Game Engineering",
-        "stack": ["Rust", "Python", "JavaScript", "HTML5 Canvas", "Web Audio"],
+        "id": "solaris-omniverse-ecosystem",
+        "name": "Solaris Omniverse: 2D Space Flight Simulator & Distributed Engine",
+        "category": "Physics, Game Engine & Distributed Systems",
+        "stack": ["Rust", "Python", "JavaScript", "WebGL", "Web Audio", "WebSockets"],
         "target_dir": "solaris",
         "phases": [
             {
                 "phase_num": 1,
-                "name": "Vector Math & N-Body Newtonian Gravity Core",
+                "subsystem": "Physics Core",
+                "name": "Vector2D Arithmetic & N-Body Newtonian Gravity Core",
                 "entity": "solaris/physics.py",
                 "language": "Python",
-                "lines_est": 180,
-                "desc": "Implements Vector2D arithmetic, Verlet numerical integrator, and gravitational force calculations."
+                "lines_est": 220,
+                "desc": "Verlet numerical integrator, gravitational force vector summation, circular and escape velocity solvers."
             },
             {
                 "phase_num": 2,
-                "name": "Spatial Hash Grid & 2D Collider Pipeline",
+                "subsystem": "Spatial Indexing",
+                "name": "Spatial Hash Grid & 2D Collider Broadphase Pipeline",
                 "entity": "solaris/spatial_grid.py",
                 "language": "Python",
-                "lines_est": 220,
-                "desc": "Optimized broadphase spatial hashing for O(N) asteroid and projectile collision detection."
+                "lines_est": 240,
+                "desc": "O(1) bucket lookups for high-density asteroid fields, projectile sweeps, and elastic impulse collision resolution."
             },
             {
                 "phase_num": 3,
-                "name": "Real-time Flight HUD & Trajectory Predictor",
+                "subsystem": "Flight HUD & Navigation",
+                "name": "Orbital Telemetry HUD & Trajectory Vector Predictor",
                 "entity": "solaris/hud.js",
                 "language": "JavaScript",
-                "lines_est": 250,
-                "desc": "Canvas 2D HUD telemetry displaying velocity vectors, orbital apoapsis/periapsis, and radar minimap."
+                "lines_est": 280,
+                "desc": "Real-time vector flight instrumentation, apoapsis/periapsis calculation, target station distance, and radar minimap."
             },
             {
                 "phase_num": 4,
-                "name": "Synthesized Web Audio Engine & Particle Thrusters",
+                "subsystem": "Audio DSP & Acoustics",
+                "name": "Synthesized Web Audio DSP Engine & Thruster Soundscape",
                 "entity": "solaris/audio_synth.js",
                 "language": "JavaScript",
-                "lines_est": 210,
-                "desc": "Custom oscillator frequency modulation, white-noise filters, and particle physics exhaust."
+                "lines_est": 230,
+                "desc": "Zero-dependency procedural sound synthesis, oscillator frequency ramps, white-noise filters, and docking chimes."
             },
             {
                 "phase_num": 5,
-                "name": "Automated Unit Tests & Physics Verification Suite",
-                "entity": "solaris/test_physics.py",
-                "language": "Python",
-                "lines_est": 160,
-                "desc": "Comprehensive automated test assertions verifying circular and escape velocity formulas."
-            }
-        ]
-    },
-    {
-        "id": "hyperion-distributed-raft",
-        "name": "Hyperion Distributed Raft Consensus Engine",
-        "category": "Distributed Systems & Systems Programming",
-        "stack": ["Go", "Docker", "Prometheus", "SQL"],
-        "target_dir": "projects/hyperion_raft",
-        "phases": [
-            {
-                "phase_num": 1,
-                "name": "Raft Finite State Machine & Log Replication",
-                "entity": "pkg/consensus/raft_fsm.go",
-                "language": "Go",
-                "lines_est": 280,
-                "desc": "Leader election, log term indexing, heartbeat synchronization, and quorum validation."
-            },
-            {
-                "phase_num": 2,
-                "name": "Write-Ahead Log (WAL) & Disk Persistence",
-                "entity": "pkg/storage/wal_engine.go",
-                "language": "Go",
-                "lines_est": 240,
-                "desc": "Segmented append-only disk logging with CRC32 checksum verification and snapshotting."
-            },
-            {
-                "phase_num": 3,
-                "name": "Asynchronous RPC Cluster Network Transport",
-                "entity": "pkg/network/rpc_transport.go",
-                "language": "Go",
+                "subsystem": "Graphics & Particle Shaders",
+                "name": "WebGL Specular Canvas & Dynamic Particle Dynamics",
+                "entity": "solaris/particles.js",
+                "language": "JavaScript",
                 "lines_est": 260,
-                "desc": "TCP connection multiplexing, keep-alive probes, and non-blocking channel dispatch."
+                "desc": "GPU-accelerated particle life-cycle, plasma exhaust trails, asteroid fragment explosions, and starfield parallax."
             },
             {
-                "phase_num": 4,
-                "name": "Cluster Benchmark & Fault-Tolerance Tests",
-                "entity": "tests/cluster_chaos_test.go",
-                "language": "Go",
-                "lines_est": 190,
-                "desc": "Simulated network partitions, leader crashes, and linearizable read verification."
-            }
-        ]
-    },
-    {
-        "id": "neural-latent-transformer",
-        "name": "Neural Latent Attention & RoPE Transformer",
-        "category": "Artificial Intelligence & ML",
-        "stack": ["Python", "PyTorch", "CUDA", "FastAPI"],
-        "target_dir": "projects/neural_transformer",
-        "phases": [
-            {
-                "phase_num": 1,
-                "name": "Rotary Positional Embeddings (RoPE) Module",
-                "entity": "models/attention/rope_embedding.py",
+                "phase_num": 6,
+                "subsystem": "Multiplayer & Network Sync",
+                "name": "Real-Time WebSocket State Sync & Dead Reckoning Protocol",
+                "entity": "solaris/network_sync.py",
                 "language": "Python",
-                "lines_est": 210,
-                "desc": "Complex rotary frequency caching for arbitrary sequence length extrapolation."
+                "lines_est": 290,
+                "desc": "Client-side prediction, delta compression, lag compensation, and authoritative orbital state broadcasting."
             },
             {
-                "phase_num": 2,
-                "name": "Multi-Head Latent Compression Layers",
-                "entity": "models/layers/latent_attention.py",
+                "phase_num": 7,
+                "subsystem": "Autonomous AI Behaviors",
+                "name": "Spacecraft AI Navigation & Gravitational Slingshot Pathfinding",
+                "entity": "solaris/ai_navigation.py",
                 "language": "Python",
                 "lines_est": 270,
-                "desc": "Low-rank key-value projection and FlashAttention kernel bindings."
+                "desc": "Behavior tree autonomous navigation, orbital transfer burns, collision avoidance around gravity wells, and patrol boids."
+            },
+            {
+                "phase_num": 8,
+                "subsystem": "Automated Testing",
+                "name": "Automated Physics Test Suites & Mathematical Verification",
+                "entity": "solaris/test_physics.py",
+                "language": "Python",
+                "lines_est": 180,
+                "desc": "100% automated test coverage verifying conservation of energy, orbital angular momentum, and collision impulses."
+            },
+            {
+                "phase_num": 9,
+                "subsystem": "Sandbox & Level Tooling",
+                "name": "Interactive Solar System Visualizer & Starfield Sandbox",
+                "entity": "solaris/index.html",
+                "language": "HTML5 / Canvas",
+                "lines_est": 520,
+                "desc": "Complete playable 60 FPS flight game, live mission directives, asteroid mining, and space station docking."
+            },
+            {
+                "phase_num": 10,
+                "subsystem": "Documentation & Benchmarks",
+                "name": "Systems Architecture Specifications & Performance Profiling",
+                "entity": "solaris/README.md",
+                "language": "Markdown",
+                "lines_est": 210,
+                "desc": "Comprehensive engineering specification, mathematical derivations, controls guide, and benchmark reports."
+            }
+        ]
+    },
+    {
+        "id": "aetherius-neural-inference",
+        "name": "Aetherius Distributed AI Model Inference & Speculative Decoding Gateway",
+        "category": "Artificial Intelligence & Distributed Inference",
+        "stack": ["Python", "FastAPI", "PyTorch", "CUDA", "Pydantic", "Redis"],
+        "target_dir": "projects/aetherius_ai",
+        "phases": [
+            {
+                "phase_num": 1,
+                "subsystem": "Model Routing & Speculative Decoding",
+                "name": "Speculative Token Generation & Draft Model Verifier",
+                "entity": "aetherius/engine/speculative_sampler.py",
+                "language": "Python",
+                "lines_est": 310,
+                "desc": "Dual-model speculative inference with draft verification and acceptance probability modeling."
+            },
+            {
+                "phase_num": 2,
+                "subsystem": "KV-Cache Management",
+                "name": "Paged Attention KV-Cache Allocator & VRAM Optimization",
+                "entity": "aetherius/memory/paged_cache.py",
+                "language": "Python",
+                "lines_est": 280,
+                "desc": "Virtual memory paging for self-attention key-value tensors with zero copy fragmentation."
             },
             {
                 "phase_num": 3,
-                "name": "Distributed Training Loop & Optimizer Scheduler",
-                "entity": "training/trainer.py",
+                "subsystem": "API Gateway & Streaming",
+                "name": "High-Throughput SSE Token Streaming Server & Rate Limiter",
+                "entity": "aetherius/server/gateway.py",
                 "language": "Python",
-                "lines_est": 250,
-                "desc": "Mixed-precision FP16/BF16 training, cosine decay with linear warmup, and gradient clipping."
+                "lines_est": 260,
+                "desc": "Asynchronous event stream broadcaster with token bucket queuing and client telemetry."
             },
             {
                 "phase_num": 4,
-                "name": "Inference Microservice API & Benchmarking",
-                "entity": "api/inference_service.py",
+                "subsystem": "Benchmarking & Eval",
+                "name": "Latency Profiler, TTFT Benchmarks, and Perplexity Assertions",
+                "entity": "aetherius/tests/benchmark_eval.py",
                 "language": "Python",
-                "lines_est": 200,
-                "desc": "Async token streaming endpoints, KV-cache management, and latency profiling."
+                "lines_est": 210,
+                "desc": "Time-to-first-token (TTFT) metrics, throughput p99 profiling, and automated response verification."
+            }
+        ]
+    },
+    {
+        "id": "zkp-verification-engine",
+        "name": "ZKP Polynomial Commitment & Formal Cryptographic Verification Engine",
+        "category": "Mathematical Cryptography & Formal Verification",
+        "stack": ["Rust", "Python", "Mathematical Finite Fields", "WebAssembly"],
+        "target_dir": "projects/zkp_verification",
+        "phases": [
+            {
+                "phase_num": 1,
+                "subsystem": "Finite Field Arithmetic",
+                "name": "Galois Field GF(2^256) & Elliptic Curve Group Operations",
+                "entity": "zkp/core/finite_field.rs",
+                "language": "Rust",
+                "lines_est": 340,
+                "desc": "Montgomery multiplication, projective coordinate addition, and scalar multiplication algorithms."
+            },
+            {
+                "phase_num": 2,
+                "subsystem": "Polynomial Commitments",
+                "name": "KZG Polynomial Commitment Scheme & Fast Fourier Transforms",
+                "entity": "zkp/commitments/kzg_prover.rs",
+                "language": "Rust",
+                "lines_est": 320,
+                "desc": "Radix-2 Cooley-Tukey NTT/FFT polynomial evaluations, trusted setup verification, and opening proofs."
+            },
+            {
+                "phase_num": 3,
+                "subsystem": "Circuit Compiler",
+                "name": "R1CS Rank-1 Constraint System Constraint Builder & Solver",
+                "entity": "zkp/circuit/r1cs_compiler.py",
+                "language": "Python",
+                "lines_est": 290,
+                "desc": "Arithmetic circuit synthesis, witness generation, and QAP (Quadratic Arithmetic Program) reductions."
+            },
+            {
+                "phase_num": 4,
+                "subsystem": "Verification & Tests",
+                "name": "Non-Interactive Zero-Knowledge (NIZK) Proof Verifier & Tests",
+                "entity": "zkp/tests/test_verifier.rs",
+                "language": "Rust",
+                "lines_est": 240,
+                "desc": "Pairing-friendly bilinear map verification verifying zero-knowledge soundness and completeness."
             }
         ]
     }
 ]
 
 class BigProjectScheduler:
-    """Manages long-term major project development cycles."""
+    """Manages deep 238-hour software project engineering roadmaps."""
 
     def __init__(self):
         self.blueprints = BIG_PROJECT_BLUEPRINTS
@@ -149,7 +208,6 @@ class BigProjectScheduler:
         self.total_major_milestones_completed = 0
 
     def get_current_task(self) -> Dict[str, Any]:
-        """Returns the active major project and phase task."""
         project = self.blueprints[self.current_project_idx]
         phase = project["phases"][self.current_phase_idx]
 
@@ -161,6 +219,7 @@ class BigProjectScheduler:
             "target_dir": project["target_dir"],
             "phase_num": phase["phase_num"],
             "total_phases": len(project["phases"]),
+            "subsystem": phase.get("subsystem", "Core"),
             "phase_name": phase["name"],
             "entity": phase["entity"],
             "language": phase["language"],
@@ -169,14 +228,12 @@ class BigProjectScheduler:
         }
 
     def advance_phase(self) -> Dict[str, Any]:
-        """Advances to the next milestone in the major project."""
         project = self.blueprints[self.current_project_idx]
         self.total_major_milestones_completed += 1
         self.current_phase_idx += 1
 
         completed_phase = project["phases"][self.current_phase_idx - 1]
 
-        # Check if project completed
         if self.current_phase_idx >= len(project["phases"]):
             self.current_phase_idx = 0
             self.current_project_idx = (self.current_project_idx + 1) % len(self.blueprints)

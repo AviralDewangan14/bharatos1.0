@@ -128,6 +128,67 @@
             </div>
         </header>
 
+        <!-- 238-Hour Grandmaster Goal Tracker Card -->
+        <div class="glass-panel glow-cyan p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800">
+                <div class="flex items-center space-x-3">
+                    <span class="text-xl">🎯</span>
+                    <div>
+                        <h2 class="text-sm font-extrabold tracking-tight text-white uppercase font-mono">MISSION TARGET: 238 HOURS CODING PINNACLE</h2>
+                        <p class="text-[11px] text-slate-400">Deep Multi-Tier Architecture • Max Stardust & Doubloon Exchange Rating</p>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-3 text-xs font-mono">
+                    <span class="text-slate-400">Progress: <b id="tracker-pct" class="text-cyan-300 font-extrabold text-sm">0.0%</b></span>
+                    <span class="text-slate-500">•</span>
+                    <span class="text-slate-400">Est. 24/7 Time Left: <b id="tracker-days-left" class="text-emerald-400 font-bold">~9.9 Days</b></span>
+                </div>
+            </div>
+
+            <!-- Glowing Progress Bar -->
+            <div class="space-y-1.5">
+                <div class="flex justify-between text-xs font-mono">
+                    <span class="text-slate-300">Tracked: <b id="tracker-hours-current" class="text-emerald-400 font-bold">0.0 hrs</b></span>
+                    <span class="text-slate-400">Target Goal: <b class="text-white font-bold">238.0 hrs</b> (Projected: <b class="text-amber-400">⭐ 6,854 Stardust</b>)</span>
+                </div>
+                <div class="w-full bg-slate-950/80 rounded-full h-3.5 p-0.5 border border-slate-800 overflow-hidden shadow-inner">
+                    <div id="tracker-progress-bar" class="bg-gradient-to-r from-cyan-500 via-teal-400 to-emerald-400 h-full rounded-full transition-all duration-700 shadow-lg shadow-cyan-500/30" style="width: 2%"></div>
+                </div>
+            </div>
+
+            <!-- 4 Milestone Tiers -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-1">
+                <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between text-[11px]">
+                    <div class="flex items-center justify-between text-slate-400 font-mono">
+                        <span>🥉 50h Milestone</span>
+                        <span id="tier-50h" class="text-slate-500">PENDING</span>
+                    </div>
+                    <span class="text-slate-300 font-semibold mt-1">⭐ 1,440 Stardust</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between text-[11px]">
+                    <div class="flex items-center justify-between text-slate-400 font-mono">
+                        <span>🥈 100h Milestone</span>
+                        <span id="tier-100h" class="text-slate-500">PENDING</span>
+                    </div>
+                    <span class="text-slate-300 font-semibold mt-1">⭐ 2,880 Stardust</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col justify-between text-[11px]">
+                    <div class="flex items-center justify-between text-slate-400 font-mono">
+                        <span>🥇 175h Milestone</span>
+                        <span id="tier-175h" class="text-slate-500">PENDING</span>
+                    </div>
+                    <span class="text-slate-300 font-semibold mt-1">⭐ 5,040 Stardust</span>
+                </div>
+                <div class="p-2.5 rounded-xl bg-slate-900/80 border border-emerald-500/30 bg-emerald-950/10 flex flex-col justify-between text-[11px]">
+                    <div class="flex items-center justify-between text-emerald-400 font-mono font-bold">
+                        <span>🏆 238h Pinnacle</span>
+                        <span id="tier-238h" class="text-emerald-400">TARGET</span>
+                    </div>
+                    <span class="text-emerald-300 font-extrabold mt-1">⭐ 6,854 Stardust</span>
+                </div>
+            </div>
+        </div>
+
         <!-- Master Bento Grid: 4 Core Quadrants -->
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             
@@ -386,6 +447,25 @@
             if (data.stardust_metrics) {
                 document.getElementById('stat-stardust-yield').textContent = `⭐ ${data.stardust_metrics.stardust_estimated} Stardust`;
                 document.getElementById('stat-doubloons').textContent = `${data.stardust_metrics.doubloons_estimated}`;
+
+                // 238-Hour Goal Tracker
+                document.getElementById('tracker-pct').textContent = `${data.stardust_metrics.progress_pct}%`;
+                document.getElementById('tracker-hours-current').textContent = `${data.stardust_metrics.hours_tracked} hrs`;
+                document.getElementById('tracker-days-left').textContent = `~${data.stardust_metrics.days_remaining_24_7} Days`;
+                document.getElementById('tracker-progress-bar').style.width = `${Math.max(1.5, data.stardust_metrics.progress_pct)}%`;
+
+                // Milestones
+                const hrs = data.stardust_metrics.hours_tracked;
+                document.getElementById('tier-50h').textContent = hrs >= 50 ? '✓ REACHED' : 'PENDING';
+                document.getElementById('tier-50h').className = hrs >= 50 ? 'text-emerald-400 font-bold' : 'text-slate-500';
+
+                document.getElementById('tier-100h').textContent = hrs >= 100 ? '✓ REACHED' : 'PENDING';
+                document.getElementById('tier-100h').className = hrs >= 100 ? 'text-emerald-400 font-bold' : 'text-slate-500';
+
+                document.getElementById('tier-175h').textContent = hrs >= 175 ? '✓ REACHED' : 'PENDING';
+                document.getElementById('tier-175h').className = hrs >= 175 ? 'text-emerald-400 font-bold' : 'text-slate-500';
+
+                document.getElementById('tier-238h').textContent = hrs >= 238 ? '🏆 UNLOCKED' : 'TARGET';
             }
 
             // Survival Metrics
