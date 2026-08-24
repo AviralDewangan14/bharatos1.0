@@ -18,6 +18,7 @@ from survival_agent.survival_core import survival_core
 
 STATIC_DIR = Path(__file__).parent / "static"
 SOLARIS_DIR = Path(__file__).parent / "solaris"
+BHARATOS_DIR = Path(__file__).parent / "bharatos"
 
 class MasterDashboardHandler(SimpleHTTPRequestHandler):
     """Custom HTTP request handler with unified REST API and static asset routing."""
@@ -46,6 +47,18 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/api/status":
             self._send_json_response(master_daemon.get_master_status())
+        elif self.path in ("/bharatos", "/os", "/bharat"):
+            os_path = BHARATOS_DIR / "index.html"
+            if os_path.exists():
+                with open(os_path, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(content)))
+                self.end_headers()
+                self.wfile.write(content)
+            else:
+                self.send_error(404, "BharatOS HTML not found")
         elif self.path in ("/game", "/solaris", "/play"):
             game_path = SOLARIS_DIR / "index.html"
             if game_path.exists():

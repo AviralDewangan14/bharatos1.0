@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BharatOS — Sovereign Desktop Operating System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        saffron: '#ff9933',
+                        indiaGreen: '#138808',
+                        navyAshoka: '#000080',
+                        obsidian: '#070b12',
+                        surface: '#0d1527',
+                        glass: 'rgba(15, 23, 42, 0.75)'
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        mono: ['"Fira Code"', 'monospace']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        body {
+            background-color: #070b12;
+            color: #f8fafc;
+            height: 100vh;
+            overflow: hidden;
+            background-image: 
+                radial-gradient(at 10% 10%, rgba(255, 153, 51, 0.12) 0px, transparent 45%),
+                radial-gradient(at 90% 90%, rgba(19, 136, 8, 0.12) 0px, transparent 45%),
+                radial-gradient(at 50% 50%, rgba(0, 0, 128, 0.08) 0px, transparent 60%);
+            user-select: none;
+        }
+
+        .glass-os {
+            background: rgba(15, 23, 42, 0.82);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        .window-shadow {
+            box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.12);
+        }
+
+        .custom-scroll::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        .custom-scroll::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.6);
+        }
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 3px;
+        }
+
+        .pulse-chakra {
+            animation: spin-slow 20s linear infinite;
+        }
+        @keyframes spin-slow {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="font-sans antialiased flex flex-col justify-between">
+
+    <!-- Top Status Bar -->
+    <nav class="glass-os px-4 py-2 flex items-center justify-between z-40 border-b border-slate-800/80 text-xs">
+        <div class="flex items-center space-x-3">
+            <button onclick="toggleStartMenu()" class="flex items-center space-x-2 px-2.5 py-1 rounded-lg bg-saffron/20 hover:bg-saffron/30 border border-saffron/40 text-saffron font-bold transition-all active:scale-95">
+                <span class="text-sm">🇮🇳</span>
+                <span>BharatOS</span>
+            </button>
+            <span class="text-slate-500">|</span>
+            <span id="os-welcome-banner" class="text-slate-300 font-medium">भारत ओएस में आपका स्वागत है</span>
+        </div>
+
+        <div class="flex items-center space-x-4">
+            <!-- Language Selector -->
+            <select id="lang-selector" onchange="changeLanguage(this.value)" class="bg-slate-900 border border-slate-700 text-slate-200 text-xs rounded-lg px-2.5 py-1 focus:outline-none focus:border-saffron font-medium">
+                <option value="hi">हिन्दी (Hindi)</option>
+                <option value="en">English</option>
+                <option value="ta">தமிழ் (Tamil)</option>
+                <option value="te">తెలుగు (Telugu)</option>
+                <option value="bn">বাংলা (Bengali)</option>
+                <option value="mr">मराठी (Marathi)</option>
+                <option value="gu">ગુજરાતી (Gujarati)</option>
+                <option value="kn">ಕನ್ನಡ (Kannada)</option>
+                <option value="ml">മലയാളം (Malayalam)</option>
+                <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+            </select>
+
+            <!-- Kavach Shield Status -->
+            <div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-lg bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px]">
+                <span>🛡️</span>
+                <span>KAVACH: SOVEREIGN (ZERO TELEMETRY)</span>
+            </div>
+
+            <!-- Indian Standard Time (IST) Clock -->
+            <div id="ist-clock" class="font-mono text-slate-200 font-semibold px-2 py-0.5 rounded bg-slate-900/80 border border-slate-800">
+                --:--:-- IST
+            </div>
+        </div>
+    </nav>
+
+    <!-- Desktop Workspace Canvas -->
+    <main id="desktop-area" class="relative flex-1 p-6 grid grid-cols-1 md:grid-cols-6 gap-6 z-10 overflow-hidden" onclick="handleDesktopClick(event)">
+        
+        <!-- Desktop Shortcuts -->
+        <div class="flex flex-col space-y-4 w-28">
+            <button onclick="openWindow('terminal-window')" class="flex flex-col items-center p-3 rounded-2xl bg-slate-900/40 hover:bg-slate-800/80 border border-slate-800/60 transition-all hover:scale-105 active:scale-95 group text-center">
+                <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">💻</span>
+                <span class="text-xs text-slate-200 font-medium truncate w-full">Terminal</span>
+            </button>
+
+            <button onclick="openWindow('code-window')" class="flex flex-col items-center p-3 rounded-2xl bg-slate-900/40 hover:bg-slate-800/80 border border-slate-800/60 transition-all hover:scale-105 active:scale-95 group text-center">
+                <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">⚡</span>
+                <span class="text-xs text-slate-200 font-medium truncate w-full">Code Studio</span>
+            </button>
+
+            <button onclick="openWindow('kavach-window')" class="flex flex-col items-center p-3 rounded-2xl bg-slate-900/40 hover:bg-slate-800/80 border border-slate-800/60 transition-all hover:scale-105 active:scale-95 group text-center">
+                <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🛡️</span>
+                <span class="text-xs text-slate-200 font-medium truncate w-full">Kavach Shield</span>
+            </button>
+
+            <button onclick="openWindow('solaris-window')" class="flex flex-col items-center p-3 rounded-2xl bg-slate-900/40 hover:bg-slate-800/80 border border-slate-800/60 transition-all hover:scale-105 active:scale-95 group text-center">
+                <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">🚀</span>
+                <span class="text-xs text-slate-200 font-medium truncate w-full">Solaris Game</span>
+            </button>
+
+            <button onclick="openWindow('files-window')" class="flex flex-col items-center p-3 rounded-2xl bg-slate-900/40 hover:bg-slate-800/80 border border-slate-800/60 transition-all hover:scale-105 active:scale-95 group text-center">
+                <span class="text-3xl mb-1 group-hover:scale-110 transition-transform">📁</span>
+                <span class="text-xs text-slate-200 font-medium truncate w-full">Sovereign VFS</span>
+            </button>
+        </div>
+
+        <!-- Center Watermark Logo -->
+        <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none opacity-20 z-0">
+            <div class="w-48 h-48 rounded-full border-4 border-dashed border-cyan-400/40 flex items-center justify-center pulse-chakra mb-4">
+                <span class="text-6xl">☸️</span>
+            </div>
+            <h1 class="text-4xl font-black tracking-widest text-white uppercase font-mono">BHARAT OS</h1>
+            <p class="text-xs text-slate-400 mt-1 font-mono">SOVEREIGN PC OPERATING SYSTEM • ATMANIRBHAR CORE</p>
+        </div>
+
+        <!-- WINDOW 1: Bharat Sovereign Terminal -->
+        <div id="terminal-window" class="absolute top-12 left-36 w-[640px] h-[400px] glass-os window-shadow rounded-2xl flex flex-col overflow-hidden z-20 hidden">
+            <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-move">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeWindow('terminal-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono text-slate-300 ml-2">bharat-terminal — sovereign@bharatos:~</span>
+                </div>
+                <span class="text-[11px] font-mono text-cyan-400">v2.4 LTS</span>
+            </div>
+            <div class="flex-1 bg-slate-950/95 p-4 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-2" id="terminal-output">
+                <div class="text-saffron font-bold">BharatOS Sovereign Terminal (v2.4.0-Swaraj)</div>
+                <div class="text-slate-400">Type <span class="text-cyan-400 font-bold">'help'</span> for commands or <span class="text-cyan-400 font-bold">'kavach'</span> for security diagnostics.</div>
+                <div class="text-emerald-400">● 100% Local Execution • Zero Foreign Telemetry Active</div>
+            </div>
+            <div class="p-2.5 bg-slate-900/90 border-t border-slate-800 flex items-center space-x-2 font-mono text-xs">
+                <span class="text-emerald-400 font-bold">sovereign@bharatos:~$</span>
+                <input id="terminal-input" type="text" class="flex-1 bg-transparent border-none outline-none text-white font-mono" autofocus onkeydown="handleTerminalKey(event)">
+            </div>
+        </div>
+
+        <!-- WINDOW 2: Indic Code Studio -->
+        <div id="code-window" class="absolute top-16 left-48 w-[680px] h-[440px] glass-os window-shadow rounded-2xl flex flex-col overflow-hidden z-20 hidden">
+            <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-move">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeWindow('code-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono text-slate-300 ml-2">Indic Code Studio — /home/user/projects/orbit.py</span>
+                </div>
+                <button onclick="runCode()" class="px-3 py-0.5 rounded-lg bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-xs font-mono font-bold hover:bg-emerald-500/30">▶ Run</button>
+            </div>
+            <div class="flex-1 flex flex-col bg-slate-950/95">
+                <textarea id="code-editor-area" class="flex-1 p-4 bg-transparent text-slate-200 font-mono text-xs resize-none outline-none custom-scroll leading-relaxed" spellcheck="false"># BharatOS Sovereign Python 3.12 Core
+import math
+
+def calculate_orbital_velocity(mass_kg=5.972e24, radius_m=6.371e6):
+    """Calculates circular orbital velocity in meters/second."""
+    G = 6.67430e-11
+    v_circ = math.sqrt((G * mass_kg) / radius_m)
+    return round(v_circ, 2)
+
+print(f"🇮🇳 BharatOS Space Engine: Orbital Speed = {calculate_orbital_velocity()} m/s")
+print("✓ Sovereignty Status: Verified 100% Local")
+</textarea>
+                <div id="code-console" class="h-24 bg-slate-900/90 p-3 border-t border-slate-800 font-mono text-xs text-slate-400 custom-scroll overflow-y-auto">
+                    <div>Console Output: Ready</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 3: Kavach Security Shield -->
+        <div id="kavach-window" class="absolute top-20 left-60 w-[580px] h-[380px] glass-os window-shadow rounded-2xl flex flex-col overflow-hidden z-20 hidden">
+            <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-move">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeWindow('kavach-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono text-slate-300 ml-2">Kavach Zero-Trust Security Shield</span>
+                </div>
+                <span class="text-xs font-mono text-emerald-400 font-bold">● ACTIVE</span>
+            </div>
+            <div class="flex-1 bg-slate-950/95 p-6 space-y-4 font-mono text-xs custom-scroll overflow-y-auto">
+                <div class="grid grid-cols-2 gap-4">
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-slate-400 text-[11px]">Foreign Telemetry Blocked</div>
+                        <div class="text-2xl font-black text-emerald-400 mt-1">4,280 Probes</div>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800">
+                        <div class="text-slate-400 text-[11px]">Hardware Cipher</div>
+                        <div class="text-sm font-bold text-cyan-300 mt-2">AES-256-GCM</div>
+                    </div>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 space-y-2">
+                    <div class="text-slate-300 font-bold">Sovereignty Checklist</div>
+                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>Big Tech Telemetry: Neutralized</span></div>
+                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>Data Residency: 100% On-Device</span></div>
+                    <div class="text-emerald-400 flex items-center space-x-2"><span>✓</span><span>DNS Resolver: Sovereign Local Stack</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- WINDOW 4: Solaris Space Game Launcher -->
+        <div id="solaris-window" class="absolute top-10 left-20 w-[780px] h-[520px] glass-os window-shadow rounded-2xl flex flex-col overflow-hidden z-20 hidden">
+            <div class="px-4 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-move">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeWindow('solaris-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono text-slate-300 ml-2">Solaris Orbital Flight Simulator</span>
+                </div>
+                <a href="/game" target="_blank" class="text-xs text-cyan-400 hover:underline font-mono font-bold">Popout Fullscreen ↗</a>
+            </div>
+            <div class="flex-1 bg-black">
+                <iframe src="/game" class="w-full h-full border-none"></iframe>
+            </div>
+        </div>
+
+        <!-- WINDOW 5: Sovereign VFS File Manager -->
+        <div id="files-window" class="absolute top-24 left-72 w-[540px] h-[360px] glass-os window-shadow rounded-2xl flex flex-col overflow-hidden z-20 hidden">
+            <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between cursor-move">
+                <div class="flex items-center space-x-2">
+                    <span class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeWindow('files-window')"></span>
+                    <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                    <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                    <span class="text-xs font-mono text-slate-300 ml-2">Sovereign File Manager — /home/user</span>
+                </div>
+            </div>
+            <div class="flex-1 bg-slate-950/95 p-4 grid grid-cols-3 gap-4 font-mono text-xs">
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:bg-slate-800/80">
+                    <span class="text-3xl mb-1">📁</span>
+                    <span class="text-slate-200">documents</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:bg-slate-800/80">
+                    <span class="text-3xl mb-1">📁</span>
+                    <span class="text-slate-200">projects</span>
+                </div>
+                <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800 flex flex-col items-center text-center cursor-pointer hover:bg-slate-800/80">
+                    <span class="text-3xl mb-1">📄</span>
+                    <span class="text-slate-200">readme.txt</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Bottom Dock / Taskbar -->
+    <footer class="glass-os mx-auto mb-4 px-6 py-2.5 rounded-2xl flex items-center space-x-4 z-40 border border-slate-800/80">
+        <button onclick="toggleStartMenu()" class="p-2 rounded-xl bg-saffron/20 hover:bg-saffron/30 border border-saffron/40 text-saffron transition-all hover:scale-110 active:scale-95">
+            <span class="text-xl">🇮🇳</span>
+        </button>
+        <div class="h-6 w-px bg-slate-800"></div>
+        <button onclick="openWindow('terminal-window')" class="p-2 rounded-xl hover:bg-slate-800/80 transition-all hover:scale-110 active:scale-95 text-xl" title="Terminal">💻</button>
+        <button onclick="openWindow('code-window')" class="p-2 rounded-xl hover:bg-slate-800/80 transition-all hover:scale-110 active:scale-95 text-xl" title="Code Studio">⚡</button>
+        <button onclick="openWindow('kavach-window')" class="p-2 rounded-xl hover:bg-slate-800/80 transition-all hover:scale-110 active:scale-95 text-xl" title="Kavach Shield">🛡️</button>
+        <button onclick="openWindow('solaris-window')" class="p-2 rounded-xl hover:bg-slate-800/80 transition-all hover:scale-110 active:scale-95 text-xl" title="Solaris Space Flight">🚀</button>
+        <button onclick="openWindow('files-window')" class="p-2 rounded-xl hover:bg-slate-800/80 transition-all hover:scale-110 active:scale-95 text-xl" title="File Manager">📁</button>
+    </footer>
+
+    <!-- Start Menu Flyout -->
+    <div id="start-menu" class="absolute bottom-16 left-6 w-72 glass-os window-shadow rounded-2xl p-4 space-y-3 z-50 hidden border border-slate-700">
+        <div class="flex items-center space-x-3 pb-3 border-b border-slate-800">
+            <span class="text-2xl">🇮🇳</span>
+            <div>
+                <div class="text-sm font-bold text-white">BharatOS Sovereign</div>
+                <div class="text-[11px] text-slate-400 font-mono">v2026.1 LTS 'Swaraj'</div>
+            </div>
+        </div>
+        <div class="space-y-1 text-xs">
+            <button onclick="openWindow('terminal-window'); toggleStartMenu();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 flex items-center space-x-2 text-slate-200">
+                <span>💻</span><span>Bharat Terminal</span>
+            </button>
+            <button onclick="openWindow('code-window'); toggleStartMenu();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 flex items-center space-x-2 text-slate-200">
+                <span>⚡</span><span>Indic Code Studio</span>
+            </button>
+            <button onclick="openWindow('kavach-window'); toggleStartMenu();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 flex items-center space-x-2 text-slate-200">
+                <span>🛡️</span><span>Kavach Security Shield</span>
+            </button>
+            <button onclick="openWindow('solaris-window'); toggleStartMenu();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 flex items-center space-x-2 text-slate-200">
+                <span>🚀</span><span>Solaris Space Simulator</span>
+            </button>
+            <button onclick="openWindow('files-window'); toggleStartMenu();" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-800/80 flex items-center space-x-2 text-slate-200">
+                <span>📁</span><span>File Explorer</span>
+            </button>
+        </div>
+        <div class="pt-2 border-t border-slate-800 text-[11px] text-slate-400 text-center font-mono">
+            Atmanirbhar Bharat • 100% Privacy
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        const LANG_DICT = {
+            hi: "भारत ओएस में आपका स्वागत है",
+            en: "Welcome to BharatOS Sovereign",
+            ta: "பாரத் ஓஎஸ்-க்கு வரவேற்கிறோம்",
+            te: "భారత్ ఓఎస్‌కు స్వాగతం",
+            bn: "ভারত ওএস-এ স্বাগতম",
+            mr: "भारत ओएस मध्ये आपले स्वागत आहे",
+            gu: "ભારત ઓએસમાં આપનું સ્વાગત છે",
+            kn: "ಭಾರತ್ ಓಎಸ್‌ಗೆ ಸುಸ್ವಾಗತ",
+            ml: "ഭാരത് ഒഎസിലേക്ക് സ്വാഗതം",
+            pa: "ਭਾਰਤ ਓਐਸ ਵਿੱਚ ਜੀ ਆਇਆਂ ਨੂੰ"
+        };
+
+        function changeLanguage(langCode) {
+            const welcomeText = LANG_DICT[langCode] || LANG_DICT.en;
+            document.getElementById('os-welcome-banner').textContent = welcomeText;
+        }
+
+        function updateClock() {
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('en-IN', { hour12: false });
+            document.getElementById('ist-clock').textContent = `${timeStr} IST`;
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        function toggleStartMenu() {
+            document.getElementById('start-menu').classList.toggle('hidden');
+        }
+
+        function openWindow(winId) {
+            const el = document.getElementById(winId);
+            if (el) el.classList.remove('hidden');
+        }
+
+        function closeWindow(winId) {
+            const el = document.getElementById(winId);
+            if (el) el.classList.add('hidden');
+        }
+
+        function handleDesktopClick(e) {
+            const startMenu = document.getElementById('start-menu');
+            if (!startMenu.contains(e.target) && !e.target.closest('button[onclick*="toggleStartMenu"]')) {
+                startMenu.classList.add('hidden');
+            }
+        }
+
+        function handleTerminalKey(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('terminal-input');
+                const val = input.value.trim();
+                if (!val) return;
+                input.value = '';
+
+                const out = document.getElementById('terminal-output');
+                out.innerHTML += `<div><span class="text-emerald-400">sovereign@bharatos:~$</span> ${val}</div>`;
+
+                if (val === 'help') {
+                    out.innerHTML += `<div class="text-cyan-300">Commands: help, kavach, sysinfo, ls, solaris, clear, neofetch</div>`;
+                } else if (val === 'kavach') {
+                    out.innerHTML += `<div class="text-emerald-400">🛡️ Kavach Status: 100% Secure • 4,280 telemetry probes neutralized.</div>`;
+                } else if (val === 'sysinfo' || val === 'neofetch') {
+                    out.innerHTML += `
+                        <div class="text-saffron font-bold">OS: BharatOS 2026.1 LTS 'Swaraj'</div>
+                        <div class="text-slate-300">Kernel: Bharat-Microkernel v3.2 (x86_64 Sovereign)</div>
+                        <div class="text-slate-300">Security: Kavach Zero-Trust Active</div>
+                        <div class="text-slate-300">Memory: 42 MB / 16384 MB (Ultra-Lightweight)</div>
+                    `;
+                } else if (val === 'ls') {
+                    out.innerHTML += `<div class="text-slate-300">documents/  projects/  readme.txt  kavach.cfg</div>`;
+                } else if (val === 'solaris') {
+                    openWindow('solaris-window');
+                    out.innerHTML += `<div class="text-cyan-300">Launching Solaris Space Flight Simulator...</div>`;
+                } else if (val === 'clear') {
+                    out.innerHTML = '';
+                } else {
+                    out.innerHTML += `<div class="text-rose-400">Command not recognized. Type 'help' for command list.</div>`;
+                }
+                out.scrollTop = out.scrollHeight;
+            }
+        }
+
+        function runCode() {
+            const consoleEl = document.getElementById('code-console');
+            consoleEl.innerHTML = `
+                <div class="text-emerald-400">▶ Executing on Sovereign Bharat Python 3.12 runtime...</div>
+                <div class="text-white">🇮🇳 BharatOS Space Engine: Orbital Speed = 7905.37 m/s</div>
+                <div class="text-cyan-300">✓ Sovereignty Status: Verified 100% Local (Zero Telemetry Leak)</div>
+            `;
+        }
+
+        // Open Terminal by default
+        openWindow('terminal-window');
+    </script>
+</body>
+</html>

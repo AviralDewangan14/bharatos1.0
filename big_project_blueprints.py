@@ -8,6 +8,69 @@ from typing import List, Dict, Any
 
 BIG_PROJECT_BLUEPRINTS: List[Dict[str, Any]] = [
     {
+        "id": "bharatos-sovereign-desktop",
+        "name": "BharatOS Sovereign PC Operating System & Prithvi Desktop Environment",
+        "category": "Operating Systems, Privacy & Sovereign Computing",
+        "stack": ["Python", "Rust", "C++", "HTML5/CSS3", "JavaScript", "WebAssembly"],
+        "target_dir": "bharatos",
+        "phases": [
+            {
+                "phase_num": 1,
+                "subsystem": "Kernel & Process Supervisor",
+                "name": "Microkernel Process Scheduler & Sovereign Virtual File System",
+                "entity": "bharatos/kernel.py",
+                "language": "Python",
+                "lines_est": 260,
+                "desc": "Implements zero-telemetry process supervision, virtual memory sandboxing, and VFS hierarchical routing."
+            },
+            {
+                "phase_num": 2,
+                "subsystem": "Kavach Security Shield",
+                "name": "Kavach Zero-Trust Telemetry Firewall & Hardware Cryptographic Layer",
+                "entity": "bharatos/security/kavach_firewall.py",
+                "language": "Python",
+                "lines_est": 290,
+                "desc": "Active probe blocker, AES-256-GCM local storage encryption, and sovereign DNS resolution stack."
+            },
+            {
+                "phase_num": 3,
+                "subsystem": "Desktop Compositor",
+                "name": "Prithvi Glassmorphic Desktop Environment & Window Manager",
+                "entity": "bharatos/index.html",
+                "language": "HTML5 / JavaScript",
+                "lines_est": 480,
+                "desc": "Ultra-lightweight 60 FPS window manager, Ashoka dock, start menu, and multitasking app canvas."
+            },
+            {
+                "phase_num": 4,
+                "subsystem": "Multilingual Indic Engine",
+                "name": "Indic Script Localization Engine & Phonetic Font Rasterizer",
+                "entity": "bharatos/i18n/indic_localizer.py",
+                "language": "Python",
+                "lines_est": 240,
+                "desc": "Native multilingual support across 10 Indian regional languages with runtime dynamic switching."
+            },
+            {
+                "phase_num": 5,
+                "subsystem": "Sovereign App Suite",
+                "name": "Bharat Terminal, Indic Code Studio IDE, and File Explorer",
+                "entity": "bharatos/apps/terminal.js",
+                "language": "JavaScript",
+                "lines_est": 310,
+                "desc": "Built-in developer CLI, in-browser code editor, and privacy-hardened file manager."
+            },
+            {
+                "phase_num": 6,
+                "subsystem": "Kernel Verification",
+                "name": "Automated Kernel Test Suites & Telemetry Leak Prevention Tests",
+                "entity": "bharatos/test_kernel.py",
+                "language": "Python",
+                "lines_est": 190,
+                "desc": "100% passing automated test assertions verifying zero external telemetry and memory isolation."
+            }
+        ]
+    },
+    {
         "id": "solaris-omniverse-ecosystem",
         "name": "Solaris Omniverse: 2D Space Flight Simulator & Distributed Engine",
         "category": "Physics, Game Engine & Distributed Systems",
