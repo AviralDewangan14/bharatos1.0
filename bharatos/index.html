@@ -262,19 +262,29 @@
             40%, 60% { transform: translate3d(6px, 0, 0); }
         }
 
-        /* ULTRA-MODERN LIQUID GLASS SURFACES */
+        /* =========================================================================
+           APPLE OS 26 & 27 HYPER-FLUID GLASS (VISIONOS / MACOS SPECULAR DEPTH)
+           ========================================================================= */
         .ultra-liquid-glass {
             background: var(--glass-bg);
-            backdrop-filter: blur(var(--glass-blur)) saturate(240%);
-            -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(240%);
+            backdrop-filter: blur(55px) saturate(280%) brightness(105%);
+            -webkit-backdrop-filter: blur(55px) saturate(280%) brightness(105%);
             border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow);
-            transition: transform 0.12s ease-out, box-shadow 0.2s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), background var(--trans-speed) ease;
+            border-radius: 24px;
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.45),
+                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2),
+                var(--glass-shadow);
+            transition: transform 0.15s ease-out, box-shadow 0.25s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), background var(--trans-speed) ease;
             transform-origin: bottom center;
+            position: relative;
         }
         .ultra-liquid-glass:hover {
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.22), 0 0 30px rgba(var(--accent-rgb), 0.12);
+            box-shadow: 
+                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.6),
+                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
+                0 35px 90px rgba(0, 0, 0, 0.28),
+                0 0 35px rgba(var(--accent-rgb), 0.18);
         }
 
         .specular-glow {
@@ -282,7 +292,7 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
+            background: radial-gradient(circle 420px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16), transparent 75%);
             mix-blend-mode: overlay;
         }
 
@@ -291,17 +301,18 @@
             display: inline-flex;
             align-items: center;
             gap: 7px;
-            padding: 4px 9px;
+            padding: 4px 10px;
             background: var(--controls-bg);
             border: 1px solid var(--controls-border);
             border-radius: 9999px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
         }
         .window-controls-capsule:hover {
-            background: rgba(255, 255, 255, 0.12);
-            border-color: rgba(255, 255, 255, 0.24);
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(255, 255, 255, 0.3);
         }
 
         .action-circle {
@@ -315,7 +326,7 @@
             position: relative;
             transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
             border: 1px solid transparent;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5);
         }
 
         .action-circle .circle-svg {
@@ -331,22 +342,80 @@
             transform: scale(1);
         }
 
-        .circle-close { background: rgba(244, 63, 94, 0.3); border-color: rgba(244, 63, 94, 0.5); color: #ffffff; }
-        .circle-close:hover { background: #f43f5e; border-color: #f43f5e; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(244, 63, 94, 0.6); }
+        .circle-close { background: rgba(244, 63, 94, 0.35); border-color: rgba(244, 63, 94, 0.6); color: #ffffff; }
+        .circle-close:hover { background: #f43f5e; border-color: #f43f5e; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(244, 63, 94, 0.7); }
 
-        .circle-min { background: rgba(245, 158, 11, 0.3); border-color: rgba(245, 158, 11, 0.5); color: #ffffff; }
-        .circle-min:hover { background: #f59e0b; border-color: #f59e0b; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(245, 158, 11, 0.6); }
+        .circle-min { background: rgba(245, 158, 11, 0.35); border-color: rgba(245, 158, 11, 0.6); color: #ffffff; }
+        .circle-min:hover { background: #f59e0b; border-color: #f59e0b; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(245, 158, 11, 0.7); }
 
-        .circle-max { background: rgba(16, 185, 129, 0.3); border-color: rgba(16, 185, 129, 0.5); color: #ffffff; }
-        .circle-max:hover { background: #10b981; border-color: #10b981; color: #ffffff; transform: scale(1.18); box-shadow: 0 0 12px rgba(16, 185, 129, 0.6); }
+        .circle-max { background: rgba(16, 185, 129, 0.35); border-color: rgba(16, 185, 129, 0.6); color: #ffffff; }
+        .circle-max:hover { background: #10b981; border-color: #10b981; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(16, 185, 129, 0.7); }
 
-        /* BHARAT ISLAND */
+        /* BHARAT ISLAND CONTROL */
         #dynamic-island-container {
             transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background var(--trans-speed) ease;
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(var(--accent-rgb), 0.18);
+            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(var(--accent-rgb), 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.35);
         }
         #dynamic-island-container.compact { width: 320px; height: 38px; border-radius: 9999px; padding: 4px 16px; }
         #dynamic-island-container.expanded { width: 580px; height: 250px; border-radius: 26px; padding: 18px 24px; }
+
+        /* APPLE-STYLE FLUID GLASS SWITCH TOGGLE */
+        .glass-toggle {
+            position: relative;
+            display: inline-block;
+            width: 44px;
+            height: 24px;
+            cursor: pointer;
+        }
+        .glass-toggle input { opacity: 0; width: 0; height: 0; }
+        .glass-toggle-slider {
+            position: absolute;
+            inset: 0;
+            background: rgba(148, 163, 184, 0.3);
+            border-radius: 9999px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(15px);
+        }
+        .glass-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 18px;
+            width: 18px;
+            left: 2px;
+            bottom: 2px;
+            background: #ffffff;
+            border-radius: 50%;
+            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+        input:checked + .glass-toggle-slider {
+            background: linear-gradient(135deg, #10b981, #059669);
+            border-color: #10b981;
+            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
+        }
+        input:checked + .glass-toggle-slider:before {
+            transform: translateX(20px);
+        }
+
+        /* RADAR SWEEP ANIMATION */
+        @keyframes radar-sweep {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .radar-beam {
+            transform-origin: center center;
+            animation: radar-sweep 4s linear infinite;
+        }
+
+        /* HOLOGRAM SHIELD GLOW */
+        @keyframes shield-float {
+            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4)); }
+            50% { transform: translateY(-6px) scale(1.03); filter: drop-shadow(0 0 45px rgba(16, 185, 129, 0.7)); }
+        }
+        .hologram-shield {
+            animation: shield-float 3s ease-in-out infinite;
+        }
 
         .window-open-genie { animation: app-expand 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
         .window-minimize-genie { animation: app-collapse 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
@@ -367,7 +436,7 @@
             left: 16px !important;
             width: calc(100vw - 32px) !important;
             height: calc(100vh - 104px) !important;
-            border-radius: 16px !important;
+            border-radius: 20px !important;
         }
 
         .horizon-taskbar {
@@ -1012,11 +1081,12 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             </div>
 
             <!-- =========================================================================
-                 APP 4: KAVACH SOVEREIGN DEFENDER
+                 APP 4: KAVACH SOVEREIGN DEFENDER 3.0 (FLAGSHIP SECURITY & ENCLAVE SUITE)
                  ========================================================================= -->
-            <div id="kavach-window" class="absolute top-8 left-32 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div id="kavach-window" class="absolute top-6 left-24 w-[980px] h-[600px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
@@ -1029,56 +1099,348 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                 <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
                             </span>
                         </div>
-                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
                             <span class="text-emerald-500">🛡️</span>
-                            <span>Kavach Sovereign Defender — Zero-Trust Ring-0 Shield</span>
+                            <span>Kavach Sovereign Defender 3.0 — Ring-0 Armor & Hardware Enclave</span>
                         </span>
                     </div>
-                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold">100% UNHACKABLE</span>
+                    <div class="flex items-center space-x-2">
+                        <span id="kavach-lockdown-badge" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span>GRADE: AAA+ FORTIFIED</span>
+                        </span>
+                    </div>
                 </div>
 
-                <div class="flex-1 p-6 bg-slate-50/85 dark:bg-slate-950/85 space-y-5 custom-scroll overflow-y-auto font-mono text-xs">
-                    <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <span class="text-4xl text-emerald-500">🛡️</span>
-                            <div>
-                                <h3 class="text-base font-bold text-emerald-600 dark:text-emerald-400">Your Sovereign PC is Completely Protected</h3>
-                                <p class="text-[11px] opacity-70">No active threats. Kernel memory integrity verified across all 16 SMP cores.</p>
+                <!-- Main Kavach Body: Sidebar + Dynamic Tabs -->
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Left Navigation Bar -->
+                    <div class="w-64 bg-slate-100/90 dark:bg-slate-950/80 p-3 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
+                        <div class="space-y-1">
+                            <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-2 px-2">Security Navigation</div>
+                            <button onclick="switchKavachTab('overview')" id="kavach-nav-overview" class="w-full text-left px-3 py-2 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-bold flex items-center space-x-2.5">
+                                <span>🛡️</span><span>Protection Overview</span>
+                            </button>
+                            <button onclick="switchKavachTab('lockdown')" id="kavach-nav-lockdown" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5">
+                                <span>🔒</span><span>Apple Lockdown Mode</span>
+                            </button>
+                            <button onclick="switchKavachTab('radar')" id="kavach-nav-radar" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5">
+                                <span>🌐</span><span>Threat Radar & Probes</span>
+                            </button>
+                            <button onclick="switchKavachTab('privacy')" id="kavach-nav-privacy" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5">
+                                <span>📱</span><span>App Privacy Sandbox</span>
+                            </button>
+                            <button onclick="switchKavachTab('neural')" id="kavach-nav-neural" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5">
+                                <span>🧠</span><span>Neural AI Threat Sentinel</span>
+                            </button>
+                            <button onclick="switchKavachTab('logs')" id="kavach-nav-logs" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5">
+                                <span>📜</span><span>Audit & Quarantines</span>
+                            </button>
+                        </div>
+
+                        <!-- Mini Status Card in Sidebar -->
+                        <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] space-y-1 shadow-sm">
+                            <div class="flex justify-between items-center font-bold">
+                                <span>Sovereign Enclave</span>
+                                <span class="text-emerald-500">ARMED</span>
+                            </div>
+                            <div class="opacity-70">AES-XTS-256 Memory Guard</div>
+                            <div class="text-[9px] text-cyan-600 dark:text-cyan-400 font-bold mt-1">4,280 Probes Deflected</div>
+                        </div>
+                    </div>
+
+                    <!-- Right Tab Panes -->
+                    <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/85 p-6 custom-scroll overflow-y-auto font-mono text-xs">
+                        
+                        <!-- TAB 1: OVERVIEW & ARMOR DASHBOARD -->
+                        <div id="kavach-pane-overview" class="space-y-5">
+                            <!-- Hero Card with Hologram Shield -->
+                            <div class="p-6 rounded-3xl bg-gradient-to-r from-emerald-500/15 via-cyan-500/10 to-transparent border-2 border-emerald-500/40 flex items-center justify-between shadow-xl relative overflow-hidden">
+                                <div class="flex items-center space-x-5 z-10">
+                                    <div class="w-20 h-20 rounded-2xl bg-emerald-950/60 border border-emerald-500/50 flex items-center justify-center text-5xl hologram-shield shadow-2xl">
+                                        🛡️
+                                    </div>
+                                    <div class="space-y-1">
+                                        <div class="text-[10px] text-emerald-600 dark:text-emerald-400 font-bold tracking-widest uppercase">Zero-Trust Ring-0 Active</div>
+                                        <h2 class="text-lg font-extrabold text-slate-900 dark:text-white">Your Sovereign PC is Fortified & Unhackable</h2>
+                                        <p class="text-xs text-slate-600 dark:text-slate-400 font-sans">All 16 SMP cores, PML4 page tables, and NVMe partitions verified against remote injection and telemetry.</p>
+                                    </div>
+                                </div>
+                                <div class="z-10 text-right space-y-1">
+                                    <div class="text-[10px] opacity-60">Threat Level</div>
+                                    <div class="text-2xl font-black text-emerald-500">0 ACTIVE</div>
+                                </div>
+                            </div>
+
+                            <!-- 4 Multi-Mode Scan Buttons -->
+                            <div class="grid grid-cols-4 gap-3">
+                                <button onclick="triggerKavachScanType('quick')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-cyan-500 transition-all hover:scale-105 text-left space-y-1 shadow-sm">
+                                    <div class="text-lg">⚡</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">Quick Memory Scan</div>
+                                    <div class="text-[10px] opacity-60">Active RAM & Syscalls</div>
+                                </button>
+                                <button onclick="triggerKavachScanType('full')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-emerald-500 transition-all hover:scale-105 text-left space-y-1 shadow-sm">
+                                    <div class="text-lg">🛡️</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">Full Kernel Scan</div>
+                                    <div class="text-[10px] opacity-60">All 14,820 System Files</div>
+                                </button>
+                                <button onclick="triggerKavachScanType('neural')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-purple-500 transition-all hover:scale-105 text-left space-y-1 shadow-sm">
+                                    <div class="text-lg">🧠</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">AI Zero-Day Hunter</div>
+                                    <div class="text-[10px] opacity-60">Heuristic Neural Engine</div>
+                                </button>
+                                <button onclick="triggerKavachScanType('enclave')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-amber-500 transition-all hover:scale-105 text-left space-y-1 shadow-sm">
+                                    <div class="text-lg">🔒</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">Enclave Sanitizer</div>
+                                    <div class="text-[10px] opacity-60">Hardware Key Isolation</div>
+                                </button>
+                            </div>
+
+                            <!-- Live Scan Progress Area -->
+                            <div id="kavach-scan-progress-box" class="p-5 rounded-2xl bg-slate-200/80 dark:bg-slate-900 border border-cyan-500/50 space-y-3 hidden shadow-lg">
+                                <div class="flex justify-between items-center">
+                                    <span id="scan-mode-title" class="font-bold text-cyan-600 dark:text-cyan-300 flex items-center space-x-2">
+                                        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span>
+                                        <span>Scanning Kernel & SovereignFS Files...</span>
+                                    </span>
+                                    <span id="scan-files-count" class="text-slate-600 dark:text-slate-400 font-mono text-[11px]">0 / 14,820 Files</span>
+                                </div>
+                                <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-2.5 overflow-hidden">
+                                    <div id="scan-progress-bar" class="bg-gradient-to-r from-cyan-500 via-saffron to-emerald-500 h-full w-0 transition-all duration-150"></div>
+                                </div>
+                                <div id="scan-current-file" class="text-[10px] opacity-70 truncate">Scanning: /system/kernel.sys...</div>
+                            </div>
+
+                            <!-- 4 Core Defense Switches -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-slate-900 dark:text-white">Real-Time File System Shield</div>
+                                        <div class="text-[10px] opacity-60">Instant I/O malware trap & signature verifier</div>
+                                    </div>
+                                    <label class="glass-toggle">
+                                        <input type="checkbox" checked onchange="toggleShieldFeature('fs', this.checked)">
+                                        <span class="glass-toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-slate-900 dark:text-white">Foreign Telemetry Neutralizer</div>
+                                        <div class="text-[10px] opacity-60">4,280 Probes Blocked (Zero Outbound Leak)</div>
+                                    </div>
+                                    <label class="glass-toggle">
+                                        <input type="checkbox" checked onchange="toggleShieldFeature('telemetry', this.checked)">
+                                        <span class="glass-toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-slate-900 dark:text-white">Quantum Process Sandboxing (iOS Style)</div>
+                                        <div class="text-[10px] opacity-60">Total memory isolation for untrusted binaries</div>
+                                    </div>
+                                    <label class="glass-toggle">
+                                        <input type="checkbox" checked onchange="toggleShieldFeature('sandbox', this.checked)">
+                                        <span class="glass-toggle-slider"></span>
+                                    </label>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-100/80 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center justify-between shadow-sm">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-slate-900 dark:text-white">PML4 Hardware Memory Guard</div>
+                                        <div class="text-[10px] opacity-60">Eliminates stack/heap buffer overrun exploits</div>
+                                    </div>
+                                    <label class="glass-toggle">
+                                        <input type="checkbox" checked onchange="toggleShieldFeature('pml4', this.checked)">
+                                        <span class="glass-toggle-slider"></span>
+                                    </label>
+                                </div>
                             </div>
                         </div>
-                        <button onclick="startKavachScan()" id="btn-kavach-scan" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs shadow-md">
-                            🔍 Quick Scan Now
-                        </button>
-                    </div>
 
-                    <div id="kavach-scan-progress-box" class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-cyan-500/40 space-y-2 hidden">
-                        <div class="flex justify-between items-center">
-                            <span class="font-bold text-cyan-600 dark:text-cyan-300">Scanning Kernel & SovereignFS Files...</span>
-                            <span id="scan-files-count" class="text-slate-600 dark:text-slate-400 font-mono text-[11px]">0 / 14,820 Files</span>
-                        </div>
-                        <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-2 overflow-hidden">
-                            <div id="scan-progress-bar" class="bg-gradient-to-r from-cyan-500 via-saffron to-emerald-500 h-full w-0 transition-all duration-200"></div>
-                        </div>
-                        <div id="scan-current-file" class="text-[10px] opacity-60 truncate">Scanning: /system/kernel.sys...</div>
-                    </div>
+                        <!-- TAB 2: APPLE LOCKDOWN MODE & HARDWARE ENCLAVE -->
+                        <div id="kavach-pane-lockdown" class="space-y-5 hidden">
+                            <div class="p-6 rounded-3xl bg-amber-500/10 border-2 border-amber-500/40 flex items-center justify-between shadow-xl">
+                                <div class="flex items-center space-x-4">
+                                    <span class="text-5xl">🔒</span>
+                                    <div class="space-y-1">
+                                        <h3 class="text-base font-bold text-amber-600 dark:text-amber-400">Apple-Grade Sovereign Lockdown Mode</h3>
+                                        <p class="text-xs text-slate-600 dark:text-slate-400 font-sans">Extreme protection mode designed for sovereign defense and zero-trust environments. Blocks complex web tech, restricts USB access, and locks system calls.</p>
+                                    </div>
+                                </div>
+                                <label class="glass-toggle">
+                                    <input id="kavach-lockdown-toggle" type="checkbox" onchange="toggleLockdownMode(this.checked)">
+                                    <span class="glass-toggle-slider"></span>
+                                </label>
+                            </div>
 
-                    <div class="grid grid-cols-2 gap-3">
-                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
-                            <div><div class="font-bold">Real-Time File System Shield</div><div class="text-[10px] opacity-60">Instant I/O malware trap</div></div>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+                                    <div class="font-bold text-cyan-600 dark:text-cyan-300">🔑 Hardware Secure Enclave</div>
+                                    <p class="text-[11px] opacity-70">Dedicated security co-processor with isolated RAM. Master private keys never leave the silicon boundary.</p>
+                                    <div class="text-emerald-500 font-bold text-[10px]">✓ Key Integrity Validated</div>
+                                </div>
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2">
+                                    <div class="font-bold text-emerald-600 dark:text-emerald-300">🛡️ AES-XTS-256 Storage Vault</div>
+                                    <p class="text-[11px] opacity-70">All NVMe partitions are encrypted at rest with per-sector authentication tags and zero master backdoor.</p>
+                                    <div class="text-emerald-500 font-bold text-[10px]">✓ 100% On-Device Key Residency</div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
-                            <div><div class="font-bold">Foreign Telemetry Neutralizer</div><div class="text-[10px] opacity-60">4,280 Probes Blocked</div></div>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
+
+                        <!-- TAB 3: THREAT RADAR & TELEMETRY SHIELD -->
+                        <div id="kavach-pane-radar" class="space-y-5 hidden">
+                            <div class="flex items-center justify-between">
+                                <div class="text-sm font-bold text-slate-900 dark:text-white">Global Telemetry Interception & Probe Deflector</div>
+                                <span class="px-3 py-1 rounded-xl bg-cyan-500/20 text-cyan-500 font-bold">4,280+ Probes Annihilated</span>
+                            </div>
+
+                            <div class="grid grid-cols-3 gap-4">
+                                <!-- Animated Visual Radar -->
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex flex-col items-center justify-center space-y-3">
+                                    <div class="w-36 h-36 rounded-full border border-cyan-500/40 relative flex items-center justify-center overflow-hidden bg-slate-950">
+                                        <div class="absolute inset-0 border border-cyan-500/20 rounded-full scale-75"></div>
+                                        <div class="absolute inset-0 border border-cyan-500/20 rounded-full scale-50"></div>
+                                        <div class="absolute inset-0 border border-cyan-500/20 rounded-full scale-25"></div>
+                                        <div class="w-full h-0.5 bg-gradient-to-r from-transparent via-cyan-400 to-transparent radar-beam"></div>
+                                        <div class="w-2 h-2 rounded-full bg-rose-500 absolute top-8 left-10 animate-ping"></div>
+                                        <div class="w-2 h-2 rounded-full bg-amber-500 absolute bottom-10 right-8 animate-ping"></div>
+                                    </div>
+                                    <div class="text-[10px] text-cyan-500 font-bold">360° Real-Time Heuristic Sweep</div>
+                                </div>
+
+                                <!-- Probe Breakdown Matrix -->
+                                <div class="col-span-2 space-y-2">
+                                    <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                        <div><div class="font-bold">Microsoft Windows Telemetry</div><div class="text-[10px] opacity-60">diagtrack, watson, telemetry.sys</div></div>
+                                        <span class="text-rose-500 font-bold">1,842 Blocked</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                        <div><div class="font-bold">Google Analytics & Ad Beacons</div><div class="text-[10px] opacity-60">adservices, doubleclick, tracking</div></div>
+                                        <span class="text-rose-500 font-bold">1,410 Blocked</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                        <div><div class="font-bold">AWS & Foreign Cloud Trackers</div><div class="text-[10px] opacity-60">telemetry endpoints, s3 analytics</div></div>
+                                        <span class="text-rose-500 font-bold">620 Blocked</span>
+                                    </div>
+                                    <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                        <div><div class="font-bold">Apple & Generic Data Harvesters</div><div class="text-[10px] opacity-60">metrics, crash reports</div></div>
+                                        <span class="text-rose-500 font-bold">408 Blocked</span>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
-                            <div><div class="font-bold">Quantum Sandboxing (iOS Style)</div><div class="text-[10px] opacity-60">Total process isolation</div></div>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ON</span>
+
+                        <!-- TAB 4: APP PRIVACY SANDBOX (APPLE STYLE) -->
+                        <div id="kavach-pane-privacy" class="space-y-4 hidden">
+                            <div class="text-sm font-bold text-slate-900 dark:text-white">Per-Application Granular Sandboxing & Permissions</div>
+                            <div class="space-y-3">
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl">🌐</span>
+                                        <div>
+                                            <div class="font-bold">Garud Sovereign Web Browser</div>
+                                            <div class="text-[10px] opacity-60">PID: 4092 • Web & Remote Traffic</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-[10px]">
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" checked class="accent-emerald-500"><span>Network</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" class="accent-emerald-500"><span>Camera</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" class="accent-emerald-500"><span>Microphone</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" class="accent-emerald-500"><span>Storage Write</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl">⚡</span>
+                                        <div>
+                                            <div class="font-bold">Indic Code Studio (IDE)</div>
+                                            <div class="text-[10px] opacity-60">PID: 5120 • Local Workspace Compiler</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-[10px]">
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" checked class="accent-emerald-500"><span>Storage Write</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" checked class="accent-emerald-500"><span>Rust Analyzer</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" class="accent-emerald-500"><span>Network</span></label>
+                                    </div>
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                    <div class="flex items-center space-x-3">
+                                        <span class="text-2xl">📁</span>
+                                        <div>
+                                            <div class="font-bold">SovereignFS Explorer</div>
+                                            <div class="text-[10px] opacity-60">PID: 2844 • File Virtualization</div>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-center space-x-4 text-[10px]">
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" checked class="accent-emerald-500"><span>NVMe C:</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" checked class="accent-emerald-500"><span>Kavach D:</span></label>
+                                        <label class="flex items-center space-x-1.5"><input type="checkbox" class="accent-emerald-500"><span>Remote Sync</span></label>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
-                            <div><div class="font-bold">Kernel PML4 Memory Guard</div><div class="text-[10px] opacity-60">Zero buffer overrun exploits</div></div>
-                            <span class="text-emerald-600 dark:text-emerald-400 font-bold">ARMED</span>
+
+                        <!-- TAB 5: NEURAL AI SENTINEL -->
+                        <div id="kavach-pane-neural" class="space-y-4 hidden">
+                            <div class="p-5 rounded-2xl bg-gradient-to-r from-purple-950/40 via-slate-900 to-slate-900 border border-purple-500/40 space-y-3">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-3xl">🧠</span>
+                                    <div>
+                                        <div class="font-bold text-sm text-purple-300">Sovereign Neural Sentinel v4.2</div>
+                                        <div class="text-[11px] opacity-70">On-Device Heuristic Transformer analyzing kernel syscall telemetry</div>
+                                    </div>
+                                </div>
+                                <p class="text-xs opacity-80 leading-relaxed font-sans">
+                                    Operating with zero latency on hardware NPU. Automatically predicts zero-day exploit patterns before executable binary execution can reach the memory bus.
+                                </p>
+                            </div>
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                    <div class="opacity-60">Inference Response Time</div>
+                                    <div class="text-base font-bold text-emerald-500 mt-1">0.14 ms</div>
+                                </div>
+                                <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800">
+                                    <div class="opacity-60">Zero-Day Detection Precision</div>
+                                    <div class="text-base font-bold text-purple-400 mt-1">99.98%</div>
+                                </div>
+                            </div>
                         </div>
+
+                        <!-- TAB 6: AUDIT & QUARANTINE LOGS -->
+                        <div id="kavach-pane-logs" class="space-y-3 hidden">
+                            <div class="flex justify-between items-center">
+                                <div class="text-sm font-bold text-slate-900 dark:text-white">Security Audit Log & Quarantined Threats</div>
+                                <button onclick="clearKavachLogs()" class="text-xs text-rose-500 hover:underline">Clear Logs</button>
+                            </div>
+                            <div id="kavach-log-list" class="space-y-2 text-xs">
+                                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-emerald-500">[BLOCKED] Outbound Diagnostic Probe</div>
+                                        <div class="text-[10px] opacity-60">Target: telemetry.microsoft.com:443 • Protocol: TLS 1.3 Intercepted</div>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">Just Now</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-cyan-500">[ENCLAVE] PML4 Paging Verified</div>
+                                        <div class="text-[10px] opacity-60">Kernel ring-0 memory integrity validated across 16 cores</div>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">2m ago</span>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-purple-400">[NEURAL] Syscall Heuristic Inspection Passed</div>
+                                        <div class="text-[10px] opacity-60">Process: /apps/garud_browser.bin • 0 Anomalies</div>
+                                    </div>
+                                    <span class="text-[10px] text-slate-400">10m ago</span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -1891,43 +2253,84 @@ vulkano = "0.34"`
             out.scrollTop = out.scrollHeight;
         }
 
-        // KAVACH DEFENDER SCAN
+        // =========================================================================
+        // KAVACH SOVEREIGN DEFENDER 3.0 ENGINE
+        // =========================================================================
+        function switchKavachTab(tabKey) {
+            playSfx('click');
+            ['overview', 'lockdown', 'radar', 'privacy', 'neural', 'logs'].forEach(k => {
+                const pane = document.getElementById(`kavach-pane-${k}`);
+                const btn = document.getElementById(`kavach-nav-${k}`);
+                if (pane) pane.classList.add('hidden');
+                if (btn) btn.className = 'w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 font-bold flex items-center space-x-2.5';
+            });
+            const activePane = document.getElementById(`kavach-pane-${tabKey}`);
+            const activeBtn = document.getElementById(`kavach-nav-${tabKey}`);
+            if (activePane) activePane.classList.remove('hidden');
+            if (activeBtn) activeBtn.className = 'w-full text-left px-3 py-2 rounded-xl bg-emerald-500/20 text-emerald-600 dark:text-emerald-300 font-bold flex items-center space-x-2.5';
+        }
+
         let scanProgress = 0;
-        function startKavachScan() {
+        function triggerKavachScanType(type) {
             playSfx('click');
             const scanBox = document.getElementById('kavach-scan-progress-box');
-            const scanBtn = document.getElementById('btn-kavach-scan');
             const scanBar = document.getElementById('scan-progress-bar');
             const scanCount = document.getElementById('scan-files-count');
             const scanCurr = document.getElementById('scan-current-file');
+            const scanTitle = document.getElementById('scan-mode-title');
 
             if (scanBox) scanBox.classList.remove('hidden');
-            if (scanBtn) { scanBtn.disabled = true; scanBtn.textContent = 'Scanning...'; }
+
+            const scanModes = {
+                quick: { title: "⚡ Quick Memory Scan", total: "4,200 Pages", files: ["Active RAM Pages", "PML4 Kernel Maps", "Syscall Table Ring-0", "Heap Enclaves"] },
+                full: { title: "🛡️ Full Kernel & SovereignFS Scan", total: "14,820 Files", files: ["/system/kernel.sys", "/system/kavach_vault.key", "/home/user/documents/sovereignty_manifesto.md", "/system/vulkan_pacer.hal", "/system/pml4_memory_map.bin"] },
+                neural: { title: "🧠 AI Zero-Day Heuristic Scan", total: "98 Neural Pipelines", files: ["Transformer Syscall Weights", "Execution Flow Tree", "Zero-Day Heuristic Model", "NPU Ring-0 Buffer"] },
+                enclave: { title: "🔒 Hardware Enclave Key Sanitizer", total: "256-bit Key Blocks", files: ["Silicon Root Key", "AES-XTS Keystore", "Biometric Touch Token", "Zero-Trust Ring"] }
+            };
+
+            const cfg = scanModes[type] || scanModes.full;
+            if (scanTitle) scanTitle.innerHTML = `<span class="w-2 h-2 rounded-full bg-cyan-400 animate-ping"></span><span>${cfg.title} in progress...</span>`;
 
             scanProgress = 0;
-            const files = [
-                "/system/kernel.sys",
-                "/system/kavach_vault.key",
-                "/home/user/documents/sovereignty_manifesto.md",
-                "/home/user/projects/solaris_space_game/main.rs",
-                "/system/vulkan_pacer.hal",
-                "/system/pml4_memory_map.bin"
-            ];
-
             const interval = setInterval(() => {
                 scanProgress += 20;
                 if (scanBar) scanBar.style.width = `${scanProgress}%`;
-                const fIdx = Math.min(Math.floor(scanProgress / 20), files.length - 1);
-                if (scanCount) scanCount.textContent = `${Math.floor((scanProgress / 100) * 14820)} / 14,820 Files`;
-                if (scanCurr) scanCurr.textContent = `Scanning: ${files[fIdx]}...`;
+                const fIdx = Math.min(Math.floor(scanProgress / 20), cfg.files.length - 1);
+                if (scanCount) scanCount.textContent = `${Math.floor((scanProgress / 100) * 100)}% (${cfg.total})`;
+                if (scanCurr) scanCurr.textContent = `Inspecting: ${cfg.files[fIdx]}...`;
 
                 if (scanProgress >= 100) {
                     clearInterval(interval);
                     playSfx('unlock');
-                    if (scanCurr) scanCurr.innerHTML = `<strong class="text-emerald-400">✓ Scan Complete: 0 Threats Found. 100% Kernel Clean!</strong>`;
-                    if (scanBtn) { scanBtn.disabled = false; scanBtn.textContent = 'Scan Again'; }
+                    if (scanCurr) scanCurr.innerHTML = `<strong class="text-emerald-500">✓ ${cfg.title} Complete: 0 Anomalies Found. Sovereign Certification AAA+!</strong>`;
                 }
-            }, 300);
+            }, 250);
+        }
+
+        function startKavachScan() {
+            triggerKavachScanType('full');
+        }
+
+        function toggleLockdownMode(enabled) {
+            playSfx(enabled ? 'unlock' : 'click');
+            const badge = document.getElementById('kavach-lockdown-badge');
+            if (enabled) {
+                if (badge) badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-amber-400 animate-ping"></span><span>LOCKDOWN MODE: ACTIVE</span>`;
+                if (badge) badge.className = 'px-3 py-1 rounded-full bg-amber-500/20 text-amber-500 border border-amber-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5';
+            } else {
+                if (badge) badge.innerHTML = `<span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span><span>GRADE: AAA+ FORTIFIED</span>`;
+                if (badge) badge.className = 'px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5';
+            }
+        }
+
+        function toggleShieldFeature(feature, enabled) {
+            playSfx('click');
+        }
+
+        function clearKavachLogs() {
+            playSfx('click');
+            const list = document.getElementById('kavach-log-list');
+            if (list) list.innerHTML = `<div class="p-3 text-center text-slate-500 font-mono text-xs">Security event log cleared. Real-time audit stream armed.</div>`;
         }
 
         // Bharat Island Engine
