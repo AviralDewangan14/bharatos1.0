@@ -36,12 +36,12 @@
             -webkit-user-select: none;
         }
 
-        /* --- DESIGN TOKENS & DYNAMIC THEMES --- */
         :root {
             --accent-color: #38bdf8;
             --accent-rgb: 56, 189, 248;
-            --glass-blur: 36px;
-            --trans-speed: 0.35s;
+            --glass-blur: 38px;
+            --glass-opacity: 0.82;
+            --trans-speed: 0.32s;
 
             /* LIGHT MODE (Crystal Ice Porcelain) */
             --bg-base: #f1f5f9;
@@ -49,16 +49,16 @@
             --text-main: #0f172a;
             --text-sub: #475569;
             --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.76);
-            --glass-border: rgba(255, 255, 255, 0.65);
-            --glass-border-subtle: rgba(203, 213, 225, 0.5);
+            --glass-bg: rgba(255, 255, 255, var(--glass-opacity));
+            --glass-border: rgba(255, 255, 255, 0.7);
+            --glass-border-subtle: rgba(203, 213, 225, 0.6);
             --glass-shadow: 0 25px 60px rgba(15, 23, 42, 0.12), inset 0 1px 1px rgba(255, 255, 255, 0.9);
-            --taskbar-bg: rgba(255, 255, 255, 0.85);
+            --taskbar-bg: rgba(255, 255, 255, 0.88);
             --card-bg: rgba(248, 250, 252, 0.85);
-            --inner-input-bg: rgba(255, 255, 255, 0.9);
+            --inner-input-bg: rgba(255, 255, 255, 0.95);
             --inner-input-border: #cbd5e1;
             --dock-hover-bg: rgba(15, 23, 42, 0.08);
-            --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.92) 0%, #e2e8f0 100%);
+            --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.94) 0%, #e2e8f0 100%);
         }
 
         [data-theme="dark"] {
@@ -68,11 +68,11 @@
             --text-main: #f8fafc;
             --text-sub: #cbd5e1;
             --text-muted: #64748b;
-            --glass-bg: rgba(9, 14, 26, 0.86);
-            --glass-border: rgba(255, 255, 255, 0.14);
+            --glass-bg: rgba(9, 14, 26, var(--glass-opacity));
+            --glass-border: rgba(255, 255, 255, 0.15);
             --glass-border-subtle: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 30px 80px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.3);
-            --taskbar-bg: rgba(9, 14, 26, 0.92);
+            --glass-shadow: 0 30px 80px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.35);
+            --taskbar-bg: rgba(9, 14, 26, 0.94);
             --card-bg: rgba(15, 23, 42, 0.85);
             --inner-input-bg: rgba(2, 4, 8, 0.9);
             --inner-input-border: #334155;
@@ -94,16 +94,16 @@
 
         /* Curated 8 Dynamic Wallpapers */
         body.wall-obsidian { background: var(--bg-gradient); }
-        body.wall-saffron { background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.22) 0%, var(--bg-base) 70%); }
-        body.wall-emerald { background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.22) 0%, var(--bg-base) 70%); }
-        body.wall-crystal { background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.24) 0%, var(--bg-base) 70%); }
-        body.wall-solaris { background: radial-gradient(circle at 70% 20%, rgba(245, 158, 11, 0.25) 0%, var(--bg-base) 70%); }
-        body.wall-ocean { background: radial-gradient(circle at 50% 80%, rgba(14, 116, 144, 0.28) 0%, var(--bg-base) 70%); }
-        body.wall-synthwave { background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.25) 0%, var(--bg-base) 70%); }
-        body.wall-padma { background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.22) 0%, var(--bg-base) 70%); }
+        body.wall-saffron { background: radial-gradient(circle at 20% 20%, rgba(255, 153, 51, 0.25) 0%, var(--bg-base) 70%); }
+        body.wall-emerald { background: radial-gradient(circle at 80% 30%, rgba(19, 136, 8, 0.25) 0%, var(--bg-base) 70%); }
+        body.wall-crystal { background: radial-gradient(circle at 50% 20%, rgba(56, 189, 248, 0.26) 0%, var(--bg-base) 70%); }
+        body.wall-solaris { background: radial-gradient(circle at 70% 20%, rgba(245, 158, 11, 0.28) 0%, var(--bg-base) 70%); }
+        body.wall-ocean { background: radial-gradient(circle at 50% 80%, rgba(14, 116, 144, 0.32) 0%, var(--bg-base) 70%); }
+        body.wall-synthwave { background: radial-gradient(circle at 30% 30%, rgba(168, 85, 247, 0.28) 0%, var(--bg-base) 70%); }
+        body.wall-padma { background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.25) 0%, var(--bg-base) 70%); }
 
         body.night-light {
-            filter: sepia(0.28) hue-rotate(-15deg);
+            filter: sepia(0.3) hue-rotate(-15deg);
         }
 
         /* --- MODERN MINIMALIST BOOT SCREEN --- */
@@ -134,7 +134,7 @@
             pointer-events: none !important;
         }
 
-        /* --- HANDCRAFTED SOVEREIGN LOCK SCREEN ENCLAVE --- */
+        /* --- NON-GENERIC SOVEREIGN LOCK SCREEN ENCLAVE --- */
         #lock-screen {
             position: fixed;
             inset: 0;
@@ -159,14 +159,14 @@
         .astro-ring {
             position: absolute;
             border-radius: 9999px;
-            border: 1px dashed rgba(var(--accent-rgb), 0.22);
+            border: 1px dashed rgba(var(--accent-rgb), 0.25);
             pointer-events: none;
             animation: astro-spin 40s linear infinite;
         }
         .astro-ring-outer {
             width: 420px;
             height: 420px;
-            border: 1px solid rgba(255, 153, 51, 0.18);
+            border: 1px solid rgba(255, 153, 51, 0.2);
             animation: astro-spin-rev 60s linear infinite;
         }
 
@@ -182,7 +182,7 @@
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
         }
 
-        /* --- HANDCRAFTED LIQUID GLASS WINDOW SYSTEM --- */
+        /* --- APPLE-GRADE FLUID GLASS WINDOWS --- */
         .ultra-liquid-glass {
             background: var(--glass-bg);
             backdrop-filter: blur(var(--glass-blur)) saturate(240%);
@@ -195,7 +195,7 @@
         }
 
         .ultra-liquid-glass:hover {
-            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.4), 0 0 30px rgba(var(--accent-rgb), 0.12);
+            box-shadow: 0 35px 90px rgba(0, 0, 0, 0.35), 0 0 30px rgba(var(--accent-rgb), 0.14);
         }
 
         .specular-glow {
@@ -203,69 +203,83 @@
             inset: 0;
             border-radius: inherit;
             pointer-events: none;
-            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
+            background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.14), transparent 70%);
             mix-blend-mode: overlay;
         }
 
-        /* --- UNIQUE SOVEREIGN TRI-GEM ACTION CONTROLS --- */
-        .sovereign-control-cluster {
+        /* --- APPLE-GRADE FLUID LIQUID GLASS WINDOW ACTION CAPSULES --- */
+        .fluid-glass-controls {
             display: flex;
             align-items: center;
-            gap: 6px;
-            padding: 3px 8px;
-            background: var(--card-bg);
-            border: 1px solid var(--glass-border-subtle);
-            border-radius: 12px;
-            backdrop-filter: blur(12px);
+            gap: 7px;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-top: 1px solid rgba(255, 255, 255, 0.45);
+            border-radius: 14px;
+            backdrop-filter: blur(20px) saturate(220%);
+            -webkit-backdrop-filter: blur(20px) saturate(220%);
+            box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.3), 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
-        .sovereign-gem-btn {
+        .fluid-glass-btn {
             display: flex;
             align-items: center;
             justify-content: center;
-            width: 20px;
-            height: 20px;
-            border-radius: 6px;
-            font-size: 11px;
-            font-weight: 800;
-            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+            width: 14px;
+            height: 14px;
+            border-radius: 9999px;
+            font-size: 9px;
+            font-weight: 900;
+            line-height: 1;
             cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.8), 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
-        .gem-minimize {
-            color: #fbbf24;
-            background: rgba(251, 191, 36, 0.15);
-            border: 1px solid rgba(251, 191, 36, 0.35);
-        }
-        .gem-minimize:hover {
-            background: rgba(251, 191, 36, 0.9);
-            color: #020408;
-            transform: scale(1.14);
-            box-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+        .fluid-glass-btn .btn-icon {
+            opacity: 0;
+            transform: scale(0.5);
+            transition: all 0.15s ease;
         }
 
-        .gem-maximize {
-            color: #38bdf8;
-            background: rgba(56, 189, 248, 0.15);
-            border: 1px solid rgba(56, 189, 248, 0.35);
-        }
-        .gem-maximize:hover {
-            background: rgba(56, 189, 248, 0.9);
-            color: #020408;
-            transform: scale(1.14);
-            box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        .fluid-glass-controls:hover .fluid-glass-btn .btn-icon {
+            opacity: 1;
+            transform: scale(1);
         }
 
-        .gem-close {
-            color: #f43f5e;
-            background: rgba(244, 63, 94, 0.15);
-            border: 1px solid rgba(244, 63, 94, 0.35);
+        /* Close: Apple-Grade Fluid Ruby */
+        .btn-fluid-close {
+            background: linear-gradient(135deg, #ff5f56 0%, #e0443e 100%);
+            border: 1px solid rgba(224, 68, 62, 0.8);
+            color: #4d0000;
         }
-        .gem-close:hover {
-            background: rgba(244, 63, 94, 0.9);
-            color: #020408;
-            transform: scale(1.14);
-            box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
+        .btn-fluid-close:hover {
+            transform: scale(1.22);
+            box-shadow: 0 0 12px rgba(255, 95, 86, 0.85);
+        }
+
+        /* Minimize: Apple-Grade Fluid Amber */
+        .btn-fluid-minimize {
+            background: linear-gradient(135deg, #ffbd2e 0%, #dea123 100%);
+            border: 1px solid rgba(222, 161, 35, 0.8);
+            color: #5c3c00;
+        }
+        .btn-fluid-minimize:hover {
+            transform: scale(1.22);
+            box-shadow: 0 0 12px rgba(255, 189, 46, 0.85);
+        }
+
+        /* Maximize: Apple-Grade Fluid Emerald / Cyan */
+        .btn-fluid-maximize {
+            background: linear-gradient(135deg, #27c93f 0%, #1aab29 100%);
+            border: 1px solid rgba(26, 171, 41, 0.8);
+            color: #004d0d;
+        }
+        .btn-fluid-maximize:hover {
+            transform: scale(1.22);
+            box-shadow: 0 0 12px rgba(39, 201, 63, 0.85);
         }
 
         /* --- DYNAMIC ISLAND --- */
@@ -361,17 +375,9 @@
             box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2), 0 0 25px rgba(var(--accent-rgb), 0.12);
         }
 
-        .custom-scroll::-webkit-scrollbar {
-            width: 4px;
-            height: 4px;
-        }
-        .custom-scroll::-webkit-scrollbar-track {
-            background: rgba(15, 23, 42, 0.08);
-        }
-        .custom-scroll::-webkit-scrollbar-thumb {
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 4px;
-        }
+        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.08); }
+        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 4px; }
     </style>
 </head>
 <body class="wall-obsidian relative flex flex-col justify-between select-none">
@@ -411,7 +417,7 @@
             <div id="lock-time-display" class="text-7xl font-extrabold font-mono tracking-tight drop-shadow-lg">
                 12:00:00
             </div>
-            <div class="flex items-center justify-center space-x-3 text-xs font-mono text-cyan-500 dark:text-cyan-300 font-medium">
+            <div class="flex items-center justify-center space-x-3 text-xs font-mono text-cyan-600 dark:text-cyan-300 font-medium">
                 <span>🗓️ Saka 1948</span>
                 <span>•</span>
                 <span>Bhadrapada 12 (Ekadashi)</span>
@@ -451,8 +457,8 @@
             <div class="flex items-center space-x-2 text-[10px] font-mono opacity-70 pt-1">
                 <span>Soundscape:</span>
                 <button onclick="playHarmonicChime()" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-cyan-600 dark:text-cyan-300 hover:opacity-100">🎵 528 Hz</button>
-                <button onclick="triggerIslandNotification('🏔️ Glacier Wind', 'Synthesized ambient stream')" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:opacity-100">🏔️ Wind</button>
-                <button onclick="triggerIslandNotification('🌧️ Monsoon', 'Audio spatial filter')" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:opacity-100">🌧️ Rain</button>
+                <button onclick="playSfx('notify'); triggerIslandNotification('🏔️ Glacier Wind', 'Synthesized ambient stream')" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:opacity-100">🏔️ Wind</button>
+                <button onclick="playSfx('notify'); triggerIslandNotification('🌧️ Monsoon', 'Audio spatial filter')" class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:opacity-100">🌧️ Rain</button>
             </div>
         </div>
 
@@ -543,7 +549,6 @@
 
         <!-- Right: Theme Switcher, Controls, Widgets, Shortcuts & Lock -->
         <div class="flex items-center space-x-2.5">
-            <!-- 1-CLICK CLEAN LIQUID GLASS DARK / LIGHT THEME TOGGLE -->
             <button onclick="toggleTheme()" id="theme-toggle-btn" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 font-mono text-[11px] hover:scale-105 active:scale-95 transition-all shadow-sm" title="Toggle Dark / Light Liquid Glass Theme">
                 <span id="theme-icon">☀️</span>
                 <span id="theme-text" class="font-bold">Light</span>
@@ -630,16 +635,17 @@
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">✕</span>
+                    <!-- APPLE-GRADE FLUID GLASS ACTION CONTROLS -->
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-cyan-600 dark:text-cyan-300 border border-slate-300 dark:border-slate-700">+ New File</button>
-                    <button onclick="createNewFolderPrompt()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-amber-600 dark:text-amber-300 border border-slate-300 dark:border-slate-700">+ New Folder</button>
+                    <button onclick="playSfx('click'); createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-cyan-600 dark:text-cyan-300 border border-slate-300 dark:border-slate-700">+ New File</button>
+                    <button onclick="playSfx('click'); createNewFolderPrompt()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800/80 hover:bg-slate-300 dark:hover:bg-slate-700 text-xs font-mono text-amber-600 dark:text-amber-300 border border-slate-300 dark:border-slate-700">+ New Folder</button>
                 </div>
             </div>
             <div class="px-5 py-2 bg-slate-50/50 dark:bg-slate-950/40 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between text-xs font-mono">
@@ -673,10 +679,10 @@
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'gaming-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('gaming-window', 'dock-gaming')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('gaming-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('gaming-window', 'dock-gaming')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('gaming-window', 'dock-gaming')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('gaming-window', 'dock-gaming')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('gaming-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">BharatOS Sovereign Game Hub (Vulkan Engine)</span>
                 </div>
@@ -714,10 +720,10 @@
             <div class="specular-glow"></div>
             <div class="px-5 py-2 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'solaris-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('solaris-window', 'dock-gaming')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('solaris-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('solaris-window', 'dock-gaming')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('solaris-window', 'dock-gaming')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('solaris-window', 'dock-gaming')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('solaris-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Solaris Orbital Flight Simulator (Vulkan 144 FPS)</span>
                 </div>
@@ -733,14 +739,14 @@
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('taskmanager-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('taskmanager-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Task Manager & Kernel Profiler (Win+M)</span>
                 </div>
-                <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
+                <button onclick="playSfx('click'); purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
             </div>
             <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-5 custom-scroll overflow-y-auto">
                 <table class="w-full text-left font-mono text-xs">
@@ -750,32 +756,45 @@
             </div>
         </div>
 
-        <!-- APP 5: COMPREHENSIVE SETTINGS APPLICATION -->
-        <div id="settings-window" class="absolute top-6 left-28 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+        <!-- APP 5: HYPER-ADVANCED SETTINGS APPLICATION (WINDOWS 11 + MACOS 27 FUSION) -->
+        <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">BharatOS Sovereign Settings & Personalization (Win+I)</span>
                 </div>
             </div>
             <div class="flex-1 flex overflow-hidden">
-                <div class="w-56 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800/80 space-y-1 text-xs font-mono">
-                    <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-2 px-2">Settings Hub</div>
-                    <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold" id="tab-btn-system">🖥️ System & Specs</button>
-                    <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-wallpaper">🎨 Wallpapers (8)</button>
-                    <button onclick="switchSettingsTab('widgets')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-widgets">🧩 Desktop Widgets</button>
-                    <button onclick="switchSettingsTab('shortcuts')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-shortcuts">⌨️ Keybindings</button>
-                    <button onclick="switchSettingsTab('updates')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-updates">🚀 System Updates</button>
-                    <button onclick="switchSettingsTab('graphics')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-graphics">🎮 GPU & 144FPS</button>
-                    <button onclick="switchSettingsTab('battery')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-battery">⚡ Battery & Power</button>
-                    <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold" id="tab-btn-security">🛡️ Kavach Security</button>
+                <!-- Windows 11 + macOS Left Rail -->
+                <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-3 border-r border-slate-200 dark:border-slate-800/80 space-y-1 text-xs font-mono">
+                    <!-- User Profile Badge -->
+                    <div class="p-2.5 rounded-2xl bg-white/60 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center space-x-2.5 mb-3">
+                        <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
+                        <div class="truncate">
+                            <div class="font-bold text-xs">Sovereign Admin</div>
+                            <div class="text-[10px] opacity-60">Zero-Trust Ring-0</div>
+                        </div>
+                    </div>
+
+                    <button onclick="switchSettingsTab('system')" class="w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2" id="tab-btn-system"><span>🖥️</span><span>System & Specs</span></button>
+                    <button onclick="switchSettingsTab('wallpaper')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-wallpaper"><span>🎨</span><span>Glass & Wallpapers</span></button>
+                    <button onclick="switchSettingsTab('sound')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-sound"><span>🔊</span><span>Sound & DSP</span></button>
+                    <button onclick="switchSettingsTab('widgets')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-widgets"><span>🧩</span><span>Desktop Widgets</span></button>
+                    <button onclick="switchSettingsTab('shortcuts')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-shortcuts"><span>⌨️</span><span>Keybindings</span></button>
+                    <button onclick="switchSettingsTab('updates')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-updates"><span>🚀</span><span>System Updates</span></button>
+                    <button onclick="switchSettingsTab('graphics')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-graphics"><span>🎮</span><span>GPU & 144 FPS</span></button>
+                    <button onclick="switchSettingsTab('battery')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-battery"><span>⚡</span><span>Battery & Power</span></button>
+                    <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-security"><span>🛡️</span><span>Kavach Security</span></button>
                 </div>
+
+                <!-- Settings Content Panes -->
                 <div class="flex-1 bg-slate-50/85 dark:bg-slate-950/85 p-6 custom-scroll overflow-y-auto">
+                    <!-- Tab 1: System -->
                     <div id="tab-pane-system" class="space-y-4 font-mono text-xs">
                         <div class="flex items-center space-x-4 p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800">
                             <span class="text-5xl text-saffron">☸️</span>
@@ -787,12 +806,18 @@
                         <div class="grid grid-cols-2 gap-3">
                             <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800"><div class="opacity-60">Processor</div><div class="font-bold mt-1">x86_64 SMP (16 Cores Online)</div></div>
                             <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800"><div class="opacity-60">Installed Memory</div><div class="font-bold text-cyan-600 dark:text-cyan-300 mt-1">16,384 MB (4-Level Paging)</div></div>
-                            <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800"><div class="opacity-60">GPU Driver</div><div class="font-bold text-emerald-600 dark:text-emerald-400 mt-1">Vulkan 1.3 Hardware Acceleration</div></div>
+                            <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800"><div class="opacity-60">Display Pacer</div><div class="font-bold text-emerald-600 dark:text-emerald-400 mt-1">Vulkan 1.3 (144.0 Hz VRR)</div></div>
                             <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800"><div class="opacity-60">Telemetry Status</div><div class="font-bold text-emerald-600 dark:text-emerald-400 mt-1">100% Zero Foreign Telemetry</div></div>
                         </div>
                     </div>
+
+                    <!-- Tab 2: Wallpapers & Glass Studio -->
                     <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
-                        <div class="text-sm font-bold">Curated Dynamic Wallpapers (8 Themes)</div>
+                        <div class="flex justify-between items-center">
+                            <div class="text-sm font-bold">Glass & Theme Studio</div>
+                            <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
+                        </div>
+                        <div class="text-xs font-bold opacity-75">Curated 8 Dynamic Wallpapers</div>
                         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
                             <button onclick="setWallpaper('wall-obsidian')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-950 text-left transition-all hover:scale-105"><div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🌌 Obsidian Void</div></button>
                             <button onclick="setWallpaper('wall-saffron')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-amber-100 dark:from-amber-950 to-slate-100 dark:to-slate-950 text-left transition-all hover:border-saffron hover:scale-105"><div class="text-xs font-bold text-saffron">🌅 Saffron Aurora</div></button>
@@ -804,6 +829,23 @@
                             <button onclick="setWallpaper('wall-padma')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-gradient-to-br from-rose-100 dark:from-rose-950 to-amber-100 dark:to-amber-950 text-left transition-all hover:border-rose-500 hover:scale-105"><div class="text-xs font-bold text-rose-600 dark:text-rose-300">🪷 Padma Silk</div></button>
                         </div>
                     </div>
+
+                    <!-- Tab 3: Sound & Audio DSP -->
+                    <div id="tab-pane-sound" class="space-y-4 font-mono text-xs hidden">
+                        <div class="text-sm font-bold">Sound Effects & Spatial DSP Engine</div>
+                        <div class="space-y-3">
+                            <div class="p-3 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                                <div><div class="font-bold">🔊 Procedural Sound Effects</div><div class="text-[10px] opacity-60">Window open/close, click, and lock chimes</div></div>
+                                <button onclick="playSfx('notify'); triggerIslandNotification('🔊 Audio Test', 'Chime synthesizer active');" class="px-3 py-1 rounded-lg bg-cyan-500 text-slate-950 font-bold">Test Chime</button>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                                <div><div class="font-bold">🎵 528 Hz Harmonic Solfeggio Tuner</div><div class="text-[10px] opacity-60">Dolby Atmos spatial soundstage</div></div>
+                                <button onclick="playHarmonicChime()" class="px-3 py-1 rounded-lg bg-saffron text-slate-950 font-bold">Play 528 Hz</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tab 4: Widgets -->
                     <div id="tab-pane-widgets" class="space-y-4 font-mono text-xs hidden">
                         <div class="text-sm font-bold">Desktop Widgets Customizer</div>
                         <div class="space-y-3">
@@ -812,6 +854,8 @@
                             <div class="p-3 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center"><div><div class="font-bold">📝 Quick Scratchpad Note</div></div><input type="checkbox" checked onchange="triggerIslandNotification('🧩 Widgets', 'Scratchpad updated');" class="w-4 h-4 accent-cyan-500"></div>
                         </div>
                     </div>
+
+                    <!-- Tab 5: Shortcuts -->
                     <div id="tab-pane-shortcuts" class="space-y-3 font-mono text-xs hidden">
                         <div class="text-sm font-bold">System Keybindings & Hotkeys</div>
                         <table class="w-full text-left">
@@ -828,24 +872,32 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- Tab 6: Updates -->
                     <div id="tab-pane-updates" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex items-center justify-between">
                             <div><div class="text-sm font-bold">Sovereign Update: Up to Date</div><div class="text-[11px] opacity-70 mt-0.5">Build: 2026.1.0 LTS (Channel: STABLE_LTS)</div></div>
                             <button onclick="checkUpdates()" id="btn-check-update" class="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs transition-all">Check Updates</button>
                         </div>
                     </div>
+
+                    <!-- Tab 7: Graphics -->
                     <div id="tab-pane-graphics" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-3.5 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-emerald-500/50 flex justify-between items-center">
                             <div><div class="font-bold text-emerald-600 dark:text-emerald-400">Vulkan 1.3 Sovereign Driver (Active)</div></div>
                             <span class="text-xs text-emerald-600 dark:text-emerald-300 font-bold px-2 py-1 bg-emerald-100 dark:bg-emerald-950 rounded">ENABLED</span>
                         </div>
                     </div>
+
+                    <!-- Tab 8: Battery -->
                     <div id="tab-pane-battery" class="space-y-4 font-mono text-xs hidden">
                         <div class="flex items-center space-x-6 p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800">
                             <div class="text-5xl font-black text-emerald-600 dark:text-emerald-400">94%</div>
                             <div><div class="text-sm font-bold">Battery State: Fast Charging</div><div class="text-xs opacity-70 mt-0.5">Health: 98.5% • Full in 28 mins</div></div>
                         </div>
                     </div>
+
+                    <!-- Tab 9: Security -->
                     <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
                         <div class="p-4 rounded-2xl bg-emerald-100/50 dark:bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
                             <div class="text-emerald-700 dark:text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
@@ -861,16 +913,16 @@
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'editor-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('editor-window', 'dock-editor')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('editor-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('editor-window', 'dock-editor')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('editor-window', 'dock-editor')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('editor-window', 'dock-editor')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('editor-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Indic Code Studio IDE — main.rs</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <button onclick="toggleDevanagariKeywords()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-saffron font-mono text-xs font-bold border border-slate-300 dark:border-slate-700">🕉️ Devanagari Syntax</button>
-                    <button onclick="runCodeStudio()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold">▶ Run Code</button>
+                    <button onclick="playSfx('click'); toggleDevanagariKeywords()" class="px-3 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-saffron font-mono text-xs font-bold border border-slate-300 dark:border-slate-700">🕉️ Devanagari Syntax</button>
+                    <button onclick="playSfx('click'); runCodeStudio()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold">▶ Run Code</button>
                 </div>
             </div>
             <div class="flex-1 flex bg-slate-50/90 dark:bg-slate-950/90 font-mono text-xs overflow-hidden">
@@ -895,10 +947,10 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('appstore-window', 'dock-appstore')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('appstore-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('appstore-window', 'dock-appstore')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('appstore-window', 'dock-appstore')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('appstore-window', 'dock-appstore')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('appstore-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">BharatOS Sovereign App Store (spkg)</span>
                 </div>
@@ -931,9 +983,9 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('calc-window', 'dock-calc')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('calc-window', 'dock-calc')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('calc-window', 'dock-calc')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('calc-window', 'dock-calc')" title="Minimize Window"><span class="btn-icon">−</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Vedic Calculator</span>
                 </div>
@@ -969,10 +1021,10 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
                 </div>
@@ -992,10 +1044,10 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'notes-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('notes-window', 'dock-notes')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('notes-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('notes-window', 'dock-notes')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('notes-window', 'dock-notes')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('notes-window', 'dock-notes')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('notes-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Patra Notes — Sovereign Markdown Workspace</span>
                 </div>
@@ -1007,14 +1059,16 @@ pub extern "C" fn _start() -> ! {
 - [x] 64-bit Memory Paging & Zero-Trust Firewall
 - [x] 144 FPS Vulkan Display Engine
 - [x] Liquid Glass Dark & Light Modes
-- [x] Unique Sovereign Tri-Gem Actions</textarea>
+- [x] Apple-Grade Fluid Glass Action Buttons
+- [x] Procedural Web Audio Sound Engine</textarea>
                 <div class="w-1/2 p-4 bg-slate-100/40 dark:bg-slate-900/40 custom-scroll overflow-y-auto leading-relaxed">
                     <h2 class="text-base font-bold text-cyan-600 dark:text-cyan-300 border-b border-slate-200 dark:border-slate-800 pb-1 mb-2">BharatOS Sovereignty Roadmap</h2>
                     <ul class="space-y-1.5 text-xs">
                         <li class="text-emerald-600 dark:text-emerald-400">✓ 64-bit Memory Paging & Zero-Trust Firewall</li>
                         <li class="text-emerald-600 dark:text-emerald-400">✓ 144 FPS Vulkan Display Engine</li>
                         <li class="text-emerald-600 dark:text-emerald-400">✓ Liquid Glass Dark & Light Modes</li>
-                        <li class="text-emerald-600 dark:text-emerald-400">✓ Unique Sovereign Tri-Gem Actions</li>
+                        <li class="text-emerald-600 dark:text-emerald-400">✓ Apple-Grade Fluid Glass Action Buttons</li>
+                        <li class="text-emerald-600 dark:text-emerald-400">✓ Procedural Web Audio Sound Engine</li>
                     </ul>
                 </div>
             </div>
@@ -1025,10 +1079,10 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'panchang-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('panchang-window', 'dock-panchang')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('panchang-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('panchang-window', 'dock-panchang')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('panchang-window', 'dock-panchang')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('panchang-window', 'dock-panchang')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('panchang-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">National Panchang & Saka Calendar 1948</span>
                 </div>
@@ -1050,10 +1104,10 @@ pub extern "C" fn _start() -> ! {
             <div class="specular-glow"></div>
             <div class="px-5 py-2.5 bg-slate-100/60 dark:bg-slate-950/60 border-b border-slate-200 dark:border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'device-window')">
                 <div class="flex items-center space-x-3">
-                    <div class="sovereign-control-cluster">
-                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('device-window', 'dock-device')" title="Minimize">−</span>
-                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('device-window')" title="Maximize / Float">◇</span>
-                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('device-window', 'dock-device')" title="Close">✕</span>
+                    <div class="fluid-glass-controls">
+                        <span class="fluid-glass-btn btn-fluid-close" onclick="closeAppWindow('device-window', 'dock-device')" title="Close Window"><span class="btn-icon">✕</span></span>
+                        <span class="fluid-glass-btn btn-fluid-minimize" onclick="minimizeAppWindow('device-window', 'dock-device')" title="Minimize Window"><span class="btn-icon">−</span></span>
+                        <span class="fluid-glass-btn btn-fluid-maximize" onclick="toggleMaximizeWindow('device-window')" title="Maximize / Float"><span class="btn-icon">⤢</span></span>
                     </div>
                     <span class="text-xs font-mono font-bold">Device Manager & Hardware HAL Inspector</span>
                 </div>
@@ -1139,9 +1193,105 @@ pub extern "C" fn _start() -> ! {
 
     <!-- Master Scripts -->
     <script>
-        // 1. Theme Engine (Dark & Light Mode Switcher)
+        // 1. Web Audio Procedural Sound Effects Synthesizer
+        let audioCtx = null;
+        function getAudioContext() {
+            if (!audioCtx) {
+                audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+            return audioCtx;
+        }
+
+        function playSfx(type) {
+            try {
+                const ctx = getAudioContext();
+                const now = ctx.currentTime;
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+
+                if (type === 'open') {
+                    // Gentle rising glass chime (528 Hz -> 792 Hz)
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(528, now);
+                    osc.frequency.exponentialRampToValueAtTime(792, now + 0.18);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.35);
+                } else if (type === 'close') {
+                    // Warm resonant whoosh (440 Hz -> 220 Hz)
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(440, now);
+                    osc.frequency.exponentialRampToValueAtTime(220, now + 0.15);
+                    gain.gain.setValueAtTime(0.10, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.25);
+                } else if (type === 'minimize') {
+                    // Squeeze ping
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(660, now);
+                    osc.frequency.exponentialRampToValueAtTime(330, now + 0.12);
+                    gain.gain.setValueAtTime(0.08, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.2);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.2);
+                } else if (type === 'click') {
+                    // Crisp tactile micro-click
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(1200, now);
+                    osc.frequency.exponentialRampToValueAtTime(400, now + 0.03);
+                    gain.gain.setValueAtTime(0.06, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+                    osc.connect(gain);
+                    gain.connect(ctx.destination);
+                    osc.start(now);
+                    osc.stop(now + 0.04);
+                } else if (type === 'unlock') {
+                    // Golden harmonic chord arpeggio
+                    [528, 660, 792, 1056].forEach((freq, idx) => {
+                        const noteOsc = ctx.createOscillator();
+                        const noteGain = ctx.createGain();
+                        noteOsc.type = 'sine';
+                        noteOsc.frequency.setValueAtTime(freq, now + idx * 0.06);
+                        noteGain.gain.setValueAtTime(0.12, now + idx * 0.06);
+                        noteGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.06 + 0.4);
+                        noteOsc.connect(noteGain);
+                        noteGain.connect(ctx.destination);
+                        noteOsc.start(now + idx * 0.06);
+                        noteOsc.stop(now + idx * 0.06 + 0.4);
+                    });
+                } else if (type === 'notify') {
+                    // Gentle double ping
+                    [880, 1174].forEach((freq, idx) => {
+                        const noteOsc = ctx.createOscillator();
+                        const noteGain = ctx.createGain();
+                        noteOsc.type = 'sine';
+                        noteOsc.frequency.setValueAtTime(freq, now + idx * 0.09);
+                        noteGain.gain.setValueAtTime(0.1, now + idx * 0.09);
+                        noteGain.gain.exponentialRampToValueAtTime(0.001, now + idx * 0.09 + 0.25);
+                        noteOsc.connect(noteGain);
+                        noteGain.connect(ctx.destination);
+                        noteOsc.start(now + idx * 0.09);
+                        noteOsc.stop(now + idx * 0.09 + 0.25);
+                    });
+                }
+            } catch(e) {}
+        }
+
+        // 2. Theme Engine (Dark & Light Liquid Glass Switcher)
         let currentTheme = 'dark';
         function toggleTheme() {
+            playSfx('click');
             currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', currentTheme);
             const icon = document.getElementById('theme-icon');
@@ -1157,7 +1307,7 @@ pub extern "C" fn _start() -> ! {
             }
         }
 
-        // 2. Boot Engine Transition ➔ Direct to Non-Generic Sovereign Lock Screen
+        // 3. Boot Engine Transition ➔ Direct to Non-Generic Sovereign Lock Screen
         let bootProgress = 0;
         const progressEl = document.getElementById('minimal-boot-progress');
         const labelEl = document.getElementById('minimal-boot-label');
@@ -1209,8 +1359,9 @@ pub extern "C" fn _start() -> ! {
             if (greetEl) greetEl.textContent = indicGreetings[greetingIdx];
         }, 3500);
 
-        // 3. Lock Screen Authentication
+        // 4. Lock Screen Authentication
         function unlockDesktop() {
+            playSfx('unlock');
             const lockEl = document.getElementById('lock-screen');
             if (lockEl) {
                 lockEl.classList.add('unlocked');
@@ -1219,6 +1370,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function lockDesktop() {
+            playSfx('close');
             const lockEl = document.getElementById('lock-screen');
             if (lockEl) {
                 lockEl.classList.remove('unlocked');
@@ -1227,9 +1379,10 @@ pub extern "C" fn _start() -> ! {
             }
         }
 
-        // 4. Dynamic Island Engine
+        // 5. Dynamic Island Engine
         let isIslandExpanded = false;
         function toggleDynamicIsland() {
+            playSfx('click');
             const island = document.getElementById('dynamic-island-container');
             const compactView = document.getElementById('island-compact-view');
             const expandedView = document.getElementById('island-expanded-view');
@@ -1250,6 +1403,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function triggerIslandNotification(title, msg) {
+            playSfx('notify');
             const island = document.getElementById('dynamic-island-container');
             const compactView = document.getElementById('island-compact-view');
             const expandedView = document.getElementById('island-expanded-view');
@@ -1277,9 +1431,10 @@ pub extern "C" fn _start() -> ! {
             }, 3000);
         }
 
-        // 5. Desktop Widgets Toggle
+        // 6. Desktop Widgets Toggle
         let widgetsVisible = true;
         function toggleWidgets() {
+            playSfx('click');
             const panel = document.getElementById('desktop-widgets-panel');
             if (panel) {
                 widgetsVisible = !widgetsVisible;
@@ -1290,7 +1445,7 @@ pub extern "C" fn _start() -> ! {
 
         function playHarmonicChime() {
             try {
-                const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                const ctx = getAudioContext();
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = 'sine';
@@ -1311,6 +1466,7 @@ pub extern "C" fn _start() -> ! {
             localStorage.setItem('bharat_sticky_note', text);
         }
         function clearStickyNote() {
+            playSfx('click');
             const area = document.getElementById('sticky-note-area');
             if (area) { area.value = ''; localStorage.removeItem('bharat_sticky_note'); }
         }
@@ -1320,8 +1476,9 @@ pub extern "C" fn _start() -> ! {
             if (area) area.value = savedNote;
         }
 
-        // 6. Workspaces Switcher
+        // 7. Workspaces Switcher
         function switchWorkspace(wsId) {
+            playSfx('click');
             [1, 2, 3, 4].forEach(id => {
                 const btn = document.getElementById(`ws-btn-${id}`);
                 if (btn) {
@@ -1335,29 +1492,34 @@ pub extern "C" fn _start() -> ! {
             triggerIslandNotification(`🖥️ Workspace ${wsId}`, 'Switched Virtual Desktop Space');
         }
 
-        // 7. Night Light & Wallpapers
+        // 8. Night Light & Wallpapers
         function toggleNightLight() {
+            playSfx('click');
             document.body.classList.toggle('night-light');
             const isNight = document.body.classList.contains('night-light');
             triggerIslandNotification('🌙 Night Light', isNight ? 'Warm Blue Light Filter Active' : 'Disabled');
         }
 
         function setWallpaper(className) {
+            playSfx('click');
             document.body.className = `${className} relative flex flex-col justify-between select-none`;
             triggerIslandNotification('🎨 Wallpaper Changed', 'Applied Sovereign Aesthetic');
         }
 
-        // 8. Keybindings Modal
+        // 9. Keybindings Modal
         function openKeybindingsModal() {
+            playSfx('open');
             document.getElementById('shortcuts-modal').classList.remove('hidden');
         }
         function closeKeybindingsModal() {
+            playSfx('close');
             document.getElementById('shortcuts-modal').classList.add('hidden');
         }
 
-        // 9. Dynamic Origin App Opening & Closing from Dock Icon
+        // 10. Dynamic Origin App Opening & Closing from Dock Icon
         let highestZ = 30;
         function openAppWindow(winId, dockBtnId) {
+            playSfx('open');
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
@@ -1377,6 +1539,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function closeAppWindow(winId, dockBtnId) {
+            playSfx('close');
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
@@ -1395,6 +1558,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function minimizeAppWindow(winId, dockBtnId) {
+            playSfx('minimize');
             closeAppWindow(winId, dockBtnId);
         }
 
@@ -1408,6 +1572,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function toggleMaximizeWindow(winId) {
+            playSfx('click');
             const el = document.getElementById(winId);
             if (el) el.classList.toggle('window-maximized');
         }
@@ -1450,9 +1615,10 @@ pub extern "C" fn _start() -> ! {
             window.removeEventListener('mouseup', onDragEnd);
         }
 
-        // 10. Calculator Engine
+        // 11. Calculator Engine
         let calcVal = '0';
         function calcInput(v) {
+            playSfx('click');
             const disp = document.getElementById('calc-display');
             if (v === 'C') {
                 calcVal = '0';
@@ -1464,6 +1630,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function calcEquals() {
+            playSfx('click');
             const disp = document.getElementById('calc-display');
             try {
                 calcVal = String(eval(calcVal));
@@ -1475,11 +1642,13 @@ pub extern "C" fn _start() -> ! {
         }
 
         function runCodeStudio() {
+            playSfx('click');
             triggerIslandNotification('▶ Rust Code Runner', 'Compiling & Executing on Bare Metal...');
         }
 
         let isDevanagari = false;
         function toggleDevanagariKeywords() {
+            playSfx('click');
             const area = document.getElementById('code-editor-textarea');
             if (!area) return;
             if (!isDevanagari) {
@@ -1494,6 +1663,7 @@ pub extern "C" fn _start() -> ! {
         }
 
         function installPackage(pkgName, btn) {
+            playSfx('click');
             btn.textContent = 'Installing...';
             setTimeout(() => {
                 btn.textContent = 'Installed';
@@ -1502,21 +1672,23 @@ pub extern "C" fn _start() -> ! {
             }, 1000);
         }
 
-        // 11. Settings Tabs
+        // 12. Settings Tabs
         function switchSettingsTab(tabKey) {
-            ['system', 'wallpaper', 'widgets', 'shortcuts', 'updates', 'graphics', 'battery', 'security'].forEach(k => {
+            playSfx('click');
+            ['system', 'wallpaper', 'sound', 'widgets', 'shortcuts', 'updates', 'graphics', 'battery', 'security'].forEach(k => {
                 const pane = document.getElementById(`tab-pane-${k}`);
                 const btn = document.getElementById(`tab-btn-${k}`);
                 if (pane) pane.classList.add('hidden');
-                if (btn) btn.className = 'w-full text-left px-3 py-1.5 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold';
+                if (btn) btn.className = 'w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2';
             });
             const activePane = document.getElementById(`tab-pane-${tabKey}`);
             const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
             if (activePane) activePane.classList.remove('hidden');
-            if (activeBtn) activeBtn.className = 'w-full text-left px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold';
+            if (activeBtn) activeBtn.className = 'w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2';
         }
 
         function checkUpdates() {
+            playSfx('click');
             const btn = document.getElementById('btn-check-update');
             btn.textContent = 'Checking...';
             setTimeout(() => {
@@ -1525,7 +1697,7 @@ pub extern "C" fn _start() -> ! {
             }, 800);
         }
 
-        // 12. Global Keyboard Listeners (Win+E, Win+T, Win+G, Win+I, Win+M, Win+L, Win+D, Win+?)
+        // 13. Global Keyboard Listeners (Win+E, Win+T, Win+G, Win+I, Win+M, Win+L, Win+D, Win+?)
         window.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             const key = e.key.toLowerCase();
@@ -1541,7 +1713,7 @@ pub extern "C" fn _start() -> ! {
             }
         });
 
-        // 13. VFS Dual Pane
+        // 14. VFS Dual Pane
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB" },
@@ -1579,6 +1751,7 @@ pub extern "C" fn _start() -> ! {
                 const el = document.createElement('div');
                 el.className = 'p-3.5 rounded-2xl bg-white/70 dark:bg-slate-900/60 border border-slate-300 dark:border-slate-800/90 flex flex-col items-center text-center cursor-pointer hover:scale-105 hover:bg-white dark:hover:bg-slate-800/80 transition-all shadow-sm';
                 el.onclick = () => {
+                    playSfx('click');
                     if (item.type === 'dir') {
                         const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
                         navigateToPath(nextPath);
@@ -1595,7 +1768,7 @@ pub extern "C" fn _start() -> ! {
         function navigateToPath(p) { renderVFS(p); }
         renderVFS("/home/user");
 
-        // 14. Task Manager Monitor
+        // 15. Task Manager Monitor
         const processes = [
             { pid: 1, name: "sovereign_kernel", cpu: "0.1%", mem: "12.4 MB", status: "Running" },
             { pid: 2, name: "kavach_shield", cpu: "0.2%", mem: "18.2 MB", status: "Guarding" },
@@ -1617,7 +1790,7 @@ pub extern "C" fn _start() -> ! {
                     <td class="py-2.5 text-emerald-600 dark:text-emerald-400">${p.cpu}</td>
                     <td class="py-2.5 text-amber-600 dark:text-amber-300">${p.mem}</td>
                     <td class="py-2.5"><span class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px]">${p.status}</span></td>
-                    <td class="py-2.5 text-right"><button onclick="triggerIslandNotification('⚠️ Process Terminated', 'PID ' + ${p.pid});" class="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-500/40 text-rose-600 dark:text-rose-300 text-[10px]">End Task</button></td>
+                    <td class="py-2.5 text-right"><button onclick="playSfx('click'); triggerIslandNotification('⚠️ Process Terminated', 'PID ' + ${p.pid});" class="px-2 py-0.5 rounded bg-rose-100 dark:bg-rose-950/60 border border-rose-300 dark:border-rose-500/40 text-rose-600 dark:text-rose-300 text-[10px]">End Task</button></td>
                 `;
                 tbody.appendChild(tr);
             });
@@ -1628,10 +1801,11 @@ pub extern "C" fn _start() -> ! {
             triggerIslandNotification('⚡ RAM Purged', '12.7 MB Cache Cleared');
         }
 
-        // 15. Bharat Shell
+        // 16. Bharat Shell
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
             if (e.key === 'Enter') {
+                playSfx('click');
                 const val = input.value.trim();
                 if (!val) return;
                 input.value = '';
@@ -1641,10 +1815,13 @@ pub extern "C" fn _start() -> ! {
                 const cmd = val.split(' ')[0].toLowerCase();
 
                 if (cmd === 'help') {
-                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, theme, widgets, lock, clear</div>`;
+                    out.innerHTML += `<div>Commands: dir, ls, tasklist, ps, mem, free, systeminfo, theme, widgets, lock, sound, clear</div>`;
                 } else if (cmd === 'theme') {
                     toggleTheme();
                     out.innerHTML += `<div class="text-cyan-300">Toggled theme to ${currentTheme} mode.</div>`;
+                } else if (cmd === 'sound') {
+                    playSfx('notify');
+                    out.innerHTML += `<div class="text-amber-300">Played audio DSP notification ping.</div>`;
                 } else if (cmd === 'dir' || cmd === 'ls') {
                     out.innerHTML += `<div>documents/  projects/  games/  solaris_game.exe  readme.txt</div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
