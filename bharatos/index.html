@@ -145,7 +145,6 @@
             border-radius: 22px;
             box-shadow: 0 30px 80px rgba(0, 0, 0, 0.88), inset 0 1px 1px rgba(255, 255, 255, 0.3);
             transition: transform 0.12s ease-out, box-shadow 0.2s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1);
-            transform-origin: bottom center;
         }
 
         .ultra-liquid-glass:hover {
@@ -159,6 +158,67 @@
             pointer-events: none;
             background: radial-gradient(circle 400px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.12), transparent 70%);
             mix-blend-mode: overlay;
+        }
+
+        /* --- SOVEREIGN TRI-GEM ACTION CONTROLS (NOT MACOS CLONE) --- */
+        .sovereign-control-cluster {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            padding: 3px 8px;
+            background: rgba(2, 4, 8, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            backdrop-filter: blur(12px);
+        }
+
+        .sovereign-gem-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 800;
+            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer;
+        }
+
+        .gem-minimize {
+            color: #fbbf24;
+            background: rgba(251, 191, 36, 0.15);
+            border: 1px solid rgba(251, 191, 36, 0.35);
+        }
+        .gem-minimize:hover {
+            background: rgba(251, 191, 36, 0.85);
+            color: #020408;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.6);
+        }
+
+        .gem-maximize {
+            color: #38bdf8;
+            background: rgba(56, 189, 248, 0.15);
+            border: 1px solid rgba(56, 189, 248, 0.35);
+        }
+        .gem-maximize:hover {
+            background: rgba(56, 189, 248, 0.85);
+            color: #020408;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.6);
+        }
+
+        .gem-close {
+            color: #f43f5e;
+            background: rgba(244, 63, 94, 0.15);
+            border: 1px solid rgba(244, 63, 94, 0.35);
+        }
+        .gem-close:hover {
+            background: rgba(244, 63, 94, 0.85);
+            color: #020408;
+            transform: scale(1.15);
+            box-shadow: 0 0 10px rgba(244, 63, 94, 0.6);
         }
 
         /* --- DYNAMIC ISLAND --- */
@@ -179,25 +239,44 @@
             padding: 16px 20px;
         }
 
-        /* --- HYPER-FLUID GENIE TRANSITIONS --- */
+        /* --- HYPER-FLUID APP DOCK ORIGIN TRANSITIONS --- */
         .window-open-genie {
-            animation: genie-expand 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation: app-expand 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
         .window-minimize-genie {
-            animation: genie-collapse 0.32s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+            animation: app-collapse 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
         }
 
-        @keyframes genie-expand {
-            0% { transform: translateY(180px) scale(0.35) scaleY(0.2) rotateX(15deg); opacity: 0; filter: blur(12px); }
-            70% { transform: translateY(-8px) scale(1.02) scaleY(1.01) rotateX(-2deg); opacity: 0.95; filter: blur(0); }
-            100% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
+        @keyframes app-expand {
+            0% {
+                transform: scale(0.08) translateY(60px);
+                opacity: 0;
+                filter: blur(14px);
+            }
+            70% {
+                transform: scale(1.02) translateY(-4px);
+                opacity: 0.95;
+                filter: blur(0);
+            }
+            100% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+                filter: blur(0);
+            }
         }
 
-        @keyframes genie-collapse {
-            0% { transform: translateY(0) scale(1) scaleY(1) rotateX(0deg); opacity: 1; filter: blur(0); }
-            40% { transform: translateY(60px) scale(0.7) scaleY(0.6) rotateX(8deg); opacity: 0.8; filter: blur(4px); }
-            100% { transform: translateY(240px) scale(0.15) scaleY(0.05) rotateX(20deg); opacity: 0; filter: blur(16px); }
+        @keyframes app-collapse {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+                filter: blur(0);
+            }
+            100% {
+                transform: scale(0.05) translateY(80px);
+                opacity: 0;
+                filter: blur(16px);
+            }
         }
 
         /* Maximized Window State */
@@ -207,20 +286,6 @@
             width: calc(100vw - 32px) !important;
             height: calc(100vh - 104px) !important;
             border-radius: 16px !important;
-        }
-
-        /* Window Snapping */
-        .window-snap-left {
-            top: 48px !important;
-            left: 16px !important;
-            width: calc(50vw - 24px) !important;
-            height: calc(100vh - 104px) !important;
-        }
-        .window-snap-right {
-            top: 48px !important;
-            left: calc(50vw + 8px) !important;
-            width: calc(50vw - 24px) !important;
-            height: calc(100vh - 104px) !important;
         }
 
         /* --- BOTTOM HORIZON TASKBAR --- */
@@ -303,14 +368,12 @@
 
     <!-- 2. IMMERSIVE CUSTOMIZABLE LOCK SCREEN (BOOTS FIRST BEFORE DESKTOP) -->
     <div id="lock-screen">
-        <!-- Top Lock Date & Weather -->
         <div class="text-center space-y-2">
             <div id="lock-saka-date" class="text-sm font-mono text-cyan-300 font-bold tracking-wider">Saka 1948 • Bhadrapada 12 • Rohini Nakshatra</div>
             <div id="lock-time-display" class="text-7xl font-extrabold font-mono text-white tracking-tight">12:00:00</div>
             <div id="lock-greg-date" class="text-sm text-slate-400 font-medium">Monday, August 24, 2026</div>
         </div>
 
-        <!-- Center User Auth Card -->
         <div class="flex flex-col items-center space-y-4 p-6 rounded-3xl bg-slate-900/60 border border-slate-800/80 backdrop-blur-2xl w-80 shadow-2xl">
             <div class="relative">
                 <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-lg">
@@ -326,7 +389,6 @@
                 <p class="text-[11px] font-mono text-slate-400">sovereign@bharatos (Zero Telemetry)</p>
             </div>
 
-            <!-- PIN Input Field -->
             <div class="w-full space-y-2">
                 <input id="lock-pin-input" type="password" placeholder="Enter PIN (Default: 2026)" maxlength="8" class="w-full px-4 py-2 rounded-xl bg-slate-950 border border-slate-700 text-center font-mono text-sm tracking-widest text-cyan-300 focus:outline-none focus:border-cyan-400" onkeydown="if(event.key==='Enter') unlockDesktop()">
                 <button onclick="unlockDesktop()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen hover:opacity-95 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md">
@@ -335,7 +397,6 @@
             </div>
         </div>
 
-        <!-- Bottom Lock Screen Telemetry Pill -->
         <div class="flex items-center space-x-6 text-xs font-mono text-slate-400">
             <div class="flex items-center space-x-2"><span>🛡️</span><span>Kavach 100% Secure</span></div>
             <span>•</span>
@@ -352,12 +413,11 @@
     <nav class="relative z-40 px-6 py-2 flex items-center justify-between text-xs border-b border-slate-800/40 bg-slate-950/40 backdrop-blur-md">
         <!-- Left: Sovereign Brand & Workspaces Switcher -->
         <div class="flex items-center space-x-3">
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
+            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700/80 text-saffron font-bold transition-all hover:scale-105 active:scale-95 shadow-sm">
                 <span class="text-sm">☸️</span>
                 <span class="tracking-wide text-xs">BharatOS</span>
             </button>
             <span class="text-slate-600">|</span>
-            <!-- Virtual Workspaces Switcher -->
             <div class="flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 font-mono text-[10px]">
                 <button onclick="switchWorkspace(1)" id="ws-btn-1" class="px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40">1: Core</button>
                 <button onclick="switchWorkspace(2)" id="ws-btn-2" class="px-2 py-0.5 rounded-lg hover:bg-slate-800 text-slate-400">2: Gaming</button>
@@ -412,7 +472,7 @@
 
                 <div class="flex items-center justify-between text-[11px] text-slate-400">
                     <span>Click anywhere on island to collapse</span>
-                    <span class="text-cyan-300 hover:underline font-bold" onclick="event.stopPropagation(); openWindow('taskmanager-window');">Open Task Manager →</span>
+                    <span class="text-cyan-300 hover:underline font-bold" onclick="event.stopPropagation(); openAppWindow('taskmanager-window', 'dock-taskmgr');">Open Task Manager →</span>
                 </div>
             </div>
         </div>
@@ -449,9 +509,8 @@
             <p class="text-xs text-slate-400 mt-2 font-mono tracking-widest">SOVEREIGN QUANTUM DESKTOP • 144 FPS VULKAN ENGINE</p>
         </div>
 
-        <!-- 3. CUSTOMIZABLE DESKTOP WIDGETS (Right Sidebar Container) -->
+        <!-- 3. CUSTOMIZABLE DESKTOP WIDGETS -->
         <div id="desktop-widgets-panel" class="absolute top-6 right-6 w-80 space-y-4 z-10">
-            
             <!-- Widget 1: System Hardware Metrics -->
             <div class="desktop-widget p-4 font-mono text-xs space-y-3">
                 <div class="flex justify-between items-center border-b border-slate-800 pb-2">
@@ -502,12 +561,15 @@
         <!-- WINDOW 1: ADVANCED PROPER FILE EXPLORER -->
         <div id="files-window" class="absolute top-4 left-24 w-[880px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('files-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('files-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('files-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
+                <div class="flex items-center space-x-3">
+                    <!-- UNIQUE SOVEREIGN TRI-GEM ACTION CONTROLS -->
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('files-window', 'dock-files')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('files-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">SovereignFS Explorer — Sovereign NVMe (C:)</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <button onclick="createNewFilePrompt()" class="px-3 py-1 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-xs font-mono text-cyan-300 border border-slate-700">+ New File</button>
@@ -550,12 +612,14 @@
         <!-- WINDOW 2: SOVEREIGN GAMING CENTER & 144 FPS VULKAN ENGINE -->
         <div id="gaming-window" class="absolute top-6 left-32 w-[840px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'gaming-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('gaming-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('gaming-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('gaming-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Game Hub (Vulkan & Direct3D Engine)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'gaming-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('gaming-window', 'dock-gaming')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('gaming-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('gaming-window', 'dock-gaming')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">BharatOS Sovereign Game Hub (Vulkan & Direct3D Engine)</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <span class="px-2.5 py-0.5 rounded-full bg-cyan-950 border border-cyan-500/40 text-cyan-300 font-mono text-xs font-bold">🎮 144 FPS ACTIVE</span>
@@ -591,7 +655,7 @@
                                 <h4 class="text-sm font-bold text-white mt-2">Solaris: Space Flight</h4>
                                 <p class="text-[10px] text-slate-400">3D Real Orbital Mechanics Simulator (Vulkan)</p>
                             </div>
-                            <button onclick="openWindow('solaris-window'); closeWindow('gaming-window');" class="w-full py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
+                            <button onclick="openAppWindow('solaris-window', 'dock-gaming'); closeAppWindow('gaming-window', 'dock-gaming');" class="w-full py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs">▶ Play Game</button>
                         </div>
 
                         <div class="p-4 rounded-2xl bg-slate-900/70 border border-slate-800 hover:border-amber-400 transition-all flex flex-col justify-between space-y-3">
@@ -619,12 +683,14 @@
         <!-- WINDOW 3: SOLARIS GAME EMBEDDED IFRAME -->
         <div id="solaris-window" class="absolute top-4 left-20 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'solaris-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('solaris-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('solaris-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('solaris-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Solaris Orbital Flight Simulator (Vulkan 144 FPS)</span>
+            <div class="px-5 py-2 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'solaris-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('solaris-window', 'dock-gaming')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('solaris-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('solaris-window', 'dock-gaming')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">Solaris Orbital Flight Simulator (Vulkan 144 FPS)</span>
                 </div>
                 <a href="/game" target="_blank" class="text-xs text-cyan-400 hover:underline font-mono font-bold">Fullscreen ↗</a>
             </div>
@@ -636,12 +702,14 @@
         <!-- WINDOW 4: TASK MANAGER -->
         <div id="taskmanager-window" class="absolute top-8 left-36 w-[780px] h-[480px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('taskmanager-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('taskmanager-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('taskmanager-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Task Manager & Memory Analyzer (Win+M)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('taskmanager-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">Task Manager & Memory Analyzer (Win+M)</span>
                 </div>
                 <button onclick="purgeMemoryCache()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 text-xs font-mono font-bold">⚡ Purge RAM Cache</button>
             </div>
@@ -657,15 +725,17 @@
             </div>
         </div>
 
-        <!-- WINDOW 5: FULL COMPREHENSIVE MULTI-SECTION SETTINGS APPLICATION -->
+        <!-- WINDOW 5: FULL COMPREHENSIVE SETTINGS APPLICATION -->
         <div id="settings-window" class="absolute top-6 left-28 w-[880px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('settings-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('settings-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('settings-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign Settings & Personalization (Win+I)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('settings-window', 'dock-settings')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('settings-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">BharatOS Sovereign Settings & Personalization (Win+I)</span>
                 </div>
             </div>
 
@@ -824,12 +894,14 @@
         <!-- WINDOW 6: INDIC CODE STUDIO IDE -->
         <div id="editor-window" class="absolute top-8 left-36 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'editor-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('editor-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('editor-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('editor-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Indic Code Studio IDE — main.rs</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'editor-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('editor-window', 'dock-editor')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('editor-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('editor-window', 'dock-editor')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">Indic Code Studio IDE — main.rs</span>
                 </div>
                 <button onclick="runCodeStudio()" class="px-3 py-1 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-mono text-xs font-bold">▶ Run Code</button>
             </div>
@@ -853,12 +925,14 @@ pub extern "C" fn _start() -> ! {
         <!-- WINDOW 7: SOVEREIGN APP STORE -->
         <div id="appstore-window" class="absolute top-10 left-40 w-[840px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('appstore-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('appstore-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('appstore-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">BharatOS Sovereign App Store (spkg)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'appstore-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('appstore-window', 'dock-appstore')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('appstore-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('appstore-window', 'dock-appstore')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">BharatOS Sovereign App Store (spkg)</span>
                 </div>
             </div>
             <div class="flex-1 p-6 space-y-4 bg-slate-950/85 custom-scroll overflow-y-auto font-mono text-xs">
@@ -887,11 +961,13 @@ pub extern "C" fn _start() -> ! {
         <!-- WINDOW 8: VEDIC & SCIENTIFIC CALCULATOR -->
         <div id="calc-window" class="absolute top-12 left-48 w-[380px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('calc-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('calc-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">Vedic Calculator</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('calc-window', 'dock-calc')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('calc-window', 'dock-calc')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">Vedic Calculator</span>
                 </div>
             </div>
             <div class="p-4 bg-slate-950/90 flex flex-col flex-1 font-mono">
@@ -927,12 +1003,14 @@ pub extern "C" fn _start() -> ! {
         <!-- WINDOW 9: TERMINAL (bsh) -->
         <div id="terminal-window" class="absolute top-12 left-52 w-[760px] h-[460px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
             <div class="specular-glow"></div>
-            <div class="px-5 py-3 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
-                <div class="flex items-center space-x-2">
-                    <span class="w-3 h-3 rounded-full bg-rose-500 hover:bg-rose-600 cursor-pointer shadow-md" onclick="closeWindow('terminal-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-amber-500 hover:bg-amber-600 cursor-pointer shadow-md" onclick="minimizeWindow('terminal-window')"></span>
-                    <span class="w-3 h-3 rounded-full bg-emerald-500 hover:bg-emerald-600 cursor-pointer shadow-md" onclick="toggleMaximizeWindow('terminal-window')"></span>
-                    <span class="text-xs font-mono text-slate-200 ml-3 font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
+            <div class="px-5 py-2.5 bg-slate-950/60 border-b border-slate-800/80 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
+                <div class="flex items-center space-x-3">
+                    <div class="sovereign-control-cluster">
+                        <span class="sovereign-gem-btn gem-minimize" onclick="minimizeAppWindow('terminal-window', 'dock-terminal')" title="Minimize">−</span>
+                        <span class="sovereign-gem-btn gem-maximize" onclick="toggleMaximizeWindow('terminal-window')" title="Maximize / Float">◇</span>
+                        <span class="sovereign-gem-btn gem-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">✕</span>
+                    </div>
+                    <span class="text-xs font-mono text-slate-200 font-bold">bharat-shell (bsh) — sovereign@bharatos:~ (Win+T)</span>
                 </div>
             </div>
             <div class="flex-1 bg-slate-950/90 p-5 font-mono text-xs text-slate-200 custom-scroll overflow-y-auto space-y-1.5" id="terminal-output">
@@ -972,18 +1050,18 @@ pub extern "C" fn _start() -> ! {
         
         <!-- Left: Sudarshan Sovereign Start Gem & App Icons -->
         <div class="flex items-center space-x-3">
-            <button onclick="openWindow('files-window')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
+            <button onclick="openAppWindow('files-window', 'dock-files')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
                 ☸️
             </button>
             <div class="h-6 w-px bg-slate-700/60"></div>
-            <button id="dock-files" onclick="toggleWindowFromDock('files-window')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
-            <button id="dock-editor" onclick="toggleWindowFromDock('editor-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Code Studio IDE">📝</button>
-            <button id="dock-appstore" onclick="toggleWindowFromDock('appstore-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store">🛍️</button>
-            <button id="dock-calc" onclick="toggleWindowFromDock('calc-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Vedic Calculator">🧮</button>
-            <button id="dock-gaming" onclick="toggleWindowFromDock('gaming-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
-            <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
-            <button id="dock-settings" onclick="toggleWindowFromDock('settings-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
-            <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
+            <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
+            <button id="dock-editor" onclick="toggleWindowFromDock('editor-window', 'dock-editor')" class="taskbar-item p-2 rounded-xl text-xl" title="Code Studio IDE">📝</button>
+            <button id="dock-appstore" onclick="toggleWindowFromDock('appstore-window', 'dock-appstore')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store">🛍️</button>
+            <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="taskbar-item p-2 rounded-xl text-xl" title="Vedic Calculator">🧮</button>
+            <button id="dock-gaming" onclick="toggleWindowFromDock('gaming-window', 'dock-gaming')" class="taskbar-item p-2 rounded-xl text-xl" title="Gaming Hub (Win+G)">🎮</button>
+            <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window', 'dock-taskmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+M)">📊</button>
+            <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
+            <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Terminal (Win+T)">💻</button>
         </div>
 
         <!-- Right: SYSTEM TRAY -->
@@ -997,12 +1075,12 @@ pub extern "C" fn _start() -> ! {
                 <span class="font-bold">850 Mbps</span>
             </button>
 
-            <button onclick="openWindow('gaming-window')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all" title="Game Boost 144 FPS">
+            <button onclick="openAppWindow('gaming-window', 'dock-gaming')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-amber-950/40 border border-amber-500/40 text-amber-300 font-mono text-[11px] hover:bg-amber-900/50 transition-all" title="Game Boost 144 FPS">
                 <span>🎮</span>
                 <span class="font-bold">144 FPS</span>
             </button>
 
-            <button onclick="openWindow('settings-window')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all" title="Kavach Zero-Trust Active">
+            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-950/40 border border-emerald-500/40 text-emerald-300 font-mono text-[11px] hover:bg-emerald-900/50 transition-all" title="Kavach Zero-Trust Active">
                 <span>🛡️</span>
                 <span class="font-bold">Kavach</span>
             </button>
@@ -1012,7 +1090,7 @@ pub extern "C" fn _start() -> ! {
                 <span>80%</span>
             </button>
 
-            <button onclick="openWindow('settings-window'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Battery: 94% (Charging Fast)">
+            <button onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-900/80 border border-slate-700/80 text-emerald-400 font-mono text-[11px] hover:bg-slate-800 transition-all" title="Battery: 94% (Charging Fast)">
                 <span>⚡ 94%</span>
             </button>
 
@@ -1053,7 +1131,6 @@ pub extern "C" fn _start() -> ! {
                 screen.classList.add('fade-out-boot');
                 setTimeout(() => {
                     screen.style.display = 'none';
-                    // Focus lock screen PIN input
                     const pin = document.getElementById('lock-pin-input');
                     if (pin) pin.focus();
                 }, 750);
@@ -1207,40 +1284,60 @@ pub extern "C" fn _start() -> ! {
             document.getElementById('shortcuts-modal').classList.add('hidden');
         }
 
-        // 8. Window Management & Inertial Drag
+        // 8. Dynamic Origin App Opening & Closing from Dock Icon
         let highestZ = 30;
-        function openWindow(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('hidden', 'window-minimize-genie');
-                el.classList.add('window-open-genie');
-                highestZ++;
-                el.style.zIndex = highestZ;
+        function openAppWindow(winId, dockBtnId) {
+            const win = document.getElementById(winId);
+            const dockBtn = document.getElementById(dockBtnId);
+            if (!win) return;
+
+            if (dockBtn) {
+                const btnRect = dockBtn.getBoundingClientRect();
+                const winRect = win.getBoundingClientRect();
+                const originX = (btnRect.left + btnRect.width / 2) - winRect.left;
+                const originY = (btnRect.top + btnRect.height / 2) - winRect.top;
+                win.style.transformOrigin = `${originX}px ${originY}px`;
             }
+
+            win.classList.remove('hidden', 'window-minimize-genie');
+            win.classList.add('window-open-genie');
+            highestZ++;
+            win.style.zIndex = highestZ;
         }
 
-        function closeWindow(id) {
-            const el = document.getElementById(id);
-            if (el) {
-                el.classList.remove('window-open-genie');
-                el.classList.add('window-minimize-genie');
-                setTimeout(() => el.classList.add('hidden'), 300);
+        function closeAppWindow(winId, dockBtnId) {
+            const win = document.getElementById(winId);
+            const dockBtn = document.getElementById(dockBtnId);
+            if (!win) return;
+
+            if (dockBtn) {
+                const btnRect = dockBtn.getBoundingClientRect();
+                const winRect = win.getBoundingClientRect();
+                const originX = (btnRect.left + btnRect.width / 2) - winRect.left;
+                const originY = (btnRect.top + btnRect.height / 2) - winRect.top;
+                win.style.transformOrigin = `${originX}px ${originY}px`;
             }
+
+            win.classList.remove('window-open-genie');
+            win.classList.add('window-minimize-genie');
+            setTimeout(() => win.classList.add('hidden'), 280);
         }
 
-        function minimizeWindow(id) { closeWindow(id); }
+        function minimizeAppWindow(winId, dockBtnId) {
+            closeAppWindow(winId, dockBtnId);
+        }
 
-        function toggleWindowFromDock(id) {
-            const el = document.getElementById(id);
+        function toggleWindowFromDock(winId, dockBtnId) {
+            const el = document.getElementById(winId);
             if (el && !el.classList.contains('hidden')) {
-                minimizeWindow(id);
+                minimizeAppWindow(winId, dockBtnId);
             } else {
-                openWindow(id);
+                openAppWindow(winId, dockBtnId);
             }
         }
 
-        function toggleMaximizeWindow(id) {
-            const el = document.getElementById(id);
+        function toggleMaximizeWindow(winId) {
+            const el = document.getElementById(winId);
             if (el) el.classList.toggle('window-maximized');
         }
 
@@ -1347,11 +1444,11 @@ pub extern "C" fn _start() -> ! {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             const key = e.key.toLowerCase();
             if (e.metaKey || e.ctrlKey || e.altKey) {
-                if (key === 'e') { e.preventDefault(); openWindow('files-window'); }
-                if (key === 't') { e.preventDefault(); openWindow('terminal-window'); }
-                if (key === 'g') { e.preventDefault(); openWindow('gaming-window'); }
-                if (key === 'i') { e.preventDefault(); openWindow('settings-window'); }
-                if (key === 'm') { e.preventDefault(); openWindow('taskmanager-window'); }
+                if (key === 'e') { e.preventDefault(); openAppWindow('files-window', 'dock-files'); }
+                if (key === 't') { e.preventDefault(); openAppWindow('terminal-window', 'dock-terminal'); }
+                if (key === 'g') { e.preventDefault(); openAppWindow('gaming-window', 'dock-gaming'); }
+                if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
+                if (key === 'm') { e.preventDefault(); openAppWindow('taskmanager-window', 'dock-taskmgr'); }
                 if (key === 'l') { e.preventDefault(); lockDesktop(); }
                 if (key === 'd') { e.preventDefault(); toggleWidgets(); }
                 if (key === '?' || key === '/') { e.preventDefault(); openKeybindingsModal(); }
@@ -1400,7 +1497,7 @@ pub extern "C" fn _start() -> ! {
                         const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
                         navigateToPath(nextPath);
                     } else if (item.name.includes('solaris') || item.name.endsWith('.exe')) {
-                        openWindow('gaming-window');
+                        openAppWindow('gaming-window', 'dock-gaming');
                     } else {
                         triggerIslandNotification('📄 File Opened', item.name);
                     }
@@ -1466,10 +1563,10 @@ pub extern "C" fn _start() -> ! {
                 } else if (cmd === 'tasklist' || cmd === 'ps') {
                     out.innerHTML += `<div>PID 1: sovereign_kernel (12.4 MB)<br>PID 2: kavach_shield (18.2 MB)<br>PID 3: vulkan_compositor (42.0 MB - 144 FPS)</div>`;
                 } else if (cmd === 'code') {
-                    openWindow('editor-window');
+                    openAppWindow('editor-window', 'dock-editor');
                     out.innerHTML += `<div class="text-cyan-300">Launching Indic Code Studio IDE...</div>`;
                 } else if (cmd === 'calc') {
-                    openWindow('calc-window');
+                    openAppWindow('calc-window', 'dock-calc');
                     out.innerHTML += `<div class="text-amber-300">Launching Vedic Calculator...</div>`;
                 } else if (cmd === 'widgets') {
                     toggleWidgets();
@@ -1480,7 +1577,7 @@ pub extern "C" fn _start() -> ! {
                 } else if (cmd === 'mem' || cmd === 'free') {
                     out.innerHTML += `<div>Total RAM: 16,384 MB | Used: 55.4 MB (0.3%) | Free: 16,328.6 MB</div>`;
                 } else if (cmd === 'game') {
-                    openWindow('gaming-window');
+                    openAppWindow('gaming-window', 'dock-gaming');
                     out.innerHTML += `<div class="text-cyan-300">Launching Sovereign Game Hub (144 FPS)...</div>`;
                 } else {
                     out.innerHTML += `<div class="text-slate-400">bsh: command '${cmd}' executed in sovereign memory.</div>`;
