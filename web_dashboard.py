@@ -1,13 +1,7 @@
-"""
-Unified Master Web Dashboard Server.
-Serves the unified Solaris Prometheus Command Center on http://localhost:5678,
-handling REST telemetry endpoints, playable game routes, and interactive controls.
-"""
-
 import os
 import json
 import threading
-from http.server import HTTPServer, SimpleHTTPRequestHandler
+from http.server import HTTPServer, ThreadingHTTPServer, SimpleHTTPRequestHandler
 from pathlib import Path
 from typing import Optional
 
@@ -149,7 +143,7 @@ class UnifiedDashboardServer:
     def __init__(self, host: Optional[str] = None, port: Optional[int] = None):
         self.host = host or "0.0.0.0"
         self.port = port or config.get("web_dashboard_port", 5678)
-        self.httpd: Optional[HTTPServer] = None
+        self.httpd: Optional[ThreadingHTTPServer] = None
         self._thread: Optional[threading.Thread] = None
 
     def start(self) -> str:
@@ -157,11 +151,11 @@ class UnifiedDashboardServer:
         server_address = (self.host, self.port)
         
         try:
-            self.httpd = HTTPServer(server_address, MasterDashboardHandler)
+            self.httpd = ThreadingHTTPServer(server_address, MasterDashboardHandler)
         except OSError:
             self.port += 1
             server_address = (self.host, self.port)
-            self.httpd = HTTPServer(server_address, MasterDashboardHandler)
+            self.httpd = ThreadingHTTPServer(server_address, MasterDashboardHandler)
 
         self._thread = threading.Thread(target=self.httpd.serve_forever, daemon=True, name="UnifiedDashboardServer")
         self._thread.start()
