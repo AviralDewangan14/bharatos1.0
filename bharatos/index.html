@@ -44,7 +44,7 @@
             --trans-speed: 0.28s;
             --os-scale: 1;
 
-            /* LIGHT PORCELAIN ICE LIQUID GLASS */
+            /* LIGHT PORCELAIN THEME */
             --bg-base: #f8fafc;
             --bg-gradient: radial-gradient(circle at 50% 20%, #ffffff 0%, #e2e8f0 100%);
             --text-main: #0f172a;
@@ -63,7 +63,7 @@
         }
 
         [data-theme="dark"] {
-            /* DARK OBSIDIAN VOID LIQUID GLASS */
+            /* DARK OBSIDIAN THEME */
             --bg-base: #020408;
             --bg-gradient: radial-gradient(circle at 50% 25%, #0d1527 0%, #020408 100%);
             --text-main: #f8fafc;
@@ -114,6 +114,25 @@
         body.wall-padma { background: radial-gradient(circle at 50% 50%, rgba(244, 114, 182, 0.25) 0%, var(--bg-base) 70%); }
 
         body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
+
+        /* --- SHUTDOWN & REBOOT CINEMATIC OVERLAY --- */
+        #power-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 20000;
+            background: #020408;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        #power-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
 
         /* --- MODERN BOOT SCREEN --- */
         #boot-screen {
@@ -178,6 +197,16 @@
             0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.5), 0 0 15px rgba(var(--accent-rgb), 0.3); }
             70% { box-shadow: 0 0 0 22px rgba(255, 153, 51, 0), 0 0 35px rgba(var(--accent-rgb), 0); }
             100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
+        }
+
+        .shake-error {
+            animation: input-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+        }
+        @keyframes input-shake {
+            10%, 90% { transform: translate3d(-2px, 0, 0); }
+            20%, 80% { transform: translate3d(4px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
+            40%, 60% { transform: translate3d(6px, 0, 0); }
         }
 
         /* --- ULTRA-MODERN CLEAN LIQUID GLASS SURFACES --- */
@@ -249,7 +278,6 @@
             transform: scale(1);
         }
 
-        /* Clean Minimal Glass Close */
         .btn-glass-close {
             background: rgba(244, 63, 94, 0.2);
             border-color: rgba(244, 63, 94, 0.4);
@@ -263,7 +291,6 @@
             box-shadow: 0 0 10px rgba(244, 63, 94, 0.5);
         }
 
-        /* Clean Minimal Glass Minimize */
         .btn-glass-min {
             background: rgba(245, 158, 11, 0.2);
             border-color: rgba(245, 158, 11, 0.4);
@@ -277,7 +304,6 @@
             box-shadow: 0 0 10px rgba(245, 158, 11, 0.5);
         }
 
-        /* Clean Minimal Glass Maximize */
         .btn-glass-max {
             background: rgba(16, 185, 129, 0.2);
             border-color: rgba(16, 185, 129, 0.4);
@@ -379,6 +405,18 @@
 </head>
 <body class="wall-obsidian select-none">
 
+    <!-- SHUTDOWN & REBOOT CINEMATIC OVERLAY -->
+    <div id="power-overlay">
+        <div class="minimal-emblem mb-6">
+            <span class="text-7xl select-none">☸️</span>
+        </div>
+        <h2 id="power-action-title" class="text-2xl font-bold text-white tracking-widest font-mono uppercase">Shutting Down BharatOS...</h2>
+        <p id="power-action-sub" class="text-xs text-slate-400 font-mono mt-2">Flushing NVMe Page Cache & Disarming Kavach Shield...</p>
+        <div class="w-64 h-1 bg-slate-900 rounded-full overflow-hidden border border-slate-800 mt-6">
+            <div id="power-progress-bar" class="bg-gradient-to-r from-saffron to-indiaGreen h-full w-0 transition-all duration-300"></div>
+        </div>
+    </div>
+
     <!-- ONBOARDING SETUP MODAL -->
     <div id="onboarding-modal" class="fixed inset-0 z-[12000] bg-black/85 backdrop-blur-3xl flex items-center justify-center hidden">
         <div class="w-[460px] p-8 ultra-liquid-glass space-y-6 shadow-2xl">
@@ -472,6 +510,11 @@
                     <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
                 </div>
 
+                <!-- Alert message on invalid PIN -->
+                <div id="lock-pin-alert" class="w-full text-center px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden">
+                    ⚠️ Invalid PIN! Security Enclave Guarded.
+                </div>
+
                 <div class="w-full space-y-2">
                     <input id="lock-pin-input" type="password" placeholder="Enter PIN" maxlength="8" class="w-full px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-center font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-300 focus:outline-none focus:border-cyan-400" onkeydown="if(event.key==='Enter') unlockDesktop()">
                     <button onclick="unlockDesktop()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen hover:opacity-95 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95">
@@ -496,9 +539,10 @@
                     <span>🛡️ Kavach Vault:</span>
                     <span class="text-emerald-600 dark:text-emerald-400 font-bold">100% Zero Telemetry</span>
                 </div>
-                <div id="lock-battery-container" class="flex items-center space-x-2 hidden">
-                    <span>⚡ Power:</span>
-                    <span class="text-amber-600 dark:text-amber-300 font-bold">94% Fast Charge</span>
+                <!-- Power Options on Lock Screen -->
+                <div class="flex items-center space-x-2">
+                    <button onclick="triggerReboot()" class="hover:text-amber-400" title="Restart">🔄</button>
+                    <button onclick="triggerShutdown()" class="hover:text-rose-400" title="Shut Down">⏻</button>
                 </div>
             </div>
         </div>
@@ -575,7 +619,7 @@
                             <span>•</span>
                             <span>🛡️ Probes Blocked: <strong class="text-cyan-500">4,280</strong></span>
                         </div>
-                        <button class="text-cyan-600 dark:text-cyan-300 hover:underline font-bold" onclick="openAppWindow('settings-window', 'dock-settings'); toggleDynamicIsland();">Display Settings →</button>
+                        <button class="text-cyan-600 dark:text-cyan-300 hover:underline font-bold" onclick="openAppWindow('kavach-window', 'dock-defender'); toggleDynamicIsland();">Kavach Defender →</button>
                     </div>
                 </div>
             </div>
@@ -595,9 +639,17 @@
                     ⌨️ Shortcuts
                 </button>
 
-                <button onclick="lockDesktop()" class="px-2.5 py-1 rounded-lg bg-slate-200/80 dark:bg-slate-900/80 hover:bg-slate-300 dark:hover:bg-slate-800 font-mono text-[11px] border border-slate-300 dark:border-slate-800" title="Lock Screen (Win+L)">
-                    🔒 Lock
-                </button>
+                <!-- Power Menu Button in Nav -->
+                <div class="relative group">
+                    <button class="px-2.5 py-1 rounded-lg bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-mono text-[11px] border border-rose-500/40 flex items-center space-x-1" title="Power Options">
+                        <span>⏻</span><span>Power</span>
+                    </button>
+                    <div class="absolute right-0 top-full mt-1.5 w-40 p-2 ultra-liquid-glass space-y-1 text-xs font-mono hidden group-hover:block shadow-2xl z-50">
+                        <button onclick="lockDesktop()" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>🔒</span><span>Lock Screen</span></button>
+                        <button onclick="triggerReboot()" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-amber-500"><span>🔄</span><span>Restart OS</span></button>
+                        <button onclick="triggerShutdown()" class="w-full text-left px-2.5 py-1.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-rose-500 font-bold"><span>⏻</span><span>Shut Down</span></button>
+                    </div>
+                </div>
             </div>
         </nav>
 
@@ -659,10 +711,8 @@
             <!-- APP 1: HYPER-ORGANIZED LIQUID GLASS FILE EXPLORER (SOVEREIGNFS STUDIO) -->
             <div id="files-window" class="absolute top-4 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <!-- Title Header with Ultra-Clean Minimal Liquid Glass Controls -->
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
                     <div class="flex items-center space-x-3">
-                        <!-- ULTRA-CLEAN MODERN LIQUID GLASS CONTROLS -->
                         <div class="modern-glass-controls">
                             <span class="glass-btn btn-glass-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
                                 <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
@@ -686,7 +736,6 @@
                     </div>
                 </div>
 
-                <!-- Navigation Ribbon -->
                 <div class="px-5 py-2 bg-slate-50/60 dark:bg-slate-950/50 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
                     <div class="flex items-center space-x-2">
                         <div class="flex items-center space-x-1">
@@ -708,7 +757,6 @@
                     </div>
                 </div>
 
-                <!-- Main File Explorer Dual Pane Area -->
                 <div class="flex-1 flex overflow-hidden">
                     <div class="w-60 bg-slate-100/70 dark:bg-slate-950/70 p-4 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between text-xs font-mono">
                         <div class="space-y-3">
@@ -755,7 +803,79 @@
                 </div>
             </div>
 
-            <!-- APP 2: BHARAT COMMAND PROMPT & POWERSHELL (bsh MASTER CMD CENTER) -->
+            <!-- APP 2: KAVACH SOVEREIGN DEFENDER (MICROSOFT DEFENDER / IOS LEVEL ZERO-TRUST ANTIVIRUS) -->
+            <div id="kavach-window" class="absolute top-8 left-32 w-[860px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="modern-glass-controls">
+                            <span class="glass-btn btn-glass-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-min" onclick="minimizeAppWindow('kavach-window', 'dock-defender')" title="Minimize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+                            </span>
+                            <span class="glass-btn btn-glass-max" onclick="toggleMaximizeWindow('kavach-window')" title="Maximize">
+                                <svg class="btn-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline><line x1="21" y1="3" x2="14" y2="10"></line><line x1="3" y1="21" x2="10" y2="14"></line></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-emerald-500">🛡️</span>
+                            <span>Kavach Sovereign Defender — Zero-Trust Ring-0 Shield</span>
+                        </span>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 border border-emerald-500/40 text-[10px] font-mono font-bold">100% UNHACKABLE</span>
+                </div>
+
+                <div class="flex-1 p-6 bg-slate-50/85 dark:bg-slate-950/85 space-y-5 custom-scroll overflow-y-auto font-mono text-xs">
+                    <div class="p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/40 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <span class="text-4xl text-emerald-500">🛡️</span>
+                            <div>
+                                <h3 class="text-base font-bold text-emerald-600 dark:text-emerald-400">Your Sovereign PC is Completely Protected</h3>
+                                <p class="text-[11px] opacity-70">No active threats. Kernel memory integrity verified across all 16 SMP cores.</p>
+                            </div>
+                        </div>
+                        <button onclick="startKavachScan()" id="btn-kavach-scan" class="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-slate-950 font-bold text-xs shadow-md">
+                            🔍 Quick Scan Now
+                        </button>
+                    </div>
+
+                    <!-- Live Scanning Progress Animation -->
+                    <div id="kavach-scan-progress-box" class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-cyan-500/40 space-y-2 hidden">
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-cyan-600 dark:text-cyan-300">Scanning Kernel & SovereignFS Files...</span>
+                            <span id="scan-files-count" class="text-slate-400 font-mono text-[11px]">0 / 14,820 Files</span>
+                        </div>
+                        <div class="w-full bg-slate-300 dark:bg-slate-950 rounded-full h-2 overflow-hidden">
+                            <div id="scan-progress-bar" class="bg-gradient-to-r from-cyan-500 via-saffron to-emerald-500 h-full w-0 transition-all duration-200"></div>
+                        </div>
+                        <div id="scan-current-file" class="text-[10px] opacity-60 truncate">Scanning: /system/kernel.sys...</div>
+                    </div>
+
+                    <!-- Real-Time Defender Shields Matrix -->
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                            <div><div class="font-bold">Real-Time File System Shield</div><div class="text-[10px] opacity-60">Instant I/O malware trap</div></div>
+                            <span class="text-emerald-500 font-bold">ON</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                            <div><div class="font-bold">Foreign Telemetry Neutralizer</div><div class="text-[10px] opacity-60">4,280 Probes Blocked</div></div>
+                            <span class="text-emerald-500 font-bold">ON</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                            <div><div class="font-bold">Quantum Sandboxing (iOS Style)</div><div class="text-[10px] opacity-60">Total process isolation</div></div>
+                            <span class="text-emerald-500 font-bold">ON</span>
+                        </div>
+                        <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                            <div><div class="font-bold">Kernel PML4 Memory Guard</div><div class="text-[10px] opacity-60">Zero buffer overrun exploits</div></div>
+                            <span class="text-emerald-500 font-bold">ARMED</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- APP 3: BHARAT COMMAND PROMPT & POWERSHELL (bsh MASTER CMD CENTER) -->
             <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
@@ -781,7 +901,7 @@
                 <div class="flex-1 bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-emerald-400" id="terminal-output">
                     <div class="text-saffron font-bold">BharatOS Sovereign Microkernel [Version 2026.1.0 LTS]</div>
                     <div class="text-slate-400">(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.</div>
-                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'ipconfig'</span>, <span class="text-purple-300 font-bold">'systeminfo'</span>, or <span class="text-cyan-300 font-bold">'cls'</span>.</div>
+                    <div class="text-slate-400">Type <span class="text-cyan-300 font-bold">'help'</span>, <span class="text-emerald-300 font-bold">'dir'</span>, <span class="text-amber-300 font-bold">'ipconfig'</span>, <span class="text-purple-300 font-bold">'systeminfo'</span>, or <span class="text-cyan-300 font-bold">'shutdown'</span>.</div>
                 </div>
 
                 <div class="p-3 bg-slate-950 border-t border-slate-800/80 flex items-center space-x-2 font-mono text-xs">
@@ -790,7 +910,7 @@
                 </div>
             </div>
 
-            <!-- APP 3: SETTINGS & DISPLAY RESOLUTION HUB -->
+            <!-- APP 4: SETTINGS & DISPLAY RESOLUTION HUB -->
             <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
@@ -961,11 +1081,37 @@
         <!-- BOTTOM HORIZON TASKBAR -->
         <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
             <div class="flex items-center space-x-2.5">
-                <button onclick="openAppWindow('files-window', 'dock-files')" class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Core">
-                    ☸️
-                </button>
+                <!-- Sudarshan Start Gem -->
+                <div class="relative group">
+                    <button class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Start Menu">
+                        ☸️
+                    </button>
+                    <!-- Sudarshan Start Popup Menu -->
+                    <div class="absolute left-0 bottom-full mb-3 w-64 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50">
+                        <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
+                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
+                            <div>
+                                <div class="font-bold">Aviral Sharma</div>
+                                <div class="text-[10px] opacity-60">Sovereign Admin</div>
+                            </div>
+                        </div>
+                        <div class="space-y-1">
+                            <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📁</span><span>File Explorer</span></button>
+                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>🛡️</span><span>Kavach Defender</span></button>
+                            <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>💻</span><span>Command Prompt</span></button>
+                            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>Settings</span></button>
+                        </div>
+                        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                            <button onclick="lockDesktop()" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🔒 Lock</button>
+                            <button onclick="triggerReboot()" class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-500 text-[10px]">🔄 Restart</button>
+                            <button onclick="triggerShutdown()" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-400 text-[10px] font-bold">⏻ Shut Down</button>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="h-6 w-px bg-slate-300 dark:bg-slate-700/60"></div>
                 <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
+                <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender">🛡️</button>
                 <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
                 <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Command Prompt (Win+T)">💻</button>
             </div>
@@ -978,7 +1124,7 @@
                 <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-cyan-600 dark:text-cyan-300 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
                     <span>📶</span><span class="font-bold">850 Mbps</span>
                 </button>
-                <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-mono text-[11px] hover:opacity-90 transition-all" title="Kavach Zero-Trust Active">
+                <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-mono text-[11px] hover:opacity-90 transition-all" title="Kavach Zero-Trust Active">
                     <span>🛡️</span><span class="font-bold">Kavach</span>
                 </button>
                 <button onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('sound');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all" title="Sound Volume">
@@ -1046,6 +1192,13 @@
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.04);
+                } else if (type === 'error') {
+                    osc.type = 'sawtooth';
+                    osc.frequency.setValueAtTime(160, now);
+                    gain.gain.setValueAtTime(0.15 * masterVolume, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.start(now); osc.stop(now + 0.3);
                 } else if (type === 'unlock') {
                     [528, 660, 792, 1056].forEach((freq, idx) => {
                         const noteOsc = ctx.createOscillator();
@@ -1203,20 +1356,27 @@
 
         loadUserProfile();
 
-        // Lock Screen Authentication
+        // Lock Screen Authentication with Error Alert & Shake Physics
         function unlockDesktop() {
             const pinInput = document.getElementById('lock-pin-input');
+            const alertBox = document.getElementById('lock-pin-alert');
             const enteredPin = pinInput ? pinInput.value.trim() : '';
 
-            if (enteredPin === '' || enteredPin === userProfile.pin || enteredPin === '2026') {
+            if (enteredPin === userProfile.pin || enteredPin === '2026') {
                 playSfx('unlock');
+                if (alertBox) alertBox.classList.add('hidden');
                 const lockEl = document.getElementById('lock-screen');
                 if (lockEl) lockEl.classList.add('unlocked');
             } else {
-                playSfx('close');
+                playSfx('error');
+                if (alertBox) alertBox.classList.remove('hidden');
                 if (pinInput) {
-                    pinInput.classList.add('border-rose-500');
-                    setTimeout(() => pinInput.classList.remove('border-rose-500'), 1000);
+                    pinInput.value = '';
+                    pinInput.classList.add('shake-error', 'border-rose-500');
+                    setTimeout(() => {
+                        pinInput.classList.remove('shake-error');
+                        pinInput.focus();
+                    }, 450);
                 }
             }
         }
@@ -1227,8 +1387,85 @@
             if (lockEl) {
                 lockEl.classList.remove('unlocked');
                 const pin = document.getElementById('lock-pin-input');
+                const alertBox = document.getElementById('lock-pin-alert');
+                if (alertBox) alertBox.classList.add('hidden');
                 if (pin) { pin.value = ''; pin.focus(); }
             }
+        }
+
+        // CINEMATIC SHUTDOWN & REBOOT ENGINE
+        function triggerShutdown() {
+            playSfx('close');
+            const overlay = document.getElementById('power-overlay');
+            const title = document.getElementById('power-action-title');
+            const sub = document.getElementById('power-action-sub');
+            const bar = document.getElementById('power-progress-bar');
+
+            if (title) title.textContent = "Shutting Down BharatOS...";
+            if (sub) sub.textContent = "Flushing NVMe Page Cache & Disarming Kavach Shield...";
+            if (overlay) overlay.classList.add('active');
+            if (bar) bar.style.width = '100%';
+
+            setTimeout(() => {
+                if (title) title.textContent = "Power Off Safe";
+                if (sub) sub.textContent = "You can now safely turn off your machine.";
+            }, 1800);
+        }
+
+        function triggerReboot() {
+            playSfx('close');
+            const overlay = document.getElementById('power-overlay');
+            const title = document.getElementById('power-action-title');
+            const sub = document.getElementById('power-action-sub');
+            const bar = document.getElementById('power-progress-bar');
+
+            if (title) title.textContent = "Restarting Sovereign Microkernel...";
+            if (sub) sub.textContent = "Rebooting into Rust SMP Ring-0...";
+            if (overlay) overlay.classList.add('active');
+            if (bar) bar.style.width = '100%';
+
+            setTimeout(() => {
+                location.reload();
+            }, 2000);
+        }
+
+        // KAVACH SOVEREIGN DEFENDER SCAN ENGINE
+        let scanProgress = 0;
+        function startKavachScan() {
+            playSfx('click');
+            const scanBox = document.getElementById('kavach-scan-progress-box');
+            const scanBtn = document.getElementById('btn-kavach-scan');
+            const scanBar = document.getElementById('scan-progress-bar');
+            const scanCount = document.getElementById('scan-files-count');
+            const scanCurr = document.getElementById('scan-current-file');
+
+            if (scanBox) scanBox.classList.remove('hidden');
+            if (scanBtn) { scanBtn.disabled = true; scanBtn.textContent = 'Scanning...'; }
+
+            scanProgress = 0;
+            const files = [
+                "/system/kernel.sys",
+                "/system/kavach_vault.key",
+                "/home/user/documents/sovereignty_manifesto.md",
+                "/home/user/projects/solaris_space_game/main.rs",
+                "/system/vulkan_pacer.hal",
+                "/system/pml4_memory_map.bin"
+            ];
+
+            const interval = setInterval(() => {
+                scanProgress += 20;
+                if (scanBar) scanBar.style.width = `${scanProgress}%`;
+                const fIdx = Math.min(Math.floor(scanProgress / 20), files.length - 1);
+                if (scanCount) scanCount.textContent = `${Math.floor((scanProgress / 100) * 14820)} / 14,820 Files`;
+                if (scanCurr) scanCurr.textContent = `Scanning: ${files[fIdx]}...`;
+
+                if (scanProgress >= 100) {
+                    clearInterval(interval);
+                    playSfx('unlock');
+                    if (scanCurr) scanCurr.innerHTML = `<strong class="text-emerald-400">✓ Scan Complete: 0 Threats Found. 100% Kernel Clean!</strong>`;
+                    if (scanBtn) { scanBtn.disabled = false; scanBtn.textContent = 'Scan Again'; }
+                }
+            }, 300);
         }
 
         // Bharat Island Engine
@@ -1490,7 +1727,7 @@
             }
         });
 
-        // 17. HYPER-ORGANIZED SOVEREIGNFS ENGINE
+        // VFS ENGINE
         const VFS_TREE = {
             "/home/user": [
                 { name: "documents", type: "dir", icon: "📁", size: "4 KB", mime: "Folder" },
@@ -1509,9 +1746,7 @@
                 { name: "indic_ai_core", type: "dir", icon: "🧠", size: "120 KB", mime: "AI Workspace" }
             ],
             "/home/user/games": [
-                { name: "solaris_flight.app", type: "file", icon: "🪐", size: "1.8 MB", mime: "3D Flight Simulator" },
-                { name: "chakra_runner.app", type: "file", icon: "⚡", size: "120 KB", mime: "Cyberpunk Game" },
-                { name: "vedic_chess.app", type: "file", icon: "♟️", size: "64 KB", mime: "Vedic Grandmaster" }
+                { name: "solaris_flight.app", type: "file", icon: "🪐", size: "1.8 MB", mime: "3D Flight Simulator" }
             ],
             "/system": [
                 { name: "kernel.sys", type: "file", icon: "⚙️", size: "1.4 MB", mime: "System Kernel Image" },
@@ -1645,7 +1880,7 @@
 
         renderVFS("/home/user");
 
-        // 18. REAL WINDOWS CMD & POWERSHELL MASTER TERMINAL COMMANDS
+        // COMMAND CENTER
         let commandHistory = [];
         let historyPointer = -1;
 
@@ -1690,29 +1925,27 @@
 
                 if (cmd === 'help') {
                     out.innerHTML += `<div>
-<span class="text-saffron font-bold">Supported Windows CMD & Sovereign Shell Commands:</span><br>
-  DIR / LS          - List files and directories in current path<br>
+<span class="text-saffron font-bold">Supported Commands:</span><br>
+  DIR / LS          - List files and directories<br>
   CD [path]         - Change current directory<br>
-  CLS / CLEAR       - Clear command line screen<br>
-  ECHO [text]       - Display messages on screen<br>
-  TYPE [file]       - Display contents of a text file<br>
-  IPCONFIG          - Display network configuration & IP addresses<br>
-  SYSTEMINFO        - Show detailed microkernel & hardware properties<br>
-  TASKLIST / PS     - List running active processes<br>
-  PING [host]       - Ping host address with ICMP echo packets<br>
-  VER               - Display BharatOS version<br>
-  TREE              - Graphically display directory structure<br>
-  MEM / FREE        - Display memory allocation (PML4 paging)<br>
-  THEME             - Toggle Dark / Light Liquid Glass Theme<br>
-  EXPLORER          - Open SovereignFS File Explorer<br>
-  SETTINGS          - Open System Settings Hub<br>
-  LOCK              - Lock Sovereign Desktop Enclave<br>
-  COLOR [attr]      - Change terminal text color (e.g. color 0a)
+  CLS / CLEAR       - Clear command screen<br>
+  IPCONFIG          - Show IP and network settings<br>
+  SYSTEMINFO        - Show hardware and kernel specs<br>
+  DEFENDER / SCAN   - Launch Kavach Zero-Trust Antivirus<br>
+  SHUTDOWN          - Power down the operating system<br>
+  RESTART           - Reboot sovereign microkernel<br>
+  LOCK              - Lock desktop screen<br>
+  EXPLORER          - Open File Explorer
 </div>`;
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
-                } else if (cmd === 'ver') {
-                    out.innerHTML += `<div>BharatOS [Version 2026.1.0 LTS - Build 1948.Swaraj.x86_64]</div>`;
+                } else if (cmd === 'shutdown') {
+                    triggerShutdown();
+                } else if (cmd === 'restart' || cmd === 'reboot') {
+                    triggerReboot();
+                } else if (cmd === 'defender' || cmd === 'scan') {
+                    openAppWindow('kavach-window', 'dock-defender');
+                    startKavachScan();
                 } else if (cmd === 'dir' || cmd === 'ls') {
                     const items = VFS_TREE[currentVFSPath] || [];
                     let listing = `<div> Directory of C:${currentVFSPath}<br><br>`;
@@ -1723,71 +1956,36 @@
                     listing += `<br>               ${items.length} File(s)          12,400,000 bytes free</div>`;
                     out.innerHTML += listing;
                 } else if (cmd === 'cd') {
-                    if (!arg || arg === '~' || arg === '/') {
-                        currentVFSPath = '/home/user';
-                    } else if (arg === '..') {
-                        currentVFSPath = '/home/user';
-                    } else {
+                    if (!arg || arg === '~' || arg === '/') currentVFSPath = '/home/user';
+                    else if (arg === '..') currentVFSPath = '/home/user';
+                    else {
                         const target = `/home/user/${arg}`;
                         if (VFS_TREE[target]) currentVFSPath = target;
-                        else out.innerHTML += `<div class="text-rose-400">The system cannot find the path specified: ${arg}</div>`;
+                        else out.innerHTML += `<div class="text-rose-400">The system cannot find path: ${arg}</div>`;
                     }
                     renderVFS(currentVFSPath);
                 } else if (cmd === 'ipconfig') {
                     out.innerHTML += `<div>
-BharatOS IP Configuration<br><br>
 Wireless LAN adapter Wi-Fi 7 Mesh:<br>
-   Connection-specific DNS Suffix  . : sov.internal<br>
    IPv4 Address. . . . . . . . . . . : 192.168.1.144<br>
-   Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>
    Default Gateway . . . . . . . . . : 192.168.1.1<br>
    Kavach Zero-Trust Tunnel. . . . . : ARMED (10.24.0.1)
 </div>`;
                 } else if (cmd === 'systeminfo') {
                     out.innerHTML += `<div>
-OS Name:                   BharatOS Sovereign PC<br>
-OS Version:                2026.1.0 LTS (Rust SMP Microkernel)<br>
-System Manufacturer:       Sovereign Computing Initiative<br>
-Processor:                 x86_64 Multi-Core SMP (16 Logical Cores)<br>
-Total Physical Memory:     16,384 MB (4-Level PML4 Paging)<br>
-Available Physical Memory: 16,328.6 MB<br>
-Display Adapter:           Vulkan 1.3 Hardware Rasterizer (144 Hz)<br>
-Security Shield:           Kavach Zero-Trust Hardware Enclave
+OS: BharatOS 2026.1.0 LTS (Rust SMP Microkernel)<br>
+Processor: x86_64 Multi-Core SMP (16 Logical Cores)<br>
+Memory: 16,384 MB (4-Level PML4 Paging)<br>
+Display: Vulkan 1.3 Adaptive Pacer (144 Hz)
 </div>`;
-                } else if (cmd === 'tasklist' || cmd === 'ps') {
-                    out.innerHTML += `<div>
-Image Name                     PID Session Name        Mem Usage<br>
-========================= ======== ================ ============<br>
-sovereign_kernel.sys             1 Services             12,400 K<br>
-kavach_shield.exe                2 Services             18,200 K<br>
-vulkan_compositor.exe            3 Console              42,000 K<br>
-bsh_terminal.exe                 4 Console               8,400 K<br>
-sovereign_fs.exe                 5 Console              14,200 K
-</div>`;
-                } else if (cmd === 'ping') {
-                    const host = arg || '127.0.0.1';
-                    out.innerHTML += `<div>
-Pinging ${host} with 32 bytes of data:<br>
-Reply from ${host}: bytes=32 time=0.2ms TTL=128<br>
-Reply from ${host}: bytes=32 time=0.1ms TTL=128<br>
-Reply from ${host}: bytes=32 time=0.2ms TTL=128<br>
-Ping statistics for ${host}: Packets: Sent = 3, Received = 3, Lost = 0 (0% loss)
-</div>`;
-                } else if (cmd === 'echo') {
-                    out.innerHTML += `<div>${arg}</div>`;
-                } else if (cmd === 'theme') {
-                    toggleTheme();
-                    out.innerHTML += `<div class="text-cyan-300">Toggled theme to ${currentTheme} mode.</div>`;
                 } else if (cmd === 'explorer') {
                     openAppWindow('files-window', 'dock-files');
                 } else if (cmd === 'settings') {
                     openAppWindow('settings-window', 'dock-settings');
                 } else if (cmd === 'lock') {
                     lockDesktop();
-                } else if (cmd === 'color') {
-                    out.style.color = '#38bdf8';
                 } else {
-                    out.innerHTML += `<div class="text-slate-400">'${cmd}' is recognized and executed in Sovereign Ring-0 memory space.</div>`;
+                    out.innerHTML += `<div class="text-slate-400">'${cmd}' executed in Sovereign Ring-0 memory.</div>`;
                 }
                 out.scrollTop = out.scrollHeight;
             }
