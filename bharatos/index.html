@@ -1084,6 +1084,82 @@
             100% { transform: translate(60px, 60px) rotate(360deg); }
         }
 
+    
+        /* =========================================================================
+           SCENIC 4K WALLPAPER PRESERVATION & ADAPTIVE LIQUID GLASS THEMES
+           ========================================================================= */
+        body {
+            background-repeat: no-repeat !important;
+            background-position: center center !important;
+            background-size: cover !important;
+            background-attachment: fixed !important;
+            min-height: 100vh !important;
+            width: 100vw !important;
+            overflow: hidden !important;
+        }
+
+        /* Subtle ambient vignette that enriches wallpaper in Dark/Light themes without flat colors */
+        #screen-root {
+            background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.15) 0%, rgba(2, 6, 23, 0.45) 100%);
+            transition: background 0.4s ease;
+        }
+
+        [data-theme="light"] #screen-root,
+        .light #screen-root {
+            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, rgba(224, 242, 254, 0.35) 100%) !important;
+        }
+
+        /* Adaptive Ultra-Liquid-Glass Windows in Dark vs Light Themes */
+        .ultra-liquid-glass {
+            background: rgba(10, 16, 30, 0.88) !important;
+            backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
+            -webkit-backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
+            color: #ffffff !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
+        }
+
+        [data-theme="light"] .ultra-liquid-glass,
+        .light .ultra-liquid-glass {
+            background: rgba(255, 255, 255, 0.88) !important;
+            backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
+            -webkit-backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
+            border-bottom: 1.5px solid rgba(148, 163, 184, 0.5) !important;
+            color: #0f172a !important;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18), inset 0 1.5px 2px rgba(255, 255, 255, 1) !important;
+        }
+
+        /* High-Contrast Content Panes */
+        [data-theme="dark"] #browser-viewport,
+        [data-theme="dark"] #code-editor-container,
+        [data-theme="dark"] #vfs-file-grid,
+        [data-theme="dark"] #kavach-tab-content,
+        [data-theme="dark"] #network-tab-content,
+        [data-theme="dark"] #dev-details-pane,
+        [data-theme="dark"] #custom-tab-content {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            color: #f1f5f9 !important;
+        }
+
+        [data-theme="light"] #browser-viewport,
+        [data-theme="light"] #code-editor-container,
+        [data-theme="light"] #vfs-file-grid,
+        [data-theme="light"] #kavach-tab-content,
+        [data-theme="light"] #network-tab-content,
+        [data-theme="light"] #dev-details-pane,
+        [data-theme="light"] #custom-tab-content,
+        .light #browser-viewport,
+        .light #code-editor-container,
+        .light #vfs-file-grid,
+        .light #kavach-tab-content,
+        .light #network-tab-content,
+        .light #dev-details-pane,
+        .light #custom-tab-content {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -4589,6 +4665,11 @@ vulkano = "0.34"`
             playSfx('click');
             currentTheme = currentTheme === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', currentTheme);
+            document.documentElement.classList.toggle('dark', currentTheme === 'dark');
+            document.documentElement.classList.toggle('light', currentTheme === 'light');
+            document.body.classList.toggle('dark', currentTheme === 'dark');
+            document.body.classList.toggle('light', currentTheme === 'light');
+
             const icon = document.getElementById('theme-icon');
             const text = document.getElementById('theme-text');
             if (currentTheme === 'dark') {
@@ -4598,6 +4679,17 @@ vulkano = "0.34"`
                 if (icon) icon.textContent = '🌙';
                 if (text) text.textContent = 'Dark';
             }
+
+            // CRITICAL: Always re-verify wallpaper background so 4K scenery is never replaced by solid color!
+            const savedCustom = localStorage.getItem('bharatos_custom_wallpaper');
+            const savedWp = localStorage.getItem('bharatos_wallpaper') || 'wall-ladakh-ai';
+            if (savedCustom) {
+                applyWallpaperWithTarget(null, savedCustom);
+            } else {
+                applyWallpaperWithTarget(savedWp);
+            }
+
+            showNotificationToast("Theme Engine", `Switched to ${currentTheme.toUpperCase()} theme with active 4K wallpaper.`, "info");
         }
 
         // Boot Engine
