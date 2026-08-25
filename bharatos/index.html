@@ -991,6 +991,12 @@
                     <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-slate-400 drop-shadow">Terminal</span>
                 </div>
 
+                
+                <div onclick="openAppWindow('customization-window', 'dock-personalize')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-pink-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🎨</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-pink-400 drop-shadow">Personalize</span>
+                </div>
+
                 <div onclick="openAppWindow('settings-window', 'dock-settings')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-indigo-500/30 text-center">
                     <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">⚙️</div>
                     <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-indigo-400 drop-shadow">Settings</span>
@@ -2297,6 +2303,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="glass-dock-tile glaze-calc" title="Scientific Calculator (Win+K)">🧮</button>
                     <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="glass-dock-tile glaze-calendar" title="Calendar & ISRO (Win+J)">🗂️</button>
                     <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="glass-dock-tile glaze-terminal" title="Command Prompt (Win+T)">📟</button>
+                                    <button id="dock-personalize" onclick="toggleWindowFromDock('customization-window', 'dock-personalize')" class="glass-dock-tile glaze-settings text-2xl" title="Personalization Studio (Win+U)">🎨</button>
                     <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="glass-dock-tile glaze-settings" title="Settings (Win+I)">⚙️</button>
                 </div>
 
@@ -3440,6 +3447,280 @@ vulkano = "0.34"`
             'wall-waterfall-ai': 'wallpapers/waterfall_ghats.jpg',
             'wall-kutch-ai': 'wallpapers/kutch_rann.jpg'
         };
+
+        
+        // =========================================================================
+        // CUSTOM WALLPAPER & LOCK SCREEN SYNC ENGINE (PILLAR 7 PERSONALIZATION)
+        // =========================================================================
+
+        function applyWallpaperWithTarget(className, customImgUrl = null) {
+            playSfx('click');
+            const target = document.getElementById('wp-target-select')?.value || 'both';
+            const imgPath = customImgUrl || WALLPAPER_MAP[className] || 'wallpapers/ladakh_pangong.jpg';
+
+            if (target === 'both' || target === 'desktop') {
+                const currentClasses = Array.from(document.body.classList);
+                currentClasses.forEach(cls => {
+                    if (cls.startsWith('wall-')) document.body.classList.remove(cls);
+                });
+                if (className) document.body.classList.add(className);
+                
+                document.body.style.backgroundImage = `url('${imgPath}')`;
+                document.body.style.backgroundRepeat = 'no-repeat';
+                document.body.style.backgroundPosition = 'center center';
+                document.body.style.backgroundSize = 'cover';
+                document.body.style.backgroundAttachment = 'fixed';
+                
+                if (customImgUrl) {
+                    localStorage.setItem('bharatos_custom_wallpaper', customImgUrl);
+                    localStorage.setItem('bharatos_wallpaper', 'custom');
+                } else {
+                    localStorage.removeItem('bharatos_custom_wallpaper');
+                    localStorage.setItem('bharatos_wallpaper', className);
+                }
+            }
+
+            if (target === 'both' || target === 'lock') {
+                const lockEl = document.getElementById('lock-screen');
+                if (lockEl) {
+                    lockEl.style.backgroundImage = `url('${imgPath}')`;
+                    lockEl.style.backgroundRepeat = 'no-repeat';
+                    lockEl.style.backgroundPosition = 'center center';
+                    lockEl.style.backgroundSize = 'cover';
+                    localStorage.setItem('bharatos_lock_wallpaper', customImgUrl || imgPath);
+                }
+            }
+
+            showNotificationToast("Personalization", `Wallpaper applied to ${target.toUpperCase()}.`, "success");
+        }
+
+        function handleCustomWallpaperUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Url = e.target.result;
+                applyWallpaperWithTarget(null, base64Url);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function applyCustomWallpaperUrl() {
+            const input = document.getElementById('custom-wp-url-input');
+            if (!input || !input.value.trim()) {
+                alert("Please enter a valid image URL.");
+                return;
+            }
+            applyWallpaperWithTarget(null, input.value.trim());
+        }
+
+        function switchCustomTab(tab) {
+            playSfx('click');
+            ['wallpapers', 'glass', 'accents', 'lockscreen'].forEach(t => {
+                const btn = document.getElementById(`cust-tab-${t}`);
+                if (btn) {
+                    if (t === tab) {
+                        btn.className = "px-3.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40";
+                    } else {
+                        btn.className = "px-3.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400";
+                    }
+                }
+            });
+
+            const contentPane = document.getElementById('custom-tab-content');
+            if (tab === 'wallpapers') {
+                // Render Wallpapers Pane
+                contentPane.innerHTML = `
+                    <div class="space-y-6">
+                        <!-- Custom Wallpaper Upload & URL Hub -->
+                        <div class="p-5 rounded-3xl bg-gradient-to-r from-pink-950/40 via-purple-950/30 to-slate-900/80 border-2 border-pink-500/40 shadow-xl space-y-4">
+                            <div class="flex items-center justify-between">
+                                <div class="flex items-center space-x-3">
+                                    <span class="text-3xl">📤</span>
+                                    <div>
+                                        <h3 class="text-sm font-bold text-white">Add Custom Wallpaper</h3>
+                                        <p class="text-[11px] text-slate-300">Upload your own photo or paste any online 4K wallpaper URL</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-2 text-xs">
+                                    <label class="text-[11px] opacity-70">Target:</label>
+                                    <select id="wp-target-select" class="px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-cyan-400 font-bold outline-none">
+                                        <option value="both">Desktop & Lock Screen (Both)</option>
+                                        <option value="desktop">Desktop Only</option>
+                                        <option value="lock">Lock Screen Only</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 pt-2">
+                                <div class="p-4 rounded-2xl bg-white/5 border border-dashed border-pink-500/60 flex flex-col items-center justify-center text-center space-y-2 hover:bg-white/10 transition-all cursor-pointer" onclick="document.getElementById('custom-wp-file-input').click()">
+                                    <span class="text-2xl">📁</span>
+                                    <div class="font-bold text-xs text-pink-300">Choose Image from your PC</div>
+                                    <p class="text-[10px] opacity-60">Supports PNG, JPG, WebP, 4K High-Res</p>
+                                    <input type="file" id="custom-wp-file-input" accept="image/*" class="hidden" onchange="handleCustomWallpaperUpload(event)">
+                                </div>
+
+                                <div class="p-4 rounded-2xl bg-white/5 border border-slate-700 space-y-2">
+                                    <div class="font-bold text-xs text-slate-200">Or Paste Image URL:</div>
+                                    <div class="flex space-x-2">
+                                        <input type="text" id="custom-wp-url-input" placeholder="https://images.unsplash.com/..." class="flex-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-700 text-xs text-white outline-none focus:border-cyan-500">
+                                        <button onclick="applyCustomWallpaperUrl()" class="px-4 py-1.5 rounded-xl bg-pink-600 hover:bg-pink-500 text-white font-bold text-xs shadow-md">Apply</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- 4K Heritage Wallpapers Gallery -->
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h3 class="text-xs font-bold text-slate-800 dark:text-slate-200 uppercase tracking-wider">Official 4K BharatOS Wallpapers</h3>
+                                <span class="text-[10px] text-cyan-500">8 Presets Available</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                                <div onclick="applyWallpaperWithTarget('wall-ladakh-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-cyan-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/ladakh_pangong.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Ladakh Pangong</div>
+                                    <div class="text-[10px] opacity-60">Pristine Alpine Lake</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-munnar-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-emerald-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/munnar_hills.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Munnar Hills</div>
+                                    <div class="text-[10px] opacity-60">Misty Tea Plantations</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-varanasi-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-orange-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/varanasi_dawn.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Varanasi Dawn</div>
+                                    <div class="text-[10px] opacity-60">Sacred Ghats Sunburst</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-thar-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-amber-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/thar_desert.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Thar Desert</div>
+                                    <div class="text-[10px] opacity-60">Golden Dunes Twilight</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-kashmir-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-purple-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/kashmir_dal_lake.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Kashmir Dal Lake</div>
+                                    <div class="text-[10px] opacity-60">Shikara Sunset Bloom</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-andaman-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-teal-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/andaman_beach.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Andaman Cove</div>
+                                    <div class="text-[10px] opacity-60">Turquoise Ocean Waves</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-waterfall-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-emerald-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/waterfall_ghats.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Western Ghats</div>
+                                    <div class="text-[10px] opacity-60">Tropical Cascading Falls</div>
+                                </div>
+
+                                <div onclick="applyWallpaperWithTarget('wall-kutch-ai')" class="wp-card-btn group p-2.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:border-cyan-500 cursor-pointer transition-all hover:scale-105 shadow-md">
+                                    <div class="w-full h-24 rounded-xl bg-cover bg-center mb-2" style="background-image: url('wallpapers/kutch_rann.jpg');"></div>
+                                    <div class="font-bold text-xs truncate">Kutch White Desert</div>
+                                    <div class="text-[10px] opacity-60">Moonlit Salt Flats</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'glass') {
+                contentPane.innerHTML = `
+                    <div class="space-y-5">
+                        <h3 class="text-sm font-bold text-white">Liquid Glassmorphism Controls</h3>
+                        <div class="space-y-4">
+                            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                                <div class="flex justify-between"><span>Blur Intensity</span><span id="blur-val" class="font-bold text-cyan-400">48 px</span></div>
+                                <input type="range" min="10" max="80" value="48" class="w-full accent-cyan-500 cursor-pointer" oninput="document.getElementById('blur-val').textContent = this.value + ' px'">
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                                <div class="flex justify-between"><span>Glass Opacity</span><span id="opacity-val" class="font-bold text-pink-400">85%</span></div>
+                                <input type="range" min="30" max="100" value="85" class="w-full accent-pink-500 cursor-pointer" oninput="document.getElementById('opacity-val').textContent = this.value + '%'">
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-2">
+                                <div class="flex justify-between"><span>Specular Edge Shine</span><span class="font-bold text-emerald-400">Active (2px Top-Lit)</span></div>
+                                <div class="text-[11px] opacity-70">Emulates physical bevel prism light reflection across all active windows.</div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'accents') {
+                contentPane.innerHTML = `
+                    <div class="space-y-5">
+                        <h3 class="text-sm font-bold text-white">System Color Accents</h3>
+                        <div class="grid grid-cols-3 gap-3">
+                            <button onclick="setAccentColor('#00e5ff')" class="p-3 rounded-2xl bg-cyan-950/60 border-2 border-cyan-500 text-cyan-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-cyan-400 shadow-md"></span><span>Electric Cyan</span>
+                            </button>
+                            <button onclick="setAccentColor('#ff9933')" class="p-3 rounded-2xl bg-amber-950/60 border border-amber-500/60 text-amber-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-amber-400 shadow-md"></span><span>Saffron Gold</span>
+                            </button>
+                            <button onclick="setAccentColor('#10b981')" class="p-3 rounded-2xl bg-emerald-950/60 border border-emerald-500/60 text-emerald-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-emerald-400 shadow-md"></span><span>Emerald Shield</span>
+                            </button>
+                            <button onclick="setAccentColor('#ec4899')" class="p-3 rounded-2xl bg-pink-950/60 border border-pink-500/60 text-pink-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-pink-400 shadow-md"></span><span>Cosmic Pink</span>
+                            </button>
+                            <button onclick="setAccentColor('#a855f7')" class="p-3 rounded-2xl bg-purple-950/60 border border-purple-500/60 text-purple-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-purple-400 shadow-md"></span><span>Royal Violet</span>
+                            </button>
+                            <button onclick="setAccentColor('#ef4444')" class="p-3 rounded-2xl bg-rose-950/60 border border-rose-500/60 text-rose-300 font-bold flex items-center space-x-2">
+                                <span class="w-4 h-4 rounded-full bg-rose-400 shadow-md"></span><span>Crimson Flare</span>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            } else if (tab === 'lockscreen') {
+                contentPane.innerHTML = `
+                    <div class="space-y-5">
+                        <h3 class="text-sm font-bold text-white">Sovereign Lock Screen Architecture</h3>
+                        <div class="p-4 rounded-2xl bg-slate-900 border border-slate-800 space-y-3">
+                            <div class="font-bold text-xs text-cyan-400">Lock Screen Wallpaper Sync:</div>
+                            <p class="text-[11px] opacity-70">Lock screen automatically renders your active 4K/custom wallpaper with multi-layer astronomical rings, Panchang ephemeris, and biometric Chakra passkeys.</p>
+                            <button onclick="lockDesktop()" class="px-4 py-2 rounded-xl bg-cyan-600 hover:bg-cyan-500 text-white font-bold text-xs shadow-md">
+                                🔒 Test Lock Screen Now
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function setAccentColor(color) {
+            playSfx('click');
+            document.documentElement.style.setProperty('--accent-color', color);
+            showNotificationToast("Theme Studio", `Accent color updated.`, "success");
+        }
+
+        // Initialize saved wallpapers for Desktop & Lock Screen on Boot
+        try {
+            const savedCustom = localStorage.getItem('bharatos_custom_wallpaper');
+            const savedLock = localStorage.getItem('bharatos_lock_wallpaper');
+            const savedWp = localStorage.getItem('bharatos_wallpaper') || 'wall-ladakh-ai';
+
+            if (savedCustom) {
+                applyWallpaperWithTarget(null, savedCustom);
+            } else {
+                applyWallpaperWithTarget(savedWp);
+            }
+
+            if (savedLock) {
+                const lockEl = document.getElementById('lock-screen');
+                if (lockEl) {
+                    lockEl.style.backgroundImage = `url('${savedLock}')`;
+                    lockEl.style.backgroundRepeat = 'no-repeat';
+                    lockEl.style.backgroundPosition = 'center center';
+                    lockEl.style.backgroundSize = 'cover';
+                }
+            }
+        } catch(e) {}
+
 
         function setWallpaper(className) {
             try {
