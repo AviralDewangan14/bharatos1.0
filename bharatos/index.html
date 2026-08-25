@@ -2536,8 +2536,9 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         }
 
         // =========================================================================
-        // GARUD SOVEREIGN WEB BROWSER & GOOGLE SEARCH ENGINE
+        // REVAMPED GARUD SOVEREIGN SEARCH ENGINE (LIVE & DYNAMIC WEB RESULTS)
         // =========================================================================
+        
         function renderGoogleHome() {
             const viewport = document.getElementById('browser-viewport');
             const input = document.getElementById('browser-url-input');
@@ -2560,58 +2561,32 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                 <!-- Google Search Bar -->
                 <div class="relative max-w-xl mx-auto">
-                    <div class="flex items-center px-4 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-md hover:shadow-xl focus-within:shadow-xl focus-within:border-blue-500 transition-all space-x-3 text-left">
-                        <span class="text-slate-400 text-sm">🔍</span>
+                    <div class="flex items-center px-4 py-3 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-lg hover:shadow-xl focus-within:shadow-2xl transition-all space-x-3">
+                        <span class="text-slate-400 text-lg">🔍</span>
                         <input id="google-search-input" type="text" placeholder="Search Google or type a URL..." class="flex-1 bg-transparent border-none outline-none font-sans text-sm text-slate-900 dark:text-white" onkeydown="if(event.key==='Enter') executeGoogleSearch(this.value)" autofocus>
                         <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value)" class="text-slate-400 hover:text-blue-500 text-base" title="Voice Search">🎙️</button>
                         <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value)" class="text-slate-400 hover:text-blue-500 text-base" title="Google Lens">📷</button>
                     </div>
                 </div>
 
-                <!-- Search Buttons -->
-                <div class="flex items-center justify-center space-x-3 text-xs pt-1">
-                    <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value || 'Three.js 3D FPS Game')" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">Google Search</button>
-                    <button onclick="navigateBrowserUrl('http://localhost:5678/game')" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">I'm Feeling Lucky 🎮</button>
+                <!-- Search Action Buttons -->
+                <div class="flex items-center justify-center space-x-3 text-xs">
+                    <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value || 'Three.js 3D FPS Game')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">Google Search</button>
+                    <button onclick="executeGoogleSearch('Solaris 3D WebGL FPS')" class="px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">I'm Feeling Lucky</button>
                 </div>
 
-                <!-- Google Languages -->
-                <div class="text-xs text-slate-500 pt-2 space-x-1.5">
-                    <span>Google offered in:</span>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('भारत समाचार')" class="text-blue-600 dark:text-blue-400 hover:underline">हिन्दी</a>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('বাংলা সংবাদ')" class="text-blue-600 dark:text-blue-400 hover:underline">বাংলা</a>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('తెలుగు వార్తలు')" class="text-blue-600 dark:text-blue-400 hover:underline">తెలుగు</a>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('मराठी बातम्या')" class="text-blue-600 dark:text-blue-400 hover:underline">मराठी</a>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('தமிழ் செய்திகள்')" class="text-blue-600 dark:text-blue-400 hover:underline">தமிழ்</a>
-                    <a href="javascript:void(0)" onclick="executeGoogleSearch('ગુજરાતી સમાચાર')" class="text-blue-600 dark:text-blue-400 hover:underline">ગુજરાતી</a>
-                </div>
-
-                <!-- Quick Speed Dials -->
-                <div class="grid grid-cols-4 gap-3 text-xs font-mono pt-6">
-                    <div onclick="navigateBrowserUrl('http://localhost:5678/game')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
-                        <span class="text-2xl">🎮</span>
-                        <div class="font-bold text-slate-900 dark:text-white">Solaris 3D FPS</div>
-                        <div class="text-[10px] text-rose-500 font-semibold">Three.js Engine</div>
-                    </div>
-                    <div onclick="navigateBrowserUrl('https://isro.gov.in')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
-                        <span class="text-2xl">🛰️</span>
-                        <div class="font-bold text-slate-900 dark:text-white">ISRO Space</div>
-                        <div class="text-[10px] opacity-60">Gaganyaan Hub</div>
-                    </div>
-                    <div onclick="navigateBrowserUrl('https://github.com')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
-                        <span class="text-2xl">💻</span>
-                        <div class="font-bold text-slate-900 dark:text-white">GitHub</div>
-                        <div class="text-[10px] opacity-60">Open Source</div>
-                    </div>
-                    <div onclick="navigateBrowserUrl('https://ai.bharat.in')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
-                        <span class="text-2xl">🧠</span>
-                        <div class="font-bold text-slate-900 dark:text-white">Indic AI</div>
-                        <div class="text-[10px] opacity-60">22 Languages</div>
-                    </div>
+                <!-- Quick Trending Badges -->
+                <div class="flex flex-wrap items-center justify-center gap-2 pt-2 text-xs font-mono">
+                    <span class="opacity-60">Trending:</span>
+                    <button onclick="executeGoogleSearch('Three.js 3D FPS Game')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-blue-500 hover:border-blue-500">🎮 Three.js FPS</button>
+                    <button onclick="executeGoogleSearch('ISRO Gaganyaan 2026')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-emerald-500 hover:border-emerald-500">🛰️ Gaganyaan</button>
+                    <button onclick="executeGoogleSearch('Rust Sovereign Microkernel')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-purple-500 hover:border-purple-500">⚡ Rust OS</button>
+                    <button onclick="executeGoogleSearch('Deadshot.io open source 3D models')" class="px-2.5 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-amber-500 hover:border-amber-500">🔫 3D Assets</button>
                 </div>
             </div>`;
         }
 
-        function executeGoogleSearch(query) {
+        async function executeGoogleSearch(query) {
             if (!query || !query.trim()) query = 'Three.js 3D FPS Game';
             playSfx('click');
             const q = query.trim();
@@ -2625,23 +2600,69 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             const viewport = document.getElementById('browser-viewport');
             if (!viewport) return;
 
-            // Generate authentic Google Search Engine results page
+            // Render Loading Skeleton while querying
+            viewport.innerHTML = `
+            <div class="max-w-4xl mx-auto space-y-5 font-sans animate-pulse">
+                <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+                    <span class="font-extrabold text-xl tracking-tight text-blue-500">Google</span>
+                    <div class="h-8 bg-slate-200 dark:bg-slate-800 rounded-full w-80"></div>
+                </div>
+                <div class="h-24 bg-slate-100 dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800"></div>
+                <div class="space-y-4">
+                    <div class="h-16 bg-slate-100 dark:bg-slate-900 rounded-xl"></div>
+                    <div class="h-16 bg-slate-100 dark:bg-slate-900 rounded-xl"></div>
+                    <div class="h-16 bg-slate-100 dark:bg-slate-900 rounded-xl"></div>
+                </div>
+            </div>`;
+
+            // Query live web results via Wikipedia Search API & Custom Knowledge Synthesizer
+            let liveWebResults = [];
+            try {
+                const res = await fetch(`https://en.wikipedia.org/w/api.php?action=query&list=search&srsearch=${encodeURIComponent(q)}&utf8=&format=json&origin=*`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.query && data.query.search) {
+                        liveWebResults = data.query.search.slice(0, 4).map(item => ({
+                            title: item.title,
+                            snippet: item.snippet.replace(/<[^>]+>/g, ""),
+                            url: `https://en.wikipedia.org/wiki/${encodeURIComponent(item.title)}`
+                        }));
+                    }
+                }
+            } catch (err) {
+                console.log("Offline mode or CORS fallback", err);
+            }
+
+            // Math Calculation detection
+            let mathResult = null;
+            if (/^[0-9\s\+\-\*\/\^\(\)\.\%]+$/.test(q) && /[\+\-\*\/]/.test(q)) {
+                try {
+                    mathResult = Function(`'use strict'; return (${q})`)();
+                } catch(e){}
+            }
+
+            // Check specialized query themes
+            const isGameQuery = /game|fps|deadshot|shooter|3d|three|gun|solaris|play/i.test(q);
+            const isSpaceQuery = /isro|space|moon|gaganyaan|chandrayaan|rocket|orbit/i.test(q);
+            const isCodeQuery = /rust|code|python|js|javascript|github|kernel|repo/i.test(q);
+
+            // Generate Full Dynamic Google Search Page
             viewport.innerHTML = `
             <div class="max-w-4xl mx-auto space-y-5 font-sans">
-                <!-- Google Search Header Bar -->
+                <!-- Search Header Bar -->
                 <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
                     <div class="flex items-center space-x-3">
                         <span onclick="renderGoogleHome()" class="font-extrabold text-xl tracking-tight cursor-pointer select-none">
                             <span class="text-blue-500">G</span><span class="text-rose-500">o</span><span class="text-amber-400">o</span><span class="text-blue-500">g</span><span class="text-emerald-500">l</span><span class="text-rose-500">e</span>
                         </span>
-                        <div class="flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs w-72">
-                            <input id="google-res-input" type="text" value="${q}" class="flex-1 bg-transparent border-none outline-none font-sans" onkeydown="if(event.key==='Enter') executeGoogleSearch(this.value)">
-                            <button onclick="executeGoogleSearch(document.getElementById('google-res-input').value)" class="text-blue-500 font-bold ml-2">🔍</button>
+                        <div class="flex items-center px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs w-80 shadow-inner">
+                            <input id="google-res-input" type="text" value="${q}" class="flex-1 bg-transparent border-none outline-none font-sans text-slate-900 dark:text-white" onkeydown="if(event.key==='Enter') executeGoogleSearch(this.value)">
+                            <button onclick="executeGoogleSearch(document.getElementById('google-res-input').value)" class="text-blue-500 font-bold ml-2 hover:scale-110 transition-transform">🔍</button>
                         </div>
                     </div>
 
                     <div class="flex items-center space-x-2">
-                        <a href="${searchUrl}" target="_blank" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow flex items-center space-x-1">
+                        <a href="${searchUrl}" target="_blank" class="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow flex items-center space-x-1.5 hover:scale-105 active:scale-95">
                             <span>↗</span><span>Open on Live Google.com</span>
                         </a>
                     </div>
@@ -2650,71 +2671,79 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <!-- Google Search Filter Tabs -->
                 <div class="flex items-center space-x-6 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-800 pb-2">
                     <span class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-500 pb-2 flex items-center space-x-1"><span>🔍</span><span>All</span></span>
-                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">🖼️ Images</span>
-                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">📹 Videos</span>
-                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">📰 News</span>
-                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">🗺️ Maps</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer" onclick="executeGoogleSearch('${q} images')">🖼️ Images</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer" onclick="executeGoogleSearch('${q} videos')">📹 Videos</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer" onclick="executeGoogleSearch('${q} news')">📰 News</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer" onclick="executeGoogleSearch('${q} maps')">🗺️ Maps</span>
                 </div>
 
-                <div class="text-xs text-slate-400">About 1,840,000 results (0.28 seconds)</div>
+                <div class="text-xs text-slate-400">About ${(Math.floor(Math.random() * 800) + 120) * 10000} results (0.18 seconds)</div>
 
-                <!-- AI Overview / Knowledge Panel -->
+                <!-- Live Calculator Widget if Math Query -->
+                ${mathResult !== null ? `
+                <div class="p-5 rounded-2xl bg-slate-900 border border-cyan-500/40 font-mono space-y-1 shadow-lg">
+                    <div class="text-xs text-slate-400">${q} =</div>
+                    <div class="text-3xl font-extrabold text-cyan-400">${mathResult}</div>
+                </div>
+                ` : ''}
+
+                <!-- AI Overview / Direct Knowledge Snapshot -->
                 <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-50/80 to-indigo-50/60 dark:from-slate-900/90 dark:to-blue-950/40 border border-blue-200 dark:border-blue-500/30 space-y-2.5 shadow-sm">
                     <div class="flex items-center space-x-2 text-xs font-bold text-blue-600 dark:text-blue-400">
-                        <span>✨</span><span>Google AI Overview • Knowledge Snapshot</span>
+                        <span>✨</span><span>Google AI Overview • "${q}"</span>
                     </div>
                     <p class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
-                        Top results for <strong>"${q}"</strong>: Accelerated with BharatOS Quantum DNS and GPU frame pacer. Access direct interactive simulations, technical documentation, and sovereign knowledge bases below.
+                        Comprehensive results for <strong>"${q}"</strong>: Retrieved via BharatOS Ultra-Fast Web Accelerator. ${isGameQuery ? 'Explore 3D WebGL browser shooters, real-time FPS physics, weapon models, and playable engines directly below.' : isSpaceQuery ? 'Tracking Indian Space Research Organisation telemetry, Gaganyaan human spaceflight, and deep space exploration programs.' : isCodeQuery ? 'Explore open source Rust microkernel source trees, WebGL shaders, and high-performance algorithms.' : 'Access live knowledge articles, verified links, and related search portals below.'}
                     </p>
                 </div>
 
                 <!-- Organic Search Results -->
                 <div class="space-y-6 pt-2">
-                    <!-- Result 1 -->
-                    <div class="space-y-1">
-                        <div class="text-xs text-slate-500 truncate">https://solaris.bharatos.in › cyber-forge-3d-fps</div>
-                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('http://localhost:5678/game')">
-                            🎮 Solaris 3D FPS — WebGL Three.js First-Person Shooter Simulator
+                    ${isGameQuery ? `
+                    <!-- Game Card -->
+                    <div class="p-4 rounded-2xl bg-rose-950/20 border border-rose-500/30 space-y-1.5">
+                        <div class="text-xs text-slate-500 truncate">https://solaris.bharatos.in › 3d-fps-tactical</div>
+                        <h3 class="text-lg font-bold text-rose-500 dark:text-rose-400 hover:underline cursor-pointer flex items-center space-x-2" onclick="navigateBrowserUrl('http://localhost:5678/game')">
+                            <span>🎮 Solaris: Cyber Forge 3D — Playable Three.js WebGL FPS</span>
+                            <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-300 text-[10px]">▶ PLAY NOW</span>
                         </h3>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Play the full-immersion 3D browser FPS game featuring 3 weapon classes (Plasma Rifle, Railgun, Scattergun), autonomous AI sentinel drones, Web Audio API sound synthesis, and real-time radar minimap.
-                        </p>
-                        <div class="pt-1 flex items-center space-x-2 text-xs">
-                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">✓ Playable in 144 FPS</span>
-                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-[10px]">Three.js WebGL</span>
-                        </div>
-                    </div>
-
-                    <!-- Result 2 -->
-                    <div class="space-y-1">
-                        <div class="text-xs text-slate-500 truncate">https://isro.gov.in › gaganyaan-mission-telemetry</div>
-                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">
-                            ISRO — Gaganyaan Human Spaceflight Mission Official Telemetry
-                        </h3>
-                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Official Indian Space Research Organisation mission portal. Track the orbital trajectory, HLVM3 rocket stages, CE-20 cryogenic engine status, and crew escape qualification modules.
+                            Ultra-immersive browser-based first-person shooter built on Three.js and WebGL. Features multi-storey skyscrapers, skybridge, tactical slide, 3 weapon classes (AK-2026, Viper .50 Sniper, Hydra Shotgun), and Web Audio API spatial sound.
                         </p>
                     </div>
+                    ` : ''}
 
-                    <!-- Result 3 -->
+                    <!-- Live Web & Wikipedia Results -->
+                    ${liveWebResults.length > 0 ? liveWebResults.map(item => `
                     <div class="space-y-1">
-                        <div class="text-xs text-slate-500 truncate">https://github.com › sovereign › bharat-os</div>
-                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://github.com')">
-                            GitHub — BharatOS Quantum Microkernel & Prithvi Vulkan Compositor
+                        <div class="text-xs text-slate-500 truncate">${item.url}</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="window.open('${item.url}', '_blank')">
+                            ${item.title} — Verified Web Knowledge
                         </h3>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Open-source repository containing the pure Rust 64-bit kernel, hardware enclave memory models, and zero-telemetry defense layers.
+                            ${item.snippet}...
                         </p>
                     </div>
-
-                    <!-- Result 4 -->
+                    `).join('') : `
                     <div class="space-y-1">
-                        <div class="text-xs text-slate-500 truncate">https://threejs.org › docs › games › fps-controls</div>
-                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('http://localhost:5678/game')">
-                            Three.js Official Documentation & WebGL 3D Games Architecture
+                        <div class="text-xs text-slate-500 truncate">https://bharatos.in › knowledge › ${encodeURIComponent(q)}</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(q)}', '_blank')">
+                            ${q} — Comprehensive Web Overview & Specifications
                         </h3>
                         <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                            Complete reference for PointerLockControls, perspective projection, shadow map rendering, dynamic lighting, and spatial audio synthesis in modern web browsers.
+                            Detailed insights, references, and high-performance resources for ${q}. Indexed by the BharatOS Sovereign Knowledge Graph.
+                        </p>
+                    </div>
+                    `}
+
+                    <!-- General High-Rank Portal -->
+                    <div class="space-y-1">
+                        <div class="text-xs text-slate-500 truncate">https://www.google.com › search?q=${encodeURIComponent(q)}</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="window.open('https://www.google.com/search?q=${encodeURIComponent(q)}', '_blank')">
+                            🔍 Explore "${q}" directly on Live Google.com
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Click here to search across the entire global World Wide Web with full multimedia, live news updates, images, and video feeds.
                         </p>
                     </div>
                 </div>
@@ -2723,9 +2752,9 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
                     <div class="font-bold text-xs text-slate-700 dark:text-slate-300">Related Searches:</div>
                     <div class="flex flex-wrap gap-2 text-xs">
-                        <button onclick="executeGoogleSearch('Three.js 3D game engine')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 Three.js 3D game engine</button>
-                        <button onclick="executeGoogleSearch('ISRO Chandrayaan 4 mission')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 ISRO Chandrayaan 4 mission</button>
-                        <button onclick="executeGoogleSearch('Rust OS microkernel tutorial')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 Rust OS microkernel tutorial</button>
+                        <button onclick="executeGoogleSearch('${q} tutorial')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 ${q} tutorial</button>
+                        <button onclick="executeGoogleSearch('${q} latest news')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 ${q} latest news</button>
+                        <button onclick="executeGoogleSearch('${q} open source github')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 ${q} open source</button>
                     </div>
                 </div>
             </div>`;
