@@ -1001,6 +1001,63 @@
             pointer-events: none !important;
         }
 
+    
+        /* =========================================================================
+           ZERO-OVERLAP DESKTOP GRID & ULTRA-RESPONSIVE TASKBAR DOCK
+           ========================================================================= */
+        .icon-btns {
+            display: grid !important;
+            grid-auto-flow: column !important;
+            grid-template-rows: repeat(5, minmax(0, 1fr)) !important;
+            gap: 2.8rem 1.8rem !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            overflow: visible !important;
+        }
+
+        .icon-btn {
+            position: relative !important;
+            width: 4.6em !important;
+            height: 4.6em !important;
+            margin-bottom: 0.8rem !important;
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 20 !important;
+        }
+
+        .icon-btn__label {
+            font-size: 0.74rem !important;
+            font-weight: 700 !important;
+            white-space: nowrap !important;
+            text-align: center !important;
+            line-height: 1.2 !important;
+            opacity: 0.95 !important;
+            position: absolute !important;
+            top: calc(100% + 8px) !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            color: #ffffff !important;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.7) !important;
+            pointer-events: none !important;
+        }
+
+        .light .icon-btn__label {
+            color: #0f172a !important;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95) !important;
+        }
+
+        .horizon-taskbar-wrapper,
+        .horizon-taskbar-liquid {
+            pointer-events: auto !important;
+            z-index: 50 !important;
+        }
+
+        .glass-dock-tile {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            user-select: none !important;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -2288,12 +2345,12 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     </div>
                 </div>
             <!-- =========================================================================
-                 APP 7: INDIC SOVEREIGN APP STORE & PACKAGE HUB
+                 APP 7: INDIC SOVEREIGN APP STORE & PACKAGE HUB (FLAGSHIP STORE)
                  ========================================================================= -->
-            <div id="store-window" class="absolute top-6 left-28 w-[920px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+            <div id="store-window" class="absolute top-6 left-28 w-[1020px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <!-- Titlebar -->
-                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'store-window')" ondblclick="toggleMaximizeWindow('store-window')">
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'store-window')" ondblclick="toggleMaximizeWindow('store-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('store-window', 'dock-store')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
@@ -2302,31 +2359,53 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
                             <span>🛍️</span>
-                            <span>Indic Sovereign App Store — Verified Packages (SHA-256)</span>
+                            <span>Bharat Sovereign App Store — 24 Verified Native Packages</span>
                         </span>
                     </div>
                     <div class="flex items-center space-x-2">
-                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 font-mono text-[10px] font-bold">100% Zero Malware</span>
+                        <span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-400 font-mono text-xs font-bold border border-emerald-500/40">✓ Cryptographically Signed (SHA-256)</span>
                     </div>
                 </div>
 
-                <!-- Navigation and Search -->
-                <div class="px-4 py-2 bg-slate-200/50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-3">
-                    <div class="flex items-center space-x-1 bg-white/80 dark:bg-slate-950/80 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1 text-xs font-mono flex-1">
-                        <span class="opacity-60 mr-2">🔍</span>
-                        <input id="store-search-input" type="text" placeholder="Search curated sovereign apps, engines, tools..." class="w-full bg-transparent outline-none text-slate-800 dark:text-slate-200" oninput="filterStoreApps(this.value)">
+                <!-- Featured Banner Carousel -->
+                <div class="px-6 py-4 bg-gradient-to-r from-indigo-950/60 via-purple-950/50 to-slate-950/80 border-b border-slate-800 flex items-center justify-between flex-shrink-0">
+                    <div class="flex items-center space-x-4">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-cyan-500 to-indigo-600 flex items-center justify-center text-3xl shadow-xl">
+                            🚀
+                        </div>
+                        <div>
+                            <div class="flex items-center space-x-2">
+                                <span class="px-2 py-0.5 rounded-full bg-saffron/20 text-saffron font-mono text-[10px] font-bold">Featured Exclusive</span>
+                                <span class="text-[10px] text-slate-400 font-mono">ISRO Space Applications Centre</span>
+                            </div>
+                            <h3 class="text-base font-bold text-white font-sans">Gaganyaan 3D Orbital Telemetry & Simulator</h3>
+                            <p class="text-xs text-slate-300 font-mono">Real-time spaceflight trajectory modeling, solar telemetry, and docking simulation.</p>
+                        </div>
                     </div>
-                    <div class="flex items-center space-x-1 text-xs font-mono" id="store-cat-buttons">
-                        <button onclick="filterStoreCategory('all')" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold">All</button>
-                        <button onclick="filterStoreCategory('dev')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Dev</button>
-                        <button onclick="filterStoreCategory('tools')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Tools</button>
-                        <button onclick="filterStoreCategory('security')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Security</button>
-                        <button onclick="filterStoreCategory('science')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Science</button>
+                    <button onclick="installStoreApp('app-isro')" class="px-5 py-2 rounded-2xl bg-gradient-to-r from-saffron to-amber-500 hover:opacity-95 text-slate-950 font-bold text-xs font-mono shadow-lg transition-all active:scale-95">
+                        ⚡ Get App (85 MB)
+                    </button>
+                </div>
+
+                <!-- Navigation and Search -->
+                <div class="px-6 py-2.5 bg-slate-200/60 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between space-x-4 flex-shrink-0">
+                    <div class="flex items-center space-x-2 bg-white/90 dark:bg-slate-950/90 border border-slate-300 dark:border-slate-700/80 rounded-2xl px-4 py-2 text-xs font-mono flex-1 max-w-md shadow-inner">
+                        <span class="opacity-60">🔍</span>
+                        <input id="store-search-input" type="text" placeholder="Search 24+ curated sovereign apps, engines, tools..." class="w-full bg-transparent outline-none text-slate-900 dark:text-white" oninput="filterStoreApps(this.value)">
+                    </div>
+                    <div class="flex items-center space-x-1.5 text-xs font-mono overflow-x-auto" id="store-cat-buttons">
+                        <button onclick="filterStoreCategory('all')" class="px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40">🌟 All (24)</button>
+                        <button onclick="filterStoreCategory('dev')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">⚡ Dev</button>
+                        <button onclick="filterStoreCategory('games')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">🎮 Games</button>
+                        <button onclick="filterStoreCategory('office')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">💼 Office</button>
+                        <button onclick="filterStoreCategory('security')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">🛡️ Security</button>
+                        <button onclick="filterStoreCategory('science')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">🔬 Science</button>
+                        <button onclick="filterStoreCategory('media')" class="px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">🎵 Media</button>
                     </div>
                 </div>
 
                 <!-- App Store Grid -->
-                <div class="flex-1 bg-slate-50/80 dark:bg-slate-950/80 p-5 overflow-y-auto custom-scroll grid grid-cols-2 md:grid-cols-3 gap-4" id="store-apps-grid">
+                <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-6 overflow-y-auto custom-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono text-xs" id="store-apps-grid">
                 </div>
             </div>
 
@@ -4238,16 +4317,22 @@ vulkano = "0.34"`
         function closeKeybindingsModal() { playSfx('close'); document.getElementById('shortcuts-modal').classList.add('hidden'); }
 
         // =========================================================================
-        // REVOLUTIONARY WINDOW MANAGER & RESPONSIVE DOCK ENGINE
+        // REVOLUTIONARY WINDOW MANAGER & RESPONSIVE DOCK ENGINE (RACE-FREE)
         // =========================================================================
 
         let highestZ = 30;
+        const winTimeoutMap = {};
 
         function openAppWindow(winId, dockBtnId) {
             playSfx('open');
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
+
+            if (winTimeoutMap[winId]) {
+                clearTimeout(winTimeoutMap[winId]);
+                delete winTimeoutMap[winId];
+            }
 
             win.classList.remove('hidden', 'window-minimize-genie');
             win.classList.add('window-open-genie');
@@ -4264,15 +4349,16 @@ vulkano = "0.34"`
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
 
+            if (winTimeoutMap[winId]) clearTimeout(winTimeoutMap[winId]);
+
             win.classList.remove('window-open-genie');
             win.classList.add('window-minimize-genie');
-
             if (dockBtn) dockBtn.classList.remove('app-running');
 
-            setTimeout(() => {
-                if (win.classList.contains('window-minimize-genie')) {
-                    win.classList.add('hidden');
-                }
+            winTimeoutMap[winId] = setTimeout(() => {
+                win.classList.add('hidden');
+                win.classList.remove('window-minimize-genie');
+                delete winTimeoutMap[winId];
             }, 210);
         }
 
@@ -4286,26 +4372,22 @@ vulkano = "0.34"`
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
 
-            const isHidden = win.classList.contains('hidden');
-            const isMinimizing = win.classList.contains('window-minimize-genie');
+            const isHidden = win.classList.contains('hidden') || win.classList.contains('window-minimize-genie');
 
-            if (isHidden || isMinimizing) {
+            if (isHidden) {
                 // If closed or minimizing, open immediately
                 openAppWindow(winId, dockBtnId);
             } else {
                 // If already open, check if it's top-most
                 const currentZ = parseInt(win.style.zIndex || '0');
-                if (currentZ >= highestZ) {
-                    // It's in front, minimize it
+                if (currentZ === highestZ) {
+                    // It's in front and active, minimize it
                     minimizeAppWindow(winId, dockBtnId);
                 } else {
-                    // Bring to front with focus spring
+                    // Bring to front with spring focus
                     highestZ += 2;
                     win.style.zIndex = highestZ;
                     playSfx('click');
-                    win.classList.remove('window-open-genie');
-                    void win.offsetWidth; // Trigger reflow for spring
-                    win.classList.add('window-open-genie');
                 }
             }
         }
@@ -4461,21 +4543,48 @@ vulkano = "0.34"`
         }
 
         // =========================================================================
-        // 1. INDIC SOVEREIGN APP STORE CONTROLLER
+        // 1. INDIC SOVEREIGN APP STORE CONTROLLER (24+ AUTHENTIC APPLICATIONS)
         // =========================================================================
         const STORE_APPS_DATABASE = [
-            { id: "app-solaris-fps", name: "Solaris Cyber Forge 3D FPS", cat: "games", icon: "🎮", desc: "Three.js accelerated first-person shooter with AI drone sentinels.", size: "54 MB", installed: true, author: "Bharat Gaming Guild" },
-            { id: "app-ide", name: "Indic Code Studio Pro", cat: "dev", icon: "⚡", desc: "Rust 2026 SMP IDE with LLVM 19 native compiler.", size: "48 MB", installed: true, author: "BharatOS Foundation" },
-            { id: "app-browser", name: "Garud Sovereign Browser", cat: "tools", icon: "🌐", desc: "Isolated sandboxed web engine with zero-telemetry.", size: "36 MB", installed: true, author: "Garud Project" },
-            { id: "app-kavach", name: "Kavach Zero-Day Sentinel", cat: "security", icon: "🛡️", desc: "Heuristic AI transformer defense engine for Ring-0.", size: "62 MB", installed: true, author: "Kavach Security Lab" },
-            { id: "app-raytrace", name: "Prithvi Vulkan Raytracer 3D", cat: "dev", icon: "🎮", desc: "Hardware accelerated path tracing & benchmark suite.", size: "42 MB", installed: false, author: "Bharat Graphics Guild" },
-            { id: "app-isro", name: "ISRO Gaganyaan Telemetry Hub", cat: "science", icon: "🚀", desc: "Real-time orbital tracking and deep space telemetry.", size: "18 MB", installed: false, author: "ISRO Space Applications" },
-            { id: "app-vedic", name: "Vedic Symbolic Math Engine", cat: "science", icon: "🧮", desc: "High-precision computer algebra and Vedic math solver.", size: "12 MB", installed: false, author: "CSIR Mathematical Inst." },
-            { id: "app-office", name: "Sovereign LibreOffice Suite", cat: "tools", icon: "📄", desc: "Word processing, spreadsheets, and vector graphics.", size: "115 MB", installed: false, author: "Open Sovereign Alliance" },
-            { id: "app-chess", name: "Bharat Chess 3D AI", cat: "games", icon: "♟️", desc: "Grandmaster neural chess engine with 3D glass board.", size: "26 MB", installed: false, author: "IndoAI Labs" }
+            // Games
+            { id: "app-solaris-fps", name: "Solaris Cyber Forge 3D FPS", cat: "games", icon: "🎮", desc: "Three.js 3D multiplayer tactical urban FPS with AI sentinels.", size: "54 MB", rating: "★ 4.9 (1.2k)", installed: true, author: "Bharat Gaming Guild", winId: "game-window", dockId: "dock-game" },
+            { id: "app-raytrace", name: "Prithvi Vulkan Raytracer 3D", cat: "games", icon: "💎", desc: "Hardware accelerated path tracing & GPU benchmark sandbox.", size: "42 MB", rating: "★ 4.8 (850)", installed: false, author: "Bharat Graphics Guild" },
+            { id: "app-chess", name: "Bharat Grandmaster 3D Chess AI", cat: "games", icon: "♟️", desc: "Neural network chess engine with 3D crystal board and Vedic openings.", size: "26 MB", rating: "★ 4.9 (3.4k)", installed: false, author: "IndoAI Labs" },
+            { id: "app-speedracer", name: "Cyber Mumbai 3D Highway", cat: "games", icon: "🏎️", desc: "Neon cyberpunk racing game through Bandra-Worli Sea Link.", size: "68 MB", rating: "★ 4.7 (920)", installed: false, author: "Sovereign Arcade" },
+
+            // Development
+            { id: "app-ide", name: "Indic Code Studio Pro", cat: "dev", icon: "⚡", desc: "Rust 2026 SMP IDE with LLVM 19 native compiler and debugger.", size: "48 MB", rating: "★ 5.0 (4.1k)", installed: true, author: "BharatOS Foundation", winId: "code-window", dockId: "dock-code" },
+            { id: "app-terminal", name: "Ring-0 Sovereign Terminal", cat: "dev", icon: "📟", desc: "Native POSIX shell with real-time CPU memory process inspector.", size: "14 MB", rating: "★ 4.9 (2.8k)", installed: true, author: "Microkernel Core", winId: "terminal-window", dockId: "dock-terminal" },
+            { id: "app-python", name: "Python Sovereign 3.14 SMP", cat: "dev", icon: "🐍", desc: "GIL-free multi-threaded Python runtime with NumPy 2.0 acceleration.", size: "38 MB", rating: "★ 4.9 (5.6k)", installed: false, author: "Python Software Foundation" },
+            { id: "app-docker", name: "Bharat Enclave Container Engine", cat: "dev", icon: "🐳", desc: "Lightweight sovereign container runtime with hardware isolation.", size: "52 MB", rating: "★ 4.8 (1.9k)", installed: false, author: "Cloud Sovereign Org" },
+
+            // Office & Productivity
+            { id: "app-browser", name: "Garud Sovereign Browser", cat: "office", icon: "🌐", desc: "Isolated sandboxed web engine with Google multi-source search.", size: "36 MB", rating: "★ 4.9 (8.9k)", installed: true, author: "Garud Project", winId: "browser-window", dockId: "dock-browser" },
+            { id: "app-libreoffice", name: "Sovereign LibreOffice Suite", cat: "office", icon: "📄", desc: "Full office suite: Writer, Calc spreadsheets, and Impress slides.", size: "115 MB", rating: "★ 4.7 (3.2k)", installed: false, author: "Open Sovereign Alliance" },
+            { id: "app-notion", name: "Indic Notion & Markdown Vault", cat: "office", icon: "📝", desc: "Encrypted offline markdown knowledge base with bidirectional linking.", size: "38 MB", rating: "★ 4.9 (4.4k)", installed: false, author: "IndoNotion Labs" },
+            { id: "app-calc", name: "Vedic Scientific Calculator", cat: "office", icon: "🧮", desc: "Matrix arithmetic, calculus solver, and financial unit converter.", size: "12 MB", rating: "★ 4.8 (2.1k)", installed: true, author: "BharatOS Utilities", winId: "calc-window", dockId: "dock-calc" },
+
+            // Security
+            { id: "app-kavach", name: "Kavach Zero-Day Sentinel", cat: "security", icon: "🛡️", desc: "Heuristic AI transformer defense engine for Ring-0 microkernel.", size: "62 MB", rating: "★ 5.0 (6.7k)", installed: true, author: "Kavach Security Lab", winId: "kavach-window", dockId: "dock-defender" },
+            { id: "app-wireguard", name: "WireGuard Bharat Zero-Log VPN", cat: "security", icon: "🔒", desc: "Military-grade ChaCha20-Poly1305 encrypted mesh networking tunnel.", size: "12 MB", rating: "★ 4.9 (3.8k)", installed: false, author: "Sovereign Privacy Network" },
+            { id: "app-bitwarden", name: "Bitwarden Enclave Vault", cat: "security", icon: "🔑", desc: "Zero-knowledge AES-256 password manager with biometric Touch ID.", size: "20 MB", rating: "★ 4.9 (5.2k)", installed: false, author: "Bitwarden Inc." },
+            { id: "app-wireshark", name: "Sovereign Packet Sniffer", cat: "security", icon: "🦈", desc: "Deep packet inspection and real-time network protocol analyzer.", size: "29 MB", rating: "★ 4.8 (1.5k)", installed: false, author: "Network Security Team" },
+
+            // Science & Space
+            { id: "app-isro", name: "ISRO Gaganyaan 3D Simulator", cat: "science", icon: "🚀", desc: "Real-time orbital tracking, docking telemetry, and lunar rover sim.", size: "85 MB", rating: "★ 5.0 (9.8k)", installed: false, author: "ISRO Space Applications" },
+            { id: "app-vedic-math", name: "Vedic Symbolic Algebra CAS", cat: "science", icon: "🕉️", desc: "Exact symbolic mathematics, Sulba Sutras geometry, and prime engines.", size: "16 MB", rating: "★ 4.9 (1.8k)", installed: false, author: "CSIR Mathematical Inst." },
+            { id: "app-alphafold", name: "AlphaFold 3 Biomolecule Studio", cat: "science", icon: "🧬", desc: "Deep learning 3D protein structure prediction & ligand docking.", size: "72 MB", rating: "★ 4.9 (2.3k)", installed: false, author: "DeepMind Science" },
+            { id: "app-astrosky", name: "AstroSky India 3D Planetarium", cat: "science", icon: "🌌", desc: "Interactive 3D night sky with Nakshatras and planetary ephemeris.", size: "44 MB", rating: "★ 4.8 (1.6k)", installed: false, author: "IUCAA Pune" },
+
+            // Media & Design
+            { id: "app-blender", name: "Blender 4.2 Sovereign 3D Suite", cat: "media", icon: "🎨", desc: "Complete 3D modeling, rigging, sculpting, and Cycles GPU raytracing.", size: "190 MB", rating: "★ 5.0 (7.4k)", installed: false, author: "Blender Foundation" },
+            { id: "app-figma", name: "Figma UI/UX Sovereign Designer", cat: "media", icon: "📐", desc: "Collaborative vector interface design with auto-layout and design systems.", size: "64 MB", rating: "★ 4.9 (8.1k)", installed: false, author: "Figma Design Lab" },
+            { id: "app-soundscape", name: "Soundscape Vedic 528Hz Studio", cat: "media", icon: "🎵", desc: "Binaural audio generator, nature ambient synth, and music player.", size: "32 MB", rating: "★ 4.8 (3.5k)", installed: true, author: "Bharat Audio Guild", winId: "music-window", dockId: "dock-music" },
+            { id: "app-vlc", name: "VLC Sovereign 4K Video Player", cat: "media", icon: "🎬", desc: "Hardware-accelerated AV1, HEVC, and VP9 high-bitrate video player.", size: "45 MB", rating: "★ 4.9 (6.3k)", installed: false, author: "VideoLAN Org" }
         ];
 
         let currentStoreCategory = 'all';
+
         function renderStoreApps(cat = 'all', query = '') {
             const grid = document.getElementById('store-apps-grid');
             if (!grid) return;
@@ -4483,28 +4592,31 @@ vulkano = "0.34"`
             
             const filtered = STORE_APPS_DATABASE.filter(app => {
                 const matchesCat = (cat === 'all' || app.cat === cat);
-                const matchesQuery = (app.name.toLowerCase().includes(query.toLowerCase()) || app.desc.toLowerCase().includes(query.toLowerCase()));
+                const matchesQuery = (app.name.toLowerCase().includes(query.toLowerCase()) || app.desc.toLowerCase().includes(query.toLowerCase()) || app.author.toLowerCase().includes(query.toLowerCase()));
                 return matchesCat && matchesQuery;
             });
 
             filtered.forEach(app => {
                 const card = document.createElement('div');
-                card.className = 'p-4 rounded-2xl bg-white/70 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-3 shadow-sm hover:border-cyan-500/50 transition-all font-mono text-xs';
+                card.className = 'p-4 rounded-3xl bg-white/70 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500 hover:shadow-xl transition-all font-mono text-xs';
                 card.innerHTML = `
-                    <div class="flex items-start space-x-3">
-                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-2xl shadow-inner">${app.icon}</div>
-                        <div class="flex-1 space-y-0.5">
-                            <div class="font-bold text-sm text-slate-900 dark:text-white">${app.name}</div>
-                            <div class="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">${app.author}</div>
-                            <div class="text-[10px] opacity-70 line-clamp-2">${app.desc}</div>
+                    <div class="flex items-start space-x-3.5">
+                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-3xl shadow-inner flex-shrink-0">${app.icon}</div>
+                        <div class="flex-1 space-y-1 overflow-hidden">
+                            <div class="font-bold text-sm text-slate-900 dark:text-white truncate font-sans">${app.name}</div>
+                            <div class="flex items-center space-x-2 text-[10px]">
+                                <span class="text-cyan-600 dark:text-cyan-400 font-semibold truncate">${app.author}</span>
+                                <span class="text-amber-400 font-bold">${app.rating}</span>
+                            </div>
+                            <p class="text-[11px] opacity-75 line-clamp-2">${app.desc}</p>
                         </div>
                     </div>
-                    <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                    <div class="pt-3 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                         <span class="text-[10px] opacity-60">📦 ${app.size}</span>
                         <div id="btn-wrap-${app.id}">
                             ${app.installed 
-                                ? `<span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-500 font-bold text-[10px] border border-emerald-500/40">✓ Installed</span>` 
-                                : `<button onclick="installStoreApp('${app.id}')" class="px-3 py-1 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[10px] shadow-sm active:scale-95 transition-all">Install</button>`
+                                ? `<button onclick="${app.winId ? `openAppWindow('${app.winId}', '${app.dockId}')` : `showSecurityToast('✓ ${app.name} is running in background', 'info')`}" class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] border border-emerald-500/40 flex items-center space-x-1"><span>🚀</span><span>Open</span></button>` 
+                                : `<button onclick="installStoreApp('${app.id}')" class="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] shadow-md active:scale-95 transition-all">Get App</button>`
                             }
                         </div>
                     </div>
@@ -4520,9 +4632,10 @@ vulkano = "0.34"`
             const btnContainer = document.getElementById('store-cat-buttons');
             if (btnContainer) {
                 Array.from(btnContainer.children).forEach(b => {
-                    b.className = b.textContent.toLowerCase().includes(cat) || (cat === 'all' && b.textContent.toLowerCase() === 'all')
-                        ? 'px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold'
-                        : 'px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70';
+                    const match = (cat === 'all' && b.textContent.includes('All')) || b.textContent.toLowerCase().includes(cat);
+                    b.className = match
+                        ? 'px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40'
+                        : 'px-3 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70';
                 });
             }
         }
@@ -4536,17 +4649,17 @@ vulkano = "0.34"`
             const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
             if (!targetApp) return;
 
-            triggerUACGate(`${targetApp.name} Installer`, (allowed) => {
+            triggerUACGate(`${targetApp.name} Installer (SHA-256 Verified)`, (allowed) => {
                 if (!allowed) return;
                 const wrap = document.getElementById(`btn-wrap-${appId}`);
-                if (wrap) wrap.innerHTML = `<span class="text-[10px] text-cyan-400 animate-pulse font-bold">Verifying SHA-256...</span>`;
+                if (wrap) wrap.innerHTML = `<span class="text-[10px] text-cyan-400 animate-pulse font-bold">Downloading ${targetApp.size}...</span>`;
                 
                 setTimeout(() => {
                     targetApp.installed = true;
                     playSfx('unlock');
                     showSecurityToast(`🛍️ Successfully Installed ${targetApp.name}!`, 'success');
                     renderStoreApps(currentStoreCategory, document.getElementById('store-search-input')?.value || '');
-                }, 1200);
+                }, 1400);
             });
         }
 
