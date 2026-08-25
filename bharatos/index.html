@@ -1576,35 +1576,35 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </div>
                             <div class="text-xs opacity-70">100% full 4K clarity real photographic landscape vistas of India across all regions</div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                <button onclick="setWallpaper('wall-ladakh-ai')" class="p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-ladakh-ai" onclick="setWallpaper('wall-ladakh-ai')" class="wp-card-btn p-3 rounded-2xl border-2 border-cyan-500 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-cyan-600 dark:text-cyan-300">🏔️ Ladakh Pangong</div>
                                     <div class="text-[9px] text-saffron font-bold mt-0.5">4K Crystal Peaks</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-munnar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-munnar-ai" onclick="setWallpaper('wall-munnar-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">🌿 Munnar Mist</div>
                                     <div class="text-[9px] text-emerald-500 font-bold mt-0.5">4K Emerald Hills</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-varanasi-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-orange-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-varanasi-ai" onclick="setWallpaper('wall-varanasi-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-orange-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-orange-600 dark:text-orange-400">🌅 Varanasi Ganges</div>
                                     <div class="text-[9px] text-amber-500 font-bold mt-0.5">4K Sacred Dawn</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-thar-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-amber-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-thar-ai" onclick="setWallpaper('wall-thar-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-amber-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-amber-600 dark:text-amber-400">🏜️ Thar Dunes</div>
                                     <div class="text-[9px] text-cyan-500 font-bold mt-0.5">4K Twilight Galaxy</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-kashmir-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-purple-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-kashmir-ai" onclick="setWallpaper('wall-kashmir-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-purple-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-purple-600 dark:text-purple-400">🪷 Kashmir Dal Lake</div>
                                     <div class="text-[9px] text-purple-500 font-bold mt-0.5">4K Shikara & Snow</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-andaman-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-teal-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-andaman-ai" onclick="setWallpaper('wall-andaman-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-teal-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-teal-600 dark:text-teal-400">🌊 Andaman Beach</div>
                                     <div class="text-[9px] text-teal-500 font-bold mt-0.5">4K Havelock Coral</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-waterfall-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-waterfall-ai" onclick="setWallpaper('wall-waterfall-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-emerald-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">🌊 Ghats Waterfall</div>
                                     <div class="text-[9px] text-emerald-500 font-bold mt-0.5">4K Rainforest Mist</div>
                                 </button>
-                                <button onclick="setWallpaper('wall-kutch-ai')" class="p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-cyan-500 hover:scale-105 shadow-md">
+                                <button id="wp-btn-wall-kutch-ai" onclick="setWallpaper('wall-kutch-ai')" class="wp-card-btn p-3 rounded-2xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-900 text-left transition-all hover:border-cyan-500 hover:scale-105 shadow-md">
                                     <div class="text-xs font-bold text-slate-700 dark:text-slate-200">🌌 Rann of Kutch</div>
                                     <div class="text-[9px] text-cyan-500 font-bold mt-0.5">4K Moonlit Salt</div>
                                 </button>
@@ -2436,31 +2436,62 @@ vulkano = "0.34"`
             playSfx('click');
             const area = document.getElementById('sticky-note-area');
             if (area) { area.value = ''; localStorage.removeItem('bharat_sticky_note'); }
-        }
-        const savedNote = localStorage.getItem('bharat_sticky_note');
-        if (savedNote) {
-            const area = document.getElementById('sticky-note-area');
-            if (area) area.value = savedNote;
+// =========================================================================
+        // ROBUST NATURE OF BHARAT 4K WALLPAPER MANAGER
+        // =========================================================================
+        const WALLPAPER_MAP = {
+            'wall-ladakh-ai': 'wallpapers/ladakh_pangong.jpg',
+            'wall-munnar-ai': 'wallpapers/munnar_hills.jpg',
+            'wall-varanasi-ai': 'wallpapers/varanasi_dawn.jpg',
+            'wall-thar-ai': 'wallpapers/thar_twilight.jpg',
+            'wall-kashmir-ai': 'wallpapers/kashmir_dal.jpg',
+            'wall-andaman-ai': 'wallpapers/andaman_beach.jpg',
+            'wall-waterfall-ai': 'wallpapers/waterfall_ghats.jpg',
+            'wall-kutch-ai': 'wallpapers/kutch_rann.jpg'
+        };
+
+        function setWallpaper(className) {
+            try {
+                if (window.audioCtx) playSfx('click');
+            } catch(e) {}
+            
+            // Clean prior wallpaper classes
+            const currentClasses = Array.from(document.body.classList);
+            currentClasses.forEach(cls => {
+                if (cls.startsWith('wall-')) document.body.classList.remove(cls);
+            });
+            document.body.classList.add(className);
+            
+            const imgPath = WALLPAPER_MAP[className] || 'wallpapers/ladakh_pangong.jpg';
+            document.body.style.backgroundImage = `url('${imgPath}')`;
+            document.body.style.backgroundRepeat = 'no-repeat';
+            document.body.style.backgroundPosition = 'center center';
+            document.body.style.backgroundSize = 'cover';
+            document.body.style.backgroundAttachment = 'fixed';
+            
+            localStorage.setItem('bharatos_wallpaper', className);
+            updateWallpaperSelectionUI(className);
         }
 
-        // Workspaces
-        function switchWorkspace(wsId) {
-            playSfx('click');
-            [1, 2, 3, 4].forEach(id => {
-                const btn = document.getElementById(`ws-btn-${id}`);
-                if (btn) {
-                    if (id === wsId) {
-                        btn.className = 'px-2 py-0.5 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold border border-cyan-500/40';
-                    } else {
-                        btn.className = 'px-2 py-0.5 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 opacity-70';
-                    }
-                }
+        function updateWallpaperSelectionUI(activeClass) {
+            document.querySelectorAll('.wp-card-btn').forEach(btn => {
+                btn.classList.remove('border-2', 'border-cyan-500');
+                btn.classList.add('border', 'border-slate-300', 'dark:border-slate-800');
             });
+            const activeBtn = document.getElementById(`wp-btn-${activeClass}`);
+            if (activeBtn) {
+                activeBtn.classList.remove('border', 'border-slate-300', 'dark:border-slate-800');
+                activeBtn.classList.add('border-2', 'border-cyan-500');
+            }
         }
+
+        // Initialize saved wallpaper
+        try {
+            const savedWp = localStorage.getItem('bharatos_wallpaper') || 'wall-ladakh-ai';
+            setWallpaper(savedWp);
+        } catch(e) {}
 
         function toggleNightLight() { playSfx('click'); document.body.classList.toggle('night-light'); }
-        function setWallpaper(className) { playSfx('click'); document.body.className = `${className} select-none`; }
-
         function openKeybindingsModal() { playSfx('open'); document.getElementById('shortcuts-modal').classList.remove('hidden'); }
         function closeKeybindingsModal() { playSfx('close'); document.getElementById('shortcuts-modal').classList.add('hidden'); }
 
@@ -2747,9 +2778,34 @@ vulkano = "0.34"`
 
         renderVFS("/home/user");
 
-        // COMMAND CENTER
+        // =========================================================================
+        // FULL WINDOWS CMD & POWERSHELL EXECUTION ENGINE
+        // =========================================================================
         let commandHistory = [];
         let historyPointer = -1;
+        let terminalShellMode = 'cmd'; // 'cmd' or 'powershell'
+        let runningProcesses = [
+            { image: "System", pid: 4, session: "Services", sessionNum: 0, mem: "1,240 K" },
+            { image: "smss.exe", pid: 384, session: "Services", sessionNum: 0, mem: "1,080 K" },
+            { image: "csrss.exe", pid: 512, session: "Console", sessionNum: 1, mem: "4,820 K" },
+            { image: "wininit.exe", pid: 588, session: "Services", sessionNum: 0, mem: "3,110 K" },
+            { image: "services.exe", pid: 664, session: "Services", sessionNum: 0, mem: "7,490 K" },
+            { image: "lsass.exe", pid: 688, session: "Services", sessionNum: 0, mem: "14,200 K" },
+            { image: "kavach_shield.exe", pid: 912, session: "Services", sessionNum: 0, mem: "18,450 K" },
+            { image: "vulkan_pacer.exe", pid: 1040, session: "Console", sessionNum: 1, mem: "32,600 K" },
+            { image: "explorer.exe", pid: 2844, session: "Console", sessionNum: 1, mem: "64,120 K" },
+            { image: "garud_browser.exe", pid: 4092, session: "Console", sessionNum: 1, mem: "84,300 K" },
+            { image: "indic_studio.exe", pid: 5120, session: "Console", sessionNum: 1, mem: "92,400 K" },
+            { image: "cmd.exe", pid: 6180, session: "Console", sessionNum: 1, mem: "4,210 K" }
+        ];
+
+        function getPromptPrefix() {
+            const userName = (typeof userProfile !== 'undefined' && userProfile.name) ? userProfile.name.toLowerCase().replace(/\s+/g, '') : 'sovereign';
+            if (terminalShellMode === 'powershell') {
+                return `PS C:\\Users\\${userName}&gt;`;
+            }
+            return `C:\\Users\\${userName}&gt;`;
+        }
 
         function handleTerminalKey(e) {
             const input = document.getElementById('terminal-input');
@@ -2784,83 +2840,390 @@ vulkano = "0.34"`
 
                 commandHistory.push(val);
                 const out = document.getElementById('terminal-output');
-                out.innerHTML += `<div><span class="text-emerald-400 font-bold">C:\\Users\\sovereign&gt;</span> <span class="text-white">${rawVal}</span></div>`;
+                const promptPrefix = getPromptPrefix();
+                out.innerHTML += `<div><span class="text-cyan-700 dark:text-emerald-400 font-bold">${promptPrefix}</span> <span class="text-slate-900 dark:text-white">${rawVal}</span></div>`;
                 
                 const parts = val.split(' ');
                 const cmd = parts[0].toLowerCase();
-                const arg = parts.slice(1).join(' ');
+                const arg = parts.slice(1).join(' ').trim();
+                const args = parts.slice(1);
 
-                if (cmd === 'help') {
-                    out.innerHTML += `<div>
-<span class="text-saffron font-bold">Supported Commands:</span><br>
-  BROWSER [url]     - Launch Garud Sovereign Web Browser<br>
-  CODE [file]       - Open Indic Code Studio (VS Code IDE)<br>
-  DIR / LS          - List files and directories<br>
-  CD [path]         - Change current directory<br>
-  CLS / CLEAR       - Clear command screen<br>
-  IPCONFIG          - Show IP and network settings<br>
-  SYSTEMINFO        - Show hardware and kernel specs<br>
-  DEFENDER / SCAN   - Launch Kavach Zero-Trust Antivirus<br>
-  SHUTDOWN          - Power down the operating system<br>
-  RESTART           - Reboot sovereign microkernel<br>
-  LOCK              - Lock desktop screen<br>
-  EXPLORER          - Open File Explorer
+                // 1. HELP / ?
+                if (cmd === 'help' || cmd === '/?') {
+                    out.innerHTML += `<div class="space-y-1 text-slate-800 dark:text-slate-200">
+<span class="text-saffron font-bold">BharatOS Sovereign Command Center — Full Windows & PowerShell Matrix:</span><br>
+<span class="text-cyan-600 dark:text-cyan-300 font-bold">--- File & Directory Management ---</span><br>
+  DIR / LS [path]      - List directory files, sizes, and attributes<br>
+  CD / CHDIR [path]    - Change directory (e.g. 'cd documents', 'cd ..', 'cd \\')<br>
+  TREE                 - Graphically display directory structure of a drive/path<br>
+  TYPE / CAT [file]    - Display the contents of a text file<br>
+  MKDIR / MD [name]    - Create a new directory<br>
+  RMDIR / RD [name]    - Remove an existing directory<br>
+  DEL / ERASE [file]   - Delete specified file<br>
+  COPY [src] [dst]     - Copy file to another location<br>
+  ATTRIB [file]        - Display file attributes (Archive, Hidden, System)<br>
+<span class="text-cyan-600 dark:text-cyan-300 font-bold">--- System, Diagnostics & Hardware ---</span><br>
+  SYSTEMINFO           - Display operating system, memory, processor, & BIOS specs<br>
+  VER / WINVER         - Display BharatOS & Windows NT kernel compatibility version<br>
+  TASKLIST / PS        - Display all currently running processes & RAM allocation<br>
+  TASKKILL /PID [id]   - Terminate process by PID or image name<br>
+  SFC /SCANNOW         - System File Checker scanning integrity of Ring-0 binaries<br>
+  CHKDSK               - Check NVMe storage filesystem and sector integrity<br>
+  WHOAMI               - Print current logged-in user name and ring-0 domain<br>
+  HOSTNAME             - Print hostname of this sovereign PC<br>
+  DATE / TIME          - Display Saka calendar date & IST timestamp<br>
+  COLOR [attr]         - Change terminal foreground/background color (e.g. 'color 0a')<br>
+<span class="text-cyan-600 dark:text-cyan-300 font-bold">--- Networking & Connectivity ---</span><br>
+  IPCONFIG [/all]      - Display network adapters, IPv4, gateway, and DNS<br>
+  PING [host]          - Send ICMP echo packets to test network latency<br>
+  NETSTAT [-an]        - Display active TCP/UDP network connections and ports<br>
+<span class="text-cyan-600 dark:text-cyan-300 font-bold">--- Applications & OS Control ---</span><br>
+  BROWSER [url]        - Launch Garud Sovereign Web Browser<br>
+  CODE [file]          - Launch Indic Code Studio Professional IDE<br>
+  DEFENDER / SCAN      - Launch Kavach Sovereign Defender 3.0<br>
+  EXPLORER             - Launch SovereignFS File Explorer<br>
+  SETTINGS             - Launch Settings & Personalization Hub<br>
+  WALLPAPER [name]     - Change wallpaper (ladakh, munnar, varanasi, thar, kashmir, andaman, waterfall, kutch)<br>
+  POWERSHELL / CMD     - Switch between Windows Command Prompt and PowerShell<br>
+  LOCK                 - Lock desktop enclave (Win+L)<br>
+  SHUTDOWN [/s /r]     - Power down or reboot the operating system<br>
+  CLS / CLEAR          - Clear the terminal screen buffer
 </div>`;
+
+                // 2. VER / WINVER
+                } else if (cmd === 'ver' || cmd === 'winver') {
+                    out.innerHTML += `<div>
+BharatOS Sovereign Microkernel [Version 2026.1.0 LTS]<br>
+Microsoft Windows Compatibility Subsystem [Version 10.0.26100.2454]<br>
+(c) 2026 BharatOS Sovereign Corporation. All rights reserved. Zero-Trust Ring-0.
+</div>`;
+
+                // 3. CLS / CLEAR
                 } else if (cmd === 'cls' || cmd === 'clear') {
                     out.innerHTML = '';
+
+                // 4. ECHO
+                } else if (cmd === 'echo') {
+                    out.innerHTML += `<div>${arg || ''}</div>`;
+
+                // 5. DIR / LS
+                } else if (cmd === 'dir' || cmd === 'ls') {
+                    const items = VFS_TREE[currentVFSPath] || [];
+                    let dirListing = `<div> Volume in drive C is SOVEREIGN_OS<br> Volume Serial Number is 4B2A-9E11<br><br> Directory of C:${currentVFSPath.replace(/\//g, '\\')}<br><br>`;
+                    dirListing += `24/08/2026  09:00 AM    &lt;DIR&gt;          . <br>`;
+                    dirListing += `24/08/2026  09:00 AM    &lt;DIR&gt;          .. <br>`;
+                    items.forEach(it => {
+                        const tag = it.type === 'dir' ? '&lt;DIR&gt;         ' : '            ' + (it.size || '1 KB').padEnd(8);
+                        dirListing += `24/08/2026  03:45 PM    ${tag} ${it.name}<br>`;
+                    });
+                    dirListing += `<br>               ${items.length} File(s)          148,220 bytes<br>               2 Dir(s)   499,620,440,064 bytes free</div>`;
+                    out.innerHTML += dirListing;
+
+                // 6. CD / CHDIR
+                } else if (cmd === 'cd' || cmd === 'chdir') {
+                    if (!arg || arg === '~' || arg === '\\' || arg === '/') {
+                        currentVFSPath = '/home/user';
+                    } else if (arg === '..' || arg === '../') {
+                        const parts = currentVFSPath.split('/').filter(Boolean);
+                        if (parts.length > 2) {
+                            parts.pop();
+                            currentVFSPath = '/' + parts.join('/');
+                        } else {
+                            currentVFSPath = '/home/user';
+                        }
+                    } else {
+                        const cleanArg = arg.replace(/\\/g, '/');
+                        const directTarget = currentVFSPath + '/' + cleanArg;
+                        const rootTarget = cleanArg.startsWith('/') ? cleanArg : ('/home/user/' + cleanArg);
+                        if (VFS_TREE[directTarget]) currentVFSPath = directTarget;
+                        else if (VFS_TREE[rootTarget]) currentVFSPath = rootTarget;
+                        else out.innerHTML += `<div class="text-rose-500">The system cannot find the path specified: ${arg}</div>`;
+                    }
+                    renderVFS(currentVFSPath);
+
+                // 7. TREE
+                } else if (cmd === 'tree') {
+                    let treeOut = `<div>Folder PATH listing for Volume SOVEREIGN_OS<br>Volume serial number is 4B2A-9E11<br>C:${currentVFSPath.toUpperCase().replace(/\//g, '\\')}<br>`;
+                    treeOut += `├── documents<br>│   ├── sovereignty_manifesto.md<br>│   └── financial_report_2026.pdf<br>├── projects<br>│   ├── solaris_space_game<br>│   └── rust_vulkan_engine<br>├── games<br>│   ├── solaris_odyssey.exe<br>│   └── vedic_chess.exe<br>└── system<br>    ├── kernel.sys<br>    └── kavach_vault.key</div>`;
+                    out.innerHTML += treeOut;
+
+                // 8. TYPE / CAT
+                } else if (cmd === 'type' || cmd === 'cat') {
+                    if (!arg) {
+                        out.innerHTML += `<div class="text-amber-500">Syntax: TYPE [filename]</div>`;
+                    } else {
+                        const items = VFS_TREE[currentVFSPath] || [];
+                        const found = items.find(i => i.name.toLowerCase() === arg.toLowerCase());
+                        if (found) {
+                            if (found.name.endsWith('.md') || found.name.endsWith('.txt')) {
+                                out.innerHTML += `<div class="p-3 bg-slate-900/50 rounded-xl border border-slate-800 text-slate-200 whitespace-pre-wrap"># BharatOS Sovereignty Manifesto\n\n1. Pure 64-bit Rust Microkernel with zero telemetry.\n2. Quantum Enclave Hardware Isolation.\n3. Native Windows PE & Vulkan 144 FPS Support.</div>`;
+                            } else {
+                                out.innerHTML += `<div class="text-cyan-400">[Binary File Contents: ${found.name} (${found.size}) - AES-256 Verified]</div>`;
+                            }
+                        } else {
+                            out.innerHTML += `<div class="text-rose-500">The system cannot find the file specified: ${arg}</div>`;
+                        }
+                    }
+
+                // 9. MKDIR / MD
+                } else if (cmd === 'mkdir' || cmd === 'md') {
+                    if (!arg) out.innerHTML += `<div class="text-amber-500">The syntax of the command is incorrect.</div>`;
+                    else {
+                        if (!VFS_TREE[currentVFSPath]) VFS_TREE[currentVFSPath] = [];
+                        VFS_TREE[currentVFSPath].push({ name: arg, type: 'dir', size: '0 KB', icon: '📁' });
+                        VFS_TREE[`${currentVFSPath}/${arg}`] = [];
+                        renderVFS(currentVFSPath);
+                        out.innerHTML += `<div class="text-emerald-500">Directory '${arg}' created successfully.</div>`;
+                    }
+
+                // 10. DEL / ERASE / RM
+                } else if (cmd === 'del' || cmd === 'erase' || cmd === 'rm') {
+                    if (!arg) out.innerHTML += `<div class="text-amber-500">The syntax of the command is incorrect.</div>`;
+                    else {
+                        if (VFS_TREE[currentVFSPath]) {
+                            const idx = VFS_TREE[currentVFSPath].findIndex(i => i.name.toLowerCase() === arg.toLowerCase());
+                            if (idx !== -1) {
+                                VFS_TREE[currentVFSPath].splice(idx, 1);
+                                renderVFS(currentVFSPath);
+                                out.innerHTML += `<div class="text-emerald-500">File '${arg}' deleted.</div>`;
+                            } else {
+                                out.innerHTML += `<div class="text-rose-500">Could Not Find C:${currentVFSPath}\\${arg}</div>`;
+                            }
+                        }
+                    }
+
+                // 11. IPCONFIG
+                } else if (cmd === 'ipconfig') {
+                    const isAll = arg.toLowerCase().includes('/all');
+                    out.innerHTML += `<div class="space-y-2">
+Windows IP Configuration & Sovereign Network Adapter:<br><br>
+Wireless LAN adapter Wi-Fi 7 Mesh:<br>
+   Connection-specific DNS Suffix  . : sovereign.lan<br>
+   Link-local IPv6 Address . . . . . : fe80::d41b:89fa:e100:4412%12<br>
+   IPv4 Address. . . . . . . . . . . : 192.168.1.144<br>
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0<br>
+   Default Gateway . . . . . . . . . : 192.168.1.1<br>
+${isAll ? `   Physical Address. . . . . . . . . : 00-1A-7D-DA-71-12<br>   DHCP Enabled. . . . . . . . . . . : Yes<br>   DNS Servers . . . . . . . . . . . : 1.1.1.1, 8.8.8.8<br>   Kavach Quantum DNS Tunnel . . . . : ACTIVE (100% Zero Leak)<br>` : ''}
+</div>`;
+
+                // 12. PING
+                } else if (cmd === 'ping') {
+                    const host = arg || '127.0.0.1';
+                    out.innerHTML += `<div>Pinging ${host} [104.21.48.11] with 32 bytes of data:</div>`;
+                    let pCount = 0;
+                    const pInterval = setInterval(() => {
+                        pCount++;
+                        const ms = Math.floor(Math.random() * 8) + 12;
+                        out.innerHTML += `<div>Reply from 104.21.48.11: bytes=32 time=${ms}ms TTL=118</div>`;
+                        out.scrollTop = out.scrollHeight;
+                        if (pCount >= 4) {
+                            clearInterval(pInterval);
+                            out.innerHTML += `<br><div>Ping statistics for 104.21.48.11:<br>    Packets: Sent = 4, Received = 4, Lost = 0 (0% loss),<br>Approximate round trip times in milli-seconds:<br>    Minimum = 12ms, Maximum = 19ms, Average = 14ms</div>`;
+                            out.scrollTop = out.scrollHeight;
+                        }
+                    }, 250);
+
+                // 13. TASKLIST / PS
+                } else if (cmd === 'tasklist' || (cmd === 'ps' && terminalShellMode === 'powershell')) {
+                    let taskTable = `<div>Image Name                     PID Session Name        Session#    Mem Usage<br>========================= ======== ================ =========== =============<br>`;
+                    runningProcesses.forEach(p => {
+                        taskTable += `${p.image.padEnd(25)} ${String(p.pid).padStart(8)} ${p.session.padEnd(16)} ${String(p.sessionNum).padStart(11)} ${p.mem.padStart(13)}<br>`;
+                    });
+                    taskTable += `</div>`;
+                    out.innerHTML += taskTable;
+
+                // 14. TASKKILL / KILL
+                } else if (cmd === 'taskkill' || cmd === 'kill') {
+                    let pidToKill = null;
+                    if (arg.includes('/pid')) {
+                        const pidIdx = args.indexOf('/pid') + 1;
+                        if (args[pidIdx]) pidToKill = parseInt(args[pidIdx]);
+                    } else if (args[0] && !isNaN(parseInt(args[0]))) {
+                        pidToKill = parseInt(args[0]);
+                    }
+                    if (pidToKill) {
+                        const idx = runningProcesses.findIndex(p => p.pid === pidToKill);
+                        if (idx !== -1) {
+                            const killed = runningProcesses.splice(idx, 1)[0];
+                            out.innerHTML += `<div class="text-emerald-500">SUCCESS: Sent termination signal to the process with PID ${pidToKill} (${killed.image}).</div>`;
+                        } else {
+                            out.innerHTML += `<div class="text-rose-500">ERROR: The process with PID ${pidToKill} could not be found.</div>`;
+                        }
+                    } else {
+                        out.innerHTML += `<div class="text-amber-500">Syntax: TASKKILL /PID &lt;ProcessID&gt;</div>`;
+                    }
+
+                // 15. SYSTEMINFO
+                } else if (cmd === 'systeminfo') {
+                    out.innerHTML += `<div class="space-y-1">
+Host Name:                 BHARAT-SOVEREIGN-PC<br>
+OS Name:                   BharatOS 2026.1.0 LTS (Rust SMP Microkernel)<br>
+OS Version:                10.0.26100 N/A Build 26100<br>
+OS Manufacturer:           BharatOS Sovereign Corporation<br>
+OS Configuration:          Stand-Alone Workstation<br>
+System Manufacturer:       Bharat Electronics Ltd (BEL)<br>
+System Model:              Sovereign Quantum Station Pro<br>
+System Type:               x64-based PC (16 Cores Online)<br>
+Processor(s):              1 Processor(s) Installed. [01]: x86_64 SMP @ 4.20 GHz<br>
+BIOS Version:              Bharat UEFI Core 4.2, 24/08/2026<br>
+Total Physical Memory:     16,384 MB<br>
+Available Physical Memory: 14,280 MB<br>
+Virtual Memory: Max Size:  32,768 MB<br>
+Security Shield:           Kavach Defender 3.0 (Zero-Trust Ring-0)<br>
+Hotfix(s):                 4 Hotfix(s) Installed. [01]: KB5042890 (Vulkan 144FPS)
+</div>`;
+
+                // 16. NETSTAT
+                } else if (cmd === 'netstat') {
+                    out.innerHTML += `<div>
+Active Connections<br><br>
+  Proto  Local Address          Foreign Address        State<br>
+  TCP    0.0.0.0:135            0.0.0.0:0              LISTENING<br>
+  TCP    0.0.0.0:445            0.0.0.0:0              LISTENING<br>
+  TCP    0.0.0.0:5678           0.0.0.0:0              LISTENING<br>
+  TCP    192.168.1.144:52110    104.21.48.11:443       ESTABLISHED<br>
+  TCP    192.168.1.144:52114    140.82.121.4:443       ESTABLISHED<br>
+  UDP    0.0.0.0:53             *:*                    <br>
+  UDP    0.0.0.0:528            *:*                    (DSP Harmonic)
+</div>`;
+
+                // 17. WHOAMI
+                } else if (cmd === 'whoami') {
+                    const u = (typeof userProfile !== 'undefined' && userProfile.name) ? userProfile.name.toLowerCase().replace(/\s+/g, '') : 'sovereign';
+                    out.innerHTML += `<div>sovereign\\${u}</div>`;
+
+                // 18. HOSTNAME
+                } else if (cmd === 'hostname') {
+                    out.innerHTML += `<div>BHARAT-SOVEREIGN-PC</div>`;
+
+                // 19. DATE / TIME
+                } else if (cmd === 'date' || cmd === 'time' || cmd === 'get-date') {
+                    const now = new Date();
+                    out.innerHTML += `<div>
+Gregorian: ${now.toLocaleString('en-IN')}<br>
+Saka Era:  Saka 1948, Bhadrapada 12 (Ekadashi) • Rohini Nakshatra
+</div>`;
+
+                // 20. ATTRIB
+                } else if (cmd === 'attrib') {
+                    out.innerHTML += `<div>
+A            C:\\Users\\sovereign\\documents\\sovereignty_manifesto.md<br>
+A    R       C:\\Users\\sovereign\\system\\kernel.sys<br>
+A  S H       C:\\Users\\sovereign\\system\\kavach_vault.key
+</div>`;
+
+                // 21. SFC /SCANNOW
+                } else if (cmd === 'sfc' && arg.toLowerCase().includes('/scannow')) {
+                    out.innerHTML += `<div>Beginning system scan. This process will take some time.<br>Beginning verification phase of system scan.</div>`;
+                    let sfcProgress = 0;
+                    const sfcInt = setInterval(() => {
+                        sfcProgress += 25;
+                        out.innerHTML += `<div>Verification ${sfcProgress}% complete.</div>`;
+                        out.scrollTop = out.scrollHeight;
+                        if (sfcProgress >= 100) {
+                            clearInterval(sfcInt);
+                            out.innerHTML += `<div class="text-emerald-500">Windows Resource Protection did not find any integrity violations. 100% Ring-0 Verified.</div>`;
+                            out.scrollTop = out.scrollHeight;
+                        }
+                    }, 300);
+
+                // 22. CHKDSK
+                } else if (cmd === 'chkdsk') {
+                    out.innerHTML += `<div>
+The type of the file system is SOVEREIGN_FS (NVMe).<br>
+Volume SOVEREIGN_OS created 24/08/2026.<br><br>
+Stage 1: Examining basic file system structure... 14820 file records processed.<br>
+Stage 2: Examining file name linkage... 16000 index entries processed.<br>
+Stage 3: Examining security descriptors... 14820 security SDs processed.<br><br>
+Windows has scanned the file system and found no problems.<br>
+No further action is required.<br><br>
+  512,000,000 KB total disk space.<br>
+   12,400,000 KB in 14,820 files.<br>
+  499,600,000 KB available on disk.
+</div>`;
+
+                // 23. COLOR
+                } else if (cmd === 'color') {
+                    if (arg === '0a' || arg === 'a') {
+                        out.className = 'flex-1 bg-black p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-emerald-400';
+                        out.innerHTML += `<div class="text-emerald-400">Terminal color changed to Matrix Green.</div>`;
+                    } else if (arg === '0c' || arg === 'c') {
+                        out.className = 'flex-1 bg-black p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-rose-500';
+                        out.innerHTML += `<div class="text-rose-500">Terminal color changed to Red Alert.</div>`;
+                    } else if (arg === '0b' || arg === 'b') {
+                        out.className = 'flex-1 bg-black p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-cyan-400';
+                        out.innerHTML += `<div class="text-cyan-400">Terminal color changed to Electric Cyan.</div>`;
+                    } else {
+                        out.className = 'flex-1 bg-slate-50 dark:bg-slate-950 p-5 font-mono text-xs custom-scroll overflow-y-auto space-y-1.5 text-slate-900 dark:text-emerald-400';
+                        out.innerHTML += `<div>Color reset to default.</div>`;
+                    }
+
+                // 24. POWERSHELL / PWSH / CMD
+                } else if (cmd === 'powershell' || cmd === 'pwsh') {
+                    terminalShellMode = 'powershell';
+                    out.innerHTML += `<div>
+Windows PowerShell<br>
+Copyright (C) Microsoft Corporation & BharatOS. All rights reserved.<br>
+Install the latest PowerShell for new features and improvements! https://aka.ms/PSWindows
+</div>`;
+                } else if (cmd === 'cmd') {
+                    terminalShellMode = 'cmd';
+                    out.innerHTML += `<div>Microsoft Windows [Version 10.0.26100.2454] — Command Prompt</div>`;
+
+                // 25. WALLPAPER COMMAND
+                } else if (cmd === 'wallpaper' || cmd === 'set-wallpaper') {
+                    const wpKeywords = {
+                        ladakh: 'wall-ladakh-ai',
+                        munnar: 'wall-munnar-ai',
+                        varanasi: 'wall-varanasi-ai',
+                        thar: 'wall-thar-ai',
+                        kashmir: 'wall-kashmir-ai',
+                        andaman: 'wall-andaman-ai',
+                        waterfall: 'wall-waterfall-ai',
+                        kutch: 'wall-kutch-ai'
+                    };
+                    const matchedKey = Object.keys(wpKeywords).find(k => arg.toLowerCase().includes(k));
+                    if (matchedKey) {
+                        const targetClass = wpKeywords[matchedKey];
+                        setWallpaper(targetClass);
+                        out.innerHTML += `<div class="text-emerald-500">✓ Wallpaper successfully switched to: 4K ${matchedKey.toUpperCase()} Landscape!</div>`;
+                    } else {
+                        out.innerHTML += `<div class="text-amber-500">Available Wallpapers: ladakh, munnar, varanasi, thar, kashmir, andaman, waterfall, kutch<br>Usage: wallpaper ladakh</div>`;
+                    }
+
+                // 26. APP LAUNCHERS
                 } else if (cmd === 'browser') {
                     openAppWindow('browser-window', 'dock-browser');
                     if (arg) navigateBrowserUrl(arg);
                 } else if (cmd === 'code') {
                     openAppWindow('code-window', 'dock-code');
-                } else if (cmd === 'shutdown') {
-                    triggerShutdown();
-                } else if (cmd === 'restart' || cmd === 'reboot') {
-                    triggerReboot();
                 } else if (cmd === 'defender' || cmd === 'scan') {
                     openAppWindow('kavach-window', 'dock-defender');
                     startKavachScan();
-                } else if (cmd === 'dir' || cmd === 'ls') {
-                    const items = VFS_TREE[currentVFSPath] || [];
-                    let listing = `<div> Directory of C:${currentVFSPath}<br><br>`;
-                    items.forEach(it => {
-                        const tag = it.type === 'dir' ? '&lt;DIR&gt;' : '     ';
-                        listing += `24/08/2026  03:45 PM    ${tag}          ${it.size.padEnd(8)} ${it.name}<br>`;
-                    });
-                    listing += `<br>               ${items.length} File(s)          12,400,000 bytes free</div>`;
-                    out.innerHTML += listing;
-                } else if (cmd === 'cd') {
-                    if (!arg || arg === '~' || arg === '/') currentVFSPath = '/home/user';
-                    else if (arg === '..') currentVFSPath = '/home/user';
-                    else {
-                        const target = `/home/user/${arg}`;
-                        if (VFS_TREE[target]) currentVFSPath = target;
-                        else out.innerHTML += `<div class="text-rose-400">The system cannot find path: ${arg}</div>`;
-                    }
-                    renderVFS(currentVFSPath);
-                } else if (cmd === 'ipconfig') {
-                    out.innerHTML += `<div>
-Wireless LAN adapter Wi-Fi 7 Mesh:<br>
-   IPv4 Address. . . . . . . . . . . : 192.168.1.144<br>
-   Default Gateway . . . . . . . . . : 192.168.1.1<br>
-   Kavach Zero-Trust Tunnel. . . . . : ARMED (10.24.0.1)
-</div>`;
-                } else if (cmd === 'systeminfo') {
-                    out.innerHTML += `<div>
-OS: BharatOS 2026.1.0 LTS (Rust SMP Microkernel)<br>
-Processor: x86_64 Multi-Core SMP (16 Logical Cores)<br>
-Memory: 16,384 MB (4-Level PML4 Paging)<br>
-Display: Vulkan 1.3 Adaptive Pacer (144 Hz)
-</div>`;
                 } else if (cmd === 'explorer') {
                     openAppWindow('files-window', 'dock-files');
                 } else if (cmd === 'settings') {
                     openAppWindow('settings-window', 'dock-settings');
                 } else if (cmd === 'lock') {
                     lockDesktop();
+                } else if (cmd === 'shutdown') {
+                    if (arg.includes('/r')) triggerReboot();
+                    else triggerShutdown();
+                } else if (cmd === 'restart' || cmd === 'reboot') {
+                    triggerReboot();
+                } else if (cmd === 'write-host') {
+                    out.innerHTML += `<div>${arg}</div>`;
+                } else if (cmd === 'get-process') {
+                    let psList = `<div>Handles  NPM(K)    PM(K)      WS(K)     CPU(s)     Id ProcessName<br>-------  ------    -----      -----     ------     -- -----------<br>`;
+                    runningProcesses.forEach(p => {
+                        psList += `    120      14     4210       8420       0.42   ${String(p.pid).padStart(4)} ${p.image.replace('.exe', '')}<br>`;
+                    });
+                    psList += `</div>`;
+                    out.innerHTML += psList;
                 } else {
-                    out.innerHTML += `<div class="text-slate-400">'${cmd}' executed in Sovereign Ring-0 memory.</div>`;
+                    out.innerHTML += `<div class="text-rose-400 dark:text-rose-300">'${cmd}' is not recognized as an internal or external command, operable program or batch file. Type 'help' for available commands.</div>`;
                 }
+
                 out.scrollTop = out.scrollHeight;
             }
         }

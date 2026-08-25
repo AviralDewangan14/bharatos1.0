@@ -41,6 +41,20 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
     def do_GET(self):
         if self.path == "/api/status":
             self._send_json_response(master_daemon.get_master_status())
+        elif self.path.startswith("/wallpapers/") or self.path.startswith("/bharatos/wallpapers/"):
+            fname = self.path.split("/")[-1]
+            wp_path = BHARATOS_DIR / "wallpapers" / fname
+            if wp_path.exists():
+                with open(wp_path, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "image/jpeg")
+                self.send_header("Content-Length", str(len(content)))
+                self.send_header("Cache-Control", "public, max-age=86400")
+                self.end_headers()
+                self.wfile.write(content)
+            else:
+                self.send_error(404, f"Wallpaper {fname} not found")
         elif self.path in ("/bharatos", "/os", "/bharat"):
             os_path = BHARATOS_DIR / "index.html"
             if os_path.exists():

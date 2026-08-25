@@ -184,7 +184,8 @@ class MasterUnifiedDaemon:
                 for job in self.active_contracts:
                     if job["status"] == "WON":
                         res = project_builder.build_contract(job)
-                        project_name = f"freelance-{job['id_prefix']}"
+                        pref = job.get("id_prefix", job.get("id", "contract").split("-")[0])
+                        project_name = f"freelance-{pref}"
                         entity_name = job["deliverables"][0] if job.get("deliverables") else "src/main.py"
                         lang = job["tech_stack"][0] if job.get("tech_stack") else "Python"
                         lines = res["total_lines"]
@@ -198,7 +199,8 @@ class MasterUnifiedDaemon:
                 bid_res = proposal_engine.draft_and_submit_bid(best_job)
                 if bid_res["won"]:
                     self.log(f"Bid Accepted! Contract awarded: '{best_job['title']}' (${best_job['budget']:.2f})", "WON")
-                project_name = f"freelance-{best_job['id_prefix']}"
+                pref = best_job.get("id_prefix", best_job.get("id", "contract").split("-")[0])
+                project_name = f"freelance-{pref}"
                 entity_name = "proposal.md"
                 lang = "Markdown"
                 lines = 45
