@@ -9,6 +9,24 @@
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
+        var ALL_APPS_METADATA = {
+            'browser-window': { name: 'Garud Web Browser', icon: '🌐', desc: 'Sandboxed Google Search & Multi-Tab Web Engine', dockId: 'dock-browser', cat: 'Office' },
+            'code-window': { name: 'Indic Code Studio Pro', icon: '⚡', desc: 'Rust 2026 SMP IDE & LLVM Compiler', dockId: 'dock-code', cat: 'Development' },
+            'game-window': { name: 'Solaris 3D Cyber Forge FPS', icon: '🎮', desc: 'Three.js 3D Multiplayer Tactical FPS', dockId: 'dock-game', cat: 'Gaming' },
+            'files-window': { name: 'SovereignFS File Vault', icon: '📁', desc: 'AES-256 GCM Encrypted Filesystem & PC Importer', dockId: 'dock-files', cat: 'System' },
+            'kavach-window': { name: 'Kavach Zero-Day Sentinel', icon: '🛡️', desc: 'Zero-Trust Heuristic Antivirus & Firewall', dockId: 'dock-defender', cat: 'Security' },
+            'store-window': { name: 'Bharat Sovereign App Store', icon: '🛍️', desc: '24+ Verified Native Packages & Installer', dockId: 'dock-store', cat: 'Ecosystem' },
+            'taskmanager-window': { name: 'Bharat Task Manager', icon: '📈', desc: 'Real-Time 60s CPU Canvas Graph & Process Manager', dockId: 'dock-taskmgr', cat: 'System' },
+            'music-window': { name: 'Soundscape Vedic 528Hz Studio', icon: '🎵', desc: 'Web Audio Synthesizer & Oscilloscope', dockId: 'dock-music', cat: 'Media' },
+            'calc-window': { name: 'Vedic Scientific Calculator', icon: '🧮', desc: 'Matrix Arithmetic & Calculus Solver', dockId: 'dock-calc', cat: 'Utilities' },
+            'calendar-window': { name: 'Calendar & ISRO Missions', icon: '🗓️', desc: 'Panchang Ephemeris & Rocket Launch Scheduler', dockId: 'dock-calendar', cat: 'Space' },
+            'terminal-window': { name: 'Ring-0 Sovereign Terminal', icon: '📟', desc: 'POSIX Shell & Real-Time Telemetry CLI', dockId: 'dock-terminal', cat: 'Development' },
+            'customization-window': { name: 'Personalization & Theme Studio', icon: '🎨', desc: '4K Wallpapers & Liquid Glass Controls', dockId: 'dock-personalize', cat: 'Design' },
+            'settings-window': { name: 'Settings Hub & Control Enclave', icon: '⚙️', desc: 'Multi-User Accounts & System Preferences', dockId: 'dock-settings', cat: 'System' },
+            'network-window': { name: 'Network & Connectivity Center', icon: '📶', desc: 'Wi-Fi 7, WireGuard VPN & Speed Test', dockId: 'dock-network', cat: 'Network' },
+            'devicemanager-window': { name: 'Device & Hardware Manager', icon: '💻', desc: '16-Core SMP CPU & Vulkan GPU Benchmark', dockId: 'dock-devmgr', cat: 'Hardware' }
+        };
+
         tailwind.config = {
             darkMode: ['class', '[data-theme="dark"]'],
             theme: {
@@ -1160,6 +1178,58 @@
             color: #0f172a !important;
         }
 
+    
+        /* =========================================================================
+           IPADOS / MACOS MISSION CONTROL & APP EXPOSÉ SWITCHER
+           ========================================================================= */
+        #app-switcher-overlay {
+            position: fixed;
+            inset: 0;
+            z-index: 10500;
+            background: rgba(2, 6, 23, 0.72);
+            backdrop-filter: blur(55px) saturate(220%) brightness(0.9);
+            -webkit-backdrop-filter: blur(55px) saturate(220%) brightness(0.9);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 2.5rem 3.5rem;
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(1.08);
+            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #app-switcher-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .stage-card {
+            background: rgba(15, 23, 42, 0.85);
+            border: 1.5px solid rgba(255, 255, 255, 0.2);
+            border-radius: 1.5rem;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 280px;
+        }
+
+        .stage-card:hover {
+            transform: translateY(-8px) scale(1.03);
+            border-color: #00e5ff;
+            box-shadow: 0 35px 80px rgba(0, 229, 255, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.8);
+        }
+
+        .stage-card.focused {
+            border-color: #38bdf8;
+            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.5), 0 30px 70px rgba(0, 0, 0, 0.8);
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -1879,6 +1949,9 @@
 </svg>
 </span>
                     <span class="tracking-wide text-xs">BharatOS</span>
+                </button>
+                <button onclick="toggleAppSwitcher()" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all" title="Mission Control App Switcher (Win+Tab / Alt+Tab)">
+                    <span>🗂️</span><span>Exposé</span>
                 </button>
                 <span class="opacity-40">|</span>
                 <div class="flex items-center space-x-1 bg-slate-200/80 dark:bg-slate-900/90 p-1 rounded-xl border border-slate-300 dark:border-slate-800 font-mono text-[10px]">
@@ -3667,6 +3740,9 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                     <div class="h-7 w-px bg-white/20 dark:bg-slate-700/60 mx-1"></div>
 
+                    <!-- Mission Control Task View Tile -->
+                    <button id="dock-taskview" onclick="toggleAppSwitcher()" class="glass-dock-tile glaze-taskview text-xl" title="Mission Control & App Exposé (Win+Tab / Alt+Tab)">🗂️</button>
+
                     <!-- 3D Glass Icons Dock -->
                     <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
@@ -5254,7 +5330,7 @@ vulkano = "0.34"`
 
             win.classList.remove('hidden', 'window-minimize-genie');
             win.classList.add('window-open-genie');
-            highestZ += 2;
+            highestZ += 5;
             win.style.zIndex = highestZ;
 
             // Highlight dock icon with glowing cyan running dot
@@ -6522,11 +6598,201 @@ vulkano = "0.34"`
         renderCalendar();
         renderISROMissions();
 
+        
+        // =========================================================================
+        // IPADOS / MACOS MISSION CONTROL & APP EXPOSÉ ENGINE
+        // =========================================================================
+
+        
+
+        var isAppSwitcherOpen = false;
+
+        function toggleAppSwitcher() {
+            isAppSwitcherOpen = !isAppSwitcherOpen;
+            const overlay = document.getElementById('app-switcher-overlay');
+            if (!overlay) return;
+
+            if (isAppSwitcherOpen) {
+                playSfx('open');
+                renderAppSwitcherCards();
+                overlay.classList.add('active');
+            } else {
+                playSfx('close');
+                overlay.classList.remove('active');
+            }
+        }
+
+        function closeAppSwitcherOnBackdrop(e) {
+            if (e.target.id === 'app-switcher-overlay') {
+                toggleAppSwitcher();
+            }
+        }
+
+        function renderAppSwitcherCards() {
+            const grid = document.getElementById('app-switcher-cards-grid');
+            const badge = document.getElementById('switcher-open-count-badge');
+            if (!grid) return;
+
+            // Find all active or minimized application windows
+            const openWinIds = Object.keys(ALL_APPS_METADATA).filter(winId => {
+                const el = document.getElementById(winId);
+                return el && (!el.classList.contains('hidden') || el.classList.contains('window-minimized'));
+            });
+
+            if (badge) badge.textContent = `● ${openWinIds.length} Active Application${openWinIds.length === 1 ? '' : 's'}`;
+
+            if (openWinIds.length === 0) {
+                // Empty state: show quick app launcher
+                grid.className = "w-full grid grid-cols-2 md:grid-cols-4 gap-4";
+                grid.innerHTML = Object.entries(ALL_APPS_METADATA).slice(0, 8).map(([winId, meta]) => `
+                    <div onclick="openAppFromSwitcher('${winId}')" class="stage-card p-4 flex flex-col items-center justify-center text-center space-y-2.5">
+                        <div class="w-16 h-16 rounded-2xl bg-slate-800 border border-slate-700 flex items-center justify-center text-3xl shadow-lg">${meta.icon}</div>
+                        <div class="font-bold text-sm text-white font-sans">${meta.name}</div>
+                        <div class="text-[10px] text-cyan-400 font-mono">Click to Launch</div>
+                    </div>
+                `).join('');
+                return;
+            }
+
+            grid.className = "w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6";
+            grid.innerHTML = openWinIds.map(winId => {
+                const meta = ALL_APPS_METADATA[winId] || { name: winId, icon: '🪟', desc: 'Application Window', cat: 'App' };
+                const el = document.getElementById(winId);
+                const isMinimized = el ? el.classList.contains('window-minimized') : false;
+
+                return `
+                    <div class="stage-card" onclick="openAppFromSwitcher('${winId}')">
+                        <!-- Stage Card Header -->
+                        <div class="px-4 py-2.5 bg-slate-900/90 border-b border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="text-xl">${meta.icon}</span>
+                                <div class="space-y-0.5">
+                                    <div class="font-bold text-xs text-white font-sans truncate max-w-[180px]">${meta.name}</div>
+                                    <div class="flex items-center space-x-2 text-[10px] font-mono">
+                                        <span class="text-cyan-400 font-semibold">${meta.cat}</span>
+                                        <span class="text-slate-500">•</span>
+                                        <span class="${isMinimized ? 'text-amber-400' : 'text-emerald-400'} font-bold">${isMinimized ? 'Minimized' : 'Running'}</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="closeAppFromSwitcher(event, '${winId}')" class="w-7 h-7 rounded-full bg-slate-800 hover:bg-rose-500/30 hover:text-rose-400 text-slate-400 flex items-center justify-center font-bold text-xs transition-colors" title="Close Application">
+                                ✕
+                            </button>
+                        </div>
+
+                        <!-- Realistic Simulated Live Window Preview -->
+                        <div class="flex-1 p-4 bg-slate-950/80 flex flex-col justify-between font-mono text-xs overflow-hidden relative">
+                            <div class="space-y-2 opacity-85">
+                                <div class="flex items-center space-x-2 text-[11px] text-slate-300">
+                                    <span class="w-2 h-2 rounded-full ${isMinimized ? 'bg-amber-400' : 'bg-emerald-400 animate-ping'}"></span>
+                                    <span>${meta.desc}</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-[10px] text-slate-400 space-y-1">
+                                    <div class="flex justify-between"><span>Memory Allocation:</span><span class="text-cyan-400 font-bold">145.2 MB</span></div>
+                                    <div class="flex justify-between"><span>IPC Ring-0 Status:</span><span class="text-emerald-400 font-bold">Isolated & Active</span></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2 border-t border-slate-800/80 text-[10px]">
+                                <span class="text-cyan-300 font-bold">🚀 Click Card to Zoom Focus</span>
+                                <span class="text-slate-500 font-mono">PID: ${Math.floor(Math.random() * 800) + 200}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function openAppFromSwitcher(winId) {
+            playSfx('unlock');
+            toggleAppSwitcher();
+            const meta = ALL_APPS_METADATA[winId];
+            openAppWindow(winId, meta ? meta.dockId : null);
+        }
+
+        function closeAppFromSwitcher(e, winId) {
+            e.stopPropagation();
+            playSfx('close');
+            const meta = ALL_APPS_METADATA[winId];
+            closeAppWindow(winId, meta ? meta.dockId : null);
+            renderAppSwitcherCards();
+        }
+
+        function closeAllOpenWindows() {
+            playSfx('close');
+            Object.keys(ALL_APPS_METADATA).forEach(winId => {
+                const meta = ALL_APPS_METADATA[winId];
+                closeAppWindow(winId, meta ? meta.dockId : null);
+            });
+            toggleAppSwitcher();
+            showNotificationToast("Mission Control", "All active application windows closed.", "info");
+        }
+
+        function tileWindowsSplitScreen() {
+            playSfx('open');
+            toggleAppSwitcher();
+            const openWinIds = Object.keys(ALL_APPS_METADATA).filter(winId => {
+                const el = document.getElementById(winId);
+                return el && !el.classList.contains('hidden');
+            });
+
+            if (openWinIds.length >= 2) {
+                const win1 = document.getElementById(openWinIds[0]);
+                const win2 = document.getElementById(openWinIds[1]);
+
+                if (win1) {
+                    win1.style.top = '10px';
+                    win1.style.left = '10px';
+                    win1.style.width = '48vw';
+                    win1.style.height = '88vh';
+                    win1.classList.remove('window-minimized');
+                }
+                if (win2) {
+                    win2.style.top = '10px';
+                    win2.style.left = '50vw';
+                    win2.style.width = '48vw';
+                    win2.style.height = '88vh';
+                    win2.classList.remove('window-minimized');
+                }
+                showNotificationToast("Stage Manager", "Split screen side-by-side tile applied!", "success");
+            } else {
+                showNotificationToast("Stage Manager", "Open at least 2 windows to split screen.", "info");
+            }
+        }
+
+        
+        // Global Window Focus on Click
+        document.addEventListener('mousedown', (e) => {
+            const win = e.target.closest('[id$="-window"]');
+            if (win && !win.classList.contains('hidden')) {
+                highestZ += 2;
+                win.style.zIndex = highestZ;
+            }
+        });
+
         // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
             const key = e.key.toLowerCase();
+            // Mission Control / iPad App Switcher Triggers
+            if (e.key === 'Tab' && (e.altKey || e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                toggleAppSwitcher();
+                return;
+            }
+            if (e.key === 'F3' || (e.key === ' ' && (e.metaKey || e.altKey))) {
+                e.preventDefault();
+                toggleAppSwitcher();
+                return;
+            }
+            if (e.key === 'Escape' && isAppSwitcherOpen) {
+                e.preventDefault();
+                toggleAppSwitcher();
+                return;
+            }
+
             if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (key === 'tab') { e.preventDefault(); toggleAppSwitcher(); }
                 if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
                 if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
                 if (key === 'g') { e.preventDefault(); openAppWindow('game-window', 'dock-game'); }
@@ -7243,6 +7509,57 @@ Available Sovereign Applications:<br>
                 </button>
                 <button onclick="closeCreateUserModal()" class="px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold">
                     Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- IPADOS / MACOS MISSION CONTROL & APP EXPOSÉ OVERLAY -->
+    <div id="app-switcher-overlay" onclick="closeAppSwitcherOnBackdrop(event)">
+        <!-- Top Workspace Bar & Header -->
+        <div class="flex items-center justify-between z-10 w-full max-w-6xl mx-auto">
+            <div class="flex items-center space-x-3">
+                <div class="flex items-center space-x-2 px-3.5 py-1.5 rounded-2xl bg-white/10 border border-white/20 backdrop-blur-xl">
+                    <span class="text-lg">🗂️</span>
+                    <span class="font-sans font-bold text-sm text-white tracking-wide">Mission Control • App Exposé</span>
+                </div>
+                <div class="flex items-center space-x-1.5 bg-slate-900/80 p-1 rounded-2xl border border-slate-800 font-mono text-xs text-slate-300">
+                    <button onclick="switchWorkspace(1); renderAppSwitcherCards();" class="px-3 py-1 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40">1: Core</button>
+                    <button onclick="switchWorkspace(2); renderAppSwitcherCards();" class="px-3 py-1 rounded-xl hover:bg-slate-800 opacity-70">2: Gaming</button>
+                    <button onclick="switchWorkspace(3); renderAppSwitcherCards();" class="px-3 py-1 rounded-xl hover:bg-slate-800 opacity-70">3: Code</button>
+                    <button onclick="switchWorkspace(4); renderAppSwitcherCards();" class="px-3 py-1 rounded-xl hover:bg-slate-800 opacity-70">4: Studio</button>
+                </div>
+            </div>
+
+            <div class="flex items-center space-x-3">
+                <span class="text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
+                    <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-bold">Win + Tab</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-bold">Alt + Tab</kbd> • <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-white font-bold">ESC</kbd> to exit
+                </span>
+                <button onclick="toggleAppSwitcher()" class="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm shadow">✕</button>
+            </div>
+        </div>
+
+        <!-- Center Stage Cards Grid -->
+        <div class="flex-1 my-6 overflow-y-auto custom-scroll w-full max-w-6xl mx-auto flex items-center justify-center">
+            <div id="app-switcher-cards-grid" class="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Dynamically generated open window cards -->
+            </div>
+        </div>
+
+        <!-- Bottom Quick Actions Ribbon -->
+        <div class="flex items-center justify-between z-10 w-full max-w-6xl mx-auto pt-3 border-t border-slate-800/80 font-mono text-xs text-slate-400">
+            <div class="flex items-center space-x-2">
+                <span id="switcher-open-count-badge" class="text-emerald-400 font-bold">● 4 Active Windows</span>
+                <span>•</span>
+                <span>Zero-Trust Ring-0 Sandboxing</span>
+            </div>
+            <div class="flex items-center space-x-2">
+                <button onclick="tileWindowsSplitScreen()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold border border-slate-700 flex items-center space-x-1.5">
+                    <span>⊞</span><span>Tile Side-by-Side</span>
+                </button>
+                <button onclick="closeAllOpenWindows()" class="px-3 py-1.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold border border-rose-500/40">
+                    ✕ Close All Windows
                 </button>
             </div>
         </div>
