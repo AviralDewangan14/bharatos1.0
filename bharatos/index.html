@@ -764,6 +764,64 @@
         <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-12 gap-6 z-10 overflow-hidden">
             
             <div class="scenic-mountain-layer"></div>
+            <!-- PILLAR 1: DESKTOP ICONS GRID (GUI) -->
+            <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 grid grid-flow-col grid-rows-6 gap-3 select-none pointer-events-auto">
+                <div onclick="openAppWindow('browser-window', 'dock-browser')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-cyan-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🌐</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-cyan-500 drop-shadow">Garud Web</span>
+                </div>
+
+                <div onclick="openAppWindow('code-window', 'dock-code')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-purple-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">⚡</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-purple-400 drop-shadow">Indic Studio</span>
+                </div>
+
+                <div onclick="openAppWindow('game-window', 'dock-game')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-rose-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🎮</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-rose-400 drop-shadow">Solaris 3D</span>
+                </div>
+
+                <div onclick="openAppWindow('files-window', 'dock-files')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-amber-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📁</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-amber-400 drop-shadow">File Explorer</span>
+                </div>
+
+                <div onclick="openAppWindow('kavach-window', 'dock-defender')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-emerald-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🛡️</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-emerald-400 drop-shadow">Kavach Security</span>
+                </div>
+
+                <div onclick="openAppWindow('devicemanager-window', 'dock-devmgr')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-blue-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">💻</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-blue-400 drop-shadow">Device Manager</span>
+                </div>
+
+                <div onclick="openAppWindow('network-window', 'dock-network')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-teal-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📶</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-teal-400 drop-shadow">Network Center</span>
+                </div>
+
+                <div onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-cyan-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📈</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-cyan-400 drop-shadow">Task Manager</span>
+                </div>
+
+                <div onclick="openAppWindow('store-window', 'dock-store')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-saffron/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🛍️</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-saffron drop-shadow">App Store</span>
+                </div>
+
+                <div onclick="openAppWindow('terminal-window', 'dock-terminal')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-slate-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📟</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-slate-400 drop-shadow">Terminal</span>
+                </div>
+
+                <div onclick="openAppWindow('settings-window', 'dock-settings')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-indigo-500/30 text-center">
+                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">⚙️</div>
+                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-indigo-400 drop-shadow">Settings</span>
+                </div>
+            </div>
+
 
             <!-- DESKTOP WIDGETS -->
             <div id="desktop-widgets-panel" class="absolute top-6 right-6 w-80 space-y-4 z-10 transition-all duration-300">
@@ -2051,6 +2109,8 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer (Win+E)">📁</button>
                 <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
                 <button id="dock-store" onclick="toggleWindowFromDock('store-window', 'dock-store')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store (Win+A)">🛍️</button>
+                                <button id="dock-devmgr" onclick="toggleWindowFromDock('devicemanager-window', 'dock-devmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Device Manager (Win+D)">💻</button>
+                <button id="dock-network" onclick="toggleWindowFromDock('network-window', 'dock-network')" class="taskbar-item p-2 rounded-xl text-xl" title="Network Center (Win+N)">📶</button>
                 <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window', 'dock-taskmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+P)">📈</button>
                 <button id="dock-music" onclick="toggleWindowFromDock('music-window', 'dock-music')" class="taskbar-item p-2 rounded-xl text-xl" title="Soundscape Studio (Win+M)">🎵</button>
                 <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="taskbar-item p-2 rounded-xl text-xl" title="Scientific Calculator (Win+K)">🧮</button>
