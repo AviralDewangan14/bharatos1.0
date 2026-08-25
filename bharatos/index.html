@@ -2405,6 +2405,85 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 </div>
 
                 <!-- App Store Grid -->
+                
+                <!-- App Store Details Modal / Drawer -->
+                <div id="store-app-details-modal" class="absolute inset-0 bg-slate-950/90 backdrop-blur-2xl p-6 z-30 hidden flex flex-col justify-between overflow-y-auto custom-scroll font-mono text-xs">
+                    <div class="space-y-5">
+                        <!-- Modal Header -->
+                        <div class="flex items-start justify-between pb-4 border-b border-slate-800">
+                            <div class="flex items-center space-x-4">
+                                <div id="modal-app-icon" class="w-16 h-16 rounded-3xl bg-gradient-to-br from-slate-800 to-slate-900 border border-slate-700 flex items-center justify-center text-4xl shadow-xl"></div>
+                                <div class="space-y-1">
+                                    <div class="flex items-center space-x-2">
+                                        <h2 id="modal-app-name" class="text-lg font-bold text-white font-sans"></h2>
+                                        <span id="modal-app-cat" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[10px] font-bold"></span>
+                                    </div>
+                                    <div class="flex items-center space-x-3 text-[11px] text-slate-400">
+                                        <span id="modal-app-author" class="text-cyan-300 font-semibold"></span>
+                                        <span>•</span>
+                                        <span id="modal-app-rating" class="text-amber-400 font-bold"></span>
+                                        <span>•</span>
+                                        <span id="modal-app-size" class="text-slate-300"></span>
+                                    </div>
+                                </div>
+                            </div>
+                            <button onclick="closeStoreAppDetails()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm">✕</button>
+                        </div>
+
+                        <!-- Action Buttons and Progress Bar -->
+                        <div class="p-4 rounded-2xl bg-slate-900/90 border border-slate-800 flex items-center justify-between">
+                            <div class="space-y-1">
+                                <div class="font-bold text-xs text-white">License: Sovereign Open Source (GPLv3)</div>
+                                <div class="text-[10px] text-emerald-400">✓ Cryptographically Verified Binary • 0 Telemetry</div>
+                            </div>
+                            <div id="modal-action-wrapper" class="flex items-center space-x-2">
+                            </div>
+                        </div>
+
+                        <!-- Install Progress Container -->
+                        <div id="modal-install-progress-box" class="p-4 rounded-2xl bg-cyan-950/40 border border-cyan-500/40 space-y-2 hidden">
+                            <div class="flex justify-between items-center text-xs">
+                                <span class="text-cyan-300 font-bold" id="modal-install-status-text">Downloading Package (45.2 MB/s)...</span>
+                                <span class="text-white font-bold" id="modal-install-percent">0%</span>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-900 overflow-hidden border border-cyan-800">
+                                <div id="modal-install-progress-bar" class="h-full bg-gradient-to-r from-cyan-500 via-indigo-500 to-emerald-400 w-0 transition-all duration-150"></div>
+                            </div>
+                        </div>
+
+                        <!-- Description & Features -->
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-xs text-white uppercase tracking-wider">Overview & Architecture:</h3>
+                            <p id="modal-app-desc" class="text-slate-300 text-xs leading-relaxed font-sans"></p>
+                        </div>
+
+                        <!-- System Requirements -->
+                        <div class="p-4 rounded-2xl bg-slate-900/60 border border-slate-800 space-y-2">
+                            <h3 class="font-bold text-xs text-slate-200">System Specifications:</h3>
+                            <div class="grid grid-cols-3 gap-2 text-[11px] text-slate-400">
+                                <div><span class="text-slate-500">OS:</span> BharatOS 2026.1 LTS</div>
+                                <div><span class="text-slate-500">Architecture:</span> x86_64 / RISC-V</div>
+                                <div><span class="text-slate-500">Graphics:</span> Vulkan / WebGL 2.0</div>
+                            </div>
+                        </div>
+
+                        <!-- User Reviews -->
+                        <div class="space-y-2">
+                            <h3 class="font-bold text-xs text-white uppercase tracking-wider">Verified User Reviews:</h3>
+                            <div class="grid grid-cols-2 gap-3" id="modal-reviews-container">
+                                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                                    <div class="flex justify-between text-[11px]"><span class="font-bold text-cyan-300">Dr. Rajesh Kumar (ISRO)</span><span class="text-amber-400">★★★★★</span></div>
+                                    <p class="text-[10px] text-slate-300 font-sans">"Essential for high-precision simulation and daily mission workflows. Zero lag."</p>
+                                </div>
+                                <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+                                    <div class="flex justify-between text-[11px]"><span class="font-bold text-purple-300">Ananya Sen (IITB)</span><span class="text-amber-400">★★★★★</span></div>
+                                    <p class="text-[10px] text-slate-300 font-sans">"Outstanding performance with SMP multi-threading. Best software in the ecosystem."</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-6 overflow-y-auto custom-scroll grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 font-mono text-xs" id="store-apps-grid">
                 </div>
             </div>
@@ -4543,47 +4622,163 @@ vulkano = "0.34"`
         }
 
         // =========================================================================
-        // 1. INDIC SOVEREIGN APP STORE CONTROLLER (24+ AUTHENTIC APPLICATIONS)
+        // FULLY FUNCTIONAL BHARAT APP STORE ENGINE (INSTALL, UNINSTALL, LAUNCH, DYNAMIC ICONS)
         // =========================================================================
-        const STORE_APPS_DATABASE = [
-            // Games
-            { id: "app-solaris-fps", name: "Solaris Cyber Forge 3D FPS", cat: "games", icon: "🎮", desc: "Three.js 3D multiplayer tactical urban FPS with AI sentinels.", size: "54 MB", rating: "★ 4.9 (1.2k)", installed: true, author: "Bharat Gaming Guild", winId: "game-window", dockId: "dock-game" },
-            { id: "app-raytrace", name: "Prithvi Vulkan Raytracer 3D", cat: "games", icon: "💎", desc: "Hardware accelerated path tracing & GPU benchmark sandbox.", size: "42 MB", rating: "★ 4.8 (850)", installed: false, author: "Bharat Graphics Guild" },
-            { id: "app-chess", name: "Bharat Grandmaster 3D Chess AI", cat: "games", icon: "♟️", desc: "Neural network chess engine with 3D crystal board and Vedic openings.", size: "26 MB", rating: "★ 4.9 (3.4k)", installed: false, author: "IndoAI Labs" },
-            { id: "app-speedracer", name: "Cyber Mumbai 3D Highway", cat: "games", icon: "🏎️", desc: "Neon cyberpunk racing game through Bandra-Worli Sea Link.", size: "68 MB", rating: "★ 4.7 (920)", installed: false, author: "Sovereign Arcade" },
 
-            // Development
-            { id: "app-ide", name: "Indic Code Studio Pro", cat: "dev", icon: "⚡", desc: "Rust 2026 SMP IDE with LLVM 19 native compiler and debugger.", size: "48 MB", rating: "★ 5.0 (4.1k)", installed: true, author: "BharatOS Foundation", winId: "code-window", dockId: "dock-code" },
-            { id: "app-terminal", name: "Ring-0 Sovereign Terminal", cat: "dev", icon: "📟", desc: "Native POSIX shell with real-time CPU memory process inspector.", size: "14 MB", rating: "★ 4.9 (2.8k)", installed: true, author: "Microkernel Core", winId: "terminal-window", dockId: "dock-terminal" },
-            { id: "app-python", name: "Python Sovereign 3.14 SMP", cat: "dev", icon: "🐍", desc: "GIL-free multi-threaded Python runtime with NumPy 2.0 acceleration.", size: "38 MB", rating: "★ 4.9 (5.6k)", installed: false, author: "Python Software Foundation" },
-            { id: "app-docker", name: "Bharat Enclave Container Engine", cat: "dev", icon: "🐳", desc: "Lightweight sovereign container runtime with hardware isolation.", size: "52 MB", rating: "★ 4.8 (1.9k)", installed: false, author: "Cloud Sovereign Org" },
+        let selectedStoreApp = null;
 
-            // Office & Productivity
-            { id: "app-browser", name: "Garud Sovereign Browser", cat: "office", icon: "🌐", desc: "Isolated sandboxed web engine with Google multi-source search.", size: "36 MB", rating: "★ 4.9 (8.9k)", installed: true, author: "Garud Project", winId: "browser-window", dockId: "dock-browser" },
-            { id: "app-libreoffice", name: "Sovereign LibreOffice Suite", cat: "office", icon: "📄", desc: "Full office suite: Writer, Calc spreadsheets, and Impress slides.", size: "115 MB", rating: "★ 4.7 (3.2k)", installed: false, author: "Open Sovereign Alliance" },
-            { id: "app-notion", name: "Indic Notion & Markdown Vault", cat: "office", icon: "📝", desc: "Encrypted offline markdown knowledge base with bidirectional linking.", size: "38 MB", rating: "★ 4.9 (4.4k)", installed: false, author: "IndoNotion Labs" },
-            { id: "app-calc", name: "Vedic Scientific Calculator", cat: "office", icon: "🧮", desc: "Matrix arithmetic, calculus solver, and financial unit converter.", size: "12 MB", rating: "★ 4.8 (2.1k)", installed: true, author: "BharatOS Utilities", winId: "calc-window", dockId: "dock-calc" },
+        function openStoreAppDetails(appId) {
+            playSfx('open');
+            const app = STORE_APPS_DATABASE.find(a => a.id === appId);
+            if (!app) return;
+            selectedStoreApp = app;
 
-            // Security
-            { id: "app-kavach", name: "Kavach Zero-Day Sentinel", cat: "security", icon: "🛡️", desc: "Heuristic AI transformer defense engine for Ring-0 microkernel.", size: "62 MB", rating: "★ 5.0 (6.7k)", installed: true, author: "Kavach Security Lab", winId: "kavach-window", dockId: "dock-defender" },
-            { id: "app-wireguard", name: "WireGuard Bharat Zero-Log VPN", cat: "security", icon: "🔒", desc: "Military-grade ChaCha20-Poly1305 encrypted mesh networking tunnel.", size: "12 MB", rating: "★ 4.9 (3.8k)", installed: false, author: "Sovereign Privacy Network" },
-            { id: "app-bitwarden", name: "Bitwarden Enclave Vault", cat: "security", icon: "🔑", desc: "Zero-knowledge AES-256 password manager with biometric Touch ID.", size: "20 MB", rating: "★ 4.9 (5.2k)", installed: false, author: "Bitwarden Inc." },
-            { id: "app-wireshark", name: "Sovereign Packet Sniffer", cat: "security", icon: "🦈", desc: "Deep packet inspection and real-time network protocol analyzer.", size: "29 MB", rating: "★ 4.8 (1.5k)", installed: false, author: "Network Security Team" },
+            document.getElementById('modal-app-icon').textContent = app.icon;
+            document.getElementById('modal-app-name').textContent = app.name;
+            document.getElementById('modal-app-cat').textContent = app.cat.toUpperCase();
+            document.getElementById('modal-app-author').textContent = app.author;
+            document.getElementById('modal-app-rating').textContent = app.rating;
+            document.getElementById('modal-app-size').textContent = `📦 ${app.size}`;
+            document.getElementById('modal-app-desc').textContent = app.desc + " Designed for sovereign independence, optimized for multi-core parallelism, hardware-accelerated rendering, and zero-telemetry user privacy.";
 
-            // Science & Space
-            { id: "app-isro", name: "ISRO Gaganyaan 3D Simulator", cat: "science", icon: "🚀", desc: "Real-time orbital tracking, docking telemetry, and lunar rover sim.", size: "85 MB", rating: "★ 5.0 (9.8k)", installed: false, author: "ISRO Space Applications" },
-            { id: "app-vedic-math", name: "Vedic Symbolic Algebra CAS", cat: "science", icon: "🕉️", desc: "Exact symbolic mathematics, Sulba Sutras geometry, and prime engines.", size: "16 MB", rating: "★ 4.9 (1.8k)", installed: false, author: "CSIR Mathematical Inst." },
-            { id: "app-alphafold", name: "AlphaFold 3 Biomolecule Studio", cat: "science", icon: "🧬", desc: "Deep learning 3D protein structure prediction & ligand docking.", size: "72 MB", rating: "★ 4.9 (2.3k)", installed: false, author: "DeepMind Science" },
-            { id: "app-astrosky", name: "AstroSky India 3D Planetarium", cat: "science", icon: "🌌", desc: "Interactive 3D night sky with Nakshatras and planetary ephemeris.", size: "44 MB", rating: "★ 4.8 (1.6k)", installed: false, author: "IUCAA Pune" },
+            updateModalActionButtons(app);
+            document.getElementById('modal-install-progress-box').classList.add('hidden');
+            document.getElementById('store-app-details-modal').classList.remove('hidden');
+        }
 
-            // Media & Design
-            { id: "app-blender", name: "Blender 4.2 Sovereign 3D Suite", cat: "media", icon: "🎨", desc: "Complete 3D modeling, rigging, sculpting, and Cycles GPU raytracing.", size: "190 MB", rating: "★ 5.0 (7.4k)", installed: false, author: "Blender Foundation" },
-            { id: "app-figma", name: "Figma UI/UX Sovereign Designer", cat: "media", icon: "📐", desc: "Collaborative vector interface design with auto-layout and design systems.", size: "64 MB", rating: "★ 4.9 (8.1k)", installed: false, author: "Figma Design Lab" },
-            { id: "app-soundscape", name: "Soundscape Vedic 528Hz Studio", cat: "media", icon: "🎵", desc: "Binaural audio generator, nature ambient synth, and music player.", size: "32 MB", rating: "★ 4.8 (3.5k)", installed: true, author: "Bharat Audio Guild", winId: "music-window", dockId: "dock-music" },
-            { id: "app-vlc", name: "VLC Sovereign 4K Video Player", cat: "media", icon: "🎬", desc: "Hardware-accelerated AV1, HEVC, and VP9 high-bitrate video player.", size: "45 MB", rating: "★ 4.9 (6.3k)", installed: false, author: "VideoLAN Org" }
-        ];
+        function closeStoreAppDetails() {
+            playSfx('close');
+            document.getElementById('store-app-details-modal').classList.add('hidden');
+            selectedStoreApp = null;
+        }
 
-        let currentStoreCategory = 'all';
+        function updateModalActionButtons(app) {
+            const actionWrap = document.getElementById('modal-action-wrapper');
+            if (!actionWrap) return;
+
+            if (app.installed) {
+                actionWrap.innerHTML = `
+                    <button onclick="launchInstalledApp('${app.id}')" class="px-5 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                        <span>🚀</span><span>Launch App</span>
+                    </button>
+                    <button onclick="uninstallStoreApp('${app.id}')" class="px-4 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold text-xs border border-rose-500/40 transition-all active:scale-95">
+                        🗑️ Uninstall
+                    </button>
+                `;
+            } else {
+                actionWrap.innerHTML = `
+                    <button onclick="startAppInstallation('${app.id}')" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
+                        <span>⚡</span><span>Get / Install (${app.size})</span>
+                    </button>
+                `;
+            }
+        }
+
+        function startAppInstallation(appId) {
+            playSfx('open');
+            const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
+            if (!targetApp) return;
+
+            triggerUACGate(`${targetApp.name} Installer (SHA-256 Verified)`, (allowed) => {
+                if (!allowed) return;
+
+                const progBox = document.getElementById('modal-install-progress-box');
+                const progBar = document.getElementById('modal-install-progress-bar');
+                const progPct = document.getElementById('modal-install-percent');
+                const statusText = document.getElementById('modal-install-status-text');
+
+                if (progBox) progBox.classList.remove('hidden');
+
+                let pct = 0;
+                const interval = setInterval(() => {
+                    pct += 15;
+                    if (pct > 100) pct = 100;
+
+                    if (progBar) progBar.style.width = pct + '%';
+                    if (progPct) progPct.textContent = pct + '%';
+
+                    if (pct < 60 && statusText) {
+                        statusText.textContent = `Downloading ${targetApp.name} (${pct}%)...`;
+                    } else if (pct < 95 && statusText) {
+                        statusText.textContent = `Verifying Cryptographic SHA-256 Silicon Signature...`;
+                    } else if (statusText) {
+                        statusText.textContent = `Registering Ring-0 IPC Services...`;
+                    }
+
+                    if (pct >= 100) {
+                        clearInterval(interval);
+                        setTimeout(() => {
+                            targetApp.installed = true;
+                            playSfx('unlock');
+                            showSecurityToast(`🛍️ ${targetApp.name} Successfully Installed!`, 'success');
+                            
+                            // Dynamically Add App Icon to Desktop
+                            addAppIconToDesktop(targetApp);
+
+                            if (selectedStoreApp && selectedStoreApp.id === appId) {
+                                updateModalActionButtons(targetApp);
+                                if (progBox) progBox.classList.add('hidden');
+                            }
+
+                            renderStoreApps(currentStoreCategory, document.getElementById('store-search-input')?.value || '');
+                        }, 400);
+                    }
+                }, 150);
+            });
+        }
+
+        function uninstallStoreApp(appId) {
+            playSfx('click');
+            const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
+            if (!targetApp) return;
+
+            targetApp.installed = false;
+            showSecurityToast(`🗑️ ${targetApp.name} Uninstalled.`, 'info');
+
+            // Remove Desktop icon if present
+            const deskIcon = document.getElementById(`desktop-icon-${appId}`);
+            if (deskIcon) deskIcon.remove();
+
+            if (selectedStoreApp && selectedStoreApp.id === appId) {
+                updateModalActionButtons(targetApp);
+            }
+
+            renderStoreApps(currentStoreCategory, document.getElementById('store-search-input')?.value || '');
+        }
+
+        function launchInstalledApp(appId) {
+            playSfx('open');
+            const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
+            if (!targetApp) return;
+
+            if (targetApp.winId) {
+                openAppWindow(targetApp.winId, targetApp.dockId);
+            } else {
+                showSecurityToast(`🚀 Launched ${targetApp.name} in Sovereign Sandbox Enclave!`, 'success');
+            }
+        }
+
+        function addAppIconToDesktop(app) {
+            const container = document.getElementById('desktop-icons-container');
+            if (!container || document.getElementById(`desktop-icon-${app.id}`)) return;
+
+            const btn = document.createElement('button');
+            btn.id = `desktop-icon-${app.id}`;
+            btn.className = 'icon-btn';
+            btn.setAttribute('aria-label', app.name);
+            btn.type = 'button';
+            btn.onclick = () => launchInstalledApp(app.id);
+
+            btn.innerHTML = `
+                <span class="icon-btn__back bg-grad-cyan"></span>
+                <span class="icon-btn__front">
+                    <span class="icon-btn__icon">${app.icon}</span>
+                </span>
+                <span class="icon-btn__label">${app.name.split(' ')[0]}</span>
+            `;
+
+            container.appendChild(btn);
+        }
 
         function renderStoreApps(cat = 'all', query = '') {
             const grid = document.getElementById('store-apps-grid');
@@ -4598,7 +4793,13 @@ vulkano = "0.34"`
 
             filtered.forEach(app => {
                 const card = document.createElement('div');
-                card.className = 'p-4 rounded-3xl bg-white/70 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500 hover:shadow-xl transition-all font-mono text-xs';
+                card.className = 'p-4 rounded-3xl bg-white/70 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-3 shadow-md hover:border-cyan-500 hover:shadow-xl transition-all font-mono text-xs cursor-pointer';
+                card.onclick = (e) => {
+                    if (e.target.tagName !== 'BUTTON') {
+                        openStoreAppDetails(app.id);
+                    }
+                };
+
                 card.innerHTML = `
                     <div class="flex items-start space-x-3.5">
                         <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-slate-100 to-slate-200 dark:from-slate-800 dark:to-slate-900 border border-slate-300 dark:border-slate-700 flex items-center justify-center text-3xl shadow-inner flex-shrink-0">${app.icon}</div>
@@ -4615,8 +4816,8 @@ vulkano = "0.34"`
                         <span class="text-[10px] opacity-60">📦 ${app.size}</span>
                         <div id="btn-wrap-${app.id}">
                             ${app.installed 
-                                ? `<button onclick="${app.winId ? `openAppWindow('${app.winId}', '${app.dockId}')` : `showSecurityToast('✓ ${app.name} is running in background', 'info')`}" class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] border border-emerald-500/40 flex items-center space-x-1"><span>🚀</span><span>Open</span></button>` 
-                                : `<button onclick="installStoreApp('${app.id}')" class="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] shadow-md active:scale-95 transition-all">Get App</button>`
+                                ? `<button onclick="launchInstalledApp('${app.id}')" class="px-3.5 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 font-bold text-[11px] border border-emerald-500/40 flex items-center space-x-1"><span>🚀</span><span>Open</span></button>` 
+                                : `<button onclick="startAppInstallation('${app.id}')" class="px-4 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[11px] shadow-md active:scale-95 transition-all">Get App</button>`
                             }
                         </div>
                     </div>
