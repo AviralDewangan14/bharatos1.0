@@ -1677,6 +1677,301 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
                     </div>
                 </div>
+            <!-- =========================================================================
+                 APP 7: INDIC SOVEREIGN APP STORE & PACKAGE HUB
+                 ========================================================================= -->
+            <div id="store-window" class="absolute top-6 left-28 w-[920px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'store-window')" ondblclick="toggleMaximizeWindow('store-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('store-window', 'dock-store')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('store-window', 'dock-store')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('store-window')" title="Maximize / Full Screen"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span>🛍️</span>
+                            <span>Indic Sovereign App Store — Verified Packages (SHA-256)</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 font-mono text-[10px] font-bold">100% Zero Malware</span>
+                    </div>
+                </div>
+
+                <!-- Navigation and Search -->
+                <div class="px-4 py-2 bg-slate-200/50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-3">
+                    <div class="flex items-center space-x-1 bg-white/80 dark:bg-slate-950/80 border border-slate-300 dark:border-slate-700/80 rounded-xl px-3 py-1 text-xs font-mono flex-1">
+                        <span class="opacity-60 mr-2">🔍</span>
+                        <input id="store-search-input" type="text" placeholder="Search curated sovereign apps, engines, tools..." class="w-full bg-transparent outline-none text-slate-800 dark:text-slate-200" oninput="filterStoreApps(this.value)">
+                    </div>
+                    <div class="flex items-center space-x-1 text-xs font-mono" id="store-cat-buttons">
+                        <button onclick="filterStoreCategory('all')" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold">All</button>
+                        <button onclick="filterStoreCategory('dev')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Dev</button>
+                        <button onclick="filterStoreCategory('tools')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Tools</button>
+                        <button onclick="filterStoreCategory('security')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Security</button>
+                        <button onclick="filterStoreCategory('science')" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Science</button>
+                    </div>
+                </div>
+
+                <!-- App Store Grid -->
+                <div class="flex-1 bg-slate-50/80 dark:bg-slate-950/80 p-5 overflow-y-auto custom-scroll grid grid-cols-2 md:grid-cols-3 gap-4" id="store-apps-grid">
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 8: BHARAT TASK MANAGER & TELEMETRY MONITOR
+                 ========================================================================= -->
+            <div id="taskmanager-window" class="absolute top-8 left-32 w-[900px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'taskmanager-window')" ondblclick="toggleMaximizeWindow('taskmanager-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('taskmanager-window', 'dock-taskmgr')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('taskmanager-window')" title="Maximize / Full Screen"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-cyan-500">📈</span>
+                            <span>Bharat Task Manager — 16 SMP Cores @ 4.20 GHz</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2 text-xs font-mono">
+                        <button onclick="switchTaskMgrTab('perf')" id="tm-tab-perf" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold">Performance</button>
+                        <button onclick="switchTaskMgrTab('procs')" id="tm-tab-procs" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Processes</button>
+                        <button onclick="switchTaskMgrTab('startup')" id="tm-tab-startup" class="px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70">Startup</button>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-5 overflow-y-auto custom-scroll font-mono text-xs" id="taskmgr-content">
+                    <!-- Performance Tab View -->
+                    <div id="tm-pane-perf" class="space-y-4">
+                        <div class="grid grid-cols-4 gap-3">
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="text-[10px] opacity-60">CPU Utilization</div>
+                                <div class="text-xl font-bold text-emerald-500" id="tm-cpu-val">4.8%</div>
+                                <div class="text-[10px] text-slate-500">4.20 GHz • 16 Cores</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="text-[10px] opacity-60">Memory Usage</div>
+                                <div class="text-xl font-bold text-cyan-500" id="tm-ram-val">1.8 / 16.0 GB</div>
+                                <div class="text-[10px] text-slate-500">LPDDR5X • 6400 MT/s</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="text-[10px] opacity-60">NVMe SSD (C:)</div>
+                                <div class="text-xl font-bold text-purple-400" id="tm-disk-val">0.4 MB/s</div>
+                                <div class="text-[10px] text-slate-500">Active Time: 1%</div>
+                            </div>
+                            <div class="p-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="text-[10px] opacity-60">Prithvi GPU</div>
+                                <div class="text-xl font-bold text-amber-500" id="tm-gpu-val">144 FPS</div>
+                                <div class="text-[10px] text-slate-500">Vulkan VRR Active</div>
+                            </div>
+                        </div>
+
+                        <!-- Live Real-Time Canvas Graph -->
+                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                            <div class="flex justify-between items-center text-[11px]">
+                                <span class="font-bold text-slate-800 dark:text-slate-200">Real-Time Core Load Graph (60 Seconds Telemetry)</span>
+                                <span class="text-emerald-500 font-bold">● 1000ms Sample Interval</span>
+                            </div>
+                            <canvas id="tm-cpu-canvas" width="820" height="150" class="w-full h-36 rounded-xl bg-slate-950 border border-slate-800"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- Processes Tab View -->
+                    <div id="tm-pane-procs" class="space-y-3 hidden">
+                        <div class="flex justify-between items-center">
+                            <div class="text-[11px] opacity-70">Active Ring-0 & User Space Processes</div>
+                            <button onclick="endSelectedTaskMgrProcess()" class="px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold hover:bg-rose-500/30">End Task</button>
+                        </div>
+                        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden" id="tm-procs-table-container">
+                        </div>
+                    </div>
+
+                    <!-- Startup Tab View -->
+                    <div id="tm-pane-startup" class="space-y-3 hidden">
+                        <div class="text-[11px] opacity-70">Startup Impact & Auto-Launch Daemons</div>
+                        <div class="space-y-2" id="tm-startup-list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 9: BHARAT SOUNDSCAPE & HARMONIC STUDIO PLAYER
+                 ========================================================================= -->
+            <div id="music-window" class="absolute top-10 left-36 w-[860px] h-[540px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'music-window')" ondblclick="toggleMaximizeWindow('music-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('music-window', 'dock-music')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('music-window', 'dock-music')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('music-window')" title="Maximize / Full Screen"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-saffron">🎵</span>
+                            <span>Bharat Soundscape Studio — 528 Hz Binaural & Harmonic Ragas</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Tracklist -->
+                    <div class="w-64 bg-slate-100/80 dark:bg-slate-950/80 p-3 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between font-mono text-xs">
+                        <div class="space-y-1">
+                            <div class="text-[10px] opacity-60 uppercase font-bold tracking-wider mb-2 px-2">Soundscape Library</div>
+                            <div class="space-y-1" id="music-track-list">
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-white/70 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px]">
+                            <div class="font-bold text-saffron">Zero Latency DSP</div>
+                            <div class="opacity-70">WebAudio 64-bit Synthesis</div>
+                        </div>
+                    </div>
+
+                    <!-- Visualizer & Controls -->
+                    <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-6 flex flex-col justify-between items-center text-center">
+                        <div class="space-y-2 w-full">
+                            <div class="text-4xl my-2" id="music-disc-icon">☸️</div>
+                            <h2 class="text-base font-bold text-slate-900 dark:text-white" id="music-active-title">528 Hz DNA Healing Harmonic</h2>
+                            <p class="text-xs text-saffron font-mono" id="music-active-artist">Sacred Solfeggio Tone • Pure Sine Synthesis</p>
+                        </div>
+
+                        <!-- Real-time Equalizer Spectrum Canvas -->
+                        <div class="w-full max-w-md my-4">
+                            <canvas id="music-equalizer-canvas" width="450" height="90" class="w-full h-24 rounded-2xl bg-slate-950 border border-slate-800 shadow-inner"></canvas>
+                        </div>
+
+                        <!-- Player Controls -->
+                        <div class="space-y-4 w-full max-w-md">
+                            <div class="flex items-center justify-center space-x-6 text-2xl">
+                                <button onclick="prevMusicTrack()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-lg">⏮️</button>
+                                <button onclick="toggleMusicPlayback()" id="music-play-btn" class="w-14 h-14 rounded-full bg-gradient-to-tr from-saffron to-amber-500 text-slate-950 flex items-center justify-center font-bold text-2xl shadow-xl hover:scale-105 active:scale-95 transition-all">▶</button>
+                                <button onclick="nextMusicTrack()" class="p-2 rounded-full hover:bg-slate-200 dark:hover:bg-slate-800 text-lg">⏭️</button>
+                            </div>
+                            <div class="flex items-center space-x-3 text-xs font-mono">
+                                <span>🔈</span>
+                                <input type="range" min="0" max="100" value="80" class="w-full accent-saffron cursor-pointer" oninput="setMusicVolume(this.value)">
+                                <span>🔊</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 10: SOVEREIGN SCIENTIFIC CALCULATOR
+                 ========================================================================= -->
+            <div id="calc-window" class="absolute top-12 left-44 w-[420px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calc-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('calc-window', 'dock-calc')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('calc-window', 'dock-calc')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-cyan-500">🧮</span>
+                            <span>Scientific Calculator</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Display -->
+                <div class="p-4 bg-slate-100/90 dark:bg-slate-950/90 border-b border-slate-200 dark:border-slate-800 text-right font-mono space-y-1">
+                    <div class="text-[11px] text-slate-400 h-4" id="calc-history-display"></div>
+                    <div class="text-2xl font-bold text-slate-900 dark:text-cyan-400 tracking-wider truncate" id="calc-main-display">0</div>
+                </div>
+
+                <!-- Buttons Keypad -->
+                <div class="flex-1 p-3 grid grid-cols-4 gap-2 font-mono text-xs bg-slate-50/70 dark:bg-slate-900/70">
+                    <button onclick="calcClear()" class="p-3 rounded-xl bg-rose-500/20 text-rose-400 font-bold hover:bg-rose-500/30">C</button>
+                    <button onclick="calcBack()" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">⌫</button>
+                    <button onclick="calcOp('(')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">(</button>
+                    <button onclick="calcOp(')')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">)</button>
+
+                    <button onclick="calcFunc('sin')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-500 font-bold hover:bg-slate-300">sin</button>
+                    <button onclick="calcFunc('cos')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-500 font-bold hover:bg-slate-300">cos</button>
+                    <button onclick="calcFunc('tan')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-500 font-bold hover:bg-slate-300">tan</button>
+                    <button onclick="calcOp('/')" class="p-3 rounded-xl bg-amber-500/20 text-amber-500 font-bold hover:bg-amber-500/30">÷</button>
+
+                    <button onclick="calcNum('7')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">7</button>
+                    <button onclick="calcNum('8')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">8</button>
+                    <button onclick="calcNum('9')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">9</button>
+                    <button onclick="calcOp('*')" class="p-3 rounded-xl bg-amber-500/20 text-amber-500 font-bold hover:bg-amber-500/30">×</button>
+
+                    <button onclick="calcNum('4')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">4</button>
+                    <button onclick="calcNum('5')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">5</button>
+                    <button onclick="calcNum('6')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">6</button>
+                    <button onclick="calcOp('-')" class="p-3 rounded-xl bg-amber-500/20 text-amber-500 font-bold hover:bg-amber-500/30">−</button>
+
+                    <button onclick="calcNum('1')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">1</button>
+                    <button onclick="calcNum('2')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">2</button>
+                    <button onclick="calcNum('3')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">3</button>
+                    <button onclick="calcOp('+')" class="p-3 rounded-xl bg-amber-500/20 text-amber-500 font-bold hover:bg-amber-500/30">+</button>
+
+                    <button onclick="calcFunc('sqrt')" class="p-3 rounded-xl bg-slate-200 dark:bg-slate-800 text-purple-400 font-bold hover:bg-slate-300">√</button>
+                    <button onclick="calcNum('0')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">0</button>
+                    <button onclick="calcNum('.')" class="p-3 rounded-xl bg-white dark:bg-slate-950 font-bold text-sm shadow-sm hover:scale-105 transition-all">.</button>
+                    <button onclick="calcEval()" class="p-3 rounded-xl bg-emerald-500 text-slate-950 font-bold text-sm shadow-md hover:bg-emerald-400">=</button>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 11: SOVEREIGN CALENDAR & ISRO SPACE TRACKER
+                 ========================================================================= -->
+            <div id="calendar-window" class="absolute top-8 left-48 w-[880px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'calendar-window')" ondblclick="toggleMaximizeWindow('calendar-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('calendar-window', 'dock-calendar')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('calendar-window', 'dock-calendar')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('calendar-window')" title="Maximize / Full Screen"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5">
+                            <span class="text-cyan-500">🗂️</span>
+                            <span>Sovereign Calendar & ISRO Space Telemetry Tracker (Saka 1948)</span>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex overflow-hidden font-mono text-xs">
+                    <!-- Calendar View -->
+                    <div class="w-80 bg-slate-100/80 dark:bg-slate-950/80 p-4 border-r border-slate-200 dark:border-slate-800 flex flex-col justify-between">
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <h3 class="font-bold text-sm" id="cal-month-header">August 2026</h3>
+                                <span class="text-[10px] text-cyan-500 font-bold">Bhadrapada 1948</span>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-[10px] opacity-60 font-bold">
+                                <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                            </div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-[11px]" id="cal-days-grid">
+                            </div>
+                        </div>
+                        <div class="p-3 rounded-2xl bg-white/80 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1">
+                            <div class="font-bold text-cyan-600 dark:text-cyan-300">National Time Authority</div>
+                            <div class="text-[10px] opacity-70">CSIR-NPL Atomic Clock Sync (±0.2ns)</div>
+                        </div>
+                    </div>
+
+                    <!-- ISRO Space Telemetry & Events -->
+                    <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-5 overflow-y-auto custom-scroll space-y-4">
+                        <div class="flex justify-between items-center">
+                            <h3 class="text-sm font-bold text-slate-900 dark:text-white flex items-center space-x-2">
+                                <span>🛰️</span><span>ISRO Gaganyaan & Space Exploration Horizon</span>
+                            </h3>
+                            <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-500 text-[10px] font-bold">Telemetry Live</span>
+                        </div>
+
+                        <div class="space-y-3" id="isro-missions-list">
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- KEYBINDINGS CHEATSHEET MODAL -->
@@ -1690,7 +1985,13 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + B</span><span>Garud Web Browser</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-purple-600 dark:text-purple-300 font-bold">Win + C</span><span>Indic Code Studio</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + E</span><span>SovereignFS Explorer</span></div>
-                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + T</span><span>Command Prompt (bsh)</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + S</span><span>Kavach Defender 3.0</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-amber-600 dark:text-amber-300 font-bold">Win + A</span><span>Sovereign App Store</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + P</span><span>Task Manager</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-saffron font-bold">Win + M</span><span>Soundscape Studio</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-indigo-600 dark:text-indigo-300 font-bold">Win + K</span><span>Calculator</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-teal-600 dark:text-teal-300 font-bold">Win + J</span><span>Calendar & ISRO</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + T</span><span>Command Prompt</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + I</span><span>Settings Hub</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-rose-600 dark:text-rose-400 font-bold">Win + L</span><span>Lock Screen</span></div>
                     </div>
@@ -1716,13 +2017,18 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                 <div class="text-[10px] opacity-60">Sovereign Admin</div>
                             </div>
                         </div>
-                        <div class="space-y-1">
+                        <div class="space-y-1 max-h-72 overflow-y-auto custom-scroll pr-1">
                             <button onclick="openAppWindow('browser-window', 'dock-browser')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-500 font-bold"><span>🌐</span><span>Garud Browser</span></button>
                             <button onclick="openAppWindow('code-window', 'dock-code')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-400 font-bold"><span>⚡</span><span>Indic Code Studio</span></button>
                             <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📁</span><span>File Explorer</span></button>
-                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender</span></button>
+                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender 3.0</span></button>
+                            <button onclick="openAppWindow('store-window', 'dock-store')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-amber-500 font-bold"><span>🛍️</span><span>Sovereign App Store</span></button>
+                            <button onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-400 font-bold"><span>📈</span><span>Task Manager</span></button>
+                            <button onclick="openAppWindow('music-window', 'dock-music')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-saffron font-bold"><span>🎵</span><span>Soundscape Studio</span></button>
+                            <button onclick="openAppWindow('calc-window', 'dock-calc')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-indigo-400 font-bold"><span>🧮</span><span>Scientific Calculator</span></button>
+                            <button onclick="openAppWindow('calendar-window', 'dock-calendar')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-teal-400 font-bold"><span>🗂️</span><span>Calendar & ISRO Hub</span></button>
                             <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>💻</span><span>Command Prompt</span></button>
-                            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>Settings</span></button>
+                            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>Settings Hub</span></button>
                         </div>
                         <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
                             <button onclick="lockDesktop()" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🔒 Lock</button>
@@ -1736,8 +2042,13 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <!-- Flagship Applications Dock -->
                 <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="taskbar-item p-2 rounded-xl text-xl" title="Garud Web Browser (Win+B)">🌐</button>
                 <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="taskbar-item p-2 rounded-xl text-xl" title="Indic Code Studio (Win+C)">⚡</button>
-                <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl active" title="File Explorer (Win+E)">📁</button>
-                <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender">🛡️</button>
+                <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer (Win+E)">📁</button>
+                <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
+                <button id="dock-store" onclick="toggleWindowFromDock('store-window', 'dock-store')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store (Win+A)">🛍️</button>
+                <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window', 'dock-taskmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+P)">📈</button>
+                <button id="dock-music" onclick="toggleWindowFromDock('music-window', 'dock-music')" class="taskbar-item p-2 rounded-xl text-xl" title="Soundscape Studio (Win+M)">🎵</button>
+                <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="taskbar-item p-2 rounded-xl text-xl" title="Scientific Calculator (Win+K)">🧮</button>
+                <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="taskbar-item p-2 rounded-xl text-xl" title="Calendar & ISRO (Win+J)">🗂️</button>
                 <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Command Prompt (Win+T)">💻</button>
                 <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
             </div>
@@ -2807,6 +3118,477 @@ vulkano = "0.34"`
             setTimeout(() => { btn.textContent = '✓ Up to Date'; }, 800);
         }
 
+        // =========================================================================
+        // 1. INDIC SOVEREIGN APP STORE CONTROLLER
+        // =========================================================================
+        const STORE_APPS_DATABASE = [
+            { id: "app-ide", name: "Indic Code Studio Pro", cat: "dev", icon: "⚡", desc: "Rust 2026 SMP IDE with LLVM 19 native compiler.", size: "48 MB", installed: true, author: "BharatOS Foundation" },
+            { id: "app-browser", name: "Garud Sovereign Browser", cat: "tools", icon: "🌐", desc: "Isolated sandboxed web engine with zero-telemetry.", size: "36 MB", installed: true, author: "Garud Project" },
+            { id: "app-kavach", name: "Kavach Zero-Day Sentinel", cat: "security", icon: "🛡️", desc: "Heuristic AI transformer defense engine for Ring-0.", size: "62 MB", installed: true, author: "Kavach Security Lab" },
+            { id: "app-raytrace", name: "Prithvi Vulkan Raytracer 3D", cat: "dev", icon: "🎮", desc: "Hardware accelerated path tracing & benchmark suite.", size: "42 MB", installed: false, author: "Bharat Graphics Guild" },
+            { id: "app-isro", name: "ISRO Gaganyaan Telemetry Hub", cat: "science", icon: "🚀", desc: "Real-time orbital tracking and deep space telemetry.", size: "18 MB", installed: false, author: "ISRO Space Applications" },
+            { id: "app-vedic", name: "Vedic Symbolic Math Engine", cat: "science", icon: "🧮", desc: "High-precision computer algebra and Vedic math solver.", size: "12 MB", installed: false, author: "CSIR Mathematical Inst." },
+            { id: "app-office", name: "Sovereign LibreOffice Suite", cat: "tools", icon: "📄", desc: "Word processing, spreadsheets, and vector graphics.", size: "115 MB", installed: false, author: "Open Sovereign Alliance" },
+            { id: "app-chess", name: "Bharat Chess 3D AI", cat: "games", icon: "♟️", desc: "Grandmaster neural chess engine with 3D glass board.", size: "26 MB", installed: false, author: "IndoAI Labs" }
+        ];
+
+        let currentStoreCategory = 'all';
+        function renderStoreApps(cat = 'all', query = '') {
+            const grid = document.getElementById('store-apps-grid');
+            if (!grid) return;
+            grid.innerHTML = '';
+            
+            const filtered = STORE_APPS_DATABASE.filter(app => {
+                const matchesCat = (cat === 'all' || app.cat === cat);
+                const matchesQuery = (app.name.toLowerCase().includes(query.toLowerCase()) || app.desc.toLowerCase().includes(query.toLowerCase()));
+                return matchesCat && matchesQuery;
+            });
+
+            filtered.forEach(app => {
+                const card = document.createElement('div');
+                card.className = 'p-4 rounded-2xl bg-white/70 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex flex-col justify-between space-y-3 shadow-sm hover:border-cyan-500/50 transition-all font-mono text-xs';
+                card.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <div class="w-12 h-12 rounded-2xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center text-2xl shadow-inner">${app.icon}</div>
+                        <div class="flex-1 space-y-0.5">
+                            <div class="font-bold text-sm text-slate-900 dark:text-white">${app.name}</div>
+                            <div class="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">${app.author}</div>
+                            <div class="text-[10px] opacity-70 line-clamp-2">${app.desc}</div>
+                        </div>
+                    </div>
+                    <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                        <span class="text-[10px] opacity-60">📦 ${app.size}</span>
+                        <div id="btn-wrap-${app.id}">
+                            ${app.installed 
+                                ? `<span class="px-3 py-1 rounded-xl bg-emerald-500/20 text-emerald-500 font-bold text-[10px] border border-emerald-500/40">✓ Installed</span>` 
+                                : `<button onclick="installStoreApp('${app.id}')" class="px-3 py-1 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-[10px] shadow-sm active:scale-95 transition-all">Install</button>`
+                            }
+                        </div>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterStoreCategory(cat) {
+            playSfx('click');
+            currentStoreCategory = cat;
+            renderStoreApps(cat, document.getElementById('store-search-input')?.value || '');
+            const btnContainer = document.getElementById('store-cat-buttons');
+            if (btnContainer) {
+                Array.from(btnContainer.children).forEach(b => {
+                    b.className = b.textContent.toLowerCase().includes(cat) || (cat === 'all' && b.textContent.toLowerCase() === 'all')
+                        ? 'px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold'
+                        : 'px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70';
+                });
+            }
+        }
+
+        function filterStoreApps(query) {
+            renderStoreApps(currentStoreCategory, query);
+        }
+
+        function installStoreApp(appId) {
+            playSfx('open');
+            const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
+            if (!targetApp) return;
+
+            triggerUACGate(`${targetApp.name} Installer`, (allowed) => {
+                if (!allowed) return;
+                const wrap = document.getElementById(`btn-wrap-${appId}`);
+                if (wrap) wrap.innerHTML = `<span class="text-[10px] text-cyan-400 animate-pulse font-bold">Verifying SHA-256...</span>`;
+                
+                setTimeout(() => {
+                    targetApp.installed = true;
+                    playSfx('unlock');
+                    showSecurityToast(`🛍️ Successfully Installed ${targetApp.name}!`, 'success');
+                    renderStoreApps(currentStoreCategory, document.getElementById('store-search-input')?.value || '');
+                }, 1200);
+            });
+        }
+
+        // =========================================================================
+        // 2. BHARAT TASK MANAGER & TELEMETRY MONITOR
+        // =========================================================================
+        let taskMgrCpuHistory = Array(60).fill(4);
+        let selectedTaskMgrProcId = null;
+
+        function switchTaskMgrTab(tab) {
+            playSfx('click');
+            ['perf', 'procs', 'startup'].forEach(t => {
+                const pane = document.getElementById(`tm-pane-${t}`);
+                const btn = document.getElementById(`tm-tab-${t}`);
+                if (pane) pane.classList.toggle('hidden', t !== tab);
+                if (btn) {
+                    btn.className = (t === tab)
+                        ? 'px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold'
+                        : 'px-2.5 py-1 rounded-lg hover:bg-slate-300 dark:hover:bg-slate-800 opacity-70';
+                }
+            });
+            if (tab === 'procs') renderTaskMgrProcs();
+            if (tab === 'startup') renderTaskMgrStartup();
+        }
+
+        function renderTaskMgrProcs() {
+            const container = document.getElementById('tm-procs-table-container');
+            if (!container) return;
+            let html = `
+                <table class="w-full text-left font-mono text-[11px]">
+                    <thead class="bg-slate-100 dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 text-slate-500">
+                        <tr>
+                            <th class="p-2">Process Name</th>
+                            <th class="p-2">PID</th>
+                            <th class="p-2">Status</th>
+                            <th class="p-2">CPU</th>
+                            <th class="p-2">Memory</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-200 dark:divide-slate-800/60">
+            `;
+            runningProcesses.forEach(p => {
+                const isSelected = selectedTaskMgrProcId === p.pid;
+                html += `
+                    <tr onclick="selectTaskMgrProc(${p.pid})" class="cursor-pointer hover:bg-cyan-500/10 ${isSelected ? 'bg-cyan-500/20 font-bold' : ''}">
+                        <td class="p-2 flex items-center space-x-1.5"><span>⚙️</span><span>${p.image}</span></td>
+                        <td class="p-2 opacity-70">${p.pid}</td>
+                        <td class="p-2 text-emerald-500">Running</td>
+                        <td class="p-2">${(Math.random() * 2.5).toFixed(1)}%</td>
+                        <td class="p-2">${p.mem}</td>
+                    </tr>
+                `;
+            });
+            html += `</tbody></table>`;
+            container.innerHTML = html;
+        }
+
+        function selectTaskMgrProc(pid) {
+            selectedTaskMgrProcId = pid;
+            renderTaskMgrProcs();
+        }
+
+        function endSelectedTaskMgrProcess() {
+            if (!selectedTaskMgrProcId) {
+                showSecurityToast('Please select a process from the table first', 'info');
+                return;
+            }
+            playSfx('close');
+            const idx = runningProcesses.findIndex(p => p.pid === selectedTaskMgrProcId);
+            if (idx !== -1) {
+                const pName = runningProcesses[idx].image;
+                runningProcesses.splice(idx, 1);
+                showSecurityToast(`✓ Terminated process: ${pName} (PID ${selectedTaskMgrProcId})`, 'success');
+                selectedTaskMgrProcId = null;
+                renderTaskMgrProcs();
+            }
+        }
+
+        function renderTaskMgrStartup() {
+            const list = document.getElementById('tm-startup-list');
+            if (!list) return;
+            const items = [
+                { name: "Kavach Zero-Trust Sentinel Daemon", impact: "Low (0.1s)", icon: "🛡️", enabled: true },
+                { name: "Prithvi 144 FPS Vulkan Compositor", impact: "Medium (0.3s)", icon: "🎮", enabled: true },
+                { name: "CSIR Atomic Clock Telemetry Sync", impact: "Zero (0.01s)", icon: "⏰", enabled: true },
+                { name: "Indic Code Studio Language Server", impact: "Low (0.15s)", icon: "⚡", enabled: true }
+            ];
+            list.innerHTML = items.map(item => `
+                <div class="p-3 rounded-2xl bg-white/70 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 flex justify-between items-center text-xs">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">${item.icon}</span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">${item.name}</div>
+                            <div class="text-[10px] opacity-60">Startup Impact: ${item.impact}</div>
+                        </div>
+                    </div>
+                    <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-500 font-bold text-[10px]">Enabled</span>
+                </div>
+            `).join('');
+        }
+
+        function updateTaskMgrTelemetry() {
+            const nextCpu = Math.max(2, Math.min(18, (taskMgrCpuHistory[taskMgrCpuHistory.length - 1] + (Math.random() * 4 - 2))));
+            taskMgrCpuHistory.shift();
+            taskMgrCpuHistory.push(nextCpu);
+
+            const cpuEl = document.getElementById('tm-cpu-val');
+            if (cpuEl) cpuEl.textContent = `${nextCpu.toFixed(1)}%`;
+
+            const canvas = document.getElementById('tm-cpu-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                
+                // Draw Grid
+                ctx.strokeStyle = 'rgba(148, 163, 184, 0.15)';
+                ctx.lineWidth = 1;
+                for (let y = 0; y < canvas.height; y += 30) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(canvas.width, y);
+                    ctx.stroke();
+                }
+
+                // Draw Smooth CPU Line
+                ctx.beginPath();
+                ctx.strokeStyle = '#10b981';
+                ctx.lineWidth = 2;
+                const step = canvas.width / (taskMgrCpuHistory.length - 1);
+                taskMgrCpuHistory.forEach((val, i) => {
+                    const y = canvas.height - (val / 30) * canvas.height;
+                    if (i === 0) ctx.moveTo(0, y);
+                    else ctx.lineTo(i * step, y);
+                });
+                ctx.stroke();
+
+                // Fill gradient area
+                ctx.lineTo(canvas.width, canvas.height);
+                ctx.lineTo(0, canvas.height);
+                const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
+                grad.addColorStop(0, 'rgba(16, 185, 129, 0.35)');
+                grad.addColorStop(1, 'rgba(16, 185, 129, 0.0)');
+                ctx.fillStyle = grad;
+                ctx.fill();
+            }
+        }
+        setInterval(updateTaskMgrTelemetry, 1000);
+
+        // =========================================================================
+        // 3. BHARAT SOUNDSCAPE & HARMONIC STUDIO PLAYER
+        // =========================================================================
+        const MUSIC_TRACKS = [
+            { title: "528 Hz DNA Healing Harmonic", artist: "Sacred Solfeggio Tone • Pure Sine Synthesis", freq: 528, icon: "☸️" },
+            { title: "432 Hz Earth Resonance & Om", artist: "Schumann Resonance • Binaural Drone", freq: 432, icon: "🕉️" },
+            { title: "Raag Bhairav Morning Dawn Flute", artist: "Synthesized Acoustic Bansuri • Golden Hour", freq: 587, icon: "🪈" },
+            { title: "Western Ghats Rainforest Monsoon", artist: "Natural Rain Audio DSP & Ambient Waves", freq: 396, icon: "🌧️" },
+            { title: "Cosmic Gaganyaan Space Pulse", artist: "Ambient Orbital Synthesizer • Deep Orbit", freq: 639, icon: "🚀" }
+        ];
+
+        let activeMusicTrackIdx = 0;
+        let isMusicPlaying = false;
+        let musicOscillator = null;
+        let musicGainNode = null;
+
+        function renderMusicTracks() {
+            const list = document.getElementById('music-track-list');
+            if (!list) return;
+            list.innerHTML = MUSIC_TRACKS.map((t, idx) => `
+                <button onclick="selectMusicTrack(${idx})" class="w-full text-left px-3 py-2 rounded-xl flex items-center space-x-2.5 transition-all ${idx === activeMusicTrackIdx ? 'bg-saffron/20 text-saffron font-bold border border-saffron/40' : 'hover:bg-slate-200 dark:hover:bg-slate-800/80 opacity-80'}">
+                    <span>${t.icon}</span>
+                    <div class="truncate">
+                        <div class="truncate text-xs font-semibold">${t.title}</div>
+                        <div class="text-[9px] opacity-60 truncate">${t.freq} Hz</div>
+                    </div>
+                </button>
+            `).join('');
+        }
+
+        function selectMusicTrack(idx) {
+            activeMusicTrackIdx = idx;
+            renderMusicTracks();
+            const track = MUSIC_TRACKS[idx];
+            document.getElementById('music-active-title').textContent = track.title;
+            document.getElementById('music-active-artist').textContent = track.artist;
+            document.getElementById('music-disc-icon').textContent = track.icon;
+            
+            // Sync with dynamic island
+            const islandMusic = document.getElementById('island-track-name');
+            if (islandMusic) islandMusic.textContent = track.title;
+
+            if (isMusicPlaying) {
+                stopMusicSynth();
+                startMusicSynth();
+            }
+        }
+
+        function toggleMusicPlayback() {
+            isMusicPlaying = !isMusicPlaying;
+            playSfx('click');
+            const playBtn = document.getElementById('music-play-btn');
+            if (playBtn) playBtn.textContent = isMusicPlaying ? '⏸' : '▶';
+            
+            if (isMusicPlaying) {
+                startMusicSynth();
+                showSecurityToast(`🎵 Playing: ${MUSIC_TRACKS[activeMusicTrackIdx].title}`, 'info');
+            } else {
+                stopMusicSynth();
+            }
+        }
+
+        function startMusicSynth() {
+            try {
+                const ctx = getAudioContext();
+                musicOscillator = ctx.createOscillator();
+                musicGainNode = ctx.createGain();
+                
+                musicOscillator.type = 'sine';
+                musicOscillator.frequency.setValueAtTime(MUSIC_TRACKS[activeMusicTrackIdx].freq, ctx.currentTime);
+                musicGainNode.gain.setValueAtTime(0.15, ctx.currentTime);
+                
+                musicOscillator.connect(musicGainNode);
+                musicGainNode.connect(ctx.destination);
+                musicOscillator.start();
+                animateEqualizer();
+            } catch(e) {}
+        }
+
+        function stopMusicSynth() {
+            try {
+                if (musicOscillator) {
+                    musicOscillator.stop();
+                    musicOscillator.disconnect();
+                    musicOscillator = null;
+                }
+            } catch(e) {}
+        }
+
+        function prevMusicTrack() {
+            playSfx('click');
+            activeMusicTrackIdx = (activeMusicTrackIdx - 1 + MUSIC_TRACKS.length) % MUSIC_TRACKS.length;
+            selectMusicTrack(activeMusicTrackIdx);
+        }
+
+        function nextMusicTrack() {
+            playSfx('click');
+            activeMusicTrackIdx = (activeMusicTrackIdx + 1) % MUSIC_TRACKS.length;
+            selectMusicTrack(activeMusicTrackIdx);
+        }
+
+        function setMusicVolume(val) {
+            if (musicGainNode) {
+                const ctx = getAudioContext();
+                musicGainNode.gain.setValueAtTime((val / 100) * 0.25, ctx.currentTime);
+            }
+        }
+
+        function animateEqualizer() {
+            if (!isMusicPlaying) return;
+            const canvas = document.getElementById('music-equalizer-canvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                const bars = 24;
+                const barWidth = canvas.width / bars - 4;
+                
+                for (let i = 0; i < bars; i++) {
+                    const h = Math.random() * (canvas.height - 10) + 10;
+                    const x = i * (barWidth + 4);
+                    const y = canvas.height - h;
+                    
+                    const grad = ctx.createLinearGradient(0, y, 0, canvas.height);
+                    grad.addColorStop(0, '#ff9933');
+                    grad.addColorStop(1, '#138808');
+                    ctx.fillStyle = grad;
+                    ctx.fillRect(x, y, barWidth, h);
+                }
+            }
+            requestAnimationFrame(animateEqualizer);
+        }
+
+        // =========================================================================
+        // 4. SOVEREIGN SCIENTIFIC CALCULATOR CONTROLLER
+        // =========================================================================
+        let calcExpr = '';
+        function calcNum(char) {
+            playSfx('click');
+            if (calcExpr === '0' && char !== '.') calcExpr = '';
+            calcExpr += char;
+            updateCalcDisplay();
+        }
+
+        function calcOp(op) {
+            playSfx('click');
+            calcExpr += op;
+            updateCalcDisplay();
+        }
+
+        function calcFunc(fn) {
+            playSfx('click');
+            if (fn === 'sqrt') calcExpr += 'Math.sqrt(';
+            else if (fn === 'sin') calcExpr += 'Math.sin(';
+            else if (fn === 'cos') calcExpr += 'Math.cos(';
+            else if (fn === 'tan') calcExpr += 'Math.tan(';
+            updateCalcDisplay();
+        }
+
+        function calcClear() {
+            playSfx('click');
+            calcExpr = '';
+            updateCalcDisplay();
+        }
+
+        function calcBack() {
+            playSfx('click');
+            calcExpr = calcExpr.slice(0, -1);
+            updateCalcDisplay();
+        }
+
+        function calcEval() {
+            playSfx('unlock');
+            try {
+                const histEl = document.getElementById('calc-history-display');
+                if (histEl) histEl.textContent = calcExpr + ' =';
+                const safeEval = new Function(`return (${calcExpr || 0})`)();
+                calcExpr = String(Math.round(safeEval * 1000000) / 1000000);
+                updateCalcDisplay();
+            } catch(e) {
+                const mainEl = document.getElementById('calc-main-display');
+                if (mainEl) mainEl.textContent = 'Error';
+            }
+        }
+
+        function updateCalcDisplay() {
+            const mainEl = document.getElementById('calc-main-display');
+            if (mainEl) mainEl.textContent = calcExpr || '0';
+        }
+
+        // =========================================================================
+        // 5. SOVEREIGN CALENDAR & ISRO SPACE TRACKER CONTROLLER
+        // =========================================================================
+        function renderCalendar() {
+            const daysGrid = document.getElementById('cal-days-grid');
+            if (!daysGrid) return;
+            daysGrid.innerHTML = '';
+            
+            // Render 31 days of August with today (Aug 25) highlighted
+            for (let day = 1; day <= 31; day++) {
+                const cell = document.createElement('div');
+                const isToday = day === 25;
+                cell.className = `py-2 rounded-xl text-center cursor-pointer transition-all ${
+                    isToday ? 'bg-cyan-500 text-slate-950 font-bold shadow-md scale-105' : 'hover:bg-slate-200 dark:hover:bg-slate-800'
+                }`;
+                cell.textContent = day;
+                daysGrid.appendChild(cell);
+            }
+        }
+
+        const ISRO_MISSIONS = [
+            { name: "🚀 Gaganyaan-1 (Uncrewed Spaceflight)", date: "Target: September 8, 2026", status: "T-Minus 14 Days", desc: "HLVM3 heavy launch vehicle with crew module orbital escape qualification.", badge: "bg-emerald-500/20 text-emerald-400" },
+            { name: "🛰️ Chandrayaan-4 Lunar Sample Return", date: "Target: Q4 2026", status: "Orbiter Assembly Complete", desc: "Dual launch docking mission returning 3kg of South Pole lunar regolith samples.", badge: "bg-purple-500/20 text-purple-400" },
+            { name: "☀️ Aditya-L1 Solar Pulse Telemetry", date: "Active Orbit: Lagrange Point 1", status: "100% Real-Time Stream", desc: "Continuous coronal mass ejection ultraviolet spectrometry data downlink.", badge: "bg-amber-500/20 text-amber-400" },
+            { name: "🪐 Shukrayaan-1 Venus Atmospheric Orbiter", date: "Target: 2027", status: "Synthetic Aperture Radar Test", desc: "Sub-surface ground penetrating radar scanning Venusian volcanic crust.", badge: "bg-cyan-500/20 text-cyan-400" }
+        ];
+
+        function renderISROMissions() {
+            const list = document.getElementById('isro-missions-list');
+            if (!list) return;
+            list.innerHTML = ISRO_MISSIONS.map(m => `
+                <div class="p-4 rounded-2xl bg-white/80 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-2 shadow-sm">
+                    <div class="flex justify-between items-center">
+                        <div class="font-bold text-sm text-slate-900 dark:text-white">${m.name}</div>
+                        <span class="px-2.5 py-0.5 rounded-full ${m.badge} text-[10px] font-bold">${m.status}</span>
+                    </div>
+                    <div class="text-[10px] text-cyan-600 dark:text-cyan-400 font-semibold">${m.date}</div>
+                    <p class="text-xs opacity-75 font-sans">${m.desc}</p>
+                </div>
+            `).join('');
+        }
+
+        // Initialize new apps
+        renderStoreApps();
+        renderMusicTracks();
+        renderCalendar();
+        renderISROMissions();
+
         // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -2815,6 +3597,12 @@ vulkano = "0.34"`
                 if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
                 if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
                 if (key === 'e') { e.preventDefault(); openAppWindow('files-window', 'dock-files'); }
+                if (key === 's') { e.preventDefault(); openAppWindow('kavach-window', 'dock-defender'); }
+                if (key === 'a') { e.preventDefault(); openAppWindow('store-window', 'dock-store'); }
+                if (key === 'p') { e.preventDefault(); openAppWindow('taskmanager-window', 'dock-taskmgr'); }
+                if (key === 'm') { e.preventDefault(); openAppWindow('music-window', 'dock-music'); }
+                if (key === 'k') { e.preventDefault(); openAppWindow('calc-window', 'dock-calc'); }
+                if (key === 'j') { e.preventDefault(); openAppWindow('calendar-window', 'dock-calendar'); }
                 if (key === 't') { e.preventDefault(); openAppWindow('terminal-window', 'dock-terminal'); }
                 if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
                 if (key === 'l') { e.preventDefault(); lockDesktop(); }
@@ -3400,6 +4188,30 @@ Install the latest PowerShell for new features and improvements! https://aka.ms/
                     startKavachScan();
                 } else if (cmd === 'explorer') {
                     openAppWindow('files-window', 'dock-files');
+                } else if (cmd === 'store' || cmd === 'appstore') {
+                    openAppWindow('store-window', 'dock-store');
+                } else if (cmd === 'taskmgr' || cmd === 'perf') {
+                    openAppWindow('taskmanager-window', 'dock-taskmgr');
+                } else if (cmd === 'music' || cmd === 'soundscape') {
+                    openAppWindow('music-window', 'dock-music');
+                } else if (cmd === 'calc' || cmd === 'calculator') {
+                    openAppWindow('calc-window', 'dock-calc');
+                } else if (cmd === 'calendar' || cmd === 'isro') {
+                    openAppWindow('calendar-window', 'dock-calendar');
+                } else if (cmd === 'apps') {
+                    out.innerHTML += `<div class="space-y-0.5 text-cyan-400">
+Available Sovereign Applications:<br>
+  • browser     - Garud Sovereign Web Browser<br>
+  • code        - Indic Code Studio IDE (Rust 2026)<br>
+  • explorer    - SovereignFS File Manager<br>
+  • defender    - Kavach 3.0 Ring-0 Shield<br>
+  • store       - Indic Sovereign App Store<br>
+  • taskmgr     - Real-Time Hardware Performance Monitor<br>
+  • music       - 528 Hz Harmonic Soundscape Player<br>
+  • calc        - Scientific & Precision Calculator<br>
+  • calendar    - Saka 1948 & ISRO Telemetry Hub<br>
+  • settings    - OS Control Center<br>
+</div>`;
                 } else if (cmd === 'settings') {
                     openAppWindow('settings-window', 'dock-settings');
                 } else if (cmd === 'lock') {
