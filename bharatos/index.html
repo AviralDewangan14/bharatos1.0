@@ -2063,86 +2063,88 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         </main>
 
         <!-- BOTTOM HORIZON TASKBAR -->
-        <footer class="relative z-40 px-6 py-2 horizon-taskbar flex items-center justify-between text-xs">
-            <div class="flex items-center space-x-2.5">
-                <!-- Sudarshan Start Gem -->
-                <div class="relative group">
-                    <button class="p-2 rounded-2xl bg-gradient-to-r from-saffron/30 via-amber-500/25 to-indiaGreen/30 hover:from-saffron/40 hover:to-indiaGreen/40 border border-saffron/50 text-saffron text-xl shadow-lg transition-all hover:scale-110 active:scale-95" title="Sudarshan Start Menu">
-                        ☸️
-                    </button>
-                    <!-- Start Menu Popup -->
-                    <div class="absolute left-0 bottom-full mb-3 w-72 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50">
-                        <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
-                            <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
-                            <div>
-                                <div class="font-bold">Aviral Sharma</div>
-                                <div class="text-[10px] opacity-60">Sovereign Admin</div>
+        <!-- BOTTOM LIQUID GLASS HORIZON TASKBAR -->
+        <footer class="horizon-taskbar-wrapper">
+            <div class="horizon-taskbar-liquid">
+                <!-- Left: Sudarshan Start Orb & App Icons -->
+                <div class="flex items-center space-x-2">
+                    <!-- Sudarshan Start Gem -->
+                    <div class="relative group">
+                        <button class="glass-dock-tile glaze-sudarshan text-2xl group-hover:rotate-45" title="Sudarshan Sovereign Menu">
+                            ☸️
+                        </button>
+                        <!-- Start Menu Popup -->
+                        <div class="absolute left-0 bottom-full mb-4 w-72 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50 rounded-3xl">
+                            <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
+                                <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm shadow-md">🇮🇳</div>
+                                <div>
+                                    <div class="font-bold text-slate-900 dark:text-white">Aviral Sharma</div>
+                                    <div class="text-[10px] text-cyan-500 font-bold">Sovereign Admin Enclave</div>
+                                </div>
+                            </div>
+                            <div class="space-y-1 max-h-72 overflow-y-auto custom-scroll pr-1">
+                                <button onclick="openAppWindow('browser-window', 'dock-browser')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-500 font-bold"><span>🌐</span><span>Garud Browser</span></button>
+                                <button onclick="openAppWindow('code-window', 'dock-code')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-400 font-bold"><span>⚡</span><span>Indic Code Studio</span></button>
+                                <button onclick="openAppWindow('game-window', 'dock-game')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-rose-400 font-bold"><span>🎮</span><span>Solaris 3D FPS Arena</span></button>
+                                <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-amber-400 font-bold"><span>📁</span><span>File Explorer</span></button>
+                                <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender 3.0</span></button>
+                                <button onclick="openAppWindow('devicemanager-window', 'dock-devmgr')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-blue-400 font-bold"><span>💻</span><span>Device Manager</span></button>
+                                <button onclick="openAppWindow('network-window', 'dock-network')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-teal-400 font-bold"><span>📶</span><span>Network Center</span></button>
+                                <button onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-400 font-bold"><span>📈</span><span>Task Manager</span></button>
+                                <button onclick="openAppWindow('store-window', 'dock-store')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-orange-400 font-bold"><span>🛍️</span><span>Sovereign App Store</span></button>
+                                <button onclick="openAppWindow('music-window', 'dock-music')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-pink-400 font-bold"><span>🎵</span><span>Soundscape Studio</span></button>
+                                <button onclick="openAppWindow('calc-window', 'dock-calc')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-indigo-400 font-bold"><span>🧮</span><span>Scientific Calculator</span></button>
+                                <button onclick="openAppWindow('calendar-window', 'dock-calendar')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-teal-400 font-bold"><span>🗂️</span><span>Calendar & ISRO</span></button>
+                                <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-slate-300 font-bold"><span>📟</span><span>Command Prompt</span></button>
+                                <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-slate-400 font-bold"><span>⚙️</span><span>Settings Hub</span></button>
+                            </div>
+                            <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
+                                <button onclick="lockDesktop()" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🔒 Lock</button>
+                                <button onclick="triggerReboot()" class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-500 text-[10px]">🔄 Restart</button>
+                                <button onclick="triggerShutdown()" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-400 text-[10px] font-bold">⏻ Shut Down</button>
                             </div>
                         </div>
-                        <div class="space-y-1 max-h-72 overflow-y-auto custom-scroll pr-1">
-                            <button onclick="openAppWindow('browser-window', 'dock-browser')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-500 font-bold"><span>🌐</span><span>Garud Browser</span></button>
-                            <button onclick="openAppWindow('code-window', 'dock-code')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-400 font-bold"><span>⚡</span><span>Indic Code Studio</span></button>
-                            <button onclick="openAppWindow('game-window', 'dock-game')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-rose-400 font-bold"><span>🎮</span><span>Solaris 3D FPS Arena</span></button>
-                            <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📁</span><span>File Explorer</span></button>
-                            <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender 3.0</span></button>
-                            <button onclick="openAppWindow('store-window', 'dock-store')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-amber-500 font-bold"><span>🛍️</span><span>Sovereign App Store</span></button>
-                            <button onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-400 font-bold"><span>📈</span><span>Task Manager</span></button>
-                            <button onclick="openAppWindow('music-window', 'dock-music')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-saffron font-bold"><span>🎵</span><span>Soundscape Studio</span></button>
-                            <button onclick="openAppWindow('calc-window', 'dock-calc')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-indigo-400 font-bold"><span>🧮</span><span>Scientific Calculator</span></button>
-                            <button onclick="openAppWindow('calendar-window', 'dock-calendar')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-teal-400 font-bold"><span>🗂️</span><span>Calendar & ISRO Hub</span></button>
-                            <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>💻</span><span>Command Prompt</span></button>
-                            <button onclick="openAppWindow('settings-window', 'dock-settings')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>⚙️</span><span>Settings Hub</span></button>
-                        </div>
-                        <div class="pt-2 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between">
-                            <button onclick="lockDesktop()" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🔒 Lock</button>
-                            <button onclick="triggerReboot()" class="px-2 py-1 rounded-lg bg-amber-500/20 text-amber-500 text-[10px]">🔄 Restart</button>
-                            <button onclick="triggerShutdown()" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-400 text-[10px] font-bold">⏻ Shut Down</button>
-                        </div>
                     </div>
+
+                    <div class="h-7 w-px bg-white/20 dark:bg-slate-700/60 mx-1"></div>
+
+                    <!-- 3D Glass Icons Dock -->
+                    <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
+                    <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
+                    <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="glass-dock-tile glaze-game" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
+                    <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="glass-dock-tile glaze-files" title="File Explorer (Win+E)">📁</button>
+                    <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="glass-dock-tile glaze-defender" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
+                    <button id="dock-devmgr" onclick="toggleWindowFromDock('devicemanager-window', 'dock-devmgr')" class="glass-dock-tile glaze-devmgr" title="Device Manager (Win+D)">💻</button>
+                    <button id="dock-network" onclick="toggleWindowFromDock('network-window', 'dock-network')" class="glass-dock-tile glaze-network" title="Network Center (Win+N)">📶</button>
+                    <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window', 'dock-taskmgr')" class="glass-dock-tile glaze-taskmgr" title="Task Manager (Win+P)">📈</button>
+                    <button id="dock-store" onclick="toggleWindowFromDock('store-window', 'dock-store')" class="glass-dock-tile glaze-store" title="Sovereign App Store (Win+A)">🛍️</button>
+                    <button id="dock-music" onclick="toggleWindowFromDock('music-window', 'dock-music')" class="glass-dock-tile glaze-music" title="Soundscape Studio (Win+M)">🎵</button>
+                    <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="glass-dock-tile glaze-calc" title="Scientific Calculator (Win+K)">🧮</button>
+                    <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="glass-dock-tile glaze-calendar" title="Calendar & ISRO (Win+J)">🗂️</button>
+                    <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="glass-dock-tile glaze-terminal" title="Command Prompt (Win+T)">📟</button>
+                    <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="glass-dock-tile glaze-settings" title="Settings (Win+I)">⚙️</button>
                 </div>
 
-                <div class="h-6 w-px bg-slate-300 dark:bg-slate-700/60"></div>
-                <!-- Flagship Applications Dock -->
-                <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="taskbar-item p-2 rounded-xl text-xl" title="Garud Web Browser (Win+B)">🌐</button>
-                <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="taskbar-item p-2 rounded-xl text-xl" title="Indic Code Studio (Win+C)">⚡</button>
-                <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="taskbar-item p-2 rounded-xl text-xl" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
-                <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer (Win+E)">📁</button>
-                <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
-                <button id="dock-store" onclick="toggleWindowFromDock('store-window', 'dock-store')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store (Win+A)">🛍️</button>
-                                <button id="dock-devmgr" onclick="toggleWindowFromDock('devicemanager-window', 'dock-devmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Device Manager (Win+D)">💻</button>
-                <button id="dock-network" onclick="toggleWindowFromDock('network-window', 'dock-network')" class="taskbar-item p-2 rounded-xl text-xl" title="Network Center (Win+N)">📶</button>
-                <button id="dock-taskmgr" onclick="toggleWindowFromDock('taskmanager-window', 'dock-taskmgr')" class="taskbar-item p-2 rounded-xl text-xl" title="Task Manager (Win+P)">📈</button>
-                <button id="dock-music" onclick="toggleWindowFromDock('music-window', 'dock-music')" class="taskbar-item p-2 rounded-xl text-xl" title="Soundscape Studio (Win+M)">🎵</button>
-                <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="taskbar-item p-2 rounded-xl text-xl" title="Scientific Calculator (Win+K)">🧮</button>
-                <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="taskbar-item p-2 rounded-xl text-xl" title="Calendar & ISRO (Win+J)">🗂️</button>
-                <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="taskbar-item p-2 rounded-xl text-xl" title="Command Prompt (Win+T)">💻</button>
-                <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="taskbar-item p-2 rounded-xl text-xl" title="Settings (Win+I)">⚙️</button>
-            </div>
-
-            <!-- SYSTEM TRAY -->
-            <div class="flex items-center space-x-3.5">
-                <button onclick="toggleNightLight()" class="p-1.5 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-amber-500 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all" title="Toggle Night Light">
-                    🌙
-                </button>
-                <button onclick="openAppWindow('settings-window', 'dock-settings')" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-cyan-600 dark:text-cyan-300 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all" title="Wi-Fi 7 (850 Mbps)">
-                    <span>📶</span><span class="font-bold">850 Mbps</span>
-                </button>
-                <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-emerald-100 dark:bg-emerald-950/40 border border-emerald-300 dark:border-emerald-500/40 text-emerald-700 dark:text-emerald-300 font-mono text-[11px] hover:opacity-90 transition-all" title="Kavach Zero-Trust Active">
-                    <span>🛡️</span><span class="font-bold">Kavach</span>
-                </button>
-                <button onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('sound');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all" title="Sound Volume">
-                    <span>🔊</span><span id="tray-volume-text">80%</span>
-                </button>
-                
-                <button id="tray-battery-btn" onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('battery');" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-emerald-600 dark:text-emerald-400 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all hidden" title="Battery: 94% (Charging Fast)">
-                    <span>⚡ 94%</span>
-                </button>
-
-                <button onclick="toggleNativeBrowserFullscreen()" class="p-1.5 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-cyan-500 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all font-bold" title="Toggle Fullscreen Display (F11)">
-                    ⛶ Fullscreen
-                </button>
-                <div id="ist-clock" class="font-mono text-cyan-600 dark:text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-200/90 dark:bg-slate-950/90 border border-slate-300 dark:border-slate-800 text-xs">
-                    --:--:-- IST
+                <!-- Right: Glass System Tray -->
+                <div class="flex items-center space-x-2 font-mono text-xs">
+                    <button onclick="toggleNightLight()" class="glass-tray-capsule text-amber-400" title="Toggle Night Light">
+                        🌙
+                    </button>
+                    <button onclick="openAppWindow('network-window', 'dock-network')" class="glass-tray-capsule flex items-center space-x-1.5 text-cyan-400" title="Wi-Fi 7 (850 Mbps)">
+                        <span>📶</span><span class="font-bold text-[11px]">850M</span>
+                    </button>
+                    <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="glass-tray-capsule flex items-center space-x-1 text-emerald-400" title="Kavach Zero-Trust Active">
+                        <span>🛡️</span><span class="font-bold text-[11px]">Secure</span>
+                    </button>
+                    <button onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('sound');" class="glass-tray-capsule flex items-center space-x-1.5 text-slate-200" title="Sound Volume">
+                        <span>🔊</span><span id="tray-volume-text" class="text-[11px]">80%</span>
+                    </button>
+                    <button onclick="toggleNativeBrowserFullscreen()" class="glass-tray-capsule text-cyan-400 font-bold text-[11px]" title="Toggle Fullscreen Display (F11)">
+                        ⛶ Fullscreen
+                    </button>
+                    <div id="ist-clock" class="glass-tray-capsule text-cyan-400 font-bold text-[11px] px-3">
+                        --:--:-- IST
+                    </div>
                 </div>
             </div>
         </footer>
