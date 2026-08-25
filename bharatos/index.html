@@ -795,6 +795,148 @@
             z-index: 20;
         }
 
+    
+        /* =========================================================================
+           REACT BITS <GlassIcons /> 3D PERSPECTIVE GLASS COMPONENT
+           ========================================================================= */
+        .icon-btns {
+            display: grid;
+            grid-auto-flow: column;
+            grid-template-rows: repeat(6, minmax(0, 1fr));
+            gap: 1.6rem 1.4rem;
+            margin: 0;
+            padding: 0;
+            overflow: visible;
+        }
+
+        .icon-btn {
+            background-color: transparent;
+            outline: none;
+            position: relative;
+            width: 4.4em;
+            height: 4.4em;
+            perspective: 24em;
+            transform-style: preserve-3d;
+            -webkit-tap-highlight-color: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn__back,
+        .icon-btn__front,
+        .icon-btn__label {
+            transition:
+                opacity 0.35s cubic-bezier(0.83, 0, 0.17, 1),
+                transform 0.35s cubic-bezier(0.83, 0, 0.17, 1),
+                box-shadow 0.3s ease;
+        }
+
+        .icon-btn__back,
+        .icon-btn__front {
+            border-radius: 1.25em;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .icon-btn__back {
+            box-shadow: 0.5em -0.5em 0.85em rgba(0, 0, 0, 0.35);
+            display: block;
+            transform: rotate(15deg);
+            transform-origin: 100% 100%;
+            will-change: transform;
+            opacity: 0.85;
+        }
+
+        .icon-btn__front {
+            background-color: rgba(255, 255, 255, 0.16);
+            box-shadow: 0 0 0 0.12em rgba(255, 255, 255, 0.45) inset, 0 8px 24px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(0.75em);
+            -webkit-backdrop-filter: blur(0.75em);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transform-origin: 80% 50%;
+            will-change: transform;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .icon-btn__icon {
+            margin: auto;
+            width: 1.6em;
+            height: 1.6em;
+            font-size: 1.6em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        .icon-btn__label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            white-space: nowrap;
+            text-align: center;
+            line-height: 1.4;
+            opacity: 0.92;
+            position: absolute;
+            top: 108%;
+            right: -20px;
+            left: -20px;
+            transform: translateY(0);
+            color: #fff;
+            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85), 0 0 10px rgba(0, 0, 0, 0.5);
+            pointer-events: none;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .light .icon-btn__label {
+            color: #0f172a;
+            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+        }
+
+        .icon-btn:focus-visible .icon-btn__back,
+        .icon-btn:hover .icon-btn__back {
+            transform: rotate(26deg) translate3d(-0.55em, -0.55em, 0.55em);
+            opacity: 1;
+            box-shadow: 0.8em -0.8em 1.2em rgba(0, 0, 0, 0.5);
+        }
+
+        .icon-btn:focus-visible .icon-btn__front,
+        .icon-btn:hover .icon-btn__front {
+            transform: translate3d(0, 0, 2em);
+            background-color: rgba(255, 255, 255, 0.28);
+            box-shadow: 0 0 0 0.15em rgba(255, 255, 255, 0.75) inset, 0 12px 32px rgba(0, 229, 255, 0.4);
+            border-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .icon-btn:focus-visible .icon-btn__label,
+        .icon-btn:hover .icon-btn__label {
+            opacity: 1;
+            transform: translateY(20%);
+            color: #00e5ff;
+        }
+
+        /* React Bits Gradient Palette Mapping */
+        .bg-grad-blue { background: linear-gradient(hsl(223, 90%, 50%), hsl(208, 90%, 50%)); }
+        .bg-grad-purple { background: linear-gradient(hsl(283, 90%, 50%), hsl(268, 90%, 50%)); }
+        .bg-grad-red { background: linear-gradient(hsl(3, 90%, 50%), hsl(348, 90%, 50%)); }
+        .bg-grad-indigo { background: linear-gradient(hsl(253, 90%, 50%), hsl(238, 90%, 50%)); }
+        .bg-grad-orange { background: linear-gradient(hsl(43, 90%, 50%), hsl(28, 90%, 50%)); }
+        .bg-grad-green { background: linear-gradient(hsl(123, 90%, 40%), hsl(108, 90%, 40%)); }
+        .bg-grad-cyan { background: linear-gradient(hsl(188, 90%, 45%), hsl(173, 90%, 45%)); }
+        .bg-grad-pink { background: linear-gradient(hsl(328, 90%, 50%), hsl(313, 90%, 50%)); }
+        .bg-grad-saffron { background: linear-gradient(hsl(30, 95%, 55%), hsl(15, 95%, 50%)); }
+        .bg-grad-teal { background: linear-gradient(hsl(165, 90%, 40%), hsl(150, 90%, 40%)); }
+        .bg-grad-obsidian { background: linear-gradient(hsl(220, 30%, 25%), hsl(220, 40%, 15%)); }
+        .bg-grad-titanium { background: linear-gradient(hsl(215, 20%, 55%), hsl(215, 25%, 35%)); }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -1083,68 +1225,115 @@
         <main id="desktop-area" class="relative flex-1 p-8 grid grid-cols-1 md:grid-cols-12 gap-6 z-10 overflow-hidden">
             
             <div class="scenic-mountain-layer"></div>
-            <!-- PILLAR 1: DESKTOP ICONS GRID (GUI) -->
-            <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 grid grid-flow-col grid-rows-6 gap-3 select-none pointer-events-auto">
-                <div onclick="openAppWindow('browser-window', 'dock-browser')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-cyan-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🌐</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-cyan-500 drop-shadow">Garud Web</span>
-                </div>
+            <!-- PILLAR 1: REACT BITS <GlassIcons /> 3D PERSPECTIVE DESKTOP ICONS GRID -->
+            <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 icon-btns select-none pointer-events-auto">
+                <!-- 1. Garud Browser -->
+                <button onclick="openAppWindow('browser-window', 'dock-browser')" class="icon-btn" aria-label="Garud Web Browser" type="button">
+                    <span class="icon-btn__back bg-grad-blue"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🌐</span>
+                    </span>
+                    <span class="icon-btn__label">Garud Web</span>
+                </button>
 
-                <div onclick="openAppWindow('code-window', 'dock-code')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-purple-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">⚡</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-purple-400 drop-shadow">Indic Studio</span>
-                </div>
+                <!-- 2. Indic Code Studio -->
+                <button onclick="openAppWindow('code-window', 'dock-code')" class="icon-btn" aria-label="Indic Code Studio" type="button">
+                    <span class="icon-btn__back bg-grad-purple"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">⚡</span>
+                    </span>
+                    <span class="icon-btn__label">Indic Studio</span>
+                </button>
 
-                <div onclick="openAppWindow('game-window', 'dock-game')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-rose-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🎮</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-rose-400 drop-shadow">Solaris 3D</span>
-                </div>
+                <!-- 3. Solaris 3D FPS -->
+                <button onclick="openAppWindow('game-window', 'dock-game')" class="icon-btn" aria-label="Solaris 3D FPS" type="button">
+                    <span class="icon-btn__back bg-grad-red"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🎮</span>
+                    </span>
+                    <span class="icon-btn__label">Solaris 3D</span>
+                </button>
 
-                <div onclick="openAppWindow('files-window', 'dock-files')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-amber-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📁</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-amber-400 drop-shadow">File Explorer</span>
-                </div>
+                <!-- 4. File Explorer -->
+                <button onclick="openAppWindow('files-window', 'dock-files')" class="icon-btn" aria-label="File Explorer" type="button">
+                    <span class="icon-btn__back bg-grad-orange"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">📁</span>
+                    </span>
+                    <span class="icon-btn__label">File Explorer</span>
+                </button>
 
-                <div onclick="openAppWindow('kavach-window', 'dock-defender')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-emerald-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🛡️</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-emerald-400 drop-shadow">Kavach Security</span>
-                </div>
+                <!-- 5. Kavach Security -->
+                <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="icon-btn" aria-label="Kavach Security" type="button">
+                    <span class="icon-btn__back bg-grad-green"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🛡️</span>
+                    </span>
+                    <span class="icon-btn__label">Kavach Guard</span>
+                </button>
 
-                <div onclick="openAppWindow('devicemanager-window', 'dock-devmgr')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-blue-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">💻</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-blue-400 drop-shadow">Device Manager</span>
-                </div>
+                <!-- 6. Device Manager -->
+                <button onclick="openAppWindow('devicemanager-window', 'dock-devmgr')" class="icon-btn" aria-label="Device Manager" type="button">
+                    <span class="icon-btn__back bg-grad-indigo"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">💻</span>
+                    </span>
+                    <span class="icon-btn__label">Device Hub</span>
+                </button>
 
-                <div onclick="openAppWindow('network-window', 'dock-network')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-teal-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📶</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-teal-400 drop-shadow">Network Center</span>
-                </div>
+                <!-- 7. Network Center -->
+                <button onclick="openAppWindow('network-window', 'dock-network')" class="icon-btn" aria-label="Network Center" type="button">
+                    <span class="icon-btn__back bg-grad-teal"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">📶</span>
+                    </span>
+                    <span class="icon-btn__label">Network 5G</span>
+                </button>
 
-                <div onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-cyan-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📈</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-cyan-400 drop-shadow">Task Manager</span>
-                </div>
+                <!-- 8. Task Manager -->
+                <button onclick="openAppWindow('taskmanager-window', 'dock-taskmgr')" class="icon-btn" aria-label="Task Manager" type="button">
+                    <span class="icon-btn__back bg-grad-cyan"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">📈</span>
+                    </span>
+                    <span class="icon-btn__label">Task Manager</span>
+                </button>
 
-                <div onclick="openAppWindow('store-window', 'dock-store')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-saffron/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🛍️</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-saffron drop-shadow">App Store</span>
-                </div>
+                <!-- 9. App Store -->
+                <button onclick="openAppWindow('store-window', 'dock-store')" class="icon-btn" aria-label="Sovereign App Store" type="button">
+                    <span class="icon-btn__back bg-grad-saffron"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🛍️</span>
+                    </span>
+                    <span class="icon-btn__label">App Store</span>
+                </button>
 
-                <div onclick="openAppWindow('terminal-window', 'dock-terminal')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-slate-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">📟</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-slate-400 drop-shadow">Terminal</span>
-                </div>
+                <!-- 10. Personalization Studio -->
+                <button onclick="openAppWindow('customization-window', 'dock-personalize')" class="icon-btn" aria-label="Personalization Studio" type="button">
+                    <span class="icon-btn__back bg-grad-pink"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🎨</span>
+                    </span>
+                    <span class="icon-btn__label">Personalize</span>
+                </button>
 
-                
-                <div onclick="openAppWindow('customization-window', 'dock-personalize')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-pink-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">🎨</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-pink-400 drop-shadow">Personalize</span>
-                </div>
+                <!-- 11. Terminal -->
+                <button onclick="openAppWindow('terminal-window', 'dock-terminal')" class="icon-btn" aria-label="Command Terminal" type="button">
+                    <span class="icon-btn__back bg-grad-obsidian"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">📟</span>
+                    </span>
+                    <span class="icon-btn__label">Terminal</span>
+                </button>
 
-                <div onclick="openAppWindow('settings-window', 'dock-settings')" class="desktop-icon group flex flex-col items-center justify-center p-2 rounded-2xl w-20 h-20 hover:bg-white/20 dark:hover:bg-slate-800/40 hover:backdrop-blur-md cursor-pointer transition-all border border-transparent hover:border-indigo-500/30 text-center">
-                    <div class="text-3xl filter drop-shadow-md group-hover:scale-110 transition-transform">⚙️</div>
-                    <span class="text-[10px] font-sans font-semibold text-slate-800 dark:text-slate-200 mt-1 truncate w-full group-hover:text-indigo-400 drop-shadow">Settings</span>
-                </div>
+                <!-- 12. Settings Hub -->
+                <button onclick="openAppWindow('settings-window', 'dock-settings')" class="icon-btn" aria-label="Settings Hub" type="button">
+                    <span class="icon-btn__back bg-grad-titanium"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">⚙️</span>
+                    </span>
+                    <span class="icon-btn__label">Settings</span>
+                </button>
             </div>
 
 
