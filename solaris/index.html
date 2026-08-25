@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOLARIS: CYBER FORGE 3D — Ultra-High Graphics Sovereign Tactical FPS</title>
+    <title>SOLARIS: CYBER FORGE 3D — Ultra Tactical Sovereign FPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -30,21 +30,21 @@
         .fira { font-family: 'Fira Code', monospace; }
         
         .hud-glass {
-            background: rgba(6, 11, 25, 0.78);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border: 1px solid rgba(0, 229, 255, 0.3);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.7), inset 0 0 20px rgba(0, 229, 255, 0.1);
+            background: rgba(6, 11, 25, 0.82);
+            backdrop-filter: blur(28px);
+            -webkit-backdrop-filter: blur(28px);
+            border: 1px solid rgba(0, 229, 255, 0.35);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75), inset 0 0 20px rgba(0, 229, 255, 0.12);
         }
         
-        .glow-cyan { text-shadow: 0 0 14px rgba(0, 229, 255, 0.85); }
-        .glow-emerald { text-shadow: 0 0 14px rgba(16, 185, 129, 0.85); }
-        .glow-amber { text-shadow: 0 0 14px rgba(245, 158, 11, 0.85); }
-        .glow-rose { text-shadow: 0 0 14px rgba(244, 63, 94, 0.85); }
+        .glow-cyan { text-shadow: 0 0 14px rgba(0, 229, 255, 0.9); }
+        .glow-emerald { text-shadow: 0 0 14px rgba(16, 185, 129, 0.9); }
+        .glow-amber { text-shadow: 0 0 14px rgba(245, 158, 11, 0.9); }
+        .glow-rose { text-shadow: 0 0 14px rgba(244, 63, 94, 0.9); }
 
         /* Dynamic Crosshair */
         #crosshair {
-            transition: transform 0.08s ease-out;
+            transition: transform 0.06s ease-out;
         }
         .crosshair-line {
             background-color: #00e5ff;
@@ -53,30 +53,30 @@
         
         /* Hitmarker Animation */
         @keyframes hitmarker-pop {
-            0% { transform: scale(1.6) rotate(45deg); opacity: 1; }
-            100% { transform: scale(0.9) rotate(45deg); opacity: 0; }
+            0% { transform: scale(1.7) rotate(45deg); opacity: 1; }
+            100% { transform: scale(0.85) rotate(45deg); opacity: 0; }
         }
         .hitmarker-animate {
-            animation: hitmarker-pop 0.22s ease-out forwards;
+            animation: hitmarker-pop 0.2s ease-out forwards;
         }
 
         /* Screen Vignettes */
         #damage-vignette {
             pointer-events: none;
-            transition: opacity 0.25s ease-out;
-            background: radial-gradient(circle, transparent 48%, rgba(225, 29, 72, 0.75) 100%);
+            transition: opacity 0.2s ease-out;
+            background: radial-gradient(circle, transparent 45%, rgba(225, 29, 72, 0.8) 100%);
         }
         #shield-vignette {
             pointer-events: none;
-            transition: opacity 0.25s ease-out;
-            background: radial-gradient(circle, transparent 52%, rgba(0, 229, 255, 0.6) 100%);
+            transition: opacity 0.2s ease-out;
+            background: radial-gradient(circle, transparent 50%, rgba(0, 229, 255, 0.65) 100%);
         }
 
         /* Sniper Scope HUD */
         #sniper-scope-overlay {
             pointer-events: none;
             transition: opacity 0.15s ease-in-out;
-            background: radial-gradient(circle at center, transparent 36%, rgba(0,0,0,0.98) 42%, #000 100%);
+            background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.98) 42%, #000 100%);
         }
     </style>
 </head>
@@ -91,15 +91,15 @@
 
     <!-- Sniper Optical Scope Viewport -->
     <div id="sniper-scope-overlay" class="absolute inset-0 z-15 opacity-0 hidden flex items-center justify-center pointer-events-none">
-        <div class="relative w-[540px] h-[540px] rounded-full border-2 border-emerald-500/50 flex items-center justify-center">
+        <div class="relative w-[560px] h-[560px] rounded-full border-2 border-emerald-500/60 flex items-center justify-center">
             <!-- Reticle Crosshair -->
             <div class="absolute inset-0 flex items-center justify-center">
-                <div class="w-full h-[1.5px] bg-emerald-400 shadow-[0_0_10px_#10b981]"></div>
-                <div class="absolute h-full w-[1.5px] bg-emerald-400 shadow-[0_0_10px_#10b981]"></div>
+                <div class="w-full h-[1.5px] bg-emerald-400 shadow-[0_0_12px_#10b981]"></div>
+                <div class="absolute h-full w-[1.5px] bg-emerald-400 shadow-[0_0_12px_#10b981]"></div>
             </div>
             <!-- Range Circles & Mil-dots -->
-            <div class="w-56 h-56 rounded-full border border-emerald-500/40"></div>
-            <div class="w-28 h-28 rounded-full border border-emerald-500/60"></div>
+            <div class="w-60 h-60 rounded-full border border-emerald-500/40"></div>
+            <div class="w-32 h-32 rounded-full border border-emerald-500/70"></div>
             <div class="absolute top-10 text-emerald-400 font-mono text-[11px] tracking-widest font-bold glow-emerald">RANGE: 160M • ZOOM: 8X OPTICAL</div>
             <div class="absolute bottom-10 text-emerald-400 font-mono text-[11px] tracking-widest font-bold glow-emerald">VIPER .50 QUANTUM ACCELERATOR LOCKED</div>
         </div>
@@ -144,7 +144,7 @@
                 <div class="hud-glass px-5 py-3.5 rounded-3xl text-right min-w-[180px]">
                     <div class="text-[10px] fira opacity-60">TACTICAL SCORE</div>
                     <div class="orbitron text-2xl font-black text-emerald-400 glow-emerald" id="hud-score">000000</div>
-                    <div class="text-[10px] fira text-cyan-400" id="hud-high-score">HIGH SCORE: 24,000</div>
+                    <div class="text-[10px] fira text-cyan-400" id="hud-high-score">RECORD: 24,000</div>
                 </div>
 
                 <!-- Radar Canvas -->
@@ -232,13 +232,13 @@
         <div class="max-w-2xl w-full p-8 rounded-3xl hud-glass text-center space-y-6 shadow-2xl border-2 border-cyan-500/50" onclick="event.stopPropagation()">
             <div class="space-y-2">
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 text-xs fira font-bold">
-                    <span>☸️</span><span>BHARATOS ULTRA 3D FPS ENGINE</span>
+                    <span>☸️</span><span>BHARATOS COMPETITIVE 3D FPS</span>
                 </div>
                 <h1 class="orbitron text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-emerald-400 glow-cyan" id="modal-title">
                     SOLARIS: CYBER FORGE 3D
                 </h1>
                 <p class="text-xs text-slate-400 font-sans" id="modal-subtitle">
-                    Ultra-Realistic 3D Urban Warfare with High-Rise Skyscrapers, Photorealistic PBR Textures, and Weapon Ballistics.
+                    Fast-Paced First-Person Arena Shooter with Fluid Physics, Dynamic Gun Sway, and Spatial Blast Audio.
                 </p>
             </div>
 
@@ -269,13 +269,13 @@
 
             <!-- Controls Cheatsheet -->
             <div class="grid grid-cols-2 gap-2.5 text-xs fira text-left bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
-                <div><span class="text-cyan-400 font-bold">WASD:</span> Move / Strafe</div>
-                <div><span class="text-cyan-400 font-bold">MOUSE:</span> Look & Aim (Standing Upright)</div>
+                <div><span class="text-cyan-400 font-bold">WASD:</span> Move / Momentum</div>
+                <div><span class="text-cyan-400 font-bold">C / CTRL:</span> Tactical Slide / Crouch</div>
                 <div><span class="text-emerald-400 font-bold">LEFT CLICK:</span> Fire Weapon</div>
-                <div><span class="text-emerald-400 font-bold">RIGHT CLICK:</span> ADS / 8X Sniper Scope</div>
+                <div><span class="text-emerald-400 font-bold">RIGHT CLICK:</span> ADS / 8X Scope</div>
                 <div><span class="text-amber-400 font-bold">R:</span> Tactical Reload</div>
                 <div><span class="text-amber-400 font-bold">SPACE:</span> Thruster Jump</div>
-                <div><span class="text-purple-400 font-bold">SHIFT:</span> Sprint Boost</div>
+                <div><span class="text-purple-400 font-bold">SHIFT:</span> Sprint (Low-Ready Pose)</div>
                 <div><span class="text-purple-400 font-bold">1 / 2 / 3:</span> Switch Weapons</div>
             </div>
 
@@ -283,7 +283,7 @@
                 <button id="btn-start-game" class="w-full py-4 rounded-2xl bg-gradient-to-r from-cyan-500 via-teal-500 to-emerald-500 hover:from-cyan-400 hover:to-emerald-400 text-slate-950 font-extrabold orbitron text-sm tracking-wider uppercase shadow-[0_0_30px_rgba(0,229,255,0.6)] transition-all active:scale-95 cursor-pointer">
                     ⚔️ ENGAGE RETICLE & ENTER BATTLE
                 </button>
-                <div class="text-[10px] fira text-slate-500">Press ESC at any time to pause combat.</div>
+                <div class="text-[10px] fira text-slate-500">Press ESC to pause cleanly without auto-resume loops.</div>
             </div>
         </div>
     </div>
@@ -292,7 +292,7 @@
          THREE.JS ADVANCED FPS ENGINE SCRIPT
          ========================================================================= -->
     <script>
-        // --- 1. PROCEDURAL SOUND SYNTHESIS ENGINE ---
+        // --- 1. PROCEDURAL SPATIAL AUDIO SYNTHESIS ENGINE ---
         let audioCtx = null;
         function getAudioContext() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -300,71 +300,117 @@
             return audioCtx;
         }
 
+        // High-Impact Sound Synthesizer (Layered transients, bass drops, noise bursts & tails)
         function playSound(type) {
             try {
                 const ctx = getAudioContext();
                 const now = ctx.currentTime;
-                
+
                 if (type === 'rifle') {
+                    // Layer 1: Sharp mechanical transient crack
+                    const noise = ctx.createBufferSource();
+                    const bSize = ctx.sampleRate * 0.05;
+                    const b = ctx.createBuffer(1, bSize, ctx.sampleRate);
+                    const d = b.getChannelData(0);
+                    for (let i = 0; i < bSize; i++) d[i] = Math.random() * 2 - 1;
+                    noise.buffer = b;
+                    const nFilter = ctx.createBiquadFilter();
+                    nFilter.type = 'highpass';
+                    nFilter.frequency.setValueAtTime(1200, now);
+                    const nGain = ctx.createGain();
+                    nGain.gain.setValueAtTime(0.4, now);
+                    nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.05);
+                    noise.connect(nFilter); nFilter.connect(nGain); nGain.connect(ctx.destination);
+                    noise.start(now);
+
+                    // Layer 2: Punchy bass body
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(480, now);
-                    osc.frequency.exponentialRampToValueAtTime(50, now + 0.12);
-                    gain.gain.setValueAtTime(0.35, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+                    osc.frequency.setValueAtTime(320, now);
+                    osc.frequency.exponentialRampToValueAtTime(45, now + 0.14);
+                    gain.gain.setValueAtTime(0.5, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.14);
+                    osc.start(now); osc.stop(now + 0.16);
                 } else if (type === 'sniper') {
+                    // Massive railgun discharge + electric crackle
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'square';
-                    osc.frequency.setValueAtTime(950, now);
-                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.35);
-                    gain.gain.setValueAtTime(0.5, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                    osc.frequency.setValueAtTime(1100, now);
+                    osc.frequency.exponentialRampToValueAtTime(25, now + 0.38);
+                    gain.gain.setValueAtTime(0.65, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.42);
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.4);
+                    osc.start(now); osc.stop(now + 0.42);
                 } else if (type === 'shotgun') {
+                    // Heavy explosive double-bass thump
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'triangle';
-                    osc.frequency.setValueAtTime(180, now);
-                    osc.frequency.exponentialRampToValueAtTime(20, now + 0.28);
-                    gain.gain.setValueAtTime(0.6, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+                    osc.frequency.setValueAtTime(190, now);
+                    osc.frequency.exponentialRampToValueAtTime(18, now + 0.32);
+                    gain.gain.setValueAtTime(0.7, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.35);
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.3);
-                } else if (type === 'hit') {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(1800, now);
-                    osc.frequency.setValueAtTime(2600, now + 0.04);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
-                    osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.12);
-                } else if (type === 'explosion') {
+                    osc.start(now); osc.stop(now + 0.35);
+                } else if (type === 'blast') {
+                    // Huge sub-bass blast detonation + rumble
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(120, now);
-                    osc.frequency.exponentialRampToValueAtTime(15, now + 0.6);
-                    gain.gain.setValueAtTime(0.75, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.7);
+                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.exponentialRampToValueAtTime(10, now + 0.7);
+                    gain.gain.setValueAtTime(0.85, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.7);
+                    osc.start(now); osc.stop(now + 0.8);
+
+                    // Blast shockwave noise
+                    const noise = ctx.createBufferSource();
+                    const bSize = ctx.sampleRate * 0.35;
+                    const b = ctx.createBuffer(1, bSize, ctx.sampleRate);
+                    const d = b.getChannelData(0);
+                    for (let i = 0; i < bSize; i++) d[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.08));
+                    noise.buffer = b;
+                    const nGain = ctx.createGain();
+                    nGain.gain.setValueAtTime(0.5, now);
+                    nGain.gain.exponentialRampToValueAtTime(0.001, now + 0.4);
+                    noise.connect(nGain); nGain.connect(ctx.destination);
+                    noise.start(now);
+                } else if (type === 'hit') {
+                    // High-satisfaction ringing hit bell (Deadshot / CoD style)
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'sine';
+                    osc.frequency.setValueAtTime(2200, now);
+                    osc.frequency.setValueAtTime(3200, now + 0.03);
+                    gain.gain.setValueAtTime(0.3, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.start(now); osc.stop(now + 0.15);
+                } else if (type === 'footstep') {
+                    // Procedural gravel / asphalt contact click
+                    const osc = ctx.createOscillator();
+                    const gain = ctx.createGain();
+                    osc.type = 'triangle';
+                    osc.frequency.setValueAtTime(120, now);
+                    osc.frequency.exponentialRampToValueAtTime(30, now + 0.06);
+                    gain.gain.setValueAtTime(0.12, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.07);
+                    osc.connect(gain); gain.connect(ctx.destination);
+                    osc.start(now); osc.stop(now + 0.07);
                 } else if (type === 'reload') {
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sine';
-                    osc.frequency.setValueAtTime(600, now);
-                    osc.frequency.setValueAtTime(900, now + 0.08);
-                    gain.gain.setValueAtTime(0.15, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.15);
+                    osc.frequency.setValueAtTime(650, now);
+                    osc.frequency.setValueAtTime(950, now + 0.09);
+                    gain.gain.setValueAtTime(0.2, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
                     osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.15);
+                    osc.start(now); osc.stop(now + 0.16);
                 }
             } catch(e) {}
         }
@@ -396,7 +442,7 @@
                     ctx.fillRect(x, y, wW, wH);
 
                     if (isLit) {
-                        ctx.fillStyle = 'rgba(255,255,255,0.3)';
+                        ctx.fillStyle = 'rgba(255,255,255,0.35)';
                         ctx.fillRect(x, y, wW, wH / 3);
                     }
                 }
@@ -484,6 +530,8 @@
         
         // Proper upright standing height (2.8m above ground)
         const STANDING_HEIGHT = 2.8;
+        const CROUCH_HEIGHT = 1.6;
+        let targetEyeHeight = STANDING_HEIGHT;
         camera.position.set(0, STANDING_HEIGHT, 0);
 
         const renderer = new THREE.WebGLRenderer({ antialias: true, powerPreference: 'high-performance' });
@@ -525,6 +573,7 @@
         const collidableObjects = [];
         const explosiveBarrels = [];
         const bulletCasings = [];
+        const debrisPieces = [];
         let currentMap = 'neo-delhi';
 
         const buildingCyanTex = createBuildingPBRTexture('#00e5ff', '#1e293b');
@@ -548,6 +597,7 @@
             }
             collidableObjects.length = 0;
             explosiveBarrels.length = 0;
+            debrisPieces.length = 0;
 
             // Ground Asphalt Road
             const floorGeo = new THREE.PlaneGeometry(260, 260, 32, 32);
@@ -801,8 +851,8 @@
                 fireRate: 105,
                 magSize: 30,
                 reserveMax: 180,
-                recoilKick: 0.04,
-                recoilRot: 0.05,
+                recoilKick: 0.045,
+                recoilRot: 0.055,
                 spread: 0.012,
                 laserColor: 0x00e5ff,
                 bulletCount: 1,
@@ -817,8 +867,8 @@
                 fireRate: 850,
                 magSize: 5,
                 reserveMax: 30,
-                recoilKick: 0.12,
-                recoilRot: 0.18,
+                recoilKick: 0.14,
+                recoilRot: 0.20,
                 spread: 0.001,
                 laserColor: 0x10b981,
                 bulletCount: 1,
@@ -833,8 +883,8 @@
                 fireRate: 460,
                 magSize: 8,
                 reserveMax: 48,
-                recoilKick: 0.09,
-                recoilRot: 0.12,
+                recoilKick: 0.10,
+                recoilRot: 0.14,
                 spread: 0.065,
                 laserColor: 0xf59e0b,
                 bulletCount: 8,
@@ -1026,14 +1076,18 @@
             else prompt.classList.add('hidden');
         }
 
-        // --- 7. PLAYER CONTROLS & PHYSICS ENGINE ---
+        // --- 7. PLAYER CONTROLS & FLUID KINEMATICS ---
         const keys = {};
         let isPointerLocked = false;
         let isADS = false;
         let isReloading = false;
         let isSprinting = false;
+        let isCrouching = false;
+        let isSliding = false;
+        let slideTimer = 0;
 
         let playerVelocity = new THREE.Vector3();
+        let moveVelocity = new THREE.Vector2(); // For fluid acceleration/friction
         let playerOnGround = true;
         let playerHealth = 100;
         let playerShield = 100;
@@ -1043,6 +1097,11 @@
 
         let pitch = 0;
         let yaw = 0;
+        let mouseDeltaX = 0;
+        let mouseDeltaY = 0;
+
+        let footstepTimer = 0;
+        let landingDip = 0;
 
         window.addEventListener('keydown', (e) => {
             keys[e.code] = true;
@@ -1051,14 +1110,30 @@
             if (e.code === 'Digit3') switchWeapon(2);
             if (e.code === 'KeyR') reloadWeapon();
             if (e.code === 'ShiftLeft') isSprinting = true;
+            
+            // Tactical Slide / Crouch
+            if (e.code === 'KeyC' || e.code === 'ControlLeft') {
+                isCrouching = true;
+                targetEyeHeight = CROUCH_HEIGHT;
+                if (isSprinting && playerOnGround && !isSliding) {
+                    isSliding = true;
+                    slideTimer = 0.6; // 0.6s slide duration boost
+                    playSound('footstep');
+                }
+            }
         });
 
         window.addEventListener('keyup', (e) => {
             keys[e.code] = false;
             if (e.code === 'ShiftLeft') isSprinting = false;
+            if (e.code === 'KeyC' || e.code === 'ControlLeft') {
+                isCrouching = false;
+                targetEyeHeight = STANDING_HEIGHT;
+                isSliding = false;
+            }
         });
 
-        // Upright Mouse Aiming (YXZ Rotation, 0 Roll)
+        // Upright Mouse Aiming & Weapon Rotational Inertia Sway
         window.addEventListener('mousemove', (e) => {
             if (!isPointerLocked) return;
             const sens = isADS ? 0.0012 : 0.0022;
@@ -1066,12 +1141,15 @@
             pitch -= e.movementY * sens;
             pitch = Math.max(-Math.PI / 2.2, Math.min(Math.PI / 2.2, pitch));
 
+            mouseDeltaX += e.movementX * 0.0006;
+            mouseDeltaY += e.movementY * 0.0006;
+
             camera.rotation.y = yaw;
             camera.rotation.x = pitch;
-            camera.rotation.z = 0; // Pure 0 roll for upright standing posture
+            camera.rotation.z = 0; // Pure 0 roll for upright posture
         });
 
-        // Start & Pointerlock Handlers (No accidental auto-resume loops)
+        // Pointerlock Management (No Auto-Resume)
         const modal = document.getElementById('modal-screen');
         const btnStart = document.getElementById('btn-start-game');
 
@@ -1150,9 +1228,10 @@
             muzzleLight.intensity = 4.5;
             setTimeout(() => { muzzleLight.intensity = 0; }, 40);
 
-            // Recoil
+            // Snappy Recoil Impulse
             weaponPivot.position.z += config.recoilKick;
             weaponPivot.rotation.x += config.recoilRot;
+            camera.rotation.x += config.recoilRot * 0.25;
 
             // Reticle Spread Bloom
             const crosshair = document.getElementById('crosshair');
@@ -1164,8 +1243,8 @@
 
             // Raycast Bullets
             for (let p = 0; p < config.bulletCount; p++) {
-                const spreadX = (Math.random() - 0.5) * (isADS ? config.spread * 0.3 : config.spread);
-                const spreadY = (Math.random() - 0.5) * (isADS ? config.spread * 0.3 : config.spread);
+                const spreadX = (Math.random() - 0.5) * (isADS ? config.spread * 0.25 : config.spread);
+                const spreadY = (Math.random() - 0.5) * (isADS ? config.spread * 0.25 : config.spread);
 
                 raycaster.setFromCamera(new THREE.Vector2(spreadX, spreadY), camera);
 
@@ -1215,13 +1294,13 @@
             const mat = new THREE.MeshStandardMaterial({ color: 0xf59e0b, metalness: 0.95, roughness: 0.2 });
             const casing = new THREE.Mesh(geo, mat);
             
-            const origin = camera.position.clone().add(new THREE.Vector3(0.2, -0.2, -0.3).applyQuaternion(camera.quaternion));
+            const origin = camera.position.clone().add(new THREE.Vector3(0.22, -0.2, -0.3).applyQuaternion(camera.quaternion));
             casing.position.copy(origin);
             
-            const rightDir = new THREE.Vector3(1, 0.5, 0).applyQuaternion(camera.quaternion);
+            const rightDir = new THREE.Vector3(1, 0.6, 0.2).applyQuaternion(camera.quaternion);
             casing.userData = {
-                vel: rightDir.multiplyScalar(3.5 + Math.random() * 2),
-                rotVel: new THREE.Vector3(Math.random() * 10, Math.random() * 10, Math.random() * 10),
+                vel: rightDir.multiplyScalar(3.8 + Math.random() * 2),
+                rotVel: new THREE.Vector3(Math.random() * 12, Math.random() * 12, Math.random() * 12),
                 life: 0
             };
             
@@ -1265,7 +1344,7 @@
         }
 
         function createImpactSparks(pos, normal) {
-            const count = 12;
+            const count = 14;
             const pGeo = new THREE.BufferGeometry();
             const positions = [];
             const velocities = [];
@@ -1273,14 +1352,14 @@
             for (let i = 0; i < count; i++) {
                 positions.push(pos.x, pos.y, pos.z);
                 velocities.push(
-                    (normal.x + (Math.random() - 0.5) * 1.5) * 4.5,
-                    (normal.y + Math.random() * 2) * 4.5,
-                    (normal.z + (Math.random() - 0.5) * 1.5) * 4.5
+                    (normal.x + (Math.random() - 0.5) * 1.5) * 5,
+                    (normal.y + Math.random() * 2) * 5,
+                    (normal.z + (Math.random() - 0.5) * 1.5) * 5
                 );
             }
 
             pGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            const pMat = new THREE.PointsMaterial({ color: 0x00e5ff, size: 0.18, transparent: true, opacity: 1 });
+            const pMat = new THREE.PointsMaterial({ color: 0x00e5ff, size: 0.2, transparent: true, opacity: 1 });
             const pMesh = new THREE.Points(pGeo, pMat);
             scene.add(pMesh);
 
@@ -1290,7 +1369,7 @@
                 const posArr = pMesh.geometry.attributes.position.array;
                 for (let i = 0; i < count; i++) {
                     posArr[i * 3] += velocities[i * 3] * 0.02;
-                    posArr[i * 3 + 1] += velocities[i * 3 + 1] * 0.02 - 0.15 * age;
+                    posArr[i * 3 + 1] += velocities[i * 3 + 1] * 0.02 - 0.18 * age;
                     posArr[i * 3 + 2] += velocities[i * 3 + 2] * 0.02;
                 }
                 pMesh.geometry.attributes.position.needsUpdate = true;
@@ -1304,7 +1383,7 @@
         }
 
         function explodeBarrel(barrel) {
-            playSound('explosion');
+            playSound('blast');
             const pos = barrel.position.clone();
             scene.remove(barrel);
             if (barrel.userData.stripe) scene.remove(barrel.userData.stripe);
@@ -1312,7 +1391,8 @@
             const cIdx = collidableObjects.indexOf(barrel);
             if (cIdx >= 0) collidableObjects.splice(cIdx, 1);
 
-            const count = 40;
+            // 45 Particle Volumetric Fireball
+            const count = 45;
             const pGeo = new THREE.BufferGeometry();
             const positions = [];
             const velocities = [];
@@ -1320,27 +1400,31 @@
             for (let i = 0; i < count; i++) {
                 positions.push(pos.x, pos.y, pos.z);
                 velocities.push(
-                    (Math.random() - 0.5) * 18,
-                    Math.random() * 16 + 2,
-                    (Math.random() - 0.5) * 18
+                    (Math.random() - 0.5) * 20,
+                    Math.random() * 18 + 2,
+                    (Math.random() - 0.5) * 20
                 );
             }
 
             pGeo.setAttribute('position', new THREE.Float32BufferAttribute(positions, 3));
-            const pMat = new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.65, transparent: true, opacity: 1 });
+            const pMat = new THREE.PointsMaterial({ color: 0xf59e0b, size: 0.7, transparent: true, opacity: 1 });
             const pMesh = new THREE.Points(pGeo, pMat);
             scene.add(pMesh);
 
+            // Camera Shake
+            camera.position.x += (Math.random() - 0.5) * 0.3;
+            camera.position.y += (Math.random() - 0.5) * 0.3;
+
             enemies.forEach(e => {
                 const dist = e.mesh.position.distanceTo(pos);
-                if (dist < 20) {
-                    e.hp -= Math.round((20 - dist) * 14);
+                if (dist < 22) {
+                    e.hp -= Math.round((22 - dist) * 15);
                     if (e.hp <= 0) destroyEnemy(e);
                 }
             });
 
             const playerDist = camera.position.distanceTo(pos);
-            if (playerDist < 16) takeDamage(Math.round((16 - playerDist) * 7));
+            if (playerDist < 18) takeDamage(Math.round((18 - playerDist) * 8));
 
             let age = 0;
             const interval = setInterval(() => {
@@ -1380,7 +1464,7 @@
             document.getElementById('hud-score').textContent = String(combatScore).padStart(6, '0');
         }
 
-        // --- 10. AI ENEMY DRONES ---
+        // --- 10. AI ENEMY DRONES & PHYSICAL SHATTER ---
         const enemies = [];
         const enemyProjectiles = [];
 
@@ -1427,10 +1511,25 @@
         }
 
         function destroyEnemy(enemy) {
-            playSound('explosion');
+            playSound('blast');
+            const pos = enemy.mesh.position.clone();
             scene.remove(enemy.mesh);
             const idx = enemies.indexOf(enemy);
             if (idx >= 0) enemies.splice(idx, 1);
+
+            // Shatter Physics Debris
+            const debrisMat = new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9 });
+            for (let i = 0; i < 6; i++) {
+                const piece = new THREE.Mesh(new THREE.BoxGeometry(0.6, 0.6, 0.6), debrisMat);
+                piece.position.copy(pos);
+                piece.userData = {
+                    vel: new THREE.Vector3((Math.random() - 0.5) * 12, Math.random() * 10 + 2, (Math.random() - 0.5) * 12),
+                    rotVel: new THREE.Vector3(Math.random() * 8, Math.random() * 8, Math.random() * 8),
+                    life: 0
+                };
+                scene.add(piece);
+                debrisPieces.push(piece);
+            }
 
             killStreak++;
             addCombatScore(500 * (killStreak > 2 ? 2 : 1));
@@ -1468,10 +1567,12 @@
 
         // --- 11. DAMAGE & VITAL STATUS ---
         function takeDamage(amt) {
+            if (!isPointerLocked) return; // Do not take damage while paused!
+            
             if (playerShield > 0) {
                 playerShield -= amt;
                 document.getElementById('shield-vignette').style.opacity = '1';
-                setTimeout(() => document.getElementById('shield-vignette').style.opacity = '0', 250);
+                setTimeout(() => document.getElementById('shield-vignette').style.opacity = '0', 200);
                 if (playerShield < 0) {
                     playerHealth += playerShield;
                     playerShield = 0;
@@ -1479,7 +1580,7 @@
             } else {
                 playerHealth -= amt;
                 document.getElementById('damage-vignette').style.opacity = '1';
-                setTimeout(() => document.getElementById('damage-vignette').style.opacity = '0', 250);
+                setTimeout(() => document.getElementById('damage-vignette').style.opacity = '0', 200);
             }
 
             playerHealth = Math.max(0, playerHealth);
@@ -1504,8 +1605,8 @@
         }
 
         setInterval(() => {
-            if (playerShield < 100 && playerHealth > 0) {
-                playerShield = Math.min(100, playerShield + 4);
+            if (isPointerLocked && playerShield < 100 && playerHealth > 0) {
+                playerShield = Math.min(100, playerShield + 5);
                 document.getElementById('shield-text').textContent = `${Math.round(playerShield)} / 100`;
                 document.getElementById('shield-bar').style.width = `${playerShield}%`;
             }
@@ -1530,7 +1631,6 @@
             radarCtx.moveTo(5, 55); radarCtx.lineTo(105, 55);
             radarCtx.stroke();
 
-            // Upright Player Arrow
             radarCtx.save();
             radarCtx.translate(55, 55);
             radarCtx.fillStyle = '#00e5ff';
@@ -1575,35 +1675,67 @@
                 lastFpsUpdate = time;
             }
 
-            // Player Movement
+            // Only update active game simulation when pointer is locked!
             if (isPointerLocked) {
-                const moveSpeed = isSprinting ? 15.5 : 8.8;
+                // Tactical Slide countdown
+                if (isSliding) {
+                    slideTimer -= delta;
+                    if (slideTimer <= 0) isSliding = false;
+                }
+
+                const baseSpeed = isSliding ? 20.0 : (isSprinting ? 15.5 : (isCrouching ? 5.0 : 8.8));
+                
+                // Kinematic Acceleration & Friction
+                const targetMove = new THREE.Vector2();
+                if (keys['KeyW']) targetMove.y -= 1;
+                if (keys['KeyS']) targetMove.y += 1;
+                if (keys['KeyA']) targetMove.x -= 1;
+                if (keys['KeyD']) targetMove.x += 1;
+                targetMove.normalize();
+
+                moveVelocity.x += (targetMove.x * baseSpeed - moveVelocity.x) * 12.0 * delta;
+                moveVelocity.y += (targetMove.y * baseSpeed - moveVelocity.y) * 12.0 * delta;
+
                 const forward = new THREE.Vector3(0, 0, -1).applyAxisAngle(new THREE.Vector3(0, 1, 0), yaw);
                 const right = new THREE.Vector3(1, 0, 0).applyAxisAngle(new THREE.Vector3(0, 1, 0), yaw);
 
-                const moveDir = new THREE.Vector3();
-                if (keys['KeyW']) moveDir.add(forward);
-                if (keys['KeyS']) moveDir.sub(forward);
-                if (keys['KeyD']) moveDir.add(right);
-                if (keys['KeyA']) moveDir.sub(right);
-                moveDir.normalize();
-
-                camera.position.x += moveDir.x * moveSpeed * delta;
-                camera.position.z += moveDir.z * moveSpeed * delta;
+                camera.position.x += (right.x * moveVelocity.x - forward.x * moveVelocity.y) * delta;
+                camera.position.z += (right.z * moveVelocity.x - forward.z * moveVelocity.y) * delta;
 
                 // Jumping & Gravity
-                if (keys['Space'] && playerOnGround) {
+                if (keys['Space'] && playerOnGround && !isCrouching) {
                     playerVelocity.y = 8.5;
                     playerOnGround = false;
+                    playSound('footstep');
                 }
 
-                playerVelocity.y -= 21.0 * delta;
+                playerVelocity.y -= 22.0 * delta;
                 camera.position.y += playerVelocity.y * delta;
 
-                if (camera.position.y <= STANDING_HEIGHT) {
-                    camera.position.y = STANDING_HEIGHT;
+                // Smooth Crouch / Standing Eye Height Transition
+                camera.position.y += (targetEyeHeight - camera.position.y) * 10.0 * delta;
+
+                if (camera.position.y <= targetEyeHeight && playerVelocity.y <= 0) {
+                    if (!playerOnGround) {
+                        // Landing Impact Dip
+                        landingDip = 0.12;
+                        playSound('footstep');
+                    }
+                    camera.position.y = targetEyeHeight;
                     playerVelocity.y = 0;
                     playerOnGround = true;
+                }
+
+                landingDip = Math.max(0, landingDip - delta * 0.8);
+
+                // Procedural Footsteps
+                const currentSpeedSq = moveVelocity.lengthSq();
+                if (currentSpeedSq > 4 && playerOnGround) {
+                    footstepTimer += delta * (isSprinting ? 14 : 9);
+                    if (footstepTimer > Math.PI) {
+                        footstepTimer = 0;
+                        playSound('footstep');
+                    }
                 }
 
                 // Full-Auto Shooting
@@ -1611,90 +1743,121 @@
                     shootWeapon();
                 }
 
-                // Weapon Sway & Breathing Bobbing
-                const isMoving = moveDir.lengthSq() > 0;
+                // Dynamic Weapon Inertia Sway & Head Bobbing
+                const isMoving = currentSpeedSq > 2;
                 const bobFreq = isSprinting ? 15 : 9.5;
-                const bobAmp = isMoving ? (isSprinting ? 0.035 : 0.018) : 0.005;
+                const bobAmp = isMoving ? (isSprinting ? 0.038 : 0.018) : 0.005;
 
                 const bobX = Math.sin(time * 0.001 * bobFreq) * bobAmp;
                 const bobY = Math.cos(time * 0.002 * bobFreq) * bobAmp;
 
-                const targetWeaponX = isADS ? (currentWeaponIndex === 1 ? 0 : 0.0) : 0.24 + bobX;
-                const targetWeaponY = isADS ? (currentWeaponIndex === 1 ? -0.14 : -0.12) : -0.24 + bobY;
+                // Decay mouse delta for rotational inertia
+                mouseDeltaX *= 0.82;
+                mouseDeltaY *= 0.82;
+
+                // Low-ready pose when sprinting
+                const sprintTilt = (isSprinting && isMoving && !isADS) ? 0.35 : 0;
+
+                const targetWeaponX = isADS ? 0.0 : 0.24 + bobX - mouseDeltaX;
+                const targetWeaponY = isADS ? (currentWeaponIndex === 1 ? -0.14 : -0.12) : -0.24 + bobY - landingDip - sprintTilt * 0.2 + mouseDeltaY;
                 const targetWeaponZ = isADS ? -0.32 : -0.48;
 
-                weaponPivot.position.x += (targetWeaponX - weaponPivot.position.x) * 0.15;
-                weaponPivot.position.y += (targetWeaponY - weaponPivot.position.y) * 0.15;
-                weaponPivot.position.z += (targetWeaponZ - weaponPivot.position.z) * 0.15;
-                weaponPivot.rotation.x += (0 - weaponPivot.rotation.x) * 0.12;
+                weaponPivot.position.x += (targetWeaponX - weaponPivot.position.x) * 0.18;
+                weaponPivot.position.y += (targetWeaponY - weaponPivot.position.y) * 0.18;
+                weaponPivot.position.z += (targetWeaponZ - weaponPivot.position.z) * 0.18;
+                
+                // Rotational Sway into turns
+                const targetRotZ = -mouseDeltaX * 1.5;
+                weaponPivot.rotation.z += (targetRotZ - weaponPivot.rotation.z) * 0.15;
+                weaponPivot.rotation.x += (sprintTilt - weaponPivot.rotation.x) * 0.15;
 
-                const targetFOV = isADS ? (currentWeaponIndex === 1 ? 32 : 48) : 75;
-                camera.fov += (targetFOV - camera.fov) * 0.2;
+                const targetFOV = isADS ? (currentWeaponIndex === 1 ? 30 : 48) : 75;
+                camera.fov += (targetFOV - camera.fov) * 0.22;
                 camera.updateProjectionMatrix();
-            }
 
-            // Update Bullet Casings
-            for (let cIdx = bulletCasings.length - 1; cIdx >= 0; cIdx--) {
-                const c = bulletCasings[cIdx];
-                c.userData.life += delta;
-                c.userData.vel.y -= 15.0 * delta; // Casing gravity
-                c.position.add(c.userData.vel.clone().multiplyScalar(delta));
-                c.rotation.x += c.userData.rotVel.x * delta;
-                c.rotation.y += c.userData.rotVel.y * delta;
+                // AI Sentinels Update (Only active during combat!)
+                enemies.forEach(e => {
+                    e.mesh.position.y = 5 + Math.sin(time * 0.002 + e.hoverSeed) * 1.5;
+                    e.mesh.lookAt(camera.position);
 
-                if (c.position.y <= 0.05) {
-                    c.position.y = 0.05;
-                    c.userData.vel.set(0, 0, 0);
+                    const dist = e.mesh.position.distanceTo(camera.position);
+                    if (dist > 18) {
+                        const dir = camera.position.clone().sub(e.mesh.position).normalize();
+                        e.mesh.position.x += dir.x * e.speed * delta;
+                        e.mesh.position.z += dir.z * e.speed * delta;
+                    }
+
+                    if (time - e.lastFire > 2400 && dist < 50) {
+                        e.lastFire = time + Math.random() * 800;
+                        
+                        const projGeo = new THREE.SphereGeometry(0.28, 8, 8);
+                        const projMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
+                        const proj = new THREE.Mesh(projGeo, projMat);
+                        proj.position.copy(e.mesh.position);
+                        
+                        const pDir = camera.position.clone().sub(e.mesh.position).normalize();
+                        scene.add(proj);
+                        enemyProjectiles.push({ mesh: proj, dir: pDir, life: 0 });
+                    }
+                });
+
+                // Update Enemy Projectiles
+                for (let pIdx = enemyProjectiles.length - 1; pIdx >= 0; pIdx--) {
+                    const p = enemyProjectiles[pIdx];
+                    p.life += delta;
+                    p.mesh.position.add(p.dir.clone().multiplyScalar(24 * delta));
+
+                    if (p.mesh.position.distanceTo(camera.position) < 1.8) {
+                        takeDamage(18);
+                        scene.remove(p.mesh);
+                        enemyProjectiles.splice(pIdx, 1);
+                        continue;
+                    }
+
+                    if (p.life > 4) {
+                        scene.remove(p.mesh);
+                        enemyProjectiles.splice(pIdx, 1);
+                    }
                 }
 
-                if (c.userData.life > 3.5) {
-                    scene.remove(c);
-                    bulletCasings.splice(cIdx, 1);
-                }
-            }
+                // Update Debris Pieces
+                for (let dIdx = debrisPieces.length - 1; dIdx >= 0; dIdx--) {
+                    const d = debrisPieces[dIdx];
+                    d.userData.life += delta;
+                    d.userData.vel.y -= 16.0 * delta;
+                    d.position.add(d.userData.vel.clone().multiplyScalar(delta));
+                    d.rotation.x += d.userData.rotVel.x * delta;
+                    d.rotation.y += d.userData.rotVel.y * delta;
 
-            // AI Sentinels
-            enemies.forEach(e => {
-                e.mesh.position.y = 5 + Math.sin(time * 0.002 + e.hoverSeed) * 1.5;
-                e.mesh.lookAt(camera.position);
+                    if (d.position.y <= 0.3) {
+                        d.position.y = 0.3;
+                        d.userData.vel.set(0, 0, 0);
+                    }
 
-                const dist = e.mesh.position.distanceTo(camera.position);
-                if (dist > 18) {
-                    const dir = camera.position.clone().sub(e.mesh.position).normalize();
-                    e.mesh.position.x += dir.x * e.speed * delta;
-                    e.mesh.position.z += dir.z * e.speed * delta;
-                }
-
-                if (time - e.lastFire > 2400 && dist < 50) {
-                    e.lastFire = time + Math.random() * 800;
-                    
-                    const projGeo = new THREE.SphereGeometry(0.28, 8, 8);
-                    const projMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
-                    const proj = new THREE.Mesh(projGeo, projMat);
-                    proj.position.copy(e.mesh.position);
-                    
-                    const pDir = camera.position.clone().sub(e.mesh.position).normalize();
-                    scene.add(proj);
-                    enemyProjectiles.push({ mesh: proj, dir: pDir, life: 0 });
-                }
-            });
-
-            // Update Enemy Projectiles
-            for (let pIdx = enemyProjectiles.length - 1; pIdx >= 0; pIdx--) {
-                const p = enemyProjectiles[pIdx];
-                p.life += delta;
-                p.mesh.position.add(p.dir.clone().multiplyScalar(24 * delta));
-
-                if (p.mesh.position.distanceTo(camera.position) < 1.8) {
-                    takeDamage(18);
-                    scene.remove(p.mesh);
-                    enemyProjectiles.splice(pIdx, 1);
-                    continue;
+                    if (d.userData.life > 3.0) {
+                        scene.remove(d);
+                        debrisPieces.splice(dIdx, 1);
+                    }
                 }
 
-                if (p.life > 4) {
-                    scene.remove(p.mesh);
-                    enemyProjectiles.splice(pIdx, 1);
+                // Update Bullet Casings
+                for (let cIdx = bulletCasings.length - 1; cIdx >= 0; cIdx--) {
+                    const c = bulletCasings[cIdx];
+                    c.userData.life += delta;
+                    c.userData.vel.y -= 15.0 * delta;
+                    c.position.add(c.userData.vel.clone().multiplyScalar(delta));
+                    c.rotation.x += c.userData.rotVel.x * delta;
+                    c.rotation.y += c.userData.rotVel.y * delta;
+
+                    if (c.position.y <= 0.05) {
+                        c.position.y = 0.05;
+                        c.userData.vel.set(0, 0, 0);
+                    }
+
+                    if (c.userData.life > 3.0) {
+                        scene.remove(c);
+                        bulletCasings.splice(cIdx, 1);
+                    }
                 }
             }
 
