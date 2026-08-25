@@ -1974,6 +1974,35 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 </div>
             </div>
 
+            <!-- =========================================================================
+                 APP 12: SOLARIS 3D FPS CYBER FORGE (THREE.JS ENGINE)
+                 ========================================================================= -->
+            <div id="game-window" class="absolute top-4 left-24 w-[1020px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2 bg-slate-900/90 border-b border-cyan-500/30 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'game-window')" ondblclick="toggleMaximizeWindow('game-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('game-window', 'dock-game')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('game-window', 'dock-game')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('game-window')" title="Maximize / Full Screen"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5 text-cyan-400">
+                            <span>🎮</span>
+                            <span>Solaris Cyber Forge 3D — First-Person Sovereign Tactical FPS</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <a href="/game" target="_blank" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/40 text-cyan-300 font-mono text-[10px] font-bold transition-all flex items-center space-x-1">
+                            <span>↗</span><span>Direct Fullscreen Tab</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-black relative overflow-hidden">
+                    <iframe id="solaris-game-frame" src="/game" class="w-full h-full border-0" allow="pointer-lock; autoplay"></iframe>
+                </div>
+            </div>
+
             <!-- KEYBINDINGS CHEATSHEET MODAL -->
             <div id="shortcuts-modal" class="fixed inset-0 z-50 bg-black/60 dark:bg-slate-950/80 backdrop-blur-2xl flex items-center justify-center hidden" onclick="closeKeybindingsModal()">
                 <div class="w-[620px] p-6 ultra-liquid-glass space-y-4" onclick="event.stopPropagation()">
@@ -1984,6 +2013,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <div class="grid grid-cols-2 gap-3 text-xs font-mono">
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + B</span><span>Garud Web Browser</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-purple-600 dark:text-purple-300 font-bold">Win + C</span><span>Indic Code Studio</span></div>
+                        <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-rose-500 font-bold">Win + G</span><span>Solaris 3D Tactical FPS</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-cyan-600 dark:text-cyan-300 font-bold">Win + E</span><span>SovereignFS Explorer</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-emerald-600 dark:text-emerald-400 font-bold">Win + S</span><span>Kavach Defender 3.0</span></div>
                         <div class="p-2.5 rounded-xl bg-slate-100/70 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 flex justify-between"><span class="text-amber-600 dark:text-amber-300 font-bold">Win + A</span><span>Sovereign App Store</span></div>
@@ -2020,6 +2050,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         <div class="space-y-1 max-h-72 overflow-y-auto custom-scroll pr-1">
                             <button onclick="openAppWindow('browser-window', 'dock-browser')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-cyan-500 font-bold"><span>🌐</span><span>Garud Browser</span></button>
                             <button onclick="openAppWindow('code-window', 'dock-code')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-purple-400 font-bold"><span>⚡</span><span>Indic Code Studio</span></button>
+                            <button onclick="openAppWindow('game-window', 'dock-game')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-rose-400 font-bold"><span>🎮</span><span>Solaris 3D FPS Arena</span></button>
                             <button onclick="openAppWindow('files-window', 'dock-files')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2"><span>📁</span><span>File Explorer</span></button>
                             <button onclick="openAppWindow('kavach-window', 'dock-defender')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-emerald-500 font-bold"><span>🛡️</span><span>Kavach Defender 3.0</span></button>
                             <button onclick="openAppWindow('store-window', 'dock-store')" class="w-full text-left px-2.5 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800 flex items-center space-x-2 text-amber-500 font-bold"><span>🛍️</span><span>Sovereign App Store</span></button>
@@ -2042,6 +2073,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <!-- Flagship Applications Dock -->
                 <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="taskbar-item p-2 rounded-xl text-xl" title="Garud Web Browser (Win+B)">🌐</button>
                 <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="taskbar-item p-2 rounded-xl text-xl" title="Indic Code Studio (Win+C)">⚡</button>
+                <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="taskbar-item p-2 rounded-xl text-xl" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
                 <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="taskbar-item p-2 rounded-xl text-xl" title="File Explorer (Win+E)">📁</button>
                 <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="taskbar-item p-2 rounded-xl text-xl" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
                 <button id="dock-store" onclick="toggleWindowFromDock('store-window', 'dock-store')" class="taskbar-item p-2 rounded-xl text-xl" title="Sovereign App Store (Win+A)">🛍️</button>
@@ -3122,6 +3154,7 @@ vulkano = "0.34"`
         // 1. INDIC SOVEREIGN APP STORE CONTROLLER
         // =========================================================================
         const STORE_APPS_DATABASE = [
+            { id: "app-solaris-fps", name: "Solaris Cyber Forge 3D FPS", cat: "games", icon: "🎮", desc: "Three.js accelerated first-person shooter with AI drone sentinels.", size: "54 MB", installed: true, author: "Bharat Gaming Guild" },
             { id: "app-ide", name: "Indic Code Studio Pro", cat: "dev", icon: "⚡", desc: "Rust 2026 SMP IDE with LLVM 19 native compiler.", size: "48 MB", installed: true, author: "BharatOS Foundation" },
             { id: "app-browser", name: "Garud Sovereign Browser", cat: "tools", icon: "🌐", desc: "Isolated sandboxed web engine with zero-telemetry.", size: "36 MB", installed: true, author: "Garud Project" },
             { id: "app-kavach", name: "Kavach Zero-Day Sentinel", cat: "security", icon: "🛡️", desc: "Heuristic AI transformer defense engine for Ring-0.", size: "62 MB", installed: true, author: "Kavach Security Lab" },
@@ -3596,6 +3629,7 @@ vulkano = "0.34"`
             if (e.metaKey || e.ctrlKey || e.altKey) {
                 if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
                 if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
+                if (key === 'g') { e.preventDefault(); openAppWindow('game-window', 'dock-game'); }
                 if (key === 'e') { e.preventDefault(); openAppWindow('files-window', 'dock-files'); }
                 if (key === 's') { e.preventDefault(); openAppWindow('kavach-window', 'dock-defender'); }
                 if (key === 'a') { e.preventDefault(); openAppWindow('store-window', 'dock-store'); }
@@ -3666,6 +3700,15 @@ vulkano = "0.34"`
                             navigateToPath(nextPath);
                         }
                     };
+                    el.ondblclick = () => {
+                        if (item.name.includes('solaris') || item.name.endsWith('.exe') || item.name.endsWith('.app')) {
+                            playSfx('open');
+                            openAppWindow('game-window', 'dock-game');
+                        } else if (item.name.endsWith('.md') || item.name.endsWith('.txt') || item.name.endsWith('.rs')) {
+                            playSfx('open');
+                            openAppWindow('code-window', 'dock-code');
+                        }
+                    };
                     el.innerHTML = `<span class="text-3xl mb-1.5">${item.icon}</span><span class="text-xs font-bold truncate w-full">${item.name}</span><span class="text-[10px] opacity-60 mt-1">${item.size}</span>`;
                     container.appendChild(el);
                 });
@@ -3680,6 +3723,15 @@ vulkano = "0.34"`
                         if (item.type === 'dir') {
                             const nextPath = path === '/' ? `/${item.name}` : `${path}/${item.name}`;
                             navigateToPath(nextPath);
+                        }
+                    };
+                    el.ondblclick = () => {
+                        if (item.name.includes('solaris') || item.name.endsWith('.exe') || item.name.endsWith('.app')) {
+                            playSfx('open');
+                            openAppWindow('game-window', 'dock-game');
+                        } else if (item.name.endsWith('.md') || item.name.endsWith('.txt') || item.name.endsWith('.rs')) {
+                            playSfx('open');
+                            openAppWindow('code-window', 'dock-code');
                         }
                     };
                     el.innerHTML = `<div class="flex items-center space-x-3"><span class="text-xl">${item.icon}</span><span class="font-bold">${item.name}</span></div><div class="flex items-center space-x-4 opacity-70"><span>${item.mime}</span><span>${item.size}</span></div>`;
@@ -4183,6 +4235,8 @@ Install the latest PowerShell for new features and improvements! https://aka.ms/
                     if (arg) navigateBrowserUrl(arg);
                 } else if (cmd === 'code') {
                     openAppWindow('code-window', 'dock-code');
+                } else if (cmd === 'game' || cmd === 'fps' || cmd === 'solaris') {
+                    openAppWindow('game-window', 'dock-game');
                 } else if (cmd === 'defender' || cmd === 'scan') {
                     openAppWindow('kavach-window', 'dock-defender');
                     startKavachScan();
@@ -4203,6 +4257,7 @@ Install the latest PowerShell for new features and improvements! https://aka.ms/
 Available Sovereign Applications:<br>
   • browser     - Garud Sovereign Web Browser<br>
   • code        - Indic Code Studio IDE (Rust 2026)<br>
+  • game        - Solaris 3D Cyber Forge FPS (Three.js)<br>
   • explorer    - SovereignFS File Manager<br>
   • defender    - Kavach 3.0 Ring-0 Shield<br>
   • store       - Indic Sovereign App Store<br>
