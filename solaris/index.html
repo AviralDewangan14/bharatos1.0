@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOLARIS: CYBER FORGE 3D — Ultra Tactical Sovereign FPS</title>
+    <title>SOLARIS: CYBER FORGE 3D — Master Three.js Urban Warfare</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -30,11 +30,11 @@
         .fira { font-family: 'Fira Code', monospace; }
         
         .hud-glass {
-            background: rgba(6, 11, 25, 0.82);
+            background: rgba(6, 11, 25, 0.85);
             backdrop-filter: blur(28px);
             -webkit-backdrop-filter: blur(28px);
             border: 1px solid rgba(0, 229, 255, 0.35);
-            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.75), inset 0 0 20px rgba(0, 229, 255, 0.12);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), inset 0 0 20px rgba(0, 229, 255, 0.12);
         }
         
         .glow-cyan { text-shadow: 0 0 14px rgba(0, 229, 255, 0.9); }
@@ -78,6 +78,11 @@
             transition: opacity 0.15s ease-in-out;
             background: radial-gradient(circle at center, transparent 35%, rgba(0,0,0,0.98) 42%, #000 100%);
         }
+
+        /* Reload Progress Bar */
+        #reload-bar-fill {
+            transition: width 0.05s linear;
+        }
     </style>
 </head>
 <body class="w-screen h-screen relative bg-slate-950">
@@ -111,7 +116,7 @@
         <!-- TOP HUD -->
         <div class="flex items-start justify-between">
             <!-- Left: Sector & Hostile Info -->
-            <div class="hud-glass px-5 py-3.5 rounded-3xl space-y-1.5 min-w-[270px]">
+            <div class="hud-glass px-5 py-3.5 rounded-3xl space-y-1.5 min-w-[280px]">
                 <div class="flex items-center justify-between border-b border-cyan-500/30 pb-1.5">
                     <div class="flex items-center space-x-2">
                         <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 animate-ping"></span>
@@ -129,13 +134,23 @@
                 </div>
             </div>
 
-            <!-- Center: Killstreak Banner -->
-            <div class="text-center space-y-1">
+            <!-- Center: Killstreak & Reload Alert -->
+            <div class="text-center space-y-2 flex flex-col items-center">
                 <div id="wave-announcement" class="orbitron text-2xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-emerald-400 glow-cyan hidden">
                     WAVE 1: URBAN ASSAULT
                 </div>
                 <div id="kill-streak-banner" class="fira text-xs font-bold text-emerald-400 glow-emerald hidden">
                     🔥 3X KILL STREAK MULTIPLIER!
+                </div>
+                <!-- Reload Progress Indicator -->
+                <div id="reload-progress-container" class="hud-glass px-4 py-2 rounded-2xl hidden space-y-1 w-64">
+                    <div class="flex justify-between items-center text-[10px] fira font-bold text-amber-400">
+                        <span>⚡ TACTICAL CELL RELOADING...</span>
+                        <span id="reload-percent">0%</span>
+                    </div>
+                    <div class="w-full h-1.5 bg-slate-900 rounded-full overflow-hidden border border-amber-500/30">
+                        <div id="reload-bar-fill" class="h-full bg-gradient-to-r from-amber-500 to-yellow-300 w-0"></div>
+                    </div>
                 </div>
             </div>
 
@@ -203,8 +218,8 @@
             <!-- Kill Feed Toasts -->
             <div id="kill-feed" class="space-y-1.5 text-xs fira max-w-sm text-center"></div>
 
-            <!-- Active Arsenal & Ammo -->
-            <div class="hud-glass p-5 rounded-3xl min-w-[330px] flex items-center justify-between">
+            <!-- Active Arsenal & Ammo + Interactive Clickable Reload Button -->
+            <div class="hud-glass p-5 rounded-3xl min-w-[350px] flex items-center justify-between pointer-events-auto">
                 <div class="space-y-1">
                     <div class="flex items-center space-x-2 text-[10px] fira opacity-80">
                         <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400 font-bold" id="weapon-slot-badge">[1] ASSAULT RIFLE</span>
@@ -212,16 +227,19 @@
                     </div>
                     <div class="orbitron text-lg font-black text-white" id="weapon-name">AK-2026 SOVEREIGN PULSE</div>
                     <div class="flex items-center space-x-1.5 text-[10px] fira pt-1">
-                        <span class="px-2 py-0.5 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold border border-cyan-500/40" id="slot-1-badge">1: AK-2026</span>
-                        <span class="px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60" id="slot-2-badge">2: Viper .50</span>
-                        <span class="px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60" id="slot-3-badge">3: Hydra Shotgun</span>
+                        <button onclick="switchWeapon(0)" class="px-2 py-0.5 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold border border-cyan-500/40 cursor-pointer hover:bg-cyan-500/50" id="slot-1-badge">1: AK-2026</button>
+                        <button onclick="switchWeapon(1)" class="px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60 cursor-pointer hover:opacity-100" id="slot-2-badge">2: Viper .50</button>
+                        <button onclick="switchWeapon(2)" class="px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60 cursor-pointer hover:opacity-100" id="slot-3-badge">3: Hydra Shotgun</button>
                     </div>
                 </div>
 
-                <div class="text-right space-y-0.5 pl-4 border-l border-slate-800">
+                <!-- Ammo Counter and Clickable Reload Trigger -->
+                <div class="text-right space-y-1 pl-4 border-l border-slate-800 flex flex-col items-end">
                     <div class="orbitron text-3xl font-black text-cyan-400 glow-cyan leading-none" id="ammo-mag">30</div>
-                    <div class="fira text-xs font-bold text-slate-400" id="ammo-reserve">/ 180</div>
-                    <div id="reload-prompt" class="text-[10px] fira text-amber-400 font-bold animate-pulse hidden">[R] RELOAD</div>
+                    <div class="fira text-xs font-bold text-slate-400" id="ammo-reserve">/ ∞ RESERVE</div>
+                    <button id="btn-hud-reload" onclick="manualReloadTrigger()" class="px-2.5 py-1 rounded-xl bg-amber-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/30 text-[10px] fira font-bold cursor-pointer transition-all active:scale-95">
+                        ⚡ [R] RELOAD
+                    </button>
                 </div>
             </div>
         </div>
@@ -232,13 +250,13 @@
         <div class="max-w-2xl w-full p-8 rounded-3xl hud-glass text-center space-y-6 shadow-2xl border-2 border-cyan-500/50" onclick="event.stopPropagation()">
             <div class="space-y-2">
                 <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-500/20 border border-cyan-500/40 text-cyan-400 text-xs fira font-bold">
-                    <span>☸️</span><span>BHARATOS COMPETITIVE 3D FPS</span>
+                    <span>☸️</span><span>BHARATOS COMPETITIVE THREE.JS FPS</span>
                 </div>
                 <h1 class="orbitron text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-white to-emerald-400 glow-cyan" id="modal-title">
                     SOLARIS: CYBER FORGE 3D
                 </h1>
                 <p class="text-xs text-slate-400 font-sans" id="modal-subtitle">
-                    Fast-Paced First-Person Arena Shooter with Fluid Physics, Dynamic Gun Sway, and Spatial Blast Audio.
+                    Ultra-Realistic Three.js 3D Metropolis with Multi-Elevation Skywalks, Tactical Hover-Vehicles, Volumetric Steam, and Spatial Audio.
                 </p>
             </div>
 
@@ -252,17 +270,17 @@
                     <button onclick="selectMap('neo-delhi')" class="map-card p-3.5 rounded-2xl bg-cyan-950/60 border-2 border-cyan-500 text-left transition-all hover:scale-[1.02]" id="map-btn-neo-delhi">
                         <div class="text-2xl mb-1">🏙️</div>
                         <div class="font-bold text-xs text-white">Neo-Delhi 2026</div>
-                        <div class="text-[10px] text-slate-400">Skyscrapers & Alleys</div>
+                        <div class="text-[10px] text-slate-400">Skywalks & Multi-Tier Towers</div>
                     </button>
                     <button onclick="selectMap('orbital')" class="map-card p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:scale-[1.02]" id="map-btn-orbital">
                         <div class="text-2xl mb-1">🛰️</div>
                         <div class="font-bold text-xs text-white">Orbital Spire</div>
-                        <div class="text-[10px] text-slate-400">High-Altitude Spire</div>
+                        <div class="text-[10px] text-slate-400">High-Altitude Launchpad</div>
                     </button>
                     <button onclick="selectMap('industrial')" class="map-card p-3.5 rounded-2xl bg-slate-900/60 border border-slate-800 text-left transition-all hover:scale-[1.02]" id="map-btn-industrial">
                         <div class="text-2xl mb-1">🏭</div>
                         <div class="font-bold text-xs text-white">Thar Outpost</div>
-                        <div class="text-[10px] text-slate-400">Cargo & Fuel Depot</div>
+                        <div class="text-[10px] text-slate-400">Cargo Yard & Fuel Depot</div>
                     </button>
                 </div>
             </div>
@@ -273,7 +291,7 @@
                 <div><span class="text-cyan-400 font-bold">C / CTRL:</span> Tactical Slide / Crouch</div>
                 <div><span class="text-emerald-400 font-bold">LEFT CLICK:</span> Fire Weapon</div>
                 <div><span class="text-emerald-400 font-bold">RIGHT CLICK:</span> ADS / 8X Scope</div>
-                <div><span class="text-amber-400 font-bold">R:</span> Tactical Reload</div>
+                <div><span class="text-amber-400 font-bold">R:</span> Fast Tactical Reload (∞ Ammo)</div>
                 <div><span class="text-amber-400 font-bold">SPACE:</span> Thruster Jump</div>
                 <div><span class="text-purple-400 font-bold">SHIFT:</span> Sprint (Low-Ready Pose)</div>
                 <div><span class="text-purple-400 font-bold">1 / 2 / 3:</span> Switch Weapons</div>
@@ -300,14 +318,14 @@
             return audioCtx;
         }
 
-        // High-Impact Sound Synthesizer (Layered transients, bass drops, noise bursts & tails)
+        // Layered Audio Synthesizer
         function playSound(type) {
             try {
                 const ctx = getAudioContext();
                 const now = ctx.currentTime;
 
                 if (type === 'rifle') {
-                    // Layer 1: Sharp mechanical transient crack
+                    // Mechanical crack
                     const noise = ctx.createBufferSource();
                     const bSize = ctx.sampleRate * 0.05;
                     const b = ctx.createBuffer(1, bSize, ctx.sampleRate);
@@ -323,7 +341,7 @@
                     noise.connect(nFilter); nFilter.connect(nGain); nGain.connect(ctx.destination);
                     noise.start(now);
 
-                    // Layer 2: Punchy bass body
+                    // Bass Punch
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sawtooth';
@@ -334,7 +352,6 @@
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.16);
                 } else if (type === 'sniper') {
-                    // Massive railgun discharge + electric crackle
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'square';
@@ -345,7 +362,6 @@
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.42);
                 } else if (type === 'shotgun') {
-                    // Heavy explosive double-bass thump
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'triangle';
@@ -356,11 +372,11 @@
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.35);
                 } else if (type === 'blast') {
-                    // Huge sub-bass blast detonation + rumble
+                    // Massive Detonation Sub-bass Drop
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sawtooth';
-                    osc.frequency.setValueAtTime(150, now);
+                    osc.frequency.setValueAtTime(160, now);
                     osc.frequency.exponentialRampToValueAtTime(10, now + 0.7);
                     gain.gain.setValueAtTime(0.85, now);
                     gain.gain.exponentialRampToValueAtTime(0.001, now + 0.8);
@@ -380,7 +396,6 @@
                     noise.connect(nGain); nGain.connect(ctx.destination);
                     noise.start(now);
                 } else if (type === 'hit') {
-                    // High-satisfaction ringing hit bell (Deadshot / CoD style)
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'sine';
@@ -391,7 +406,6 @@
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.15);
                 } else if (type === 'footstep') {
-                    // Procedural gravel / asphalt contact click
                     const osc = ctx.createOscillator();
                     const gain = ctx.createGain();
                     osc.type = 'triangle';
@@ -402,15 +416,26 @@
                     osc.connect(gain); gain.connect(ctx.destination);
                     osc.start(now); osc.stop(now + 0.07);
                 } else if (type === 'reload') {
-                    const osc = ctx.createOscillator();
-                    const gain = ctx.createGain();
-                    osc.type = 'sine';
-                    osc.frequency.setValueAtTime(650, now);
-                    osc.frequency.setValueAtTime(950, now + 0.09);
-                    gain.gain.setValueAtTime(0.2, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.16);
-                    osc.connect(gain); gain.connect(ctx.destination);
-                    osc.start(now); osc.stop(now + 0.16);
+                    // Two-phase mechanical reload clicks
+                    const osc1 = ctx.createOscillator();
+                    const gain1 = ctx.createGain();
+                    osc1.type = 'sine';
+                    osc1.frequency.setValueAtTime(450, now);
+                    osc1.frequency.setValueAtTime(850, now + 0.08);
+                    gain1.gain.setValueAtTime(0.25, now);
+                    gain1.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
+                    osc1.connect(gain1); gain1.connect(ctx.destination);
+                    osc1.start(now); osc1.stop(now + 0.14);
+
+                    const osc2 = ctx.createOscillator();
+                    const gain2 = ctx.createGain();
+                    osc2.type = 'triangle';
+                    osc2.frequency.setValueAtTime(750, now + 0.3);
+                    osc2.frequency.setValueAtTime(1200, now + 0.38);
+                    gain2.gain.setValueAtTime(0.25, now + 0.3);
+                    gain2.gain.exponentialRampToValueAtTime(0.001, now + 0.44);
+                    osc2.connect(gain2); gain2.connect(ctx.destination);
+                    osc2.start(now + 0.3); osc2.stop(now + 0.44);
                 }
             } catch(e) {}
         }
@@ -437,12 +462,12 @@
                     const x = padX + c * (wW + padX);
                     const y = padY + r * (wH + padY);
 
-                    const isLit = Math.random() > 0.4;
+                    const isLit = Math.random() > 0.35;
                     ctx.fillStyle = isLit ? litColor : '#0f172a';
                     ctx.fillRect(x, y, wW, wH);
 
                     if (isLit) {
-                        ctx.fillStyle = 'rgba(255,255,255,0.35)';
+                        ctx.fillStyle = 'rgba(255,255,255,0.4)';
                         ctx.fillRect(x, y, wW, wH / 3);
                     }
                 }
@@ -463,12 +488,12 @@
             ctx.fillStyle = '#0b0f19';
             ctx.fillRect(0, 0, 512, 512);
 
-            for (let i = 0; i < 5000; i++) {
+            for (let i = 0; i < 6000; i++) {
                 ctx.fillStyle = Math.random() > 0.5 ? '#172033' : '#070a12';
                 ctx.fillRect(Math.random() * 512, Math.random() * 512, 2, 2);
             }
 
-            // Yellow Divider Line
+            // Yellow Central Lane Divider
             ctx.strokeStyle = '#f59e0b';
             ctx.lineWidth = 8;
             ctx.setLineDash([40, 25]);
@@ -476,14 +501,38 @@
             ctx.moveTo(256, 0); ctx.lineTo(256, 512);
             ctx.stroke();
 
-            // White Outer Lines
+            // White Outer Borders
             ctx.setLineDash([]);
-            ctx.strokeStyle = 'rgba(255,255,255,0.35)';
+            ctx.strokeStyle = 'rgba(255,255,255,0.4)';
             ctx.lineWidth = 6;
             ctx.beginPath();
             ctx.moveTo(35, 0); ctx.lineTo(35, 512);
             ctx.moveTo(477, 0); ctx.lineTo(477, 512);
             ctx.stroke();
+
+            // Pedestrian Crosswalk Stripes
+            ctx.fillStyle = 'rgba(255,255,255,0.35)';
+            for (let i = 0; i < 6; i++) {
+                ctx.fillRect(60 + i * 65, 230, 45, 50);
+            }
+
+            const tex = new THREE.CanvasTexture(canvas);
+            tex.wrapS = THREE.RepeatWrapping;
+            tex.wrapT = THREE.RepeatWrapping;
+            return tex;
+        }
+
+        function createConcreteTileTexture() {
+            const canvas = document.createElement('canvas');
+            canvas.width = 256;
+            canvas.height = 256;
+            const ctx = canvas.getContext('2d');
+
+            ctx.fillStyle = '#1e293b';
+            ctx.fillRect(0, 0, 256, 256);
+            ctx.strokeStyle = '#0f172a';
+            ctx.lineWidth = 4;
+            ctx.strokeRect(2, 2, 252, 252);
 
             const tex = new THREE.CanvasTexture(canvas);
             tex.wrapS = THREE.RepeatWrapping;
@@ -513,7 +562,7 @@
 
             ctx.font = 'bold 16px monospace';
             ctx.fillStyle = '#f8fafc';
-            ctx.fillText('SOVEREIGN ENCLAVE', 256, 95);
+            ctx.fillText('SOVEREIGN SECTOR • ACTIVE', 256, 95);
 
             return new THREE.CanvasTexture(canvas);
         }
@@ -522,7 +571,7 @@
         const container = document.getElementById('canvas-container');
         const scene = new THREE.Scene();
         scene.background = new THREE.Color(0x020617);
-        scene.fog = new THREE.FogExp2(0x020617, 0.009);
+        scene.fog = new THREE.FogExp2(0x020617, 0.008);
 
         // Perspective Camera with YXZ rotation order to eliminate roll tilting
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -540,7 +589,7 @@
         renderer.shadowMap.enabled = true;
         renderer.shadowMap.type = THREE.PCFSoftShadowMap;
         renderer.toneMapping = THREE.ACESFilmicToneMapping;
-        renderer.toneMappingExposure = 1.25;
+        renderer.toneMappingExposure = 1.3;
         container.appendChild(renderer.domElement);
 
         // --- 4. LIGHTING SYSTEM ---
@@ -569,11 +618,13 @@
         camera.add(muzzleLight);
         scene.add(camera);
 
-        // --- 5. MASSIVE 3D CITY ENVIRONMENT ---
+        // --- 5. MASSIVE REALISTIC 3D METROPOLIS MAP ---
         const collidableObjects = [];
         const explosiveBarrels = [];
         const bulletCasings = [];
         const debrisPieces = [];
+        const steamParticles = [];
+        const skyVehicles = [];
         let currentMap = 'neo-delhi';
 
         const buildingCyanTex = createBuildingPBRTexture('#00e5ff', '#1e293b');
@@ -585,6 +636,9 @@
 
         const asphaltTex = createAsphaltPBRTexture();
         asphaltTex.repeat.set(16, 16);
+
+        const concreteTex = createConcreteTileTexture();
+        concreteTex.repeat.set(8, 8);
 
         function buildMap(mapType = 'neo-delhi') {
             currentMap = mapType;
@@ -598,9 +652,11 @@
             collidableObjects.length = 0;
             explosiveBarrels.length = 0;
             debrisPieces.length = 0;
+            steamParticles.length = 0;
+            skyVehicles.length = 0;
 
             // Ground Asphalt Road
-            const floorGeo = new THREE.PlaneGeometry(260, 260, 32, 32);
+            const floorGeo = new THREE.PlaneGeometry(280, 280, 32, 32);
             const floorMat = new THREE.MeshStandardMaterial({
                 map: asphaltTex,
                 roughness: 0.35,
@@ -611,8 +667,36 @@
             floorMesh.receiveShadow = true;
             scene.add(floorMesh);
 
-            // Create Skyscraper Function
+            // Sidewalk Plazas
+            function createSidewalk(x, z, w, d) {
+                const sw = new THREE.Mesh(
+                    new THREE.BoxGeometry(w, 0.4, d),
+                    new THREE.MeshStandardMaterial({ map: concreteTex, roughness: 0.5, metalness: 0.3 })
+                );
+                sw.position.set(x, 0.2, z);
+                sw.receiveShadow = true;
+                scene.add(sw);
+            }
+
+            createSidewalk(-55, -55, 60, 60);
+            createSidewalk(55, -55, 60, 60);
+            createSidewalk(-55, 55, 60, 60);
+            createSidewalk(55, 55, 60, 60);
+
+            // Skyscraper Builder with Setbacks & Balconies
             function createSkyscraper(x, z, width, depth, height, tex, name = '') {
+                // Ground Storefront Level
+                const base = new THREE.Mesh(
+                    new THREE.BoxGeometry(width + 4, 8, depth + 4),
+                    new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.9, roughness: 0.2 })
+                );
+                base.position.set(x, 4, z);
+                base.castShadow = true;
+                base.receiveShadow = true;
+                scene.add(base);
+                collidableObjects.push(base);
+
+                // Main Tower
                 const geo = new THREE.BoxGeometry(width, height, depth);
                 const mat = new THREE.MeshStandardMaterial({
                     map: tex,
@@ -620,75 +704,85 @@
                     metalness: 0.85
                 });
                 const mesh = new THREE.Mesh(geo, mat);
-                mesh.position.set(x, height / 2, z);
+                mesh.position.set(x, height / 2 + 8, z);
                 mesh.castShadow = true;
                 mesh.receiveShadow = true;
                 scene.add(mesh);
                 collidableObjects.push(mesh);
 
-                // Rooftop HVAC & Antennas
+                // Rooftop HVAC, Helipad & Antennas
                 const hvac = new THREE.Mesh(
-                    new THREE.BoxGeometry(width * 0.45, 2.5, depth * 0.45),
+                    new THREE.BoxGeometry(width * 0.45, 3.0, depth * 0.45),
                     new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9 })
                 );
-                hvac.position.set(x, height + 1.25, z);
+                hvac.position.set(x, height + 9.5, z);
                 scene.add(hvac);
 
                 const spire = new THREE.Mesh(
-                    new THREE.CylinderGeometry(0.12, 0.35, 12, 8),
+                    new THREE.CylinderGeometry(0.15, 0.4, 14, 8),
                     new THREE.MeshStandardMaterial({ color: 0x94a3b8, metalness: 0.95 })
                 );
-                spire.position.set(x, height + 6, z);
+                spire.position.set(x, height + 15, z);
                 scene.add(spire);
 
-                const beacon = new THREE.PointLight(0xf43f5e, 1.5, 40);
-                beacon.position.set(x, height + 12, z);
+                const beacon = new THREE.PointLight(0xf43f5e, 1.8, 50);
+                beacon.position.set(x, height + 22, z);
                 scene.add(beacon);
 
-                // Neon Sign
+                // Neon Billboard
                 if (name) {
                     const signTex = createNeonSignTexture(name, name.includes('BHARAT') ? '#00e5ff' : '#f59e0b');
                     const signMesh = new THREE.Mesh(
-                        new THREE.PlaneGeometry(26, 6.5),
+                        new THREE.PlaneGeometry(28, 7.0),
                         new THREE.MeshBasicMaterial({ map: signTex, side: THREE.DoubleSide })
                     );
-                    signMesh.position.set(x, height * 0.65, z + depth / 2 + 0.15);
+                    signMesh.position.set(x, height * 0.65 + 8, z + depth / 2 + 0.2);
                     scene.add(signMesh);
                 }
             }
 
-            // Central Metropolis Towers
-            createSkyscraper(-52, -52, 34, 34, 70, buildingCyanTex, 'NEO-BHARAT CORP');
-            createSkyscraper(52, -52, 36, 32, 82, buildingGoldTex, 'KAVACH CYBERNETICS');
-            createSkyscraper(-52, 52, 32, 36, 60, buildingRoseTex, 'SOLARIS DEFENSE');
-            createSkyscraper(52, 52, 38, 38, 88, buildingCyanTex, 'ISRO QUANTUM HUB');
+            // Central Metropolis High-Rise Towers
+            createSkyscraper(-55, -55, 36, 36, 72, buildingCyanTex, 'NEO-BHARAT CORP');
+            createSkyscraper(55, -55, 38, 34, 84, buildingGoldTex, 'KAVACH CYBERNETICS');
+            createSkyscraper(-55, 55, 34, 38, 65, buildingRoseTex, 'SOLARIS DEFENSE');
+            createSkyscraper(55, 55, 40, 40, 90, buildingCyanTex, 'ISRO QUANTUM HUB');
 
-            // Perimeter High-Rises
-            createSkyscraper(-95, -10, 26, 50, 52, buildingGoldTex);
-            createSkyscraper(95, -10, 26, 50, 56, buildingCyanTex);
-            createSkyscraper(-95, 65, 28, 32, 45, buildingRoseTex);
-            createSkyscraper(95, 65, 28, 32, 50, buildingGoldTex);
+            // Perimeter Skyscraper Walls
+            createSkyscraper(-105, -10, 28, 55, 56, buildingGoldTex);
+            createSkyscraper(105, -10, 28, 55, 60, buildingCyanTex);
+            createSkyscraper(-105, 70, 30, 35, 48, buildingRoseTex);
+            createSkyscraper(105, 70, 30, 35, 52, buildingGoldTex);
 
-            createSkyscraper(-18, -90, 42, 24, 54, buildingCyanTex, 'PRITHVI VULKAN');
-            createSkyscraper(26, -90, 36, 24, 62, buildingRoseTex);
-            createSkyscraper(-18, 90, 42, 24, 48, buildingGoldTex);
-            createSkyscraper(26, 90, 36, 24, 55, buildingCyanTex);
+            createSkyscraper(-20, -100, 45, 26, 58, buildingCyanTex, 'PRITHVI VULKAN');
+            createSkyscraper(30, -100, 38, 26, 65, buildingRoseTex);
+            createSkyscraper(-20, 100, 45, 26, 52, buildingGoldTex);
+            createSkyscraper(30, 100, 38, 26, 60, buildingCyanTex);
 
-            // Skybridge
+            // High-Altitude Skybridge connecting central towers
             const bridge = new THREE.Mesh(
-                new THREE.BoxGeometry(42, 4, 7),
+                new THREE.BoxGeometry(45, 4.5, 8),
                 new THREE.MeshStandardMaterial({ color: 0x1e293b, metalness: 0.9, roughness: 0.3 })
             );
-            bridge.position.set(0, 26, -52);
+            bridge.position.set(0, 28, -55);
             bridge.castShadow = true;
             bridge.receiveShadow = true;
             scene.add(bridge);
             collidableObjects.push(bridge);
 
-            // Streetlamps
+            // Walkway Ramp / Stairs for Ground to Elevated Walkway
+            const ramp = new THREE.Mesh(
+                new THREE.BoxGeometry(7, 0.5, 24),
+                new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.8, roughness: 0.4 })
+            );
+            ramp.rotation.x = -0.3;
+            ramp.position.set(-18, 3.5, -28);
+            scene.add(ramp);
+            collidableObjects.push(ramp);
+
+            // Streetlamps with volumetric spotlights
             function createStreetLamp(x, z) {
                 const pole = new THREE.Mesh(
-                    new THREE.CylinderGeometry(0.18, 0.22, 9, 8),
+                    new THREE.CylinderGeometry(0.18, 0.24, 9, 8),
                     new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.9 })
                 );
                 pole.position.set(x, 4.5, z);
@@ -696,7 +790,7 @@
                 scene.add(pole);
                 collidableObjects.push(pole);
 
-                const spot = new THREE.SpotLight(0x00e5ff, 3.0, 30, Math.PI / 4, 0.35);
+                const spot = new THREE.SpotLight(0x00e5ff, 3.2, 35, Math.PI / 4, 0.35);
                 spot.position.set(x + 2, 8.8, z);
                 spot.target.position.set(x + 2, 0, z);
                 scene.add(spot);
@@ -714,12 +808,12 @@
             createStreetLamp(-26, 0);
             createStreetLamp(26, 0);
 
-            // Hovercars
+            // Detailed Hovercars & Military Interceptors
             function createHoverCar(x, z, rotY = 0, color = 0x0284c7) {
                 const car = new THREE.Group();
                 const body = new THREE.Mesh(
-                    new THREE.BoxGeometry(4.0, 1.2, 7.8),
-                    new THREE.MeshStandardMaterial({ color: color, metalness: 0.88, roughness: 0.18 })
+                    new THREE.BoxGeometry(4.2, 1.3, 8.2),
+                    new THREE.MeshStandardMaterial({ color: color, metalness: 0.9, roughness: 0.15 })
                 );
                 body.position.y = 1.0;
                 body.castShadow = true;
@@ -727,25 +821,25 @@
                 car.add(body);
 
                 const cabin = new THREE.Mesh(
-                    new THREE.BoxGeometry(3.0, 1.0, 4.2),
+                    new THREE.BoxGeometry(3.2, 1.1, 4.4),
                     new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.95, roughness: 0.1 })
                 );
-                cabin.position.set(0, 2.0, -0.5);
+                cabin.position.set(0, 2.1, -0.5);
                 car.add(cabin);
 
-                // Lights
+                // LED Headlights & Taillights
                 const hlMat = new THREE.MeshBasicMaterial({ color: 0x00e5ff });
-                const hl1 = new THREE.Mesh(new THREE.BoxGeometry(0.7, 0.25, 0.1), hlMat);
-                hl1.position.set(-1.2, 1.0, -3.91);
+                const hl1 = new THREE.Mesh(new THREE.BoxGeometry(0.8, 0.25, 0.1), hlMat);
+                hl1.position.set(-1.3, 1.0, -4.11);
                 const hl2 = hl1.clone();
-                hl2.position.x = 1.2;
+                hl2.position.x = 1.3;
                 car.add(hl1); car.add(hl2);
 
                 const tlMat = new THREE.MeshBasicMaterial({ color: 0xf43f5e });
-                const tl1 = new THREE.Mesh(new THREE.BoxGeometry(0.9, 0.25, 0.1), tlMat);
-                tl1.position.set(-1.2, 1.1, 3.91);
+                const tl1 = new THREE.Mesh(new THREE.BoxGeometry(1.0, 0.25, 0.1), tlMat);
+                tl1.position.set(-1.3, 1.1, 4.11);
                 const tl2 = tl1.clone();
-                tl2.position.x = 1.2;
+                tl2.position.x = 1.3;
                 car.add(tl1); car.add(tl2);
 
                 car.position.set(x, 0, z);
@@ -759,7 +853,25 @@
             createHoverCar(14, -38, 0, 0x10b981);
             createHoverCar(-16, 42, Math.PI, 0xf59e0b);
 
-            // Explosive Barrels
+            // Concrete Jersey Road Barriers
+            function createJerseyBarrier(x, z, rotY = 0) {
+                const jGeo = new THREE.BoxGeometry(5.0, 1.4, 0.9);
+                const jMat = new THREE.MeshStandardMaterial({ color: 0x334155, metalness: 0.6, roughness: 0.4 });
+                const jMesh = new THREE.Mesh(jGeo, jMat);
+                jMesh.position.set(x, 0.7, z);
+                jMesh.rotation.y = rotY;
+                jMesh.castShadow = true;
+                jMesh.receiveShadow = true;
+                scene.add(jMesh);
+                collidableObjects.push(jMesh);
+            }
+
+            createJerseyBarrier(-6, -10, 0);
+            createJerseyBarrier(6, -10, 0);
+            createJerseyBarrier(-6, 10, 0);
+            createJerseyBarrier(6, 10, 0);
+
+            // Explosive Red Barrels
             function createExplosiveBarrel(x, z) {
                 const geo = new THREE.CylinderGeometry(0.85, 0.85, 2.4, 16);
                 const mat = new THREE.MeshStandardMaterial({ color: 0xef4444, metalness: 0.85, roughness: 0.2 });
@@ -788,7 +900,41 @@
             createExplosiveBarrel(0, -35);
             createExplosiveBarrel(0, 35);
 
-            // Boundary Walls
+            // Steam Exhaust Vents from Manholes
+            function createSteamVent(x, z) {
+                const grate = new THREE.Mesh(
+                    new THREE.CylinderGeometry(1.2, 1.2, 0.1, 16),
+                    new THREE.MeshStandardMaterial({ color: 0x0f172a, metalness: 0.9 })
+                );
+                grate.position.set(x, 0.05, z);
+                scene.add(grate);
+
+                for (let i = 0; i < 8; i++) {
+                    const p = new THREE.Mesh(
+                        new THREE.SphereGeometry(0.35 + Math.random() * 0.4, 8, 8),
+                        new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.35 })
+                    );
+                    p.position.set(x + (Math.random() - 0.5) * 0.8, 0.5 + Math.random() * 4, z + (Math.random() - 0.5) * 0.8);
+                    scene.add(p);
+                    steamParticles.push({ mesh: p, originX: x, originZ: z, speed: 1.5 + Math.random() * 2 });
+                }
+            }
+
+            createSteamVent(-12, -4);
+            createSteamVent(12, 8);
+
+            // Flying Sky Vehicles in background
+            for (let i = 0; i < 4; i++) {
+                const sv = new THREE.Mesh(
+                    new THREE.BoxGeometry(6, 1.2, 12),
+                    new THREE.MeshBasicMaterial({ color: i % 2 === 0 ? 0x00e5ff : 0xf59e0b })
+                );
+                sv.position.set(-140 + i * 80, 40 + i * 8, -140 + i * 70);
+                scene.add(sv);
+                skyVehicles.push({ mesh: sv, speed: 20 + i * 8 });
+            }
+
+            // Boundary Security Walls
             const wallMat = new THREE.MeshStandardMaterial({ color: 0x0f172a, roughness: 0.5, metalness: 0.7 });
             const wallNeon = new THREE.MeshBasicMaterial({ color: 0x00e5ff });
             function createBoundary(x, z, w, d, h) {
@@ -804,10 +950,10 @@
                 scene.add(strip);
             }
 
-            createBoundary(0, -130, 260, 3, 18);
-            createBoundary(0, 130, 260, 3, 18);
-            createBoundary(-130, 0, 3, 260, 18);
-            createBoundary(130, 0, 3, 260, 18);
+            createBoundary(0, -140, 280, 3, 20);
+            createBoundary(0, 140, 280, 3, 20);
+            createBoundary(-140, 0, 3, 280, 20);
+            createBoundary(140, 0, 3, 280, 20);
         }
 
         buildMap('neo-delhi');
@@ -850,7 +996,7 @@
                 damage: 38,
                 fireRate: 105,
                 magSize: 30,
-                reserveMax: 180,
+                reserveMax: 999, // Infinite tactical reserve
                 recoilKick: 0.045,
                 recoilRot: 0.055,
                 spread: 0.012,
@@ -866,7 +1012,7 @@
                 damage: 160,
                 fireRate: 850,
                 magSize: 5,
-                reserveMax: 30,
+                reserveMax: 999,
                 recoilKick: 0.14,
                 recoilRot: 0.20,
                 spread: 0.001,
@@ -882,7 +1028,7 @@
                 damage: 24,
                 fireRate: 460,
                 magSize: 8,
-                reserveMax: 48,
+                reserveMax: 999,
                 recoilKick: 0.10,
                 recoilRot: 0.14,
                 spread: 0.065,
@@ -894,9 +1040,9 @@
 
         let currentWeaponIndex = 0;
         let ammoState = [
-            { mag: 30, reserve: 180 },
-            { mag: 5, reserve: 30 },
-            { mag: 8, reserve: 48 }
+            { mag: 30, reserve: 999 },
+            { mag: 5, reserve: 999 },
+            { mag: 8, reserve: 999 }
         ];
 
         const weaponModels = [];
@@ -947,7 +1093,7 @@
 
             const reticle = new THREE.Mesh(
                 new THREE.PlaneGeometry(0.058, 0.058),
-                new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.7, side: THREE.DoubleSide })
+                new THREE.MeshBasicMaterial({ color: 0x00e5ff, transparent: true, opacity: 0.75, side: THREE.DoubleSide })
             );
             reticle.position.set(0, 0.13, -0.145);
             ak.add(reticle);
@@ -1042,7 +1188,7 @@
         buildDetailedWeapons();
 
         function switchWeapon(index) {
-            if (index === currentWeaponIndex || isReloading) return;
+            if (isReloading) return;
             currentWeaponIndex = index;
             playSound('reload');
 
@@ -1058,9 +1204,9 @@
             [1, 2, 3].forEach(slot => {
                 const badge = document.getElementById(`slot-${slot}-badge`);
                 if (slot === index + 1) {
-                    badge.className = "px-2 py-0.5 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold border border-cyan-500/40";
+                    badge.className = "px-2 py-0.5 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold border border-cyan-500/40 cursor-pointer";
                 } else {
-                    badge.className = "px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60";
+                    badge.className = "px-2 py-0.5 rounded-lg bg-slate-800/40 border border-slate-800 opacity-60 cursor-pointer hover:opacity-100";
                 }
             });
 
@@ -1070,24 +1216,66 @@
         function updateAmmoHUD() {
             const w = ammoState[currentWeaponIndex];
             document.getElementById('ammo-mag').textContent = w.mag;
-            document.getElementById('ammo-reserve').textContent = `/ ${w.reserve}`;
-            const prompt = document.getElementById('reload-prompt');
-            if (w.mag === 0) prompt.classList.remove('hidden');
-            else prompt.classList.add('hidden');
+            document.getElementById('ammo-reserve').textContent = `/ ∞ RESERVE`;
         }
 
-        // --- 7. PLAYER CONTROLS & FLUID KINEMATICS ---
+        // --- 7. RELOAD MECHANISM (100% RELIABLE) ---
+        let isReloading = false;
+
+        function manualReloadTrigger() {
+            reloadWeapon();
+        }
+
+        function reloadWeapon() {
+            const w = ammoState[currentWeaponIndex];
+            const cfg = WEAPONS[currentWeaponIndex];
+            if (isReloading || w.mag === cfg.magSize) return;
+
+            isReloading = true;
+            playSound('reload');
+
+            const progressContainer = document.getElementById('reload-progress-container');
+            const barFill = document.getElementById('reload-bar-fill');
+            const percentText = document.getElementById('reload-percent');
+
+            progressContainer.classList.remove('hidden');
+            barFill.style.width = '0%';
+            percentText.textContent = '0%';
+
+            // Lower weapon and tilt for realistic magazine reload animation
+            weaponPivot.rotation.x = 0.45;
+            weaponPivot.position.y = -0.18;
+
+            const duration = 1000; // 1.0s fast tactical reload
+            const startTime = performance.now();
+
+            const interval = setInterval(() => {
+                const elapsed = performance.now() - startTime;
+                const progress = Math.min(1, elapsed / duration);
+                barFill.style.width = `${Math.round(progress * 100)}%`;
+                percentText.textContent = `${Math.round(progress * 100)}%`;
+
+                if (progress >= 1) {
+                    clearInterval(interval);
+                    w.mag = cfg.magSize;
+                    isReloading = false;
+                    progressContainer.classList.add('hidden');
+                    updateAmmoHUD();
+                }
+            }, 25);
+        }
+
+        // --- 8. PLAYER CONTROLS & FLUID KINEMATICS ---
         const keys = {};
         let isPointerLocked = false;
         let isADS = false;
-        let isReloading = false;
         let isSprinting = false;
         let isCrouching = false;
         let isSliding = false;
         let slideTimer = 0;
 
         let playerVelocity = new THREE.Vector3();
-        let moveVelocity = new THREE.Vector2(); // For fluid acceleration/friction
+        let moveVelocity = new THREE.Vector2();
         let playerOnGround = true;
         let playerHealth = 100;
         let playerShield = 100;
@@ -1108,7 +1296,12 @@
             if (e.code === 'Digit1') switchWeapon(0);
             if (e.code === 'Digit2') switchWeapon(1);
             if (e.code === 'Digit3') switchWeapon(2);
-            if (e.code === 'KeyR') reloadWeapon();
+            
+            // Reload trigger (KeyR or 'r' or 'R')
+            if (e.code === 'KeyR' || e.key === 'r' || e.key === 'R') {
+                reloadWeapon();
+            }
+
             if (e.code === 'ShiftLeft') isSprinting = true;
             
             // Tactical Slide / Crouch
@@ -1117,7 +1310,7 @@
                 targetEyeHeight = CROUCH_HEIGHT;
                 if (isSprinting && playerOnGround && !isSliding) {
                     isSliding = true;
-                    slideTimer = 0.6; // 0.6s slide duration boost
+                    slideTimer = 0.6;
                     playSound('footstep');
                 }
             }
@@ -1203,7 +1396,7 @@
 
         window.addEventListener('contextmenu', (e) => e.preventDefault());
 
-        // --- 8. BALLISTICS & SHOOTING ENGINE ---
+        // --- 9. BALLISTICS & SHOOTING ENGINE ---
         const raycaster = new THREE.Raycaster();
 
         function shootWeapon() {
@@ -1308,33 +1501,7 @@
             bulletCasings.push(casing);
         }
 
-        function reloadWeapon() {
-            const w = ammoState[currentWeaponIndex];
-            const cfg = WEAPONS[currentWeaponIndex];
-            if (isReloading || w.mag === cfg.magSize || w.reserve <= 0) return;
-
-            isReloading = true;
-            playSound('reload');
-            const prompt = document.getElementById('reload-prompt');
-            prompt.textContent = "RELOADING...";
-            prompt.classList.remove('hidden');
-
-            weaponPivot.rotation.x = 0.45;
-            weaponPivot.position.y = -0.15;
-
-            setTimeout(() => {
-                const needed = cfg.magSize - w.mag;
-                const available = Math.min(needed, w.reserve);
-                w.mag += available;
-                w.reserve -= available;
-                isReloading = false;
-                prompt.textContent = "[R] RELOAD";
-                prompt.classList.add('hidden');
-                updateAmmoHUD();
-            }, 1200);
-        }
-
-        // --- 9. TRACERS, SPARKS & EXPLOSIONS ---
+        // --- 10. TRACERS, SPARKS & EXPLOSIONS ---
         function createTracerBeam(start, end, colorHex) {
             const lineMat = new THREE.LineBasicMaterial({ color: colorHex, linewidth: 2 });
             const lineGeo = new THREE.BufferGeometry().setFromPoints([start, end]);
@@ -1464,7 +1631,7 @@
             document.getElementById('hud-score').textContent = String(combatScore).padStart(6, '0');
         }
 
-        // --- 10. AI ENEMY DRONES & PHYSICAL SHATTER ---
+        // --- 11. AI ENEMY DRONES & PHYSICAL SHATTER ---
         const enemies = [];
         const enemyProjectiles = [];
 
@@ -1565,9 +1732,9 @@
             spawnSentinel(Math.cos(angle) * 40, Math.sin(angle) * 40);
         }
 
-        // --- 11. DAMAGE & VITAL STATUS ---
+        // --- 12. DAMAGE & VITAL STATUS ---
         function takeDamage(amt) {
-            if (!isPointerLocked) return; // Do not take damage while paused!
+            if (!isPointerLocked) return;
             
             if (playerShield > 0) {
                 playerShield -= amt;
@@ -1612,7 +1779,7 @@
             }
         }, 1000);
 
-        // --- 12. RADAR MINIMAP ---
+        // --- 13. RADAR MINIMAP ---
         const radarCanvas = document.getElementById('radar-canvas');
         const radarCtx = radarCanvas.getContext('2d');
 
@@ -1656,7 +1823,7 @@
             });
         }
 
-        // --- 13. MAIN ANIMATION LOOP (144 FPS COMPOSITOR) ---
+        // --- 14. MAIN ANIMATION LOOP (144 FPS COMPOSITOR) ---
         let prevTime = performance.now();
         let frameCount = 0;
         let lastFpsUpdate = 0;
@@ -1675,9 +1842,26 @@
                 lastFpsUpdate = time;
             }
 
-            // Only update active game simulation when pointer is locked!
+            // Animate Steam Particles
+            steamParticles.forEach(sp => {
+                sp.mesh.position.y += sp.speed * delta;
+                sp.mesh.scale.setScalar(1 + (sp.mesh.position.y * 0.25));
+                if (sp.mesh.position.y > 6.5) {
+                    sp.mesh.position.y = 0.5;
+                    sp.mesh.position.x = sp.originX + (Math.random() - 0.5) * 0.8;
+                    sp.mesh.position.z = sp.originZ + (Math.random() - 0.5) * 0.8;
+                    sp.mesh.scale.set(1, 1, 1);
+                }
+            });
+
+            // Animate Sky Traffic
+            skyVehicles.forEach(sv => {
+                sv.mesh.position.x += sv.speed * delta;
+                if (sv.mesh.position.x > 180) sv.mesh.position.x = -180;
+            });
+
+            // Only update active player & game simulation when pointer is locked!
             if (isPointerLocked) {
-                // Tactical Slide countdown
                 if (isSliding) {
                     slideTimer -= delta;
                     if (slideTimer <= 0) isSliding = false;
@@ -1685,7 +1869,6 @@
 
                 const baseSpeed = isSliding ? 20.0 : (isSprinting ? 15.5 : (isCrouching ? 5.0 : 8.8));
                 
-                // Kinematic Acceleration & Friction
                 const targetMove = new THREE.Vector2();
                 if (keys['KeyW']) targetMove.y -= 1;
                 if (keys['KeyS']) targetMove.y += 1;
@@ -1717,7 +1900,6 @@
 
                 if (camera.position.y <= targetEyeHeight && playerVelocity.y <= 0) {
                     if (!playerOnGround) {
-                        // Landing Impact Dip
                         landingDip = 0.12;
                         playSound('footstep');
                     }
@@ -1751,11 +1933,9 @@
                 const bobX = Math.sin(time * 0.001 * bobFreq) * bobAmp;
                 const bobY = Math.cos(time * 0.002 * bobFreq) * bobAmp;
 
-                // Decay mouse delta for rotational inertia
                 mouseDeltaX *= 0.82;
                 mouseDeltaY *= 0.82;
 
-                // Low-ready pose when sprinting
                 const sprintTilt = (isSprinting && isMoving && !isADS) ? 0.35 : 0;
 
                 const targetWeaponX = isADS ? 0.0 : 0.24 + bobX - mouseDeltaX;
@@ -1766,16 +1946,17 @@
                 weaponPivot.position.y += (targetWeaponY - weaponPivot.position.y) * 0.18;
                 weaponPivot.position.z += (targetWeaponZ - weaponPivot.position.z) * 0.18;
                 
-                // Rotational Sway into turns
                 const targetRotZ = -mouseDeltaX * 1.5;
                 weaponPivot.rotation.z += (targetRotZ - weaponPivot.rotation.z) * 0.15;
-                weaponPivot.rotation.x += (sprintTilt - weaponPivot.rotation.x) * 0.15;
+                if (!isReloading) {
+                    weaponPivot.rotation.x += (sprintTilt - weaponPivot.rotation.x) * 0.15;
+                }
 
                 const targetFOV = isADS ? (currentWeaponIndex === 1 ? 30 : 48) : 75;
                 camera.fov += (targetFOV - camera.fov) * 0.22;
                 camera.updateProjectionMatrix();
 
-                // AI Sentinels Update (Only active during combat!)
+                // AI Sentinels Update
                 enemies.forEach(e => {
                     e.mesh.position.y = 5 + Math.sin(time * 0.002 + e.hoverSeed) * 1.5;
                     e.mesh.lookAt(camera.position);
