@@ -714,9 +714,109 @@
             box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
         }
 
+    
+        /* =========================================================================
+           REACT BITS <GlassSurface /> ADVANCED CHROMATIC DISPLACEMENT ARCHITECTURE
+           ========================================================================= */
+        .glass-surface-svg-filter {
+            position: absolute;
+            width: 0;
+            height: 0;
+            pointer-events: none;
+            opacity: 0;
+            z-index: -1;
+        }
+
+        .glass-surface,
+        .horizon-taskbar-liquid,
+        .ultra-liquid-glass,
+        .glass-dock-tile,
+        .glass-tray-capsule,
+        .desktop-widget {
+            position: relative;
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(28px) saturate(220%) brightness(1.15);
+            -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.15);
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            box-shadow:
+                0 0 2px 1px rgba(255, 255, 255, 0.5) inset,
+                0 0 12px 3px rgba(255, 255, 255, 0.15) inset,
+                0px 4px 16px rgba(17, 17, 26, 0.25),
+                0px 8px 28px rgba(17, 17, 26, 0.3),
+                0px 16px 56px rgba(17, 17, 26, 0.4),
+                0px 4px 16px rgba(255, 255, 255, 0.2) inset,
+                0px 8px 24px rgba(255, 255, 255, 0.1) inset;
+        }
+
+        .light .glass-surface,
+        .light .horizon-taskbar-liquid,
+        .light .ultra-liquid-glass,
+        .light .glass-dock-tile,
+        .light .glass-tray-capsule,
+        .light .desktop-widget {
+            background: rgba(255, 255, 255, 0.78);
+            border: 1.5px solid rgba(255, 255, 255, 0.95);
+            box-shadow:
+                0 0 2px 1px rgba(255, 255, 255, 0.9) inset,
+                0 0 10px 4px rgba(255, 255, 255, 0.4) inset,
+                0px 4px 16px rgba(17, 17, 26, 0.08),
+                0px 8px 24px rgba(17, 17, 26, 0.08),
+                0px 16px 56px rgba(17, 17, 26, 0.08),
+                0px 4px 16px rgba(255, 255, 255, 0.6) inset;
+        }
+
+        /* 3D Glass Dock Tiles with Prismatic Refraction */
+        .glass-dock-tile {
+            width: 48px;
+            height: 48px;
+            margin: 0 4px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.7) !important;
+            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
+            box-shadow:
+                inset 0 2px 3px rgba(255, 255, 255, 0.9),
+                inset 0 -2px 3px rgba(0, 0, 0, 0.4),
+                0 8px 20px rgba(0, 0, 0, 0.35),
+                0 0 15px rgba(255, 255, 255, 0.15) !important;
+        }
+
+        .glass-dock-tile:hover {
+            transform: translateY(-10px) scale(1.26);
+            border-color: rgba(255, 255, 255, 1) !important;
+            box-shadow:
+                inset 0 3px 5px rgba(255, 255, 255, 1),
+                0 16px 36px rgba(0, 0, 0, 0.6),
+                0 0 28px rgba(0, 229, 255, 0.7) !important;
+            z-index: 20;
+        }
+
     </style>
 </head>
 <body class="wall-ladakh-ai select-none">
+
+    <!-- REACT BITS SVG CHROMATIC DISPLACEMENT FILTER -->
+    <svg class="glass-surface-svg-filter" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+            <filter id="glass-surface-filter" color-interpolation-filters="sRGB" x="-20%" y="-20%" width="140%" height="140%">
+                <feImage id="fe-glass-displacement-map" x="0" y="0" width="100%" height="100%" preserveAspectRatio="none" result="map" />
+                <feDisplacementMap in="SourceGraphic" in2="map" scale="-120" xChannelSelector="R" yChannelSelector="G" result="dispRed" />
+                <feColorMatrix in="dispRed" type="matrix" values="1 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 1 0" result="red" />
+                <feDisplacementMap in="SourceGraphic" in2="map" scale="-110" xChannelSelector="R" yChannelSelector="G" result="dispGreen" />
+                <feColorMatrix in="dispGreen" type="matrix" values="0 0 0 0 0  0 1 0 0 0  0 0 0 0 0  0 0 0 1 0" result="green" />
+                <feDisplacementMap in="SourceGraphic" in2="map" scale="-100" xChannelSelector="R" yChannelSelector="G" result="dispBlue" />
+                <feColorMatrix in="dispBlue" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 1 0 0  0 0 0 1 0" result="blue" />
+                <feBlend in="red" in2="green" mode="screen" result="rg" />
+                <feBlend in="rg" in2="blue" mode="screen" result="output" />
+                <feGaussianBlur in="output" stdDeviation="0.6" />
+            </filter>
+        </defs>
+    </svg>
+
 
     <!-- SHUTDOWN & REBOOT OVERLAY -->
     <div id="power-overlay">
