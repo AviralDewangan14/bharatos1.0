@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SOLARIS: CYBER FORGE 3D — Master Three.js Urban Warfare</title>
+    <title>SOLARIS: CYBER FORGE 3D — Ultra-Immersive Tactical FPS</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&family=Orbitron:wght@600;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -996,7 +996,7 @@
                 damage: 38,
                 fireRate: 105,
                 magSize: 30,
-                reserveMax: 999, // Infinite tactical reserve
+                reserveMax: 999,
                 recoilKick: 0.045,
                 recoilRot: 0.055,
                 spread: 0.012,
@@ -1242,11 +1242,10 @@
             barFill.style.width = '0%';
             percentText.textContent = '0%';
 
-            // Lower weapon and tilt for realistic magazine reload animation
             weaponPivot.rotation.x = 0.45;
             weaponPivot.position.y = -0.18;
 
-            const duration = 1000; // 1.0s fast tactical reload
+            const duration = 1000;
             const startTime = performance.now();
 
             const interval = setInterval(() => {
@@ -1297,14 +1296,12 @@
             if (e.code === 'Digit2') switchWeapon(1);
             if (e.code === 'Digit3') switchWeapon(2);
             
-            // Reload trigger (KeyR or 'r' or 'R')
             if (e.code === 'KeyR' || e.key === 'r' || e.key === 'R') {
                 reloadWeapon();
             }
 
             if (e.code === 'ShiftLeft') isSprinting = true;
             
-            // Tactical Slide / Crouch
             if (e.code === 'KeyC' || e.code === 'ControlLeft') {
                 isCrouching = true;
                 targetEyeHeight = CROUCH_HEIGHT;
@@ -1339,7 +1336,7 @@
 
             camera.rotation.y = yaw;
             camera.rotation.x = pitch;
-            camera.rotation.z = 0; // Pure 0 roll for upright posture
+            camera.rotation.z = 0;
         });
 
         // Pointerlock Management (No Auto-Resume)
@@ -1558,7 +1555,6 @@
             const cIdx = collidableObjects.indexOf(barrel);
             if (cIdx >= 0) collidableObjects.splice(cIdx, 1);
 
-            // 45 Particle Volumetric Fireball
             const count = 45;
             const pGeo = new THREE.BufferGeometry();
             const positions = [];
@@ -1578,7 +1574,6 @@
             const pMesh = new THREE.Points(pGeo, pMat);
             scene.add(pMesh);
 
-            // Camera Shake
             camera.position.x += (Math.random() - 0.5) * 0.3;
             camera.position.y += (Math.random() - 0.5) * 0.3;
 
