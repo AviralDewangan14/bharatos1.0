@@ -417,26 +417,37 @@
             animation: shield-float 3s ease-in-out infinite;
         }
 
-        .window-open-genie { animation: app-expand 0.42s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-        .window-minimize-genie { animation: app-collapse 0.3s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards; }
+        /* ULTRA-SMOOTH APPLE OS 26/27 FLUID SPRING ANIMATIONS */
+        .window-open-genie { 
+            animation: app-expand 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
+            transform-origin: center center;
+        }
+        .window-minimize-genie { 
+            animation: app-collapse 0.24s cubic-bezier(0.32, 0, 0.67, 0) forwards; 
+            transform-origin: center center;
+        }
 
         @keyframes app-expand {
-            0% { transform: scale(0.08) translateY(60px); opacity: 0; filter: blur(14px); }
-            70% { transform: scale(1.02) translateY(-4px); opacity: 0.95; filter: blur(0); }
+            0% { transform: scale(0.88) translateY(24px); opacity: 0; filter: blur(12px); }
+            70% { transform: scale(1.01) translateY(-2px); opacity: 0.98; filter: blur(0); }
             100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
         }
 
         @keyframes app-collapse {
             0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-            100% { transform: scale(0.05) translateY(80px); opacity: 0; filter: blur(16px); }
+            100% { transform: scale(0.82) translateY(45px); opacity: 0; filter: blur(14px); }
         }
 
         .window-maximized {
-            top: 48px !important;
-            left: 16px !important;
-            width: calc(100vw - 32px) !important;
-            height: calc(100vh - 104px) !important;
-            border-radius: 20px !important;
+            top: 36px !important;
+            left: 0px !important;
+            width: 100vw !important;
+            height: calc(100vh - 84px) !important;
+            border-radius: 0px !important;
+            transform: none !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35) !important;
+            border-left: none !important;
+            border-right: none !important;
         }
 
         .horizon-taskbar {
@@ -594,15 +605,26 @@
                     <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
                 </div>
 
-                <div id="lock-pin-alert" class="w-full text-center px-3 py-1.5 rounded-xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden">
-                    ⚠️ Invalid PIN! Security Enclave Guarded.
+                <div id="lock-pin-alert" class="w-full text-center px-3 py-2 rounded-2xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden space-y-0.5">
+                    <div id="lock-pin-alert-msg">⚠️ Security Alert: Invalid PIN Attempt</div>
+                    <div id="lock-attempts-left" class="text-[9px] opacity-80">Failed Attempt: 1 / 3 (Recorded in Enclave)</div>
                 </div>
 
-                <div class="w-full space-y-2">
+                <div id="lockout-cooldown-box" class="w-full text-center px-3 py-2.5 rounded-2xl bg-amber-500/20 border border-amber-500/50 text-amber-400 text-[11px] font-mono font-bold hidden space-y-1">
+                    <div>🔒 ENCLAVE HARDWARE LOCKDOWN</div>
+                    <div class="text-[10px] opacity-90">Too many failed attempts. Try again in: <span id="lockout-seconds" class="text-white font-bold">30</span>s</div>
+                </div>
+
+                <div class="w-full space-y-2" id="lock-input-container">
                     <input id="lock-pin-input" type="password" placeholder="Enter PIN" maxlength="8" class="w-full px-4 py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-700 text-center font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-300 focus:outline-none focus:border-cyan-400" onkeydown="if(event.key==='Enter') unlockDesktop()">
-                    <button onclick="unlockDesktop()" class="w-full py-2.5 rounded-xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen hover:opacity-95 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95">
-                        🔓 Authenticate & Enter Enclave
-                    </button>
+                    <div class="grid grid-cols-2 gap-2">
+                        <button onclick="unlockDesktop()" class="py-2.5 rounded-xl bg-gradient-to-r from-saffron via-amber-500 to-indiaGreen hover:opacity-95 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95">
+                            🔓 PIN Unlock
+                        </button>
+                        <button onclick="unlockDesktopBiometric()" class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-600 dark:text-emerald-400 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 hover:bg-emerald-500/30 flex items-center justify-center space-x-1">
+                            <span>☸️</span><span>Touch ID</span>
+                        </button>
+                    </div>
                 </div>
 
                 <div class="flex items-center space-x-2 text-[10px] font-mono opacity-70 pt-1">
@@ -791,7 +813,7 @@
             <div id="browser-window" class="absolute top-4 left-16 w-[980px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <!-- Browser Title & Tabs Bar -->
-                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'browser-window')">
+                <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'browser-window')" ondblclick="toggleMaximizeWindow('browser-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('browser-window', 'dock-browser')" title="Close">
@@ -896,7 +918,7 @@
             <div id="code-window" class="absolute top-4 left-20 w-[960px] h-[570px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <!-- IDE Titlebar -->
-                <div class="px-4 py-2 bg-slate-100/90 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'code-window')">
+                <div class="px-4 py-2 bg-slate-100/90 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'code-window')" ondblclick="toggleMaximizeWindow('code-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('code-window', 'dock-code')" title="Close">
@@ -988,7 +1010,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                  ========================================================================= -->
             <div id="files-window" class="absolute top-4 left-24 w-[920px] h-[550px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')">
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'files-window')" ondblclick="toggleMaximizeWindow('files-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('files-window', 'dock-files')" title="Close">
@@ -1086,7 +1108,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             <div id="kavach-window" class="absolute top-6 left-24 w-[980px] h-[600px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
                 <!-- Titlebar -->
-                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')">
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'kavach-window')" ondblclick="toggleMaximizeWindow('kavach-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('kavach-window', 'dock-defender')" title="Close">
@@ -1450,7 +1472,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                  ========================================================================= -->
             <div id="terminal-window" class="absolute top-10 left-36 w-[820px] h-[500px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/90 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')">
+                <div class="px-5 py-2.5 bg-slate-100/90 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'terminal-window')" ondblclick="toggleMaximizeWindow('terminal-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('terminal-window', 'dock-terminal')" title="Close">
@@ -1487,7 +1509,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                  ========================================================================= -->
             <div id="settings-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
                 <div class="specular-glow"></div>
-                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')">
+                <div class="px-5 py-2.5 bg-slate-100/70 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'settings-window')" ondblclick="toggleMaximizeWindow('settings-window')">
                     <div class="flex items-center space-x-3">
                         <div class="window-controls-capsule">
                             <span class="action-circle circle-close" onclick="closeAppWindow('settings-window', 'dock-settings')" title="Close">
@@ -1746,6 +1768,40 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         </footer>
     </div>
 
+    <!-- =========================================================================
+         SOVEREIGN UAC (USER ACCOUNT CONTROL) SECURITY GATE MODAL
+         ========================================================================= -->
+    <div id="uac-security-modal" class="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-md hidden window-open-genie">
+        <div class="w-[460px] p-6 rounded-3xl ultra-liquid-glass border-2 border-emerald-500/60 shadow-2xl space-y-4 font-mono text-xs">
+            <div class="flex items-center space-x-3">
+                <div class="w-12 h-12 rounded-2xl bg-emerald-950/80 border border-emerald-500/60 flex items-center justify-center text-3xl shadow-lg">
+                    🛡️
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white">BharatOS Sovereign Security Gate</h3>
+                    <p class="text-[10px] text-emerald-500 font-bold uppercase tracking-wider">Zero-Trust Ring-0 Verification</p>
+                </div>
+            </div>
+            <div class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 space-y-1.5 text-[11px]">
+                <div class="text-slate-800 dark:text-slate-200">Do you want to allow this verified sovereign binary to make changes to Ring-0 Protected Memory?</div>
+                <div class="font-bold text-cyan-600 dark:text-cyan-300" id="uac-app-name">Program: BharatOS System Diagnostic (cmd.exe)</div>
+                <div class="text-[10px] opacity-70">Verified Publisher: Bharat Electronics / Sovereign Microkernel Core</div>
+                <div class="text-[10px] text-emerald-500 font-bold">✓ SHA-256 Silicon Signature Validated</div>
+            </div>
+            <div class="flex space-x-2 pt-1">
+                <button onclick="handleUACDecision(true)" class="flex-1 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-bold text-xs shadow-md hover:opacity-90 active:scale-95">
+                    ✓ Allow & Authenticate
+                </button>
+                <button onclick="handleUACDecision(false)" class="flex-1 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-800 dark:text-slate-200 font-bold text-xs hover:bg-slate-300 dark:hover:bg-slate-700 active:scale-95">
+                    ✕ Deny & Block
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECURITY TOAST NOTIFICATION CONTAINER -->
+    <div id="security-toast-container" class="fixed top-12 right-6 z-50 space-y-2 pointer-events-none"></div>
+
     <!-- Master Scripts -->
     <script>
         let audioCtx = null;
@@ -1960,20 +2016,32 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
         loadUserProfile();
 
-        // Lock Screen Authentication
+        // Lock Screen Authentication & Enclave Guard
+        let failedPinAttempts = 0;
+        let isLockoutActive = false;
+
         function unlockDesktop() {
+            if (isLockoutActive) return;
             const pinInput = document.getElementById('lock-pin-input');
             const alertBox = document.getElementById('lock-pin-alert');
+            const alertMsg = document.getElementById('lock-pin-alert-msg');
+            const attemptsLeft = document.getElementById('lock-attempts-left');
             const enteredPin = pinInput ? pinInput.value.trim() : '';
 
             if (enteredPin === userProfile.pin || enteredPin === '2026') {
                 playSfx('unlock');
+                failedPinAttempts = 0;
                 if (alertBox) alertBox.classList.add('hidden');
                 const lockEl = document.getElementById('lock-screen');
                 if (lockEl) lockEl.classList.add('unlocked');
+                showSecurityToast('🛡️ Secure Enclave: Authentication Successful. Zero-Trust Ring-0 Active.', 'success');
             } else {
+                failedPinAttempts++;
                 playSfx('error');
                 if (alertBox) alertBox.classList.remove('hidden');
+                if (alertMsg) alertMsg.textContent = '⚠️ Invalid PIN! Security Enclave Guarded.';
+                if (attemptsLeft) attemptsLeft.textContent = `Failed Attempt: ${failedPinAttempts} / 3 (Enclave Audit Event)`;
+                
                 if (pinInput) {
                     pinInput.value = '';
                     pinInput.classList.add('shake-error', 'border-rose-500');
@@ -1982,7 +2050,59 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         pinInput.focus();
                     }, 450);
                 }
+
+                if (failedPinAttempts >= 3) {
+                    triggerEnclaveLockdown();
+                }
             }
+        }
+
+        function unlockDesktopBiometric() {
+            if (isLockoutActive) return;
+            playSfx('click');
+            const alertBox = document.getElementById('lock-pin-alert');
+            const alertMsg = document.getElementById('lock-pin-alert-msg');
+            if (alertBox) alertBox.classList.remove('hidden');
+            if (alertMsg) alertMsg.textContent = '☸️ Scanning Chakra Biometrics & Neural Face Pattern...';
+            
+            setTimeout(() => {
+                playSfx('unlock');
+                failedPinAttempts = 0;
+                if (alertBox) alertBox.classList.add('hidden');
+                const lockEl = document.getElementById('lock-screen');
+                if (lockEl) lockEl.classList.add('unlocked');
+                showSecurityToast('🛡️ Biometric Touch ID Authenticated with Ring-0 Enclave', 'success');
+            }, 650);
+        }
+
+        function triggerEnclaveLockdown() {
+            isLockoutActive = true;
+            playSfx('error');
+            const alertBox = document.getElementById('lock-pin-alert');
+            const cooldownBox = document.getElementById('lockout-cooldown-box');
+            const inputContainer = document.getElementById('lock-input-container');
+            const secSpan = document.getElementById('lockout-seconds');
+            
+            if (alertBox) alertBox.classList.add('hidden');
+            if (cooldownBox) cooldownBox.classList.remove('hidden');
+            if (inputContainer) inputContainer.classList.add('opacity-40', 'pointer-events-none');
+            
+            let remaining = 30;
+            if (secSpan) secSpan.textContent = remaining;
+            
+            const interval = setInterval(() => {
+                remaining--;
+                if (secSpan) secSpan.textContent = remaining;
+                if (remaining <= 0) {
+                    clearInterval(interval);
+                    isLockoutActive = false;
+                    failedPinAttempts = 0;
+                    if (cooldownBox) cooldownBox.classList.add('hidden');
+                    if (inputContainer) inputContainer.classList.remove('opacity-40', 'pointer-events-none');
+                    const pin = document.getElementById('lock-pin-input');
+                    if (pin) pin.focus();
+                }
+            }, 1000);
         }
 
         function lockDesktop() {
@@ -2497,7 +2617,7 @@ vulkano = "0.34"`
         function openKeybindingsModal() { playSfx('open'); document.getElementById('shortcuts-modal').classList.remove('hidden'); }
         function closeKeybindingsModal() { playSfx('close'); document.getElementById('shortcuts-modal').classList.add('hidden'); }
 
-        // Window Controls
+        // Window Controls & Full Screen Architecture
         let highestZ = 30;
         function openAppWindow(winId, dockBtnId) {
             playSfx('open');
@@ -2517,6 +2637,9 @@ vulkano = "0.34"`
             win.classList.add('window-open-genie');
             highestZ++;
             win.style.zIndex = highestZ;
+
+            // Highlight dock icon
+            if (dockBtn) dockBtn.classList.add('bg-cyan-500/20', 'border-b-2', 'border-cyan-500');
         }
 
         function closeAppWindow(winId, dockBtnId) {
@@ -2531,14 +2654,18 @@ vulkano = "0.34"`
                 const originX = (btnRect.left + btnRect.width / 2) - winRect.left;
                 const originY = (btnRect.top + btnRect.height / 2) - winRect.top;
                 win.style.transformOrigin = `${originX}px ${originY}px`;
+                dockBtn.classList.remove('bg-cyan-500/20', 'border-b-2', 'border-cyan-500');
             }
 
             win.classList.remove('window-open-genie');
             win.classList.add('window-minimize-genie');
-            setTimeout(() => win.classList.add('hidden'), 280);
+            setTimeout(() => win.classList.add('hidden'), 240);
         }
 
-        function minimizeAppWindow(winId, dockBtnId) { playSfx('minimize'); closeAppWindow(winId, dockBtnId); }
+        function minimizeAppWindow(winId, dockBtnId) { 
+            playSfx('minimize'); 
+            closeAppWindow(winId, dockBtnId); 
+        }
 
         function toggleWindowFromDock(winId, dockBtnId) {
             const el = document.getElementById(winId);
@@ -2549,7 +2676,76 @@ vulkano = "0.34"`
         function toggleMaximizeWindow(winId) {
             playSfx('click');
             const el = document.getElementById(winId);
-            if (el) el.classList.toggle('window-maximized');
+            if (!el) return;
+
+            const isMax = el.classList.contains('window-maximized');
+            if (!isMax) {
+                // Save current position and bounds
+                el.dataset.prevLeft = el.style.left || `${el.offsetLeft}px`;
+                el.dataset.prevTop = el.style.top || `${el.offsetTop}px`;
+                el.dataset.prevWidth = el.style.width || `${el.offsetWidth}px`;
+                el.dataset.prevHeight = el.style.height || `${el.offsetHeight}px`;
+
+                el.style.left = '0px';
+                el.style.top = '36px';
+                el.style.width = '100vw';
+                el.style.height = 'calc(100vh - 84px)';
+                el.style.transform = 'none';
+                el.classList.add('window-maximized');
+                showSecurityToast(`🔲 Full Screen Activated: ${winId.replace('-window', '').toUpperCase()}`, 'info');
+            } else {
+                el.classList.remove('window-maximized');
+                el.style.left = el.dataset.prevLeft || '60px';
+                el.style.top = el.dataset.prevTop || '40px';
+                el.style.width = el.dataset.prevWidth || '';
+                el.style.height = el.dataset.prevHeight || '';
+                el.style.transform = 'none';
+            }
+        }
+
+        // Sovereign UAC (User Account Control) Permission Gate
+        let pendingUACCallback = null;
+        function triggerUACGate(programName, callback) {
+            playSfx('notify');
+            pendingUACCallback = callback;
+            const modal = document.getElementById('uac-security-modal');
+            const nameEl = document.getElementById('uac-app-name');
+            if (nameEl) nameEl.textContent = `Program: ${programName}`;
+            if (modal) modal.classList.remove('hidden');
+        }
+
+        function handleUACDecision(allowed) {
+            playSfx(allowed ? 'unlock' : 'close');
+            const modal = document.getElementById('uac-security-modal');
+            if (modal) modal.classList.add('hidden');
+            if (allowed) {
+                showSecurityToast('🛡️ Ring-0 Kernel Access Granted to Process', 'success');
+                if (pendingUACCallback) pendingUACCallback(true);
+            } else {
+                showSecurityToast('⛔ Process Execution Blocked by Sovereign Gate', 'error');
+                if (pendingUACCallback) pendingUACCallback(false);
+            }
+            pendingUACCallback = null;
+        }
+
+        function showSecurityToast(message, type = 'info') {
+            const container = document.getElementById('security-toast-container');
+            if (!container) return;
+            
+            const toast = document.createElement('div');
+            const borderCol = type === 'error' ? 'border-rose-500/60' : (type === 'success' ? 'border-emerald-500/60' : 'border-cyan-500/60');
+            const bgCol = type === 'error' ? 'bg-rose-950/85' : (type === 'success' ? 'bg-emerald-950/85' : 'bg-slate-950/85');
+            const textCol = type === 'error' ? 'text-rose-200' : (type === 'success' ? 'text-emerald-200' : 'text-cyan-200');
+            
+            toast.className = `px-4 py-3 rounded-2xl ultra-liquid-glass ${borderCol} ${bgCol} ${textCol} text-xs font-mono shadow-2xl flex items-center space-x-2.5 pointer-events-auto window-open-genie`;
+            toast.innerHTML = `<span>${type === 'error' ? '⛔' : (type === 'success' ? '🛡️' : '🔔')}</span><span class="font-bold">${message}</span>`;
+            
+            container.appendChild(toast);
+            setTimeout(() => {
+                toast.classList.remove('window-open-genie');
+                toast.classList.add('window-minimize-genie');
+                setTimeout(() => toast.remove(), 260);
+            }, 3800);
         }
 
         let activeDrag = null;
