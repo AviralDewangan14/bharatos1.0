@@ -417,40 +417,79 @@
             animation: shield-float 3s ease-in-out infinite;
         }
 
-        /* ULTRA-SMOOTH APPLE OS 26/27 FLUID SPRING ANIMATIONS */
+        /* =========================================================================
+           REVOLUTIONARY LIQUID GLASS SPRING & MORPH ANIMATIONS (VISIONOS / APPLE 26)
+           ========================================================================= */
         .window-open-genie { 
-            animation: app-expand 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards; 
-            transform-origin: center center;
+            animation: revolutionary-open 0.32s cubic-bezier(0.19, 1, 0.22, 1) forwards !important; 
+            transform-origin: center center !important;
+            will-change: transform, opacity, filter;
         }
+
         .window-minimize-genie { 
-            animation: app-collapse 0.24s cubic-bezier(0.32, 0, 0.67, 0) forwards; 
-            transform-origin: center center;
+            animation: revolutionary-close 0.22s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; 
+            transform-origin: center center !important;
+            pointer-events: none !important;
+            will-change: transform, opacity, filter;
         }
 
-        @keyframes app-expand {
-            0% { transform: scale(0.88) translateY(24px); opacity: 0; filter: blur(12px); }
-            70% { transform: scale(1.01) translateY(-2px); opacity: 0.98; filter: blur(0); }
-            100% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
+        @keyframes revolutionary-open {
+            0% {
+                transform: scale(0.78) translateY(36px) perspective(1000px) rotateX(4deg);
+                opacity: 0;
+                filter: blur(20px) brightness(1.3);
+            }
+            65% {
+                transform: scale(1.018) translateY(-4px) perspective(1000px) rotateX(-1deg);
+                opacity: 0.98;
+                filter: blur(0px) brightness(1.05);
+            }
+            85% {
+                transform: scale(0.995) translateY(1px);
+            }
+            100% {
+                transform: scale(1) translateY(0) rotateX(0deg);
+                opacity: 1;
+                filter: blur(0px) brightness(1);
+            }
         }
 
-        @keyframes app-collapse {
-            0% { transform: scale(1) translateY(0); opacity: 1; filter: blur(0); }
-            100% { transform: scale(0.82) translateY(45px); opacity: 0; filter: blur(14px); }
+        @keyframes revolutionary-close {
+            0% {
+                transform: scale(1) translateY(0);
+                opacity: 1;
+                filter: blur(0px);
+            }
+            30% {
+                transform: scale(0.98) translateY(-4px);
+                opacity: 0.95;
+                filter: blur(1px);
+            }
+            100% {
+                transform: scale(0.72) translateY(55px) perspective(1000px) rotateX(-8deg);
+                opacity: 0;
+                filter: blur(22px) brightness(0.7);
+            }
+        }
+
+        /* REVOLUTIONARY MAXIMIZED FLUID MORPH */
+        .ultra-liquid-glass {
+            transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1), height 0.32s cubic-bezier(0.16, 1, 0.3, 1), left 0.32s cubic-bezier(0.16, 1, 0.3, 1), top 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .window-maximized {
             position: fixed !important;
-            top: 0px !important;
-            left: 0px !important;
-            width: 100vw !important;
-            height: calc(100vh - 48px) !important;
+            top: 42px !important;
+            left: 14px !important;
+            right: 14px !important;
+            width: calc(100vw - 28px) !important;
+            height: calc(100vh - 124px) !important;
             max-width: 100vw !important;
-            max-height: calc(100vh - 48px) !important;
-            border-radius: 0px !important;
-            transform: none !important;
+            max-height: 100vh !important;
+            border-radius: 28px !important;
             margin: 0 !important;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
-            border: none !important;
+            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 229, 255, 0.25) !important;
+            border: 2px solid rgba(0, 229, 255, 0.5) !important;
             z-index: 9999 !important;
         }
 
@@ -3767,29 +3806,25 @@ vulkano = "0.34"`
         function openKeybindingsModal() { playSfx('open'); document.getElementById('shortcuts-modal').classList.remove('hidden'); }
         function closeKeybindingsModal() { playSfx('close'); document.getElementById('shortcuts-modal').classList.add('hidden'); }
 
-        // Window Controls & Full Screen Architecture
+        // =========================================================================
+        // REVOLUTIONARY WINDOW MANAGER & RESPONSIVE DOCK ENGINE
+        // =========================================================================
+
         let highestZ = 30;
+
         function openAppWindow(winId, dockBtnId) {
             playSfx('open');
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
 
-            if (dockBtn) {
-                const btnRect = dockBtn.getBoundingClientRect();
-                const winRect = win.getBoundingClientRect();
-                const originX = (btnRect.left + btnRect.width / 2) - winRect.left;
-                const originY = (btnRect.top + btnRect.height / 2) - winRect.top;
-                win.style.transformOrigin = `${originX}px ${originY}px`;
-            }
-
             win.classList.remove('hidden', 'window-minimize-genie');
             win.classList.add('window-open-genie');
-            highestZ++;
+            highestZ += 2;
             win.style.zIndex = highestZ;
 
-            // Highlight dock icon
-            if (dockBtn) dockBtn.classList.add('bg-cyan-500/20', 'border-b-2', 'border-cyan-500');
+            // Highlight dock icon with glowing cyan running dot
+            if (dockBtn) dockBtn.classList.add('app-running');
         }
 
         function closeAppWindow(winId, dockBtnId) {
@@ -3798,18 +3833,16 @@ vulkano = "0.34"`
             const dockBtn = document.getElementById(dockBtnId);
             if (!win) return;
 
-            if (dockBtn) {
-                const btnRect = dockBtn.getBoundingClientRect();
-                const winRect = win.getBoundingClientRect();
-                const originX = (btnRect.left + btnRect.width / 2) - winRect.left;
-                const originY = (btnRect.top + btnRect.height / 2) - winRect.top;
-                win.style.transformOrigin = `${originX}px ${originY}px`;
-                dockBtn.classList.remove('bg-cyan-500/20', 'border-b-2', 'border-cyan-500');
-            }
-
             win.classList.remove('window-open-genie');
             win.classList.add('window-minimize-genie');
-            setTimeout(() => win.classList.add('hidden'), 240);
+
+            if (dockBtn) dockBtn.classList.remove('app-running');
+
+            setTimeout(() => {
+                if (win.classList.contains('window-minimize-genie')) {
+                    win.classList.add('hidden');
+                }
+            }, 210);
         }
 
         function minimizeAppWindow(winId, dockBtnId) { 
@@ -3818,9 +3851,32 @@ vulkano = "0.34"`
         }
 
         function toggleWindowFromDock(winId, dockBtnId) {
-            const el = document.getElementById(winId);
-            if (el && !el.classList.contains('hidden')) minimizeAppWindow(winId, dockBtnId);
-            else openAppWindow(winId, dockBtnId);
+            const win = document.getElementById(winId);
+            const dockBtn = document.getElementById(dockBtnId);
+            if (!win) return;
+
+            const isHidden = win.classList.contains('hidden');
+            const isMinimizing = win.classList.contains('window-minimize-genie');
+
+            if (isHidden || isMinimizing) {
+                // If closed or minimizing, open immediately
+                openAppWindow(winId, dockBtnId);
+            } else {
+                // If already open, check if it's top-most
+                const currentZ = parseInt(win.style.zIndex || '0');
+                if (currentZ >= highestZ) {
+                    // It's in front, minimize it
+                    minimizeAppWindow(winId, dockBtnId);
+                } else {
+                    // Bring to front with focus spring
+                    highestZ += 2;
+                    win.style.zIndex = highestZ;
+                    playSfx('click');
+                    win.classList.remove('window-open-genie');
+                    void win.offsetWidth; // Trigger reflow for spring
+                    win.classList.add('window-open-genie');
+                }
+            }
         }
 
         function toggleMaximizeWindow(winId) {
@@ -3843,7 +3899,8 @@ vulkano = "0.34"`
                 el.style.removeProperty('transform');
                 
                 el.classList.add('window-maximized');
-                el.style.zIndex = String(++highestZ + 500);
+                highestZ += 2;
+                el.style.zIndex = String(highestZ + 500);
                 showSecurityToast(`🔲 Full Screen: ${winId.replace('-window', '').toUpperCase()}`, 'info');
             } else {
                 el.classList.remove('window-maximized');
@@ -3852,7 +3909,8 @@ vulkano = "0.34"`
                 el.style.top = el.dataset.prevTop || '40px';
                 el.style.width = el.dataset.prevWidth || '';
                 el.style.height = el.dataset.prevHeight || '';
-                el.style.zIndex = String(++highestZ);
+                highestZ += 2;
+                el.style.zIndex = String(highestZ);
             }
         }
 
