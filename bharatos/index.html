@@ -937,6 +937,70 @@
         .bg-grad-obsidian { background: linear-gradient(hsl(220, 30%, 25%), hsl(220, 40%, 15%)); }
         .bg-grad-titanium { background: linear-gradient(hsl(215, 20%, 55%), hsl(215, 25%, 35%)); }
 
+    
+        /* =========================================================================
+           CRISP HIGH-CONTRAST READABLE WINDOWS & ZERO-LATENCY CLICKABLE ICONS
+           ========================================================================= */
+        .icon-btn {
+            pointer-events: auto !important;
+            cursor: pointer !important;
+            z-index: 20 !important;
+        }
+
+        .icon-btn__back,
+        .icon-btn__front,
+        .icon-btn__icon,
+        .icon-btn__label {
+            pointer-events: none !important;
+        }
+
+        /* High-Contrast Crisp Readable Glass Windows (No Washed Out Transparency) */
+        .ultra-liquid-glass {
+            background: rgba(10, 16, 30, 0.93) !important;
+            backdrop-filter: blur(40px) saturate(200%) brightness(1.05) !important;
+            -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.05) !important;
+            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
+            color: #ffffff !important;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
+        }
+
+        .light .ultra-liquid-glass {
+            background: rgba(255, 255, 255, 0.96) !important;
+            border: 1.5px solid rgba(203, 213, 225, 0.85) !important;
+            color: #0f172a !important;
+            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), inset 0 1.5px 2px rgba(255, 255, 255, 1) !important;
+        }
+
+        /* Ensure all window viewport areas are completely solid and readable */
+        #browser-viewport,
+        #code-editor-container,
+        #vfs-file-grid,
+        #kavach-tab-content,
+        #network-tab-content,
+        #dev-details-pane,
+        #custom-tab-content {
+            background-color: rgba(15, 23, 42, 0.95) !important;
+            color: #f1f5f9 !important;
+        }
+
+        .light #browser-viewport,
+        .light #code-editor-container,
+        .light #vfs-file-grid,
+        .light #kavach-tab-content,
+        .light #network-tab-content,
+        .light #dev-details-pane,
+        .light #custom-tab-content {
+            background-color: #ffffff !important;
+            color: #0f172a !important;
+        }
+
+        /* Fluid glass background canvas strictly in background */
+        #fluid-glass-canvas {
+            z-index: 0 !important;
+            opacity: 0.65 !important;
+            pointer-events: none !important;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
