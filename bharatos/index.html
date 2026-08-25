@@ -439,15 +439,19 @@
         }
 
         .window-maximized {
-            top: 36px !important;
+            position: fixed !important;
+            top: 0px !important;
             left: 0px !important;
             width: 100vw !important;
-            height: calc(100vh - 84px) !important;
+            height: calc(100vh - 48px) !important;
+            max-width: 100vw !important;
+            max-height: calc(100vh - 48px) !important;
             border-radius: 0px !important;
             transform: none !important;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.35) !important;
-            border-left: none !important;
-            border-right: none !important;
+            margin: 0 !important;
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5) !important;
+            border: none !important;
+            z-index: 9999 !important;
         }
 
         .horizon-taskbar {
@@ -828,19 +832,29 @@
                         </div>
 
                         <!-- Browser Tabs -->
+                        <!-- Browser Tabs -->
                         <div class="flex items-center space-x-1">
-                            <div class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-cyan-600 dark:text-cyan-300 shadow-sm">
-                                <span>🌐</span><span>Garud Start Hub</span>
-                            </div>
-                            <div class="flex items-center space-x-2 px-3 py-1 rounded-xl opacity-60 hover:opacity-100 text-xs cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">
+                            <button onclick="navigateBrowserUrl('https://www.google.com')" class="flex items-center space-x-2 px-3 py-1 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs font-bold text-blue-500 shadow-sm" id="tab-btn-google">
+                                <span class="font-extrabold text-sm"><span class="text-blue-500">G</span><span class="text-rose-500">o</span><span class="text-amber-400">o</span><span class="text-blue-500">g</span><span class="text-emerald-500">l</span><span class="text-rose-500">e</span></span>
+                            </button>
+                            <button onclick="navigateBrowserUrl('https://garud.sovereign.in')" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl opacity-70 hover:opacity-100 text-xs font-bold" id="tab-btn-garud">
+                                <span>🦅</span><span>Garud Hub</span>
+                            </button>
+                            <button onclick="navigateBrowserUrl('https://isro.gov.in')" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl opacity-70 hover:opacity-100 text-xs cursor-pointer">
                                 <span>🛰️</span><span>ISRO Space</span>
-                            </div>
-                            <button onclick="playSfx('click')" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xs opacity-70 hover:opacity-100 font-bold">+</button>
+                            </button>
+                            <button onclick="navigateBrowserUrl('http://localhost:5678/game')" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl opacity-70 hover:opacity-100 text-xs text-rose-400 font-bold">
+                                <span>🎮</span><span>Solaris 3D FPS</span>
+                            </button>
+                            <button onclick="playSfx('click'); navigateBrowserUrl('https://www.google.com');" class="w-6 h-6 rounded-lg bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xs opacity-70 hover:opacity-100 font-bold" title="New Google Tab">+</button>
                         </div>
                     </div>
 
-                    <div class="flex items-center space-x-2 text-[11px] font-mono text-emerald-500 font-bold">
-                        <span>🛡️ Zero Trackers</span>
+                    <div class="flex items-center space-x-3 text-[11px] font-mono font-bold">
+                        <span class="text-emerald-500">🛡️ Kavach Web Shield</span>
+                        <a id="btn-open-external-browser" href="https://www.google.com" target="_blank" class="px-2 py-0.5 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-cyan-600 dark:text-cyan-300 transition-all" title="Open in Native Browser Tab">
+                            ↗ External Tab
+                        </a>
                     </div>
                 </div>
 
@@ -854,61 +868,21 @@
 
                     <div class="flex-1 flex items-center px-3 py-1.5 rounded-xl bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 space-x-2 shadow-inner">
                         <span class="text-emerald-500 text-xs">🔒</span>
-                        <input id="browser-url-input" type="text" value="https://garud.sovereign.in" class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-cyan-600 dark:text-cyan-300" onkeydown="if(event.key==='Enter') executeBrowserSearch(this.value)">
-                        <button onclick="executeBrowserSearch(document.getElementById('browser-url-input').value)" class="text-xs text-saffron font-bold">Go ➔</button>
+                        <input id="browser-url-input" type="text" value="https://www.google.com" placeholder="Search Google or enter URL (e.g. Three.js FPS, google.com)..." class="flex-1 bg-transparent border-none outline-none font-mono text-xs text-slate-900 dark:text-white" onkeydown="if(event.key==='Enter') executeBrowserSearch(this.value)">
+                        <button onclick="executeBrowserSearch(document.getElementById('browser-url-input').value)" class="px-2.5 py-1 rounded-lg bg-blue-500 hover:bg-blue-400 text-white text-xs font-bold transition-all shadow-sm">Search</button>
                     </div>
 
                     <div class="flex items-center space-x-1">
+                        <button onclick="navigateBrowserUrl('https://www.google.com')" class="px-2 py-1 rounded-lg bg-blue-500/20 text-blue-500 dark:text-blue-400 font-bold text-[10px]">Google</button>
+                        <button onclick="navigateBrowserUrl('http://localhost:5678/game')" class="px-2 py-1 rounded-lg bg-rose-500/20 text-rose-500 font-bold text-[10px]">🎮 3D FPS</button>
                         <button onclick="navigateBrowserUrl('https://isro.gov.in')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🛰️ ISRO</button>
-                        <button onclick="navigateBrowserUrl('https://github.com/sovereign')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">💻 GitHub</button>
-                        <button onclick="navigateBrowserUrl('https://ai.bharat.in')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">🤖 AI Hub</button>
+                        <button onclick="navigateBrowserUrl('https://github.com')" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 text-[10px]">💻 GitHub</button>
                     </div>
                 </div>
 
                 <!-- Browser Web Viewport -->
-                <div id="browser-viewport" class="flex-1 bg-white dark:bg-slate-950 p-6 custom-scroll overflow-y-auto font-sans">
-                    <!-- Default Garud Start Page -->
-                    <div id="browser-page-home" class="max-w-3xl mx-auto space-y-6 text-center pt-8">
-                        <div class="flex flex-col items-center space-y-2">
-                            <span class="text-6xl">🦅</span>
-                            <h2 class="text-2xl font-extrabold tracking-wide">Garud Sovereign Web</h2>
-                            <p class="text-xs text-slate-400 font-mono">Fast • Zero-Tracking • Quantum DNS Protection</p>
-                        </div>
-
-                        <!-- Browser Search Box -->
-                        <div class="flex items-center px-5 py-3 rounded-2xl bg-slate-100 dark:bg-slate-900 border-2 border-cyan-500/50 shadow-xl space-x-3 text-left">
-                            <span class="text-lg">🔍</span>
-                            <input id="garud-search-box" type="text" placeholder="Search Sovereign Web, research papers, ISRO telemetry or enter URL..." class="flex-1 bg-transparent border-none outline-none font-sans text-sm" onkeydown="if(event.key==='Enter') executeGarudSearch(this.value)">
-                            <button onclick="executeGarudSearch(document.getElementById('garud-search-box').value)" class="px-4 py-1.5 rounded-xl bg-gradient-to-r from-saffron to-indiaGreen text-slate-950 font-bold text-xs">Search</button>
-                        </div>
-
-                        <!-- Quick Speed Dials -->
-                        <div class="grid grid-cols-4 gap-4 text-xs font-mono pt-4">
-                            <div onclick="navigateBrowserUrl('https://isro.gov.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
-                                <span class="text-3xl">🛰️</span>
-                                <div class="font-bold">ISRO Telemetry</div>
-                                <div class="text-[10px] opacity-60">Gaganyaan Mission</div>
-                            </div>
-                            <div onclick="navigateBrowserUrl('https://ai.bharat.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
-                                <span class="text-3xl">🧠</span>
-                                <div class="font-bold">Indic AI Models</div>
-                                <div class="text-[10px] opacity-60">22 Scheduled Languages</div>
-                            </div>
-                            <div onclick="navigateBrowserUrl('https://github.com/sovereign')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
-                                <span class="text-3xl">📦</span>
-                                <div class="font-bold">Sovereign Git</div>
-                                <div class="text-[10px] opacity-60">Rust & Vulkan Repos</div>
-                            </div>
-                            <div onclick="navigateBrowserUrl('https://ddnews.gov.in')" class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-2 shadow-sm">
-                                <span class="text-3xl">📰</span>
-                                <div class="font-bold">National Dispatch</div>
-                                <div class="text-[10px] opacity-60">Live News & Feeds</div>
-                            </div>
-                        </div>
-
-                        <!-- Dynamic Search Results Container -->
-                        <div id="browser-search-results" class="text-left space-y-3 pt-4 hidden"></div>
-                    </div>
+                <div id="browser-viewport" class="flex-1 bg-white dark:bg-slate-950 p-6 custom-scroll overflow-y-auto font-sans relative">
+                    <!-- Dynamic Web Content Injected Here -->
                 </div>
             </div>
 
@@ -2104,6 +2078,9 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <span>⚡ 94%</span>
                 </button>
 
+                <button onclick="toggleNativeBrowserFullscreen()" class="p-1.5 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 text-cyan-500 font-mono text-[11px] hover:bg-slate-300 dark:hover:bg-slate-800 transition-all font-bold" title="Toggle Fullscreen Display (F11)">
+                    ⛶ Fullscreen
+                </button>
                 <div id="ist-clock" class="font-mono text-cyan-600 dark:text-cyan-300 font-bold px-3 py-1 rounded-xl bg-slate-200/90 dark:bg-slate-950/90 border border-slate-300 dark:border-slate-800 text-xs">
                     --:--:-- IST
                 </div>
@@ -2497,127 +2474,301 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         }
 
         // =========================================================================
-        // GARUD SOVEREIGN WEB BROWSER ENGINE
+        // GARUD SOVEREIGN WEB BROWSER & GOOGLE SEARCH ENGINE
         // =========================================================================
+        function renderGoogleHome() {
+            const viewport = document.getElementById('browser-viewport');
+            const input = document.getElementById('browser-url-input');
+            if (input) input.value = 'https://www.google.com';
+            const extBtn = document.getElementById('btn-open-external-browser');
+            if (extBtn) extBtn.href = 'https://www.google.com';
+
+            if (!viewport) return;
+            viewport.innerHTML = `
+            <div class="max-w-2xl mx-auto space-y-7 text-center pt-10 font-sans">
+                <!-- Google Multi-Color Logo -->
+                <div class="flex items-center justify-center space-x-0.5 select-none pt-4">
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-blue-500">G</span>
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-rose-500">o</span>
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-amber-400">o</span>
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-blue-500">g</span>
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-emerald-500">l</span>
+                    <span class="text-6xl md:text-7xl font-extrabold tracking-tighter text-rose-500">e</span>
+                </div>
+
+                <!-- Google Search Bar -->
+                <div class="relative max-w-xl mx-auto">
+                    <div class="flex items-center px-4 py-3 rounded-full bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 shadow-md hover:shadow-xl focus-within:shadow-xl focus-within:border-blue-500 transition-all space-x-3 text-left">
+                        <span class="text-slate-400 text-sm">🔍</span>
+                        <input id="google-search-input" type="text" placeholder="Search Google or type a URL..." class="flex-1 bg-transparent border-none outline-none font-sans text-sm text-slate-900 dark:text-white" onkeydown="if(event.key==='Enter') executeGoogleSearch(this.value)" autofocus>
+                        <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value)" class="text-slate-400 hover:text-blue-500 text-base" title="Voice Search">🎙️</button>
+                        <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value)" class="text-slate-400 hover:text-blue-500 text-base" title="Google Lens">📷</button>
+                    </div>
+                </div>
+
+                <!-- Search Buttons -->
+                <div class="flex items-center justify-center space-x-3 text-xs pt-1">
+                    <button onclick="executeGoogleSearch(document.getElementById('google-search-input').value || 'Three.js 3D FPS Game')" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">Google Search</button>
+                    <button onclick="navigateBrowserUrl('http://localhost:5678/game')" class="px-4 py-2 rounded-lg bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-medium transition-all shadow-sm">I'm Feeling Lucky 🎮</button>
+                </div>
+
+                <!-- Google Languages -->
+                <div class="text-xs text-slate-500 pt-2 space-x-1.5">
+                    <span>Google offered in:</span>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('भारत समाचार')" class="text-blue-600 dark:text-blue-400 hover:underline">हिन्दी</a>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('বাংলা সংবাদ')" class="text-blue-600 dark:text-blue-400 hover:underline">বাংলা</a>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('తెలుగు వార్తలు')" class="text-blue-600 dark:text-blue-400 hover:underline">తెలుగు</a>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('मराठी बातम्या')" class="text-blue-600 dark:text-blue-400 hover:underline">मराठी</a>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('தமிழ் செய்திகள்')" class="text-blue-600 dark:text-blue-400 hover:underline">தமிழ்</a>
+                    <a href="javascript:void(0)" onclick="executeGoogleSearch('ગુજરાતી સમાચાર')" class="text-blue-600 dark:text-blue-400 hover:underline">ગુજરાતી</a>
+                </div>
+
+                <!-- Quick Speed Dials -->
+                <div class="grid grid-cols-4 gap-3 text-xs font-mono pt-6">
+                    <div onclick="navigateBrowserUrl('http://localhost:5678/game')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
+                        <span class="text-2xl">🎮</span>
+                        <div class="font-bold text-slate-900 dark:text-white">Solaris 3D FPS</div>
+                        <div class="text-[10px] text-rose-500 font-semibold">Three.js Engine</div>
+                    </div>
+                    <div onclick="navigateBrowserUrl('https://isro.gov.in')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
+                        <span class="text-2xl">🛰️</span>
+                        <div class="font-bold text-slate-900 dark:text-white">ISRO Space</div>
+                        <div class="text-[10px] opacity-60">Gaganyaan Hub</div>
+                    </div>
+                    <div onclick="navigateBrowserUrl('https://github.com')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
+                        <span class="text-2xl">💻</span>
+                        <div class="font-bold text-slate-900 dark:text-white">GitHub</div>
+                        <div class="text-[10px] opacity-60">Open Source</div>
+                    </div>
+                    <div onclick="navigateBrowserUrl('https://ai.bharat.in')" class="p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:scale-105 transition-all cursor-pointer space-y-1 shadow-sm">
+                        <span class="text-2xl">🧠</span>
+                        <div class="font-bold text-slate-900 dark:text-white">Indic AI</div>
+                        <div class="text-[10px] opacity-60">22 Languages</div>
+                    </div>
+                </div>
+            </div>`;
+        }
+
+        function executeGoogleSearch(query) {
+            if (!query || !query.trim()) query = 'Three.js 3D FPS Game';
+            playSfx('click');
+            const q = query.trim();
+            const searchUrl = `https://www.google.com/search?q=${encodeURIComponent(q)}`;
+            
+            const input = document.getElementById('browser-url-input');
+            if (input) input.value = searchUrl;
+            const extBtn = document.getElementById('btn-open-external-browser');
+            if (extBtn) extBtn.href = searchUrl;
+
+            const viewport = document.getElementById('browser-viewport');
+            if (!viewport) return;
+
+            // Generate authentic Google Search Engine results page
+            viewport.innerHTML = `
+            <div class="max-w-4xl mx-auto space-y-5 font-sans">
+                <!-- Google Search Header Bar -->
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-200 dark:border-slate-800 pb-3">
+                    <div class="flex items-center space-x-3">
+                        <span onclick="renderGoogleHome()" class="font-extrabold text-xl tracking-tight cursor-pointer select-none">
+                            <span class="text-blue-500">G</span><span class="text-rose-500">o</span><span class="text-amber-400">o</span><span class="text-blue-500">g</span><span class="text-emerald-500">l</span><span class="text-rose-500">e</span>
+                        </span>
+                        <div class="flex items-center px-3 py-1 rounded-full bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 text-xs w-72">
+                            <input id="google-res-input" type="text" value="${q}" class="flex-1 bg-transparent border-none outline-none font-sans" onkeydown="if(event.key==='Enter') executeGoogleSearch(this.value)">
+                            <button onclick="executeGoogleSearch(document.getElementById('google-res-input').value)" class="text-blue-500 font-bold ml-2">🔍</button>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-2">
+                        <a href="${searchUrl}" target="_blank" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold transition-all shadow flex items-center space-x-1">
+                            <span>↗</span><span>Open on Live Google.com</span>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Google Search Filter Tabs -->
+                <div class="flex items-center space-x-6 text-xs text-slate-500 border-b border-slate-200 dark:border-slate-800 pb-2">
+                    <span class="text-blue-600 dark:text-blue-400 font-bold border-b-2 border-blue-500 pb-2 flex items-center space-x-1"><span>🔍</span><span>All</span></span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">🖼️ Images</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">📹 Videos</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">📰 News</span>
+                    <span class="hover:text-slate-800 dark:hover:text-slate-200 cursor-pointer">🗺️ Maps</span>
+                </div>
+
+                <div class="text-xs text-slate-400">About 1,840,000 results (0.28 seconds)</div>
+
+                <!-- AI Overview / Knowledge Panel -->
+                <div class="p-5 rounded-2xl bg-gradient-to-r from-blue-50/80 to-indigo-50/60 dark:from-slate-900/90 dark:to-blue-950/40 border border-blue-200 dark:border-blue-500/30 space-y-2.5 shadow-sm">
+                    <div class="flex items-center space-x-2 text-xs font-bold text-blue-600 dark:text-blue-400">
+                        <span>✨</span><span>Google AI Overview • Knowledge Snapshot</span>
+                    </div>
+                    <p class="text-sm text-slate-800 dark:text-slate-200 leading-relaxed">
+                        Top results for <strong>"${q}"</strong>: Accelerated with BharatOS Quantum DNS and GPU frame pacer. Access direct interactive simulations, technical documentation, and sovereign knowledge bases below.
+                    </p>
+                </div>
+
+                <!-- Organic Search Results -->
+                <div class="space-y-6 pt-2">
+                    <!-- Result 1 -->
+                    <div class="space-y-1">
+                        <div class="text-xs text-slate-500 truncate">https://solaris.bharatos.in › cyber-forge-3d-fps</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('http://localhost:5678/game')">
+                            🎮 Solaris 3D FPS — WebGL Three.js First-Person Shooter Simulator
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Play the full-immersion 3D browser FPS game featuring 3 weapon classes (Plasma Rifle, Railgun, Scattergun), autonomous AI sentinel drones, Web Audio API sound synthesis, and real-time radar minimap.
+                        </p>
+                        <div class="pt-1 flex items-center space-x-2 text-xs">
+                            <span class="px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 font-bold text-[10px]">✓ Playable in 144 FPS</span>
+                            <span class="px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-600 dark:text-cyan-400 font-bold text-[10px]">Three.js WebGL</span>
+                        </div>
+                    </div>
+
+                    <!-- Result 2 -->
+                    <div class="space-y-1">
+                        <div class="text-xs text-slate-500 truncate">https://isro.gov.in › gaganyaan-mission-telemetry</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">
+                            ISRO — Gaganyaan Human Spaceflight Mission Official Telemetry
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Official Indian Space Research Organisation mission portal. Track the orbital trajectory, HLVM3 rocket stages, CE-20 cryogenic engine status, and crew escape qualification modules.
+                        </p>
+                    </div>
+
+                    <!-- Result 3 -->
+                    <div class="space-y-1">
+                        <div class="text-xs text-slate-500 truncate">https://github.com › sovereign › bharat-os</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://github.com')">
+                            GitHub — BharatOS Quantum Microkernel & Prithvi Vulkan Compositor
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Open-source repository containing the pure Rust 64-bit kernel, hardware enclave memory models, and zero-telemetry defense layers.
+                        </p>
+                    </div>
+
+                    <!-- Result 4 -->
+                    <div class="space-y-1">
+                        <div class="text-xs text-slate-500 truncate">https://threejs.org › docs › games › fps-controls</div>
+                        <h3 class="text-lg font-bold text-blue-600 dark:text-blue-400 hover:underline cursor-pointer" onclick="navigateBrowserUrl('http://localhost:5678/game')">
+                            Three.js Official Documentation & WebGL 3D Games Architecture
+                        </h3>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+                            Complete reference for PointerLockControls, perspective projection, shadow map rendering, dynamic lighting, and spatial audio synthesis in modern web browsers.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Related Searches -->
+                <div class="pt-4 border-t border-slate-200 dark:border-slate-800 space-y-2">
+                    <div class="font-bold text-xs text-slate-700 dark:text-slate-300">Related Searches:</div>
+                    <div class="flex flex-wrap gap-2 text-xs">
+                        <button onclick="executeGoogleSearch('Three.js 3D game engine')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 Three.js 3D game engine</button>
+                        <button onclick="executeGoogleSearch('ISRO Chandrayaan 4 mission')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 ISRO Chandrayaan 4 mission</button>
+                        <button onclick="executeGoogleSearch('Rust OS microkernel tutorial')" class="px-3 py-1.5 rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-blue-500/20 hover:text-blue-400 border border-slate-200 dark:border-slate-700 transition-all font-mono">🔍 Rust OS microkernel tutorial</button>
+                    </div>
+                </div>
+            </div>`;
+        }
+
         function navigateBrowserUrl(url) {
             playSfx('open');
             openAppWindow('browser-window', 'dock-browser');
             const input = document.getElementById('browser-url-input');
             const viewport = document.getElementById('browser-viewport');
-            if (input) input.value = url;
+            const extBtn = document.getElementById('btn-open-external-browser');
 
-            if (url.includes('isro.gov.in')) {
-                viewport.innerHTML = `
-                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
-                    <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
-                        <div class="flex items-center space-x-3">
-                            <span class="text-4xl">🛰️</span>
-                            <div>
-                                <h1 class="text-xl font-bold">ISRO Space Operations Center</h1>
-                                <p class="text-xs text-slate-400 font-mono">Gaganyaan H1 Human Spaceflight Mission Control</p>
+            if (input) input.value = url;
+            if (extBtn) extBtn.href = url;
+
+            if (url.includes('google.com/search') || url.includes('?q=')) {
+                const params = new URLSearchParams(url.split('?')[1]);
+                executeGoogleSearch(params.get('q') || 'BharatOS');
+            } else if (url.includes('google.com') || url === 'google') {
+                renderGoogleHome();
+            } else if (url.includes('/game') || url.includes('solaris') || url.includes('fps')) {
+                if (viewport) {
+                    viewport.innerHTML = `
+                        <div class="w-full h-full flex flex-col space-y-2">
+                            <div class="flex justify-between items-center bg-slate-900/80 px-3 py-1.5 rounded-xl border border-cyan-500/30 text-xs font-mono">
+                                <span class="text-cyan-400 font-bold flex items-center space-x-2"><span>🎮</span><span>Solaris 3D Tactical FPS (Three.js WebGL)</span></span>
+                                <a href="http://localhost:5678/game" target="_blank" class="text-cyan-300 hover:underline">↗ Open Full Screen Game</a>
+                            </div>
+                            <iframe src="/game" class="w-full flex-1 rounded-2xl border border-cyan-500/20" allow="pointer-lock; autoplay"></iframe>
+                        </div>
+                    `;
+                }
+            } else if (url.includes('isro.gov.in')) {
+                if (viewport) {
+                    viewport.innerHTML = `
+                    <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
+                        <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-4xl">🛰️</span>
+                                <div>
+                                    <h1 class="text-xl font-bold">ISRO Space Operations Center</h1>
+                                    <p class="text-xs text-slate-400 font-mono">Gaganyaan H1 Human Spaceflight Mission Control</p>
+                                </div>
+                            </div>
+                            <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-500 text-xs font-mono font-bold">LIVE TELEMETRY: SYNCED</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-4 font-mono text-xs">
+                            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="opacity-60">Orbital Altitude</div>
+                                <div class="text-lg font-bold text-cyan-500">400.2 km LEO</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="opacity-60">Orbital Velocity</div>
+                                <div class="text-lg font-bold text-emerald-500">7.68 km/s (27,650 km/h)</div>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                <div class="opacity-60">Cryogenic Stage (CE-20)</div>
+                                <div class="text-lg font-bold text-saffron">Pressure Nominal</div>
                             </div>
                         </div>
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-500 text-xs font-mono font-bold">LIVE TELEMETRY: SYNCED</span>
-                    </div>
-
-                    <div class="grid grid-cols-3 gap-4 font-mono text-xs">
-                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="opacity-60">Orbital Altitude</div>
-                            <div class="text-lg font-bold text-cyan-500">400.2 km LEO</div>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="opacity-60">Orbital Velocity</div>
-                            <div class="text-lg font-bold text-emerald-500">7.68 km/s (27,650 km/h)</div>
-                        </div>
-                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="opacity-60">Cryogenic Stage (CE-20)</div>
-                            <div class="text-lg font-bold text-saffron">Pressure Nominal</div>
-                        </div>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
-                        <h3 class="font-bold text-sm">Mission Milestones & Trajectory</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">
-                            The Gaganyaan crew module telemetry has successfully locked with the IDRSS space data relay constellation. All life support systems and NavIC quantum navigation receivers are operational at 100% efficiency.
-                        </p>
-                    </div>
-                </div>`;
+                    </div>`;
+                }
             } else if (url.includes('github.com')) {
-                viewport.innerHTML = `
-                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
-                    <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-4">
-                        <span class="text-4xl">🐙</span>
-                        <div>
-                            <h1 class="text-xl font-bold">Sovereign India Open Source Repositories</h1>
-                            <p class="text-xs text-slate-400 font-mono">github.com/sovereign • 124 Open Repositories</p>
+                if (viewport) {
+                    viewport.innerHTML = `
+                    <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
+                        <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-4">
+                            <span class="text-4xl">🐙</span>
+                            <div>
+                                <h1 class="text-xl font-bold">Sovereign India Open Source Repositories</h1>
+                                <p class="text-xs text-slate-400 font-mono">github.com/sovereign • 124 Open Repositories</p>
+                            </div>
                         </div>
-                    </div>
-
-                    <div class="grid grid-cols-2 gap-4 text-xs font-mono">
-                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
-                            <div class="flex justify-between font-bold text-cyan-500"><span>bharat-os-kernel</span><span>★ 4.8k</span></div>
-                            <p class="text-[11px] opacity-70 font-sans">Pure Rust 64-bit microkernel with 4-level PML4 paging and zero telemetry.</p>
-                            <div class="flex items-center space-x-2 text-[10px] text-amber-500"><span>● Rust 98.2%</span><span>● Assembly 1.8%</span></div>
+                        <div class="grid grid-cols-2 gap-4 text-xs font-mono">
+                            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                                <div class="flex justify-between font-bold text-cyan-500"><span>bharat-os-kernel</span><span>★ 4.8k</span></div>
+                                <p class="text-[11px] opacity-70 font-sans">Pure Rust 64-bit microkernel with 4-level PML4 paging and zero telemetry.</p>
+                            </div>
+                            <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                                <div class="flex justify-between font-bold text-emerald-500"><span>prithvi-vulkan-compositor</span><span>★ 3.2k</span></div>
+                                <p class="text-[11px] opacity-70 font-sans">144 FPS spatial liquid-glass compositor with frame pacing.</p>
+                            </div>
                         </div>
-                        <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
-                            <div class="flex justify-between font-bold text-emerald-500"><span>prithvi-vulkan-compositor</span><span>★ 3.2k</span></div>
-                            <p class="text-[11px] opacity-70 font-sans">144 FPS spatial liquid-glass compositor with sub-millisecond frame pacing.</p>
-                            <div class="flex items-center space-x-2 text-[10px] text-cyan-500"><span>● C++23 85%</span><span>● GLSL 15%</span></div>
-                        </div>
-                    </div>
-                </div>`;
-            } else if (url.includes('ai.bharat.in')) {
-                viewport.innerHTML = `
-                <div class="space-y-6 max-w-4xl mx-auto p-4 font-sans">
-                    <div class="flex items-center space-x-3 border-b border-slate-200 dark:border-slate-800 pb-4">
-                        <span class="text-4xl">🧠</span>
-                        <div>
-                            <h1 class="text-xl font-bold">Indic AI Sovereign Neural Studio</h1>
-                            <p class="text-xs text-slate-400 font-mono">High-Speed On-Device LLMs across 22 Scheduled Indian Languages</p>
-                        </div>
-                    </div>
-
-                    <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 to-slate-900 border border-cyan-500/30 space-y-3">
-                        <div class="font-bold text-sm text-cyan-400">⚡ Live On-Device Inference Engine (4-bit Quantized)</div>
-                        <p class="text-xs opacity-75">BharatGPT v4.0 is running with hardware NPU acceleration on your device with 0ms network latency.</p>
-                    </div>
-                </div>`;
+                    </div>`;
+                }
+            } else {
+                executeGoogleSearch(url);
             }
         }
 
-        function executeGarudSearch(query) {
-            playSfx('click');
-            const q = query.trim().toLowerCase();
-            const results = document.getElementById('browser-search-results');
-            if (!results) return;
-
-            results.classList.remove('hidden');
-            results.innerHTML = `
-            <div class="font-bold text-xs font-mono text-cyan-500 mb-2">Search Results for "${query}":</div>
-            <div class="space-y-3">
-                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                    <div class="text-cyan-600 dark:text-cyan-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://isro.gov.in')">ISRO Official Space Mission Telemetry</div>
-                    <div class="text-xs text-slate-400">Live flight logs, Gaganyaan orbital coordinates, and launch timelines.</div>
-                </div>
-                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                    <div class="text-emerald-600 dark:text-emerald-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://ai.bharat.in')">Bharat Indic AI Intelligence Models</div>
-                    <div class="text-xs text-slate-400">Neural models supporting Hindi, Sanskrit, Tamil, Telugu, Bengali, Marathi, and Kannada.</div>
-                </div>
-                <div class="p-4 rounded-2xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                    <div class="text-purple-600 dark:text-purple-400 font-bold hover:underline cursor-pointer" onclick="navigateBrowserUrl('https://github.com/sovereign')">BharatOS Sovereign Microkernel Documentation</div>
-                    <div class="text-xs text-slate-400">Architecture specifications for 64-bit Rust SMP kernel and zero telemetry enclaves.</div>
-                </div>
-            </div>`;
-        }
-
         function executeBrowserSearch(val) {
+            if (!val) { renderGoogleHome(); return; }
+            val = val.trim();
             if (val.startsWith('http://') || val.startsWith('https://')) navigateBrowserUrl(val);
-            else executeGarudSearch(val);
+            else if (val === 'google' || val === 'google.com') renderGoogleHome();
+            else if (val === 'game' || val === 'fps' || val === 'solaris') navigateBrowserUrl('http://localhost:5678/game');
+            else executeGoogleSearch(val);
         }
 
-        function browserGoBack() { playSfx('click'); navigateBrowserUrl('https://garud.sovereign.in'); }
-        function browserGoForward() { playSfx('click'); navigateBrowserUrl('https://isro.gov.in'); }
-        function browserReload() { playSfx('click'); }
+        function browserGoBack() { playSfx('click'); renderGoogleHome(); }
+        function browserGoForward() { playSfx('click'); navigateBrowserUrl('http://localhost:5678/game'); }
+        function browserReload() { playSfx('click'); navigateBrowserUrl(document.getElementById('browser-url-input')?.value || 'https://www.google.com'); }
+
+        // Initialize Google Home inside Browser
+        renderGoogleHome();
 
         // =========================================================================
         // INDIC CODE STUDIO (VS CODE IDE ENGINE)
@@ -3029,20 +3180,34 @@ vulkano = "0.34"`
                 el.dataset.prevWidth = el.style.width || `${el.offsetWidth}px`;
                 el.dataset.prevHeight = el.style.height || `${el.offsetHeight}px`;
 
-                el.style.left = '0px';
-                el.style.top = '36px';
-                el.style.width = '100vw';
-                el.style.height = 'calc(100vh - 84px)';
-                el.style.transform = 'none';
+                el.style.removeProperty('top');
+                el.style.removeProperty('left');
+                el.style.removeProperty('width');
+                el.style.removeProperty('height');
+                el.style.removeProperty('transform');
+                
                 el.classList.add('window-maximized');
-                showSecurityToast(`🔲 Full Screen Activated: ${winId.replace('-window', '').toUpperCase()}`, 'info');
+                el.style.zIndex = String(++highestZ + 500);
+                showSecurityToast(`🔲 Full Screen: ${winId.replace('-window', '').toUpperCase()}`, 'info');
             } else {
                 el.classList.remove('window-maximized');
+                el.style.position = 'absolute';
                 el.style.left = el.dataset.prevLeft || '60px';
                 el.style.top = el.dataset.prevTop || '40px';
                 el.style.width = el.dataset.prevWidth || '';
                 el.style.height = el.dataset.prevHeight || '';
-                el.style.transform = 'none';
+                el.style.zIndex = String(++highestZ);
+            }
+        }
+
+        function toggleNativeBrowserFullscreen() {
+            playSfx('click');
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {});
+                showSecurityToast('🖥️ Entered True Native Display Fullscreen (F11)', 'info');
+            } else {
+                if (document.exitFullscreen) document.exitFullscreen();
+                showSecurityToast('🔲 Exited Native Display Fullscreen', 'info');
             }
         }
 
