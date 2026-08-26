@@ -51,6 +51,274 @@
 
         setInterval(updateClock, 1000);
 
+        
+        // =========================================================================
+        // SOVEREIGN APP STORE DATABASE & TASK MANAGER METRICS BUFFERS
+        // =========================================================================
+
+        var taskMgrCpuHistory = [12, 15, 14, 18, 16, 20, 15, 18, 14, 22, 19, 15, 17, 14, 18, 16];
+        var taskMgrRamHistory = [42, 43, 42, 44, 43, 45, 44, 44, 45, 44, 43, 44, 45, 44, 43, 44];
+        var taskMgrNetHistory = [240, 310, 280, 420, 510, 380, 460, 520, 490, 610, 580, 620];
+        var taskMgrDiskHistory = [12, 18, 15, 30, 22, 14, 19, 25, 20, 16, 28, 22];
+
+        var STORE_APPS_DATABASE = [
+            {
+                id: "app-garud-browser",
+                name: "Garud Web Browser",
+                tagline: "Quantum-Shielded Sovereign Web Browser with Kavach 3.0",
+                category: "Productivity",
+                icon: "🌐",
+                rating: 4.9,
+                reviews: 14200,
+                version: "v4.2.0",
+                size: "42.5 MB",
+                author: "Sovereign India Foundation",
+                installed: true,
+                winId: "browser-window",
+                dockId: "dock-browser",
+                description: "Garud is India's sovereign web browser engineered for zero telemetry, military-grade Kavach web filtering, and integrated ISRO & Vedic research tabs."
+            },
+            {
+                id: "app-indic-studio",
+                name: "Indic Code Studio",
+                tagline: "High-Performance Polyglot IDE with Sudarshan AI & Rust Core",
+                category: "Dev Tools",
+                icon: "⚡",
+                rating: 5.0,
+                reviews: 28900,
+                version: "v3.8.1",
+                size: "128 MB",
+                author: "BharatOS Dev Ecosystem",
+                installed: true,
+                winId: "code-window",
+                dockId: "dock-code",
+                description: "Complete modern software engineering studio with live Rust/Python syntax analysis, integrated terminal debugger, and Indic neural code autocompletion."
+            },
+            {
+                id: "app-solaris-fps",
+                name: "Solaris 3D FPS Arena",
+                tagline: "Tactical Sovereign 3D Ray-Traced FPS Combat Simulator",
+                category: "Gaming",
+                icon: "🎮",
+                rating: 4.8,
+                reviews: 35100,
+                version: "v2.5.0",
+                size: "240 MB",
+                author: "Solaris Interactive India",
+                installed: true,
+                winId: "game-window",
+                dockId: "dock-game",
+                description: "State-of-the-art 3D tactical first-person combat engine featuring procedural arenas, spatial audio, smart bot AI, and real-time ray-traced graphics."
+            },
+            {
+                id: "app-file-explorer",
+                name: "Sovereign File Explorer",
+                tagline: "Ring-0 Virtual File System & Enclave Storage Manager",
+                category: "Utilities",
+                icon: "📁",
+                rating: 4.9,
+                reviews: 19800,
+                version: "v3.0.0",
+                size: "18.2 MB",
+                author: "BharatOS Core Team",
+                installed: true,
+                winId: "files-window",
+                dockId: "dock-files",
+                description: "Zero-Trust hierarchical file explorer with instant VFS indexing, preview pane, military encryption vault, and USB device mounting."
+            },
+            {
+                id: "app-kavach-defender",
+                name: "Kavach Defender 3.0",
+                tagline: "Zero-Trust Ring-0 Antivirus & Quantum Neural Firewall",
+                category: "Security",
+                icon: "🛡️",
+                rating: 5.0,
+                reviews: 44200,
+                version: "v3.0.4",
+                size: "54.1 MB",
+                author: "National Cyber Security Center",
+                installed: true,
+                winId: "kavach-window",
+                dockId: "dock-defender",
+                description: "Military-grade kernel enclave protector with real-time heuristic file scanning, sandbox quarantine, memory shield, and zero telemetry."
+            },
+            {
+                id: "app-device-manager",
+                name: "Device Manager & Hardware Hub",
+                tagline: "Ring-0 Hardware Architecture & Driver Diagnostics",
+                category: "Utilities",
+                icon: "💻",
+                rating: 4.9,
+                reviews: 11200,
+                version: "v2.1.0",
+                size: "12.4 MB",
+                author: "BharatOS Hardware Lab",
+                installed: true,
+                winId: "devicemanager-window",
+                dockId: "dock-devmgr",
+                description: "Comprehensive device tree inspector showing CPU cores, GPU ray-tracing pipelines, NVMe PCIe health, TPM 2.0 cryptography, and driver statuses."
+            },
+            {
+                id: "app-network-center",
+                name: "Quantum Network Center",
+                tagline: "Wi-Fi 7, Quantum VPN Tunnel & Bandwidth Visualizer",
+                category: "Utilities",
+                icon: "📶",
+                rating: 4.9,
+                reviews: 16500,
+                version: "v2.4.0",
+                size: "14.8 MB",
+                author: "BharatOS Network Core",
+                installed: true,
+                winId: "network-window",
+                dockId: "dock-network",
+                description: "Wi-Fi 7 connection manager, multi-node encrypted VPN tunnel, real-time speedometer, and latency ping analyzer."
+            },
+            {
+                id: "app-task-manager",
+                name: "Sovereign Task Manager",
+                tagline: "Real-Time Telemetry, Thread Inspector & Process Killer",
+                category: "Utilities",
+                icon: "📈",
+                rating: 5.0,
+                reviews: 21400,
+                version: "v3.2.0",
+                size: "16.1 MB",
+                author: "BharatOS Kernel Team",
+                installed: true,
+                winId: "taskmanager-window",
+                dockId: "dock-taskmgr",
+                description: "High-precision process monitor with CPU/RAM history graphs, per-app thread count, priority management, and instantaneous task termination."
+            },
+            {
+                id: "app-soundscape",
+                name: "Soundscape Studio 528Hz",
+                tagline: "Harmonic Solfeggio Frequencies & Himalayan Soundscapes",
+                category: "Multimedia",
+                icon: "🎵",
+                rating: 4.8,
+                reviews: 9800,
+                version: "v1.9.0",
+                size: "22.5 MB",
+                author: "Vedic Acoustic Labs",
+                installed: true,
+                winId: "music-window",
+                dockId: "dock-music",
+                description: "Procedural soundscape generator with 528Hz DNA repair harmonics, mountain rain, forest winds, and Vedic meditation chimes."
+            },
+            {
+                id: "app-calc",
+                name: "Scientific & Vedic Calculator",
+                tagline: "Trigonometric, Binary, Matrix & Vedic Math Engine",
+                category: "Productivity",
+                icon: "🧮",
+                rating: 4.9,
+                reviews: 13200,
+                version: "v2.0.0",
+                size: "8.5 MB",
+                author: "Aryabhata Math Lab",
+                installed: true,
+                winId: "calc-window",
+                dockId: "dock-calc",
+                description: "Advanced scientific calculator supporting full arithmetic, trigonometry, log functions, matrix determinants, and Vedic sutra shortcuts."
+            },
+            {
+                id: "app-calendar",
+                name: "Sovereign Calendar & ISRO",
+                tagline: "Saka Era Panchang & ISRO Space Mission Tracker",
+                category: "Productivity",
+                icon: "🗂️",
+                rating: 4.9,
+                reviews: 17800,
+                version: "v2.2.0",
+                size: "11.2 MB",
+                author: "ISRO & Culture Ministry",
+                installed: true,
+                winId: "calendar-window",
+                dockId: "dock-calendar",
+                description: "Dual Gregorian & Saka Era astronomical calendar with live countdowns to Gaganyaan, Chandrayaan, and Shukrayaan missions."
+            },
+            {
+                id: "app-terminal",
+                name: "Sovereign Shell & Terminal",
+                tagline: "POSIX-Compliant Command Shell with Quantum Toolchain",
+                category: "Dev Tools",
+                icon: "📟",
+                rating: 5.0,
+                reviews: 26700,
+                version: "v3.1.0",
+                size: "15.0 MB",
+                author: "BharatOS CLI Ecosystem",
+                installed: true,
+                winId: "terminal-window",
+                dockId: "dock-terminal",
+                description: "Full-featured sovereign CLI with PowerShell/Bash compatibility, disk inspection, process management, and network diagnostics."
+            },
+            {
+                id: "app-personalize",
+                name: "Personalization Studio",
+                tagline: "Liquid Glass Themes, 4K Wallpapers & Accent Colors",
+                category: "Utilities",
+                icon: "🎨",
+                rating: 4.9,
+                reviews: 18400,
+                version: "v2.6.0",
+                size: "36.0 MB",
+                author: "BharatOS Design Lab",
+                installed: true,
+                winId: "customization-window",
+                dockId: "dock-personalize",
+                description: "Complete visual personalization suite with dynamic wallpapers, glassmorphic blur controls, and instant theme toggling."
+            },
+            {
+                id: "app-settings",
+                name: "Sovereign Settings Hub",
+                tagline: "Multi-User Accounts, Display, Sound & Security Control",
+                category: "Utilities",
+                icon: "⚙️",
+                rating: 5.0,
+                reviews: 31000,
+                version: "v4.0.0",
+                size: "24.0 MB",
+                author: "BharatOS Core Team",
+                installed: true,
+                winId: "settings-window",
+                dockId: "dock-settings",
+                description: "Central operating system configuration hub for managing user profiles, screen resolution, audio devices, and privacy policies."
+            }
+        ];
+
+        // Universal Toast Notification Handler
+        function showNotificationToast(title, msg, type = 'info') {
+            const toast = document.getElementById('security-toast');
+            const toastMsg = document.getElementById('security-toast-msg');
+            if (!toast || !toastMsg) return;
+
+            const iconMap = {
+                'success': '🛡️',
+                'error': '⚠️',
+                'info': '🔔',
+                'alert': '🚨'
+            };
+
+            const icon = iconMap[type] || '✨';
+            toastMsg.innerHTML = `<span class="font-bold text-white">${icon} ${title}:</span> <span class="opacity-90">${msg}</span>`;
+            
+            toast.classList.remove('hidden', 'translate-y-20', 'opacity-0');
+            toast.classList.add('translate-y-0', 'opacity-100');
+
+            setTimeout(() => {
+                toast.classList.remove('translate-y-0', 'opacity-100');
+                toast.classList.add('translate-y-20', 'opacity-0');
+                setTimeout(() => toast.classList.add('hidden'), 400);
+            }, 3500);
+        }
+
+        // Alias for backward compatibility
+        function showSecurityToast(msg, type = 'info') {
+            showNotificationToast("System Alert", msg, type);
+        }
+
         var ALL_APPS_METADATA = {
             'browser-window': { name: 'Garud Web Browser', icon: '🌐', desc: 'Sandboxed Google Search & Multi-Tab Web Engine', dockId: 'dock-browser', cat: 'Office' },
             'code-window': { name: 'Indic Code Studio Pro', icon: '⚡', desc: 'Rust 2026 SMP IDE & LLVM Compiler', dockId: 'dock-code', cat: 'Development' },
@@ -2463,6 +2731,299 @@
                 </div>
             </div>
 
+            
+            <!-- =========================================================================
+                 APP 13: SOVEREIGN DEVICE MANAGER (RING-0 HARDWARE ARCHITECTURE)
+                 ========================================================================= -->
+            <div id="devicemanager-window" class="absolute top-6 left-28 w-[940px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'devicemanager-window')" ondblclick="toggleMaximizeWindow('devicemanager-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('devicemanager-window', 'dock-devmgr')" title="Close">✕</span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('devicemanager-window', 'dock-devmgr')" title="Minimize">−</span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('devicemanager-window')" title="Maximize">□</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-base">💻</span>
+                            <span class="font-bold text-xs">Sovereign Device Manager (Ring-0 Hardware Tree)</span>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-mono text-[9px] font-bold">ALL DRIVERS OPTIMAL</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <button onclick="scanHardwareDevices()" class="px-2.5 py-1 rounded-xl bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 border border-cyan-500/40 font-bold transition-all">🔄 Scan Changes</button>
+                    </div>
+                </div>
+
+                <!-- Device Manager Body -->
+                <div class="flex-1 p-5 overflow-y-auto custom-scroll space-y-4 font-mono text-xs">
+                    <!-- Top System Spec Capsule -->
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                        <div class="p-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                            <div class="text-[10px] opacity-60">CENTRAL PROCESSOR</div>
+                            <div class="text-sm font-bold text-cyan-400 mt-1">Param Quantum CPU</div>
+                            <div class="text-[10px] opacity-75">16 Cores / 32 Threads @ 5.2 GHz</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                            <div class="text-[10px] opacity-60">GRAPHICS PIPELINE</div>
+                            <div class="text-sm font-bold text-purple-400 mt-1">RTX 5090 Sovereign</div>
+                            <div class="text-[10px] opacity-75">32 GB GDDR7 • Ray-Tracing 4.0</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                            <div class="text-[10px] opacity-60">SYSTEM MEMORY</div>
+                            <div class="text-sm font-bold text-emerald-400 mt-1">64 GB DDR5 ECC</div>
+                            <div class="text-[10px] opacity-75">Dual Channel • 7200 MT/s</div>
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800">
+                            <div class="text-[10px] opacity-60">SECURE ENCLAVE</div>
+                            <div class="text-sm font-bold text-amber-400 mt-1">Quantum TPM 2.0</div>
+                            <div class="text-[10px] opacity-75">Zero-Trust Ring-0 Active</div>
+                        </div>
+                    </div>
+
+                    <!-- Interactive Device Tree -->
+                    <div class="p-4 rounded-2xl bg-slate-100/60 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 space-y-2">
+                        <div class="font-bold text-xs text-slate-800 dark:text-slate-200 mb-2 flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+                            <span>🖥️ BHARAT-WORKSTATION-RIG (Sovereign Architecture)</span>
+                            <span class="text-[10px] text-emerald-400 font-bold">● 24 Devices Connected</span>
+                        </div>
+
+                        <div class="space-y-1.5 pl-2">
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">⚡ Processors (16 Cores Active)</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Param Quantum Core #0..#7 (Performance Cores @ 5.2 GHz)</div>
+                                    <div>└─ Param Quantum Core #8..#15 (Efficiency Cores @ 3.8 GHz)</div>
+                                </div>
+                            </details>
+
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">🎮 Display Adapters (Ray Tracing Active)</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Nvidia GeForce RTX 5090 (Driver v560.81 • Hardware Accelerated)</div>
+                                    <div>└─ Param Quantum Integrated Iris Vector Engine</div>
+                                </div>
+                            </details>
+
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">💾 Disk Drives & NVMe Storage</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Samsung 990 PRO 4TB PCIe Gen5 NVMe SSD (Read: 14,500 MB/s • Health: 100%)</div>
+                                    <div>└─ Sovereign Secure Enclave Encrypted Partition (AES-256-GCM)</div>
+                                </div>
+                            </details>
+
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">🛡️ Security & Cryptographic Devices</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Trusted Platform Module 2.0 (TPM 2.0 • Hardware Root of Trust)</div>
+                                    <div>└─ Kavach Ring-0 Biometric Cryptographic Co-Processor</div>
+                                </div>
+                            </details>
+
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">📶 Network Adapters</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Intel Wi-Fi 7 BE200 320MHz Ultra-High Band (850 Mbps Active)</div>
+                                    <div>└─ Realtek 10-Gigabit Gaming Ethernet Controller</div>
+                                </div>
+                            </details>
+
+                            <details open class="group">
+                                <summary class="cursor-pointer font-bold text-slate-700 dark:text-slate-300 hover:text-cyan-400 py-1">🔊 Audio & Sound Controllers</summary>
+                                <div class="pl-5 space-y-1 text-[11px] opacity-80 pt-1">
+                                    <div>├─ Realtek High Definition Spatial Audio (32-bit / 384 kHz)</div>
+                                    <div>└─ Sovereign 528Hz Harmonic DAC Engine</div>
+                                </div>
+                            </details>
+                        </div>
+                    </div>
+
+                    <!-- Bottom Hardware Actions -->
+                    <div class="flex items-center justify-between pt-2">
+                        <div class="text-[11px] opacity-70">Sovereign Hardware Abstraction Layer (HAL) Active.</div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="showNotificationToast('Hardware Audit', 'All 24 devices tested and functioning at 100% efficiency.', 'success')" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 text-emerald-400 hover:bg-emerald-500/30 border border-emerald-500/40 font-bold transition-all">✓ Verify Hardware Health</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 14: SOVEREIGN QUANTUM NETWORK CENTER
+                 ========================================================================= -->
+            <div id="network-window" class="absolute top-6 left-32 w-[900px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'network-window')" ondblclick="toggleMaximizeWindow('network-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('network-window', 'dock-network')" title="Close">✕</span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('network-window', 'dock-network')" title="Minimize">−</span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('network-window')" title="Maximize">□</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-base">📶</span>
+                            <span class="font-bold text-xs">Quantum Network & Wi-Fi 7 Center</span>
+                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 font-mono text-[9px] font-bold">CONNECTED • 850 MBPS</span>
+                        </div>
+                    </div>
+                    <button onclick="runSpeedTest()" class="px-3 py-1 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs shadow hover:bg-cyan-400 transition-all font-mono">⚡ Test Speed</button>
+                </div>
+
+                <!-- Network Body -->
+                <div class="flex-1 p-5 overflow-y-auto custom-scroll space-y-4 font-mono text-xs">
+                    <!-- Current Connection Banner -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-blue-950/40 to-slate-950/40 border border-cyan-500/40 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 rounded-2xl bg-cyan-500/20 border border-cyan-500/50 flex items-center justify-center text-2xl text-cyan-400">📶</div>
+                            <div>
+                                <div class="text-sm font-bold text-white font-sans flex items-center space-x-2">
+                                    <span>Garud-HyperFiber-5G</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[9px]">Wi-Fi 7 (802.11be)</span>
+                                </div>
+                                <div class="text-[11px] text-cyan-400 font-bold mt-0.5">IPv4: 192.168.1.108 • Gateway: 192.168.1.1 • Ping: 2ms</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div id="network-live-speed" class="text-2xl font-extrabold text-white font-mono">850.4 <span class="text-xs text-cyan-400 font-bold">Mbps</span></div>
+                            <div class="text-[10px] text-emerald-400 font-bold">Signal: -52 dBm (Excellent)</div>
+                        </div>
+                    </div>
+
+                    <!-- Available Networks & VPN -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <div class="p-4 rounded-2xl bg-slate-100/60 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
+                            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 flex justify-between items-center">
+                                <span>📡 Available Wireless Networks</span>
+                                <button onclick="showNotificationToast('Wi-Fi Scan', 'Scanned 6 nearby high-speed access points.', 'info')" class="text-cyan-400 hover:underline text-[10px]">Refresh</button>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="p-2.5 rounded-xl bg-cyan-500/20 border border-cyan-500/40 flex items-center justify-between">
+                                    <div class="flex items-center space-x-2">
+                                        <span>📶</span>
+                                        <div>
+                                            <div class="font-bold text-white">Garud-HyperFiber-5G</div>
+                                            <div class="text-[9px] opacity-70">WPA3 Enterprise • 6 GHz</div>
+                                        </div>
+                                    </div>
+                                    <span class="px-2 py-0.5 rounded bg-cyan-400 text-slate-950 font-bold text-[9px]">Connected</span>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-white/40 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:bg-slate-800/60 cursor-pointer">
+                                    <div class="flex items-center space-x-2">
+                                        <span>📶</span>
+                                        <div>
+                                            <div class="font-bold">ISRO-SpaceNet-Secure</div>
+                                            <div class="text-[9px] opacity-70">WPA3 • 5 GHz</div>
+                                        </div>
+                                    </div>
+                                    <button onclick="showNotificationToast('Network Auth', 'Connecting to ISRO-SpaceNet-Secure...', 'info')" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white text-[10px]">Connect</button>
+                                </div>
+                                <div class="p-2.5 rounded-xl bg-white/40 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:bg-slate-800/60 cursor-pointer">
+                                    <div class="flex items-center space-x-2">
+                                        <span>📶</span>
+                                        <div>
+                                            <div class="font-bold">BharatOS-Mesh-Hub</div>
+                                            <div class="text-[9px] opacity-70">WPA3 • 6 GHz</div>
+                                        </div>
+                                    </div>
+                                    <button onclick="showNotificationToast('Network Auth', 'Connecting to BharatOS-Mesh-Hub...', 'info')" class="px-2 py-0.5 rounded bg-slate-700 hover:bg-slate-600 text-white text-[10px]">Connect</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Quantum VPN Enclave -->
+                        <div class="p-4 rounded-2xl bg-slate-100/60 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-3">
+                            <div class="font-bold text-xs text-slate-800 dark:text-slate-200 flex justify-between items-center">
+                                <span>🛡️ Sovereign Quantum VPN Tunnel</span>
+                                <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[9px] font-bold">ACTIVE</span>
+                            </div>
+                            <div class="space-y-2">
+                                <div class="text-[11px] opacity-80">Encrypted Sovereign Routing Node:</div>
+                                <select class="w-full px-3 py-2 rounded-xl bg-slate-900 border border-slate-700 text-white outline-none focus:border-cyan-400">
+                                    <option>🇮🇳 Mumbai Quantum Relay (Latency: 2ms • 10 Gbps)</option>
+                                    <option>🇮🇳 Bengaluru Deep Space Node (Latency: 4ms • 10 Gbps)</option>
+                                    <option>🇮🇳 New Delhi National Core (Latency: 6ms • 10 Gbps)</option>
+                                    <option>🇸🇬 Singapore Sovereign Gateway (Latency: 28ms • 5 Gbps)</option>
+                                </select>
+                                <div class="p-3 rounded-xl bg-slate-950/80 border border-slate-800 space-y-1 text-[10px]">
+                                    <div class="flex justify-between"><span class="opacity-70">Tunnel Encryption:</span><span class="text-cyan-400 font-bold">AES-256-GCM / Post-Quantum Kyber</span></div>
+                                    <div class="flex justify-between"><span class="opacity-70">DNS Leak Guard:</span><span class="text-emerald-400 font-bold">Active (Zero Logs)</span></div>
+                                    <div class="flex justify-between"><span class="opacity-70">Kill Switch:</span><span class="text-emerald-400 font-bold">Enabled</span></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 15: PERSONALIZATION STUDIO (THEMES & WALLPAPERS)
+                 ========================================================================= -->
+            <div id="customization-window" class="absolute top-8 left-36 w-[880px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'customization-window')" ondblclick="toggleMaximizeWindow('customization-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('customization-window', 'dock-personalize')" title="Close">✕</span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('customization-window', 'dock-personalize')" title="Minimize">−</span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('customization-window')" title="Maximize">□</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-base">🎨</span>
+                            <span class="font-bold text-xs">Personalization Studio & Liquid Glass Themes</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personalization Body -->
+                <div class="flex-1 p-5 overflow-y-auto custom-scroll space-y-5 font-mono text-xs">
+                    <!-- Theme Selector -->
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2 font-sans flex items-center space-x-2"><span>🌓</span><span>Color Mode & System Theme</span></h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                            <button onclick="setThemeMode('dark')" class="p-3.5 rounded-2xl bg-slate-950 border-2 border-cyan-500 text-left space-y-1 shadow-lg hover:scale-105 transition-all">
+                                <div class="font-bold text-white text-xs">Strict Obsidian Dark</div>
+                                <div class="text-[10px] text-cyan-400 font-bold">#020617 Pure Black</div>
+                            </button>
+                            <button onclick="setThemeMode('light')" class="p-3.5 rounded-2xl bg-slate-100 border-2 border-slate-300 text-left space-y-1 shadow-lg hover:scale-105 transition-all">
+                                <div class="font-bold text-slate-950 text-xs">Pure Alabaster Light</div>
+                                <div class="text-[10px] text-slate-600 font-bold">#FFFFFF Clean White</div>
+                            </button>
+                            <button onclick="setThemeMode('saffron')" class="p-3.5 rounded-2xl bg-gradient-to-tr from-amber-950 to-orange-950 border-2 border-saffron text-left space-y-1 shadow-lg hover:scale-105 transition-all">
+                                <div class="font-bold text-saffron text-xs">Sovereign Saffron</div>
+                                <div class="text-[10px] text-amber-300 font-bold">National Spirit</div>
+                            </button>
+                            <button onclick="setThemeMode('emerald')" class="p-3.5 rounded-2xl bg-gradient-to-tr from-emerald-950 to-teal-950 border-2 border-emerald-500 text-left space-y-1 shadow-lg hover:scale-105 transition-all">
+                                <div class="font-bold text-emerald-400 text-xs">Vedic Emerald</div>
+                                <div class="text-[10px] text-teal-300 font-bold">Bhadrapada Glow</div>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Wallpaper Gallery -->
+                    <div>
+                        <h4 class="font-bold text-sm text-slate-900 dark:text-white mb-2 font-sans flex items-center space-x-2"><span>🖼️</span><span>Sovereign 4K Dynamic Wallpapers</span></h4>
+                        <div class="grid grid-cols-2 md:grid-cols-3 gap-3">
+                            <div onclick="setWallpaper('himalaya')" class="p-2 rounded-2xl bg-slate-900 border border-slate-700 hover:border-cyan-400 cursor-pointer space-y-1 transition-all">
+                                <div class="h-20 rounded-xl bg-gradient-to-tr from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center text-2xl">🏔️</div>
+                                <div class="font-bold text-[11px] text-center">Himalayan Twilight</div>
+                            </div>
+                            <div onclick="setWallpaper('space')" class="p-2 rounded-2xl bg-slate-900 border border-slate-700 hover:border-cyan-400 cursor-pointer space-y-1 transition-all">
+                                <div class="h-20 rounded-xl bg-gradient-to-tr from-black via-blue-950 to-purple-950 flex items-center justify-center text-2xl">🛰️</div>
+                                <div class="font-bold text-[11px] text-center">ISRO Deep Space</div>
+                            </div>
+                            <div onclick="setWallpaper('matrix')" class="p-2 rounded-2xl bg-slate-900 border border-slate-700 hover:border-cyan-400 cursor-pointer space-y-1 transition-all">
+                                <div class="h-20 rounded-xl bg-gradient-to-tr from-black via-emerald-950 to-teal-950 flex items-center justify-center text-2xl">☸️</div>
+                                <div class="font-bold text-[11px] text-center">Quantum Chakra Matrix</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- =========================================================================
                  APP 1: GARUD SOVEREIGN WEB BROWSER (FLAGSHIP BROWSER)
                  ========================================================================= -->
@@ -3822,7 +4383,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <div class="flex items-center space-x-2">
                     <!-- Sudarshan Start Gem -->
                     <div class="relative group">
-                        <button class="glass-dock-tile glaze-sudarshan p-1.5 group-hover:scale-110 flex items-center justify-center" title="Sudarshan Sovereign Menu (Win+S)">
+                        <button id="start-menu-btn" onclick="toggleStartMenu()" class="glass-dock-tile glaze-sudarshan p-1.5 group-hover:scale-110 flex items-center justify-center" title="BharatOS Sovereign Start Menu (Win / Ctrl+Esc)">
                             
 <svg class="bharatos-liquid-logo" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
     <defs>
@@ -3930,7 +4491,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                         </button>
                         <!-- Start Menu Popup -->
-                        <div class="absolute left-0 bottom-full mb-4 w-72 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden group-hover:block shadow-2xl z-50 rounded-3xl">
+                        <div id="start-menu-popup" class="absolute left-0 bottom-full mb-4 w-72 p-4 ultra-liquid-glass space-y-3 font-mono text-xs hidden shadow-2xl z-50 rounded-3xl">
                             <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
                                 <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm shadow-md">🇮🇳</div>
                                 <div>
@@ -4005,6 +4566,8 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button onclick="toggleActionCenter()" id="ist-clock" class="glass-tray-capsule text-cyan-400 font-bold text-[11px] px-3">
                         --:--:-- IST
                     </button>
+                    <!-- Windows 11 Style Show Desktop Peek Slice -->
+                    <button onclick="toggleShowDesktop()" class="w-2.5 h-6 rounded-r-md bg-white/20 hover:bg-cyan-400/80 transition-all border-l border-white/30 active:scale-95" title="Show Desktop / Peek (Win+D)"></button>
                 </div>
             </div>
         </footer>
@@ -5543,21 +6106,99 @@ vulkano = "0.34"`
         let highestZ = 30;
         const winTimeoutMap = {};
 
+        
+        // START MENU INTERACTION ENGINE
+        
+        // SHOW DESKTOP & WINDOWS TOGGLE ENGINE
+        var savedOpenWindowsBeforeShowDesktop = [];
+
+        function toggleShowDesktop() {
+            playSfx('minimize');
+            const openWindows = Array.from(document.querySelectorAll('.ultra-liquid-glass:not(#app-switcher-overlay):not(#ai-copilot-drawer):not(#action-center-drawer):not(#spotlight-modal)')).filter(w => !w.classList.contains('hidden') && w.style.display !== 'none');
+
+            if (openWindows.length > 0) {
+                savedOpenWindowsBeforeShowDesktop = openWindows.map(w => w.id);
+                openWindows.forEach(w => {
+                    w.classList.add('hidden');
+                });
+                showNotificationToast("Desktop", "All windows minimized (Win+D).", "info");
+            } else if (savedOpenWindowsBeforeShowDesktop.length > 0) {
+                savedOpenWindowsBeforeShowDesktop.forEach(id => {
+                    const win = document.getElementById(id);
+                    if (win) {
+                        win.classList.remove('hidden');
+                        win.style.display = '';
+                    }
+                });
+                savedOpenWindowsBeforeShowDesktop = [];
+                showNotificationToast("Desktop", "Restored open windows.", "info");
+            }
+        }
+
+        function toggleStartMenu() {
+            playSfx('click');
+            const menu = document.getElementById('start-menu-popup');
+            if (menu) {
+                menu.classList.toggle('hidden');
+            }
+        }
+
+        function scanHardwareDevices() {
+            playSfx('scan');
+            showNotificationToast("Hardware Bus Scan", "Scanning PCIe Gen5, USB 4.0, and Quantum TPM bus...", "info");
+            setTimeout(() => {
+                showNotificationToast("Hardware Audit Complete", "24 devices verified. Zero conflicts detected.", "success");
+            }, 800);
+        }
+
+        function runSpeedTest() {
+            playSfx('click');
+            showNotificationToast("Speed Test", "Testing throughput against Mumbai Quantum Gateway...", "info");
+            const speedEl = document.getElementById('network-live-speed');
+            let s = 100;
+            const timer = setInterval(() => {
+                s += Math.floor(Math.random() * 120) + 50;
+                if (speedEl) speedEl.innerHTML = `${s}.2 <span class="text-xs text-cyan-400 font-bold">Mbps</span>`;
+                if (s >= 850) {
+                    clearInterval(timer);
+                    showNotificationToast("Speed Test Result", "Download: 850.4 Mbps • Upload: 420.8 Mbps • Ping: 2ms", "success");
+                }
+            }, 100);
+        }
+
+        function setWallpaper(type) {
+            playSfx('click');
+            const desktop = document.getElementById('desktop-area');
+            if (!desktop) return;
+            if (type === 'space') {
+                desktop.style.background = 'radial-gradient(ellipse at bottom, #1B2735 0%, #090A0F 100%)';
+            } else if (type === 'matrix') {
+                desktop.style.background = 'radial-gradient(ellipse at top, #022c22 0%, #020617 100%)';
+            } else {
+                desktop.style.background = '';
+            }
+            showNotificationToast("Wallpaper Updated", `Applied "${type.toUpperCase()}" 4K Sovereign Wallpaper.`, "success");
+        }
+
         function openAppWindow(winId, dockBtnId) {
             playSfx('open');
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
-            if (!win) return;
+            if (!win) {
+                console.warn("openAppWindow: Window element not found:", winId);
+                return;
+            }
 
             if (winTimeoutMap[winId]) {
                 clearTimeout(winTimeoutMap[winId]);
                 delete winTimeoutMap[winId];
             }
 
+            win.style.display = '';
             win.classList.remove('hidden', 'window-minimize-genie');
             win.classList.add('window-open-genie');
             highestZ += 5;
-            win.style.zIndex = highestZ;
+            win.style.zIndex = String(highestZ);
 
             // Highlight dock icon with glowing cyan running dot
             if (dockBtn) dockBtn.classList.add('app-running');
@@ -5590,9 +6231,12 @@ vulkano = "0.34"`
         function toggleWindowFromDock(winId, dockBtnId) {
             const win = document.getElementById(winId);
             const dockBtn = document.getElementById(dockBtnId);
-            if (!win) return;
+            if (!win) {
+                console.warn("toggleWindowFromDock: Window not found:", winId);
+                return;
+            }
 
-            const isHidden = win.classList.contains('hidden') || win.classList.contains('window-minimize-genie');
+            const isHidden = win.classList.contains('hidden') || win.classList.contains('window-minimize-genie') || win.style.display === 'none';
 
             if (isHidden) {
                 // If closed or minimizing, open immediately
@@ -6574,6 +7218,9 @@ vulkano = "0.34"`
         }
         requestAnimationFrame(fpsLoop);
 
+        var selectedTaskMgrProcId = null;
+        var selectedTaskMgrWinId = null;
+
         function updateRealtimeHardwareTelemetry() {
             // Count open windows to realistically scale CPU & RAM
             const openWindowsCount = Array.from(document.querySelectorAll('.ultra-liquid-glass')).filter(w => !w.classList.contains('hidden')).length;
@@ -6731,7 +7378,6 @@ vulkano = "0.34"`
             renderLiveTaskMgrProcesses(taskMgrCpuHistory[taskMgrCpuHistory.length - 1]);
         }
 
-        let selectedTaskMgrWinId = null;
         function endSelectedTaskMgrProcess() {
             if (!selectedTaskMgrProcId) {
                 alert("Please select an active process to terminate.");
