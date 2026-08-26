@@ -1984,8 +1984,16 @@
                 </div>
 
                 <div class="w-full space-y-3" id="lock-input-container">
+                    <!-- iOS / iPadOS Style PIN Indicator Dots -->
+                    <div class="flex items-center justify-center space-x-3 py-1" id="pin-dots-container">
+                        <div id="pindot-0" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
+                        <div id="pindot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
+                        <div id="pindot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
+                        <div id="pindot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
+                    </div>
+
                     <div class="relative">
-                        <input id="lock-pin-input" type="password" placeholder="Enter Security PIN (e.g. 2026)" maxlength="8" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-base tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" onkeydown="if(event.key==='Enter') unlockDesktop()">
+                        <input id="lock-pin-input" type="password" placeholder="Enter PIN (Auto-unlocks at 4 digits)" maxlength="8" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-base tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" oninput="handleLockPinInput(this.value)" onkeydown="if(event.key==='Enter') unlockDesktop()" autofocus>
                         <button onclick="clearLockPin()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs font-mono font-bold" title="Clear">✕</button>
                     </div>
 
@@ -6346,12 +6354,62 @@ vulkano = "0.34"`
         var failedLockAttempts = 0;
         var isLockedOut = false;
 
+        function getLockTargetUser() {
+            if (typeof usersDatabase !== 'undefined' && Array.isArray(usersDatabase) && usersDatabase.length > 0) {
+                if (typeof selectedLockUserId !== 'undefined' && selectedLockUserId) {
+                    const found = usersDatabase.find(u => u.id === selectedLockUserId);
+                    if (found) return found;
+                }
+                if (typeof activeUserId !== 'undefined' && activeUserId) {
+                    const found = usersDatabase.find(u => u.id === activeUserId);
+                    if (found) return found;
+                }
+                return usersDatabase[0];
+            }
+            if (typeof userProfile !== 'undefined' && userProfile) {
+                return { name: userProfile.name || "Aviral Sharma", pin: userProfile.pin || "2026", id: "usr-aviral" };
+            }
+            return { name: "Aviral Sharma", pin: "2026", id: "usr-aviral" };
+        }
+
+        function updatePinDots(length, isError = false) {
+            for (let i = 0; i < 4; i++) {
+                const dot = document.getElementById(`pindot-${i}`);
+                if (!dot) continue;
+                if (isError) {
+                    dot.className = "w-3.5 h-3.5 rounded-full border-2 border-rose-500 bg-rose-500 shadow-lg shadow-rose-500/50 transition-all duration-200 animate-ping";
+                } else if (i < length) {
+                    dot.className = "w-3.5 h-3.5 rounded-full border-2 border-cyan-400 bg-cyan-400 shadow-lg shadow-cyan-400/60 scale-110 transition-all duration-200";
+                } else {
+                    dot.className = "w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200";
+                }
+            }
+        }
+
+        function handleLockPinInput(val) {
+            const cleanVal = (val || "").trim();
+            updatePinDots(cleanVal.length);
+
+            const targetUser = getLockTargetUser();
+            const expectedLength = (targetUser && targetUser.pin) ? targetUser.pin.length : 4;
+
+            // Auto-unlock immediately when user enters 4 digits (no Enter needed!)
+            if (cleanVal.length >= expectedLength) {
+                setTimeout(() => {
+                    unlockDesktop();
+                }, 80);
+            }
+        }
+
         function typeLockPin(digit) {
             playSfx('click');
             const input = document.getElementById('lock-pin-input');
-            if (input && input.value.length < 8) {
-                input.value += digit;
+            if (!input) return;
+            if (input.value.length >= 4) {
+                input.value = '';
             }
+            input.value += digit;
+            handleLockPinInput(input.value);
         }
 
         function backspaceLockPin() {
@@ -6359,13 +6417,17 @@ vulkano = "0.34"`
             const input = document.getElementById('lock-pin-input');
             if (input && input.value.length > 0) {
                 input.value = input.value.slice(0, -1);
+                handleLockPinInput(input.value);
             }
         }
 
         function clearLockPin() {
             playSfx('click');
             const input = document.getElementById('lock-pin-input');
-            if (input) input.value = '';
+            if (input) {
+                input.value = '';
+                handleLockPinInput('');
+            }
         }
 
         function showLockPinAlert(message) {
@@ -6386,11 +6448,12 @@ vulkano = "0.34"`
             const lockEl = document.getElementById('lock-screen');
             if (lockEl) {
                 lockEl.classList.add('unlocked');
-                setTimeout(() => {
-                    lockEl.style.display = 'none';
-                }, 350);
+                lockEl.style.display = 'none';
             }
             hideLockPinAlert();
+            const pinInput = document.getElementById('lock-pin-input');
+            if (pinInput) pinInput.value = '';
+            updatePinDots(0);
         }
 
         function lockDesktop() {
@@ -6419,14 +6482,14 @@ vulkano = "0.34"`
 
             const pinInput = document.getElementById('lock-pin-input');
             const enteredPin = pinInput ? pinInput.value.trim() : "";
-            const targetUser = (typeof usersDatabase !== 'undefined' && usersDatabase.find(u => u.id === selectedLockUserId)) || (typeof getActiveUser === 'function' ? getActiveUser() : { name: "Aviral Sharma", pin: "2026", id: "usr-aviral" });
+            const targetUser = getLockTargetUser();
 
-            const validPins = [targetUser.pin, '2026', '1234', '0000', userProfile?.pin].filter(Boolean);
+            const validPins = [targetUser?.pin, '2026', '1234', '0000', typeof userProfile !== 'undefined' ? userProfile?.pin : null].filter(Boolean);
 
-            if (validPins.includes(enteredPin) || (targetUser.pin && enteredPin === targetUser.pin)) {
+            if (validPins.includes(enteredPin) || (targetUser && targetUser.pin && enteredPin === targetUser.pin)) {
                 // Successful Authentication
                 failedLockAttempts = 0;
-                if (typeof switchActiveUserSession === 'function' && targetUser.id) {
+                if (typeof switchActiveUserSession === 'function' && targetUser && targetUser.id) {
                     switchActiveUserSession(targetUser.id);
                 }
                 unlockLockScreen();
@@ -6437,11 +6500,13 @@ vulkano = "0.34"`
                 failedLockAttempts++;
                 playSfx('error');
                 showLockPinAlert(`⚠️ Incorrect PIN! Please enter 2026 or your user PIN.`);
+                updatePinDots(4, true);
                 if (pinInput) {
                     pinInput.value = '';
                     pinInput.classList.add('shake-error', 'border-rose-500');
                     setTimeout(() => {
                         pinInput.classList.remove('shake-error', 'border-rose-500');
+                        updatePinDots(0);
                         pinInput.focus();
                     }, 450);
                 }
