@@ -1684,10 +1684,120 @@
             display: block;
         }
 
+    
+        /* =========================================================================
+           NEXT-GEN PC OS SUBSYSTEMS & CRAFT UI STYLES
+           ========================================================================= */
+        #brightness-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99998;
+            background-color: black;
+            opacity: 0;
+            transition: opacity 0.2s ease;
+        }
+
+        #nightlight-overlay {
+            pointer-events: none;
+            position: fixed;
+            inset: 0;
+            z-index: 99997;
+            background: rgba(255, 140, 0, 0.18);
+            mix-blend-mode: multiply;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .spotlight-modal {
+            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
+        }
+
+        .context-menu-pop {
+            position: fixed;
+            z-index: 99999;
+            width: 220px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(24px) saturate(180%);
+            -webkit-backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            border-radius: 18px;
+            padding: 6px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(0, 229, 255, 0.2);
+            display: none;
+            transform-origin: top left;
+            animation: contextPop 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes contextPop {
+            0% { opacity: 0; transform: scale(0.92); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .workspace-chip {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-family: monospace;
+            font-weight: bold;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .workspace-chip.active {
+            background: rgba(0, 229, 255, 0.25);
+            color: #00e5ff;
+            border: 1px solid rgba(0, 229, 255, 0.6);
+            box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
+        }
+        .workspace-chip:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .workspace-chip:not(.active):hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #ffffff;
+        }
+
+        /* Note editor styling */
+        .markdown-preview h1 { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #38bdf8; }
+        .markdown-preview h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.4rem; color: #818cf8; }
+        .markdown-preview h3 { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.3rem; }
+        .markdown-preview p { margin-bottom: 0.6rem; line-height: 1.5; }
+        .markdown-preview ul { list-style-type: disc; margin-left: 1.25rem; margin-bottom: 0.6rem; }
+        .markdown-preview ol { list-style-type: decimal; margin-left: 1.25rem; margin-bottom: 0.6rem; }
+        .markdown-preview code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #f43f5e; }
+        .markdown-preview pre { background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px; font-family: monospace; margin-bottom: 0.6rem; overflow-x: auto; }
+        .markdown-preview blockquote { border-left: 3px solid #00e5ff; padding-left: 8px; opacity: 0.85; margin-bottom: 0.6rem; font-style: italic; }
+
+        /* Range slider custom styling */
+        input[type="range"].liquid-slider {
+            -webkit-appearance: none;
+            height: 6px;
+            border-radius: 3px;
+            background: rgba(255, 255, 255, 0.2);
+            outline: none;
+        }
+        input[type="range"].liquid-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: #00e5ff;
+            cursor: pointer;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
+            border: 2px solid white;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
 <body class="wall-ladakh-ai select-none">
+
+    <!-- OS Display Filters (Brightness & Night Light) -->
+    <div id="brightness-overlay"></div>
+    <div id="nightlight-overlay"></div>
 
     <!-- REACT BITS SVG CHROMATIC DISPLACEMENT FILTER -->
     <svg class="glass-surface-svg-filter" xmlns="http://www.w3.org/2000/svg">
@@ -4450,6 +4560,219 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 </div>
             </div>
 
+        
+            <!-- =========================================================================
+                 APP 13: SOVEREIGN NOTES & MARKDOWN PAD (RICH TEXT EDITOR)
+                 ========================================================================= -->
+            <div id="notes-window" class="absolute top-6 left-28 w-[980px] h-[600px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'notes-window')" ondblclick="toggleMaximizeWindow('notes-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('notes-window', 'dock-notes')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('notes-window', 'dock-notes')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('notes-window')" title="Maximize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5 text-amber-500">
+                            <span>📝</span>
+                            <span>Sovereign Notes & Markdown Studio</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <button onclick="createNewNote()" class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 border border-amber-500/40 font-bold transition-all">＋ New Note</button>
+                        <button onclick="exportCurrentNote()" class="px-2.5 py-1 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-300 transition-all">💾 Export</button>
+                        <button onclick="deleteCurrentNote()" class="px-2.5 py-1 rounded-xl bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 border border-rose-500/40 transition-all">🗑️ Delete</button>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Notes Sidebar -->
+                    <div class="w-64 bg-slate-100/60 dark:bg-slate-950/60 border-r border-slate-200 dark:border-slate-800 flex flex-col p-3 space-y-2">
+                        <input type="text" id="notes-search-input" oninput="filterNotesList()" placeholder="🔍 Search notes..." class="w-full px-3 py-1.5 rounded-xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 text-xs font-mono focus:outline-none focus:border-amber-400">
+                        <div id="notes-list-container" class="flex-1 overflow-y-auto custom-scroll space-y-1.5 pr-1">
+                            <!-- Notes list rendered here -->
+                        </div>
+                    </div>
+
+                    <!-- Note Editor & Preview Split -->
+                    <div class="flex-1 flex flex-col bg-slate-50/90 dark:bg-slate-900/90 p-4 space-y-3 overflow-hidden">
+                        <div class="flex items-center justify-between">
+                            <input type="text" id="note-title-input" oninput="saveCurrentNote()" placeholder="Note Title..." class="text-base font-bold bg-transparent border-none outline-none font-sans text-slate-900 dark:text-white w-2/3">
+                            <div class="flex items-center space-x-2 text-[10px] font-mono text-slate-400">
+                                <span id="note-word-count">0 words</span>
+                                <span>•</span>
+                                <span id="note-saved-status" class="text-emerald-400 font-bold">Auto-Saved</span>
+                            </div>
+                        </div>
+
+                        <div class="flex-1 grid grid-cols-2 gap-4 overflow-hidden">
+                            <!-- Markdown Source Textarea -->
+                            <div class="flex flex-col space-y-1">
+                                <div class="text-[10px] font-mono uppercase tracking-wider opacity-60">Markdown Source</div>
+                                <textarea id="note-content-input" oninput="renderNotePreview(); saveCurrentNote();" placeholder="# Type your markdown note here...\n- Task 1\n- Task 2" class="w-full flex-1 p-3 rounded-2xl bg-white/50 dark:bg-slate-950/70 border border-slate-200 dark:border-slate-800 text-xs font-mono resize-none focus:outline-none focus:border-amber-400 custom-scroll text-slate-900 dark:text-slate-100"></textarea>
+                            </div>
+
+                            <!-- Live Formatted Preview -->
+                            <div class="flex flex-col space-y-1">
+                                <div class="text-[10px] font-mono uppercase tracking-wider opacity-60">Live Preview</div>
+                                <div id="note-preview-pane" class="w-full flex-1 p-4 rounded-2xl bg-white/30 dark:bg-slate-950/40 border border-slate-200 dark:border-slate-800 text-xs font-sans overflow-y-auto custom-scroll markdown-preview text-slate-800 dark:text-slate-200">
+                                    <p class="opacity-50 italic">Live preview will render here...</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 14: SOVEREIGN PHOTO & MEDIA VIEWER
+                 ========================================================================= -->
+            <div id="photos-window" class="absolute top-6 left-28 w-[980px] h-[600px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'photos-window')" ondblclick="toggleMaximizeWindow('photos-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('photos-window', 'dock-photos')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('photos-window', 'dock-photos')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('photos-window')" title="Maximize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5 text-pink-500">
+                            <span>🖼️</span>
+                            <span id="photo-viewer-title">Sovereign Photo & Media Studio</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <button onclick="zoomPhoto(0.2)" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">🔍＋</button>
+                        <button onclick="zoomPhoto(-0.2)" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">🔍−</button>
+                        <button onclick="rotatePhoto(90)" class="px-2 py-1 rounded-lg bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700">🔄 90°</button>
+                        <button onclick="togglePhotoSlideshow()" id="photo-slideshow-btn" class="px-2.5 py-1 rounded-lg bg-pink-500/20 text-pink-400 border border-pink-500/40 font-bold">▶ Slideshow</button>
+                    </div>
+                </div>
+
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Gallery Thumbnail Strip -->
+                    <div class="w-56 bg-slate-100/60 dark:bg-slate-950/60 border-r border-slate-200 dark:border-slate-800 p-3 space-y-2 overflow-y-auto custom-scroll">
+                        <div class="text-[10px] font-mono uppercase tracking-wider opacity-60">System Gallery</div>
+                        <div id="photos-thumbnail-list" class="space-y-2">
+                            <!-- Thumbnails injected here -->
+                        </div>
+                    </div>
+
+                    <!-- Main Image Canvas Viewport -->
+                    <div class="flex-1 flex flex-col bg-slate-950/90 relative overflow-hidden items-center justify-center p-4">
+                        <div class="relative max-w-full max-h-full flex items-center justify-center overflow-hidden">
+                            <img id="main-photo-display" src="/wallpapers/ladakh_pangong.jpg" alt="Photo Display" class="max-h-[460px] object-contain rounded-xl shadow-2xl transition-transform duration-200" style="transform: scale(1) rotate(0deg);">
+                        </div>
+
+                        <!-- Image Filters Toolbar Bottom Bar -->
+                        <div class="absolute bottom-4 inset-x-8 p-2 rounded-2xl ultra-liquid-glass flex items-center justify-between font-mono text-[11px]">
+                            <div class="flex items-center space-x-2 text-slate-300">
+                                <span class="opacity-60">Presets:</span>
+                                <button onclick="applyPhotoFilter('none')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700">Normal</button>
+                                <button onclick="applyPhotoFilter('grayscale(100%)')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700">B&W</button>
+                                <button onclick="applyPhotoFilter('sepia(80%)')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700">Sepia</button>
+                                <button onclick="applyPhotoFilter('contrast(180%) saturate(140%)')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700">Vivid</button>
+                                <button onclick="applyPhotoFilter('invert(100%)')" class="px-2 py-0.5 rounded-lg bg-slate-800 hover:bg-slate-700">Invert</button>
+                            </div>
+                            <div id="photo-dimensions-info" class="text-cyan-400 font-bold">1920 × 1080 • JPEG</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 15: SOVEREIGN RECYCLE BIN & TRASH (FILE RECOVERY)
+                 ========================================================================= -->
+            <div id="recyclebin-window" class="absolute top-6 left-28 w-[920px] h-[560px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <div class="px-4 py-2.5 bg-slate-100/80 dark:bg-slate-950/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'recyclebin-window')" ondblclick="toggleMaximizeWindow('recyclebin-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('recyclebin-window', 'dock-recyclebin')" title="Close"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg></span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('recyclebin-window', 'dock-recyclebin')" title="Minimize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg></span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('recyclebin-window')" title="Maximize"><svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg></span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-1.5 text-rose-400">
+                            <span>🗑️</span>
+                            <span>Sovereign Recycle Bin & Vault Trash</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <button onclick="emptyRecycleBin()" class="px-2.5 py-1 rounded-xl bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 border border-rose-500/40 font-bold transition-all">Empty Trash</button>
+                    </div>
+                </div>
+
+                <div class="flex-1 bg-slate-50/90 dark:bg-slate-950/90 p-5 overflow-y-auto custom-scroll space-y-4 font-mono text-xs">
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                        <div class="opacity-70" id="recyclebin-count-label">Deleted Files (0 items)</div>
+                        <div class="text-[10px] text-slate-500">Deleted items can be restored to original path</div>
+                    </div>
+                    <div id="recyclebin-items-container" class="space-y-2">
+                        <!-- Deleted items rows rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 UNIVERSAL SPOTLIGHT QUICK SEARCH MODAL (Win+S / Cmd+Space)
+                 ========================================================================= -->
+            <div id="spotlight-overlay" class="fixed inset-0 z-50 bg-black/60 dark:bg-slate-950/80 backdrop-blur-2xl flex items-start justify-center pt-24 hidden window-open-genie" onclick="closeSpotlight()">
+                <div class="w-[680px] p-5 ultra-liquid-glass spotlight-modal space-y-4 rounded-3xl" onclick="event.stopPropagation()">
+                    <div class="relative flex items-center">
+                        <span class="absolute left-4 text-cyan-400 text-lg">🔍</span>
+                        <input type="text" id="spotlight-input" oninput="runSpotlightSearch(this.value)" onkeydown="handleSpotlightKeydown(event)" placeholder="Search apps, settings, files, math (e.g. 512*1024), or web..." class="w-full pl-12 pr-4 py-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-cyan-500/40 text-slate-900 dark:text-white font-mono text-sm focus:outline-none focus:ring-2 focus:ring-cyan-400/50 shadow-inner">
+                        <span class="absolute right-4 text-[10px] font-mono text-slate-500 bg-slate-800 px-2 py-0.5 rounded-md">ESC</span>
+                    </div>
+
+                    <div id="spotlight-results" class="max-h-80 overflow-y-auto custom-scroll space-y-1 font-mono text-xs pr-1">
+                        <!-- Dynamic search results rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 CLIPBOARD HISTORY MANAGER MODAL (Win+V)
+                 ========================================================================= -->
+            <div id="clipboard-overlay" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-xl flex items-center justify-center hidden window-open-genie" onclick="closeClipboardHub()">
+                <div class="w-[540px] p-5 ultra-liquid-glass space-y-4 rounded-3xl" onclick="event.stopPropagation()">
+                    <div class="flex justify-between items-center pb-2 border-b border-slate-200 dark:border-slate-800">
+                        <div class="font-bold text-xs flex items-center space-x-2">
+                            <span>📋</span>
+                            <span>Sovereign Clipboard History (Win+V)</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="clearClipboardHistory()" class="px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 text-[10px] font-mono">Clear All</button>
+                            <button onclick="closeClipboardHub()" class="w-6 h-6 rounded-full bg-slate-800 text-slate-400 flex items-center justify-center text-xs">✕</button>
+                        </div>
+                    </div>
+                    <div id="clipboard-items-list" class="max-h-72 overflow-y-auto custom-scroll space-y-2 pr-1 font-mono text-xs">
+                        <!-- Clipboard items rendered here -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 TASKBAR CONTEXT MENU
+                 ========================================================================= -->
+            <div id="taskbar-context-menu" class="context-menu-pop font-mono text-xs space-y-1">
+                <button onclick="openAppWindow('taskmanager-window', 'dock-taskmgr'); hideTaskbarContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+                    <span>📈</span><span>Task Manager</span>
+                </button>
+                <button onclick="toggleShowDesktop(); hideTaskbarContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+                    <span>🪟</span><span>Show Desktop</span>
+                </button>
+                <button onclick="tileWindowsSplitScreen(); hideTaskbarContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+                    <span>⊞</span><span>Tile Split-Screen</span>
+                </button>
+                <button onclick="closeAllOpenWindows(); hideTaskbarContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-rose-500/20 hover:text-rose-400 flex items-center space-x-2 text-slate-200">
+                    <span>✕</span><span>Close All Windows</span>
+                </button>
+                <div class="h-px bg-slate-800 my-1"></div>
+                <button onclick="openAppWindow('settings-window', 'dock-settings'); hideTaskbarContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+                    <span>⚙️</span><span>Taskbar & System Settings</span>
+                </button>
+            </div>
+
         </main>
 
         <!-- BOTTOM HORIZON TASKBAR -->
@@ -4602,14 +4925,28 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
                     <div class="h-7 w-px bg-white/20 dark:bg-slate-700/60 mx-1"></div>
 
+                    <!-- Virtual Desktops Workspace Switcher Pill Bar -->
+                    <div class="flex items-center space-x-1 px-1.5 py-1 rounded-2xl bg-slate-900/60 border border-slate-700/60 mr-1">
+                        <button onclick="switchVirtualDesktop(1)" id="workspace-btn-1" class="workspace-chip active" title="Desktop 1 (Work)">D1</button>
+                        <button onclick="switchVirtualDesktop(2)" id="workspace-btn-2" class="workspace-chip" title="Desktop 2 (Dev)">D2</button>
+                        <button onclick="switchVirtualDesktop(3)" id="workspace-btn-3" class="workspace-chip" title="Desktop 3 (Media)">D3</button>
+                    </div>
+
+                    <!-- Spotlight Search Quick Button -->
+                    <button onclick="openSpotlight()" class="glass-dock-tile glaze-taskview text-lg" title="Universal Spotlight Search (Win+S / Cmd+Space)">🔍</button>
+                    <!-- Clipboard History Quick Button -->
+                    <button onclick="openClipboardHub()" class="glass-dock-tile glaze-taskview text-lg" title="Clipboard History (Win+V)">📋</button>
                     <!-- Mission Control Task View Tile -->
                     <button id="dock-taskview" onclick="toggleAppSwitcher()" class="glass-dock-tile glaze-taskview text-xl" title="Mission Control & App Exposé (Win+Tab / Alt+Tab)">🗂️</button>
 
                     <!-- 3D Glass Icons Dock -->
                     <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
+                    <button id="dock-notes" onclick="toggleWindowFromDock('notes-window', 'dock-notes')" class="glass-dock-tile glaze-taskmgr text-lg" title="Notes & Markdown Studio">📝</button>
+                    <button id="dock-photos" onclick="toggleWindowFromDock('photos-window', 'dock-photos')" class="glass-dock-tile glaze-music text-lg" title="Photo & Media Viewer">🖼️</button>
                     <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="glass-dock-tile glaze-game" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
                     <button id="dock-files" onclick="toggleWindowFromDock('files-window', 'dock-files')" class="glass-dock-tile glaze-files" title="File Explorer (Win+E)">📁</button>
+                    <button id="dock-recyclebin" onclick="toggleWindowFromDock('recyclebin-window', 'dock-recyclebin')" class="glass-dock-tile glaze-defender text-lg" title="Recycle Bin">🗑️</button>
                     <button id="dock-defender" onclick="toggleWindowFromDock('kavach-window', 'dock-defender')" class="glass-dock-tile glaze-defender" title="Kavach Defender 3.0 (Win+S)">🛡️</button>
                     <button id="dock-devmgr" onclick="toggleWindowFromDock('devicemanager-window', 'dock-devmgr')" class="glass-dock-tile glaze-devmgr" title="Device Manager (Win+D)">💻</button>
                     <button id="dock-network" onclick="toggleWindowFromDock('network-window', 'dock-network')" class="glass-dock-tile glaze-network" title="Network Center (Win+N)">📶</button>
@@ -4619,7 +4956,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="glass-dock-tile glaze-calc" title="Scientific Calculator (Win+K)">🧮</button>
                     <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="glass-dock-tile glaze-calendar" title="Calendar & ISRO (Win+J)">🗂️</button>
                     <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="glass-dock-tile glaze-terminal" title="Command Prompt (Win+T)">📟</button>
-                                    <button id="dock-personalize" onclick="toggleWindowFromDock('customization-window', 'dock-personalize')" class="glass-dock-tile glaze-settings text-2xl" title="Personalization Studio (Win+U)">🎨</button>
+                    <button id="dock-personalize" onclick="toggleWindowFromDock('customization-window', 'dock-personalize')" class="glass-dock-tile glaze-settings text-2xl" title="Personalization Studio (Win+U)">🎨</button>
                     <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="glass-dock-tile glaze-settings" title="Settings (Win+I)">⚙️</button>
                 </div>
 
@@ -9178,6 +9515,746 @@ Available Sovereign Applications:<br>
         }
 
         
+    
+        // =========================================================================
+        // 🏛️ BHARATOS NEXT-GEN PC OS SUBSYSTEM ENGINES
+        // =========================================================================
+
+        // -------------------------------------------------------------------------
+        // 1. UNIVERSAL SPOTLIGHT SEARCH (Win+S / Cmd+Space)
+        // -------------------------------------------------------------------------
+        let spotlightSelectedIndex = 0;
+        let spotlightCurrentResults = [];
+
+        function openSpotlight() {
+            playSfx('click');
+            const overlay = document.getElementById('spotlight-overlay');
+            const input = document.getElementById('spotlight-input');
+            if (overlay && input) {
+                overlay.classList.remove('hidden');
+                input.value = '';
+                input.focus();
+                runSpotlightSearch('');
+            }
+        }
+
+        function closeSpotlight() {
+            const overlay = document.getElementById('spotlight-overlay');
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        function runSpotlightSearch(query) {
+            const container = document.getElementById('spotlight-results');
+            if (!container) return;
+            const q = query.trim().toLowerCase();
+
+            spotlightCurrentResults = [];
+            spotlightSelectedIndex = 0;
+
+            // Check if query is a Math Expression (e.g. 512*1024, sqrt(144), 45+89)
+            const mathRegex = /^[0-9+\-*\/().^ %sqrtPIEsincozta\s]+$/;
+            if (q.length > 1 && mathRegex.test(q)) {
+                try {
+                    let sanitized = q.replace(/sqrt/g, 'Math.sqrt').replace(/sin/g, 'Math.sin').replace(/cos/g, 'Math.cos').replace(/tan/g, 'Math.tan').replace(/pi/gi, 'Math.PI');
+                    const mathRes = Function('"use strict";return (' + sanitized + ')')();
+                    if (typeof mathRes === 'number' && !isNaN(mathRes)) {
+                        spotlightCurrentResults.push({
+                            type: 'math',
+                            category: '🔢 Math & Calculation',
+                            title: `${query} = ${mathRes.toLocaleString()}`,
+                            subtitle: 'Press Enter to copy result to clipboard',
+                            icon: '🧮',
+                            action: () => {
+                                navigator.clipboard.writeText(mathRes.toString());
+                                showNotificationToast("Calculator", `Copied "${mathRes}" to clipboard!`, "info");
+                                closeSpotlight();
+                            }
+                        });
+                    }
+                } catch (e) {}
+            }
+
+            // Search Native Apps
+            const allApps = [
+                { name: 'Garud Web Browser', win: 'browser-window', dock: 'dock-browser', icon: '🌐', cat: 'Internet' },
+                { name: 'Indic Code Studio', win: 'code-window', dock: 'dock-code', icon: '⚡', cat: 'Developer' },
+                { name: 'Sovereign Notes & Markdown Pad', win: 'notes-window', dock: 'dock-notes', icon: '📝', cat: 'Productivity' },
+                { name: 'Photo & Media Viewer', win: 'photos-window', dock: 'dock-photos', icon: '🖼️', cat: 'Media' },
+                { name: 'Solaris 3D FPS Cyber Arena', win: 'game-window', dock: 'dock-game', icon: '🎮', cat: 'Gaming' },
+                { name: 'Sovereign File Explorer', win: 'files-window', dock: 'dock-files', icon: '📁', cat: 'System' },
+                { name: 'Recycle Bin & Trash', win: 'recyclebin-window', dock: 'dock-recyclebin', icon: '🗑️', cat: 'System' },
+                { name: 'Kavach Defender Zero-Trust Shield', win: 'kavach-window', dock: 'dock-defender', icon: '🛡️', cat: 'Security' },
+                { name: 'Device & Hardware Manager', win: 'devicemanager-window', dock: 'dock-devmgr', icon: '💻', cat: 'Hardware' },
+                { name: 'Quantum Network Center', win: 'network-window', dock: 'dock-network', icon: '📶', cat: 'Network' },
+                { name: 'Sovereign Task Manager', win: 'taskmanager-window', dock: 'dock-taskmgr', icon: '📈', cat: 'System' },
+                { name: 'Sovereign App Store', win: 'store-window', dock: 'dock-store', icon: '🛍️', cat: 'Store' },
+                { name: 'Soundscape Harmonic Studio', win: 'music-window', dock: 'dock-music', icon: '🎵', cat: 'Media' },
+                { name: 'Scientific Calculator', win: 'calc-window', dock: 'dock-calc', icon: '🧮', cat: 'Utilities' },
+                { name: 'Calendar & ISRO Mission Watch', win: 'calendar-window', dock: 'dock-calendar', icon: '🗂️', cat: 'Utilities' },
+                { name: 'Sovereign Terminal Enclave', win: 'terminal-window', dock: 'dock-terminal', icon: '📟', cat: 'Developer' },
+                { name: 'Personalization & Theme Studio', win: 'customization-window', dock: 'dock-personalize', icon: '🎨', cat: 'Personalization' },
+                { name: 'Sovereign Settings Hub', win: 'settings-window', dock: 'dock-settings', icon: '⚙️', cat: 'System' }
+            ];
+
+            allApps.forEach(app => {
+                if (!q || app.name.toLowerCase().includes(q) || app.cat.toLowerCase().includes(q)) {
+                    spotlightCurrentResults.push({
+                        type: 'app',
+                        category: `🚀 Applications (${app.cat})`,
+                        title: app.name,
+                        subtitle: 'Open Native BharatOS App',
+                        icon: app.icon,
+                        action: () => {
+                            openAppWindow(app.win, app.dock);
+                            closeSpotlight();
+                        }
+                    });
+                }
+            });
+
+            // Quick Settings Actions
+            const quickActions = [
+                { name: 'Toggle Pure Dark / Light Mode', icon: '🌓', action: () => { toggleTheme(); closeSpotlight(); } },
+                { name: 'Toggle Night Light Eye Comfort', icon: '🌙', action: () => { toggleNightLight(); closeSpotlight(); } },
+                { name: 'Open Mission Control / Stage View', icon: '🗂️', action: () => { toggleAppSwitcher(); closeSpotlight(); } },
+                { name: 'Ask Sudarshan AI Copilot', icon: '🤖', action: () => { toggleAICopilot(); closeSpotlight(); } },
+                { name: 'Show Desktop (Minimize All)', icon: '🪟', action: () => { toggleShowDesktop(); closeSpotlight(); } },
+                { name: 'Lock Sovereign Desktop', icon: '🔒', action: () => { lockDesktop(); closeSpotlight(); } }
+            ];
+
+            quickActions.forEach(qa => {
+                if (!q || qa.name.toLowerCase().includes(q)) {
+                    spotlightCurrentResults.push({
+                        type: 'action',
+                        category: '⚡ Quick System Actions',
+                        title: qa.name,
+                        subtitle: 'System Control Shortcut',
+                        icon: qa.icon,
+                        action: qa.action
+                    });
+                }
+            });
+
+            // Web Search Fallback
+            if (q.length > 0) {
+                spotlightCurrentResults.push({
+                    type: 'web',
+                    category: '🌐 Web Search',
+                    title: `Search "${query}" on the Web`,
+                    subtitle: 'Launch in Garud Sovereign Browser',
+                    icon: '🔍',
+                    action: () => {
+                        openAppWindow('browser-window', 'dock-browser');
+                        const bInput = document.getElementById('browser-url-input');
+                        if (bInput) bInput.value = `https://www.google.com/search?q=${encodeURIComponent(query)}`;
+                        navigateBrowser();
+                        closeSpotlight();
+                    }
+                });
+            }
+
+            renderSpotlightResults();
+        }
+
+        function renderSpotlightResults() {
+            const container = document.getElementById('spotlight-results');
+            if (!container) return;
+
+            if (spotlightCurrentResults.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center opacity-60">No results found for query.</div>`;
+                return;
+            }
+
+            container.innerHTML = spotlightCurrentResults.map((item, idx) => `
+                <div onclick="executeSpotlightItem(${idx})" class="p-2.5 rounded-2xl flex items-center justify-between cursor-pointer transition-all ${idx === spotlightSelectedIndex ? 'bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40 shadow-md' : 'hover:bg-slate-200/50 dark:hover:bg-slate-800/50 text-slate-800 dark:text-slate-200'}">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">${item.icon}</span>
+                        <div>
+                            <div class="text-xs">${item.title}</div>
+                            <div class="text-[10px] opacity-60 font-sans">${item.subtitle}</div>
+                        </div>
+                    </div>
+                    <span class="text-[9px] px-2 py-0.5 rounded-md bg-slate-800/60 text-slate-400 font-mono">${item.category}</span>
+                </div>
+            `).join('');
+        }
+
+        function handleSpotlightKeydown(e) {
+            if (e.key === 'ArrowDown') {
+                e.preventDefault();
+                spotlightSelectedIndex = (spotlightSelectedIndex + 1) % spotlightCurrentResults.length;
+                renderSpotlightResults();
+            } else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                spotlightSelectedIndex = (spotlightSelectedIndex - 1 + spotlightCurrentResults.length) % spotlightCurrentResults.length;
+                renderSpotlightResults();
+            } else if (e.key === 'Enter') {
+                e.preventDefault();
+                executeSpotlightItem(spotlightSelectedIndex);
+            } else if (e.key === 'Escape') {
+                closeSpotlight();
+            }
+        }
+
+        function executeSpotlightItem(idx) {
+            if (spotlightCurrentResults[idx]) {
+                playSfx('click');
+                spotlightCurrentResults[idx].action();
+            }
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 2. CLIPBOARD HISTORY MANAGER (Win+V)
+        // -------------------------------------------------------------------------
+        let clipboardHistory = [
+            { id: 1, text: "https://bharatos.gov.in/telemetry", pinned: true, timestamp: "Just now" },
+            { id: 2, text: "const sovereignKernel = new BharatMicrokernel({ enclave: 'zero-trust' });", pinned: false, timestamp: "5m ago" },
+            { id: 3, text: "BharatOS 2026 Sovereign Edition", pinned: false, timestamp: "12m ago" }
+        ];
+
+        // Global Copy Listener
+        document.addEventListener('copy', () => {
+            setTimeout(async () => {
+                try {
+                    const text = await navigator.clipboard.readText();
+                    if (text && !clipboardHistory.some(c => c.text === text)) {
+                        clipboardHistory.unshift({
+                            id: Date.now(),
+                            text: text,
+                            pinned: false,
+                            timestamp: "Just now"
+                        });
+                        if (clipboardHistory.length > 25) clipboardHistory.pop();
+                        renderClipboardHistory();
+                    }
+                } catch (e) {}
+            }, 100);
+        });
+
+        function openClipboardHub() {
+            playSfx('click');
+            const overlay = document.getElementById('clipboard-overlay');
+            if (overlay) {
+                overlay.classList.remove('hidden');
+                renderClipboardHistory();
+            }
+        }
+
+        function closeClipboardHub() {
+            const overlay = document.getElementById('clipboard-overlay');
+            if (overlay) overlay.classList.add('hidden');
+        }
+
+        function renderClipboardHistory() {
+            const container = document.getElementById('clipboard-items-list');
+            if (!container) return;
+
+            if (clipboardHistory.length === 0) {
+                container.innerHTML = `<div class="p-6 text-center opacity-60">Clipboard history is empty. Press Ctrl+C anywhere to copy items here.</div>`;
+                return;
+            }
+
+            container.innerHTML = clipboardHistory.map(item => `
+                <div class="p-3 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 space-y-2 hover:border-cyan-500/40 transition-all group">
+                    <div class="flex items-center justify-between">
+                        <span class="text-[10px] text-slate-400">${item.timestamp}</span>
+                        <div class="flex items-center space-x-1.5 opacity-80">
+                            <button onclick="togglePinClipboard(${item.id})" class="px-2 py-0.5 rounded-lg ${item.pinned ? 'bg-amber-500/20 text-amber-400' : 'bg-slate-800 text-slate-400'} text-[10px]">${item.pinned ? '📌 Pinned' : 'Pin'}</button>
+                            <button onclick="deleteClipboardItem(${item.id})" class="px-2 py-0.5 rounded-lg bg-rose-500/20 text-rose-400 text-[10px]">✕</button>
+                        </div>
+                    </div>
+                    <div class="p-2 rounded-xl bg-black/30 font-mono text-xs text-slate-200 truncate select-all cursor-pointer hover:text-cyan-300" onclick="copyAndPasteSnippet('${item.text.replace(/'/g, "\'")}')">
+                        ${item.text}
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function togglePinClipboard(id) {
+            playSfx('click');
+            const item = clipboardHistory.find(c => c.id === id);
+            if (item) item.pinned = !item.pinned;
+            renderClipboardHistory();
+        }
+
+        function deleteClipboardItem(id) {
+            playSfx('click');
+            clipboardHistory = clipboardHistory.filter(c => c.id !== id);
+            renderClipboardHistory();
+        }
+
+        function clearClipboardHistory() {
+            playSfx('click');
+            clipboardHistory = clipboardHistory.filter(c => c.pinned);
+            renderClipboardHistory();
+            showNotificationToast("Clipboard", "Cleared unpinned clipboard history.", "info");
+        }
+
+        function copyAndPasteSnippet(text) {
+            playSfx('click');
+            navigator.clipboard.writeText(text);
+            showNotificationToast("Clipboard", "Copied snippet to active clipboard!", "success");
+            closeClipboardHub();
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 3. QUICK SETTINGS ACTION CENTER & DISPLAY FILTERS (Win+A)
+        // -------------------------------------------------------------------------
+        let isNightLightActive = false;
+        let isDNDActive = false;
+
+        function setDisplayBrightness(val) {
+            const overlay = document.getElementById('brightness-overlay');
+            const label = document.getElementById('tray-brightness-val');
+            if (label) label.textContent = `${val}%`;
+            if (overlay) {
+                // 100% = 0 opacity, 20% = 0.8 opacity
+                const opacity = (100 - val) / 100 * 0.85;
+                overlay.style.opacity = opacity.toString();
+            }
+        }
+
+        function toggleNightLight() {
+            playSfx('click');
+            isNightLightActive = !isNightLightActive;
+            const overlay = document.getElementById('nightlight-overlay');
+            const btn = document.getElementById('quick-nightlight-btn');
+            if (overlay) {
+                overlay.style.opacity = isNightLightActive ? '1' : '0';
+            }
+            if (btn) {
+                btn.className = isNightLightActive ? 
+                    "p-2.5 rounded-xl bg-amber-500/30 text-amber-300 font-bold border border-amber-500/50 flex flex-col items-center justify-center space-y-1" :
+                    "p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold flex flex-col items-center justify-center space-y-1";
+            }
+            showNotificationToast("Display", isNightLightActive ? "Night Light Filter Enabled" : "Night Light Disabled", "info");
+        }
+
+        function toggleDNDMode() {
+            playSfx('click');
+            isDNDActive = !isDNDActive;
+            const btn = document.getElementById('quick-dnd-btn');
+            if (btn) {
+                btn.className = isDNDActive ?
+                    "p-2.5 rounded-xl bg-purple-500/30 text-purple-300 font-bold border border-purple-500/50 flex flex-col items-center justify-center space-y-1" :
+                    "p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold flex flex-col items-center justify-center space-y-1";
+            }
+            showNotificationToast("Focus Mode", isDNDActive ? "Do Not Disturb (DND) Active" : "DND Disabled", "info");
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 4. VIRTUAL DESKTOPS / WORKSPACES (Win+Ctrl+D, Win+Ctrl+Arrow)
+        // -------------------------------------------------------------------------
+        let activeVirtualDesktop = 1;
+        const virtualDesktops = [
+            { id: 1, name: "Desktop 1 (Work)", windows: ['browser-window', 'files-window'] },
+            { id: 2, name: "Desktop 2 (Dev)", windows: ['code-window', 'terminal-window'] },
+            { id: 3, name: "Desktop 3 (Media)", windows: ['music-window', 'photos-window', 'game-window'] }
+        ];
+
+        function switchVirtualDesktop(id) {
+            playSfx('genie');
+            activeVirtualDesktop = id;
+            [1, 2, 3].forEach(d => {
+                const btn = document.getElementById(`workspace-btn-${d}`);
+                if (btn) {
+                    if (d === id) {
+                        btn.className = "workspace-chip active";
+                    } else {
+                        btn.className = "workspace-chip";
+                    }
+                }
+            });
+            showNotificationToast("Workspaces", `Switched to ${virtualDesktops.find(v => v.id === id)?.name || 'Desktop ' + id}`, "info");
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 5. NATIVE RIGHT-CLICK CONTEXT MENUS (Desktop, Taskbar, Files)
+        // -------------------------------------------------------------------------
+        const desktopContextMenu = document.getElementById('desktop-context-menu');
+        const taskbarContextMenu = document.getElementById('taskbar-context-menu');
+
+        // Right-Click on Desktop
+        const desktopContainer = document.getElementById('desktop-container') || document.querySelector('main');
+        if (desktopContainer) {
+            desktopContainer.addEventListener('contextmenu', (e) => {
+                if (e.target.closest('.ultra-liquid-glass') || e.target.closest('footer')) return;
+                e.preventDefault();
+                playSfx('click');
+                hideAllContextMenus();
+                if (desktopContextMenu) {
+                    desktopContextMenu.style.display = 'block';
+                    desktopContextMenu.style.left = `${Math.min(window.innerWidth - 240, e.clientX)}px`;
+                    desktopContextMenu.style.top = `${Math.min(window.innerHeight - 300, e.clientY)}px`;
+                }
+            });
+        }
+
+        // Right-Click on Taskbar
+        const taskbarElem = document.querySelector('footer.horizon-taskbar-wrapper');
+        if (taskbarElem) {
+            taskbarElem.addEventListener('contextmenu', (e) => {
+                e.preventDefault();
+                playSfx('click');
+                hideAllContextMenus();
+                if (taskbarContextMenu) {
+                    taskbarContextMenu.style.display = 'block';
+                    taskbarContextMenu.style.left = `${Math.min(window.innerWidth - 240, e.clientX)}px`;
+                    taskbarContextMenu.style.top = `${e.clientY - 210}px`;
+                }
+            });
+        }
+
+        // Dismiss context menus on outside click
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.context-menu-pop')) {
+                hideAllContextMenus();
+            }
+        });
+
+        function hideAllContextMenus() {
+            if (desktopContextMenu) desktopContextMenu.style.display = 'none';
+            if (taskbarContextMenu) taskbarContextMenu.style.display = 'none';
+        }
+        function hideDesktopContextMenu() { hideAllContextMenus(); }
+        function hideTaskbarContextMenu() { hideAllContextMenus(); }
+
+
+        // -------------------------------------------------------------------------
+        // 6. SOVEREIGN RECYCLE BIN / TRASH APP
+        // -------------------------------------------------------------------------
+        let recycleBinFiles = [
+            { id: 101, name: "old_telemetry_dump.log", originalPath: "/var/log/telemetry", size: "4.2 MB", deletedAt: "Yesterday" },
+            { id: 102, name: "temp_scratch_script.py", originalPath: "/home/aviral/scripts", size: "12 KB", deletedAt: "2 days ago" }
+        ];
+
+        function renderRecycleBinList() {
+            const container = document.getElementById('recyclebin-items-container');
+            const countLabel = document.getElementById('recyclebin-count-label');
+            if (countLabel) countLabel.textContent = `Deleted Files (${recycleBinFiles.length} items)`;
+            if (!container) return;
+
+            if (recycleBinFiles.length === 0) {
+                container.innerHTML = `<div class="p-12 text-center opacity-60">Recycle Bin is completely empty.</div>`;
+                return;
+            }
+
+            container.innerHTML = recycleBinFiles.map(file => `
+                <div class="p-3.5 rounded-2xl bg-white/40 dark:bg-slate-900/60 border border-slate-200 dark:border-slate-800 flex items-center justify-between hover:border-cyan-500/40 transition-all">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-2xl">📄</span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white">${file.name}</div>
+                            <div class="text-[10px] opacity-60">Original: ${file.originalPath} • ${file.size} • Deleted: ${file.deletedAt}</div>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="restoreRecycleBinItem(${file.id})" class="px-3 py-1 rounded-xl bg-cyan-500/20 text-cyan-400 hover:bg-cyan-500/30 border border-cyan-500/40 font-bold transition-all">Restore</button>
+                        <button onclick="purgeRecycleBinItem(${file.id})" class="px-3 py-1 rounded-xl bg-rose-500/20 text-rose-400 hover:bg-rose-500/30 border border-rose-500/40 font-bold transition-all">Purge</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function restoreRecycleBinItem(id) {
+            playSfx('click');
+            const item = recycleBinFiles.find(f => f.id === id);
+            if (item) {
+                recycleBinFiles = recycleBinFiles.filter(f => f.id !== id);
+                renderRecycleBinList();
+                showNotificationToast("Recycle Bin", `Restored "${item.name}" back to ${item.originalPath}`, "success");
+            }
+        }
+
+        function purgeRecycleBinItem(id) {
+            playSfx('click');
+            recycleBinFiles = recycleBinFiles.filter(f => f.id !== id);
+            renderRecycleBinList();
+            showNotificationToast("Recycle Bin", "File permanently purged from disk.", "warning");
+        }
+
+        function emptyRecycleBin() {
+            playSfx('click');
+            recycleBinFiles = [];
+            renderRecycleBinList();
+            showNotificationToast("Recycle Bin", "All deleted items permanently purged.", "warning");
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 7. SOVEREIGN NOTES & MARKDOWN PAD APP
+        // -------------------------------------------------------------------------
+        let sovereignNotes = [
+            {
+                id: 1,
+                title: "BharatOS 2026 Architecture Notes",
+                content: "# BharatOS Sovereign Microkernel\n\nBharatOS is engineered with **zero-trust** telemetry, high-craft liquid glass UI, and sovereign on-device AI.\n\n### Key Subsystems:\n- 🛡️ **Kavach Security Shield**\n- 🚀 **Three.js 3D Engine**\n- ⚡ **Real-Time Host Telemetry**\n- 📝 **Markdown Note Studio**\n\n> Pure digital sovereignty for 1.4 billion citizens.",
+                updatedAt: "Just now"
+            },
+            {
+                id: 2,
+                title: "Project Gaganyaan Telemetry Plan",
+                content: "# ISRO Gaganyaan-1 Mission\n\nOrbital module parameters:\n1. Apogee: 400 km\n2. Perigee: 380 km\n3. Crew module thermal shield: Verified\n\n*Status: Nominal*",
+                updatedAt: "10m ago"
+            }
+        ];
+
+        let activeNoteId = 1;
+
+        function renderNotesSidebar() {
+            const container = document.getElementById('notes-list-container');
+            if (!container) return;
+            const searchVal = (document.getElementById('notes-search-input')?.value || '').toLowerCase();
+            const filtered = sovereignNotes.filter(n => n.title.toLowerCase().includes(searchVal) || n.content.toLowerCase().includes(searchVal));
+
+            container.innerHTML = filtered.map(note => `
+                <div onclick="selectNote(${note.id})" class="p-2.5 rounded-xl cursor-pointer transition-all ${note.id === activeNoteId ? 'bg-amber-500/20 text-amber-400 font-bold border border-amber-500/40' : 'hover:bg-white/40 dark:hover:bg-slate-900/60 text-slate-700 dark:text-slate-300'}">
+                    <div class="text-xs truncate">${note.title || 'Untitled Note'}</div>
+                    <div class="text-[10px] opacity-60 mt-0.5">${note.updatedAt}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectNote(id) {
+            playSfx('click');
+            activeNoteId = id;
+            const note = sovereignNotes.find(n => n.id === id);
+            if (note) {
+                const titleInput = document.getElementById('note-title-input');
+                const contentInput = document.getElementById('note-content-input');
+                if (titleInput) titleInput.value = note.title;
+                if (contentInput) contentInput.value = note.content;
+                renderNotePreview();
+                renderNotesSidebar();
+            }
+        }
+
+        function createNewNote() {
+            playSfx('click');
+            const newId = Date.now();
+            sovereignNotes.unshift({
+                id: newId,
+                title: "New Sovereign Note",
+                content: "# New Note\n\nStart writing here...",
+                updatedAt: "Just now"
+            });
+            selectNote(newId);
+        }
+
+        function saveCurrentNote() {
+            const note = sovereignNotes.find(n => n.id === activeNoteId);
+            if (note) {
+                note.title = document.getElementById('note-title-input')?.value || 'Untitled Note';
+                note.content = document.getElementById('note-content-input')?.value || '';
+                note.updatedAt = 'Just now';
+                renderNotesSidebar();
+            }
+        }
+
+        function deleteCurrentNote() {
+            playSfx('click');
+            sovereignNotes = sovereignNotes.filter(n => n.id !== activeNoteId);
+            if (sovereignNotes.length > 0) {
+                selectNote(sovereignNotes[0].id);
+            } else {
+                createNewNote();
+            }
+        }
+
+        function exportCurrentNote() {
+            playSfx('click');
+            const note = sovereignNotes.find(n => n.id === activeNoteId);
+            if (note) {
+                const blob = new Blob([note.content], { type: 'text/markdown' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `${note.title.replace(/\s+/g, '_')}.md`;
+                a.click();
+                showNotificationToast("Notes", `Exported "${note.title}.md" successfully.`, "success");
+            }
+        }
+
+        function renderNotePreview() {
+            const content = document.getElementById('note-content-input')?.value || '';
+            const previewPane = document.getElementById('note-preview-pane');
+            const wordCountElem = document.getElementById('note-word-count');
+
+            if (wordCountElem) {
+                const words = content.trim() ? content.trim().split(/\s+/).length : 0;
+                wordCountElem.textContent = `${words} words`;
+            }
+
+            if (!previewPane) return;
+            // Simple markdown parser
+            let html = content
+                .replace(/^### (.*$)/gim, '<h3>$1</h3>')
+                .replace(/^## (.*$)/gim, '<h2>$1</h2>')
+                .replace(/^# (.*$)/gim, '<h1>$1</h1>')
+                .replace(/^> (.*$)/gim, '<blockquote>$1</blockquote>')
+                .replace(/\*\*(.*?)\*\*/gim, '<strong>$1</strong>')
+                .replace(/\*(.*?)\*/gim, '<em>$1</em>')
+                .replace(/`([^`]+)`/gim, '<code>$1</code>')
+                .replace(/\n/gim, '<br>');
+
+            previewPane.innerHTML = html || '<p class="opacity-50 italic">Empty note...</p>';
+        }
+
+        function filterNotesList() {
+            renderNotesSidebar();
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 8. SOVEREIGN PHOTO & MEDIA VIEWER
+        // -------------------------------------------------------------------------
+        const systemPhotos = [
+            { title: "Pangong Tso Crystal Lake (Ladakh)", src: "/wallpapers/ladakh_pangong.jpg" },
+            { title: "Dal Lake Shikara Twilight (Kashmir)", src: "/wallpapers/kashmir_dal.jpg" },
+            { title: "White Rann Salt Desert (Kutch)", src: "/wallpapers/kutch_rann.jpg" },
+            { title: "Munnar Tea Plantations (Kerala)", src: "/wallpapers/munnar_hills.jpg" },
+            { title: "Thar Desert Golden Twilight (Rajasthan)", src: "/wallpapers/thar_twilight.jpg" },
+            { title: "Varanasi Sacred Ganges Dawn", src: "/wallpapers/varanasi_dawn.jpg" },
+            { title: "Western Ghats Waterfall Stream", src: "/wallpapers/waterfall_ghats.jpg" },
+            { title: "Radhanagar Azure Beach (Andaman)", src: "/wallpapers/andaman_beach.jpg" }
+        ];
+
+        let currentPhotoIdx = 0;
+        let currentPhotoZoom = 1.0;
+        let currentPhotoRotation = 0;
+        let photoSlideshowInterval = null;
+
+        function renderPhotoThumbnails() {
+            const container = document.getElementById('photos-thumbnail-list');
+            if (!container) return;
+
+            container.innerHTML = systemPhotos.map((photo, idx) => `
+                <div onclick="selectPhoto(${idx})" class="p-1.5 rounded-xl cursor-pointer transition-all border ${idx === currentPhotoIdx ? 'border-pink-500 bg-pink-500/20' : 'border-slate-800 hover:border-slate-600 bg-slate-900/60'}">
+                    <img src="${photo.src}" alt="${photo.title}" class="w-full h-16 object-cover rounded-lg">
+                    <div class="text-[10px] font-mono text-slate-300 truncate mt-1">${photo.title}</div>
+                </div>
+            `).join('');
+        }
+
+        function selectPhoto(idx) {
+            playSfx('click');
+            currentPhotoIdx = idx;
+            currentPhotoZoom = 1.0;
+            currentPhotoRotation = 0;
+            const photo = systemPhotos[idx];
+            const img = document.getElementById('main-photo-display');
+            const titleElem = document.getElementById('photo-viewer-title');
+            if (img && photo) {
+                img.src = photo.src;
+                img.style.transform = `scale(1) rotate(0deg)`;
+            }
+            if (titleElem && photo) {
+                titleElem.textContent = photo.title;
+            }
+            renderPhotoThumbnails();
+        }
+
+        function zoomPhoto(delta) {
+            currentPhotoZoom = Math.max(0.4, Math.min(3.0, currentPhotoZoom + delta));
+            updatePhotoTransform();
+        }
+
+        function rotatePhoto(deg) {
+            currentPhotoRotation = (currentPhotoRotation + deg) % 360;
+            updatePhotoTransform();
+        }
+
+        function updatePhotoTransform() {
+            const img = document.getElementById('main-photo-display');
+            if (img) {
+                img.style.transform = `scale(${currentPhotoZoom}) rotate(${currentPhotoRotation}deg)`;
+            }
+        }
+
+        function applyPhotoFilter(filter) {
+            playSfx('click');
+            const img = document.getElementById('main-photo-display');
+            if (img) {
+                img.style.filter = filter;
+            }
+        }
+
+        function togglePhotoSlideshow() {
+            const btn = document.getElementById('photo-slideshow-btn');
+            if (photoSlideshowInterval) {
+                clearInterval(photoSlideshowInterval);
+                photoSlideshowInterval = null;
+                if (btn) btn.textContent = "▶ Slideshow";
+                showNotificationToast("Photos", "Slideshow paused", "info");
+            } else {
+                photoSlideshowInterval = setInterval(() => {
+                    selectPhoto((currentPhotoIdx + 1) % systemPhotos.length);
+                }, 3000);
+                if (btn) btn.textContent = "⏸ Pause";
+                showNotificationToast("Photos", "Slideshow running (3s per slide)", "info");
+            }
+        }
+
+
+        // -------------------------------------------------------------------------
+        // 9. GLOBAL KEYBOARD SHORTCUTS MATRIX (Win+S, Win+V, Win+A, Win+N, Win+C, etc.)
+        // -------------------------------------------------------------------------
+        window.addEventListener('keydown', (e) => {
+            const isMetaOrCtrl = e.metaKey || e.ctrlKey || e.altKey;
+
+            // Win+S / Cmd+Space / Ctrl+Space: Universal Spotlight Search
+            if ((e.code === 'KeyS' && (e.metaKey || e.altKey)) || (e.code === 'Space' && (e.ctrlKey || e.metaKey))) {
+                e.preventDefault();
+                openSpotlight();
+                return;
+            }
+
+            // Win+V: Clipboard History
+            if (e.code === 'KeyV' && (e.metaKey || e.altKey || (e.ctrlKey && e.shiftKey))) {
+                e.preventDefault();
+                openClipboardHub();
+                return;
+            }
+
+            // Win+A: Action Center / Quick Settings
+            if (e.code === 'KeyA' && (e.metaKey || e.altKey)) {
+                e.preventDefault();
+                toggleActionCenter();
+                return;
+            }
+
+            // Win+C: Sudarshan AI Copilot
+            if (e.code === 'KeyC' && (e.metaKey || e.altKey)) {
+                e.preventDefault();
+                toggleAICopilot();
+                return;
+            }
+
+            // Win+Ctrl+D: New Virtual Desktop / Switch
+            if (e.code === 'KeyD' && e.ctrlKey && (e.metaKey || e.altKey)) {
+                e.preventDefault();
+                switchVirtualDesktop((activeVirtualDesktop % 3) + 1);
+                return;
+            }
+
+            // Escape: Close all popups/drawers/spotlight
+            if (e.key === 'Escape') {
+                closeSpotlight();
+                closeClipboardHub();
+                hideAllContextMenus();
+            }
+        });
+
+        // Initialize Native App Subsystem Data
+        renderRecycleBinList();
+        renderNotesSidebar();
+        renderNotePreview();
+        renderPhotoThumbnails();
+
     </script>
 
     <!-- CREATE USER ACCOUNT MODAL -->
