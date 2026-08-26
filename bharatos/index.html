@@ -2055,7 +2055,7 @@
 
                 <div>
                     <label class="block font-bold mb-1">Set Enclave Unlock PIN (4-8 digits):</label>
-                    <input id="onboard-pin-input" type="password" placeholder="Default: 2026" maxlength="8" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-300">
+                    <input id="onboard-pin-input" type="password" placeholder="Enter 4-digit PIN (e.g. 1234)" maxlength="8" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-300">
                 </div>
 
                 <div>
@@ -2332,7 +2332,7 @@
 
             <!-- Main User Authenticator Card -->
             <div class="z-10 flex flex-col items-center space-y-5 p-7 rounded-3xl ultra-liquid-glass w-88 shadow-2xl">
-                <div onclick="unlockDesktop()" class="relative cursor-pointer group" title="Click to Authenticate via Chakra Biometrics">
+                <div onclick="attemptBiometricSensorScan()" class="relative cursor-pointer group" title="Touch ID Sensor (Requires PIN Enrolment)">
                     <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-2xl chakra-pulse group-hover:scale-105 transition-all overflow-hidden flex items-center justify-center">
                         <div id="lock-user-avatar-display" class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-3xl overflow-hidden">
                             <span>☸️</span>
@@ -2395,7 +2395,7 @@
                         <button onclick="unlockDesktop()" class="py-2.5 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 flex items-center justify-center space-x-1">
                             <span>🔓</span><span>Unlock</span>
                         </button>
-                        <button onclick="unlockDesktopBiometric()" class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-600 dark:text-emerald-400 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 hover:bg-emerald-500/30 flex items-center justify-center space-x-1">
+                        <button onclick="attemptBiometricSensorScan()" class="py-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-600 dark:text-emerald-400 font-bold text-xs tracking-wider uppercase transition-all shadow-md active:scale-95 hover:bg-emerald-500/30 flex items-center justify-center space-x-1">
                             <span>☸️</span><span>Chakra ID</span>
                         </button>
                     </div>
@@ -5176,7 +5176,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         // User Profile & Onboarding Engine
         let userProfile = {
             name: "Aviral Sharma",
-            pin: "2026",
+            pin: "1234",
             deviceType: "desktop"
         };
 
@@ -5185,7 +5185,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             if (!saved) {
                 userProfile = {
                     name: "Aviral Sharma",
-                    pin: "2026",
+                    pin: "1234",
                     deviceType: "desktop"
                 };
                 localStorage.setItem('bharatos_user_profile', JSON.stringify(userProfile));
@@ -5213,7 +5213,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             const nameInput = document.getElementById('onboard-name-input');
             const pinInput = document.getElementById('onboard-pin-input');
             const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Sovereign User";
-            const pin = pinInput && pinInput.value.trim() ? pinInput.value.trim() : "2026";
+            const pin = pinInput && pinInput.value.trim() ? pinInput.value.trim() : "1234";
 
             userProfile = { name, pin, deviceType };
             localStorage.setItem('bharatos_user_profile', JSON.stringify(userProfile));
@@ -5249,7 +5249,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             const attemptsLeft = document.getElementById('lock-attempts-left');
             const enteredPin = pinInput ? pinInput.value.trim() : '';
 
-            if (enteredPin === userProfile.pin || enteredPin === '2026') {
+            if (enteredPin && (enteredPin === userProfile.pin || (typeof getLockTargetUser === 'function' && enteredPin === getLockTargetUser()?.pin))) {
                 playSfx('unlock');
                 failedPinAttempts = 0;
                 if (alertBox) alertBox.classList.add('hidden');
@@ -5278,22 +5278,35 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             }
         }
 
-        function unlockDesktopBiometric() {
-            if (isLockoutActive) return;
+        function attemptBiometricSensorScan() {
             playSfx('click');
             const alertBox = document.getElementById('lock-pin-alert');
             const alertMsg = document.getElementById('lock-pin-alert-msg');
-            if (alertBox) alertBox.classList.remove('hidden');
-            if (alertMsg) alertMsg.textContent = '☸️ Scanning Chakra Biometrics & Neural Face Pattern...';
+            const attemptsLeft = document.getElementById('lock-attempts-left');
+            const pinInput = document.getElementById('lock-pin-input');
             
+            if (alertBox) alertBox.classList.remove('hidden');
+            if (alertMsg) alertMsg.textContent = '☸️ Scanning Chakra Touch ID Biometric Sensor...';
+            if (attemptsLeft) attemptsLeft.textContent = 'Zero-Trust Enclave Sensor Query In Progress...';
+            
+            // STRICT RULE: Touch ID button click MUST NOT unlock the OS without enrolled hardware passkeys
             setTimeout(() => {
-                playSfx('unlock');
-                failedPinAttempts = 0;
-                if (alertBox) alertBox.classList.add('hidden');
-                const lockEl = document.getElementById('lock-screen');
-                if (lockEl) lockEl.classList.add('unlocked');
-                showSecurityToast('🛡️ Biometric Touch ID Authenticated with Ring-0 Enclave', 'success');
-            }, 650);
+                playSfx('error');
+                if (alertMsg) alertMsg.textContent = '⚠️ Touch ID Hardware Sensor Not Enrolled.';
+                if (attemptsLeft) attemptsLeft.textContent = 'Biometric instant bypass disabled. Please enter your Sovereign PIN.';
+                if (pinInput) {
+                    pinInput.classList.add('shake-error', 'border-rose-500');
+                    setTimeout(() => {
+                        pinInput.classList.remove('shake-error', 'border-rose-500');
+                        pinInput.focus();
+                    }, 450);
+                }
+                showNotificationToast("Chakra Touch ID", "Biometric sensor unenrolled. Please authenticate using your PIN.", "warning");
+            }, 600);
+        }
+
+        function unlockDesktopBiometric() {
+            attemptBiometricSensorScan();
         }
 
         function triggerEnclaveLockdown() {
@@ -6761,31 +6774,56 @@ vulkano = "0.34"`
             }, 3800);
         }
 
+        // =========================================================================
+        // FULL MULTI-TOUCH & MOUSE WINDOW DRAGGING ENGINE
+        // =========================================================================
         let activeDrag = null;
         let dragOffset = { x: 0, y: 0 };
-        let lastMouseX = 0;
+        let lastPointerX = 0;
+
+        function getEventCoordinates(e) {
+            if (e.touches && e.touches.length > 0) {
+                return { x: e.touches[0].clientX, y: e.touches[0].clientY };
+            }
+            if (e.changedTouches && e.changedTouches.length > 0) {
+                return { x: e.changedTouches[0].clientX, y: e.changedTouches[0].clientY };
+            }
+            return { x: e.clientX || 0, y: e.clientY || 0 };
+        }
 
         function initDrag(e, winId) {
             if (e.target.tagName === 'BUTTON' || e.target.tagName === 'SPAN' || e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SVG' || e.target.tagName === 'line' || e.target.tagName === 'polyline') return;
             const win = document.getElementById(winId);
             if (!win || win.classList.contains('window-maximized')) return;
+            
+            const coords = getEventCoordinates(e);
             highestZ++;
             win.style.zIndex = highestZ;
             activeDrag = win;
-            dragOffset.x = e.clientX - win.offsetLeft;
-            dragOffset.y = e.clientY - win.offsetTop;
-            lastMouseX = e.clientX;
-            window.addEventListener('mousemove', onDragMove);
+            dragOffset.x = coords.x - win.offsetLeft;
+            dragOffset.y = coords.y - win.offsetTop;
+            lastPointerX = coords.x;
+
+            triggerHaptic('light');
+
+            window.addEventListener('mousemove', onDragMove, { passive: false });
             window.addEventListener('mouseup', onDragEnd);
+            window.addEventListener('touchmove', onDragMove, { passive: false });
+            window.addEventListener('touchend', onDragEnd);
+            window.addEventListener('touchcancel', onDragEnd);
         }
 
         function onDragMove(e) {
             if (!activeDrag) return;
-            const deltaX = e.clientX - lastMouseX;
-            lastMouseX = e.clientX;
+            if (e.cancelable && e.type === 'touchmove') {
+                e.preventDefault(); // Prevent page scroll on touch drag
+            }
+            const coords = getEventCoordinates(e);
+            const deltaX = coords.x - lastPointerX;
+            lastPointerX = coords.x;
             const tilt = Math.max(-4, Math.min(4, deltaX * 0.4));
-            activeDrag.style.left = `${e.clientX - dragOffset.x}px`;
-            activeDrag.style.top = `${Math.max(40, e.clientY - dragOffset.y)}px`;
+            activeDrag.style.left = `${coords.x - dragOffset.x}px`;
+            activeDrag.style.top = `${Math.max(40, coords.y - dragOffset.y)}px`;
             activeDrag.style.transform = `rotateZ(${tilt}deg) scale(1.01)`;
         }
 
@@ -6796,6 +6834,20 @@ vulkano = "0.34"`
             }
             window.removeEventListener('mousemove', onDragMove);
             window.removeEventListener('mouseup', onDragEnd);
+            window.removeEventListener('touchmove', onDragMove);
+            window.removeEventListener('touchend', onDragEnd);
+            window.removeEventListener('touchcancel', onDragEnd);
+        }
+
+        // Tactile Haptic Feedback
+        function triggerHaptic(type = 'light') {
+            try {
+                if ('vibrate' in navigator) {
+                    if (type === 'light') navigator.vibrate(10);
+                    else if (type === 'medium') navigator.vibrate(25);
+                    else if (type === 'error') navigator.vibrate([40, 60, 40]);
+                }
+            } catch(e) {}
         }
 
         // Settings Tabs
@@ -7070,7 +7122,7 @@ vulkano = "0.34"`
         const PRESET_AVATARS = ["👨‍💻", "👨‍🚀", "🕉️", "🛡️", "🦁", "🦚", "💎", "👩‍🔬", "👑", "⚡"];
 
         const DEFAULT_USERS_DATABASE = [
-            { id: "usr-aviral", name: "Aviral Sharma", handle: "aviral", role: "Administrator", pin: "2026", avatar: "👨‍💻", isCustomAvatar: false, wallpaper: "wall-ladakh-ai" },
+            { id: "usr-aviral", name: "Aviral Sharma", handle: "aviral", role: "Administrator", pin: "1234", avatar: "👨‍💻", isCustomAvatar: false, wallpaper: "wall-ladakh-ai" },
             { id: "usr-sarabhai", name: "Dr. Vikram Sarabhai", handle: "sarabhai", role: "Scientist / ISRO", pin: "1969", avatar: "👨‍🚀", isCustomAvatar: false, wallpaper: "wall-munnar-ai" },
             { id: "usr-aryabhata", name: "Aryabhata", handle: "aryabhata", role: "Vedic Scholar", pin: "0476", avatar: "🕉️", isCustomAvatar: false, wallpaper: "wall-varanasi-ai" },
             { id: "usr-guest", name: "Guest User", handle: "guest", role: "Guest Sandbox", pin: "0000", avatar: "👤", isCustomAvatar: false, wallpaper: "wall-kutch-ai" }
@@ -7425,9 +7477,9 @@ vulkano = "0.34"`
                 return usersDatabase[0];
             }
             if (typeof userProfile !== 'undefined' && userProfile) {
-                return { name: userProfile.name || "Aviral Sharma", pin: userProfile.pin || "2026", id: "usr-aviral" };
+                return { name: userProfile.name || "Aviral Sharma", pin: userProfile.pin || "1234", id: "usr-aviral" };
             }
-            return { name: "Aviral Sharma", pin: "2026", id: "usr-aviral" };
+            return { name: "Aviral Sharma", pin: "1234", id: "usr-aviral" };
         }
 
         function updatePinDots(length, isError = false) {
@@ -7451,7 +7503,7 @@ vulkano = "0.34"`
             const targetUser = getLockTargetUser();
             const expectedLength = (targetUser && targetUser.pin) ? targetUser.pin.length : 4;
 
-            // Auto-unlock immediately when user enters 4 digits (no Enter needed!)
+            // Auto-unlock immediately when user enters full digits (no Enter needed!)
             if (cleanVal.length >= expectedLength) {
                 setTimeout(() => {
                     unlockDesktop();
@@ -7460,6 +7512,7 @@ vulkano = "0.34"`
         }
 
         function typeLockPin(digit) {
+            triggerHaptic('light');
             playSfx('click');
             const input = document.getElementById('lock-pin-input');
             if (!input) return;
@@ -7471,6 +7524,7 @@ vulkano = "0.34"`
         }
 
         function backspaceLockPin() {
+            triggerHaptic('light');
             playSfx('click');
             const input = document.getElementById('lock-pin-input');
             if (input && input.value.length > 0) {
@@ -7480,6 +7534,7 @@ vulkano = "0.34"`
         }
 
         function clearLockPin() {
+            triggerHaptic('light');
             playSfx('click');
             const input = document.getElementById('lock-pin-input');
             if (input) {
@@ -7542,9 +7597,9 @@ vulkano = "0.34"`
             const enteredPin = pinInput ? pinInput.value.trim() : "";
             const targetUser = getLockTargetUser();
 
-            const validPins = [targetUser?.pin, '2026'].filter(Boolean);
+            const validPins = [targetUser?.pin, typeof userProfile !== 'undefined' ? userProfile?.pin : null].filter(Boolean);
 
-            if (validPins.includes(enteredPin) || (targetUser && targetUser.pin && enteredPin === targetUser.pin)) {
+            if (enteredPin && validPins.includes(enteredPin)) {
                 // Successful Authentication
                 failedLockAttempts = 0;
                 if (typeof switchActiveUserSession === 'function' && targetUser && targetUser.id) {
@@ -7556,8 +7611,9 @@ vulkano = "0.34"`
             } else {
                 // Failed Authentication
                 failedLockAttempts++;
+                triggerHaptic('error');
                 playSfx('error');
-                showLockPinAlert(`⚠️ Incorrect PIN! Please enter 2026 or your user PIN.`);
+                showLockPinAlert(`⚠️ Incorrect PIN! Please enter your user PIN.`);
                 updatePinDots(4, true);
                 if (pinInput) {
                     pinInput.value = '';
@@ -7575,14 +7631,37 @@ vulkano = "0.34"`
             }
         }
 
+        function attemptBiometricSensorScan() {
+            triggerHaptic('medium');
+            playSfx('click');
+            const alertBox = document.getElementById('lock-pin-alert');
+            const alertMsg = document.getElementById('lock-pin-alert-msg');
+            const attemptsLeft = document.getElementById('lock-attempts-left');
+            const pinInput = document.getElementById('lock-pin-input');
+            
+            if (alertBox) alertBox.classList.remove('hidden');
+            if (alertMsg) alertMsg.textContent = '☸️ Scanning Chakra Touch ID Biometric Sensor...';
+            if (attemptsLeft) attemptsLeft.textContent = 'Zero-Trust Enclave Sensor Query In Progress...';
+            
+            // STRICT SECURITY RULE: Clicking Touch ID button MUST NOT unlock the OS without enrolled hardware passkeys
+            setTimeout(() => {
+                triggerHaptic('error');
+                playSfx('error');
+                if (alertMsg) alertMsg.textContent = '⚠️ Touch ID Hardware Sensor Not Enrolled.';
+                if (attemptsLeft) attemptsLeft.textContent = 'Biometric instant bypass disabled. Please enter your Sovereign PIN.';
+                if (pinInput) {
+                    pinInput.classList.add('shake-error', 'border-rose-500');
+                    setTimeout(() => {
+                        pinInput.classList.remove('shake-error', 'border-rose-500');
+                        pinInput.focus();
+                    }, 450);
+                }
+                showNotificationToast("Chakra Touch ID", "Biometric sensor unenrolled. Please authenticate using your PIN.", "warning");
+            }, 600);
+        }
+
         function unlockDesktopBiometric() {
-            const targetUser = (typeof usersDatabase !== 'undefined' && usersDatabase.find(u => u.id === selectedLockUserId)) || (typeof getActiveUser === 'function' ? getActiveUser() : { name: "Aviral Sharma", id: "usr-aviral" });
-            if (typeof switchActiveUserSession === 'function' && targetUser.id) {
-                switchActiveUserSession(targetUser.id);
-            }
-            unlockLockScreen();
-            playSfx('unlock');
-            showNotificationToast("Chakra Biometrics", `Authenticated ${targetUser.name} via Quantum Sensor.`, "success");
+            attemptBiometricSensorScan();
         }
 
         function triggerLockoutCooldown() {
@@ -8775,14 +8854,7 @@ vulkano = "0.34"`
         // DESKTOP RIGHT-CLICK CONTEXT MENU ENGINE
         // =========================================================================
 
-        document.addEventListener('contextmenu', (e) => {
-            // If right-clicked on an input or window, let native context run
-            if (e.target.closest('input, textarea, [id$="-window"]')) {
-                hideDesktopContextMenu();
-                return;
-            }
-
-            e.preventDefault();
+        function showDesktopContextMenu(e) {
             playSfx('click');
             const menu = document.getElementById('desktop-context-menu');
             if (!menu) return;
@@ -8795,6 +8867,21 @@ vulkano = "0.34"`
             menu.style.left = `${x}px`;
             menu.style.top = `${y}px`;
             menu.classList.add('active');
+        }
+
+        function showTaskbarContextMenu(e) {
+            showDesktopContextMenu(e);
+        }
+
+        document.addEventListener('contextmenu', (e) => {
+            // If right-clicked on an input or window, let native context run
+            if (e.target.closest('input, textarea, [id$="-window"]')) {
+                hideDesktopContextMenu();
+                return;
+            }
+
+            e.preventDefault();
+            showDesktopContextMenu(e);
         });
 
         document.addEventListener('click', (e) => {
@@ -10561,5 +10648,84 @@ Available Sovereign Applications:<br>
         </button>
     </div>
 
+    <!-- =========================================================================
+         TOUCH GESTURES, SWIPE-UP & LONG-PRESS CONTEXT MENU ENGINE
+         ========================================================================= -->
+    <script>
+        function initTouchEngine() {
+            // Touch Swipe-Up on Lock Screen to focus PIN
+            let touchStartY = 0;
+            const lockScreen = document.getElementById('lock-screen');
+            if (lockScreen) {
+                lockScreen.addEventListener('touchstart', (e) => {
+                    if (e.touches && e.touches.length > 0) {
+                        touchStartY = e.touches[0].clientY;
+                    }
+                }, { passive: true });
+
+                lockScreen.addEventListener('touchend', (e) => {
+                    if (e.changedTouches && e.changedTouches.length > 0) {
+                        const touchEndY = e.changedTouches[0].clientY;
+                        if (touchStartY - touchEndY > 45) {
+                            // Swiped up
+                            triggerHaptic('light');
+                            const pinInput = document.getElementById('lock-pin-input');
+                            if (pinInput) pinInput.focus();
+                        }
+                    }
+                }, { passive: true });
+            }
+
+            // Long-press (500ms) on Desktop & Taskbar for Context Menu on Touchscreens
+            let touchTimer = null;
+            let touchPos = { x: 0, y: 0 };
+            
+            document.addEventListener('touchstart', (e) => {
+                if (e.touches && e.touches.length === 1) {
+                    touchPos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    touchTimer = setTimeout(() => {
+                        const target = e.target || document.body;
+                        if (target.closest && (target.closest('#desktop-context-menu') || target.closest('#taskbar-context-menu'))) return;
+                        triggerHaptic('medium');
+                        if (target.closest && (target.closest('#horizon-dock') || target.closest('header') || target.closest('#action-center-trigger'))) {
+                            showTaskbarContextMenu({ clientX: touchPos.x, clientY: touchPos.y, preventDefault: () => {} });
+                        } else if (!target.closest || !target.closest('.window-open-genie:not(.hidden)')) {
+                            showDesktopContextMenu({ clientX: touchPos.x, clientY: touchPos.y, preventDefault: () => {} });
+                        }
+                    }, 500);
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchmove', () => {
+                if (touchTimer) {
+                    clearTimeout(touchTimer);
+                    touchTimer = null;
+                }
+            }, { passive: true });
+
+            document.addEventListener('touchend', () => {
+                if (touchTimer) {
+                    clearTimeout(touchTimer);
+                    touchTimer = null;
+                }
+            }, { passive: true });
+
+            // Attach touchstart to all window titlebar handles
+            document.querySelectorAll('.handle').forEach(h => {
+                h.addEventListener('touchstart', (e) => {
+                    const win = h.closest('.ultra-liquid-glass');
+                    if (win && win.id) {
+                        initDrag(e, win.id);
+                    }
+                }, { passive: false });
+            });
+        }
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initTouchEngine);
+        } else {
+            initTouchEngine();
+        }
+    </script>
 </body>
 </html>
