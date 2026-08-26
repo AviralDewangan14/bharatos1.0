@@ -2548,6 +2548,11 @@
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>⚡ Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
+                </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
                 </button>
@@ -2663,6 +2668,15 @@
             <div class="scenic-mountain-layer"></div>
             <!-- PILLAR 1: REACT BITS <GlassIcons /> 3D PERSPECTIVE DESKTOP ICONS GRID -->
             <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 icon-btns select-none pointer-events-auto">
+                <!-- 0. Hackatime 24/7 Bot Monitor -->
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" class="icon-btn" aria-label="Hackatime 24/7 Bot Monitor" type="button">
+                    <span class="icon-btn__back bg-grad-cyan"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">⚡</span>
+                    </span>
+                    <span class="icon-btn__label">Hackatime Bot</span>
+                </button>
+
                 <!-- 1. Garud Browser -->
                 <button onclick="openAppWindow('browser-window', 'dock-browser')" class="icon-btn" aria-label="Garud Web Browser" type="button">
                     <span class="icon-btn__back bg-grad-blue"></span>
@@ -3395,6 +3409,129 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </div>
                         </div>
                         <button onclick="openSelectedFileInEditor()" class="w-full py-2 rounded-xl bg-cyan-500 text-slate-950 font-bold text-xs hover:bg-cyan-400">Open in Editor ↗</button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <!-- =========================================================================
+                 APP: HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY MONITOR
+                 ========================================================================= -->
+            <div id="hackatime-window" class="absolute top-8 left-20 w-[960px] h-[620px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'hackatime-window')" ondblclick="toggleMaximizeWindow('hackatime-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('hackatime-window', 'dock-hackatime')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('hackatime-window', 'dock-hackatime')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('hackatime-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
+                            <span class="text-amber-400">⚡</span>
+                            <span>Hackatime 24/7 Sovereign Bot & Stardust Telemetry Enclave</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span id="ht-window-status-pill" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span id="ht-window-status-text">HTTP 202 ONLINE (24/7)</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Window Content -->
+                <div class="flex-1 p-5 overflow-y-auto font-mono text-xs space-y-4">
+                    <!-- Top Status Banner -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-slate-900/40 to-emerald-500/10 border border-cyan-500/30 flex items-center justify-between">
+                        <div class="flex items-center space-x-3.5">
+                            <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-xl">⚡</div>
+                            <div>
+                                <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center space-x-2">
+                                    <span>Hack Club Hackatime Cloud Synchronizer</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">24/7 UPTIME</span>
+                                </div>
+                                <div class="text-[11px] opacity-75 mt-0.5">Target: <code class="text-cyan-400">https://hackatime.hackclub.com/api/hackatime/v1</code></div>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                                <span>⚡</span><span>Pulse Now</span>
+                            </button>
+                            <button onclick="fetchHackatimeStatus(true)" class="px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 font-bold text-xs transition-all active:scale-95">
+                                🔄 Refresh
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- 4 Live Telemetry Metric Cards -->
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="text-[10px] opacity-70">Heartbeats Sent</div>
+                            <div id="ht-card-pulses" class="text-lg font-bold text-cyan-400">-- Pulses</div>
+                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% Success Rate</div>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="text-[10px] opacity-70">Time Tracked Today</div>
+                            <div id="ht-card-time" class="text-lg font-bold text-emerald-400">-- hrs</div>
+                            <div class="text-[9px] text-cyan-400">24/7 Sleep Prevention ON</div>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="text-[10px] opacity-70">Stardust Multiplier</div>
+                            <div id="ht-card-stardust" class="text-lg font-bold text-amber-400">2.4x Multiplier</div>
+                            <div class="text-[9px] text-amber-500 font-bold">Master Craft Tier</div>
+                        </div>
+
+                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                            <div class="text-[10px] opacity-70">Operating Mode</div>
+                            <div id="ht-card-mode" class="text-xs font-bold text-purple-400 truncate">MAJOR_PROJECT</div>
+                            <div class="text-[9px] opacity-60">Synchronized Engine</div>
+                        </div>
+                    </div>
+
+                    <!-- Active Entity & Code Context Inspector -->
+                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-300 dark:border-slate-800 pb-2">
+                            <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                <span>🎯</span><span>Active Code Context & Entity Live Inspector</span>
+                            </span>
+                            <span id="ht-last-pulse-time" class="text-[10px] text-cyan-400">Last Pulse: Just now</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-3 text-xs">
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
+                                <div class="text-[10px] opacity-60">Current Project</div>
+                                <div id="ht-inspect-project" class="font-bold text-cyan-400 mt-0.5 truncate">bharatos-sovereign-desktop</div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
+                                <div class="text-[10px] opacity-60">Active File Entity</div>
+                                <div id="ht-inspect-entity" class="font-bold text-emerald-400 mt-0.5 truncate">bharatos/kernel.py</div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
+                                <div class="text-[10px] opacity-60">Language & Engine</div>
+                                <div id="ht-inspect-lang" class="font-bold text-purple-400 mt-0.5 truncate">Python (3.11 LTS)</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Live Heartbeat Event Stream -->
+                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                        <div class="flex items-center justify-between">
+                            <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                <span>📡</span><span>Live Cloud Heartbeat Stream (WakaTime API v1)</span>
+                            </span>
+                            <span class="text-[10px] opacity-60">Auto-refreshing 2.5s</span>
+                        </div>
+                        <div id="ht-log-stream" class="h-44 p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-mono text-[11px] overflow-y-auto space-y-1.5 select-text text-slate-700 dark:text-slate-300">
+                            <div class="text-cyan-400">⚡ Initializing Hackatime Sovereign Stream connection...</div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -5018,7 +5155,13 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button id="dock-taskview" onclick="toggleAppSwitcher()" class="glass-dock-tile glaze-taskview text-xl" title="Mission Control & App Exposé (Win+Tab / Alt+Tab)">🗂️</button>
 
                     <!-- 3D Glass Icons Dock -->
-                    <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
+                    <button id="dock-hackatime" onclick="openAppWindow('hackatime-window', 'dock-hackatime')" class="dock-item group relative" title="Hackatime 24/7 Sovereign Bot">
+                    <div class="w-12 h-12 rounded-2xl bg-slate-900/90 border border-cyan-500/50 flex items-center justify-center text-xl shadow-lg transition-transform group-hover:scale-110">
+                        ⚡
+                    </div>
+                    <span class="dock-tooltip">Hackatime Bot</span>
+                </button>
+                <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
                     <button id="dock-notes" onclick="toggleWindowFromDock('notes-window', 'dock-notes')" class="glass-dock-tile glaze-taskmgr text-lg" title="Notes & Markdown Studio">📝</button>
                     <button id="dock-photos" onclick="toggleWindowFromDock('photos-window', 'dock-photos')" class="glass-dock-tile glaze-music text-lg" title="Photo & Media Viewer">🖼️</button>
@@ -10646,6 +10789,11 @@ Available Sovereign Applications:<br>
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>⚡ Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
+                </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
                 </button>
@@ -10698,7 +10846,12 @@ Available Sovereign Applications:<br>
                     <p class="text-[10px] text-emerald-400 font-mono">● 100% On-Device Neural Model Online</p>
                 </div>
             </div>
-            <button onclick="toggleAICopilot()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-xs">✕</button>
+            <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>⚡ Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
+                </button>
+                <button onclick="toggleAICopilot()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-xs">✕</button>
         </div>
 
         <!-- Chat Conversation Area -->
@@ -10885,6 +11038,109 @@ Available Sovereign Applications:<br>
          TOUCH GESTURES, SWIPE-UP & LONG-PRESS CONTEXT MENU ENGINE
          ========================================================================= -->
     <script>
+        
+        // =========================================================================
+        // HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY ENGINE
+        // =========================================================================
+        let lastHackatimeData = null;
+
+        async function fetchHackatimeStatus(showToast = false) {
+            try {
+                const res = await fetch('/api/status');
+                if (!res.ok) return;
+                const data = await res.json();
+                lastHackatimeData = data;
+                renderHackatimeUI(data);
+                if (showToast) {
+                    triggerHaptic('selection');
+                    showToastNotification('Hackatime Telemetry Synced', 'Live metrics refreshed from cloud daemon.');
+                }
+            } catch(err) {
+                console.warn('[Hackatime] Status fetch error:', err);
+            }
+        }
+
+        function renderHackatimeUI(data) {
+            if (!data) return;
+
+            // Topbar pill
+            const topbarStatus = document.getElementById('topbar-hackatime-status');
+            if (topbarStatus) {
+                topbarStatus.textContent = data.is_running ? (data.is_paused ? 'PAUSED' : '24/7 ONLINE') : 'OFFLINE';
+                topbarStatus.className = data.is_running && !data.is_paused ? 'text-emerald-400 font-bold' : 'text-amber-400 font-bold';
+            }
+
+            // Window metrics
+            const cardPulses = document.getElementById('ht-card-pulses');
+            const cardTime = document.getElementById('ht-card-time');
+            const cardStardust = document.getElementById('ht-card-stardust');
+            const cardMode = document.getElementById('ht-card-mode');
+            const inspectProj = document.getElementById('ht-inspect-project');
+            const inspectEntity = document.getElementById('ht-inspect-entity');
+            const inspectLang = document.getElementById('ht-inspect-lang');
+            const lastPulseTime = document.getElementById('ht-last-pulse-time');
+            const logStream = document.getElementById('ht-log-stream');
+
+            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} Pulses`;
+            if (cardTime) {
+                const hrs = ((data.tracked_seconds_today || 0) / 3600).toFixed(2);
+                cardTime.textContent = `${hrs} hrs`;
+            }
+            if (cardStardust) {
+                const mult = data.stardust?.multiplier || 2.4;
+                cardStardust.textContent = `${mult}x Multiplier`;
+            }
+            if (cardMode) cardMode.textContent = data.current_mode || 'MAJOR_PROJECT';
+
+            if (inspectProj) inspectProj.textContent = data.current_project || 'bharatos-sovereign-desktop';
+            if (inspectEntity) inspectEntity.textContent = data.current_entity || 'bharatos/kernel.py';
+            if (inspectLang) inspectLang.textContent = `${data.current_language || 'Python'} (3.11 LTS)`;
+            if (lastPulseTime && data.last_pulse_timestamp) {
+                lastPulseTime.textContent = `Last Pulse: ${new Date(data.last_pulse_timestamp * 1000).toLocaleTimeString()}`;
+            }
+
+            // Stream logs
+            if (logStream && data.unified_logs && data.unified_logs.length > 0) {
+                logStream.innerHTML = data.unified_logs.slice(-25).map(l => {
+                    const tagColor = l.tag === 'WAKATIME' ? 'text-emerald-400' : l.tag === 'BUILD' ? 'text-cyan-400' : l.tag === 'WON' ? 'text-amber-400' : 'text-purple-400';
+                    return `<div class="flex items-start space-x-2 py-0.5 border-b border-slate-200/40 dark:border-slate-800/40">
+                        <span class="opacity-50 text-[10px]">${l.time}</span>
+                        <span class="font-bold text-[10px] ${tagColor}">[${l.tag}]</span>
+                        <span class="flex-1 select-text">${l.message}</span>
+                    </div>`;
+                }).join('');
+                logStream.scrollTop = logStream.scrollHeight;
+            }
+        }
+
+        async function triggerManualHackatimePulse() {
+            try {
+                triggerHaptic('success');
+                playSfx('notify');
+                const btn = document.getElementById('btn-manual-pulse');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.innerHTML = '<span>⏳</span><span>Pulsing...</span>';
+                }
+
+                await fetch('/api/pulse', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
+                await new Promise(r => setTimeout(r, 600));
+                await fetchHackatimeStatus();
+
+                if (btn) {
+                    btn.disabled = false;
+                    btn.innerHTML = '<span>⚡</span><span>Pulse Now</span>';
+                }
+                showToastNotification('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!');
+            } catch(e) {
+                console.error('[Hackatime] Pulse failed:', e);
+            }
+        }
+
+        // Initialize Hackatime Poller
+        setInterval(() => fetchHackatimeStatus(false), 3000);
+        setTimeout(() => fetchHackatimeStatus(false), 1000);
+
         function initTouchEngine() {
             // Touch Swipe-Up on Lock Screen to focus PIN
             let touchStartY = 0;
