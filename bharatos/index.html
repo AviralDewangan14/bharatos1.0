@@ -4007,8 +4007,86 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
 
                         <div id="tab-pane-sound" class="space-y-4 font-mono text-xs hidden">
-                            <div class="text-sm font-bold">Sound Effects & Spatial DSP Engine</div>
-                            <div class="space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+                                <div>
+                                    <div class="text-sm font-bold font-sans text-slate-900 dark:text-white">Sound Effects & Quantum Haptic Force Engine</div>
+                                    <div class="text-[11px] opacity-70">Spatial acoustic synthesis, device vibration haptics & controller force feedback</div>
+                                </div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">HAPTIC RING-0 ACTIVE</span>
+                            </div>
+
+                            <!-- Master Haptic Control Card -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div class="space-y-0.5">
+                                        <div class="font-bold text-cyan-500 text-xs flex items-center space-x-1.5">
+                                            <span>📳</span><span>Master Tactile Haptic Engine</span>
+                                        </div>
+                                        <div class="text-[10px] opacity-70">Multi-stage vibration for touchscreens, trackpads, and controllers</div>
+                                    </div>
+                                    <button onclick="setHapticSetting('enabled', !hapticConfig.enabled)" id="haptic-master-toggle-btn" class="px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all bg-emerald-500 text-slate-950">
+                                        Enabled
+                                    </button>
+                                </div>
+
+                                <!-- Intensity Slider -->
+                                <div class="space-y-1.5 pt-2 border-t border-slate-300 dark:border-slate-800">
+                                    <div class="flex justify-between items-center text-[11px]">
+                                        <span class="opacity-80">Haptic Pulse Intensity:</span>
+                                        <span id="haptic-intensity-val" class="font-bold text-cyan-400">100% (Standard)</span>
+                                    </div>
+                                    <input type="range" min="0.3" max="2.0" step="0.1" value="1.0" oninput="setHapticSetting('intensity', parseFloat(this.value)); document.getElementById('haptic-intensity-val').textContent = Math.round(this.value * 100) + '%';" class="w-full accent-cyan-400">
+                                </div>
+                            </div>
+
+                            <!-- Hardware Actuator Toggles -->
+                            <div class="grid grid-cols-2 gap-3">
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold text-[11px]">🎮 Controller Force Feedback</div>
+                                        <div class="text-[9px] opacity-60">DualSense / Xbox controller rumble</div>
+                                    </div>
+                                    <input type="checkbox" checked onchange="setHapticSetting('controllerRumble', this.checked)" class="accent-cyan-500 w-4 h-4 rounded">
+                                </div>
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
+                                    <div>
+                                        <div class="font-bold text-[11px]">🎧 Audio-Tactile Sub-Bass</div>
+                                        <div class="text-[9px] opacity-60">Sub-bass transient physical clicks</div>
+                                    </div>
+                                    <input type="checkbox" checked onchange="setHapticSetting('audioHaptics', this.checked)" class="accent-cyan-500 w-4 h-4 rounded">
+                                </div>
+                            </div>
+
+                            <!-- Interactive Haptic Playground Sandbox -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2.5">
+                                <div class="font-bold text-slate-900 dark:text-white text-xs flex items-center justify-between">
+                                    <span>🎯 Interactive Haptic Sandbox & Calibration</span>
+                                    <span class="text-[9px] text-cyan-400">Click to feel profiles</span>
+                                </div>
+                                <div class="grid grid-cols-3 gap-2">
+                                    <button onclick="triggerHaptic('light')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-cyan-500 active:scale-95 transition-all">
+                                        Light Tap (10ms)
+                                    </button>
+                                    <button onclick="triggerHaptic('medium')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-cyan-500 active:scale-95 transition-all">
+                                        Selection (24ms)
+                                    </button>
+                                    <button onclick="triggerHaptic('snap')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-cyan-500 active:scale-95 transition-all text-cyan-400">
+                                        Window Snap
+                                    </button>
+                                    <button onclick="triggerHaptic('success')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-emerald-500 active:scale-95 transition-all text-emerald-400">
+                                        Success Wave
+                                    </button>
+                                    <button onclick="triggerHaptic('error')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-rose-500 active:scale-95 transition-all text-rose-400">
+                                        Alert Warning
+                                    </button>
+                                    <button onclick="triggerHaptic('recoil')" class="py-2 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-purple-500 active:scale-95 transition-all text-purple-400">
+                                        Gamepad Recoil
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Acoustic DSP Chimes -->
+                            <div class="space-y-2 pt-1">
                                 <div class="p-3 rounded-xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                                     <div><div class="font-bold">🔊 Procedural Sound Effects</div><div class="text-[10px] opacity-60">Window open/close, click, and lock chimes</div></div>
                                     <button onclick="playSfx('notify')" class="px-3 py-1 rounded-lg bg-cyan-500 text-slate-950 font-bold">Test Chime</button>
@@ -5026,6 +5104,132 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         let audioCtx = null;
         let masterVolume = 0.8;
 
+                // =========================================================================
+        // BHARATOS QUANTUM HAPTIC & TACTILE FORCE FEEDBACK SUBSYSTEM
+        // =========================================================================
+        let hapticConfig = {
+            enabled: true,
+            intensity: 1.0, // 0.5 (gentle), 1.0 (standard), 1.5 (high), 2.0 (ultra)
+            audioHaptics: true,
+            controllerRumble: true
+        };
+
+        function loadHapticConfig() {
+            try {
+                const saved = localStorage.getItem('bharatos_haptic_config');
+                if (saved) {
+                    hapticConfig = { ...hapticConfig, ...JSON.parse(saved) };
+                }
+            } catch(e) {}
+        }
+        loadHapticConfig();
+
+        function saveHapticConfig() {
+            try {
+                localStorage.setItem('bharatos_haptic_config', JSON.stringify(hapticConfig));
+            } catch(e) {}
+        }
+
+        function setHapticSetting(key, val) {
+            hapticConfig[key] = val;
+            saveHapticConfig();
+            triggerHaptic('selection');
+            renderHapticSettingsUI();
+        }
+
+        function renderHapticSettingsUI() {
+            const toggleBtn = document.getElementById('haptic-master-toggle-btn');
+            const intensityVal = document.getElementById('haptic-intensity-val');
+            if (toggleBtn) {
+                toggleBtn.textContent = hapticConfig.enabled ? 'Enabled' : 'Disabled';
+                toggleBtn.className = hapticConfig.enabled ? 'px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all bg-emerald-500 text-slate-950' : 'px-3.5 py-1.5 rounded-xl font-bold text-xs transition-all bg-slate-700 text-slate-300';
+            }
+            if (intensityVal) {
+                intensityVal.textContent = Math.round(hapticConfig.intensity * 100) + '%';
+            }
+        }
+
+        const HAPTIC_PATTERNS = {
+            light: [10],
+            click: [12],
+            tick: [6],
+            medium: [24],
+            selection: [20],
+            heavy: [42],
+            impact: [48],
+            snap: [8, 25, 14],
+            success: [15, 45, 20, 30, 25],
+            error: [45, 50, 45, 50, 65],
+            alert: [50, 60, 50, 60, 70],
+            pulse: [20, 100, 30, 100, 20],
+            recoil: [60, 30, 80, 40, 120],
+            lockout: [100, 60, 100, 60, 120]
+        };
+
+        function triggerHaptic(type = 'light') {
+            if (!hapticConfig.enabled) return;
+
+            const basePattern = HAPTIC_PATTERNS[type] || [15];
+            const scaledPattern = basePattern.map(val => Math.max(1, Math.round(val * hapticConfig.intensity)));
+
+            // 1. Physical Device Vibration (Mobile / Tablet / Touchscreen / Stylus)
+            try {
+                if ('vibrate' in navigator) {
+                    navigator.vibrate(scaledPattern);
+                }
+            } catch(e) {}
+
+            // 2. Controller / Gamepad Force Feedback Rumble
+            if (hapticConfig.controllerRumble) {
+                try {
+                    if (navigator.getGamepads) {
+                        const gamepads = navigator.getGamepads();
+                        for (let gp of gamepads) {
+                            if (gp && gp.vibrationActuator && typeof gp.vibrationActuator.playEffect === 'function') {
+                                const duration = type === 'recoil' ? 250 : type === 'heavy' || type === 'error' ? 180 : 80;
+                                const strong = type === 'recoil' || type === 'error' ? 0.9 : type === 'heavy' ? 0.7 : 0.3;
+                                const weak = type === 'recoil' ? 0.9 : 0.5;
+                                gp.vibrationActuator.playEffect('dual-rumble', {
+                                    startDelay: 0,
+                                    duration: Math.round(duration * hapticConfig.intensity),
+                                    weakMagnitude: Math.min(1.0, weak * hapticConfig.intensity),
+                                    strongMagnitude: Math.min(1.0, strong * hapticConfig.intensity)
+                                }).catch(() => {});
+                            }
+                        }
+                    }
+                } catch(e) {}
+            }
+
+            // 3. Audio-Tactile Sub-Bass Acoustic Transient (Sub-bass physical sensation on speakers/headphones)
+            if (hapticConfig.audioHaptics) {
+                try {
+                    const ctx = getAudioContext();
+                    if (ctx && ctx.state === 'running') {
+                        const now = ctx.currentTime;
+                        const osc = ctx.createOscillator();
+                        const gain = ctx.createGain();
+                        
+                        const freq = type === 'light' || type === 'tick' ? 52 : type === 'medium' || type === 'snap' ? 42 : 32;
+                        const duration = type === 'heavy' || type === 'recoil' ? 0.08 : 0.035;
+                        const vol = (type === 'heavy' || type === 'recoil' || type === 'error' ? 0.22 : 0.10) * masterVolume * hapticConfig.intensity;
+                        
+                        osc.type = 'sine';
+                        osc.frequency.setValueAtTime(freq, now);
+                        osc.frequency.exponentialRampToValueAtTime(16, now + duration);
+                        
+                        gain.gain.setValueAtTime(vol, now);
+                        gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+                        
+                        osc.connect(gain);
+                        gain.connect(ctx.destination);
+                        osc.start(now);
+                        osc.stop(now + duration);
+                    }
+                } catch(e) {}
+            }
+        }
+
         function getAudioContext() {
             if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
             if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -5033,6 +5237,13 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
         }
 
         function playSfx(type) {
+            if (type === 'open') triggerHaptic('medium');
+            else if (type === 'close') triggerHaptic('light');
+            else if (type === 'minimize') triggerHaptic('selection');
+            else if (type === 'click') triggerHaptic('click');
+            else if (type === 'error') triggerHaptic('error');
+            else if (type === 'unlock') triggerHaptic('success');
+            else if (type === 'notify') triggerHaptic('medium');
             try {
                 const ctx = getAudioContext();
                 const now = ctx.currentTime;
@@ -6822,8 +7033,21 @@ vulkano = "0.34"`
             const deltaX = coords.x - lastPointerX;
             lastPointerX = coords.x;
             const tilt = Math.max(-4, Math.min(4, deltaX * 0.4));
-            activeDrag.style.left = `${coords.x - dragOffset.x}px`;
-            activeDrag.style.top = `${Math.max(40, coords.y - dragOffset.y)}px`;
+            const newLeft = coords.x - dragOffset.x;
+            const newTop = Math.max(40, coords.y - dragOffset.y);
+            
+            // Magnetic edge detection with tactile haptic click
+            if ((newLeft < 15 && (activeDrag._lastSnap !== 'left')) || 
+                (newLeft > window.innerWidth - activeDrag.offsetWidth - 15 && (activeDrag._lastSnap !== 'right')) || 
+                (newTop < 48 && (activeDrag._lastSnap !== 'top'))) {
+                triggerHaptic('snap');
+                activeDrag._lastSnap = newLeft < 15 ? 'left' : newLeft > window.innerWidth - activeDrag.offsetWidth - 15 ? 'right' : 'top';
+            } else if (newLeft >= 20 && newLeft <= window.innerWidth - activeDrag.offsetWidth - 20 && newTop >= 55) {
+                activeDrag._lastSnap = null;
+            }
+
+            activeDrag.style.left = `${newLeft}px`;
+            activeDrag.style.top = `${newTop}px`;
             activeDrag.style.transform = `rotateZ(${tilt}deg) scale(1.01)`;
         }
 
@@ -7097,6 +7321,7 @@ vulkano = "0.34"`
         }
 
         function installStoreApp(appId) {
+            triggerHaptic('medium');
             playSfx('open');
             const targetApp = STORE_APPS_DATABASE.find(a => a.id === appId);
             if (!targetApp) return;
@@ -8256,6 +8481,7 @@ vulkano = "0.34"`
         }
 
         function calcOp(op) {
+            triggerHaptic('selection');
             playSfx('click');
             calcExpr += op;
             updateCalcDisplay();
@@ -8271,6 +8497,7 @@ vulkano = "0.34"`
         }
 
         function calcClear() {
+            triggerHaptic('medium');
             playSfx('click');
             calcExpr = '';
             updateCalcDisplay();
@@ -8283,6 +8510,7 @@ vulkano = "0.34"`
         }
 
         function calcEval() {
+            triggerHaptic('success');
             playSfx('unlock');
             try {
                 const histEl = document.getElementById('calc-history-display');
@@ -8359,6 +8587,7 @@ vulkano = "0.34"`
         var isAppSwitcherOpen = false;
 
         function toggleAppSwitcher() {
+            triggerHaptic('medium');
             isAppSwitcherOpen = !isAppSwitcherOpen;
             const overlay = document.getElementById('app-switcher-overlay');
             if (!overlay) return;
@@ -9893,6 +10122,7 @@ Available Sovereign Applications:<br>
         let isDNDActive = false;
 
         function setDisplayBrightness(val) {
+            triggerHaptic('tick');
             const overlay = document.getElementById('brightness-overlay');
             const label = document.getElementById('tray-brightness-val');
             if (label) label.textContent = `${val}%`;
@@ -10065,6 +10295,7 @@ Available Sovereign Applications:<br>
         }
 
         function emptyRecycleBin() {
+            triggerHaptic('error');
             playSfx('click');
             recycleBinFiles = [];
             renderRecycleBinList();
@@ -10121,6 +10352,7 @@ Available Sovereign Applications:<br>
         }
 
         function createNewNote() {
+            triggerHaptic('medium');
             playSfx('click');
             const newId = Date.now();
             sovereignNotes.unshift({
@@ -10246,6 +10478,7 @@ Available Sovereign Applications:<br>
         }
 
         function zoomPhoto(delta) {
+            triggerHaptic('tick');
             currentPhotoZoom = Math.max(0.4, Math.min(3.0, currentPhotoZoom + delta));
             updatePhotoTransform();
         }
