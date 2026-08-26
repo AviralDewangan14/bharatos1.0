@@ -1230,6 +1230,150 @@
             box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.5), 0 30px 70px rgba(0, 0, 0, 0.8);
         }
 
+    
+        /* =========================================================================
+           FLAGSHIP ENHANCEMENTS: AI COPILOT, SPOTLIGHT, ACTION CENTER, CONTEXT MENU
+           ========================================================================= */
+
+        /* Sliding Side Drawers (AI Copilot & Action Center) */
+        .glass-side-drawer {
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            width: 400px;
+            max-width: 90vw;
+            z-index: 10600;
+            background: rgba(10, 16, 30, 0.88);
+            backdrop-filter: blur(50px) saturate(220%);
+            -webkit-backdrop-filter: blur(50px) saturate(220%);
+            border-left: 1.5px solid rgba(255, 255, 255, 0.15);
+            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+        }
+
+        .dark .glass-side-drawer {
+            background: rgba(10, 16, 30, 0.92);
+            border-left-color: rgba(0, 229, 255, 0.25);
+        }
+
+        :not(.dark) .glass-side-drawer {
+            background: rgba(248, 250, 252, 0.92);
+            border-left: 1.5px solid rgba(203, 213, 225, 0.8);
+            color: #0f172a;
+        }
+
+        #ai-copilot-drawer {
+            right: 0;
+            transform: translateX(105%);
+        }
+
+        #ai-copilot-drawer.active {
+            transform: translateX(0);
+        }
+
+        #action-center-drawer {
+            right: 0;
+            transform: translateX(105%);
+        }
+
+        #action-center-drawer.active {
+            transform: translateX(0);
+        }
+
+        /* Spotlight Floating Search Overlay */
+        #spotlight-modal {
+            position: fixed;
+            inset: 0;
+            z-index: 10700;
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            padding-top: 15vh;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+            transform: scale(0.96);
+        }
+
+        #spotlight-modal.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        .spotlight-card {
+            width: 640px;
+            max-width: 95vw;
+            background: rgba(15, 23, 42, 0.92);
+            border: 1.5px solid rgba(0, 229, 255, 0.3);
+            border-radius: 1.5rem;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.2);
+            overflow: hidden;
+        }
+
+        :not(.dark) .spotlight-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-color: rgba(14, 165, 233, 0.4);
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), 0 0 35px rgba(14, 165, 233, 0.15);
+        }
+
+        /* Desktop Context Menu */
+        #desktop-context-menu {
+            position: fixed;
+            z-index: 10800;
+            width: 230px;
+            background: rgba(15, 23, 42, 0.92);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1.5px solid rgba(255, 255, 255, 0.18);
+            border-radius: 1.25rem;
+            padding: 0.5rem;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: scale(0.92);
+            transform-origin: top left;
+            transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        #desktop-context-menu.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: scale(1);
+        }
+
+        :not(.dark) #desktop-context-menu {
+            background: rgba(255, 255, 255, 0.94);
+            border-color: rgba(203, 213, 225, 0.8);
+            color: #0f172a;
+        }
+
+        /* Snap Layouts Flyout Menu */
+        .snap-layouts-flyout {
+            position: absolute;
+            top: 100%;
+            right: 0;
+            margin-top: 6px;
+            width: 170px;
+            background: rgba(15, 23, 42, 0.95);
+            backdrop-filter: blur(25px);
+            border: 1.5px solid rgba(0, 229, 255, 0.3);
+            border-radius: 1rem;
+            padding: 8px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
+            display: none;
+            z-index: 50;
+        }
+
+        .snap-btn-wrapper:hover .snap-layouts-flyout {
+            display: block;
+        }
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
@@ -1950,6 +2094,13 @@
 </span>
                     <span class="tracking-wide text-xs">BharatOS</span>
                 </button>
+                <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
+                    <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
+                </button>
+                <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
+                    <span>🤖</span><span>AI Copilot</span>
+                </button>
+                
                 <button onclick="toggleAppSwitcher()" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all" title="Mission Control App Switcher (Win+Tab / Alt+Tab)">
                     <span>🗂️</span><span>Exposé</span>
                 </button>
@@ -3778,9 +3929,9 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button onclick="toggleNativeBrowserFullscreen()" class="glass-tray-capsule text-cyan-400 font-bold text-[11px]" title="Toggle Fullscreen Display (F11)">
                         ⛶ Fullscreen
                     </button>
-                    <div id="ist-clock" class="glass-tray-capsule text-cyan-400 font-bold text-[11px] px-3">
+                    <button onclick="toggleActionCenter()" id="ist-clock" class="glass-tray-capsule text-cyan-400 font-bold text-[11px] px-3">
                         --:--:-- IST
-                    </div>
+                    </button>
                 </div>
             </div>
         </footer>
@@ -6770,6 +6921,372 @@ vulkano = "0.34"`
             }
         });
 
+        
+        // =========================================================================
+        // SUDARSHAN AI NEURAL COPILOT ENGINE
+        // =========================================================================
+
+        var isAICopilotOpen = false;
+
+        function toggleAICopilot() {
+            isAICopilotOpen = !isAICopilotOpen;
+            const drawer = document.getElementById('ai-copilot-drawer');
+            if (!drawer) return;
+            if (isAICopilotOpen) {
+                playSfx('open');
+                drawer.classList.add('active');
+                setTimeout(() => { document.getElementById('ai-user-input')?.focus(); }, 300);
+            } else {
+                playSfx('close');
+                drawer.classList.remove('active');
+            }
+        }
+
+        function sendQuickAIPrompt(promptText) {
+            const input = document.getElementById('ai-user-input');
+            if (input) {
+                input.value = promptText;
+                executeAIChat();
+            }
+        }
+
+        function executeAIChat() {
+            const input = document.getElementById('ai-user-input');
+            const history = document.getElementById('ai-chat-history');
+            if (!input || !history) return;
+            const query = input.value.trim();
+            if (!query) return;
+            input.value = '';
+
+            playSfx('click');
+
+            // Append User Message
+            history.innerHTML += `
+                <div class="flex items-start justify-end space-x-2">
+                    <div class="p-3 rounded-2xl bg-cyan-500 text-slate-950 font-bold max-w-[80%] shadow">
+                        ${query}
+                    </div>
+                </div>
+            `;
+            history.scrollTop = history.scrollHeight;
+
+            // Generate AI Response with OS Automation
+            setTimeout(() => {
+                const response = processAICommand(query);
+                history.innerHTML += `
+                    <div class="flex items-start space-x-2.5">
+                        <div class="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 flex items-center justify-center text-sm shrink-0">☸️</div>
+                        <div class="p-3 rounded-2xl bg-slate-200/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 space-y-1">
+                            <p class="font-sans text-xs">${response.text}</p>
+                            ${response.actionNote ? `<div class="text-[10px] text-emerald-400 font-bold">✓ ${response.actionNote}</div>` : ''}
+                        </div>
+                    </div>
+                `;
+                history.scrollTop = history.scrollHeight;
+                playSfx('unlock');
+            }, 450);
+        }
+
+        function processAICommand(query) {
+            const q = query.toLowerCase();
+
+            if (q.includes('task manager') || q.includes('taskmgr') || q.includes('processes')) {
+                openAppWindow('taskmanager-window', 'dock-taskmgr');
+                return { text: "Opening Bharat Task Manager. 60-second real-time telemetry canvas and live processes online.", actionNote: "Launched Task Manager" };
+            }
+            if (q.includes('browser') || q.includes('internet') || q.includes('google')) {
+                openAppWindow('browser-window', 'dock-browser');
+                return { text: "Launching Garud Sovereign Web Browser with sandboxed privacy.", actionNote: "Launched Garud Browser" };
+            }
+            if (q.includes('code') || q.includes('ide') || q.includes('rust')) {
+                openAppWindow('code-window', 'dock-code');
+                return { text: "Opening Indic Code Studio Pro. 16-Core SMP LLVM Rust workspace loaded.", actionNote: "Launched Code Studio" };
+            }
+            if (q.includes('game') || q.includes('fps') || q.includes('solaris')) {
+                openAppWindow('game-window', 'dock-game');
+                return { text: "Engaging Solaris 3D Cyber Forge FPS Arena with hardware acceleration!", actionNote: "Launched Solaris 3D" };
+            }
+            if (q.includes('store') || q.includes('install') || q.includes('app')) {
+                openAppWindow('store-window', 'dock-store');
+                return { text: "Opening Bharat Sovereign App Store. 24+ verified native packages available.", actionNote: "Launched App Store" };
+            }
+            if (q.includes('virus') || q.includes('scan') || q.includes('security') || q.includes('kavach')) {
+                openAppWindow('kavach-window', 'dock-defender');
+                if (typeof startDeepAntivirusScan === 'function') startDeepAntivirusScan();
+                return { text: "Kavach Sentinel 3.0 activated. Initiating deep Zero-Trust heuristic file scan.", actionNote: "Scan Running" };
+            }
+            if (q.includes('isro') || q.includes('rocket') || q.includes('launch') || q.includes('gaganyaan')) {
+                openAppWindow('calendar-window', 'dock-calendar');
+                return { text: "ISRO Mission Watch: Gaganyaan-1 is slated for orbital insertion with LVM3 rocket. Systems nominal.", actionNote: "Opened ISRO Mission Hub" };
+            }
+            if (q.includes('split') || q.includes('tile')) {
+                tileWindowsSplitScreen();
+                return { text: "Tiled active windows side-by-side using Sovereign Stage Manager.", actionNote: "Applied Split-Screen" };
+            }
+            if (q.includes('lock')) {
+                lockDesktop();
+                return { text: "Sovereign desktop locked. Biometric and PIN authentication required to re-enter.", actionNote: "Locked Desktop" };
+            }
+            if (q.includes('dark') || q.includes('light') || q.includes('theme')) {
+                toggleTheme();
+                return { text: "Theme toggled smoothly while preserving your 4K scenic wallpaper with translucent liquid glass.", actionNote: "Theme Switched" };
+            }
+
+            // Math solving
+            if (/\d+[\+\-\*\/]\d+/.test(q)) {
+                try {
+                    const mathMatch = q.match(/[\d\.\s\+\-\*\/\(\)]+/)[0];
+                    const res = Function(`'use strict'; return (${mathMatch})`)();
+                    return { text: `Vedic Math Solution for ${mathMatch.trim()} = <b>${res}</b>`, actionNote: "Math Evaluated" };
+                } catch(e) {}
+            }
+
+            return {
+                text: `I have analyzed your request "<b>${query}</b>". BharatOS Ring-0 microkernel and sovereign AI accelerators are operating at peak efficiency (144 FPS). How else may I assist your workflow?`
+            };
+        }
+
+        function toggleVoiceInput() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                showNotificationToast("AI Voice", "Speech recognition is active in standard mode.", "info");
+                return;
+            }
+            showNotificationToast("AI Voice", "Listening to voice command...", "info");
+        }
+
+
+        // =========================================================================
+        // SOVEREIGN SPOTLIGHT GLOBAL SEARCH ENGINE
+        // =========================================================================
+
+        var isSpotlightOpen = false;
+        var currentSpotlightCat = 'all';
+
+        function openSpotlight() {
+            isSpotlightOpen = true;
+            const modal = document.getElementById('spotlight-modal');
+            const input = document.getElementById('spotlight-input');
+            if (!modal) return;
+            playSfx('open');
+            modal.classList.add('active');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            filterSpotlightResults('');
+        }
+
+        function closeSpotlight() {
+            isSpotlightOpen = false;
+            const modal = document.getElementById('spotlight-modal');
+            if (modal) {
+                playSfx('close');
+                modal.classList.remove('active');
+            }
+        }
+
+        function closeSpotlightOnBackdrop(e) {
+            if (e.target.id === 'spotlight-modal') closeSpotlight();
+        }
+
+        function setSpotlightCategory(cat) {
+            currentSpotlightCat = cat;
+            ['all', 'apps', 'files', 'settings'].forEach(c => {
+                const btn = document.getElementById(`spot-cat-${c}`);
+                if (btn) {
+                    if (c === cat) {
+                        btn.className = 'px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-bold';
+                    } else {
+                        btn.className = 'px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400';
+                    }
+                }
+            });
+            const input = document.getElementById('spotlight-input');
+            filterSpotlightResults(input ? input.value : '');
+        }
+
+        function filterSpotlightResults(query) {
+            const box = document.getElementById('spotlight-results-box');
+            if (!box) return;
+            const q = query.toLowerCase().trim();
+
+            let results = [];
+
+            // 1. Applications
+            if (currentSpotlightCat === 'all' || currentSpotlightCat === 'apps') {
+                Object.entries(ALL_APPS_METADATA).forEach(([winId, app]) => {
+                    if (!q || app.name.toLowerCase().includes(q) || app.desc.toLowerCase().includes(q)) {
+                        results.push({
+                            title: app.name,
+                            desc: app.desc,
+                            icon: app.icon,
+                            badge: 'App',
+                            action: () => { closeSpotlight(); openAppWindow(winId, app.dockId); }
+                        });
+                    }
+                });
+            }
+
+            // 2. VFS Files
+            if (currentSpotlightCat === 'all' || currentSpotlightCat === 'files') {
+                Object.entries(VFS_TREE).forEach(([dir, files]) => {
+                    files.forEach(f => {
+                        if (!q || f.name.toLowerCase().includes(q)) {
+                            results.push({
+                                title: f.name,
+                                desc: `${dir}/${f.name} • ${f.size}`,
+                                icon: f.icon,
+                                badge: 'File',
+                                action: () => { closeSpotlight(); openAppWindow('files-window', 'dock-files'); }
+                            });
+                        }
+                    });
+                });
+            }
+
+            // 3. Settings Tabs
+            if (currentSpotlightCat === 'all' || currentSpotlightCat === 'settings') {
+                const settingsTabs = [
+                    { name: 'Multi-User Accounts & Avatars', key: 'accounts', icon: '👥' },
+                    { name: 'Display Scaling & Resolution', key: 'display', icon: '🖥️' },
+                    { name: '4K Scenic Wallpapers & Glass', key: 'wallpaper', icon: '🏞️' },
+                    { name: 'Sound DSP & Audio Synthesizer', key: 'sound', icon: '🔊' },
+                    { name: 'Kavach Security & Sentinel', key: 'security', icon: '🛡️' }
+                ];
+                settingsTabs.forEach(s => {
+                    if (!q || s.name.toLowerCase().includes(q)) {
+                        results.push({
+                            title: s.name,
+                            desc: 'System Configuration Control',
+                            icon: s.icon,
+                            badge: 'Setting',
+                            action: () => { closeSpotlight(); openAppWindow('settings-window', 'dock-settings'); switchSettingsTab(s.key); }
+                        });
+                    }
+                });
+            }
+
+            if (results.length === 0) {
+                box.innerHTML = `<div class="p-6 text-center text-slate-500 font-mono">No matching results for "${query}". Press Enter to search on Google.</div>`;
+                return;
+            }
+
+            box.innerHTML = results.slice(0, 7).map((item, idx) => `
+                <div onclick="executeSpotlightAction(${idx})" class="p-2.5 rounded-xl hover:bg-cyan-500/20 cursor-pointer flex items-center justify-between group transition-colors">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-xl">${item.icon}</span>
+                        <div>
+                            <div class="font-bold text-slate-900 dark:text-white font-sans text-xs group-hover:text-cyan-400">${item.title}</div>
+                            <div class="text-[10px] text-slate-400">${item.desc}</div>
+                        </div>
+                    </div>
+                    <span class="px-2 py-0.5 rounded-md bg-slate-800 text-cyan-400 text-[10px] font-bold">${item.badge}</span>
+                </div>
+            `).join('');
+
+            window._currentSpotlightResults = results;
+        }
+
+        function executeSpotlightAction(idx) {
+            if (window._currentSpotlightResults && window._currentSpotlightResults[idx]) {
+                window._currentSpotlightResults[idx].action();
+            }
+        }
+
+        function handleSpotlightKey(e) {
+            if (e.key === 'Escape') closeSpotlight();
+            if (e.key === 'Enter') {
+                if (window._currentSpotlightResults && window._currentSpotlightResults.length > 0) {
+                    executeSpotlightAction(0);
+                } else {
+                    const input = document.getElementById('spotlight-input');
+                    if (input && input.value) {
+                        closeSpotlight();
+                        openAppWindow('browser-window', 'dock-browser');
+                        executeBrowserSearch(input.value);
+                    }
+                }
+            }
+        }
+
+
+        // =========================================================================
+        // ACTION CENTER & NOTIFICATION HUB ENGINE
+        // =========================================================================
+
+        var isActionCenterOpen = false;
+
+        function toggleActionCenter() {
+            isActionCenterOpen = !isActionCenterOpen;
+            const drawer = document.getElementById('action-center-drawer');
+            if (!drawer) return;
+            if (isActionCenterOpen) {
+                playSfx('open');
+                drawer.classList.add('active');
+            } else {
+                playSfx('close');
+                drawer.classList.remove('active');
+            }
+        }
+
+        function toggleQuickTile(btn, tileName) {
+            playSfx('click');
+            const isActive = btn.classList.contains('bg-cyan-500') || btn.classList.contains('bg-emerald-500');
+            if (isActive) {
+                btn.classList.remove('bg-cyan-500', 'bg-emerald-500', 'text-slate-950');
+                btn.classList.add('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                showNotificationToast(tileName, `${tileName} disabled.`, "info");
+            } else {
+                btn.classList.remove('bg-slate-200', 'dark:bg-slate-800', 'text-slate-700', 'dark:text-slate-300');
+                btn.classList.add('bg-cyan-500', 'text-slate-950');
+                showNotificationToast(tileName, `${tileName} enabled.`, "success");
+            }
+        }
+
+        function clearAllNotifications() {
+            playSfx('close');
+            const list = document.getElementById('action-notifications-list');
+            if (list) list.innerHTML = `<div class="p-4 text-center text-slate-500 text-xs">No unread notifications</div>`;
+        }
+
+
+        // =========================================================================
+        // DESKTOP RIGHT-CLICK CONTEXT MENU ENGINE
+        // =========================================================================
+
+        document.addEventListener('contextmenu', (e) => {
+            // If right-clicked on an input or window, let native context run
+            if (e.target.closest('input, textarea, [id$="-window"]')) {
+                hideDesktopContextMenu();
+                return;
+            }
+
+            e.preventDefault();
+            playSfx('click');
+            const menu = document.getElementById('desktop-context-menu');
+            if (!menu) return;
+
+            let x = e.clientX;
+            let y = e.clientY;
+            if (x + 240 > window.innerWidth) x = window.innerWidth - 245;
+            if (y + 320 > window.innerHeight) y = window.innerHeight - 325;
+
+            menu.style.left = `${x}px`;
+            menu.style.top = `${y}px`;
+            menu.classList.add('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('#desktop-context-menu')) {
+                hideDesktopContextMenu();
+            }
+        });
+
+        function hideDesktopContextMenu() {
+            const menu = document.getElementById('desktop-context-menu');
+            if (menu) menu.classList.remove('active');
+        }
+
         // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -6788,6 +7305,23 @@ vulkano = "0.34"`
             if (e.key === 'Escape' && isAppSwitcherOpen) {
                 e.preventDefault();
                 toggleAppSwitcher();
+                return;
+            }
+
+            // Spotlight & Copilot & Action Center Triggers
+            if ((e.key === ' ' || key === 'k') && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                openSpotlight();
+                return;
+            }
+            if (key === 'c' && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                toggleAICopilot();
+                return;
+            }
+            if (key === 'n' && (e.metaKey || e.ctrlKey)) {
+                e.preventDefault();
+                toggleActionCenter();
                 return;
             }
 
@@ -7536,6 +8070,13 @@ Available Sovereign Applications:<br>
                 <span class="text-xs font-mono text-slate-400 bg-slate-900/80 px-3 py-1.5 rounded-xl border border-slate-800">
                     <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-bold">Win + Tab</kbd> / <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-bold">Alt + Tab</kbd> • <kbd class="px-1.5 py-0.5 rounded bg-slate-800 text-white font-bold">ESC</kbd> to exit
                 </span>
+                <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
+                    <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
+                </button>
+                <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
+                    <span>🤖</span><span>AI Copilot</span>
+                </button>
+                
                 <button onclick="toggleAppSwitcher()" class="w-8 h-8 rounded-full bg-slate-800/80 hover:bg-slate-700 text-slate-300 flex items-center justify-center font-bold text-sm shadow">✕</button>
             </div>
         </div>
@@ -7563,6 +8104,208 @@ Available Sovereign Applications:<br>
                 </button>
             </div>
         </div>
+    </div>
+
+
+    <!-- =========================================================================
+         SUDARSHAN INDIC NEURAL AI COPILOT SLIDING DRAWER
+         ========================================================================= -->
+    <div id="ai-copilot-drawer" class="glass-side-drawer">
+        <!-- Header -->
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-saffron via-white to-indiaGreen p-[2px] shadow-lg animate-spin-slow">
+                    <div class="w-full h-full bg-slate-900 rounded-2xl flex items-center justify-center text-lg">☸️</div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-sm text-slate-900 dark:text-white font-sans flex items-center space-x-1.5">
+                        <span>Sudarshan AI</span>
+                        <span class="px-1.5 py-0.2 rounded bg-cyan-500/20 text-cyan-400 text-[10px] font-mono">Quantum Copilot</span>
+                    </h3>
+                    <p class="text-[10px] text-emerald-400 font-mono">● 100% On-Device Neural Model Online</p>
+                </div>
+            </div>
+            <button onclick="toggleAICopilot()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-xs">✕</button>
+        </div>
+
+        <!-- Chat Conversation Area -->
+        <div id="ai-chat-history" class="flex-1 p-4 overflow-y-auto custom-scroll space-y-3 font-mono text-xs">
+            <!-- Initial AI Greeting -->
+            <div class="flex items-start space-x-2.5">
+                <div class="w-7 h-7 rounded-xl bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 flex items-center justify-center text-sm shrink-0">☸️</div>
+                <div class="p-3 rounded-2xl bg-slate-200/80 dark:bg-slate-900/90 border border-slate-300 dark:border-slate-800 text-slate-800 dark:text-slate-200 space-y-1.5">
+                    <p class="font-sans font-semibold text-xs text-slate-900 dark:text-white">Namaste! I am Sudarshan AI.</p>
+                    <p class="text-[11px] opacity-80">Your sovereign intelligent system copilot. Ask me to control BharatOS, solve Vedic math, write Rust code, or explain any system telemetry!</p>
+                    <div class="flex flex-wrap gap-1.5 pt-1">
+                        <button onclick="sendQuickAIPrompt('Open Task Manager')" class="px-2 py-0.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-400 text-[10px]">📈 Open Task Manager</button>
+                        <button onclick="sendQuickAIPrompt('Tile windows split screen')" class="px-2 py-0.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-400 text-[10px]">⊞ Tile Windows</button>
+                        <button onclick="sendQuickAIPrompt('Scan for viruses')" class="px-2 py-0.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-400 text-[10px]">🛡️ Scan Viruses</button>
+                        <button onclick="sendQuickAIPrompt('When is next ISRO rocket launch?')" class="px-2 py-0.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 text-cyan-400 text-[10px]">🚀 ISRO Countdown</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Chat Input Bar -->
+        <div class="p-3 border-t border-slate-200 dark:border-slate-800 bg-slate-100/60 dark:bg-slate-900/60">
+            <div class="flex items-center space-x-2 bg-white dark:bg-slate-950 px-3 py-2 rounded-2xl border border-slate-300 dark:border-slate-800 focus-within:border-cyan-400">
+                <input id="ai-user-input" type="text" placeholder="Type OS command or question (e.g. 'Open App Store', 'Solve 42*48')..." class="flex-1 bg-transparent border-none outline-none font-sans text-xs text-slate-900 dark:text-white" onkeydown="if(event.key==='Enter') executeAIChat()">
+                <button onclick="toggleVoiceInput()" class="p-1 text-slate-400 hover:text-cyan-400 transition-colors" title="Voice Input (Speech Dictation)">🎤</button>
+                <button onclick="executeAIChat()" class="px-2.5 py-1 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold text-xs shadow transition-transform active:scale-95">Send</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================================================================
+         SOVEREIGN SPOTLIGHT GLOBAL SEARCH OVERLAY
+         ========================================================================= -->
+    <div id="spotlight-modal" onclick="closeSpotlightOnBackdrop(event)">
+        <div class="spotlight-card">
+            <!-- Search Header Bar -->
+            <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-3">
+                <span class="text-xl">🔍</span>
+                <input id="spotlight-input" type="text" placeholder="Search apps, files, settings, or execute terminal commands..." class="flex-1 bg-transparent border-none outline-none font-sans text-sm text-slate-900 dark:text-white" oninput="filterSpotlightResults(this.value)" onkeydown="handleSpotlightKey(event)">
+                <kbd class="px-2 py-0.5 rounded bg-slate-200 dark:bg-slate-800 text-[10px] font-mono text-slate-500 font-bold">ESC</kbd>
+            </div>
+
+            <!-- Filter Categories -->
+            <div class="px-4 py-2 bg-slate-100/80 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 flex items-center space-x-2 font-mono text-[11px]">
+                <button onclick="setSpotlightCategory('all')" id="spot-cat-all" class="px-2.5 py-1 rounded-lg bg-cyan-500 text-slate-950 font-bold">All</button>
+                <button onclick="setSpotlightCategory('apps')" id="spot-cat-apps" class="px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400">Applications</button>
+                <button onclick="setSpotlightCategory('files')" id="spot-cat-files" class="px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400">VFS Files</button>
+                <button onclick="setSpotlightCategory('settings')" id="spot-cat-settings" class="px-2.5 py-1 rounded-lg hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-400">Settings</button>
+            </div>
+
+            <!-- Results List -->
+            <div id="spotlight-results-box" class="max-h-80 overflow-y-auto custom-scroll p-2 space-y-1 font-mono text-xs">
+                <!-- Dynamically populated spotlight items -->
+            </div>
+
+            <!-- Footer Hint -->
+            <div class="px-4 py-2 bg-slate-100/50 dark:bg-slate-950/50 border-t border-slate-200 dark:border-slate-800 flex items-center justify-between text-[10px] text-slate-400 font-mono">
+                <span>Navigate: <kbd class="px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 font-bold">↑</kbd> <kbd class="px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 font-bold">↓</kbd> • Open: <kbd class="px-1 py-0.2 rounded bg-slate-200 dark:bg-slate-800 font-bold">ENTER</kbd></span>
+                <span class="text-cyan-400 font-bold">Sovereign Spotlight 3.0</span>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================================================================
+         ACTION CENTER & NOTIFICATION HUB SLIDING DRAWER
+         ========================================================================= -->
+    <div id="action-center-drawer" class="glass-side-drawer">
+        <!-- Header -->
+        <div class="p-4 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <span class="text-lg">🔔</span>
+                <h3 class="font-bold text-sm text-slate-900 dark:text-white font-sans">Notification & Action Center</h3>
+            </div>
+            <button onclick="toggleActionCenter()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-xs">✕</button>
+        </div>
+
+        <div class="flex-1 p-4 overflow-y-auto custom-scroll space-y-5 font-mono text-xs">
+            <!-- Quick Action Toggles Grid -->
+            <div class="space-y-2">
+                <div class="font-bold text-[11px] uppercase tracking-wider text-slate-400">Quick Toggles</div>
+                <div class="grid grid-cols-3 gap-2">
+                    <button onclick="toggleQuickTile(this, 'Wi-Fi 7')" class="p-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold flex flex-col items-center justify-center space-y-1 shadow">
+                        <span class="text-base">📶</span><span class="text-[10px]">Wi-Fi 7</span>
+                    </button>
+                    <button onclick="toggleQuickTile(this, 'Bluetooth')" class="p-2.5 rounded-xl bg-cyan-500 text-slate-950 font-bold flex flex-col items-center justify-center space-y-1 shadow">
+                        <span class="text-base">ᛒ</span><span class="text-[10px]">BT 5.4</span>
+                    </button>
+                    <button onclick="toggleNightLight(); toggleQuickTile(this, 'Night Light');" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold flex flex-col items-center justify-center space-y-1">
+                        <span class="text-base">🌙</span><span class="text-[10px]">Night Light</span>
+                    </button>
+                    <button onclick="toggleQuickTile(this, 'Kavach Sentinel')" class="p-2.5 rounded-xl bg-emerald-500 text-slate-950 font-bold flex flex-col items-center justify-center space-y-1 shadow">
+                        <span class="text-base">🛡️</span><span class="text-[10px]">Kavach Shield</span>
+                    </button>
+                    <button onclick="toggleQuickTile(this, 'Focus Mode')" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold flex flex-col items-center justify-center space-y-1">
+                        <span class="text-base">🎯</span><span class="text-[10px]">Focus Mode</span>
+                    </button>
+                    <button onclick="toggleTheme();" class="p-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 font-bold flex flex-col items-center justify-center space-y-1">
+                        <span class="text-base">🌓</span><span class="text-[10px]">Theme</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Media Player Mini Widget -->
+            <div class="p-3.5 rounded-2xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2.5">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-xl bg-gradient-to-tr from-pink-500 to-purple-600 flex items-center justify-center text-2xl shadow-md">🎵</div>
+                    <div class="truncate">
+                        <div class="font-bold text-slate-900 dark:text-white font-sans text-xs">528Hz Solfeggio Resonator</div>
+                        <div class="text-[10px] opacity-70">Soundscape Synthesizer • Master DSP</div>
+                    </div>
+                </div>
+                <div class="flex items-center justify-between pt-1 text-slate-300">
+                    <button onclick="playMusicTrack(0)" class="hover:text-cyan-400">⏮️</button>
+                    <button onclick="togglePlayMusic()" class="w-8 h-8 rounded-full bg-cyan-500 text-slate-950 font-bold flex items-center justify-center">▶</button>
+                    <button onclick="playMusicTrack(1)" class="hover:text-cyan-400">⏭️</button>
+                </div>
+            </div>
+
+            <!-- Notifications Feed Stack -->
+            <div class="space-y-2">
+                <div class="flex items-center justify-between">
+                    <div class="font-bold text-[11px] uppercase tracking-wider text-slate-400">Notifications (3)</div>
+                    <button onclick="clearAllNotifications()" class="text-[10px] text-cyan-400 hover:underline">Clear All</button>
+                </div>
+                <div id="action-notifications-list" class="space-y-2">
+                    <div class="p-3 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 space-y-1">
+                        <div class="flex items-center justify-between text-[11px]">
+                            <span class="font-bold text-emerald-400">🛡️ Kavach Security</span>
+                            <span class="text-[9px] opacity-50">Just now</span>
+                        </div>
+                        <p class="text-[10px] opacity-80">Real-time heuristic scan complete: 0 vulnerabilities found.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 space-y-1">
+                        <div class="flex items-center justify-between text-[11px]">
+                            <span class="font-bold text-cyan-400">🚀 ISRO Mission Watch</span>
+                            <span class="text-[9px] opacity-50">10m ago</span>
+                        </div>
+                        <p class="text-[10px] opacity-80">Gaganyaan-1 orbital launch readiness verified for 2026.</p>
+                    </div>
+                    <div class="p-3 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 space-y-1">
+                        <div class="flex items-center justify-between text-[11px]">
+                            <span class="font-bold text-purple-400">🛍️ Sovereign Store</span>
+                            <span class="text-[9px] opacity-50">1h ago</span>
+                        </div>
+                        <p class="text-[10px] opacity-80">24 sovereign packages are up to date and verified with SHA-256.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================================================================
+         DESKTOP LIQUID GLASS RIGHT-CLICK CONTEXT MENU
+         ========================================================================= -->
+    <div id="desktop-context-menu" class="font-mono text-xs space-y-1">
+        <button onclick="toggleAppSwitcher(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
+            <span>🗂️</span><span>Mission Control (Win+Tab)</span>
+        </button>
+        <button onclick="toggleAICopilot(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
+            <span>🤖</span><span>Sudarshan AI (Win+C)</span>
+        </button>
+        <button onclick="openSpotlight(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
+            <span>🔍</span><span>Spotlight Search (Win+Space)</span>
+        </button>
+        <div class="h-px bg-slate-800 my-1"></div>
+        <button onclick="tileWindowsSplitScreen(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>⊞</span><span>Tile Split-Screen</span>
+        </button>
+        <button onclick="openAppWindow('customization-window', 'dock-personalize'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>🎨</span><span>Change Wallpaper & Glass</span>
+        </button>
+        <button onclick="openAppWindow('terminal-window', 'dock-terminal'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>📟</span><span>Open Terminal Enclave</span>
+        </button>
+        <button onclick="openAppWindow('settings-window', 'dock-settings'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>⚙️</span><span>System Settings</span>
+        </button>
     </div>
 
 </body>
