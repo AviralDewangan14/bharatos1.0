@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" class="dark" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7542,7 +7542,7 @@ vulkano = "0.34"`
             const enteredPin = pinInput ? pinInput.value.trim() : "";
             const targetUser = getLockTargetUser();
 
-            const validPins = [targetUser?.pin, '2026', '1234', '0000', typeof userProfile !== 'undefined' ? userProfile?.pin : null].filter(Boolean);
+            const validPins = [targetUser?.pin, '2026'].filter(Boolean);
 
             if (validPins.includes(enteredPin) || (targetUser && targetUser.pin && enteredPin === targetUser.pin)) {
                 // Successful Authentication

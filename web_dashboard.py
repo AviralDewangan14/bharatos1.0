@@ -22,8 +22,21 @@ from heartbeat_dispatcher import dispatcher
 from survival_agent.survival_core import survival_core
 
 
+_telemetry_cache = None
+_telemetry_cache_time = 0.0
+_processes_cache = None
+_processes_cache_time = 0.0
+_cache_lock = threading.Lock()
+
 def get_real_system_telemetry() -> dict:
-    """Collects real-time hardware telemetry from the host operating system."""
+    """Collects real-time hardware telemetry from the host operating system with fast memory cache."""
+    global _telemetry_cache, _telemetry_cache_time
+    now = time.time()
+    
+    with _cache_lock:
+        if _telemetry_cache and (now - _telemetry_cache_time) < 0.8:
+            return _telemetry_cache
+
     now_ts = datetime.datetime.now().isoformat()
     
     # Fallback structure if psutil missing
@@ -60,19 +73,17 @@ def get_real_system_telemetry() -> dict:
         disk_free_gb = round(d_usage.free / (1024**3), 2)
         disk_percent = d_usage.percent
 
-        # DISK IO
-        dio = psutil.disk_io_counters()
-        read_mb = round((dio.read_bytes if dio else 0) / (1024**2), 1)
-        write_mb = round((dio.write_bytes if dio else 0) / (1024**2), 1)
+        # DISK I/O
+        d_io = psutil.disk_io_counters()
+        read_mb = round(d_io.read_bytes / (1024**2), 1) if d_io else 0.0
+        write_mb = round(d_io.write_bytes / (1024**2), 1) if d_io else 0.0
 
-        # NETWORK IO
-        nio = psutil.net_io_counters()
-        net_sent_mb = round((nio.bytes_sent if nio else 0) / (1024**2), 1)
-        net_recv_mb = round((nio.bytes_recv if nio else 0) / (1024**2), 1)
+        # NETWORK
+        net_io = psutil.net_io_counters()
+        net_sent_mb = round(net_io.bytes_sent / (1024**2), 1) if net_io else 0.0
+        net_recv_mb = round(net_io.bytes_recv / (1024**2), 1) if net_io else 0.0
 
-        # HOST & UPTIME
-        boot_time = psutil.boot_time()
-        uptime_seconds = int(time.time() - boot_time)
+        # LOCAL IP & HOSTNAME
         hostname = socket.gethostname()
         try:
             local_ip = socket.gethostbyname(hostname)
@@ -80,22 +91,28 @@ def get_real_system_telemetry() -> dict:
             local_ip = "127.0.0.1"
 
         # BATTERY
-        battery = psutil.sensors_battery()
+        bat = psutil.sensors_battery() if hasattr(psutil, "sensors_battery") else None
         bat_data = {
-            "percent": battery.percent if battery else None,
-            "power_plugged": battery.power_plugged if battery else True
-        } if battery else None
+            "percent": bat.percent if bat else 100,
+            "power_plugged": bat.power_plugged if bat else True,
+            "secsleft": bat.secsleft if bat else -1
+        }
 
-        return {
+        # BOOT TIME & UPTIME
+        boot_time = psutil.boot_time()
+        uptime_seconds = int(time.time() - boot_time)
+
+        res = {
             "timestamp": now_ts,
             "cpu": {
-                "overall_percent": cpu_percent,
-                "per_cpu": per_cpu,
+                "overall_percent": round(cpu_percent, 1),
+                "per_core": [round(c, 1) for c in per_cpu],
+                "freq_current_mhz": round(cpu_freq.current, 1) if cpu_freq else 3400.0,
+                "freq_min_mhz": round(cpu_freq.min, 1) if cpu_freq and cpu_freq.min else 800.0,
+                "freq_max_mhz": round(cpu_freq.max, 1) if cpu_freq and cpu_freq.max else 4200.0,
                 "cores_physical": cpu_count_phys,
                 "cores_logical": cpu_count_log,
-                "frequency_mhz": round(cpu_freq.current, 1) if cpu_freq else 3200.0,
-                "model": platform.processor() or "Sovereign Quantum Processor",
-                "arch": platform.machine()
+                "model": platform.processor() or "Sovereign Quantum Silicon Engine"
             },
             "memory": {
                 "total_gb": ram_total_gb,
@@ -128,12 +145,22 @@ def get_real_system_telemetry() -> dict:
                 "boot_time": datetime.datetime.fromtimestamp(boot_time).strftime("%Y-%m-%d %H:%M:%S")
             }
         }
+        with _cache_lock:
+            _telemetry_cache = res
+            _telemetry_cache_time = now
+        return res
     except Exception as e:
         return {"error": str(e), "timestamp": now_ts}
 
 
 def get_real_processes(limit: int = 50) -> dict:
-    """Returns real running host processes."""
+    """Returns real running host processes with low-latency memory cache."""
+    global _processes_cache, _processes_cache_time
+    now = time.time()
+    with _cache_lock:
+        if _processes_cache and (now - _processes_cache_time) < 1.5:
+            return _processes_cache
+
     if not psutil:
         return {"processes": [], "total_count": 0}
     
@@ -183,11 +210,15 @@ def get_real_processes(limit: int = 50) -> dict:
 
     # Sort by memory descending
     procs.sort(key=lambda x: x['ram'], reverse=True)
-    return {
+    res = {
         "processes": procs[:limit],
         "total_count": len(procs),
         "total_threads": total_threads
     }
+    with _cache_lock:
+        _processes_cache = res
+        _processes_cache_time = now
+    return res
 
 
 def get_real_storage_partitions() -> list:
