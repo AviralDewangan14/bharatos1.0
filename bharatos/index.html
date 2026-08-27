@@ -2658,8 +2658,58 @@
             </div>
         </nav>
 
-        <!-- DESKTOP WORKSPACE (CLEAN SCENIC NATURE VIEW) -->
         
+    <!-- =========================================================================
+         MODAL: DIGITAL LICENSE & PRODUCT KEY ACTIVATION DIALOG
+         ========================================================================= -->
+    <div id="license-activation-modal" class="fixed inset-0 bg-black/70 backdrop-blur-xl z-[90] flex items-center justify-center p-4 hidden">
+        <div class="w-full max-w-lg ultra-liquid-glass rounded-3xl p-6 border border-amber-500/40 shadow-2xl space-y-5 font-mono text-xs">
+            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+                <div class="flex items-center space-x-3">
+                    <div class="w-9 h-9 rounded-xl bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-xl">🔑</div>
+                    <div>
+                        <h3 class="font-bold text-sm text-slate-900 dark:text-white font-sans">Activate Sovereign BharatOS</h3>
+                        <p class="text-[10px] opacity-70">Enter your 25-character digital product key</p>
+                    </div>
+                </div>
+                <button onclick="closeLicenseActivationModal()" class="w-7 h-7 rounded-full bg-slate-200 dark:bg-slate-800 flex items-center justify-center text-xs hover:bg-rose-500 hover:text-white transition-all">✕</button>
+            </div>
+
+            <!-- Product Key Input -->
+            <div class="space-y-2">
+                <label class="font-bold text-[11px] text-slate-900 dark:text-white flex justify-between">
+                    <span>Digital Product Key:</span>
+                    <span class="text-[10px] text-amber-400">Format: BHARAT-XXXX-XXXX-XXXX-XXXX</span>
+                </label>
+                <input id="modal-product-key-input" type="text" placeholder="BHARAT-PRO6-78A2-99B4-5E82" maxlength="29" class="w-full p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 font-mono text-sm tracking-wider uppercase text-center font-bold text-amber-400 focus:border-amber-400 outline-none transition-all" oninput="formatProductKeyInput(this)">
+                <div id="modal-license-feedback" class="text-[11px] p-2 rounded-xl hidden"></div>
+            </div>
+
+            <div class="p-3 rounded-2xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] opacity-80 space-y-1">
+                <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 Hackatime sync.</div>
+                <div class="text-cyan-400 font-bold">Try Sample Key: BHARAT-PRO6-78A2-99B4-5E82</div>
+            </div>
+
+            <div class="flex items-center justify-end space-x-3 pt-2">
+                <button onclick="closeLicenseActivationModal()" class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-xs transition-all">Cancel</button>
+                <button onclick="submitProductKeyFromModal()" id="btn-modal-activate-submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
+                    <span>⚡</span><span>Verify & Activate</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- DESKTOP WORKSPACE (CLEAN SCENIC NATURE VIEW) -->
+        
+    <!-- DESKTOP SOVEREIGN ACTIVATION WATERMARK (Shown when unactivated / in evaluation) -->
+    <div id="desktop-activation-watermark" onclick="openAppWindow('settings-window', 'dock-settings'); switchSettingsTab('activation');" class="fixed bottom-20 right-6 z-10 pointer-events-auto cursor-pointer p-3 rounded-2xl bg-slate-900/60 border border-white/10 backdrop-blur-md font-mono text-[11px] space-y-0.5 text-right hidden select-none hover:border-amber-400/60 transition-all group shadow-xl">
+        <div class="font-bold text-amber-400 flex items-center justify-end space-x-1">
+            <span>🔑</span><span>Activate BharatOS</span>
+        </div>
+        <div class="text-[9px] opacity-70 text-slate-300">Go to Settings to enter digital license key</div>
+        <div class="text-[8px] text-cyan-400 group-hover:underline">Click here to activate →</div>
+    </div>
+
     <!-- THREE.JS REACT BITS FLUID GLASS COMPOSITOR CANVAS -->
     <canvas id="fluid-glass-canvas" class="fixed inset-0 pointer-events-none z-[1] w-full h-full"></canvas>
 
@@ -3979,6 +4029,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         <button onclick="switchSettingsTab('shortcuts')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-shortcuts"><span>⌨️</span><span>Keybindings</span></button>
                         <button onclick="switchSettingsTab('updates')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-updates"><span>🚀</span><span>System Updates</span></button>
                         <button onclick="switchSettingsTab('accounts')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-accounts"><span>👥</span><span>Accounts & Users</span></button>
+                        <button onclick="switchSettingsTab('activation')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2 text-amber-500" id="tab-btn-activation"><span>🔑</span><span>Activation & License</span></button>
                         <button onclick="switchSettingsTab('security')" class="w-full text-left px-3 py-2 rounded-xl hover:bg-slate-200/60 dark:hover:bg-slate-800/60 font-bold flex items-center space-x-2" id="tab-btn-security"><span>🛡️</span><span>Kavach Security</span></button>
                     </div>
 
@@ -4019,6 +4070,126 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="p-3.5 rounded-xl bg-slate-200/60 dark:bg-slate-900/70 border border-slate-300 dark:border-slate-800 flex justify-between items-center">
                                 <div><div class="font-bold">Re-run Onboarding Setup Wizard</div><div class="text-[10px] opacity-60">Change user name, PIN, and account details</div></div>
                                 <button onclick="reopenOnboarding()" class="px-3 py-1.5 rounded-xl bg-cyan-500 text-slate-950 font-bold">Edit Profile</button>
+                            </div>
+                        </div>
+
+                        <!-- Activation & Digital License Tab Pane -->
+                        <div id="tab-pane-activation" class="space-y-5 font-mono text-xs hidden">
+                            <!-- Holographic Sovereign License Header -->
+                            <div class="p-5 rounded-3xl bg-gradient-to-br from-amber-500/15 via-slate-900/60 to-emerald-500/15 border-2 border-amber-500/40 relative overflow-hidden shadow-2xl">
+                                <div class="absolute -right-8 -bottom-8 w-44 h-44 rounded-full bg-amber-500/10 blur-2xl pointer-events-none"></div>
+                                <div class="flex items-start justify-between relative z-10">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="w-14 h-14 rounded-2xl bg-gradient-to-tr from-amber-500 to-yellow-300 p-0.5 shadow-lg flex items-center justify-center text-3xl">
+                                            <span>☸️</span>
+                                        </div>
+                                        <div class="space-y-1">
+                                            <div class="flex items-center space-x-2">
+                                                <h3 class="text-base font-bold text-slate-900 dark:text-white font-sans">BharatOS Sovereign Digital License</h3>
+                                                <span id="lic-status-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold text-[10px] flex items-center space-x-1">
+                                                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping"></span>
+                                                    <span id="lic-status-text">GENUINE ACTIVATED</span>
+                                                </span>
+                                            </div>
+                                            <div id="lic-edition-title" class="text-xs font-bold text-amber-400">Sovereign Pro Enterprise Edition (LTS 2026.1)</div>
+                                            <div class="text-[10px] opacity-70">Authenticated via Government of India Sovereign Root Certificate Authority</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="text-right space-y-1">
+                                        <div class="text-[10px] opacity-60">Security Tier</div>
+                                        <div id="lic-tier-badge" class="px-2.5 py-1 rounded-xl bg-amber-500/20 text-amber-300 border border-amber-500/40 font-bold text-[10px]">
+                                            💎 PRO ENTERPRISE
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- License Details Grid -->
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-amber-500/20 relative z-10 text-[11px]">
+                                    <div class="space-y-0.5">
+                                        <div class="opacity-60 text-[9px] uppercase tracking-wider">Licensed User</div>
+                                        <div id="lic-user-name" class="font-bold text-slate-900 dark:text-white">Aviral Sharma</div>
+                                    </div>
+                                    <div class="space-y-0.5">
+                                        <div class="opacity-60 text-[9px] uppercase tracking-wider">Machine GUID</div>
+                                        <div id="lic-machine-guid" class="font-bold text-cyan-400 truncate">BOS-HWID-9F82-E4B1</div>
+                                    </div>
+                                    <div class="space-y-0.5">
+                                        <div class="opacity-60 text-[9px] uppercase tracking-wider">Channel / Key Type</div>
+                                        <div id="lic-channel" class="font-bold text-emerald-400">SOVEREIGN_LTS_RETAIL</div>
+                                    </div>
+                                    <div class="space-y-0.5">
+                                        <div class="opacity-60 text-[9px] uppercase tracking-wider">Digital Key</div>
+                                        <div class="flex items-center space-x-1.5">
+                                            <span id="lic-key-display" class="font-bold text-amber-300 truncate">••••-••••-••••-5E82</span>
+                                            <button onclick="toggleRevealLicenseKey()" class="opacity-70 hover:opacity-100 text-xs" title="Toggle Reveal Key">👁️</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive License Management Actions -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                            <span>🔐</span><span>Product Key & License Management</span>
+                                        </div>
+                                        <div class="text-[10px] opacity-70">Enter a genuine digital key to upgrade edition or verify hardware cryptographic binding.</div>
+                                    </div>
+                                    <button onclick="openLicenseActivationModal()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                                        <span>🔑</span><span>Change Product Key</span>
+                                    </button>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2.5 pt-2 border-t border-slate-300 dark:border-slate-800">
+                                    <button onclick="exportDigitalLicenseCertificate()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-cyan-500 transition-all flex items-center justify-center space-x-1.5">
+                                        <span>📜</span><span>Export Certificate (.blicense)</span>
+                                    </button>
+                                    <label class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-emerald-500 transition-all flex items-center justify-center space-x-1.5 cursor-pointer">
+                                        <span>📂</span><span>Import License File</span>
+                                        <input type="file" accept=".blicense,.json" onchange="importDigitalLicenseFile(event)" class="hidden">
+                                    </label>
+                                    <button onclick="toggleTrialDeactivation()" id="btn-toggle-deactivate" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-rose-500 text-rose-400 transition-all flex items-center justify-center space-x-1.5">
+                                        <span>🚫</span><span>Deactivate / Test Watermark</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Anti-Piracy Key Verification Sandbox -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2.5">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                        <span>🧪</span><span>Genuine Key Sandbox & Anti-Piracy Test Bench</span>
+                                    </span>
+                                    <span class="text-[9px] text-cyan-400">Click to simulate activation</span>
+                                </div>
+                                <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                    <button onclick="activatePresetKey('PRO')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/40 hover:border-amber-400 text-left transition-all">
+                                        <div class="font-bold text-amber-400 text-[10px]">💎 Sovereign Pro</div>
+                                        <div class="text-[8px] opacity-60 mt-0.5">Enterprise Ring-0</div>
+                                    </button>
+                                    <button onclick="activatePresetKey('DEFN')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-emerald-500/40 hover:border-emerald-400 text-left transition-all">
+                                        <div class="font-bold text-emerald-400 text-[10px]">🛡️ Defense & ISRO</div>
+                                        <div class="text-[8px] opacity-60 mt-0.5">Quantum Airgap</div>
+                                    </button>
+                                    <button onclick="activatePresetKey('COMM')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-cyan-500/40 hover:border-cyan-400 text-left transition-all">
+                                        <div class="font-bold text-cyan-400 text-[10px]">🌟 Community</div>
+                                        <div class="text-[8px] opacity-60 mt-0.5">Open Sovereign</div>
+                                    </button>
+                                    <button onclick="activatePresetKey('INVALID')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-rose-500/40 hover:border-rose-400 text-left transition-all">
+                                        <div class="font-bold text-rose-400 text-[10px]">🚫 Invalid Pirated Key</div>
+                                        <div class="text-[8px] opacity-60 mt-0.5">Anti-Piracy Trap</div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Cryptographic Enclave Specs -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1.5 text-[10px] opacity-80">
+                                <div class="font-bold text-slate-900 dark:text-white">🛡️ Zero-Trust Anti-Piracy DRM Architecture:</div>
+                                <div class="text-cyan-400">• Cryptographic Checksum: Ed25519 & Polynomial Modular Matrix verification</div>
+                                <div class="text-emerald-400">• Machine Binding: Bound to physical Host CPU, Memory Matrix & Vulkan GPU UUID</div>
+                                <div class="text-amber-400">• Tamper Detection: Real-time HMAC-SHA256 signature validation with zero-trust Ring-0 lock</div>
                             </div>
                         </div>
 
@@ -7220,7 +7391,7 @@ vulkano = "0.34"`
         // Settings Tabs
         function switchSettingsTab(tabKey) {
             playSfx('click');
-            ['system', 'display', 'wallpaper', 'sound', 'shortcuts', 'updates', 'security', 'accounts'].forEach(k => {
+            ['system', 'storage', 'network', 'display', 'wallpaper', 'sound', 'shortcuts', 'updates', 'accounts', 'security', 'activation'].forEach(k => {
                 const pane = document.getElementById(`tab-pane-${k}`);
                 const btn = document.getElementById(`tab-btn-${k}`);
                 if (pane) pane.classList.add('hidden');
@@ -7230,6 +7401,9 @@ vulkano = "0.34"`
             const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
             if (activePane) activePane.classList.remove('hidden');
             if (activeBtn) activeBtn.className = 'w-full text-left px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 text-cyan-600 dark:text-cyan-300 font-bold flex items-center space-x-2';
+            if (tabKey === 'activation') {
+                renderLicenseUI();
+            }
         }
 
         function checkUpdates() {
@@ -9604,9 +9778,54 @@ vulkano = "0.34"`
   WALLPAPER [name]     - Change wallpaper (ladakh, munnar, varanasi, thar, kashmir, andaman, waterfall, kutch)<br>
   POWERSHELL / CMD     - Switch between Windows Command Prompt and PowerShell<br>
   LOCK                 - Lock desktop enclave (Win+L)<br>
+  LICENSE [--status | --activate <key> | --gen] - Manage digital product key & anti-piracy licensing<br>
+  SLMGR [/dli | /ipk <key>]                    - Windows Software License Manager alias<br>
   SHUTDOWN [/s /r]     - Power down or reboot the operating system<br>
   CLS / CLEAR          - Clear the terminal screen buffer
 </div>`;
+
+                // LICENSE / SLMGR Command Handler
+                } else if (cmd === 'license' || cmd === 'slmgr') {
+                    const subCmd = args[0] ? args[0].toLowerCase() : '--status';
+                    const state = loadLicenseState();
+                    
+                    if (subCmd === '--status' || subCmd === '/dli' || subCmd === '/xpr') {
+                        out.innerHTML += `<div class="space-y-1 text-slate-800 dark:text-slate-200">
+<span class="text-amber-400 font-bold">=== BharatOS Sovereign Software Licensing Management (slmgr) ===</span><br>
+  License Status     : <span class="${state.status === 'GENUINE_ACTIVATED' ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}">${state.status}</span><br>
+  Edition Name       : <span class="text-cyan-400 font-bold">${state.tierName}</span><br>
+  Edition Code       : ${state.editionCode}<br>
+  Product Key (Mask) : <span class="text-amber-300">${state.key ? '••••-••••-••••-' + state.key.slice(-4) : 'NONE'}</span><br>
+  Machine GUID       : <span class="text-slate-400">${state.machineGuid}</span><br>
+  Certificate Hash   : <span class="text-slate-400">${state.certHash}</span><br>
+  Anti-Piracy Enclave: <span class="text-emerald-400">Ring-0 Zero-Trust Active (Ed25519 Verified)</span>
+</div>`;
+                    } else if (subCmd === '--activate' || subCmd === '/ipk') {
+                        const keyToActivate = args[1];
+                        if (!keyToActivate) {
+                            out.innerHTML += `<div class="text-rose-400 font-bold">Error: Missing product key. Usage: license --activate BHARAT-XXXX-XXXX-XXXX-XXXX</div>`;
+                        } else {
+                            const res = activateProductKey(keyToActivate);
+                            if (res.success) {
+                                out.innerHTML += `<div class="text-emerald-400 font-bold">✓ License Activated Successfully! Edition: ${res.state.tierName} [${res.state.key}]</div>`;
+                            } else {
+                                out.innerHTML += `<div class="text-rose-400 font-bold">❌ Anti-Piracy Error: ${res.error}</div>`;
+                            }
+                        }
+                    } else if (subCmd === '--gen') {
+                        const tier = args[1] ? args[1].toUpperCase() : 'PRO';
+                        const newKey = generateGenuineLicenseKey(tier);
+                        out.innerHTML += `<div class="space-y-0.5 text-slate-800 dark:text-slate-200">
+<span class="text-cyan-400 font-bold">Generated Genuine Digital License Key [Tier: ${tier}]:</span><br>
+<span class="text-amber-400 font-bold text-sm tracking-wider select-all">${newKey}</span><br>
+<span class="text-[10px] opacity-70">To activate: type 'license --activate ${newKey}'</span>
+</div>`;
+                    } else if (subCmd === '--verify') {
+                        const res = validateDigitalLicenseKey(state.key);
+                        out.innerHTML += `<div>Hardware Signature & Polynomial Checksum: <span class="${res.valid ? 'text-emerald-400 font-bold' : 'text-rose-400 font-bold'}">${res.valid ? 'PASSED (Genuine Root Certificate)' : 'FAILED (Tampered)'}</span></div>`;
+                    } else {
+                        out.innerHTML += `<div class="text-slate-400">Usage: license [--status | --activate <KEY> | --gen [pro|defn|comm] | --verify]</div>`;
+                    }
 
                 // 2. VER / WINVER
                 } else if (cmd === 'ver' || cmd === 'winver') {
@@ -11140,6 +11359,405 @@ Available Sovereign Applications:<br>
         // Initialize Hackatime Poller
         setInterval(() => fetchHackatimeStatus(false), 3000);
         setTimeout(() => fetchHackatimeStatus(false), 1000);
+
+        
+        // =========================================================================
+        // BHARATOS SOVEREIGN ANTI-PIRACY & CRYPTOGRAPHIC DIGITAL LICENSE ENGINE
+        // =========================================================================
+        const BHARAT_LICENSE_TIERS = {
+            PRO: {
+                code: 'PRO_2026_LTS',
+                name: 'Sovereign Pro Enterprise Edition',
+                badge: '💎 PRO ENTERPRISE',
+                features: ['Ring-0 Kavach Defender', 'Full Hardware Scaler', '4K HDR Nature Wallpapers', '24/7 Hackatime Cloud Studio', 'Uncapped Quantum Haptics', 'Multi-Touch Gestures', 'Zero-Trust Enclave']
+            },
+            DEFN: {
+                code: 'DEFN_QUANTUM',
+                name: 'Defense & ISRO Sovereign Quantum Edition',
+                badge: '🛡️ DEFENSE / ISRO ENCLAVE',
+                features: ['Airgap Hardware Cryptography', 'Quantum Root of Trust', 'Gaganyaan Telemetry Sync', 'Classified Sandbox Isolation', 'All Pro Capabilities']
+            },
+            COMM: {
+                code: 'COMM_EVAL',
+                name: 'Sovereign Community Edition',
+                badge: '🌟 COMMUNITY TIER',
+                features: ['Standard Desktop Apps', 'Basic Telemetry', 'Liquid Glass Compositor', 'Community Repositories']
+            },
+            STUD: {
+                code: 'ACAD_RESEARCH',
+                name: 'National Academic & Student Research Edition',
+                badge: '🎓 ACADEMIC RESEARCH',
+                features: ['Indic Code Studio Pro', 'Vedic Math Kernel', 'AI Copilot Sudarshan', 'Academic Repositories']
+            }
+        };
+
+        let isLicenseKeyRevealed = false;
+
+        function getSovereignMachineGUID() {
+            let base = `${navigator.userAgent}-${screen.width}x${screen.height}-${navigator.hardwareConcurrency || 8}-${navigator.platform || 'Win32'}`;
+            let hash = 0;
+            for (let i = 0; i < base.length; i++) {
+                hash = ((hash << 5) - hash) + base.charCodeAt(i);
+                hash |= 0;
+            }
+            const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+            return `BOS-HWID-${hex.slice(0, 4)}-${hex.slice(4, 8)}-2026`;
+        }
+
+        function computeKeyChecksum(str) {
+            const chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            let sum = 0;
+            for (let i = 0; i < str.length; i++) {
+                const idx = chars.indexOf(str[i].toUpperCase());
+                if (idx !== -1) {
+                    sum = (sum * 31 + idx * (i + 1)) % 16777215;
+                }
+            }
+            const c1 = chars[sum % 36];
+            const c2 = chars[Math.floor(sum / 36) % 36];
+            const c3 = chars[Math.floor(sum / 1296) % 36];
+            const c4 = chars[Math.floor(sum / 46656) % 36];
+            return `${c1}${c2}${c3}${c4}`;
+        }
+
+        function validateDigitalLicenseKey(rawKey) {
+            if (!rawKey || typeof rawKey !== 'string') return { valid: false, error: 'Empty digital product key provided' };
+            const cleaned = rawKey.trim().toUpperCase();
+            const parts = cleaned.split('-');
+            
+            if (parts.length !== 5 || parts[0] !== 'BHARAT') {
+                return { valid: false, error: 'Invalid product key format. Format must be BHARAT-XXXX-XXXX-XXXX-XXXX' };
+            }
+
+            const [prefix, tierPart, block1, block2, checksumPart] = parts;
+            if (block1.length !== 4 || block2.length !== 4 || checksumPart.length !== 4) {
+                return { valid: false, error: 'Malformed product key segment length' };
+            }
+
+            let tierKey = 'PRO';
+            if (tierPart.startsWith('DEFN') || tierPart.startsWith('ISRO') || tierPart.startsWith('GOVT')) tierKey = 'DEFN';
+            else if (tierPart.startsWith('COMM') || tierPart.startsWith('FREE')) tierKey = 'COMM';
+            else if (tierPart.startsWith('STUD') || tierPart.startsWith('ACAD')) tierKey = 'STUD';
+            else if (tierPart.startsWith('PRO')) tierKey = 'PRO';
+            else {
+                return { valid: false, error: `Unrecognized license tier code: ${tierPart}` };
+            }
+
+            const payload = `${prefix}-${tierPart}-${block1}-${block2}`;
+            const expectedChecksum = computeKeyChecksum(payload);
+
+            if (checksumPart !== expectedChecksum) {
+                return { valid: false, error: 'Digital cryptographic signature check failed (Anti-Piracy Checksum Mismatch)' };
+            }
+
+            return {
+                valid: true,
+                tierKey: tierKey,
+                tierInfo: BHARAT_LICENSE_TIERS[tierKey],
+                formattedKey: cleaned
+            };
+        }
+
+        function generateGenuineLicenseKey(tier = 'PRO') {
+            const chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
+            const tierCodes = { PRO: 'PRO6', DEFN: 'DEFN', COMM: 'COMM', STUD: 'STUD' };
+            const tierPart = tierCodes[tier] || 'PRO6';
+            let b1 = '';
+            let b2 = '';
+            for (let i = 0; i < 4; i++) b1 += chars[Math.floor(Math.random() * chars.length)];
+            for (let i = 0; i < 4; i++) b2 += chars[Math.floor(Math.random() * chars.length)];
+            const payload = `BHARAT-${tierPart}-${b1}-${b2}`;
+            const checksum = computeKeyChecksum(payload);
+            return `${payload}-${checksum}`;
+        }
+
+        function showToastNotification(title, message) {
+            try {
+                let container = document.getElementById('sovereign-toast-container');
+                if (!container) {
+                    container = document.createElement('div');
+                    container.id = 'sovereign-toast-container';
+                    container.className = 'fixed top-14 right-6 z-[100] flex flex-col space-y-2 pointer-events-none';
+                    document.body.appendChild(container);
+                }
+                const toast = document.createElement('div');
+                toast.className = 'p-3.5 rounded-2xl ultra-liquid-glass border border-amber-500/40 shadow-2xl font-mono text-xs max-w-sm pointer-events-auto transition-all transform duration-300 translate-x-10 opacity-0';
+                toast.innerHTML = `
+                    <div class="flex items-center space-x-2.5">
+                        <span class="text-base">🇮🇳</span>
+                        <div class="flex-1">
+                            <div class="font-bold text-slate-900 dark:text-white text-[11px]">${title}</div>
+                            <div class="text-[10px] opacity-75 text-slate-700 dark:text-slate-300 mt-0.5">${message}</div>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(toast);
+                requestAnimationFrame(() => {
+                    toast.classList.remove('translate-x-10', 'opacity-0');
+                });
+                setTimeout(() => {
+                    toast.classList.add('translate-x-10', 'opacity-0');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3500);
+            } catch(e) {}
+        }
+
+        function loadLicenseState() {
+            try {
+                const saved = localStorage.getItem('bharatos_license_state');
+                if (saved) {
+                    return JSON.parse(saved);
+                }
+            } catch(e) {}
+
+            // Default Genuine Pro License out-of-the-box
+            const defaultKey = 'BHARAT-PRO6-78A2-99B4-5E82';
+            const defaultState = {
+                status: 'GENUINE_ACTIVATED',
+                key: defaultKey,
+                tierKey: 'PRO',
+                tierName: BHARAT_LICENSE_TIERS.PRO.name,
+                editionCode: BHARAT_LICENSE_TIERS.PRO.code,
+                machineGuid: getSovereignMachineGUID(),
+                activatedAt: Date.now(),
+                channel: 'SOVEREIGN_LTS_RETAIL',
+                certHash: 'SHA256:7f8a9e2d83b1c4091a2e3f4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b3c4d'
+            };
+            saveLicenseState(defaultState);
+            return defaultState;
+        }
+
+        function saveLicenseState(state) {
+            try {
+                localStorage.setItem('bharatos_license_state', JSON.stringify(state));
+            } catch(e) {}
+        }
+
+        function activateProductKey(keyString) {
+            const res = validateDigitalLicenseKey(keyString);
+            if (!res.valid) {
+                triggerHaptic('error');
+                playSfx('error');
+                return { success: false, error: res.error };
+            }
+
+            const state = {
+                status: 'GENUINE_ACTIVATED',
+                key: res.formattedKey,
+                tierKey: res.tierKey,
+                tierName: res.tierInfo.name,
+                editionCode: res.tierInfo.code,
+                machineGuid: getSovereignMachineGUID(),
+                activatedAt: Date.now(),
+                channel: 'SOVEREIGN_LTS_RETAIL',
+                certHash: 'SHA256:' + Array.from({length: 32}, () => Math.floor(Math.random()*16).toString(16)).join('')
+            };
+
+            saveLicenseState(state);
+            triggerHaptic('success');
+            playSfx('unlock');
+            renderLicenseUI();
+            return { success: true, state: state };
+        }
+
+        function renderLicenseUI() {
+            const state = loadLicenseState();
+            const statusBadge = document.getElementById('lic-status-badge');
+            const statusText = document.getElementById('lic-status-text');
+            const editionTitle = document.getElementById('lic-edition-title');
+            const tierBadge = document.getElementById('lic-tier-badge');
+            const machineGuid = document.getElementById('lic-machine-guid');
+            const keyDisplay = document.getElementById('lic-key-display');
+            const channelDisplay = document.getElementById('lic-channel');
+            const watermark = document.getElementById('desktop-activation-watermark');
+            const deactivateBtn = document.getElementById('btn-toggle-deactivate');
+
+            const isActivated = state && state.status === 'GENUINE_ACTIVATED';
+
+            if (statusBadge && statusText) {
+                if (isActivated) {
+                    statusBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold text-[10px] flex items-center space-x-1';
+                    statusText.textContent = 'GENUINE ACTIVATED';
+                } else {
+                    statusBadge.className = 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold text-[10px] flex items-center space-x-1';
+                    statusText.textContent = 'ACTIVATION REQUIRED';
+                }
+            }
+
+            if (editionTitle) editionTitle.textContent = isActivated ? (state.tierName || 'Sovereign Pro Enterprise Edition') : 'Unactivated BharatOS (Evaluation Copy)';
+            if (tierBadge) {
+                const tierInfo = BHARAT_LICENSE_TIERS[state.tierKey] || BHARAT_LICENSE_TIERS.PRO;
+                tierBadge.textContent = isActivated ? tierInfo.badge : '🚫 UNLICENSED';
+            }
+            if (machineGuid) machineGuid.textContent = state.machineGuid || getSovereignMachineGUID();
+            if (channelDisplay) channelDisplay.textContent = isActivated ? (state.channel || 'SOVEREIGN_LTS_RETAIL') : 'TRIAL_GRACE_PERIOD';
+
+            if (keyDisplay) {
+                if (!isActivated) {
+                    keyDisplay.textContent = 'NONE';
+                } else if (isLicenseKeyRevealed) {
+                    keyDisplay.textContent = state.key;
+                } else {
+                    const last4 = state.key ? state.key.slice(-4) : '5E82';
+                    keyDisplay.textContent = `••••-••••-••••-${last4}`;
+                }
+            }
+
+            if (watermark) {
+                if (isActivated) watermark.classList.add('hidden');
+                else watermark.classList.remove('hidden');
+            }
+
+            if (deactivateBtn) {
+                deactivateBtn.innerHTML = isActivated ? '<span>🚫</span><span>Deactivate / Test Watermark</span>' : '<span>⚡</span><span>Re-Activate Sovereign Pro</span>';
+                deactivateBtn.className = isActivated ? 'p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-bold text-[10px] hover:border-rose-500 text-rose-400 transition-all flex items-center justify-center space-x-1.5' : 'p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-emerald-500/40 font-bold text-[10px] hover:border-emerald-400 text-emerald-400 transition-all flex items-center justify-center space-x-1.5';
+            }
+        }
+
+        function toggleRevealLicenseKey() {
+            isLicenseKeyRevealed = !isLicenseKeyRevealed;
+            triggerHaptic('light');
+            renderLicenseUI();
+        }
+
+        function toggleTrialDeactivation() {
+            const state = loadLicenseState();
+            if (state.status === 'GENUINE_ACTIVATED') {
+                state.status = 'UNACTIVATED_EVALUATION';
+                saveLicenseState(state);
+                triggerHaptic('alert');
+                playSfx('error');
+                showToastNotification('BharatOS Deactivated', 'Switched to Evaluation Mode. Desktop watermark active.');
+            } else {
+                activatePresetKey('PRO');
+            }
+            renderLicenseUI();
+        }
+
+        function activatePresetKey(preset) {
+            if (preset === 'INVALID') {
+                const res = activateProductKey('BHARAT-FAKE-0000-FAIL-XXXX');
+                showToastNotification('Anti-Piracy Enforcement', res.error || 'Invalid product key rejected.');
+                return;
+            }
+            const key = generateGenuineLicenseKey(preset);
+            const res = activateProductKey(key);
+            if (res.success) {
+                showToastNotification('License Activated', `Successfully activated ${res.state.tierName}!`);
+            }
+        }
+
+        function openLicenseActivationModal() {
+            triggerHaptic('medium');
+            const modal = document.getElementById('license-activation-modal');
+            const input = document.getElementById('modal-product-key-input');
+            const feedback = document.getElementById('modal-license-feedback');
+            if (modal) modal.classList.remove('hidden');
+            if (input) {
+                input.value = '';
+                input.focus();
+            }
+            if (feedback) feedback.classList.add('hidden');
+        }
+
+        function closeLicenseActivationModal() {
+            triggerHaptic('light');
+            const modal = document.getElementById('license-activation-modal');
+            if (modal) modal.classList.add('hidden');
+        }
+
+        function formatProductKeyInput(input) {
+            let val = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+            if (val.startsWith('BHARAT')) {
+                const rest = val.slice(6);
+                let formatted = 'BHARAT';
+                for (let i = 0; i < rest.length && i < 16; i++) {
+                    if (i % 4 === 0) formatted += '-';
+                    formatted += rest[i];
+                }
+                input.value = formatted;
+            } else {
+                let formatted = '';
+                for (let i = 0; i < val.length && i < 20; i++) {
+                    if (i > 0 && i % 4 === 0) formatted += '-';
+                    formatted += val[i];
+                }
+                input.value = formatted;
+            }
+        }
+
+        function submitProductKeyFromModal() {
+            const input = document.getElementById('modal-product-key-input');
+            const feedback = document.getElementById('modal-license-feedback');
+            if (!input || !feedback) return;
+
+            const key = input.value.trim();
+            const res = activateProductKey(key);
+            feedback.classList.remove('hidden');
+
+            if (res.success) {
+                feedback.className = 'text-[11px] p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold';
+                feedback.innerHTML = `✅ Genuine License Activated! ${res.state.tierName}`;
+                setTimeout(() => {
+                    closeLicenseActivationModal();
+                    showToastNotification('BharatOS Activated', `Genuine ${res.state.tierName} license active.`);
+                }, 1200);
+            } else {
+                feedback.className = 'text-[11px] p-2.5 rounded-xl bg-rose-500/20 text-rose-400 border border-rose-500/40 font-bold';
+                feedback.innerHTML = `❌ Anti-Piracy Check Failed: ${res.error}`;
+            }
+        }
+
+        function exportDigitalLicenseCertificate() {
+            triggerHaptic('selection');
+            const state = loadLicenseState();
+            const certData = {
+                issuer: "Government of India — BharatOS Sovereign Trust Root CA",
+                standard: "ISO/IEC 24727 Sovereign Electronic License",
+                licenseState: state,
+                issuedAt: new Date().toISOString(),
+                digitalSignature: state.certHash
+            };
+            const blob = new Blob([JSON.stringify(certData, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `bharatos_license_${state.tierKey.toLowerCase()}_${Date.now()}.blicense`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToastNotification('License Certificate Exported', 'Downloaded genuine .blicense digital certificate file.');
+        }
+
+        function importDigitalLicenseFile(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                try {
+                    const parsed = JSON.parse(e.target.result);
+                    const key = parsed.licenseState?.key || parsed.key;
+                    if (key) {
+                        const res = activateProductKey(key);
+                        if (res.success) {
+                            showToastNotification('License Imported', `Activated ${res.state.tierName} from file!`);
+                        } else {
+                            showToastNotification('License Import Failed', res.error);
+                        }
+                    } else {
+                        showToastNotification('Invalid License File', 'No valid digital product key found in file.');
+                    }
+                } catch(err) {
+                    showToastNotification('Import Error', 'Failed to parse .blicense JSON file.');
+                }
+            };
+            reader.readAsText(file);
+        }
+
+        // Initialize License State & UI on OS Boot
+        loadLicenseState();
+        setTimeout(renderLicenseUI, 500);
 
         function initTouchEngine() {
             // Touch Swipe-Up on Lock Screen to focus PIN
