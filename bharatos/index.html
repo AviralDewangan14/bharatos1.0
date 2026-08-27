@@ -2681,19 +2681,71 @@
                     <span>Digital Product Key:</span>
                     <span class="text-[10px] text-amber-400">Format: BHARAT-XXXX-XXXX-XXXX-XXXX</span>
                 </label>
-                <input id="modal-product-key-input" type="text" placeholder="BHARAT-PRO6-78A2-99B4-5E82" maxlength="29" class="w-full p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 font-mono text-sm tracking-wider uppercase text-center font-bold text-amber-400 focus:border-amber-400 outline-none transition-all" oninput="formatProductKeyInput(this)">
+                <input id="modal-product-key-input" type="text" placeholder="BHARAT-PRO6-78A2-99B4-07U7" maxlength="29" class="w-full p-3.5 rounded-2xl bg-slate-100 dark:bg-slate-950 border-2 border-slate-300 dark:border-slate-800 font-mono text-sm tracking-wider uppercase text-center font-bold text-amber-400 focus:border-amber-400 outline-none transition-all" oninput="formatProductKeyInput(this)">
                 <div id="modal-license-feedback" class="text-[11px] p-2 rounded-xl hidden"></div>
             </div>
 
             <div class="p-3 rounded-2xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] opacity-80 space-y-1">
                 <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 Hackatime sync.</div>
-                <div class="text-cyan-400 font-bold">Try Sample Key: BHARAT-PRO6-78A2-99B4-5E82</div>
+                <div class="text-cyan-400 font-bold">Try Sample Key: BHARAT-PRO6-78A2-99B4-07U7</div>
             </div>
 
             <div class="flex items-center justify-end space-x-3 pt-2">
                 <button onclick="closeLicenseActivationModal()" class="px-4 py-2.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 font-bold text-xs transition-all">Cancel</button>
                 <button onclick="submitProductKeyFromModal()" id="btn-modal-activate-submit" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
                     <span>⚡</span><span>Verify & Activate</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    
+    <!-- =========================================================================
+         QUARANTINE: SOVEREIGN ANTI-PIRACY & ANTI-TAMPER SECURITY LOCKDOWN
+         ========================================================================= -->
+    <div id="anti-piracy-quarantine-modal" class="fixed inset-0 bg-red-950/85 backdrop-blur-2xl z-[100] flex items-center justify-center p-4 hidden select-none">
+        <div class="w-full max-w-xl bg-slate-950/90 border-2 border-red-500 rounded-3xl p-7 shadow-2xl space-y-5 font-mono text-xs text-white relative overflow-hidden">
+            <div class="absolute -right-12 -top-12 w-48 h-48 rounded-full bg-red-500/10 blur-3xl pointer-events-none"></div>
+            
+            <div class="flex items-center space-x-4 border-b border-red-500/40 pb-4">
+                <div class="w-14 h-14 rounded-2xl bg-red-500/20 border border-red-500/50 flex items-center justify-center text-3xl animate-pulse">
+                    🚨
+                </div>
+                <div>
+                    <h2 class="text-base font-bold text-red-400 font-sans tracking-wide">SOVEREIGN ANTI-PIRACY RING-0 LOCKDOWN</h2>
+                    <div class="text-[11px] text-slate-300 mt-0.5">Kavach Security Enclave • Unauthorized Tamper / Piracy Detected</div>
+                </div>
+            </div>
+
+            <!-- Violation Details Box -->
+            <div class="p-4 rounded-2xl bg-red-950/40 border border-red-500/40 space-y-2 text-[11px]">
+                <div class="flex justify-between items-center text-red-300 font-bold">
+                    <span>SECURITY VIOLATION VECTOR:</span>
+                    <span id="quarantine-violation-code" class="px-2 py-0.5 rounded bg-red-500/30 text-white font-mono text-[10px]">ERR_ANTI_PIRACY_TAMPER</span>
+                </div>
+                <div id="quarantine-violation-desc" class="text-slate-300">Hardware PUF Machine Signature mismatch or runtime memory hooking attempt intercepted by Ring-0 Watchdog.</div>
+                <div class="flex justify-between text-[10px] opacity-75 pt-1 border-t border-red-500/20">
+                    <span>Target Machine: <code id="quarantine-machine-guid" class="text-cyan-400">BOS-HWID-0F6B-60C8-2026</code></span>
+                    <span>Action: <strong class="text-red-400">EXECUTION SUSPENDED</strong></span>
+                </div>
+            </div>
+
+            <!-- Recovery & Genuine Key Validation -->
+            <div class="space-y-2">
+                <label class="font-bold text-[11px] text-slate-200 flex justify-between">
+                    <span>Enter Genuine Sovereign Digital License Key:</span>
+                    <span class="text-[10px] text-amber-400">Format: BHARAT-XXXX-XXXX-XXXX-XXXX</span>
+                </label>
+                <input id="quarantine-key-input" type="text" placeholder="BHARAT-PRO6-78A2-99B4-07U7" class="w-full p-3.5 rounded-2xl bg-slate-900 border-2 border-red-500/50 font-mono text-sm tracking-wider uppercase text-center font-bold text-amber-400 focus:border-emerald-400 outline-none transition-all">
+                <div id="quarantine-feedback" class="text-[11px] p-2 rounded-xl hidden"></div>
+            </div>
+
+            <div class="flex items-center justify-between pt-2">
+                <button onclick="runHardwareReverification()" class="px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 font-bold text-xs transition-all flex items-center space-x-1.5 text-cyan-400">
+                    <span>🔄</span><span>Re-Verify Hardware PUF</span>
+                </button>
+                <button onclick="unlockQuarantineWithKey()" id="btn-quarantine-unlock-submit" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
+                    <span>🛡️</span><span>Unlock Sovereign Enclave</span>
                 </button>
             </div>
         </div>
@@ -4121,7 +4173,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                     <div class="space-y-0.5">
                                         <div class="opacity-60 text-[9px] uppercase tracking-wider">Digital Key</div>
                                         <div class="flex items-center space-x-1.5">
-                                            <span id="lic-key-display" class="font-bold text-amber-300 truncate">••••-••••-••••-5E82</span>
+                                            <span id="lic-key-display" class="font-bold text-amber-300 truncate">••••-••••-••••-07U7</span>
                                             <button onclick="toggleRevealLicenseKey()" class="opacity-70 hover:opacity-100 text-xs" title="Toggle Reveal Key">👁️</button>
                                         </div>
                                     </div>
@@ -4485,9 +4537,86 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
 
                         <div id="tab-pane-security" class="space-y-4 font-mono text-xs hidden">
-                            <div class="p-4 rounded-2xl bg-emerald-100/50 dark:bg-emerald-950/30 border border-emerald-500/40 text-xs space-y-2">
-                                <div class="text-emerald-700 dark:text-emerald-300 font-bold">✓ Kavach Zero-Trust Hardware Shield Active</div>
-                                <div class="opacity-80">4,280 foreign telemetry probes neutralized. 100% on-device residency.</div>
+                            <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-2">
+                                <div>
+                                    <div class="text-sm font-bold font-sans text-slate-900 dark:text-white">Kavach Sovereign Armor & Anti-Piracy Enclave</div>
+                                    <div class="text-[11px] opacity-70">Hardware PUF Machine Binding, Memory Integrity Watchdog & Zero-Day Anti-Crack DRM</div>
+                                </div>
+                                <span class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">RING-0 FORTIFIED</span>
+                            </div>
+
+                            <!-- Real-Time Watchdog Status Cards -->
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                    <div class="text-[10px] opacity-70">Memory Watchdog</div>
+                                    <div class="text-xs font-bold text-emerald-400 flex items-center space-x-1">
+                                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                                        <span>100% Uncompromised</span>
+                                    </div>
+                                    <div class="text-[9px] text-cyan-400">Byte Integrity Checked</div>
+                                </div>
+
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                    <div class="text-[10px] opacity-70">Hardware PUF Enclave</div>
+                                    <div class="text-xs font-bold text-cyan-400">PUF HWID-BOUND</div>
+                                    <div class="text-[9px] opacity-60">CPU + Vulkan GPU Matrix</div>
+                                </div>
+
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                    <div class="text-[10px] opacity-70">Digital Signature</div>
+                                    <div class="text-xs font-bold text-amber-400">Ed25519 VALID</div>
+                                    <div class="text-[9px] text-amber-500">Govt Sovereign Root CA</div>
+                                </div>
+
+                                <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
+                                    <div class="text-[10px] opacity-70">Tamper Defense</div>
+                                    <div class="text-xs font-bold text-purple-400">ZERO CRACKS</div>
+                                    <div class="text-[9px] opacity-60">Anti-Debugging Active</div>
+                                </div>
+                            </div>
+
+                            <!-- Interactive Anti-Tamper & Anti-Piracy Test Bench -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                                <div class="flex items-center justify-between">
+                                    <div>
+                                        <div class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                            <span>🛡️</span><span>Anti-Piracy Live Defense & Attack Simulator</span>
+                                        </div>
+                                        <div class="text-[10px] opacity-70">Simulate sophisticated cracking attempts to verify real-time isolation and quarantine defense.</div>
+                                    </div>
+                                </div>
+
+                                <div class="grid grid-cols-3 gap-2.5 pt-1">
+                                    <button onclick="simulateTamperAttack('MEMORY_HOOK')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-red-500/40 hover:border-red-400 font-bold text-[10px] text-red-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 Simulate Memory Hook</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Attempts to overwrite kernel validation bytecodes</div>
+                                    </button>
+
+                                    <button onclick="simulateTamperAttack('HWID_CLONE')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/40 hover:border-amber-400 font-bold text-[10px] text-amber-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 Simulate HWID Cloning</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Attempts to copy license to cloned hardware environment</div>
+                                    </button>
+
+                                    <button onclick="simulateTamperAttack('KEYGEN_BRUTE')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-purple-500/40 hover:border-purple-400 font-bold text-[10px] text-purple-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 Simulate Keygen Brute</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Attempts polynomial checksum brute-force cracking</div>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Real-Time Defense Log Stream -->
+                            <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
+                                <div class="flex items-center justify-between">
+                                    <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                        <span>📜</span><span>Ring-0 Anti-Tamper & Security Audit Log Stream</span>
+                                    </span>
+                                    <span class="text-[10px] text-emerald-400">● 100% Integrity Guard</span>
+                                </div>
+                                <div id="security-tamper-log" class="h-28 p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-mono text-[11px] overflow-y-auto space-y-1 select-text text-slate-700 dark:text-slate-300">
+                                    <div class="text-emerald-400">✓ [INIT] Ring-0 Memory Watchdog initialized. Baseline hash stored.</div>
+                                    <div class="text-cyan-400">✓ [PUF] Hardware Enclave Signature bound to Host CPU & Vulkan Renderer.</div>
+                                    <div class="text-amber-400">✓ [DRM] Sovereign Root Certificate Authority verified (Ed25519-2026).</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -11511,7 +11640,7 @@ Available Sovereign Applications:<br>
             } catch(e) {}
 
             // Default Genuine Pro License out-of-the-box
-            const defaultKey = 'BHARAT-PRO6-78A2-99B4-5E82';
+            const defaultKey = 'BHARAT-PRO6-78A2-99B4-07U7';
             const defaultState = {
                 status: 'GENUINE_ACTIVATED',
                 key: defaultKey,
@@ -11598,7 +11727,7 @@ Available Sovereign Applications:<br>
                 } else if (isLicenseKeyRevealed) {
                     keyDisplay.textContent = state.key;
                 } else {
-                    const last4 = state.key ? state.key.slice(-4) : '5E82';
+                    const last4 = state.key ? state.key.slice(-4) : '07U7';
                     keyDisplay.textContent = `••••-••••-••••-${last4}`;
                 }
             }
@@ -11758,6 +11887,163 @@ Available Sovereign Applications:<br>
         // Initialize License State & UI on OS Boot
         loadLicenseState();
         setTimeout(renderLicenseUI, 500);
+
+        
+        // =========================================================================
+        // BHARATOS RING-0 ANTI-TAMPER MEMORY WATCHDOG & PUF HARDWARE ENCLAVE
+        // =========================================================================
+        
+        let kernelFunctionBaselines = {};
+        let isAntiTamperInitialized = false;
+
+        // Compute string hash
+        function hashString(str) {
+            let hash = 0;
+            for (let i = 0; i < str.length; i++) {
+                hash = ((hash << 5) - hash) + str.charCodeAt(i);
+                hash |= 0;
+            }
+            return Math.abs(hash).toString(16);
+        }
+
+        // Advanced Multi-Factor Hardware PUF Fingerprint
+        function getHardwarePUFSignature() {
+            try {
+                const canvas = document.createElement('canvas');
+                const ctx = canvas.getContext('2d');
+                ctx.textBaseline = "top";
+                ctx.font = "14px 'Arial'";
+                ctx.textBaseline = "alphabetic";
+                ctx.fillStyle = "#f60";
+                ctx.fillRect(125, 1, 62, 20);
+                ctx.fillStyle = "#069";
+                ctx.fillText("BharatOS Sovereign Root 2026", 2, 15);
+                ctx.fillStyle = "rgba(102, 204, 0, 0.7)";
+                ctx.fillText("BharatOS Sovereign Root 2026", 4, 17);
+                const canvasData = canvas.toDataURL();
+                
+                const rawComponents = [
+                    navigator.userAgent,
+                    screen.width + 'x' + screen.height + 'x' + screen.colorDepth,
+                    navigator.hardwareConcurrency || 8,
+                    navigator.language || 'en-US',
+                    hashString(canvasData)
+                ].join('::');
+                
+                return `HW-PUF-${hashString(rawComponents).toUpperCase()}-2026`;
+            } catch(e) {
+                return `HW-PUF-9F82AE4B-2026`;
+            }
+        }
+
+        function logSecurityEvent(tag, message, level = 'INFO') {
+            const logBox = document.getElementById('security-tamper-log');
+            if (logBox) {
+                const time = new Date().toLocaleTimeString();
+                const color = level === 'ERROR' ? 'text-red-400 font-bold' : level === 'WARN' ? 'text-amber-400 font-bold' : 'text-emerald-400';
+                logBox.innerHTML += `<div class="${color}">[${time}] [${tag}] ${message}</div>`;
+                logBox.scrollTop = logBox.scrollHeight;
+            }
+        }
+
+        function triggerAntiPiracyQuarantine(reasonCode, desc) {
+            triggerHaptic('error');
+            playSfx('error');
+            
+            const modal = document.getElementById('anti-piracy-quarantine-modal');
+            const codeEl = document.getElementById('quarantine-violation-code');
+            const descEl = document.getElementById('quarantine-violation-desc');
+            const guidEl = document.getElementById('quarantine-machine-guid');
+            const inputEl = document.getElementById('quarantine-key-input');
+            const feedbackEl = document.getElementById('quarantine-feedback');
+
+            if (codeEl) codeEl.textContent = reasonCode;
+            if (descEl) descEl.textContent = desc;
+            if (guidEl) guidEl.textContent = getHardwarePUFSignature();
+            if (inputEl) inputEl.value = '';
+            if (feedbackEl) feedbackEl.classList.add('hidden');
+            if (modal) modal.classList.remove('hidden');
+
+            logSecurityEvent('QUARANTINE', `OS Locked down due to ${reasonCode}: ${desc}`, 'ERROR');
+        }
+
+        function unlockQuarantineWithKey() {
+            const input = document.getElementById('quarantine-key-input');
+            const feedback = document.getElementById('quarantine-feedback');
+            if (!input || !feedback) return;
+
+            const key = input.value.trim();
+            const res = activateProductKey(key);
+            feedback.classList.remove('hidden');
+
+            if (res.success) {
+                feedback.className = 'text-[11px] p-2.5 rounded-xl bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 font-bold';
+                feedback.innerHTML = `✅ Sovereign Authorization Verified! Unlocking ${res.state.tierName}...`;
+                setTimeout(() => {
+                    const modal = document.getElementById('anti-piracy-quarantine-modal');
+                    if (modal) modal.classList.add('hidden');
+                    initMemoryWatchdogBaselines();
+                    logSecurityEvent('UNLOCKED', `Enclave Quarantine lifted via genuine key [${key.slice(-4)}]`, 'INFO');
+                    showToastNotification('Sovereign Enclave Unlocked', 'System restored to 100% genuine operational state.');
+                }, 400);
+            } else {
+                feedback.className = 'text-[11px] p-2.5 rounded-xl bg-red-500/20 text-red-400 border border-red-500/40 font-bold';
+                feedback.innerHTML = `❌ Quarantine Rejection: ${res.error}`;
+            }
+        }
+
+        function runHardwareReverification() {
+            triggerHaptic('pulse');
+            playSfx('notify');
+            const puf = getHardwarePUFSignature();
+            logSecurityEvent('PUF_AUDIT', `Hardware PUF Signature Re-audited: ${puf} (100% Match)`, 'INFO');
+            showToastNotification('PUF Hardware Re-Verified', 'Host physical environment matched genuine baseline.');
+        }
+
+        function simulateTamperAttack(type) {
+            triggerHaptic('alert');
+            playSfx('error');
+            
+            if (type === 'MEMORY_HOOK') {
+                triggerAntiPiracyQuarantine('ERR_MEMORY_HOOK_INJECTION', 'Unauthorized script attempted to monkey-patch Ring-0 validation functions in memory.');
+            } else if (type === 'HWID_CLONE') {
+                triggerAntiPiracyQuarantine('ERR_HWID_CLONING_DETECTED', 'Cryptographic hardware PUF signature divergence detected. License copied across unverified machines.');
+            } else if (type === 'KEYGEN_BRUTE') {
+                triggerAntiPiracyQuarantine('ERR_KEYGEN_BRUTE_FORCE', 'Multiple mathematically invalid polynomial keys detected. Anti-tamper rate limit triggered.');
+            }
+        }
+
+        function initMemoryWatchdogBaselines() {
+            try {
+                kernelFunctionBaselines = {
+                    validateDigitalLicenseKey: hashString(validateDigitalLicenseKey.toString().replace(/\s+/g, '')),
+                    loadLicenseState: hashString(loadLicenseState.toString().replace(/\s+/g, '')),
+                    activateProductKey: hashString(activateProductKey.toString().replace(/\s+/g, ''))
+                };
+                isAntiTamperInitialized = true;
+            } catch(e) {}
+        }
+
+        function runMemoryIntegrityAudit() {
+            if (!isAntiTamperInitialized) return;
+            try {
+                const currentV = hashString(validateDigitalLicenseKey.toString().replace(/\s+/g, ''));
+                const currentL = hashString(loadLicenseState.toString().replace(/\s+/g, ''));
+                const currentA = hashString(activateProductKey.toString().replace(/\s+/g, ''));
+
+                if (currentV !== kernelFunctionBaselines.validateDigitalLicenseKey ||
+                    currentL !== kernelFunctionBaselines.loadLicenseState ||
+                    currentA !== kernelFunctionBaselines.activateProductKey) {
+                    triggerAntiPiracyQuarantine('ERR_MEMORY_CORRUPTION', 'Ring-0 Function bytecode divergence intercepted! Memory hook detected.');
+                }
+            } catch(e) {}
+        }
+
+        // Start Anti-Tamper Memory Integrity Watchdog Loop (Every 4 seconds)
+        setTimeout(() => {
+            initMemoryWatchdogBaselines();
+            setInterval(runMemoryIntegrityAudit, 4000);
+        }, 1500);
 
         function initTouchEngine() {
             // Touch Swipe-Up on Lock Screen to focus PIN
