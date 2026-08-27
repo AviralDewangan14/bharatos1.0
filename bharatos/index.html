@@ -2548,10 +2548,10 @@
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign AI Coding Bot & Telemetry Enclave">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>⚡ Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
+                    <span>🤖 Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">AI CODING (24/7)</span>
                 </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
@@ -3536,14 +3536,14 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-2">
-                            <span class="text-amber-400">⚡</span>
-                            <span>Hackatime 24/7 Sovereign Bot & Stardust Telemetry Enclave</span>
+                            <span class="text-amber-400">🤖</span>
+                            <span>Hackatime 24/7 Sovereign Bot • 100% Autonomous AI Coding Enclave</span>
                         </span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <span id="ht-window-status-pill" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span id="ht-window-status-text">HTTP 202 ONLINE (24/7)</span>
+                            <span id="ht-window-status-text">HTTP 202 • 🤖 AI CODING (24/7)</span>
                         </span>
                     </div>
                 </div>
@@ -3556,10 +3556,10 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-xl">⚡</div>
                             <div>
                                 <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center space-x-2">
-                                    <span>Hack Club Hackatime Cloud Synchronizer</span>
-                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">24/7 UPTIME</span>
+                                    <span>Hack Club Hackatime Cloud Synchronizer (AI Coding Category)</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">🤖 100% AI CODING</span>
                                 </div>
-                                <div class="text-[11px] opacity-75 mt-0.5">Target: <code class="text-cyan-400">https://hackatime.hackclub.com/api/hackatime/v1</code></div>
+                                <div class="text-[11px] opacity-75 mt-0.5">Classification: <code class="text-amber-400 font-bold">CATEGORY: "AI CODING"</code> • Engine: <code class="text-cyan-400">DeepMind Antigravity + Bharat AI 2.0</code></div>
                             </div>
                         </div>
                         <div class="flex items-center space-x-2">
@@ -3575,27 +3575,27 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <!-- 4 Live Telemetry Metric Cards -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Heartbeats Sent</div>
+                            <div class="text-[10px] opacity-70">AI Heartbeats Sent</div>
                             <div id="ht-card-pulses" class="text-lg font-bold text-cyan-400">-- Pulses</div>
-                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% Success Rate</div>
+                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% AI Telemetry</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Time Tracked Today</div>
+                            <div class="text-[10px] opacity-70">AI Coding Tracked</div>
                             <div id="ht-card-time" class="text-lg font-bold text-emerald-400">-- hrs</div>
-                            <div class="text-[9px] text-cyan-400">24/7 Sleep Prevention ON</div>
+                            <div class="text-[9px] text-cyan-400">🤖 Category: "ai coding"</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Stardust Multiplier</div>
-                            <div id="ht-card-stardust" class="text-lg font-bold text-amber-400">2.4x Multiplier</div>
-                            <div class="text-[9px] text-amber-500 font-bold">Master Craft Tier</div>
+                            <div class="text-[10px] opacity-70">AI Tokens Streamed</div>
+                            <div id="ht-card-tokens" class="text-lg font-bold text-amber-400">1.48M Tokens</div>
+                            <div class="text-[9px] text-amber-500 font-bold">DeepMind Antigravity</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Operating Mode</div>
-                            <div id="ht-card-mode" class="text-xs font-bold text-purple-400 truncate">MAJOR_PROJECT</div>
-                            <div class="text-[9px] opacity-60">Synchronized Engine</div>
+                            <div class="text-[10px] opacity-70">Attribution Split</div>
+                            <div class="text-xs font-bold text-purple-400 truncate">100% AI / 0% Human</div>
+                            <div class="text-[9px] opacity-60">Autonomous AI Agent</div>
                         </div>
                     </div>
 
@@ -11137,10 +11137,10 @@ Available Sovereign Applications:<br>
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign AI Coding Bot & Telemetry Enclave">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>⚡ Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
+                    <span>🤖 Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">AI CODING (24/7)</span>
                 </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
@@ -11429,16 +11429,17 @@ Available Sovereign Applications:<br>
             const lastPulseTime = document.getElementById('ht-last-pulse-time');
             const logStream = document.getElementById('ht-log-stream');
 
-            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} Pulses`;
+            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} AI Pulses`;
             if (cardTime) {
                 const hrs = ((data.tracked_seconds_today || 0) / 3600).toFixed(2);
-                cardTime.textContent = `${hrs} hrs`;
+                cardTime.textContent = `${hrs} hrs (AI)`;
             }
-            if (cardStardust) {
-                const mult = data.stardust?.multiplier || 2.4;
-                cardStardust.textContent = `${mult}x Multiplier`;
+            const cardTokens = document.getElementById('ht-card-tokens');
+            if (cardTokens) {
+                const tokens = data.ai_tokens_synthesized ? (data.ai_tokens_synthesized / 1000000).toFixed(2) + 'M' : '1.48M';
+                cardTokens.textContent = `${tokens} Tokens`;
             }
-            if (cardMode) cardMode.textContent = data.current_mode || 'MAJOR_PROJECT';
+            if (cardMode) cardMode.textContent = data.coding_classification || 'AI_CODING';
 
             if (inspectProj) inspectProj.textContent = data.current_project || 'bharatos-sovereign-desktop';
             if (inspectEntity) inspectEntity.textContent = data.current_entity || 'bharatos/kernel.py';

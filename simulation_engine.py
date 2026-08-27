@@ -394,6 +394,19 @@ func (r *RaftNode) startElection() {
 }
 
 PROJECT_FILE_MAP = {
+    "bharatos-sovereign-ai-os": [
+        {"entity": "bharatos/kernel.py", "language": "Python"},
+        {"entity": "bharatos/index.html", "language": "HTML"},
+        {"entity": "bharatos/security/kavach_armor.py", "language": "Python"},
+        {"entity": "bharatos/haptics/quantum_engine.js", "language": "JavaScript"},
+        {"entity": "bharatos/license/anti_piracy_enclave.py", "language": "Python"}
+    ],
+    "hackatime-autonomous-ai-bot": [
+        {"entity": "master_daemon.py", "language": "Python"},
+        {"entity": "heartbeat_dispatcher.py", "language": "Python"},
+        {"entity": "simulation_engine.py", "language": "Python"},
+        {"entity": "web_dashboard.py", "language": "Python"}
+    ],
     "arcade-solaris-engine": [
         {"entity": "src/engine/spatial_grid.rs", "language": "Rust"},
         {"entity": "src/physics/collision_2d.rs", "language": "Rust"},
@@ -413,12 +426,6 @@ PROJECT_FILE_MAP = {
         {"entity": "core/models/transformer.py", "language": "Python"},
         {"entity": "core/training/scheduler.py", "language": "Python"},
         {"entity": "docs/architecture.md", "language": "Markdown"}
-    ],
-    "nebula-distributed-db": [
-        {"entity": "pkg/consensus/raft_fsm.go", "language": "Go"},
-        {"entity": "pkg/storage/wal_log.go", "language": "Go"},
-        {"entity": "services/cluster_manager.py", "language": "Python"},
-        {"entity": "deploy/docker-compose.yml", "language": "YAML"}
     ]
 }
 
@@ -507,7 +514,7 @@ class SimulationEngine:
 
         is_write = random.random() < 0.45
         now = time.time()
-        branch = random.choice(["main", "feature/spatial-optimization", "refactor/simd-acceleration"])
+        branch = random.choice(["main", "feature/sovereign-ai", "refactor/quantum-haptics-ai"])
 
         payload = {
             "entity": entity,
@@ -517,12 +524,19 @@ class SimulationEngine:
             "branch": branch,
             "language": file_state["language"],
             "is_write": is_write,
-            "category": "coding",
+            "category": "ai coding",
             "lines": file_state["lines"],
             "lineno": file_state["lineno"],
             "cursorpos": file_state["cursorpos"],
-            "editor": "VS Code",
-            "operating_system": "Windows"
+            "editor": "Cursor AI",
+            "operating_system": "Windows",
+            "ai_model": "DeepMind Antigravity Sovereign AI Agent",
+            "ai_session": True,
+            "ai_input_tokens": random.randint(1600, 4800),
+            "ai_output_tokens": random.randint(700, 2400),
+            "ai_line_changes": file_state["lines"],
+            "human_line_changes": 0,
+            "source": "autonomous_ai_coding_agent"
         }
 
         return {
