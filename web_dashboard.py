@@ -274,6 +274,7 @@ def get_real_network_interfaces() -> dict:
 STATIC_DIR = Path(__file__).parent / "static"
 SOLARIS_DIR = Path(__file__).parent / "solaris"
 BHARATOS_DIR = Path(__file__).parent / "bharatos"
+DIST_DIR = Path(__file__).parent / "dist"
 
 class MasterDashboardHandler(SimpleHTTPRequestHandler):
     """Custom HTTP request handler with unified REST API and static asset routing."""
@@ -320,6 +321,44 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
             self._send_json_response({"partitions": get_real_storage_partitions()})
         elif self.path == "/api/system/network":
             self._send_json_response(get_real_network_interfaces())
+        elif self.path == "/api/iso/info":
+            info_file = DIST_DIR / "dist_info.json"
+            if not info_file.exists():
+                try:
+                    import build_iso
+                    dist_info = build_iso.create_iso_structure()
+                except Exception as e:
+                    dist_info = {"status": "ERROR", "error": str(e)}
+            else:
+                with open(info_file, "r", encoding="utf-8") as f:
+                    dist_info = json.load(f)
+            self._send_json_response(dist_info)
+        elif self.path in ("/api/iso/download", "/dist/BharatOS-2026-Sovereign-v1.0-x86_64.iso") or self.path.endswith(".iso"):
+            iso_file = DIST_DIR / "BharatOS-2026-Sovereign-v1.0-x86_64.iso"
+            if iso_file.exists():
+                with open(iso_file, "rb") as f:
+                    data = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/x-iso9660-image")
+                self.send_header("Content-Disposition", 'attachment; filename="BharatOS-2026-Sovereign-v1.0-x86_64.iso"')
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            else:
+                self.send_error(404, "ISO file not found. Run /api/iso/build first.")
+        elif self.path in ("/api/setup/download", "/dist/BharatOS-Setup-v1.0-Windows-x64.zip") or self.path.endswith(".zip"):
+            zip_file = DIST_DIR / "BharatOS-Setup-v1.0-Windows-x64.zip"
+            if zip_file.exists():
+                with open(zip_file, "rb") as f:
+                    data = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/zip")
+                self.send_header("Content-Disposition", 'attachment; filename="BharatOS-Setup-v1.0-Windows-x64.zip"')
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            else:
+                self.send_error(404, "Setup bundle not found. Run /api/iso/build first.")
         elif self.path.startswith("/wallpapers/") or self.path.startswith("/bharatos/wallpapers/"):
             fname = self.path.split("/")[-1]
             wp_path = BHARATOS_DIR / "wallpapers" / fname
@@ -412,6 +451,13 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 api_key=req_data.get("api_key")
             )
             self._send_json_response(res)
+        elif self.path == "/api/iso/build":
+            try:
+                import build_iso
+                res = build_iso.create_iso_structure()
+                self._send_json_response({"success": True, "dist_info": res})
+            except Exception as e:
+                self._send_json_response({"success": False, "error": str(e)}, status_code=500)
         elif self.path == "/api/action":
             if action == "buy_upgrade":
                 upg_id = req_data.get("upgrade_id", "")

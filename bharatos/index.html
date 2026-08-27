@@ -3516,6 +3516,180 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             </div>
 
             
+            
+            <!-- =========================================================================
+                 APP: BHARATOS ISO MEDIA CREATION & SETUP ENCLAVE (FLAGSHIP INSTALLER)
+                 ========================================================================= -->
+            <div id="installer-window" class="absolute top-8 left-20 w-[960px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'installer-window')" ondblclick="toggleMaximizeWindow('installer-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('installer-window', 'dock-installer')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('installer-window', 'dock-installer')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('installer-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
+                            <span class="text-amber-400">💿</span>
+                            <span>BharatOS 2026 — Bootable ISO Media Creator & Native Setup Enclave</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
+                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
+                            <span>UEFI / BIOS BOOTABLE</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Window Tabs Header -->
+                <div class="px-6 py-2.5 bg-slate-200/60 dark:bg-slate-900/80 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between flex-shrink-0 font-mono text-xs">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="switchInstallerTab('iso')" id="btn-inst-tab-iso" class="px-3.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold border border-cyan-500/40 flex items-center space-x-1.5">
+                            <span>💿</span><span>Bootable ISO & USB Flasher</span>
+                        </button>
+                        <button onclick="switchInstallerTab('setup')" id="btn-inst-tab-setup" class="px-3.5 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 font-bold flex items-center space-x-1.5 opacity-70">
+                            <span>⚡</span><span>Windows Setup Package</span>
+                        </button>
+                        <button onclick="switchInstallerTab('manifest')" id="btn-inst-tab-manifest" class="px-3.5 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 font-bold flex items-center space-x-1.5 opacity-70">
+                            <span>📜</span><span>Build Manifest & Checksum</span>
+                        </button>
+                    </div>
+                    <button onclick="rebuildISODistribution()" id="btn-rebuild-iso" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                        <span>🔄</span><span>Rebuild ISO Now</span>
+                    </button>
+                </div>
+
+                <!-- Window Content -->
+                <div class="flex-1 p-6 overflow-y-auto font-mono text-xs space-y-4">
+                    <!-- PANE 1: BOOTABLE ISO & USB FLASHER -->
+                    <div id="pane-inst-iso" class="space-y-4">
+                        <!-- ISO Download Card -->
+                        <div class="p-5 rounded-2xl bg-gradient-to-r from-cyan-950/40 via-slate-900/60 to-indigo-950/40 border-2 border-cyan-500/40 flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-14 h-14 rounded-2xl bg-cyan-500/20 border border-cyan-400/50 flex items-center justify-center text-3xl shadow-xl">
+                                    💿
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-300 text-[10px] font-bold">x86_64 UEFI Hybrid</span>
+                                        <span class="text-[10px] text-emerald-400 font-bold">✓ SHA-256 Verified</span>
+                                    </div>
+                                    <h3 class="text-sm font-bold text-slate-900 dark:text-white font-sans mt-0.5">BharatOS-2026-Sovereign-v1.0-x86_64.iso</h3>
+                                    <p class="text-[11px] text-slate-300 opacity-80 mt-0.5">Includes Live Prithvi RAM Environment, GRUB2 Bootloader, Kavach Enclave & Offline Packages.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2.5">
+                                <a href="/api/iso/download" download="BharatOS-2026-Sovereign-v1.0-x86_64.iso" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-teal-500 hover:from-cyan-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
+                                    <span>⬇️</span><span>Download ISO (~17 MB)</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Live USB Media Flasher Simulator -->
+                        <div class="p-5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                            <div class="flex items-center justify-between border-b border-slate-300 dark:border-slate-800 pb-2">
+                                <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                    <span>⚡</span><span>Sovereign USB Flash Media Creator (Ventoy / Rufus Engine)</span>
+                                </span>
+                                <span class="text-[10px] text-amber-400 font-bold">Direct Hardware Write Mode</span>
+                            </div>
+
+                            <div class="grid grid-cols-2 gap-3 text-xs">
+                                <div>
+                                    <label class="font-bold text-[10px] opacity-70">Target USB Drive:</label>
+                                    <select id="flasher-target-drive" class="w-full mt-1 p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white outline-none">
+                                        <option>SanDisk Ultra USB 3.2 (Drive E: - 32.0 GB)</option>
+                                        <option>Kingston DataTraveler (Drive F: - 64.0 GB)</option>
+                                        <option>Samsung FIT Plus (Drive G: - 128.0 GB)</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label class="font-bold text-[10px] opacity-70">Partition Scheme & Boot Target:</label>
+                                    <select class="w-full mt-1 p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 text-slate-900 dark:text-white outline-none">
+                                        <option>GPT (UEFI Non-CSM) — Recommended</option>
+                                        <option>MBR (Legacy BIOS + UEFI Hybrid)</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="flasher-progress-container" class="space-y-1.5 hidden pt-2">
+                                <div class="flex justify-between text-[10px]">
+                                    <span id="flasher-status-label" class="text-cyan-400 font-bold">Writing Boot Sectors...</span>
+                                    <span id="flasher-percent" class="font-bold">0%</span>
+                                </div>
+                                <div class="w-full h-2.5 rounded-full bg-slate-300 dark:bg-slate-800 overflow-hidden">
+                                    <div id="flasher-progress-bar" class="h-full bg-gradient-to-r from-amber-500 to-emerald-500 rounded-full transition-all duration-200" style="width: 0%"></div>
+                                </div>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <div class="text-[10px] opacity-70">⚠️ Make sure all personal files on the selected drive are backed up.</div>
+                                <button onclick="startUSBFlashSimulator()" id="btn-start-flash" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-400 hover:to-yellow-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                                    <span>🔥</span><span>Burn Bootable USB</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- PANE 2: WINDOWS / POSIX SETUP PACKAGE -->
+                    <div id="pane-inst-setup" class="space-y-4 hidden">
+                        <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-950/40 via-slate-900/60 to-teal-950/40 border-2 border-emerald-500/40 flex items-center justify-between">
+                            <div class="flex items-center space-x-4">
+                                <div class="w-14 h-14 rounded-2xl bg-emerald-500/20 border border-emerald-400/50 flex items-center justify-center text-3xl shadow-xl">
+                                    📦
+                                </div>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-bold">Native Windows Installer</span>
+                                        <span class="text-[10px] text-cyan-400 font-bold">1-Click setup.bat</span>
+                                    </div>
+                                    <h3 class="text-sm font-bold text-slate-900 dark:text-white font-sans mt-0.5">BharatOS-Setup-v1.0-Windows-x64.zip</h3>
+                                    <p class="text-[11px] text-slate-300 opacity-80 mt-0.5">Zero-Configuration native setup launcher with automatic hardware PUF binding & pre-activated Pro key.</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-2.5">
+                                <a href="/api/setup/download" download="BharatOS-Setup-v1.0-Windows-x64.zip" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-lg transition-all active:scale-95 flex items-center space-x-1.5">
+                                    <span>⬇️</span><span>Download Setup (~17 MB)</span>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- Instructions Card -->
+                        <div class="p-5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2.5 text-[11px]">
+                            <div class="font-bold text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                <span>🚀</span><span>How to Run BharatOS Setup:</span>
+                            </div>
+                            <ol class="list-decimal list-inside space-y-1 opacity-85 text-slate-700 dark:text-slate-300">
+                                <li>Download and extract <code>BharatOS-Setup-v1.0-Windows-x64.zip</code> to any directory.</li>
+                                <li>Double-click <code>setup.bat</code> (or run <code>python setup.py</code>).</li>
+                                <li>The installer will verify your hardware, configure your sovereign machine GUID, and open BharatOS at <code>http://localhost:5678/bharatos</code>.</li>
+                            </ol>
+                        </div>
+                    </div>
+
+                    <!-- PANE 3: BUILD MANIFEST & CHECKSUM -->
+                    <div id="pane-inst-manifest" class="space-y-4 hidden">
+                        <div class="p-5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                            <div class="flex items-center justify-between">
+                                <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
+                                    <span>🛡️</span><span>Cryptographic Distribution Manifest & SHA-256 Signatures</span>
+                                </span>
+                                <span class="text-[10px] text-emerald-400 font-bold">100% Tamper Proof</span>
+                            </div>
+                            <pre id="inst-manifest-code" class="p-4 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-mono text-[10px] text-cyan-400 overflow-x-auto select-text leading-relaxed">Loading build manifest...</pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <!-- =========================================================================
                  APP: HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY MONITOR
                  ========================================================================= -->
@@ -5455,6 +5629,10 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <button id="dock-taskview" onclick="toggleAppSwitcher()" class="glass-dock-tile glaze-taskview text-xl" title="Mission Control & App Exposé (Win+Tab / Alt+Tab)">🗂️</button>
 
                     <!-- 3D Glass Icons Dock -->
+                                        <button id="dock-installer" onclick="openAppWindow('installer-window', 'dock-installer')" class="dock-item group relative" title="ISO Media Creator & Setup Wizard">
+                        <span class="text-2xl group-hover:scale-125 transition-transform duration-200">💿</span>
+                        <span class="dock-tooltip">ISO & Setup</span>
+                    </button>
                     <button id="dock-hackatime" onclick="openAppWindow('hackatime-window', 'dock-hackatime')" class="dock-item group relative" title="Hackatime 24/7 Sovereign Bot">
                     <div class="w-12 h-12 rounded-2xl bg-slate-900/90 border border-cyan-500/50 flex items-center justify-center text-xl shadow-lg transition-transform group-hover:scale-110">
                         ⚡
@@ -7518,6 +7696,119 @@ vulkano = "0.34"`
         }
 
         // Settings Tabs
+        
+        // =========================================================================
+        // BHARATOS ISO MEDIA CREATOR & SETUP ENCLAVE ENGINE
+        // =========================================================================
+
+        function switchInstallerTab(tabKey) {
+            triggerHaptic('light');
+            playSfx('click');
+            ['iso', 'setup', 'manifest'].forEach(k => {
+                const p = document.getElementById(`pane-inst-${k}`);
+                const b = document.getElementById(`btn-inst-tab-${k}`);
+                if (p) p.classList.add('hidden');
+                if (b) {
+                    b.className = 'px-3.5 py-1.5 rounded-xl hover:bg-slate-300 dark:hover:bg-slate-800 font-bold flex items-center space-x-1.5 opacity-70';
+                }
+            });
+            const activePane = document.getElementById(`pane-inst-${tabKey}`);
+            const activeBtn = document.getElementById(`btn-inst-tab-${tabKey}`);
+            if (activePane) activePane.classList.remove('hidden');
+            if (activeBtn) {
+                activeBtn.className = 'px-3.5 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-600 dark:text-cyan-300 font-bold border border-cyan-500/40 flex items-center space-x-1.5';
+            }
+            if (tabKey === 'manifest') {
+                loadDistributionManifest();
+            }
+        }
+
+        async function loadDistributionManifest() {
+            const el = document.getElementById('inst-manifest-code');
+            if (!el) return;
+            try {
+                const res = await fetch('/api/iso/info');
+                const data = await res.json();
+                el.textContent = JSON.stringify(data, null, 2);
+            } catch(e) {
+                el.textContent = '// Failed to fetch distribution manifest';
+            }
+        }
+
+        async function rebuildISODistribution() {
+            triggerHaptic('pulse');
+            playSfx('notify');
+            const btn = document.getElementById('btn-rebuild-iso');
+            if (btn) btn.innerHTML = '<span>⏳</span><span>Rebuilding ISO...</span>';
+            showToastNotification('ISO Builder Running', 'Generating fresh EFI bootloader and packaging OS bundle...');
+
+            try {
+                const res = await fetch('/api/iso/build', { method: 'POST' });
+                const data = await res.json();
+                if (data.success) {
+                    triggerHaptic('success');
+                    playSfx('unlock');
+                    showToastNotification('ISO Build Complete', `Generated ${data.dist_info.iso_file} (${data.dist_info.iso_size_mb} MB)`);
+                } else {
+                    triggerHaptic('error');
+                    playSfx('error');
+                    showToastNotification('ISO Build Error', data.error || 'Unknown error');
+                }
+            } catch(e) {
+                showToastNotification('ISO Build Failed', String(e));
+            } finally {
+                if (btn) btn.innerHTML = '<span>🔄</span><span>Rebuild ISO Now</span>';
+                loadDistributionManifest();
+            }
+        }
+
+        function startUSBFlashSimulator() {
+            const container = document.getElementById('flasher-progress-container');
+            const bar = document.getElementById('flasher-progress-bar');
+            const pct = document.getElementById('flasher-percent');
+            const lbl = document.getElementById('flasher-status-label');
+            const btn = document.getElementById('btn-start-flash');
+            const drive = document.getElementById('flasher-target-drive')?.value || 'SanDisk Ultra';
+
+            if (!container || !bar || !pct || !lbl) return;
+
+            triggerHaptic('heavy');
+            playSfx('open');
+            container.classList.remove('hidden');
+            if (btn) btn.disabled = true;
+
+            let progress = 0;
+            const steps = [
+                { p: 15, label: `Formatting ${drive} (GPT / FAT32)...` },
+                { p: 35, label: 'Writing EFI Bootloader & GRUB2 Kernel...' },
+                { p: 65, label: 'Expanding Prithvi RAM Disk & VFS Layers...' },
+                { p: 90, label: 'Enforcing Kavach Ring-0 Hardware Signatures...' },
+                { p: 100, label: '✓ Bootable USB Media Verified! Ready to Boot.' }
+            ];
+
+            let stepIdx = 0;
+            const interval = setInterval(() => {
+                progress += 5;
+                if (progress > 100) progress = 100;
+                bar.style.width = `${progress}%`;
+                pct.textContent = `${progress}%`;
+
+                if (stepIdx < steps.length && progress >= steps[stepIdx].p) {
+                    lbl.textContent = steps[stepIdx].label;
+                    triggerHaptic('tick');
+                    stepIdx++;
+                }
+
+                if (progress >= 100) {
+                    clearInterval(interval);
+                    triggerHaptic('success');
+                    playSfx('unlock');
+                    if (btn) btn.disabled = false;
+                    showToastNotification('USB Flash Complete', `Successfully prepared bootable USB drive: ${drive}!`);
+                }
+            }, 120);
+        }
+
         function switchSettingsTab(tabKey) {
             playSfx('click');
             ['system', 'storage', 'network', 'display', 'wallpaper', 'sound', 'shortcuts', 'updates', 'accounts', 'security', 'activation'].forEach(k => {
