@@ -1,0 +1,5 @@
+[autorun]
+open=setup.bat
+icon=bharatos/wallpapers/wall-ladakh-ai.jpg
+label=BharatOS 2026 Sovereign OS Setup
+action=Install or Launch BharatOS Sovereign Desktop

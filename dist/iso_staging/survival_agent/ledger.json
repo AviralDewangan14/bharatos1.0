@@ -1,0 +1,48 @@
+{
+  "balance": 430205.52175403823,
+  "lifetime_earnings": 432197.90000000014,
+  "lifetime_expenses": 2092.3782459605286,
+  "token_costs_total": 1.227773249999998,
+  "xp": 431772,
+  "level": 5,
+  "level_title": "Sovereign Tech Mogul",
+  "contracts_completed": 870,
+  "contracts_won": 877,
+  "proposals_sent": 994,
+  "simulated_days_survived": 104.55752363552676,
+  "is_alive": true,
+  "upgrades": {
+    "speed_boost_v1": {
+      "id": "speed_boost_v1",
+      "name": "Compute Acceleration",
+      "desc": "Reduces code generation latency by 35%",
+      "cost": 120.0,
+      "purchased": false,
+      "type": "speed"
+    },
+    "smart_bidding_model": {
+      "id": "smart_bidding_model",
+      "name": "Market Intelligence Engine",
+      "desc": "Boosts proposal win rate by +18%",
+      "cost": 250.0,
+      "purchased": false,
+      "type": "win_rate"
+    },
+    "parallel_subagents": {
+      "id": "parallel_subagents",
+      "name": "Multi-Threaded Worker Swarm",
+      "desc": "Increases max concurrent contracts to 6",
+      "cost": 600.0,
+      "purchased": false,
+      "type": "capacity"
+    },
+    "enterprise_rep": {
+      "id": "enterprise_rep",
+      "name": "Verified Enterprise Badge",
+      "desc": "Clients pay +20% higher tips on delivery",
+      "cost": 1500.0,
+      "purchased": false,
+      "type": "tips"
+    }
+  }
+}
