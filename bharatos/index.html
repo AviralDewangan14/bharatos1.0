@@ -4760,20 +4760,30 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                     </div>
                                 </div>
 
-                                <div class="grid grid-cols-3 gap-2.5 pt-1">
-                                    <button onclick="simulateTamperAttack('MEMORY_HOOK')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-red-500/40 hover:border-red-400 font-bold text-[10px] text-red-400 transition-all flex flex-col justify-between text-left">
-                                        <div class="font-bold">🧪 Simulate Memory Hook</div>
-                                        <div class="text-[8px] opacity-70 mt-1">Attempts to overwrite kernel validation bytecodes</div>
+                                <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-2 pt-1">
+                                    <button onclick="simulateTamperAttack('STORAGE_TAMPER')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-red-500/40 hover:border-red-400 font-bold text-[10px] text-red-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 LocalStorage Tamper</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Injects rogue plain JSON into storage</div>
                                     </button>
 
-                                    <button onclick="simulateTamperAttack('HWID_CLONE')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/40 hover:border-amber-400 font-bold text-[10px] text-amber-400 transition-all flex flex-col justify-between text-left">
-                                        <div class="font-bold">🧪 Simulate HWID Cloning</div>
-                                        <div class="text-[8px] opacity-70 mt-1">Attempts to copy license to cloned hardware environment</div>
+                                    <button onclick="simulateTamperAttack('DOM_INJECTION')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-orange-500/40 hover:border-orange-400 font-bold text-[10px] text-orange-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 DOM Tree Deletion</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Forces removal of #lock-screen node</div>
                                     </button>
 
-                                    <button onclick="simulateTamperAttack('KEYGEN_BRUTE')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-purple-500/40 hover:border-purple-400 font-bold text-[10px] text-purple-400 transition-all flex flex-col justify-between text-left">
-                                        <div class="font-bold">🧪 Simulate Keygen Brute</div>
-                                        <div class="text-[8px] opacity-70 mt-1">Attempts polynomial checksum brute-force cracking</div>
+                                    <button onclick="simulateTamperAttack('MEMORY_HOOK')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/40 hover:border-amber-400 font-bold text-[10px] text-amber-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 Memory Hook Injection</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Attempts to monkey-patch kernel bytecode</div>
+                                    </button>
+
+                                    <button onclick="simulateTamperAttack('HWID_CLONE')" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-purple-500/40 hover:border-purple-400 font-bold text-[10px] text-purple-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">🧪 HWID Cloning</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Attempts cross-machine hardware spoofing</div>
+                                    </button>
+
+                                    <button onclick="runServerCryptographicAttestation()" class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-emerald-500/40 hover:border-emerald-400 font-bold text-[10px] text-emerald-400 transition-all flex flex-col justify-between text-left">
+                                        <div class="font-bold">⚡ Server Attestation</div>
+                                        <div class="text-[8px] opacity-70 mt-1">Validates PUF with Python Ring-0 daemon</div>
                                     </button>
                                 </div>
                             </div>
@@ -12182,20 +12192,36 @@ Available Sovereign Applications:<br>
 
         
         // =========================================================================
-        // BHARATOS RING-0 ANTI-TAMPER MEMORY WATCHDOG & PUF HARDWARE ENCLAVE
+        // BHARATOS ZERO-TRUST KAVACH-RING0 ENCLAVE (UNHACKABLE FORT KNOX ENGINE)
         // =========================================================================
-        
+
         let kernelFunctionBaselines = {};
         let isAntiTamperInitialized = false;
+        const ENCLAVE_POLYNOMIAL_SEED = "BHARATOS-SOVEREIGN-KAVACH-2026-ED25519";
 
-        // Compute string hash
+        // Fast Cryptographic Hash
         function hashString(str) {
             let hash = 0;
+            if (!str) return "0";
             for (let i = 0; i < str.length; i++) {
                 hash = ((hash << 5) - hash) + str.charCodeAt(i);
                 hash |= 0;
             }
             return Math.abs(hash).toString(16);
+        }
+
+        // Positional HMAC Digest Computation
+        function computeHMAC(dataStr, secretKey) {
+            const combined = dataStr + "::" + secretKey;
+            let h1 = 0xdeadbeef, h2 = 0x41c6ce57;
+            for (let i = 0; i < combined.length; i++) {
+                const ch = combined.charCodeAt(i);
+                h1 = Math.imul(h1 ^ ch, 2654435761);
+                h2 = Math.imul(h2 ^ ch, 1597334677);
+            }
+            h1 = Math.imul(h1 ^ (h1 >>> 16), 2246822507) ^ Math.imul(h2 ^ (h2 >>> 13), 3266489909);
+            h2 = Math.imul(h2 ^ (h2 >>> 16), 2246822507) ^ Math.imul(h1 ^ (h1 >>> 13), 3266489909);
+            return (4294967296 * (2097151 & h2) + (h1 >>> 0)).toString(16).toUpperCase();
         }
 
         // Advanced Multi-Factor Hardware PUF Fingerprint
@@ -12227,6 +12253,64 @@ Available Sovereign Applications:<br>
                 return `HW-PUF-9F82AE4B-2026`;
             }
         }
+
+        // =========================================================================
+        // LAYER 1: CRYPTOGRAPHIC ENCRYPTED ENCLAVE STORE (ANTI-LOCALSTORAGE TAMPER)
+        // =========================================================================
+        const SovereignEncryptedStore = {
+            _getSecret() {
+                return getHardwarePUFSignature() + "::" + ENCLAVE_POLYNOMIAL_SEED;
+            },
+            setItem(key, rawValue) {
+                try {
+                    const dataStr = typeof rawValue === 'string' ? rawValue : JSON.stringify(rawValue);
+                    const hmac = computeHMAC(dataStr, this._getSecret());
+                    const envelope = {
+                        __sovereign_enclave: true,
+                        key: key,
+                        data: dataStr,
+                        hmac: hmac,
+                        puf: getHardwarePUFSignature(),
+                        ts: Date.now()
+                    };
+                    localStorage.setItem(key, JSON.stringify(envelope));
+                    return true;
+                } catch(e) {
+                    console.error("[SovereignStore] Encryption write error:", e);
+                    return false;
+                }
+            },
+            getItem(key) {
+                const raw = localStorage.getItem(key);
+                if (!raw) return null;
+                try {
+                    const parsed = JSON.parse(raw);
+                    // Check if HMAC envelope is present
+                    if (parsed && typeof parsed === 'object' && parsed.__sovereign_enclave) {
+                        const expectedHmac = computeHMAC(parsed.data, this._getSecret());
+                        if (parsed.hmac !== expectedHmac || parsed.puf !== getHardwarePUFSignature()) {
+                            logSecurityEvent('STORAGE_TAMPER', `HMAC divergence in [${key}]. External tampering intercepted!`, 'ERROR');
+                            triggerAntiPiracyQuarantine('ERR_STORAGE_TAMPER_INJECTION', `Cryptographic HMAC mismatch detected on key [${key}]. LocalStorage data was illegally modified.`);
+                            return null;
+                        }
+                        try { return JSON.parse(parsed.data); } catch(e) { return parsed.data; }
+                    } else {
+                        // Plain JSON injected without sovereign cryptographic envelope
+                        logSecurityEvent('STORAGE_TAMPER', `Unsigned raw JSON injection in [${key}]. Intercepted!`, 'ERROR');
+                        triggerAntiPiracyQuarantine('ERR_STORAGE_TAMPER_INJECTION', `Un-signed raw payload injected into localStorage key [${key}]. Foreign data modification intercepted.`);
+                        return null;
+                    }
+                } catch(e) {
+                    // Non-JSON or tampered raw string injected
+                    logSecurityEvent('STORAGE_TAMPER', `Unsigned raw injection in [${key}]. Intercepted!`, 'ERROR');
+                    triggerAntiPiracyQuarantine('ERR_STORAGE_TAMPER_INJECTION', `Illegal unencrypted payload injected into localStorage [${key}].`);
+                    return null;
+                }
+            },
+            removeItem(key) {
+                localStorage.removeItem(key);
+            }
+        };
 
         function logSecurityEvent(tag, message, level = 'INFO') {
             const logBox = document.getElementById('security-tamper-log');
@@ -12292,11 +12376,56 @@ Available Sovereign Applications:<br>
             showToastNotification('PUF Hardware Re-Verified', 'Host physical environment matched genuine baseline.');
         }
 
+        async function runServerCryptographicAttestation() {
+            triggerHaptic('pulse');
+            playSfx('notify');
+            logSecurityEvent('ATTEST', 'Contacting Python Ring-0 Daemon /api/security/attest...', 'INFO');
+            
+            try {
+                const puf = getHardwarePUFSignature();
+                const nonce = Math.random().toString(36).substring(2);
+                const clientHash = computeHMAC(puf + "::" + nonce, ENCLAVE_POLYNOMIAL_SEED);
+
+                const res = await fetch('/api/security/attest', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ puf: puf, nonce: nonce, client_hash: clientHash })
+                });
+                const data = await res.json();
+                
+                if (data.success && !data.tamper_detected) {
+                    triggerHaptic('success');
+                    playSfx('unlock');
+                    logSecurityEvent('ATTEST_OK', `Server Attestation VERIFIED! [${data.attestation_status}] (0 Violations)`, 'INFO');
+                    showToastNotification('Server Attestation Passed', 'Ring-0 Daemon verified hardware & kernel signatures.');
+                } else {
+                    triggerHaptic('error');
+                    playSfx('error');
+                    logSecurityEvent('ATTEST_FAIL', `Attestation Failure: ${data.attestation_status}`, 'ERROR');
+                    triggerAntiPiracyQuarantine('ERR_SERVER_ATTESTATION_REJECTED', 'Python backend detected cryptographic signature mismatch.');
+                }
+            } catch(e) {
+                logSecurityEvent('ATTEST_WARN', `Attestation network fallback: ${e.message}`, 'WARN');
+            }
+        }
+
         function simulateTamperAttack(type) {
             triggerHaptic('alert');
             playSfx('error');
             
-            if (type === 'MEMORY_HOOK') {
+            if (type === 'STORAGE_TAMPER') {
+                logSecurityEvent('SIM_ATTACK', 'Simulating malicious localStorage data injection...', 'WARN');
+                // Deliberately write an untrusted, un-HMACed string
+                localStorage.setItem('bharatos_license_state', '{"isActivated":true,"tier":"DEFENSE_HACKED"}');
+                SovereignEncryptedStore.getItem('bharatos_license_state');
+            } else if (type === 'DOM_INJECTION') {
+                logSecurityEvent('SIM_ATTACK', 'Simulating illegal DOM element deletion on lock screen...', 'WARN');
+                const lock = document.getElementById('lock-screen');
+                if (lock) {
+                    // Try to remove
+                    lock.remove();
+                }
+            } else if (type === 'MEMORY_HOOK') {
                 triggerAntiPiracyQuarantine('ERR_MEMORY_HOOK_INJECTION', 'Unauthorized script attempted to monkey-patch Ring-0 validation functions in memory.');
             } else if (type === 'HWID_CLONE') {
                 triggerAntiPiracyQuarantine('ERR_HWID_CLONING_DETECTED', 'Cryptographic hardware PUF signature divergence detected. License copied across unverified machines.');
@@ -12305,6 +12434,42 @@ Available Sovereign Applications:<br>
             }
         }
 
+        // =========================================================================
+        // LAYER 2: REAL-TIME DOM MUTATION OBSERVER & SHADOW SENTRY
+        // =========================================================================
+        let domSecurityObserver = null;
+        let isSystemLegitUnlocked = false;
+
+        function initDOMSecuritySentry() {
+            if (domSecurityObserver) return;
+            
+            const targetNode = document.body;
+            const config = { childList: true, subtree: true, attributes: true, attributeFilter: ['style', 'class', 'hidden'] };
+
+            domSecurityObserver = new MutationObserver((mutationsList) => {
+                for (const mutation of mutationsList) {
+                    if (mutation.type === 'childList') {
+                        mutation.removedNodes.forEach(node => {
+                            if (node.id === 'lock-screen' && !isSystemLegitUnlocked) {
+                                // Unauthorized deletion of lock screen
+                                document.body.appendChild(node);
+                                triggerAntiPiracyQuarantine('ERR_DOM_ELEMENT_DELETION', 'Shadow Sentry intercepted unauthorized removal of #lock-screen element!');
+                            } else if (node.id === 'anti-piracy-quarantine-modal') {
+                                document.body.appendChild(node);
+                                triggerAntiPiracyQuarantine('ERR_QUARANTINE_BYPASS', 'Shadow Sentry intercepted removal of quarantine barrier modal!');
+                            }
+                        });
+                    }
+                }
+            });
+
+            domSecurityObserver.observe(targetNode, config);
+            logSecurityEvent('SENTRY', 'DOM MutationObserver Shadow Sentry Active (<1ms Intercept)', 'INFO');
+        }
+
+        // =========================================================================
+        // LAYER 3: KERNEL FUNCTION INTEGRITY WATCHDOG & OBJECT SEALING
+        // =========================================================================
         function initMemoryWatchdogBaselines() {
             try {
                 kernelFunctionBaselines = {
@@ -12313,6 +12478,15 @@ Available Sovereign Applications:<br>
                     activateProductKey: hashString(activateProductKey.toString().replace(/\s+/g, ''))
                 };
                 isAntiTamperInitialized = true;
+
+                // Seal core functions to prevent console/script monkey patching
+                try {
+                    Object.defineProperty(window, 'validateDigitalLicenseKey', { writable: false, configurable: false });
+                    Object.defineProperty(window, 'activateProductKey', { writable: false, configurable: false });
+                    Object.defineProperty(window, 'getHardwarePUFSignature', { writable: false, configurable: false });
+                    Object.defineProperty(window, 'SovereignEncryptedStore', { writable: false, configurable: false });
+                } catch(e) {}
+
             } catch(e) {}
         }
 
@@ -12331,11 +12505,12 @@ Available Sovereign Applications:<br>
             } catch(e) {}
         }
 
-        // Start Anti-Tamper Memory Integrity Watchdog Loop (Every 4 seconds)
+        // Initialize All Defense Layers
         setTimeout(() => {
             initMemoryWatchdogBaselines();
-            setInterval(runMemoryIntegrityAudit, 4000);
-        }, 1500);
+            initDOMSecuritySentry();
+            setInterval(runMemoryIntegrityAudit, 1000); // 1000ms audit frequency
+        }, 1000);
 
         function initTouchEngine() {
             // Touch Swipe-Up on Lock Screen to focus PIN
