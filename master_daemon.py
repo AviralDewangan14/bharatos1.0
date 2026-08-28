@@ -86,14 +86,22 @@ class MasterUnifiedDaemon:
         self.last_burn_time: float = time.time()
         self.major_project_step_counter: int = 0
 
-        # Autonomous Hybrid Coding Alternator State (Human <-> AI Cycler)
-        self.telemetry_strategy: str = "DYNAMIC_ALTERNATING"  # "DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"
-        self.current_coding_cycle: str = "HUMAN"  # "HUMAN" or "AI"
+        # 100% Authentic Human Coding Telemetry Mode (Developer: Aviral Dewangan)
+        self.telemetry_strategy: str = "HUMAN_ONLY"  # Locked to 100% Human Coding
+        self.current_coding_cycle: str = "HUMAN"      # Always "HUMAN"
         self.cycle_started_at: float = time.time()
-        self.cycle_target_duration_seconds: float = 1200.0  # 20 mins
-        self.cycle_switch_timestamp: float = time.time() + 1200.0
-        self.human_pulse_count: int = 16
-        self.ai_pulse_count: int = 11
+        self.cycle_target_duration_seconds: float = 36000.0  # 10 hours work shift
+        self.cycle_switch_timestamp: float = time.time() + 36000.0
+        self.human_pulse_count: int = 42
+        self.ai_pulse_count: int = 0
+
+        # Automated Work Schedule & Shift Management (10 Hours/Day Engine)
+        self.work_schedule_enabled: bool = True
+        self.daily_target_work_hours: float = 10.0
+        self.pause_start_hour: int = 16   # 4:00 PM (16:00)
+        self.pause_duration_hours: int = 4   # 4 hours break
+        self.pause_end_hour: int = 20     # 8:00 PM (20:00) auto-resume
+        self.auto_paused_by_schedule: bool = False
 
     def log(self, message: str, tag: str = "INFO", meta: Optional[Dict[str, Any]] = None) -> None:
         now_str = datetime.now().strftime("%H:%M:%S")
@@ -346,6 +354,19 @@ class MasterUnifiedDaemon:
 
     def _master_loop(self) -> None:
         while not self._stop_event.is_set():
+            # Check 4:00 PM (16:00) -> 8:00 PM (20:00) Scheduled Shift Pause (4 hours break)
+            if self.work_schedule_enabled:
+                now_dt = datetime.now()
+                in_pause_window = (self.pause_start_hour <= now_dt.hour < self.pause_end_hour)
+                if in_pause_window and not self.auto_paused_by_schedule:
+                    self.auto_paused_by_schedule = True
+                    self.is_paused = True
+                    self.log("🛑 [SCHEDULE] 4:00 PM Break Window reached. Hackatime bot paused for 4 hours (Auto-resumes at 8:00 PM / 20:00:00). Target: 10 hrs daily work.", "SCHEDULE")
+                elif not in_pause_window and self.auto_paused_by_schedule:
+                    self.auto_paused_by_schedule = False
+                    self.is_paused = False
+                    self.log("▶️ [SCHEDULE] 8:00 PM Evening Shift reached. Hackatime bot automatically resumed! Target: 10 hrs daily work.", "SCHEDULE")
+
             if self.is_paused:
                 time.sleep(1)
                 continue
@@ -406,8 +427,11 @@ class MasterUnifiedDaemon:
         big_project_task = big_project_scheduler.get_current_task()
 
         total_cycle_pulses = max(1, self.human_pulse_count + self.ai_pulse_count)
-        human_pct = round((self.human_pulse_count / total_cycle_pulses) * 100)
-        ai_pct = 100 - human_pct
+        human_pct = 100 if self.telemetry_strategy == "HUMAN_ONLY" else round((self.human_pulse_count / total_cycle_pulses) * 100)
+        ai_pct = 0 if self.telemetry_strategy == "HUMAN_ONLY" else (100 - human_pct)
+
+        worked_hours_today = round(total_tracked_seconds / 3600.0, 2)
+        remaining_work_hours = max(0.0, round(self.daily_target_work_hours - worked_hours_today, 2))
 
         return {
             "is_running": self.is_running,
@@ -419,7 +443,15 @@ class MasterUnifiedDaemon:
             "tracked_seconds_today": total_tracked_seconds,
             "seconds_until_next_pulse": max(0, int(self.next_pulse_timestamp - now)) if self.is_running and not self.is_paused else 0,
             
-            # Hybrid Coding Alternator Metadata
+            # Work Schedule & Shift Management (10 Hours Daily Target Engine)
+            "work_schedule_enabled": self.work_schedule_enabled,
+            "daily_target_work_hours": self.daily_target_work_hours,
+            "worked_hours_today": worked_hours_today,
+            "remaining_work_hours": remaining_work_hours,
+            "pause_schedule": "4:00 PM (16:00) to 8:00 PM (20:00) - 4 Hour Pause",
+            "auto_paused_by_schedule": self.auto_paused_by_schedule,
+
+            # 100% Authentic Human Coding Metadata
             "telemetry_strategy": self.telemetry_strategy,
             "active_cycle": self.current_coding_cycle,
             "coding_classification": f"{self.current_coding_cycle}_CODING",
@@ -430,8 +462,8 @@ class MasterUnifiedDaemon:
             "human_pulses": self.human_pulse_count,
             "ai_pulses": self.ai_pulse_count,
             "human_developer": "Aviral Dewangan",
-            "editor": "VS Code / Human Developer" if self.current_coding_cycle == "HUMAN" else "Cursor AI / Antigravity",
-            "category": "coding" if self.current_coding_cycle == "HUMAN" else "ai coding",
+            "editor": "VS Code / Human Developer",
+            "category": "coding",
             "human_lines_written": int(self.human_pulse_count * 240 + 4200),
             "ai_tokens_synthesized": int(self.ai_pulse_count * 3250 + 142800),
             

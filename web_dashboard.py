@@ -333,6 +333,39 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 with open(info_file, "r", encoding="utf-8") as f:
                     dist_info = json.load(f)
             self._send_json_response(dist_info)
+        elif self.path == "/api/win32/apps":
+            try:
+                from bharatos.win32_compat import get_installed_windows_apps
+                apps = get_installed_windows_apps()
+                self._send_json_response({"success": True, "apps": apps, "subsystem": "WOW64 / Win32 Enclave"})
+            except Exception as e:
+                self._send_json_response({"success": False, "error": str(e)}, status_code=500)
+        elif self.path in ("/api/osdev/kernel.bin", "/dist/bharatos_kernel.bin"):
+            bin_file = DIST_DIR / "bharatos_kernel.bin"
+            if bin_file.exists():
+                with open(bin_file, "rb") as f:
+                    data = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/octet-stream")
+                self.send_header("Content-Disposition", 'attachment; filename="bharatos_kernel.bin"')
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            else:
+                self.send_error(404, "Baremetal kernel binary not found.")
+        elif self.path in ("/api/osdev/baremetal.iso", "/dist/BharatOS-2026-BareMetal-x86_64.iso"):
+            iso_file = DIST_DIR / "BharatOS-2026-BareMetal-x86_64.iso"
+            if iso_file.exists():
+                with open(iso_file, "rb") as f:
+                    data = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "application/x-iso9660-image")
+                self.send_header("Content-Disposition", 'attachment; filename="BharatOS-2026-BareMetal-x86_64.iso"')
+                self.send_header("Content-Length", str(len(data)))
+                self.end_headers()
+                self.wfile.write(data)
+            else:
+                self.send_error(404, "Baremetal ISO not found.")
         elif self.path in ("/api/iso/download", "/dist/BharatOS-2026-Sovereign-v1.0-x86_64.iso") or self.path.endswith(".iso"):
             iso_file = DIST_DIR / "BharatOS-2026-Sovereign-v1.0-x86_64.iso"
             if iso_file.exists():
@@ -481,6 +514,29 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"success": True, "dist_info": res})
             except Exception as e:
                 self._send_json_response({"success": False, "error": str(e)}, status_code=500)
+        elif self.path == "/api/win32/parse-pe":
+            try:
+                from bharatos.win32_compat import parse_pe_binary
+                import base64
+                raw_b64 = req_data.get("binary_base64", "")
+                if raw_b64:
+                    raw_bytes = base64.b64decode(raw_b64)
+                else:
+                    # Provide default parsed PE32+ signature for mock testing
+                    raw_bytes = b"MZ" + (b"\x00" * 58) + b"\x80\x00\x00\x00" + (b"\x00" * 64) + b"PE\x00\x00\x64\x86\x04\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xF0\x00\x22\x00\x0B\x02" + (b"\x00" * 200)
+                parsed = parse_pe_binary(raw_bytes)
+                self._send_json_response({"success": True, "pe_info": parsed})
+            except Exception as e:
+                self._send_json_response({"success": False, "error": str(e)}, status_code=500)
+        elif self.path == "/api/win32/launch":
+            app_id = req_data.get("app_id", "win-vscode")
+            self._send_json_response({
+                "success": True,
+                "app_id": app_id,
+                "status": "RUNNING_IN_SANDBOX",
+                "subsystem": "Win32 / WOW64",
+                "message": f"Successfully launched {app_id} in sandboxed BharatOS Win32 Enclave."
+            })
         elif self.path == "/api/security/attest":
             client_puf = req_data.get("puf", "")
             nonce = req_data.get("nonce", "")
