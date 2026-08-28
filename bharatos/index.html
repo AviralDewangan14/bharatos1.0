@@ -3828,6 +3828,25 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                 <div id="ht-cycle-countdown" class="font-mono font-bold text-xs text-amber-400">Shift in 18m 42s</div>
                             </div>
                         </div>
+
+                        <!-- 8-Hour Daily Human Coding Limit Guard -->
+                        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs">🛡️</span>
+                                    <span class="font-bold text-slate-200">Daily Human Coding Limit Guard</span>
+                                    <span id="ht-human-limit-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">Within 8h Cap</span>
+                                </div>
+                                <div class="text-[11px] font-mono text-cyan-400 font-bold" id="ht-human-hours-ratio">0.82 / 8.00 hrs (7.18h left)</div>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div id="ht-human-limit-progress" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-500 transition-all" style="width: 10%;"></div>
+                            </div>
+                            <div class="text-[9px] opacity-60 flex items-center justify-between">
+                                <span>When 8.0h human coding is reached, system automatically locks to 🤖 AI Coding for remainder of session.</span>
+                                <span class="font-bold text-slate-400">Strict Cap</span>
+                            </div>
+                        </div>
                     </div>
 
                     <!-- 4 Live Telemetry Metric Cards -->
@@ -12438,6 +12457,32 @@ Available Sovereign Applications:<br>
                 }
             }
 
+            // 8-Hour Human Limit Gauge Rendering
+            const humanLimitBadge = document.getElementById('ht-human-limit-badge');
+            const humanHoursRatio = document.getElementById('ht-human-hours-ratio');
+            const humanLimitProgress = document.getElementById('ht-human-limit-progress');
+
+            const humanHrs = data.human_tracked_hours || ((data.human_pulses || 0) * 70 / 3600);
+            const maxHumanHrs = data.max_daily_human_hours || 8.0;
+            const humanLeft = Math.max(0, maxHumanHrs - humanHrs);
+            const humanPct = Math.min(100, Math.round((humanHrs / maxHumanHrs) * 100));
+
+            if (humanHoursRatio) {
+                humanHoursRatio.textContent = `${humanHrs.toFixed(2)} / ${maxHumanHrs.toFixed(2)} hrs (${humanLeft.toFixed(2)}h left)`;
+            }
+            if (humanLimitProgress) {
+                humanLimitProgress.style.width = `${humanPct}%`;
+            }
+            if (humanLimitBadge) {
+                if (data.human_limit_reached || humanHrs >= maxHumanHrs) {
+                    humanLimitBadge.textContent = '8H CAP REACHED (AI LOCKED)';
+                    humanLimitBadge.className = 'px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[10px] font-bold border border-rose-500/40 animate-pulse';
+                } else {
+                    humanLimitBadge.textContent = `${humanPct}% Within 8h Cap`;
+                    humanLimitBadge.className = 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold';
+                }
+            }
+
             // Window metrics
             const cardPulses = document.getElementById('ht-card-pulses');
             const cardPulsesSub = document.getElementById('ht-card-pulses-sub');
@@ -12566,7 +12611,7 @@ Available Sovereign Applications:<br>
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showToastNotification('Telemetry Strategy Changed', `Strategy set to ${strategy}`);
+                    showNotificationToast('Telemetry Strategy Changed', `Strategy set to ${strategy}`, 'info');
                     await fetchHackatimeStatus(false);
                 }
             } catch(e) {
@@ -12589,7 +12634,7 @@ Available Sovereign Applications:<br>
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showToastNotification('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`);
+                    showNotificationToast('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`, 'info');
                     await fetchHackatimeStatus(false);
                 }
             } catch(e) {
@@ -12615,7 +12660,7 @@ Available Sovereign Applications:<br>
                     btn.disabled = false;
                     btn.innerHTML = '<span>⚡</span><span>Pulse Now</span>';
                 }
-                showToastNotification('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!');
+                showNotificationToast('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
             } catch(e) {
                 console.error('[Hackatime] Pulse failed:', e);
             }
