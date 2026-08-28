@@ -534,7 +534,7 @@ class SimulationEngine:
             "human_line_changes": file_state["lines"],
             "ai_line_changes": 0,
             "source": "developer_manual_editor",
-            "developer": "Aviral Sharma"
+            "developer": "Aviral Dewangan"
         }
 
         return {

@@ -264,7 +264,7 @@ class MasterUnifiedDaemon:
             "human_line_changes": lines,
             "ai_line_changes": 0,
             "source": "developer_manual_editor",
-            "developer": "Aviral Sharma"
+            "developer": "Aviral Dewangan"
         }
 
         self.total_pulses += 1
@@ -333,7 +333,7 @@ class MasterUnifiedDaemon:
             "coding_classification": "HUMAN_CODING",
             "human_attribution_percent": 100,
             "ai_attribution_percent": 0,
-            "human_developer": "Aviral Sharma",
+            "human_developer": "Aviral Dewangan",
             "editor": "VS Code / Human Developer",
             "category": "coding",
             "human_lines_written": int(self.total_pulses * 240 + 4200),
