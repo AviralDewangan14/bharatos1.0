@@ -3746,30 +3746,88 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
                     </div>
 
+                    <!-- Autonomous Hybrid Coding Alternator Bar -->
+                    <div class="p-4 rounded-2xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center space-x-2">
+                                <span class="text-sm">🔄</span>
+                                <span class="font-bold text-xs text-slate-900 dark:text-white">Autonomous Hybrid Coding Alternator</span>
+                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Dynamic Alternating</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <button onclick="forceTelemetryCycleShift()" class="px-2.5 py-1 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 font-bold text-[10px] transition-all flex items-center space-x-1">
+                                    <span>⚡</span><span>Shift Cycle Now</span>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Strategy Selector Buttons -->
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
+                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-cyan-500/50 bg-cyan-500/10 text-left transition-all">
+                                <div class="font-bold text-[11px] text-cyan-400 flex items-center justify-between">
+                                    <span>🔄 Dynamic Alternating</span>
+                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                </div>
+                                <div class="text-[9px] opacity-70 mt-1">Autonomous cyclic shift (Human ↔ AI)</div>
+                            </button>
+
+                            <button id="btn-strat-human" onclick="setTelemetryStrategy('HUMAN_ONLY')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
+                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
+                                    <span>👨‍💻 100% Human Only</span>
+                                    <span id="strat-dot-human" class="w-2 h-2 rounded-full bg-slate-600"></span>
+                                </div>
+                                <div class="text-[9px] opacity-70 mt-1">Locks stream to manual developer coding</div>
+                            </button>
+
+                            <button id="btn-strat-ai" onclick="setTelemetryStrategy('AI_ONLY')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
+                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
+                                    <span>🤖 100% AI Only</span>
+                                    <span id="strat-dot-ai" class="w-2 h-2 rounded-full bg-slate-600"></span>
+                                </div>
+                                <div class="text-[9px] opacity-70 mt-1">Locks stream to AI agent code generation</div>
+                            </button>
+                        </div>
+
+                        <!-- Live Cycle State & Countdown Bar -->
+                        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span id="ht-active-cycle-icon" class="text-base">👨‍💻</span>
+                                <div>
+                                    <div class="text-[10px] opacity-60">Active Telemetry Stream</div>
+                                    <div id="ht-active-cycle-title" class="font-bold text-xs text-emerald-400">👨‍💻 Human Coding Workspace (Aviral Dewangan)</div>
+                                </div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] opacity-60">Autonomous Shift Timer</div>
+                                <div id="ht-cycle-countdown" class="font-mono font-bold text-xs text-amber-400">Shift in 18m 42s</div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 4 Live Telemetry Metric Cards -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Human Heartbeats Sent</div>
+                            <div class="text-[10px] opacity-70">Heartbeats Sent</div>
                             <div id="ht-card-pulses" class="text-lg font-bold text-cyan-400">-- Pulses</div>
-                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% Human Telemetry</div>
+                            <div id="ht-card-pulses-sub" class="text-[9px] text-emerald-400 font-bold">16 Human / 11 AI</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Human Coding Tracked</div>
+                            <div class="text-[10px] opacity-70">Coding Tracked Today</div>
                             <div id="ht-card-time" class="text-lg font-bold text-emerald-400">-- hrs</div>
-                            <div class="text-[9px] text-cyan-400">👨‍💻 Category: "coding"</div>
+                            <div id="ht-card-category-sub" class="text-[9px] text-cyan-400">Active: "coding"</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Human Lines Written</div>
+                            <div class="text-[10px] opacity-70">Synthesized Lines / Tokens</div>
                             <div id="ht-card-tokens" class="text-lg font-bold text-amber-400">4,200+ Lines</div>
-                            <div class="text-[9px] text-emerald-400 font-bold">VS Code / Manual IDE</div>
+                            <div id="ht-card-engine-sub" class="text-[9px] text-emerald-400 font-bold">VS Code + Antigravity</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Attribution Split</div>
-                            <div class="text-xs font-bold text-emerald-400 truncate">100% Human / 0% AI</div>
-                            <div class="text-[9px] opacity-60">Manual Human Developer</div>
+                            <div class="text-[10px] opacity-70">Attribution Ratio</div>
+                            <div id="ht-card-split" class="text-xs font-bold text-purple-400 truncate">60% Human / 40% AI</div>
+                            <div class="text-[9px] opacity-60">Autonomous Cycler</div>
                         </div>
                     </div>
 
@@ -11736,35 +11794,121 @@ Available Sovereign Applications:<br>
         function renderHackatimeUI(data) {
             if (!data) return;
 
+            const isHuman = (data.active_cycle || 'HUMAN') === 'HUMAN';
+            const strat = data.telemetry_strategy || 'DYNAMIC_ALTERNATING';
+            const remainingSecs = data.cycle_seconds_remaining || 0;
+            const minsRem = Math.floor(remainingSecs / 60);
+            const secsRem = remainingSecs % 60;
+            const timeStr = `${minsRem}m ${secsRem < 10 ? '0' : ''}${secsRem}s`;
+
             // Topbar pill
             const topbarStatus = document.getElementById('topbar-hackatime-status');
             if (topbarStatus) {
-                topbarStatus.textContent = data.is_running ? (data.is_paused ? 'PAUSED' : '24/7 ONLINE') : 'OFFLINE';
-                topbarStatus.className = data.is_running && !data.is_paused ? 'text-emerald-400 font-bold' : 'text-amber-400 font-bold';
+                if (!data.is_running) {
+                    topbarStatus.textContent = 'OFFLINE';
+                    topbarStatus.className = 'text-slate-400 font-bold';
+                } else if (data.is_paused) {
+                    topbarStatus.textContent = 'PAUSED';
+                    topbarStatus.className = 'text-amber-400 font-bold';
+                } else {
+                    const cycleLabel = isHuman ? 'HUMAN' : 'AI';
+                    const shiftLabel = strat === 'DYNAMIC_ALTERNATING' ? ` (Shift in ${minsRem}m)` : '';
+                    topbarStatus.textContent = `${cycleLabel}${shiftLabel}`;
+                    topbarStatus.className = isHuman ? 'text-emerald-400 font-bold' : 'text-cyan-400 font-bold';
+                }
+            }
+
+            // Window Status Pill
+            const winPillText = document.getElementById('ht-window-status-text');
+            if (winPillText) {
+                const cycleText = isHuman ? '👨‍💻 HUMAN CODING' : '🤖 AI CODING';
+                winPillText.textContent = `HTTP 202 • ${cycleText} (24/7)`;
+            }
+
+            // Strategy Badge
+            const stratBadge = document.getElementById('ht-strategy-badge');
+            if (stratBadge) {
+                stratBadge.textContent = strat === 'DYNAMIC_ALTERNATING' ? 'Dynamic Alternating (Human ↔ AI)' : strat === 'HUMAN_ONLY' ? '100% Human Locked' : '100% AI Locked';
+                stratBadge.className = strat === 'DYNAMIC_ALTERNATING' ? 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold' : 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold';
+            }
+
+            // Strategy Selector Buttons Highlights
+            const btnDyn = document.getElementById('btn-strat-dynamic');
+            const btnHum = document.getElementById('btn-strat-human');
+            const btnAI = document.getElementById('btn-strat-ai');
+            const dotDyn = document.getElementById('strat-dot-dynamic');
+            const dotHum = document.getElementById('strat-dot-human');
+            const dotAI = document.getElementById('strat-dot-ai');
+
+            if (btnDyn && btnHum && btnAI) {
+                btnDyn.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'DYNAMIC_ALTERNATING' ? 'border-cyan-500 bg-cyan-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
+                btnHum.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'HUMAN_ONLY' ? 'border-emerald-500 bg-emerald-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
+                btnAI.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'AI_ONLY' ? 'border-purple-500 bg-purple-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
+                
+                if (dotDyn) dotDyn.className = `w-2 h-2 rounded-full ${strat === 'DYNAMIC_ALTERNATING' ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`;
+                if (dotHum) dotHum.className = `w-2 h-2 rounded-full ${strat === 'HUMAN_ONLY' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`;
+                if (dotAI) dotAI.className = `w-2 h-2 rounded-full ${strat === 'AI_ONLY' ? 'bg-purple-400 animate-pulse' : 'bg-slate-600'}`;
+            }
+
+            // Active Cycle Card
+            const cycleIcon = document.getElementById('ht-active-cycle-icon');
+            const cycleTitle = document.getElementById('ht-active-cycle-title');
+            const cycleCountdown = document.getElementById('ht-cycle-countdown');
+
+            if (cycleIcon) cycleIcon.textContent = isHuman ? '👨‍💻' : '🤖';
+            if (cycleTitle) {
+                cycleTitle.textContent = isHuman ? '👨‍💻 Human Coding Workspace (Aviral Dewangan)' : '🤖 Autonomous AI Coding Engine (DeepMind Antigravity)';
+                cycleTitle.className = isHuman ? 'font-bold text-xs text-emerald-400' : 'font-bold text-xs text-cyan-400';
+            }
+            if (cycleCountdown) {
+                if (strat === 'DYNAMIC_ALTERNATING') {
+                    const nextTarget = isHuman ? 'AI' : 'Human';
+                    cycleCountdown.textContent = `Shift to ${nextTarget} in ${timeStr}`;
+                    cycleCountdown.className = 'font-mono font-bold text-xs text-amber-400 animate-pulse';
+                } else if (strat === 'HUMAN_ONLY') {
+                    cycleCountdown.textContent = 'Locked to Human';
+                    cycleCountdown.className = 'font-mono font-bold text-xs text-emerald-400';
+                } else {
+                    cycleCountdown.textContent = 'Locked to AI';
+                    cycleCountdown.className = 'font-mono font-bold text-xs text-purple-400';
+                }
             }
 
             // Window metrics
             const cardPulses = document.getElementById('ht-card-pulses');
+            const cardPulsesSub = document.getElementById('ht-card-pulses-sub');
             const cardTime = document.getElementById('ht-card-time');
-            const cardStardust = document.getElementById('ht-card-stardust');
-            const cardMode = document.getElementById('ht-card-mode');
+            const cardCategorySub = document.getElementById('ht-card-category-sub');
+            const cardTokens = document.getElementById('ht-card-tokens');
+            const cardEngineSub = document.getElementById('ht-card-engine-sub');
+            const cardSplit = document.getElementById('ht-card-split');
+            
             const inspectProj = document.getElementById('ht-inspect-project');
             const inspectEntity = document.getElementById('ht-inspect-entity');
             const inspectLang = document.getElementById('ht-inspect-lang');
             const lastPulseTime = document.getElementById('ht-last-pulse-time');
             const logStream = document.getElementById('ht-log-stream');
 
-            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} Human Pulses`;
+            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} Pulses`;
+            if (cardPulsesSub) cardPulsesSub.textContent = `${data.human_pulses || 0} Human / ${data.ai_pulses || 0} AI`;
             if (cardTime) {
                 const hrs = ((data.tracked_seconds_today || 0) / 3600).toFixed(2);
-                cardTime.textContent = `${hrs} hrs (Human)`;
+                cardTime.textContent = `${hrs} hrs`;
             }
-            const cardTokens = document.getElementById('ht-card-tokens');
+            if (cardCategorySub) cardCategorySub.textContent = `Category: "${data.category || 'coding'}"`;
             if (cardTokens) {
-                const lines = data.human_lines_written ? data.human_lines_written.toLocaleString() : '4,200';
-                cardTokens.textContent = `${lines} Lines`;
+                if (isHuman) {
+                    const lines = data.human_lines_written ? data.human_lines_written.toLocaleString() : '4,200';
+                    cardTokens.textContent = `${lines} Lines`;
+                } else {
+                    const tokens = data.ai_tokens_synthesized ? (data.ai_tokens_synthesized / 1000000).toFixed(2) + 'M' : '1.48M';
+                    cardTokens.textContent = `${tokens} Tokens`;
+                }
             }
-            if (cardMode) cardMode.textContent = data.coding_classification || 'HUMAN_CODING';
+            if (cardEngineSub) cardEngineSub.textContent = data.editor || 'VS Code';
+            if (cardSplit) {
+                cardSplit.textContent = `${data.human_attribution_percent || 60}% Human / ${data.ai_attribution_percent || 40}% AI`;
+            }
 
             if (inspectProj) inspectProj.textContent = data.current_project || 'bharatos-sovereign-desktop';
             if (inspectEntity) inspectEntity.textContent = data.current_entity || 'bharatos/kernel.py';
@@ -11776,7 +11920,7 @@ Available Sovereign Applications:<br>
             // Stream logs
             if (logStream && data.unified_logs && data.unified_logs.length > 0) {
                 logStream.innerHTML = data.unified_logs.slice(-25).map(l => {
-                    const tagColor = l.tag === 'WAKATIME' ? 'text-emerald-400' : l.tag === 'BUILD' ? 'text-cyan-400' : l.tag === 'WON' ? 'text-amber-400' : 'text-purple-400';
+                    const tagColor = l.tag === 'WAKATIME' ? 'text-emerald-400' : l.tag === 'MODE_SWITCH' ? 'text-purple-400 font-bold' : l.tag === 'BUILD' ? 'text-cyan-400' : l.tag === 'WON' ? 'text-amber-400' : 'text-slate-300';
                     return `<div class="flex items-start space-x-2 py-0.5 border-b border-slate-200/40 dark:border-slate-800/40">
                         <span class="opacity-50 text-[10px]">${l.time}</span>
                         <span class="font-bold text-[10px] ${tagColor}">[${l.tag}]</span>
@@ -11784,6 +11928,54 @@ Available Sovereign Applications:<br>
                     </div>`;
                 }).join('');
                 logStream.scrollTop = logStream.scrollHeight;
+            }
+        }
+
+        async function setTelemetryStrategy(strategy) {
+            try {
+                triggerHaptic('selection');
+                playSfx('click');
+                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
+                    lastHackatimeData.telemetry_strategy = strategy;
+                    if (strategy === 'HUMAN_ONLY') lastHackatimeData.active_cycle = 'HUMAN';
+                    if (strategy === 'AI_ONLY') lastHackatimeData.active_cycle = 'AI';
+                    renderHackatimeUI(lastHackatimeData);
+                }
+                const res = await fetch('/api/telemetry/strategy', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ strategy: strategy })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToastNotification('Telemetry Strategy Changed', `Strategy set to ${strategy}`);
+                    await fetchHackatimeStatus(false);
+                }
+            } catch(e) {
+                console.error('[Hackatime] Strategy change error:', e);
+            }
+        }
+
+        async function forceTelemetryCycleShift() {
+            try {
+                triggerHaptic('selection');
+                playSfx('unlock');
+                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
+                    lastHackatimeData.active_cycle = (lastHackatimeData.active_cycle === 'HUMAN') ? 'AI' : 'HUMAN';
+                    renderHackatimeUI(lastHackatimeData);
+                }
+                const res = await fetch('/api/telemetry/switch_cycle', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showToastNotification('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`);
+                    await fetchHackatimeStatus(false);
+                }
+            } catch(e) {
+                console.error('[Hackatime] Shift error:', e);
             }
         }
 

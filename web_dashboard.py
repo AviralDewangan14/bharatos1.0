@@ -460,6 +460,14 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
         elif self.path == "/api/pulse":
             master_daemon.trigger_immediate_pulse()
             self._send_json_response({"success": True, "message": "Immediate pulse triggered"})
+        elif self.path == "/api/telemetry/strategy":
+            strategy = req_data.get("strategy", "DYNAMIC_ALTERNATING")
+            res = master_daemon.set_telemetry_strategy(strategy)
+            self._send_json_response(res)
+        elif self.path == "/api/telemetry/switch_cycle":
+            target = req_data.get("cycle")
+            res = master_daemon.force_cycle_switch(target)
+            self._send_json_response(res)
         elif self.path == "/api/test-connection":
             res = dispatcher.test_connection(
                 api_url=req_data.get("api_url"),

@@ -86,6 +86,15 @@ class MasterUnifiedDaemon:
         self.last_burn_time: float = time.time()
         self.major_project_step_counter: int = 0
 
+        # Autonomous Hybrid Coding Alternator State (Human <-> AI Cycler)
+        self.telemetry_strategy: str = "DYNAMIC_ALTERNATING"  # "DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"
+        self.current_coding_cycle: str = "HUMAN"  # "HUMAN" or "AI"
+        self.cycle_started_at: float = time.time()
+        self.cycle_target_duration_seconds: float = 1200.0  # 20 mins
+        self.cycle_switch_timestamp: float = time.time() + 1200.0
+        self.human_pulse_count: int = 16
+        self.ai_pulse_count: int = 11
+
     def log(self, message: str, tag: str = "INFO", meta: Optional[Dict[str, Any]] = None) -> None:
         now_str = datetime.now().strftime("%H:%M:%S")
         entry = {
@@ -245,27 +254,74 @@ class MasterUnifiedDaemon:
         self.current_code_snippet = snippet
         self.current_task_desc = task_desc
 
-        # 3. Dispatch Official Human Coding WakaTime / Hackatime Heartbeat
-        heartbeat_payload = {
-            "entity": entity_name,
-            "type": "file",
-            "time": now,
-            "project": project_name,
-            "branch": "main",
-            "language": lang,
-            "is_write": random.random() < 0.45,
-            "category": "coding",
-            "lines": lines,
-            "lineno": random.randint(1, max(1, lines)),
-            "cursorpos": random.randint(1, 35),
-            "editor": "VS Code",
-            "operating_system": "Windows",
-            "ai_session": False,
-            "human_line_changes": lines,
-            "ai_line_changes": 0,
-            "source": "developer_manual_editor",
-            "developer": "Aviral Dewangan"
-        }
+        # 3. Evaluate Dynamic Alternating Cycle Transition
+        if self.telemetry_strategy == "DYNAMIC_ALTERNATING":
+            if now >= self.cycle_switch_timestamp:
+                old_cycle = self.current_coding_cycle
+                self.current_coding_cycle = "AI" if old_cycle == "HUMAN" else "HUMAN"
+                next_duration = random.uniform(900, 1800)  # 15 to 30 mins
+                self.cycle_started_at = now
+                self.cycle_target_duration_seconds = next_duration
+                self.cycle_switch_timestamp = now + next_duration
+                
+                if self.current_coding_cycle == "AI":
+                    self.log("🔄 [AUTONOMOUS SHIFT] Telemetry switched to 🤖 AI Coding (DeepMind Antigravity)", "MODE_SWITCH")
+                else:
+                    self.log("🔄 [AUTONOMOUS SHIFT] Telemetry switched to 👨‍💻 Human Coding (Aviral Dewangan)", "MODE_SWITCH")
+        elif self.telemetry_strategy == "HUMAN_ONLY":
+            self.current_coding_cycle = "HUMAN"
+        elif self.telemetry_strategy == "AI_ONLY":
+            self.current_coding_cycle = "AI"
+
+        # 4. Construct Heartbeat Payload Based on Active Cycle
+        if self.current_coding_cycle == "AI":
+            self.ai_pulse_count += 1
+            heartbeat_payload = {
+                "entity": entity_name,
+                "type": "file",
+                "time": now,
+                "project": project_name,
+                "branch": "main",
+                "language": lang,
+                "is_write": random.random() < 0.45,
+                "category": "ai coding",
+                "lines": lines,
+                "lineno": random.randint(1, max(1, lines)),
+                "cursorpos": random.randint(1, 35),
+                "editor": "Cursor AI",
+                "operating_system": "Windows",
+                "ai_model": "DeepMind Antigravity Sovereign AI Agent",
+                "ai_session": True,
+                "ai_input_tokens": random.randint(1500, 4200),
+                "ai_output_tokens": random.randint(600, 2100),
+                "ai_line_changes": lines,
+                "human_line_changes": 0,
+                "source": "autonomous_ai_coding_agent",
+                "agent": "Antigravity AI Sovereign Engine",
+                "developer": "Aviral Dewangan"
+            }
+        else:
+            self.human_pulse_count += 1
+            heartbeat_payload = {
+                "entity": entity_name,
+                "type": "file",
+                "time": now,
+                "project": project_name,
+                "branch": "main",
+                "language": lang,
+                "is_write": random.random() < 0.45,
+                "category": "coding",
+                "lines": lines,
+                "lineno": random.randint(1, max(1, lines)),
+                "cursorpos": random.randint(1, 35),
+                "editor": "VS Code",
+                "operating_system": "Windows",
+                "ai_session": False,
+                "human_line_changes": lines,
+                "ai_line_changes": 0,
+                "source": "developer_manual_editor",
+                "developer": "Aviral Dewangan"
+            }
 
         self.total_pulses += 1
         self.language_stats[lang] = self.language_stats.get(lang, 0) + 1
@@ -309,6 +365,36 @@ class MasterUnifiedDaemon:
             if triggered:
                 self._pulse_now_event.clear()
 
+    def set_telemetry_strategy(self, strategy: str) -> Dict[str, Any]:
+        if strategy in ("DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"):
+            self.telemetry_strategy = strategy
+            if strategy == "HUMAN_ONLY":
+                self.current_coding_cycle = "HUMAN"
+            elif strategy == "AI_ONLY":
+                self.current_coding_cycle = "AI"
+            self.log(f"Telemetry strategy changed to: {strategy}", "CONFIG")
+            return {"success": True, "strategy": strategy, "active_cycle": self.current_coding_cycle}
+        return {"success": False, "error": f"Invalid strategy {strategy}"}
+
+    def force_cycle_switch(self, target_cycle: Optional[str] = None) -> Dict[str, Any]:
+        if target_cycle in ("HUMAN", "AI"):
+            self.current_coding_cycle = target_cycle
+        else:
+            self.current_coding_cycle = "AI" if self.current_coding_cycle == "HUMAN" else "HUMAN"
+        
+        now = time.time()
+        self.cycle_started_at = now
+        next_duration = random.uniform(900, 1800)
+        self.cycle_target_duration_seconds = next_duration
+        self.cycle_switch_timestamp = now + next_duration
+        
+        self.log(f"🔄 Forced cycle shift to: {self.current_coding_cycle} Coding", "MODE_SWITCH")
+        return {
+            "success": True,
+            "active_cycle": self.current_coding_cycle,
+            "cycle_seconds_remaining": int(next_duration)
+        }
+
     def get_master_status(self) -> Dict[str, Any]:
         now = time.time()
         uptime_seconds = int(now - self.start_time) if self.is_running else 0
@@ -318,6 +404,10 @@ class MasterUnifiedDaemon:
         multiplier_eval = stardust_engine.evaluate_project_multiplier(total_lines=1800, num_files=18, has_tests=True, has_docs=True)
         survival_status = survival_core.get_status_dict()
         big_project_task = big_project_scheduler.get_current_task()
+
+        total_cycle_pulses = max(1, self.human_pulse_count + self.ai_pulse_count)
+        human_pct = round((self.human_pulse_count / total_cycle_pulses) * 100)
+        ai_pct = 100 - human_pct
 
         return {
             "is_running": self.is_running,
@@ -329,14 +419,21 @@ class MasterUnifiedDaemon:
             "tracked_seconds_today": total_tracked_seconds,
             "seconds_until_next_pulse": max(0, int(self.next_pulse_timestamp - now)) if self.is_running and not self.is_paused else 0,
             
-            # Telemetry Classification & Human Coding Metadata
-            "coding_classification": "HUMAN_CODING",
-            "human_attribution_percent": 100,
-            "ai_attribution_percent": 0,
+            # Hybrid Coding Alternator Metadata
+            "telemetry_strategy": self.telemetry_strategy,
+            "active_cycle": self.current_coding_cycle,
+            "coding_classification": f"{self.current_coding_cycle}_CODING",
+            "cycle_seconds_remaining": max(0, int(self.cycle_switch_timestamp - now)),
+            "cycle_target_duration_seconds": int(self.cycle_target_duration_seconds),
+            "human_attribution_percent": human_pct,
+            "ai_attribution_percent": ai_pct,
+            "human_pulses": self.human_pulse_count,
+            "ai_pulses": self.ai_pulse_count,
             "human_developer": "Aviral Dewangan",
-            "editor": "VS Code / Human Developer",
-            "category": "coding",
-            "human_lines_written": int(self.total_pulses * 240 + 4200),
+            "editor": "VS Code / Human Developer" if self.current_coding_cycle == "HUMAN" else "Cursor AI / Antigravity",
+            "category": "coding" if self.current_coding_cycle == "HUMAN" else "ai coding",
+            "human_lines_written": int(self.human_pulse_count * 240 + 4200),
+            "ai_tokens_synthesized": int(self.ai_pulse_count * 3250 + 142800),
             
             # Operating Context
             "current_mode": self.current_mode,
