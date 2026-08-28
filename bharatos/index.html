@@ -9027,6 +9027,8 @@ vulkano = "0.34"`
 
         function lockDesktop() {
             playSfx('close');
+            isSystemLegitUnlocked = false;
+            window.__SOVEREIGN_AUTH_TOKEN__ = null;
             const lockEl = document.getElementById('lock-screen');
             if (lockEl) {
                 lockEl.style.display = 'flex';
@@ -9058,6 +9060,8 @@ vulkano = "0.34"`
             if (enteredPin && validPins.includes(enteredPin)) {
                 // Successful Authentication
                 failedLockAttempts = 0;
+                isSystemLegitUnlocked = true;
+                window.__SOVEREIGN_AUTH_TOKEN__ = "SOV_AUTH_" + btoa(targetUser.id + ":" + Date.now());
                 if (typeof switchActiveUserSession === 'function' && targetUser && targetUser.id) {
                     switchActiveUserSession(targetUser.id);
                 }
@@ -13305,6 +13309,16 @@ Available Sovereign Applications:<br>
                                 triggerAntiPiracyQuarantine('ERR_QUARANTINE_BYPASS', 'Shadow Sentry intercepted removal of quarantine barrier modal!');
                             }
                         });
+                    } else if (mutation.type === 'attributes') {
+                        if (mutation.target.id === 'lock-screen' && !isSystemLegitUnlocked) {
+                            if (mutation.target.classList.contains('unlocked') || mutation.target.style.display === 'none' || mutation.target.style.visibility === 'hidden' || mutation.target.style.opacity === '0') {
+                                mutation.target.classList.remove('unlocked');
+                                mutation.target.style.display = 'flex';
+                                mutation.target.style.visibility = 'visible';
+                                mutation.target.style.opacity = '1';
+                                triggerAntiPiracyQuarantine('ERR_LOCKSCREEN_STYLE_TAMPER', 'Shadow Sentry intercepted unauthorized bypass of #lock-screen visibility without valid PIN token!');
+                            }
+                        }
                     }
                 }
             });

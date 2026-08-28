@@ -311,7 +311,16 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
             pass
 
     def do_GET(self):
-        if self.path == "/api/status":
+        try:
+            self._handle_get_internal()
+        except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError, socket.error):
+            pass
+
+    def _handle_get_internal(self):
+        if self.path in ("/favicon.ico", "/favicon.png"):
+            self.send_response(204)
+            self.end_headers()
+        elif self.path == "/api/status":
             self._send_json_response(master_daemon.get_master_status())
         elif self.path == "/api/system/telemetry":
             self._send_json_response(get_real_system_telemetry())
@@ -430,7 +439,10 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 self.send_header("X-BharatOS-Integrity", integrity_res.get("status", "VERIFIED_GENUINE"))
                 self.send_header("X-BharatOS-SHA256", integrity_res.get("sha256", "GENUINE"))
                 self.end_headers()
-                self.wfile.write(content)
+                try:
+                    self.wfile.write(content)
+                except (ConnectionResetError, ConnectionAbortedError, BrokenPipeError, socket.error):
+                    pass
             else:
                 self.send_error(404, "BharatOS HTML not found")
         elif self.path in ("/game", "/solaris", "/play"):
