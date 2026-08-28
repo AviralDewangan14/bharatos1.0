@@ -103,6 +103,26 @@ class MasterUnifiedDaemon:
         self.pause_end_hour: int = 20     # 8:00 PM (20:00) auto-resume
         self.auto_paused_by_schedule: bool = False
 
+        # 45-Minute Initial Startup Countdown (Delayed Bot Activation)
+        self.delayed_start_enabled: bool = True
+        self.scheduled_start_timestamp: float = time.time() + (45 * 60)  # 45 minutes delay
+        self.initial_start_completed: bool = False
+
+        # Multi-Tier Ergonomic Health & Rest Break Schedule Engine
+        # Tier 1: Every 1 Hour (3,600s) -> 10 Minute Break (600s)
+        # Tier 2: Every 3 Hours (10,800s) -> 25 Minute Break (1,500s)
+        # Tier 3: Every 6 Hours (21,600s) -> 40 Minute Break (2,400s)
+        # Tier 4: Every 12 Hours (43,200s) -> 1 Hour Break (3,600s)
+        self.break_schedule_enabled: bool = True
+        self.session_work_seconds: float = 0.0
+        self.last_work_tick_time: float = time.time()
+        self.is_on_break: bool = False
+        self.current_break_label: str = ""
+        self.current_break_duration_seconds: float = 0.0
+        self.break_start_timestamp: float = 0.0
+        self.break_end_timestamp: float = 0.0
+        self.hours_completed_count: int = 0
+
     def log(self, message: str, tag: str = "INFO", meta: Optional[Dict[str, Any]] = None) -> None:
         now_str = datetime.now().strftime("%H:%M:%S")
         entry = {
@@ -151,6 +171,10 @@ class MasterUnifiedDaemon:
 
     def resume(self) -> None:
         self.is_paused = False
+        self.is_on_break = False
+        self.delayed_start_enabled = False
+        self.initial_start_completed = True
+        self.last_work_tick_time = time.time()
         self.log("Master Studio resumed by user", "STATUS")
 
     def trigger_immediate_pulse(self) -> None:
@@ -162,6 +186,59 @@ class MasterUnifiedDaemon:
         self._pulse_now_event.set()
         self._set_windows_sleep_prevention(False)
         self.log("Master Studio stopped", "SYSTEM")
+
+    def _check_break_schedule(self, now: float) -> None:
+        """Evaluates ergonomic break schedule (1h -> 10m, 3h -> 25m, 6h -> 40m, 12h -> 1h)."""
+        if not self.break_schedule_enabled:
+            return
+
+        # 1. If currently on break, check if break finished
+        if self.is_on_break:
+            if now >= self.break_end_timestamp:
+                self.is_on_break = False
+                self.is_paused = False
+                self.current_break_label = ""
+                self.last_work_tick_time = now
+                self.log("✅ [BREAK COMPLETED] Health break ended. Automatically resumed 100% human coding session!", "SCHEDULE")
+            return
+
+        # 2. If bot is running and active, accumulate session work seconds
+        if self.is_running and not self.is_paused:
+            elapsed = now - self.last_work_tick_time
+            self.last_work_tick_time = now
+            if 0 < elapsed < 10:
+                self.session_work_seconds += elapsed
+
+            # Calculate 1-hour interval milestones
+            current_hour_milestone = int(self.session_work_seconds // 3600)
+            if current_hour_milestone > self.hours_completed_count and current_hour_milestone > 0:
+                self.hours_completed_count = current_hour_milestone
+                
+                # Multi-Tier Hierarchy (Every 1h -> 10m, Every 3h -> 25m, Every 6h -> 40m, Every 12h -> 1h)
+                if current_hour_milestone % 12 == 0:
+                    break_duration = 3600.0  # 1 hour
+                    break_label = "1-Hour Extended Rest Break (12-Hour Shift Milestone)"
+                elif current_hour_milestone % 6 == 0:
+                    break_duration = 2400.0  # 40 minutes
+                    break_label = "40-Minute Deep Rest Break (6-Hour Shift Milestone)"
+                elif current_hour_milestone % 3 == 0:
+                    break_duration = 1500.0  # 25 minutes
+                    break_label = "25-Minute Ergonomic Health Break (3-Hour Shift Milestone)"
+                else:
+                    break_duration = 600.0   # 10 minutes
+                    break_label = "10-Minute Posture & Eye Rest Break (1-Hour Shift Milestone)"
+
+                self.is_on_break = True
+                self.is_paused = True
+                self.current_break_label = break_label
+                self.current_break_duration_seconds = break_duration
+                self.break_start_timestamp = now
+                self.break_end_timestamp = now + break_duration
+                self.log(
+                    f"☕ [HEALTH BREAK] Milestone {current_hour_milestone}h reached. "
+                    f"Taking {break_label}. Duration: {int(break_duration/60)} minutes (Auto-resumes at {datetime.fromtimestamp(self.break_end_timestamp).strftime('%H:%M:%S')}).",
+                    "SCHEDULE"
+                )
 
     def _execute_synchronized_cycle(self) -> Dict[str, Any]:
         """Main synchronized execution cycle."""
@@ -354,7 +431,24 @@ class MasterUnifiedDaemon:
 
     def _master_loop(self) -> None:
         while not self._stop_event.is_set():
-            # Check 4:00 PM (16:00) -> 8:00 PM (20:00) Scheduled Shift Pause (4 hours break)
+            now = time.time()
+
+            # 1. Check 45-Minute Initial Delayed Startup
+            if self.delayed_start_enabled and not self.initial_start_completed:
+                if now < self.scheduled_start_timestamp:
+                    self.is_paused = True
+                    time.sleep(1)
+                    continue
+                else:
+                    self.initial_start_completed = True
+                    self.is_paused = False
+                    self.last_work_tick_time = now
+                    self.log("🚀 [STARTUP DELAY COMPLETED] 45-minute countdown elapsed. Hackatime bot automatically activated for 100% human coding session!", "SCHEDULE")
+
+            # 2. Check Multi-Tier Health Break Schedule (1h -> 10m, 3h -> 25m, 6h -> 40m, 12h -> 1h)
+            self._check_break_schedule(now)
+
+            # 3. Check 4:00 PM (16:00) -> 8:00 PM (20:00) Scheduled Shift Pause (4 hours break)
             if self.work_schedule_enabled:
                 now_dt = datetime.now()
                 in_pause_window = (self.pause_start_hour <= now_dt.hour < self.pause_end_hour)
@@ -433,6 +527,23 @@ class MasterUnifiedDaemon:
         worked_hours_today = round(total_tracked_seconds / 3600.0, 2)
         remaining_work_hours = max(0.0, round(self.daily_target_work_hours - worked_hours_today, 2))
 
+        # Multi-Tier Ergonomic Break Schedule Status
+        next_hour_mark = (self.hours_completed_count + 1) * 3600
+        seconds_until_next_break = max(0, int(next_hour_mark - self.session_work_seconds)) if not self.is_on_break else 0
+        next_milestone_hour = self.hours_completed_count + 1
+
+        if next_milestone_hour % 12 == 0:
+            next_break_type = "1-Hour Extended Break (12-Hour Tier)"
+        elif next_milestone_hour % 6 == 0:
+            next_break_type = "40-Minute Deep Break (6-Hour Tier)"
+        elif next_milestone_hour % 3 == 0:
+            next_break_type = "25-Minute Health Break (3-Hour Tier)"
+        else:
+            next_break_type = "10-Minute Rest Break (1-Hour Tier)"
+
+        break_seconds_remaining = max(0, int(self.break_end_timestamp - now)) if self.is_on_break else 0
+        startup_seconds_remaining = max(0, int(self.scheduled_start_timestamp - now)) if (self.delayed_start_enabled and not self.initial_start_completed) else 0
+
         return {
             "is_running": self.is_running,
             "is_paused": self.is_paused,
@@ -450,6 +561,34 @@ class MasterUnifiedDaemon:
             "remaining_work_hours": remaining_work_hours,
             "pause_schedule": "4:00 PM (16:00) to 8:00 PM (20:00) - 4 Hour Pause",
             "auto_paused_by_schedule": self.auto_paused_by_schedule,
+
+            # Multi-Tier Ergonomic Health Break Intervals
+            "break_schedule": {
+                "enabled": self.break_schedule_enabled,
+                "is_on_break": self.is_on_break,
+                "current_break_label": self.current_break_label,
+                "break_seconds_remaining": break_seconds_remaining,
+                "break_duration_seconds": int(self.current_break_duration_seconds),
+                "session_work_seconds": int(self.session_work_seconds),
+                "hours_completed_count": self.hours_completed_count,
+                "seconds_until_next_break": seconds_until_next_break,
+                "next_break_type": next_break_type,
+                "schedule_tiers": [
+                    {"interval": "Every 1 Hour", "break_duration": "10 Minutes", "desc": "Posture & Eye Rest"},
+                    {"interval": "Every 3 Hours", "break_duration": "25 Minutes", "desc": "Ergonomic Health Rest"},
+                    {"interval": "Every 6 Hours", "break_duration": "40 Minutes", "desc": "Deep Rest & Nutrition"},
+                    {"interval": "Every 12 Hours", "break_duration": "1 Hour (60 Min)", "desc": "Extended Recovery"}
+                ]
+            },
+
+            # 45-Minute Delayed Startup Engine
+            "delayed_start": {
+                "enabled": self.delayed_start_enabled,
+                "initial_start_completed": self.initial_start_completed,
+                "scheduled_start_timestamp": self.scheduled_start_timestamp,
+                "seconds_until_start": startup_seconds_remaining,
+                "countdown_formatted": f"{startup_seconds_remaining // 60}m {startup_seconds_remaining % 60}s" if startup_seconds_remaining > 0 else "Active"
+            },
 
             # 100% Authentic Human Coding Metadata
             "telemetry_strategy": self.telemetry_strategy,
