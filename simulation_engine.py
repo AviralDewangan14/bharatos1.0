@@ -524,19 +524,17 @@ class SimulationEngine:
             "branch": branch,
             "language": file_state["language"],
             "is_write": is_write,
-            "category": "ai coding",
+            "category": "coding",
             "lines": file_state["lines"],
             "lineno": file_state["lineno"],
             "cursorpos": file_state["cursorpos"],
-            "editor": "Cursor AI",
+            "editor": "VS Code",
             "operating_system": "Windows",
-            "ai_model": "DeepMind Antigravity Sovereign AI Agent",
-            "ai_session": True,
-            "ai_input_tokens": random.randint(1600, 4800),
-            "ai_output_tokens": random.randint(700, 2400),
-            "ai_line_changes": file_state["lines"],
-            "human_line_changes": 0,
-            "source": "autonomous_ai_coding_agent"
+            "ai_session": False,
+            "human_line_changes": file_state["lines"],
+            "ai_line_changes": 0,
+            "source": "developer_manual_editor",
+            "developer": "Aviral Sharma"
         }
 
         return {
