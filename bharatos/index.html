@@ -3757,6 +3757,12 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </div>
                         </div>
                         <div class="flex items-center space-x-2">
+                            <button onclick="toggleHackatimeBot('stop_bot')" id="btn-stop-bot" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/50 text-rose-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Stop Bot Pulses">
+                                <span>⏹️</span><span>Stop Bot</span>
+                            </button>
+                            <button onclick="toggleHackatimeBot('resume_bot')" id="btn-start-bot" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Start Bot Pulses">
+                                <span>▶️</span><span>Start Bot</span>
+                            </button>
                             <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
                                 <span>⚡</span><span>Pulse Now</span>
                             </button>
@@ -8055,6 +8061,55 @@ vulkano = "0.34"`
             }
         }
 
+        // =========================================================================
+        // WINDOWS-STYLE AERO SNAP (WIN+LEFT, WIN+RIGHT, WIN+UP, WIN+DOWN)
+        // =========================================================================
+        function snapActiveWindow(direction) {
+            const activeWin = getTopmostVisibleWindow();
+            if (!activeWin) return;
+            playSfx('click');
+            triggerHaptic('light');
+
+            activeWin.classList.remove('window-maximized');
+            activeWin.style.position = 'absolute';
+            activeWin.style.transition = 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+            highestZ += 2;
+            activeWin.style.zIndex = String(highestZ);
+
+            if (direction === 'left') {
+                activeWin.style.top = '36px';
+                activeWin.style.left = '8px';
+                activeWin.style.width = 'calc(50vw - 16px)';
+                activeWin.style.height = 'calc(100vh - 108px)';
+                showNotificationToast("Window Snapped", "Snapped to Left Half (Win + Left)", "info");
+            } else if (direction === 'right') {
+                activeWin.style.top = '36px';
+                activeWin.style.left = 'calc(50vw + 8px)';
+                activeWin.style.width = 'calc(50vw - 16px)';
+                activeWin.style.height = 'calc(100vh - 108px)';
+                showNotificationToast("Window Snapped", "Snapped to Right Half (Win + Right)", "info");
+            } else if (direction === 'maximize') {
+                toggleMaximizeWindow(activeWin.id);
+            } else if (direction === 'restore') {
+                activeWin.style.top = '48px';
+                activeWin.style.left = '72px';
+                activeWin.style.width = '960px';
+                activeWin.style.height = '580px';
+                showNotificationToast("Window Restored", "Window bounds restored (Win + Down)", "info");
+            }
+            setTimeout(() => { if (activeWin) activeWin.style.transition = ''; }, 260);
+        }
+
+        function getTopmostVisibleWindow() {
+            const windows = Array.from(document.querySelectorAll('[id$="-window"]:not(.hidden)'));
+            if (windows.length === 0) return null;
+            return windows.reduce((highest, win) => {
+                const z1 = parseInt(window.getComputedStyle(win).zIndex) || 0;
+                const z2 = parseInt(window.getComputedStyle(highest).zIndex) || 0;
+                return z1 > z2 ? win : highest;
+            }, windows[0]);
+        }
+
         // Sovereign UAC (User Account Control) Permission Gate
         let pendingUACCallback = null;
         function triggerUACGate(programName, callback) {
@@ -10359,6 +10414,24 @@ vulkano = "0.34"`
             if (menu) menu.classList.remove('active');
         }
 
+        function createNewDesktopItem(type) {
+            playSfx('open');
+            triggerHaptic('medium');
+            const itemName = prompt(`Enter name for new ${type === 'folder' ? 'Folder' : 'Text Document'}:`, type === 'folder' ? 'New Folder' : 'New Document.txt');
+            if (!itemName) return;
+            showNotificationToast(
+                type === 'folder' ? '📁 Folder Created' : '📄 File Created',
+                `Created "${itemName}" on Sovereign Desktop (~/Desktop/${itemName})`,
+                'success'
+            );
+        }
+
+        function refreshDesktopView() {
+            playSfx('click');
+            triggerHaptic('light');
+            showNotificationToast('🔄 Desktop Refreshed', 'Refreshed icons, liquid glass compositor, and GPU buffers.', 'info');
+        }
+
         // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             const key = e.key.toLowerCase();
@@ -10412,6 +10485,10 @@ vulkano = "0.34"`
             }
 
             if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); snapActiveWindow('left'); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); snapActiveWindow('right'); }
+                if (e.key === 'ArrowUp') { e.preventDefault(); snapActiveWindow('maximize'); }
+                if (e.key === 'ArrowDown') { e.preventDefault(); snapActiveWindow('restore'); }
                 if (key === 'tab') { e.preventDefault(); toggleAppSwitcher(); }
                 if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
                 if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
@@ -10425,6 +10502,9 @@ vulkano = "0.34"`
                 if (key === 'j') { e.preventDefault(); openAppWindow('calendar-window', 'dock-calendar'); }
                 if (key === 't') { e.preventDefault(); openAppWindow('terminal-window', 'dock-terminal'); }
                 if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
+                if (key === 'w') { e.preventDefault(); openAppWindow('win32-compat-window', 'dock-win32'); }
+                if (key === 'o') { e.preventDefault(); openAppWindow('osdev-kernel-window', 'dock-osdev'); }
+                if (key === 'h') { e.preventDefault(); openAppWindow('hackatime-window', 'dock-hackatime'); }
                 if (key === 'l') { e.preventDefault(); lockDesktop(); }
                 if (key === 'd') { e.preventDefault(); toggleWidgets(); }
                 if (key === '?' || key === '/') { e.preventDefault(); openKeybindingsModal(); }
@@ -12161,27 +12241,40 @@ Available Sovereign Applications:<br>
          DESKTOP LIQUID GLASS RIGHT-CLICK CONTEXT MENU
          ========================================================================= -->
     <div id="desktop-context-menu" class="font-mono text-xs space-y-1">
+        <button onclick="createNewDesktopItem('folder'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>📁</span><span>New Folder</span>
+        </button>
+        <button onclick="createNewDesktopItem('file'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>📄</span><span>New Text Document</span>
+        </button>
+        <button onclick="refreshDesktopView(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
+            <span>🔄</span><span>Refresh Desktop</span>
+        </button>
+        <div class="h-px bg-slate-800 my-1"></div>
+        <button onclick="snapActiveWindow('left'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>◧</span><span>Snap Left Half (Win+Left)</span>
+        </button>
+        <button onclick="snapActiveWindow('right'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>◨</span><span>Snap Right Half (Win+Right)</span>
+        </button>
         <button onclick="toggleAppSwitcher(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
             <span>🗂️</span><span>Mission Control (Win+Tab)</span>
         </button>
-        <button onclick="toggleAICopilot(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
-            <span>🤖</span><span>Sudarshan AI (Win+C)</span>
-        </button>
-        <button onclick="openSpotlight(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
-            <span>🔍</span><span>Spotlight Search (Win+Space)</span>
-        </button>
         <div class="h-px bg-slate-800 my-1"></div>
-        <button onclick="tileWindowsSplitScreen(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>⊞</span><span>Tile Split-Screen</span>
+        <button onclick="openAppWindow('win32-compat-window', 'dock-win32'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>🪟</span><span>Windows Apps & Installer</span>
+        </button>
+        <button onclick="openAppWindow('osdev-kernel-window', 'dock-osdev'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>🛡️</span><span>OSDev Kernel Studio</span>
         </button>
         <button onclick="openAppWindow('customization-window', 'dock-personalize'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>🎨</span><span>Change Wallpaper & Glass</span>
+            <span>🎨</span><span>Change Wallpaper & Theme</span>
         </button>
         <button onclick="openAppWindow('terminal-window', 'dock-terminal'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
             <span>📟</span><span>Open Terminal Enclave</span>
         </button>
         <button onclick="openAppWindow('settings-window', 'dock-settings'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>⚙️</span><span>System Settings</span>
+            <span>⚙️</span><span>System Settings (Win+I)</span>
         </button>
     </div>
 
@@ -12420,6 +12513,26 @@ Available Sovereign Applications:<br>
                 showToastNotification('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!');
             } catch(e) {
                 console.error('[Hackatime] Pulse failed:', e);
+            }
+        }
+
+        async function toggleHackatimeBot(action) {
+            try {
+                triggerHaptic('selection');
+                playSfx('click');
+                const res = await fetch('/api/action', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: action })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const label = action === 'stop_bot' ? 'Bot Stopped' : 'Bot Resumed';
+                    showNotificationToast(label, data.message || `Hackatime bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
+                    await fetchHackatimeStatus(false);
+                }
+            } catch(e) {
+                console.error('[Hackatime] Toggle bot error:', e);
             }
         }
 

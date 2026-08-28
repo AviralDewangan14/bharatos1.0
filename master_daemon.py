@@ -48,7 +48,7 @@ class MasterUnifiedDaemon:
 
     def __init__(self):
         self.is_running: bool = False
-        self.is_paused: bool = False
+        self.is_paused: bool = True  # Stopped by user directive
         self._thread: Optional[threading.Thread] = None
         self._stop_event = threading.Event()
         self._pulse_now_event = threading.Event()

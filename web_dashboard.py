@@ -569,7 +569,16 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 "node_authority": "Government of India Sovereign Trust CA (Ed25519)"
             })
         elif self.path == "/api/action":
-            if action == "buy_upgrade":
+            if action in ("stop_bot", "stop", "pause", "pause_bot"):
+                master_daemon.pause()
+                self._send_json_response({"success": True, "status": "STOPPED", "message": "Hackatime bot stopped immediately by user request"})
+            elif action in ("resume_bot", "resume", "start", "start_bot"):
+                master_daemon.resume()
+                self._send_json_response({"success": True, "status": "RUNNING", "message": "Hackatime bot resumed"})
+            elif action in ("trigger_pulse", "pulse_now"):
+                master_daemon.trigger_immediate_pulse()
+                self._send_json_response({"success": True, "message": "Immediate pulse triggered"})
+            elif action == "buy_upgrade":
                 upg_id = req_data.get("upgrade_id", "")
                 res = survival_core.buy_upgrade(upg_id)
                 self._send_json_response(res)
