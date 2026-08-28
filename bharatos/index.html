@@ -334,7 +334,8 @@
             'customization-window': { name: 'Personalization & Theme Studio', icon: '🎨', desc: '4K Wallpapers & Liquid Glass Controls', dockId: 'dock-personalize', cat: 'Design' },
             'settings-window': { name: 'Settings Hub & Control Enclave', icon: '⚙️', desc: 'Multi-User Accounts & System Preferences', dockId: 'dock-settings', cat: 'System' },
             'network-window': { name: 'Network & Connectivity Center', icon: '📶', desc: 'Wi-Fi 7, WireGuard VPN & Speed Test', dockId: 'dock-network', cat: 'Network' },
-            'devicemanager-window': { name: 'Device & Hardware Manager', icon: '💻', desc: '16-Core SMP CPU & Vulkan GPU Benchmark', dockId: 'dock-devmgr', cat: 'Hardware' }
+            'devicemanager-window': { name: 'Device & Hardware Manager', icon: '💻', desc: '16-Core SMP CPU & Vulkan GPU Benchmark', dockId: 'dock-devmgr', cat: 'Hardware' },
+            'osdev-kernel-window': { name: 'OSDev Bare-Metal Kernel Studio', icon: '🛡️', desc: 'x86_64 C & Assembly Ring-0 Microkernel & QEMU Engine', dockId: 'dock-osdev', cat: 'Development' }
         };
 
         tailwind.config = {
@@ -2797,6 +2798,15 @@
                     <span class="icon-btn__label">Indic Studio</span>
                 </button>
 
+                <!-- 2B. OSDev Bare-Metal Kernel Studio -->
+                <button onclick="openAppWindow('osdev-kernel-window', 'dock-osdev')" class="icon-btn" aria-label="OSDev Bare-Metal Kernel Studio" type="button">
+                    <span class="icon-btn__back bg-grad-cyan"></span>
+                    <span class="icon-btn__front">
+                        <span class="icon-btn__icon">🛡️</span>
+                    </span>
+                    <span class="icon-btn__label">OSDev Kernel</span>
+                </button>
+
                 <!-- 3. Solaris 3D FPS -->
                 <button onclick="openAppWindow('game-window', 'dock-game')" class="icon-btn" aria-label="Solaris 3D FPS" type="button">
                     <span class="icon-btn__back bg-grad-red"></span>
@@ -3866,6 +3876,188 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         <div id="ht-log-stream" class="h-44 p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-mono text-[11px] overflow-y-auto space-y-1.5 select-text text-slate-700 dark:text-slate-300">
                             <div class="text-cyan-400">⚡ Initializing Hackatime Sovereign Stream connection...</div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP: BHARATOS OSDEV CORE KERNEL & BARE-METAL QEMU STUDIO
+                 ========================================================================= -->
+            <div id="osdev-kernel-window" class="absolute top-8 left-20 w-[980px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'osdev-kernel-window')" ondblclick="toggleMaximizeWindow('osdev-kernel-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('osdev-kernel-window', 'dock-osdev')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('osdev-kernel-window', 'dock-osdev')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('osdev-kernel-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
+                            <span class="text-cyan-400">🛡️</span>
+                            <span>BharatOS OSDev Core Kernel Studio (x86_64 Bare-Metal & QEMU Engine)</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-mono font-bold">
+                            CORE STACK: NASM + GCC + LD
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Studio Top Navigation Tabs -->
+                <div class="px-5 py-2 bg-slate-200/60 dark:bg-slate-900/60 border-b border-slate-300 dark:border-slate-800 flex items-center justify-between text-xs font-mono">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="switchOsdevTab('terminal')" id="btn-osdev-tab-terminal" class="px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40 flex items-center space-x-1.5 transition-all">
+                            <span>🖥️</span><span>Ring-0 Terminal Console</span>
+                        </button>
+                        <button onclick="switchOsdevTab('asm')" id="btn-osdev-tab-asm" class="px-3 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-400 font-bold transition-all flex items-center space-x-1.5">
+                            <span>📜</span><span>boot.asm (NASM)</span>
+                        </button>
+                        <button onclick="switchOsdevTab('c')" id="btn-osdev-tab-c" class="px-3 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-400 font-bold transition-all flex items-center space-x-1.5">
+                            <span>⚙️</span><span>kernel.c (GCC)</span>
+                        </button>
+                        <button onclick="switchOsdevTab('linker')" id="btn-osdev-tab-linker" class="px-3 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-400 font-bold transition-all flex items-center space-x-1.5">
+                            <span>🔗</span><span>linker.ld (LD)</span>
+                        </button>
+                        <button onclick="switchOsdevTab('qemu')" id="btn-osdev-tab-qemu" class="px-3 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-400 font-bold transition-all flex items-center space-x-1.5">
+                            <span>🚀</span><span>QEMU & ISO Artifacts</span>
+                        </button>
+                    </div>
+                    <div class="text-[11px] opacity-70">
+                        Lead Developer: <span class="text-purple-400 font-bold">Aviral Dewangan</span>
+                    </div>
+                </div>
+
+                <!-- Tab 1: Ring-0 Interactive Terminal Console -->
+                <div id="osdev-tab-terminal" class="flex-1 flex flex-col p-4 bg-black font-mono text-xs overflow-hidden">
+                    <div class="flex-1 overflow-y-auto space-y-1 select-text" id="osdev-terminal-output">
+                        <div class="text-cyan-400">===============================================================================</div>
+                        <div class="text-amber-400">     ____  _   _    _    ____     _  _____ ___  ____       ___  ____         </div>
+                        <div class="text-amber-400">    | __ )| | | |  / \  |  _ \   / \|_   _/ _ \/ ___|     / _ \/ ___|        </div>
+                        <div class="text-amber-400">    |  _ \| |_| | / _ \ | |_) | / _ \ | || | | \___ \    | | | \___ \        </div>
+                        <div class="text-amber-400">    | |_) |  _  |/ ___ \|  _ < / ___ \| || |_| |___) |   | |_| |___) |       </div>
+                        <div class="text-amber-400">    |____/|_| |_/_/   \_\_| \_/_/   \_\_| \___/|____/     \___/|____/        </div>
+                        <div class="text-cyan-400">===============================================================================</div>
+                        <div class="text-emerald-400"> BharatOS Sovereign Bare-Metal Microkernel v1.0.0-Sovereign-Prithvi (x86_64)</div>
+                        <div class="text-slate-400"> Developer: Aviral Dewangan | Core Stack: Assembly (NASM) + C (GCC) + Linker (LD)</div>
+                        <div class="text-slate-600">-------------------------------------------------------------------------------</div>
+                        <div class="text-emerald-400"> [OK] Multiboot Handshake Validated (Magic: 0x1BADB002)</div>
+                        <div class="text-emerald-400"> [OK] Initializing 64-bit Global Descriptor Table (GDT)... [OK]</div>
+                        <div class="text-emerald-400"> [OK] Initializing IDT (256 Gates) & Remapping 8259 PIC... [OK]</div>
+                        <div class="text-emerald-400"> [OK] Initializing Physical Memory Page Frame Allocator...  [OK]</div>
+                        <div class="text-emerald-400"> [OK] Initializing PS/2 Keyboard Controller & IRQ1 Handler... [OK]</div>
+                        <div class="text-emerald-400"> [OK] CPU Interrupts Enabled (STI). Kernel is live and interactive.</div>
+                        <div class="text-slate-600">-------------------------------------------------------------------------------</div>
+                        <div class="text-slate-300">Type 'help' to inspect kernel capabilities, 'memory', 'cpu', or 'puf'.</div>
+                    </div>
+                    <form onsubmit="handleOsdevTerminalSubmit(event)" class="mt-2 pt-2 border-t border-slate-800 flex items-center space-x-2">
+                        <span class="text-cyan-400 font-bold">bharatos-ring0</span><span class="text-slate-400">#</span>
+                        <input id="osdev-terminal-input" type="text" autocomplete="off" class="flex-1 bg-transparent text-white font-mono text-xs focus:outline-none placeholder-slate-600" placeholder="Type kernel command (e.g. help, cpu, memory, puf, hexdump)...">
+                        <button type="submit" class="px-3 py-1 rounded-lg bg-cyan-600 hover:bg-cyan-500 text-slate-950 font-bold text-[11px]">Send</button>
+                    </form>
+                </div>
+
+                <!-- Tab 2: boot.asm -->
+                <div id="osdev-tab-asm" class="flex-1 p-4 bg-slate-950 font-mono text-xs overflow-y-auto hidden select-text text-slate-300">
+                    <div class="text-cyan-400 font-bold mb-2">bharatos/core_kernel/boot/boot.asm (NASM x86_64 Bootstrap & Multiboot 1/2 Header)</div>
+                    <pre class="text-[11px] leading-relaxed text-emerald-400">; [BITS 32]
+; Multiboot 1 & Multiboot 2 Header Constants
+MB1_MAGIC equ 0x1BADB002
+MB2_MAGIC equ 0xE85250D6
+
+_start:
+    cli
+    mov esp, stack_top
+    call check_cpuid
+    call check_long_mode
+    call setup_page_tables   ; Sets up 4-Level Paging (PML4 -> PDPT -> PD -> PT)
+    call enable_paging       ; Enables PAE, LME, and PG/PE in CR0
+    lgdt [gdt64_pointer]     ; Loads 64-bit Global Descriptor Table
+    jmp gdt64_code_segment:long_mode_entry
+
+[BITS 64]
+long_mode_entry:
+    mov ax, gdt64_data_segment
+    mov ds, ax
+    mov es, ax
+    mov ss, ax
+    call kmain               ; Jump to 64-bit C Kernel</pre>
+                </div>
+
+                <!-- Tab 3: kernel.c -->
+                <div id="osdev-tab-c" class="flex-1 p-4 bg-slate-950 font-mono text-xs overflow-y-auto hidden select-text text-slate-300">
+                    <div class="text-cyan-400 font-bold mb-2">bharatos/core_kernel/src/kernel.c (Freestanding Bare-Metal C Kernel)</div>
+                    <pre class="text-[11px] leading-relaxed text-cyan-300">void kmain(uint32_t multiboot_magic, uint32_t multiboot_info_addr) {
+    serial_init();                   // COM1 UART 16550 (0x3F8)
+    vga_init();                      // Physical MMIO 0xB8000
+    gdt_init();                      // 64-bit GDT & TSS
+    idt_init();                      // 256 Gates & 8259 PIC Remap (0x20/0x28)
+    memory_init(64 * 1024 * 1024);   // 64 MB Physical Page Frame Allocator
+    keyboard_init();                 // PS/2 Keyboard IRQ1
+    sti();                           // Enable CPU Interrupts
+    shell_init();                    // Launch Ring-0 Shell
+
+    while (1) {
+        hlt();                       // Power-saving interrupt idle loop
+    }
+}</pre>
+                </div>
+
+                <!-- Tab 4: linker.ld -->
+                <div id="osdev-tab-linker" class="flex-1 p-4 bg-slate-950 font-mono text-xs overflow-y-auto hidden select-text text-slate-300">
+                    <div class="text-cyan-400 font-bold mb-2">bharatos/core_kernel/linker.ld (GNU LD Linker Script)</div>
+                    <pre class="text-[11px] leading-relaxed text-amber-300">ENTRY(_start)
+OUTPUT_FORMAT("elf64-x86-64")
+OUTPUT_ARCH(i386:x86-64)
+
+SECTIONS
+{
+    . = 0x100000; /* Load Address: 1MB */
+
+    .multiboot ALIGN(4K) : { *(.multiboot) }
+    .text      ALIGN(4K) : { *(.text) *(.text.*) }
+    .rodata    ALIGN(4K) : { *(.rodata) *(.rodata.*) }
+    .data      ALIGN(4K) : { *(.data) *(.data.*) }
+    .bss       ALIGN(4K) : { *(COMMON) *(.bss) *(.bss.*) }
+}</pre>
+                </div>
+
+                <!-- Tab 5: QEMU & ISO Artifacts -->
+                <div id="osdev-tab-qemu" class="flex-1 p-5 bg-slate-900/60 font-mono text-xs overflow-y-auto hidden space-y-4">
+                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 space-y-2">
+                        <div class="font-bold text-sm text-cyan-400 flex items-center space-x-2">
+                            <span>🚀</span><span>QEMU / Bochs Virtual Machine Command Line</span>
+                        </div>
+                        <div class="text-[11px] opacity-75">Run the compiled bare-metal BharatOS ELF64 kernel in QEMU with serial debug stream:</div>
+                        <div class="p-3 rounded-xl bg-black border border-slate-800 text-emerald-400 font-mono text-xs select-all">
+                            qemu-system-x86_64 -kernel dist/bharatos_kernel.bin -serial stdio -m 256M -vga std
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 space-y-2">
+                            <div class="font-bold text-xs text-purple-400">📦 Multiboot ELF64 Binary</div>
+                            <div class="text-[10px] opacity-70">Path: <code>dist/bharatos_kernel.bin</code> (132 KB)</div>
+                            <div class="text-[10px] text-emerald-400 font-bold">✓ Multiboot 1 & 2 Compliant</div>
+                        </div>
+
+                        <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 space-y-2">
+                            <div class="font-bold text-xs text-amber-400">💿 Bootable Bare-Metal ISO</div>
+                            <div class="text-[10px] opacity-70">Path: <code>dist/BharatOS-2026-BareMetal-x86_64.iso</code> (16.0 MB)</div>
+                            <div class="text-[10px] text-emerald-400 font-bold">✓ El Torito Boot Record</div>
+                        </div>
+                    </div>
+
+                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 space-y-2">
+                        <div class="font-bold text-xs text-emerald-400">⚡ 1-Click Native Batch Launcher</div>
+                        <div class="text-[11px] opacity-75">Double click <code>run_baremetal_kernel.bat</code> in the project directory to launch the native virtual machine emulator.</div>
                     </div>
                 </div>
             </div>
@@ -5719,6 +5911,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 </button>
                 <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
+                    <button id="dock-osdev" onclick="toggleWindowFromDock('osdev-kernel-window', 'dock-osdev')" class="glass-dock-tile glaze-defender text-lg" title="OSDev Core Kernel Studio (Ring-0 x86_64)">🛡️</button>
                     <button id="dock-notes" onclick="toggleWindowFromDock('notes-window', 'dock-notes')" class="glass-dock-tile glaze-taskmgr text-lg" title="Notes & Markdown Studio">📝</button>
                     <button id="dock-photos" onclick="toggleWindowFromDock('photos-window', 'dock-photos')" class="glass-dock-tile glaze-music text-lg" title="Photo & Media Viewer">🖼️</button>
                     <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="glass-dock-tile glaze-game" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
@@ -12001,6 +12194,120 @@ Available Sovereign Applications:<br>
             } catch(e) {
                 console.error('[Hackatime] Pulse failed:', e);
             }
+        }
+
+        // =========================================================================
+        // BHARATOS OSDEV CORE KERNEL & BARE-METAL QEMU STUDIO HANDLERS
+        // =========================================================================
+        function switchOsdevTab(tab) {
+            triggerHaptic('selection');
+            const tabs = ['terminal', 'asm', 'c', 'linker', 'qemu'];
+            tabs.forEach(t => {
+                const el = document.getElementById(`osdev-tab-${t}`);
+                const btn = document.getElementById(`btn-osdev-tab-${t}`);
+                if (el) el.classList.toggle('hidden', t !== tab);
+                if (btn) {
+                    if (t === tab) {
+                        btn.className = 'px-3 py-1.5 rounded-xl bg-cyan-500/20 text-cyan-400 font-bold border border-cyan-500/40 flex items-center space-x-1.5 transition-all';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-xl hover:bg-slate-200 dark:hover:bg-slate-800/80 text-slate-400 font-bold transition-all flex items-center space-x-1.5';
+                    }
+                }
+            });
+        }
+
+        function handleOsdevTerminalSubmit(e) {
+            e.preventDefault();
+            const input = document.getElementById('osdev-terminal-input');
+            const output = document.getElementById('osdev-terminal-output');
+            if (!input || !output) return;
+
+            const cmd = input.value.trim();
+            if (!cmd) return;
+
+            playSfx('click');
+            triggerHaptic('impact');
+
+            // Render command prompt
+            const promptLine = document.createElement('div');
+            const safeCmd = String(cmd).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+            promptLine.innerHTML = `<span class="text-cyan-400 font-bold">bharatos-ring0</span><span class="text-slate-400"># </span><span class="text-white">${safeCmd}</span>`;
+            output.appendChild(promptLine);
+
+            input.value = '';
+
+            const respLine = document.createElement('div');
+
+            if (cmd === 'help') {
+                respLine.className = 'text-slate-300';
+                respLine.innerHTML = `<div class="text-emerald-400 font-bold">BharatOS Sovereign Ring-0 Bare-Metal Kernel Commands:</div>
+<div>  help       - Display this list of available kernel commands</div>
+<div>  version    - Show kernel build, version, and architecture info</div>
+<div>  cpu        - Query CPU capabilities, Long Mode, and core registers</div>
+<div>  memory     - Display physical RAM usage and page frame allocator state</div>
+<div>  puf        - Query hardware Physically Unclonable Function chip seed</div>
+<div>  clear      - Clear VGA 80x25 text console screen</div>
+<div>  hexdump    - Dump physical memory starting from kernel entry (0x100000)</div>
+<div>  reboot     - Perform 8042 Keyboard Controller hardware system reboot</div>
+<div>  halt       - Halt CPU in Ring-0 safe low-power state</div>`;
+            } else if (cmd === 'version') {
+                respLine.className = 'text-cyan-300';
+                respLine.innerHTML = `<div class="text-cyan-400 font-bold">BharatOS Sovereign Kernel v1.0.0-Sovereign-Prithvi (x86_64)</div>
+<div class="text-slate-400">Lead Developer: <span class="text-purple-400 font-bold">Aviral Dewangan</span> | License: Sovereign Microkernel License</div>
+<div class="text-slate-400">Toolchain: GCC Bare-Metal (x86_64-elf) + NASM Assembler + GNU Linker (LD)</div>`;
+            } else if (cmd === 'cpu') {
+                respLine.className = 'text-amber-300';
+                respLine.innerHTML = `<div class="text-amber-400 font-bold">[CPU HARDWARE ARCHITECTURE]</div>
+<div class="text-slate-300">  Mode:             64-bit Long Mode (IA-32e / x86_64 Ring 0)</div>
+<div class="text-slate-300">  Paging:           4-Level Paging Active (PML4 -> PDPT -> PD -> PT)</div>
+<div class="text-slate-300">  CR0: 0x80000011   CR3: 0x00101000   CR4: 0x00000020</div>
+<div class="text-slate-300">  RIP: 0x0000000000100000  RSP: 0x0000000000104000</div>
+<div class="text-slate-300">  Descriptor Table: 64-bit Global Descriptor Table (GDT) & TSS Active</div>
+<div class="text-slate-300">  Interrupt Vector: 256 Gates IDT with 8259 PIC Remapped (0x20/0x28)</div>
+<div class="text-slate-300">  Serial Comms:     UART 16550 COM1 (38,400 Baud, 8N1)</div>`;
+            } else if (cmd === 'memory') {
+                respLine.className = 'text-emerald-300';
+                respLine.innerHTML = `<div class="text-emerald-400 font-bold">[PHYSICAL MEMORY MANAGER STATUS]</div>
+<div class="text-slate-300">  Total RAM:     64 MB (16384 Total Pages)</div>
+<div class="text-slate-300">  Allocated RAM: 4096 KB (1024 Kernel Pages)</div>
+<div class="text-slate-300">  Free RAM:      60 MB (15360 Free Pages)</div>
+<div class="text-slate-300">  Page Size:     4096 bytes (4 KB)</div>`;
+            } else if (cmd === 'puf') {
+                respLine.className = 'text-purple-300';
+                respLine.innerHTML = `<div class="text-purple-400 font-bold">[CRYPTO PUF ATTESTATION]</div>
+<div class="text-slate-300">  Silicon PUF ID:   HW-PUF-98A7F2D0-BHARAT-2026</div>
+<div class="text-slate-300">  Enclave Status:   SEALED & CRYPTOGRAPHICALLY ATTESTED</div>
+<div class="text-slate-300">  Sovereign Key:    SHA256:ADA5EAC6C7D9EA65D60F43A3BEABFDEC</div>`;
+            } else if (cmd === 'hexdump') {
+                respLine.className = 'text-blue-300';
+                respLine.innerHTML = `<div class="text-blue-400 font-bold">[MEMORY HEXDUMP: 0x00100000 (Kernel Entry Point)]</div>
+<div class="text-slate-400">  00100000: 02 B0 AD 1B 03 00 00 00 FB 4F 52 E4 31 C0 8E D8 | .........OR.1..</div>
+<div class="text-slate-400">  00100010: 8E C0 8E D0 BC 00 40 10 00 E8 24 00 00 00 E8 48 | ......@...$....H</div>
+<div class="text-slate-400">  00100020: 00 00 00 0F 01 15 80 20 10 00 EA 32 00 10 00 08 | ....... ...2....</div>
+<div class="text-slate-400">  00100030: 00 48 83 EC 08 E8 A0 05 00 00 FA F4 EB FC 90 90 | .H..............</div>`;
+            } else if (cmd === 'clear') {
+                output.innerHTML = '';
+                return;
+            } else if (cmd === 'reboot') {
+                respLine.className = 'text-red-400 font-bold';
+                respLine.textContent = 'Rebooting virtual machine hardware via 8042 controller pulse...';
+                setTimeout(() => {
+                    output.innerHTML = `<div class="text-cyan-400">===============================================================================</div>
+<div class="text-emerald-400"> [OK] Multiboot Handshake Validated (Magic: 0x1BADB002)</div>
+<div class="text-emerald-400"> [OK] 64-bit GDT, IDT (256 Gates) & 8259 PIC Remapped [OK]</div>
+<div class="text-emerald-400"> [OK] CPU Interrupts Enabled (STI). Kernel is live and interactive.</div>
+<div class="text-slate-300">Type 'help' to inspect kernel capabilities.</div>`;
+                }, 800);
+            } else if (cmd === 'halt') {
+                respLine.className = 'text-cyan-400';
+                respLine.textContent = 'Halting CPU in safe power-saving state (cli; hlt).';
+            } else {
+                respLine.className = 'text-red-400';
+                respLine.textContent = `Unknown command: '${cmd}'. Type 'help' for available commands.`;
+            }
+
+            output.appendChild(respLine);
+            output.scrollTop = output.scrollHeight;
         }
 
         // Initialize Hackatime Poller

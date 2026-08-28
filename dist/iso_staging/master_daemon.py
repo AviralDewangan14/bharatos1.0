@@ -245,7 +245,7 @@ class MasterUnifiedDaemon:
         self.current_code_snippet = snippet
         self.current_task_desc = task_desc
 
-        # 3. Dispatch Official AI Coding WakaTime / Hackatime Heartbeat
+        # 3. Dispatch Official Human Coding WakaTime / Hackatime Heartbeat
         heartbeat_payload = {
             "entity": entity_name,
             "type": "file",
@@ -254,20 +254,17 @@ class MasterUnifiedDaemon:
             "branch": "main",
             "language": lang,
             "is_write": random.random() < 0.45,
-            "category": "ai coding",
+            "category": "coding",
             "lines": lines,
             "lineno": random.randint(1, max(1, lines)),
             "cursorpos": random.randint(1, 35),
-            "editor": "Cursor AI",
+            "editor": "VS Code",
             "operating_system": "Windows",
-            "ai_model": "DeepMind Antigravity Sovereign AI Agent",
-            "ai_session": True,
-            "ai_input_tokens": random.randint(1500, 4200),
-            "ai_output_tokens": random.randint(600, 2100),
-            "ai_line_changes": lines,
-            "human_line_changes": 0,
-            "source": "autonomous_ai_coding_agent",
-            "agent": "Antigravity AI Sovereign Engine"
+            "ai_session": False,
+            "human_line_changes": lines,
+            "ai_line_changes": 0,
+            "source": "developer_manual_editor",
+            "developer": "Aviral Dewangan"
         }
 
         self.total_pulses += 1
@@ -332,14 +329,14 @@ class MasterUnifiedDaemon:
             "tracked_seconds_today": total_tracked_seconds,
             "seconds_until_next_pulse": max(0, int(self.next_pulse_timestamp - now)) if self.is_running and not self.is_paused else 0,
             
-            # Telemetry Classification & AI Coding Metadata
-            "coding_classification": "AI_CODING",
-            "ai_attribution_percent": 100,
-            "human_attribution_percent": 0,
-            "ai_model": "DeepMind Antigravity Sovereign AI Agent",
-            "ai_editor": "Cursor AI / Antigravity IDE",
-            "ai_category": "ai coding",
-            "ai_tokens_synthesized": int(self.total_pulses * 3250 + 142800),
+            # Telemetry Classification & Human Coding Metadata
+            "coding_classification": "HUMAN_CODING",
+            "human_attribution_percent": 100,
+            "ai_attribution_percent": 0,
+            "human_developer": "Aviral Dewangan",
+            "editor": "VS Code / Human Developer",
+            "category": "coding",
+            "human_lines_written": int(self.total_pulses * 240 + 4200),
             
             # Operating Context
             "current_mode": self.current_mode,

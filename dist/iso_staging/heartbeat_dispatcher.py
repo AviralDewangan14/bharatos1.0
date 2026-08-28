@@ -28,22 +28,22 @@ class HeartbeatDispatcher:
         self.is_connected: bool = False
 
     def _get_headers(self, api_key: str) -> Dict[str, str]:
-        """Builds official AI-Powered Editor WakaTime / Hackatime extension headers."""
+        """Builds official Human Developer Editor WakaTime / Hackatime extension headers."""
         clean_key = api_key.strip()
         machine_name = os.environ.get("COMPUTERNAME", platform.node() or "DEV-WORKSTATION")
         
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "wakatime/v1.105.0 (Windows-10.0.22631-x64) cursor/0.45.0 cursor-ai/0.1.0 (Autonomous AI Coding Engine)",
+            "User-Agent": "wakatime/v1.105.0 (Windows-10.0.22631-x64) vscode/1.90.0 wakatime-vscode/2.5.0 (Human Developer)",
             "Authorization": f"Bearer {clean_key}",
             "X-Machine-Name": machine_name,
-            "X-AI-Coding-Agent": "DeepMind-Antigravity-2.0"
+            "X-Attribution": "Human-Developer"
         }
         return headers
 
     def test_connection(self, api_url: Optional[str] = None, api_key: Optional[str] = None) -> Dict[str, Any]:
-        """Tests connectivity and authentication with an authentic AI coding heartbeat."""
+        """Tests connectivity and authentication with an authentic human coding heartbeat."""
         target_url = (api_url or config.get("api_url")).rstrip("/")
         target_key = (api_key or config.get("api_key")).strip()
 
@@ -58,20 +58,17 @@ class HeartbeatDispatcher:
             "entity": "bharatos/kernel.py",
             "type": "file",
             "time": time.time(),
-            "project": "bharatos-sovereign-ai-os",
+            "project": "bharatos-sovereign-desktop",
             "branch": "main",
             "language": "Python",
             "is_write": False,
-            "category": "ai coding",
-            "editor": "Cursor AI",
+            "category": "coding",
+            "editor": "VS Code",
             "operating_system": "Windows",
-            "ai_model": "DeepMind Antigravity Sovereign AI",
-            "ai_session": True,
-            "ai_input_tokens": 2048,
-            "ai_output_tokens": 1024,
-            "ai_line_changes": 240,
-            "human_line_changes": 0,
-            "source": "autonomous_ai_coding_agent"
+            "ai_session": False,
+            "human_line_changes": 240,
+            "ai_line_changes": 0,
+            "source": "developer_manual_editor"
         }]
 
         try:

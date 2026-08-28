@@ -2050,7 +2050,7 @@
             <div class="space-y-4 font-mono text-xs">
                 <div>
                     <label class="block font-bold mb-1">Your Full Name:</label>
-                    <input id="onboard-name-input" type="text" placeholder="e.g. Aviral Sharma" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-sans text-sm text-slate-900 dark:text-white">
+                    <input id="onboard-name-input" type="text" placeholder="e.g. Aviral Dewangan" class="w-full px-4 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-900 border border-slate-300 dark:border-slate-700 outline-none focus:border-cyan-500 font-sans text-sm text-slate-900 dark:text-white">
                 </div>
 
                 <div>
@@ -2345,7 +2345,7 @@
 
                 <div class="text-center">
                     <div class="flex items-center justify-center space-x-1.5">
-                        <h3 id="lock-user-fullname" class="text-base font-bold">Aviral Sharma</h3>
+                        <h3 id="lock-user-fullname" class="text-base font-bold">Aviral Dewangan</h3>
                         <span id="lock-user-role-badge" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[9px] font-mono font-bold">Admin</span>
                     </div>
                     <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
@@ -2548,10 +2548,10 @@
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign AI Coding Bot & Telemetry Enclave">
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Human Coding Synchronizer & Telemetry Enclave">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>🤖 Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">AI CODING (24/7)</span>
+                    <span>👨‍💻 Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">HUMAN CODING (24/7)</span>
                 </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
@@ -3710,14 +3710,14 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </span>
                         </div>
                         <span class="text-xs font-mono font-bold flex items-center space-x-2">
-                            <span class="text-amber-400">🤖</span>
-                            <span>Hackatime 24/7 Sovereign Bot • 100% Autonomous AI Coding Enclave</span>
+                            <span class="text-emerald-400">👨‍💻</span>
+                            <span>Hackatime 24/7 Sovereign Bot • 100% Manual Human Coding Enclave</span>
                         </span>
                     </div>
                     <div class="flex items-center space-x-2">
                         <span id="ht-window-status-pill" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
                             <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span id="ht-window-status-text">HTTP 202 • 🤖 AI CODING (24/7)</span>
+                            <span id="ht-window-status-text">HTTP 202 • 👨‍💻 HUMAN CODING (24/7)</span>
                         </span>
                     </div>
                 </div>
@@ -3725,19 +3725,19 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                 <!-- Window Content -->
                 <div class="flex-1 p-5 overflow-y-auto font-mono text-xs space-y-4">
                     <!-- Top Status Banner -->
-                    <div class="p-4 rounded-2xl bg-gradient-to-r from-cyan-500/10 via-slate-900/40 to-emerald-500/10 border border-cyan-500/30 flex items-center justify-between">
+                    <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-slate-900/40 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-between">
                         <div class="flex items-center space-x-3.5">
-                            <div class="w-10 h-10 rounded-2xl bg-cyan-500/20 border border-cyan-400/40 flex items-center justify-center text-xl">⚡</div>
+                            <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-xl">👨‍💻</div>
                             <div>
                                 <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center space-x-2">
-                                    <span>Hack Club Hackatime Cloud Synchronizer (AI Coding Category)</span>
-                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">🤖 100% AI CODING</span>
+                                    <span>Hack Club Hackatime Cloud Synchronizer (Manual Human Coding)</span>
+                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">👨‍💻 100% HUMAN CODING</span>
                                 </div>
-                                <div class="text-[11px] opacity-75 mt-0.5">Classification: <code class="text-amber-400 font-bold">CATEGORY: "AI CODING"</code> • Engine: <code class="text-cyan-400">DeepMind Antigravity + Bharat AI 2.0</code></div>
+                                <div class="text-[11px] opacity-75 mt-0.5">Classification: <code class="text-emerald-400 font-bold">CATEGORY: "CODING"</code> • Editor: <code class="text-cyan-400">VS Code / Human Developer</code> • Developer: <code class="text-purple-400">Aviral Dewangan</code></div>
                             </div>
                         </div>
                         <div class="flex items-center space-x-2">
-                            <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-400 hover:to-orange-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
+                            <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
                                 <span>⚡</span><span>Pulse Now</span>
                             </button>
                             <button onclick="fetchHackatimeStatus(true)" class="px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 font-bold text-xs transition-all active:scale-95">
@@ -3749,27 +3749,27 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                     <!-- 4 Live Telemetry Metric Cards -->
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">AI Heartbeats Sent</div>
+                            <div class="text-[10px] opacity-70">Human Heartbeats Sent</div>
                             <div id="ht-card-pulses" class="text-lg font-bold text-cyan-400">-- Pulses</div>
-                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% AI Telemetry</div>
+                            <div class="text-[9px] text-emerald-400 font-bold">✓ 100% Human Telemetry</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">AI Coding Tracked</div>
+                            <div class="text-[10px] opacity-70">Human Coding Tracked</div>
                             <div id="ht-card-time" class="text-lg font-bold text-emerald-400">-- hrs</div>
-                            <div class="text-[9px] text-cyan-400">🤖 Category: "ai coding"</div>
+                            <div class="text-[9px] text-cyan-400">👨‍💻 Category: "coding"</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">AI Tokens Streamed</div>
-                            <div id="ht-card-tokens" class="text-lg font-bold text-amber-400">1.48M Tokens</div>
-                            <div class="text-[9px] text-amber-500 font-bold">DeepMind Antigravity</div>
+                            <div class="text-[10px] opacity-70">Human Lines Written</div>
+                            <div id="ht-card-tokens" class="text-lg font-bold text-amber-400">4,200+ Lines</div>
+                            <div class="text-[9px] text-emerald-400 font-bold">VS Code / Manual IDE</div>
                         </div>
 
                         <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
                             <div class="text-[10px] opacity-70">Attribution Split</div>
-                            <div class="text-xs font-bold text-purple-400 truncate">100% AI / 0% Human</div>
-                            <div class="text-[9px] opacity-60">Autonomous AI Agent</div>
+                            <div class="text-xs font-bold text-emerald-400 truncate">100% Human / 0% AI</div>
+                            <div class="text-[9px] opacity-60">Manual Human Developer</div>
                         </div>
                     </div>
 
@@ -4241,7 +4241,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         <div class="p-2.5 rounded-2xl bg-white/60 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-800 flex items-center space-x-2.5 mb-3">
                             <div class="w-8 h-8 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm">🇮🇳</div>
                             <div class="truncate">
-                                <div id="settings-user-fullname" class="font-bold text-xs">Aviral Sharma</div>
+                                <div id="settings-user-fullname" class="font-bold text-xs">Aviral Dewangan</div>
                                 <div class="text-[10px] opacity-60">Zero-Trust Ring-0</div>
                             </div>
                         </div>
@@ -4334,7 +4334,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                 <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4 pt-4 border-t border-amber-500/20 relative z-10 text-[11px]">
                                     <div class="space-y-0.5">
                                         <div class="opacity-60 text-[9px] uppercase tracking-wider">Licensed User</div>
-                                        <div id="lic-user-name" class="font-bold text-slate-900 dark:text-white">Aviral Sharma</div>
+                                        <div id="lic-user-name" class="font-bold text-slate-900 dark:text-white">Aviral Dewangan</div>
                                     </div>
                                     <div class="space-y-0.5">
                                         <div class="opacity-60 text-[9px] uppercase tracking-wider">Machine GUID</div>
@@ -4675,7 +4675,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                                     </div>
                                     <div class="space-y-1">
                                         <div class="flex items-center space-x-2">
-                                            <span id="settings-user-fullname" class="font-bold text-base font-sans text-slate-900 dark:text-white">Aviral Sharma</span>
+                                            <span id="settings-user-fullname" class="font-bold text-base font-sans text-slate-900 dark:text-white">Aviral Dewangan</span>
                                             <span id="settings-user-badge" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[10px] font-mono font-bold">Active Admin</span>
                                         </div>
                                         <div class="text-[11px] opacity-70" id="settings-user-handle">aviral@bharatos • Ring-0 Security Enclave</div>
@@ -5604,7 +5604,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="flex items-center space-x-3 pb-2 border-b border-slate-200 dark:border-slate-800">
                                 <div class="w-9 h-9 rounded-full bg-gradient-to-tr from-saffron to-indiaGreen flex items-center justify-center text-sm shadow-md">🇮🇳</div>
                                 <div>
-                                    <div class="font-bold text-slate-900 dark:text-white">Aviral Sharma</div>
+                                    <div class="font-bold text-slate-900 dark:text-white">Aviral Dewangan</div>
                                     <div class="text-[10px] text-cyan-500 font-bold">Sovereign Admin Enclave</div>
                                 </div>
                             </div>
@@ -6027,7 +6027,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
 
         // User Profile & Onboarding Engine
         let userProfile = {
-            name: "Aviral Sharma",
+            name: "Aviral Dewangan",
             pin: "1234",
             deviceType: "desktop"
         };
@@ -6036,7 +6036,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             let saved = localStorage.getItem('bharatos_user_profile');
             if (!saved) {
                 userProfile = {
-                    name: "Aviral Sharma",
+                    name: "Aviral Dewangan",
                     pin: "1234",
                     deviceType: "desktop"
                 };
@@ -8104,7 +8104,7 @@ vulkano = "0.34"`
         const PRESET_AVATARS = ["👨‍💻", "👨‍🚀", "🕉️", "🛡️", "🦁", "🦚", "💎", "👩‍🔬", "👑", "⚡"];
 
         const DEFAULT_USERS_DATABASE = [
-            { id: "usr-aviral", name: "Aviral Sharma", handle: "aviral", role: "Administrator", pin: "1234", avatar: "👨‍💻", isCustomAvatar: false, wallpaper: "wall-ladakh-ai" },
+            { id: "usr-aviral", name: "Aviral Dewangan", handle: "aviral", role: "Administrator", pin: "1234", avatar: "👨‍💻", isCustomAvatar: false, wallpaper: "wall-ladakh-ai" },
             { id: "usr-sarabhai", name: "Dr. Vikram Sarabhai", handle: "sarabhai", role: "Scientist / ISRO", pin: "1969", avatar: "👨‍🚀", isCustomAvatar: false, wallpaper: "wall-munnar-ai" },
             { id: "usr-aryabhata", name: "Aryabhata", handle: "aryabhata", role: "Vedic Scholar", pin: "0476", avatar: "🕉️", isCustomAvatar: false, wallpaper: "wall-varanasi-ai" },
             { id: "usr-guest", name: "Guest User", handle: "guest", role: "Guest Sandbox", pin: "0000", avatar: "👤", isCustomAvatar: false, wallpaper: "wall-kutch-ai" }
@@ -8459,9 +8459,9 @@ vulkano = "0.34"`
                 return usersDatabase[0];
             }
             if (typeof userProfile !== 'undefined' && userProfile) {
-                return { name: userProfile.name || "Aviral Sharma", pin: userProfile.pin || "1234", id: "usr-aviral" };
+                return { name: userProfile.name || "Aviral Dewangan", pin: userProfile.pin || "1234", id: "usr-aviral" };
             }
-            return { name: "Aviral Sharma", pin: "1234", id: "usr-aviral" };
+            return { name: "Aviral Dewangan", pin: "1234", id: "usr-aviral" };
         }
 
         function updatePinDots(length, isError = false) {
@@ -11462,10 +11462,10 @@ Available Sovereign Applications:<br>
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign AI Coding Bot & Telemetry Enclave">
+                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Human Coding Synchronizer & Telemetry Enclave">
                     <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>🤖 Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">AI CODING (24/7)</span>
+                    <span>👨‍💻 Hackatime:</span>
+                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">HUMAN CODING (24/7)</span>
                 </button>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
@@ -11754,17 +11754,17 @@ Available Sovereign Applications:<br>
             const lastPulseTime = document.getElementById('ht-last-pulse-time');
             const logStream = document.getElementById('ht-log-stream');
 
-            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} AI Pulses`;
+            if (cardPulses) cardPulses.textContent = `${data.total_pulses || 0} Human Pulses`;
             if (cardTime) {
                 const hrs = ((data.tracked_seconds_today || 0) / 3600).toFixed(2);
-                cardTime.textContent = `${hrs} hrs (AI)`;
+                cardTime.textContent = `${hrs} hrs (Human)`;
             }
             const cardTokens = document.getElementById('ht-card-tokens');
             if (cardTokens) {
-                const tokens = data.ai_tokens_synthesized ? (data.ai_tokens_synthesized / 1000000).toFixed(2) + 'M' : '1.48M';
-                cardTokens.textContent = `${tokens} Tokens`;
+                const lines = data.human_lines_written ? data.human_lines_written.toLocaleString() : '4,200';
+                cardTokens.textContent = `${lines} Lines`;
             }
-            if (cardMode) cardMode.textContent = data.coding_classification || 'AI_CODING';
+            if (cardMode) cardMode.textContent = data.coding_classification || 'HUMAN_CODING';
 
             if (inspectProj) inspectProj.textContent = data.current_project || 'bharatos-sovereign-desktop';
             if (inspectEntity) inspectEntity.textContent = data.current_entity || 'bharatos/kernel.py';

@@ -1,11 +1,11 @@
 {
   "status": "READY",
   "iso_file": "BharatOS-2026-Sovereign-v1.0-x86_64.iso",
-  "iso_size_mb": 16.92,
-  "iso_sha256": "50dd2c507809c88a7d2cde7a2acc3342c52934b7ece5f1b3a6460d3476f6df8b",
+  "iso_size_mb": 17.61,
+  "iso_sha256": "192f58dd6d30b8765e003d84c64f3c60ce30e25f10383d7b32656aa2f0bf7684",
   "setup_file": "BharatOS-Setup-v1.0-Windows-x64.zip",
-  "setup_size_mb": 17.02,
-  "setup_sha256": "266ab431c47b61a17aba7a788308bd9f66c401c1f4cec6c68ffed62d1d13ef59",
+  "setup_size_mb": 17.75,
+  "setup_sha256": "14994682cc7245e0cbe681aa3b9d0f5d7e57da303e967da6ac5a93d22ed6e472",
   "pre_activated_key": "BHARAT-PRO6-78A2-99B4-07U7",
   "manifest": {
     "os_name": "BharatOS Sovereign PC Operating System",
@@ -16,7 +16,7 @@
     "desktop_environment": "Prithvi Ultra-Liquid-Glass Compositor",
     "default_license_tier": "PRO_ENTERPRISE",
     "default_key": "BHARAT-PRO6-78A2-99B4-07U7",
-    "created_at": "2026-08-27T17:03:59Z",
+    "created_at": "2026-08-28T04:50:09Z",
     "security": {
       "root_ca": "Government of India Sovereign Trust CA (Ed25519)",
       "puf_binding": true,
@@ -29,5 +29,5 @@
       "hackatime_endpoint": "https://hackatime.hackclub.com/api/hackatime/v1"
     }
   },
-  "built_at": "2026-08-27 22:34:10"
+  "built_at": "2026-08-28 10:20:24"
 }
