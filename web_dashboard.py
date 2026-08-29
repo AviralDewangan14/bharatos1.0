@@ -602,6 +602,10 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 self._send_json_response({"success": True, "message": "Survival economy reset"})
             else:
                 self._send_json_response({"success": True})
+        elif self.path == "/api/telemetry/time_warp":
+            factor = float(req_data.get("factor", 1.5))
+            res = master_daemon.set_time_warp_factor(factor)
+            self._send_json_response(res)
         elif self.path == "/api/ocr/recognize":
             img_b64 = req_data.get("image", "")
             lang = req_data.get("language", "eng+hin")

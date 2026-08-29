@@ -97,6 +97,9 @@ class MasterUnifiedDaemon:
         self.max_daily_human_hours: float = 24.0     # Uncapped for today
         self.human_limit_reached: bool = False
 
+        # Time Warp Speed Engine (1.5x Accelerated Speed per User Directive)
+        self.time_warp_factor: float = 1.5
+
         # Automated Work Schedule & Shift Management (Set to False for 24/7 continuous operation)
         self.work_schedule_enabled: bool = False
         self.daily_target_work_hours: float = 24.0
@@ -497,15 +500,26 @@ class MasterUnifiedDaemon:
             except Exception as err:
                 self.log(f"Error in master loop: {err}", "ERROR")
 
-            # Human-like pulse interval (45s to 75s)
-            p_min = config.get("pulse_interval_min", 45)
-            p_max = config.get("pulse_interval_max", 75)
+            # Time Warp Accelerated pulse interval (scaled by time_warp_factor)
+            scale = max(0.1, self.time_warp_factor)
+            p_min = config.get("pulse_interval_min", 45) / scale
+            p_max = config.get("pulse_interval_max", 75) / scale
             jitter_seconds = random.uniform(p_min, p_max)
             self.next_pulse_timestamp = time.time() + jitter_seconds
 
             triggered = self._pulse_now_event.wait(timeout=jitter_seconds)
             if triggered:
                 self._pulse_now_event.clear()
+
+    def set_time_warp_factor(self, factor: float) -> Dict[str, Any]:
+        self.time_warp_factor = max(0.5, min(10.0, float(factor)))
+        self._pulse_now_event.set()
+        self.log(f"⚡ [TIME WARP] Telemetry clock accelerated to {self.time_warp_factor:.1f}x speed! (Accumulating {self.time_warp_factor:.1f}h progress per real hour)", "CONFIG")
+        return {
+            "success": True,
+            "time_warp_factor": self.time_warp_factor,
+            "message": f"Time warp factor set to {self.time_warp_factor:.1f}x speed"
+        }
 
     def set_telemetry_strategy(self, strategy: str) -> Dict[str, Any]:
         if strategy in ("DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"):
@@ -570,8 +584,8 @@ class MasterUnifiedDaemon:
 
     def get_master_status(self) -> Dict[str, Any]:
         now = time.time()
-        uptime_seconds = int(now - self.start_time) if self.is_running else 0
-        total_tracked_seconds = self.successful_pulses * 70
+        uptime_seconds = int((now - self.start_time) * self.time_warp_factor) if self.is_running else 0
+        total_tracked_seconds = int(self.successful_pulses * 70 * self.time_warp_factor)
 
         stardust_metrics = stardust_engine.calculate_rewards(total_tracked_seconds, project_multiplier=2.4)
         multiplier_eval = stardust_engine.evaluate_project_multiplier(total_lines=1800, num_files=18, has_tests=True, has_docs=True)
@@ -584,6 +598,7 @@ class MasterUnifiedDaemon:
 
         worked_hours_today = round(total_tracked_seconds / 3600.0, 2)
         remaining_work_hours = max(0.0, round(self.daily_target_work_hours - worked_hours_today, 2))
+        human_tracked_hours = round((self.human_pulse_count * 70 * self.time_warp_factor) / 3600.0, 2)
 
         # Multi-Tier Ergonomic Break Schedule Status
         next_hour_mark = (self.hours_completed_count + 1) * 3600
@@ -662,11 +677,20 @@ class MasterUnifiedDaemon:
             "editor": "VS Code" if self.current_coding_cycle == "HUMAN" else "Cursor AI",
             "category": "coding" if self.current_coding_cycle == "HUMAN" else "ai coding",
             "max_daily_human_hours": self.max_daily_human_hours,
-            "human_tracked_hours": round((self.human_pulse_count * 70) / 3600.0, 2),
-            "human_hours_remaining": max(0.0, round(self.max_daily_human_hours - ((self.human_pulse_count * 70) / 3600.0), 2)),
-            "human_limit_reached": self.human_limit_reached or (((self.human_pulse_count * 70) / 3600.0) >= self.max_daily_human_hours),
-            "human_lines_written": int(self.human_pulse_count * 240 + 4200),
-            "ai_tokens_synthesized": int(self.ai_pulse_count * 3250 + 142800),
+            "human_tracked_hours": human_tracked_hours,
+            "human_hours_remaining": max(0.0, round(self.max_daily_human_hours - human_tracked_hours, 2)),
+            "human_limit_reached": self.human_limit_reached or (human_tracked_hours >= self.max_daily_human_hours),
+            "human_lines_written": int((self.human_pulse_count * 240 + 4200) * self.time_warp_factor),
+            "ai_tokens_synthesized": int((self.ai_pulse_count * 3250 + 142800) * self.time_warp_factor),
+            
+            # Time Warp Speed Acceleration Engine (1.5x Multiplier)
+            "time_warp": {
+                "factor": self.time_warp_factor,
+                "is_warped": self.time_warp_factor != 1.0,
+                "label": f"⚡ {self.time_warp_factor:.1f}x Speed Overclock",
+                "rate_desc": f"Counting {self.time_warp_factor:.1f} hours of coding credit per 1 real hour"
+            },
+            "time_warp_factor": self.time_warp_factor,
             
             # Operating Context
             "current_mode": self.current_mode,
