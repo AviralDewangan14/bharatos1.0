@@ -390,18 +390,90 @@ func (r *RaftNode) startElection() {
 	// RequestVotes RPC dispatch to cluster peers
 }
 """
+    ],
+    "Markdown": [
+        """# 🇮🇳 BharatOS: 22-Hour Sovereign Operating System Architecture
+**Lead Architect:** Aviral Dewangan
+**Telemetry Session:** 22 Hours Continuous Hybrid Engineering
+
+## 1. Executive Summary & Core Subsystems
+- **Bare-Metal x86_64 Microkernel**: Multiboot 1 standard (0x1BADB002), 64-bit Long Mode, IDT with 256 gates.
+- **Win32 / WOW64 Compatibility**: Native PE32+ parser, section mapper, DLL thunking (KERNEL32, USER32, GDI32).
+- **Sovereign OCR Engine**: AVX2 256-bit SIMD vectorized assembly kernels + freestanding Rust OCR core.
+- **Unhackable Hardware Enclave**: 4-digit PIN gatekeeper (1234), 5-attempt lockout shield, zero-trust IPC.
+- **Liquid Glass Desktop Stack**: Aero Snap (Win+Arrows), right-click desktop menu, 23 native sovereign apps.
+
+## 2. 22-Hour Telemetry & Code Distribution
+- **C / x86_64 Assembly**: Low-level kernel, bootloader, and AVX2 SIMD acceleration.
+- **Rust**: Freestanding OCR engine, spatial partitioners, safe memory abstractions.
+- **Markdown**: Comprehensive system specifications, reports, manuals, and API references.
+- **Python / JavaScript**: Host daemon bridge, WebGL/Three.js liquid glass compositor.
+""",
+        """# 📜 BharatOS Sovereign OCR Specification (Rust & x86_64 Assembly)
+**Developer:** Aviral Dewangan
+
+### Pipeline Overview
+1. **Grayscale Input**: 8-bit per pixel luminance channel.
+2. **AVX2 SIMD Binarization**: `asm_avx2_binarize_pixels` converts 32 bytes per cycle.
+3. **Otsu Variance Thresholding**: Optimal binarization threshold calculation in `ocr_simd.asm`.
+4. **Connected-Component Segmentation**: Horizontal projection profiler extracts bounding boxes.
+5. **Neural Glyph Recognition**: Template matching with AVX2 fused multiply-add dot products.
+6. **Multi-Language Output**: English, Hindi / Sanskrit Devanagari, and Code Syntax.
+"""
+    ],
+    "Assembly": [
+        """; ==============================================================================
+; BHARATOS SOVEREIGN KERNEL & AVX2 SIMD OCR CORE
+; Developer: Aviral Dewangan | Architecture: x86_64
+; ==============================================================================
+
+global asm_avx2_binarize_pixels
+section .text
+bits 64
+
+asm_avx2_binarize_pixels:
+    push rbp
+    mov rbp, rsp
+    movzx eax, r9b
+    vmovd xmm0, eax
+    vpbroadcastb ymm1, xmm0
+    mov rsi, rcx
+    mov rdi, rdx
+    mov rcx, r8
+    shr rcx, 5
+.loop:
+    test rcx, rcx
+    jz .done
+    vmovdqu ymm0, [rsi]
+    vpcmpgtb ymm2, ymm0, ymm1
+    vmovdqu [rdi], ymm2
+    add rsi, 32
+    add rdi, 32
+    dec rcx
+    jmp .loop
+.done:
+    vzeroupper
+    pop rbp
+    ret
+"""
     ]
 }
 
 PROJECT_FILE_MAP = {
     "bharatos-sovereign-ai-os": [
-        {"entity": "bharatos/kernel.py", "language": "Python"},
+        {"entity": "BHARATOS_22_HOUR_SOVEREIGN_OS_REPORT.md", "language": "Markdown"},
+        {"entity": "docs/sovereign_kernel_spec.md", "language": "Markdown"},
+        {"entity": "docs/ocr_rust_assembly_architecture.md", "language": "Markdown"},
+        {"entity": "bharatos/ocr/src/ocr_simd.asm", "language": "Assembly"},
+        {"entity": "bharatos/ocr/src/lib.rs", "language": "Rust"},
+        {"entity": "bharatos/kernel/src/kernel.c", "language": "C"},
+        {"entity": "bharatos/kernel/src/boot.asm", "language": "Assembly"},
         {"entity": "bharatos/index.html", "language": "HTML"},
         {"entity": "bharatos/security/kavach_armor.py", "language": "Python"},
-        {"entity": "bharatos/haptics/quantum_engine.js", "language": "JavaScript"},
         {"entity": "bharatos/license/anti_piracy_enclave.py", "language": "Python"}
     ],
     "hackatime-autonomous-ai-bot": [
+        {"entity": "BHARATOS_22_HOUR_SOVEREIGN_OS_REPORT.md", "language": "Markdown"},
         {"entity": "master_daemon.py", "language": "Python"},
         {"entity": "heartbeat_dispatcher.py", "language": "Python"},
         {"entity": "simulation_engine.py", "language": "Python"},
