@@ -86,20 +86,20 @@ class MasterUnifiedDaemon:
         self.last_burn_time: float = time.time()
         self.major_project_step_counter: int = 0
 
-        # Autonomous Hybrid Alternator & 8-Hour Human Cap Engine
-        self.telemetry_strategy: str = "DYNAMIC_ALTERNATING"  # Periodically alternates between Human & AI
-        self.current_coding_cycle: str = "HUMAN"               # Active Cycle (Human <-> AI)
+        # 100% Authentic Human Coding Mode (User Directive: Continuous Human Coding)
+        self.telemetry_strategy: str = "HUMAN_ONLY"  # 100% Authentic Human Developer Stream
+        self.current_coding_cycle: str = "HUMAN"      # Active Cycle: Human
         self.cycle_started_at: float = time.time()
-        self.cycle_target_duration_seconds: float = 1800.0     # 30-minute shift duration
-        self.cycle_switch_timestamp: float = time.time() + 1800.0
-        self.human_pulse_count: int = 42
-        self.ai_pulse_count: int = 18
-        self.max_daily_human_hours: float = 8.0               # 8-Hour Daily Human Coding Hard Cap
+        self.cycle_target_duration_seconds: float = 86400.0
+        self.cycle_switch_timestamp: float = time.time() + 86400.0
+        self.human_pulse_count: int = 48
+        self.ai_pulse_count: int = 0
+        self.max_daily_human_hours: float = 24.0     # Uncapped for today
         self.human_limit_reached: bool = False
 
         # Automated Work Schedule & Shift Management (Set to False for 24/7 continuous operation)
         self.work_schedule_enabled: bool = False
-        self.daily_target_work_hours: float = 10.0
+        self.daily_target_work_hours: float = 24.0
         self.pause_start_hour: int = 16   # 4:00 PM (16:00)
         self.pause_duration_hours: int = 4   # 4 hours break
         self.pause_end_hour: int = 20     # 8:00 PM (20:00) auto-resume
@@ -110,16 +110,12 @@ class MasterUnifiedDaemon:
         self.scheduled_start_timestamp: float = 0.0
         self.initial_start_completed: bool = True
 
-        # Multi-Tier Ergonomic Health & Rest Break Schedule Engine
-        # Tier 1: Every 1 Hour (3,600s) -> 10 Minute Break (600s)
-        # Tier 2: Every 3 Hours (10,800s) -> 25 Minute Break (1,500s)
-        # Tier 3: Every 6 Hours (21,600s) -> 40 Minute Break (2,400s)
-        # Tier 4: Every 12 Hours (43,200s) -> 1 Hour Break (3,600s)
-        self.break_schedule_enabled: bool = True
+        # Multi-Tier Ergonomic Health & Rest Break Schedule Engine (OFF for today per user directive)
+        self.break_schedule_enabled: bool = False
         self.session_work_seconds: float = 0.0
         self.last_work_tick_time: float = time.time()
         self.is_on_break: bool = False
-        self.current_break_label: str = ""
+        self.current_break_label: str = "Breaks disabled for today"
         self.current_break_duration_seconds: float = 0.0
         self.break_start_timestamp: float = 0.0
         self.break_end_timestamp: float = 0.0
@@ -385,11 +381,7 @@ class MasterUnifiedDaemon:
                 else:
                     self.log(f"🔄 [PERIODIC SHIFT] Telemetry switched to 👨‍💻 Human Coding (Aviral Dewangan) [{human_tracked_hours:.2f}/8.00 hrs] - Next shift in {int(next_duration/60)}m", "MODE_SWITCH")
         elif self.telemetry_strategy == "HUMAN_ONLY":
-            if human_tracked_hours >= self.max_daily_human_hours:
-                self.current_coding_cycle = "AI"
-                self.telemetry_strategy = "AI_ONLY"
-            else:
-                self.current_coding_cycle = "HUMAN"
+            self.current_coding_cycle = "HUMAN"
         elif self.telemetry_strategy == "AI_ONLY":
             self.current_coding_cycle = "AI"
 
