@@ -97,18 +97,18 @@ class MasterUnifiedDaemon:
         self.max_daily_human_hours: float = 8.0               # 8-Hour Daily Human Coding Hard Cap
         self.human_limit_reached: bool = False
 
-        # Automated Work Schedule & Shift Management (10 Hours/Day Engine)
-        self.work_schedule_enabled: bool = True
+        # Automated Work Schedule & Shift Management (Set to False for 24/7 continuous operation)
+        self.work_schedule_enabled: bool = False
         self.daily_target_work_hours: float = 10.0
         self.pause_start_hour: int = 16   # 4:00 PM (16:00)
         self.pause_duration_hours: int = 4   # 4 hours break
         self.pause_end_hour: int = 20     # 8:00 PM (20:00) auto-resume
         self.auto_paused_by_schedule: bool = False
 
-        # 45-Minute Initial Startup Countdown (Delayed Bot Activation)
-        self.delayed_start_enabled: bool = True
-        self.scheduled_start_timestamp: float = time.time() + (45 * 60)  # 45 minutes delay
-        self.initial_start_completed: bool = False
+        # 45-Minute Initial Startup Countdown (Set to False for immediate start)
+        self.delayed_start_enabled: bool = False
+        self.scheduled_start_timestamp: float = 0.0
+        self.initial_start_completed: bool = True
 
         # Multi-Tier Ergonomic Health & Rest Break Schedule Engine
         # Tier 1: Every 1 Hour (3,600s) -> 10 Minute Break (600s)
@@ -152,15 +152,13 @@ class MasterUnifiedDaemon:
                 self.log(f"Warning: Failed to set Windows execution state: {err}", "WARN")
 
     def start(self) -> None:
-        if self.is_running:
-            self.is_paused = False
-            self.delayed_start_enabled = False
-            self.initial_start_completed = True
-            return
         self.is_running = True
         self.is_paused = False
         self.delayed_start_enabled = False
         self.initial_start_completed = True
+        self.auto_paused_by_schedule = False
+        self.is_on_break = False
+        self.work_schedule_enabled = False
         self._stop_event.clear()
         self.start_time = time.time()
         self.last_burn_time = time.time()
@@ -169,9 +167,11 @@ class MasterUnifiedDaemon:
         if config.get("prevent_system_sleep", True):
             self._set_windows_sleep_prevention(True)
 
-        self._thread = threading.Thread(target=self._master_loop, daemon=True, name="MasterUnifiedDaemon")
-        self._thread.start()
-        self.log("Master Studio Engine Activated: Priority Freelance Gigs + Deep Major Project Architecture", "SYSTEM")
+        if not self._thread or not self._thread.is_alive():
+            self._thread = threading.Thread(target=self._master_loop, daemon=True, name="MasterUnifiedDaemon")
+            self._thread.start()
+        self._pulse_now_event.set()
+        self.log("Master Studio Engine Activated: Continuous 24/7 Mode (Pulsing live to Hack Club Hackatime)", "SYSTEM")
 
     def pause(self) -> None:
         self.is_paused = True
@@ -182,8 +182,11 @@ class MasterUnifiedDaemon:
         self.is_on_break = False
         self.delayed_start_enabled = False
         self.initial_start_completed = True
+        self.auto_paused_by_schedule = False
+        self.work_schedule_enabled = False
         self.last_work_tick_time = time.time()
-        self.log("Master Studio resumed by user", "STATUS")
+        self._pulse_now_event.set()
+        self.log("Master Studio resumed by user (Continuous 24/7 Mode)", "STATUS")
 
     def trigger_immediate_pulse(self) -> None:
         self._pulse_now_event.set()
