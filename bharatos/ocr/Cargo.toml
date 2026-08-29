@@ -1,0 +1,12 @@
+[package]
+name = "bharatos-ocr-core"
+version = "1.0.0"
+edition = "2021"
+authors = ["Aviral Dewangan"]
+description = "High-performance freestanding OCR engine in Rust and x86_64 AVX2 Assembly for BharatOS"
+
+[lib]
+name = "bharatos_ocr"
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]

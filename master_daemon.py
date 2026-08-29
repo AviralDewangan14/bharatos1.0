@@ -153,12 +153,18 @@ class MasterUnifiedDaemon:
 
     def start(self) -> None:
         if self.is_running:
+            self.is_paused = False
+            self.delayed_start_enabled = False
+            self.initial_start_completed = True
             return
         self.is_running = True
         self.is_paused = False
+        self.delayed_start_enabled = False
+        self.initial_start_completed = True
         self._stop_event.clear()
         self.start_time = time.time()
         self.last_burn_time = time.time()
+        self.last_work_tick_time = time.time()
 
         if config.get("prevent_system_sleep", True):
             self._set_windows_sleep_prevention(True)
