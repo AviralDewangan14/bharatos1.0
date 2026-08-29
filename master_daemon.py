@@ -113,12 +113,15 @@ class MasterUnifiedDaemon:
         self.scheduled_start_timestamp: float = 0.0
         self.initial_start_completed: bool = True
 
-        # Multi-Tier Ergonomic Health & Rest Break Schedule Engine (OFF for today per user directive)
+        # Multi-Tier Ergonomic Health & Rest Break Schedule Engine (Scheduled to start AFTER TOMORROW)
+        # Today: Aug 29, 2026 | Tomorrow: Aug 30, 2026 | Starts After Tomorrow: Aug 31, 2026 00:00:00 IST
         self.break_schedule_enabled: bool = False
+        self.break_schedule_activation_timestamp: float = datetime(2026, 8, 31, 0, 0, 0).timestamp()
+        self.break_schedule_activation_date: str = "2026-08-31 00:00:00 IST (After Tomorrow / Monday)"
         self.session_work_seconds: float = 0.0
         self.last_work_tick_time: float = time.time()
         self.is_on_break: bool = False
-        self.current_break_label: str = "Breaks disabled for today"
+        self.current_break_label: str = "Breaks scheduled to start after tomorrow (Monday, Aug 31)"
         self.current_break_duration_seconds: float = 0.0
         self.break_start_timestamp: float = 0.0
         self.break_end_timestamp: float = 0.0
@@ -198,9 +201,13 @@ class MasterUnifiedDaemon:
         self.log("Master Studio stopped", "SYSTEM")
 
     def _check_break_schedule(self, now: float) -> None:
-        """Evaluates ergonomic break schedule (1h -> 10m, 3h -> 25m, 6h -> 40m, 12h -> 1h)."""
+        """Evaluates ergonomic break schedule (1h -> 10m, 3h -> 25m, 6h -> 40m, 12h -> 1h). Auto-activates after tomorrow."""
         if not self.break_schedule_enabled:
-            return
+            if now >= self.break_schedule_activation_timestamp:
+                self.break_schedule_enabled = True
+                self.log("🚀 [SCHEDULE ACTIVATION] 'After Tomorrow' milestone reached. Multi-tier ergonomic break schedule is now ACTIVE!", "SCHEDULE")
+            else:
+                return
 
         # 1. If currently on break, check if break finished
         if self.is_on_break:
@@ -617,6 +624,12 @@ class MasterUnifiedDaemon:
         break_seconds_remaining = max(0, int(self.break_end_timestamp - now)) if self.is_on_break else 0
         startup_seconds_remaining = max(0, int(self.scheduled_start_timestamp - now)) if (self.delayed_start_enabled and not self.initial_start_completed) else 0
 
+        seconds_until_activation = max(0, int(self.break_schedule_activation_timestamp - now))
+        days_until = seconds_until_activation // 86400
+        hours_until = (seconds_until_activation % 86400) // 3600
+        mins_until = (seconds_until_activation % 3600) // 60
+        activation_countdown = f"{days_until}d {hours_until}h {mins_until}m" if seconds_until_activation > 0 else "Active Now"
+
         return {
             "is_running": self.is_running,
             "is_paused": self.is_paused,
@@ -635,7 +648,7 @@ class MasterUnifiedDaemon:
             "pause_schedule": "4:00 PM (16:00) to 8:00 PM (20:00) - 4 Hour Pause",
             "auto_paused_by_schedule": self.auto_paused_by_schedule,
 
-            # Multi-Tier Ergonomic Health Break Intervals
+            # Multi-Tier Ergonomic Health Break Intervals (Starts After Tomorrow)
             "break_schedule": {
                 "enabled": self.break_schedule_enabled,
                 "is_on_break": self.is_on_break,
@@ -646,6 +659,11 @@ class MasterUnifiedDaemon:
                 "hours_completed_count": self.hours_completed_count,
                 "seconds_until_next_break": seconds_until_next_break,
                 "next_break_type": next_break_type,
+                "activation_target": self.break_schedule_activation_date,
+                "activation_timestamp": self.break_schedule_activation_timestamp,
+                "seconds_until_activation": seconds_until_activation,
+                "activation_countdown": activation_countdown,
+                "scheduled_status": "Scheduled to start AFTER TOMORROW (Monday, Aug 31)" if not self.break_schedule_enabled else "Active Now",
                 "schedule_tiers": [
                     {"interval": "Every 1 Hour", "break_duration": "10 Minutes", "desc": "Posture & Eye Rest"},
                     {"interval": "Every 3 Hours", "break_duration": "25 Minutes", "desc": "Ergonomic Health Rest"},

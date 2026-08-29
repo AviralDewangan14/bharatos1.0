@@ -3901,7 +3901,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="flex items-center space-x-2">
                                 <span>☕</span>
                                 <span class="font-bold text-xs text-slate-900 dark:text-white">Ergonomic Health Break & 45-Min Startup Schedule</span>
-                                <span id="ht-break-status-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold">Active Schedule</span>
+                                <span id="ht-break-status-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Scheduled After Tomorrow (Aug 31)</span>
                             </div>
                             <div id="ht-delayed-start-box" class="text-right">
                                 <span class="text-[10px] opacity-70">Delayed Start Countdown:</span>
@@ -12714,6 +12714,9 @@ Available Sovereign Applications:<br>
                     if (data.break_schedule && data.break_schedule.is_on_break) {
                         breakStatusBadge.textContent = '☕ ON HEALTH BREAK';
                         breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold animate-bounce';
+                    } else if (data.break_schedule && !data.break_schedule.enabled) {
+                        breakStatusBadge.textContent = 'Scheduled After Tomorrow (Aug 31)';
+                        breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold';
                     } else {
                         breakStatusBadge.textContent = 'Active Shift';
                         breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold';
@@ -12723,7 +12726,11 @@ Available Sovereign Applications:<br>
 
             if (data.break_schedule) {
                 const bs = data.break_schedule;
-                if (bs.is_on_break) {
+                if (!bs.enabled) {
+                    if (breakActiveMsg) {
+                        breakActiveMsg.innerHTML = `<span class="text-cyan-400 font-bold">☕ Periodic Rest Breaks:</span> Scheduled to activate after tomorrow (Monday, Aug 31 • ${bs.activation_countdown || '1d 01h'} remaining)`;
+                    }
+                } else if (bs.is_on_break) {
                     const rem = bs.break_seconds_remaining || 0;
                     const remM = Math.floor(rem / 60);
                     const remS = rem % 60;
