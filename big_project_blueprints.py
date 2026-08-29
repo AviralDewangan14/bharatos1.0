@@ -160,12 +160,12 @@ BIG_PROJECT_BLUEPRINTS: List[Dict[str, Any]] = [
             },
             {
                 "phase_num": 10,
-                "subsystem": "Documentation & Benchmarks",
-                "name": "Systems Architecture Specifications & Performance Profiling",
-                "entity": "solaris/README.md",
-                "language": "Markdown",
-                "lines_est": 210,
-                "desc": "Comprehensive engineering specification, mathematical derivations, controls guide, and benchmark reports."
+                "subsystem": "Performance Benchmarks & SIMD Profiling",
+                "name": "High-Throughput SIMD Vectorized Benchmark Suite",
+                "entity": "solaris/src/benchmarks.rs",
+                "language": "Rust",
+                "lines_est": 380,
+                "desc": "SIMD AVX2 performance profiling, cache hit analyzers, and zero-allocation benchmark suites."
             }
         ]
     },

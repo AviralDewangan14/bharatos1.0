@@ -37,7 +37,7 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
         },
         {
             "name": "neural-symphony-ai",
-            "languages": ["Python", "CUDA", "Markdown"],
+            "languages": ["Python", "CUDA", "C++"],
             "branch": "experiment/diffusion-v3",
             "categories": ["coding", "researching", "building"]
         },

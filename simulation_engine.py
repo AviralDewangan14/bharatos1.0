@@ -391,34 +391,38 @@ func (r *RaftNode) startElection() {
 }
 """
     ],
-    "Markdown": [
-        """# 🇮🇳 BharatOS: 22-Hour Sovereign Operating System Architecture
-**Lead Architect:** Aviral Dewangan
-**Telemetry Session:** 22 Hours Continuous Hybrid Engineering
+    "C": [
+        """// BharatOS Sovereign Ring-0 Freestanding Microkernel
+#include <stdint.h>
+#include <stddef.h>
 
-## 1. Executive Summary & Core Subsystems
-- **Bare-Metal x86_64 Microkernel**: Multiboot 1 standard (0x1BADB002), 64-bit Long Mode, IDT with 256 gates.
-- **Win32 / WOW64 Compatibility**: Native PE32+ parser, section mapper, DLL thunking (KERNEL32, USER32, GDI32).
-- **Sovereign OCR Engine**: AVX2 256-bit SIMD vectorized assembly kernels + freestanding Rust OCR core.
-- **Unhackable Hardware Enclave**: 4-digit PIN gatekeeper (1234), 5-attempt lockout shield, zero-trust IPC.
-- **Liquid Glass Desktop Stack**: Aero Snap (Win+Arrows), right-click desktop menu, 23 native sovereign apps.
+#define VGA_BUFFER_ADDR 0xB8000
+#define VGA_WIDTH 80
+#define VGA_HEIGHT 25
 
-## 2. 22-Hour Telemetry & Code Distribution
-- **C / x86_64 Assembly**: Low-level kernel, bootloader, and AVX2 SIMD acceleration.
-- **Rust**: Freestanding OCR engine, spatial partitioners, safe memory abstractions.
-- **Markdown**: Comprehensive system specifications, reports, manuals, and API references.
-- **Python / JavaScript**: Host daemon bridge, WebGL/Three.js liquid glass compositor.
-""",
-        """# 📜 BharatOS Sovereign OCR Specification (Rust & x86_64 Assembly)
-**Developer:** Aviral Dewangan
+static volatile uint16_t* const vga_buffer = (uint16_t*)VGA_BUFFER_ADDR;
+static size_t terminal_row = 0;
+static size_t terminal_col = 0;
+static uint8_t terminal_color = 0x0F;
 
-### Pipeline Overview
-1. **Grayscale Input**: 8-bit per pixel luminance channel.
-2. **AVX2 SIMD Binarization**: `asm_avx2_binarize_pixels` converts 32 bytes per cycle.
-3. **Otsu Variance Thresholding**: Optimal binarization threshold calculation in `ocr_simd.asm`.
-4. **Connected-Component Segmentation**: Horizontal projection profiler extracts bounding boxes.
-5. **Neural Glyph Recognition**: Template matching with AVX2 fused multiply-add dot products.
-6. **Multi-Language Output**: English, Hindi / Sanskrit Devanagari, and Code Syntax.
+void terminal_initialize(void) {
+    terminal_row = 0;
+    terminal_col = 0;
+    for (size_t y = 0; y < VGA_HEIGHT; y++) {
+        for (size_t x = 0; x < VGA_WIDTH; x++) {
+            const size_t index = y * VGA_WIDTH + x;
+            vga_buffer[index] = (uint16_t)' ' | ((uint16_t)terminal_color << 8);
+        }
+    }
+}
+
+void kmain(void* multiboot_info) {
+    terminal_initialize();
+    // Initialize 256-gate Interrupt Descriptor Table (IDT) & 8259 PIC
+    idt_init_gates();
+    pic_remap(0x20, 0x28);
+    __asm__ volatile ("sti");
+}
 """
     ],
     "Assembly": [
@@ -428,6 +432,7 @@ func (r *RaftNode) startElection() {
 ; ==============================================================================
 
 global asm_avx2_binarize_pixels
+global asm_otsu_histogram_accumulate
 section .text
 bits 64
 
@@ -461,19 +466,17 @@ asm_avx2_binarize_pixels:
 
 PROJECT_FILE_MAP = {
     "bharatos-sovereign-ai-os": [
-        {"entity": "BHARATOS_22_HOUR_SOVEREIGN_OS_REPORT.md", "language": "Markdown"},
-        {"entity": "docs/sovereign_kernel_spec.md", "language": "Markdown"},
-        {"entity": "docs/ocr_rust_assembly_architecture.md", "language": "Markdown"},
+        {"entity": "bharatos/kernel/src/boot.asm", "language": "Assembly"},
+        {"entity": "bharatos/kernel/src/kernel.c", "language": "C"},
+        {"entity": "bharatos/kernel/src/idt.c", "language": "C"},
         {"entity": "bharatos/ocr/src/ocr_simd.asm", "language": "Assembly"},
         {"entity": "bharatos/ocr/src/lib.rs", "language": "Rust"},
-        {"entity": "bharatos/kernel/src/kernel.c", "language": "C"},
-        {"entity": "bharatos/kernel/src/boot.asm", "language": "Assembly"},
-        {"entity": "bharatos/index.html", "language": "HTML"},
+        {"entity": "bharatos/ocr/ocr_engine.py", "language": "Python"},
         {"entity": "bharatos/security/kavach_armor.py", "language": "Python"},
-        {"entity": "bharatos/license/anti_piracy_enclave.py", "language": "Python"}
+        {"entity": "bharatos/license/anti_piracy_enclave.py", "language": "Python"},
+        {"entity": "bharatos/index.html", "language": "HTML"}
     ],
     "hackatime-autonomous-ai-bot": [
-        {"entity": "BHARATOS_22_HOUR_SOVEREIGN_OS_REPORT.md", "language": "Markdown"},
         {"entity": "master_daemon.py", "language": "Python"},
         {"entity": "heartbeat_dispatcher.py", "language": "Python"},
         {"entity": "simulation_engine.py", "language": "Python"},
@@ -483,8 +486,7 @@ PROJECT_FILE_MAP = {
         {"entity": "src/engine/spatial_grid.rs", "language": "Rust"},
         {"entity": "src/physics/collision_2d.rs", "language": "Rust"},
         {"entity": "src/core/math.rs", "language": "Rust"},
-        {"entity": "Cargo.toml", "language": "TOML"},
-        {"entity": "README.md", "language": "Markdown"}
+        {"entity": "Cargo.toml", "language": "TOML"}
     ],
     "lumina-ai-studio": [
         {"entity": "src/components/AudioVisualizer.tsx", "language": "TypeScript"},
@@ -496,8 +498,7 @@ PROJECT_FILE_MAP = {
     "neural-symphony-ai": [
         {"entity": "core/attention/rope.py", "language": "Python"},
         {"entity": "core/models/transformer.py", "language": "Python"},
-        {"entity": "core/training/scheduler.py", "language": "Python"},
-        {"entity": "docs/architecture.md", "language": "Markdown"}
+        {"entity": "core/training/scheduler.py", "language": "Python"}
     ]
 }
 

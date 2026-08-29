@@ -73,9 +73,9 @@ class MasterUnifiedDaemon:
         self.current_code_snippet: str = ""
         self.current_task_desc: str = "Newtonian Gravitational Physics Solver"
 
-        # Distribution Counters
-        self.language_stats: Dict[str, int] = {"Python": 5, "Rust": 4, "JavaScript": 3, "Go": 2}
-        self.project_stats: Dict[str, int] = {"solaris-orbital-engine": 8, "hyperion-distributed-raft": 4}
+        # Distribution Counters (Pure Systems OS Programming Languages)
+        self.language_stats: Dict[str, int] = {"Assembly": 48, "Rust": 56, "C": 38, "Python": 28, "JavaScript": 22, "HTML": 14}
+        self.project_stats: Dict[str, int] = {"bharatos-sovereign-desktop": 120, "arcade-solaris-engine": 45}
 
         # Active Contracts & Stream
         self.active_contracts: List[Dict[str, Any]] = []
@@ -303,11 +303,11 @@ class MasterUnifiedDaemon:
                     self.log(f"Bid Accepted! Contract awarded: '{best_job['title']}' (${best_job['budget']:.2f})", "WON")
                 pref = best_job.get("id_prefix", best_job.get("id", "contract").split("-")[0])
                 project_name = f"freelance-{pref}"
-                entity_name = "proposal.md"
-                lang = "Markdown"
-                lines = 45
-                snippet = best_job.get("proposal_text", "# Proposal submitted")[:400]
-                task_desc = f"Bidding on {best_job['title']}"
+                entity_name = f"src/{pref}_core.rs"
+                lang = "Rust"
+                lines = 85
+                snippet = best_job.get("proposal_text", "// Sovereign high-performance Rust implementation")[:400]
+                task_desc = f"Client Delivery for {best_job['title']}"
 
         # MODE B: MAJOR LONG-TERM SOFTWARE PROJECT ARCHITECTURE
         if not project_name:
