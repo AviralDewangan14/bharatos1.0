@@ -465,6 +465,15 @@ asm_avx2_binarize_pixels:
 }
 
 PROJECT_FILE_MAP = {
+    "focusdefend-sovereign-shield": [
+        {"entity": "focusdefend/src/shield.rs", "language": "Rust"},
+        {"entity": "focusdefend/src/analytics.rs", "language": "Rust"},
+        {"entity": "focusdefend/src/win32_intercept.c", "language": "C"},
+        {"entity": "focusdefend/src/lib.rs", "language": "Rust"},
+        {"entity": "focusdefend/src/main.rs", "language": "Rust"},
+        {"entity": "focusdefend/focusdefend_daemon.py", "language": "Python"},
+        {"entity": "focusdefend/Cargo.toml", "language": "TOML"}
+    ],
     "bharatos-sovereign-ai-os": [
         {"entity": "bharatos/kernel/src/boot.asm", "language": "Assembly"},
         {"entity": "bharatos/kernel/src/kernel.c", "language": "C"},

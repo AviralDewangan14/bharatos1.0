@@ -8,6 +8,60 @@ from typing import List, Dict, Any
 
 BIG_PROJECT_BLUEPRINTS: List[Dict[str, Any]] = [
     {
+        "id": "focusdefend-sovereign-shield",
+        "name": "FocusDefend Sovereign Deep-Work Distraction Shield & Flow Enclave",
+        "category": "Deep-Work, Cyber-Defense & Productivity Enclave",
+        "stack": ["Rust", "C", "Python", "HTML5", "Tokio"],
+        "target_dir": "focusdefend",
+        "phases": [
+            {
+                "phase_num": 1,
+                "subsystem": "Distraction Shield & DNS Hook",
+                "name": "Sovereign Network/DNS Interceptor & Distraction Process Blocker",
+                "entity": "focusdefend/src/shield.rs",
+                "language": "Rust",
+                "lines_est": 280,
+                "desc": "Implements real-time DNS request interception, social media domain blacklisting, and process restriction."
+            },
+            {
+                "phase_num": 2,
+                "subsystem": "Flow State Analytics",
+                "name": "Real-Time Focus Score Algorithm & Ergonomic 20-20-20 Health Engine",
+                "entity": "focusdefend/src/analytics.rs",
+                "language": "Rust",
+                "lines_est": 240,
+                "desc": "Calculates dynamic developer flow state score (0-100), streak tracking, and eye strain alerts."
+            },
+            {
+                "phase_num": 3,
+                "subsystem": "Win32 Window Enclave Hook",
+                "name": "Win32 Low-Level Window Focus Hook & Activity Classifier",
+                "entity": "focusdefend/src/win32_intercept.c",
+                "language": "C",
+                "lines_est": 190,
+                "desc": "Interrogates foreground window titles and classifies distracting application contexts."
+            },
+            {
+                "phase_num": 4,
+                "subsystem": "Tokio Async Daemon",
+                "name": "FocusDefend Async Runtime & CLI Enclave",
+                "entity": "focusdefend/src/main.rs",
+                "language": "Rust",
+                "lines_est": 210,
+                "desc": "Tokio multi-threaded daemon orchestrating focus shields, Pomodoro timers, and telemetry streams."
+            },
+            {
+                "phase_num": 5,
+                "subsystem": "BharatOS Desktop Integration Bridge",
+                "name": "Python FocusDefend System Bridge & 40Hz Gamma Soundscape",
+                "entity": "focusdefend/focusdefend_daemon.py",
+                "language": "Python",
+                "lines_est": 230,
+                "desc": "Bridges low-level Rust focus shields with BharatOS desktop UI and Hackatime cloud telemetries."
+            }
+        ]
+    },
+    {
         "id": "bharatos-sovereign-desktop",
         "name": "BharatOS Sovereign PC Operating System & Prithvi Desktop Environment",
         "category": "Operating Systems, Privacy & Sovereign Computing",

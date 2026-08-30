@@ -65,17 +65,17 @@ class MasterUnifiedDaemon:
         # Current Operating Mode: "FREELANCE_GIG" or "MAJOR_PROJECT_BUILD"
         self.current_mode: str = "MAJOR_PROJECT_BUILD"
 
-        # Current Active Code Context
-        self.current_project: str = "solaris-orbital-engine"
-        self.current_language: str = "Python"
-        self.current_entity: str = "solaris/physics.py"
-        self.current_lines: int = 145
+        # Current Active Code Context (FocusDefend Sovereign Suite)
+        self.current_project: str = "focusdefend-sovereign-shield"
+        self.current_language: str = "Rust"
+        self.current_entity: str = "focusdefend/src/shield.rs"
+        self.current_lines: int = 185
         self.current_code_snippet: str = ""
-        self.current_task_desc: str = "Newtonian Gravitational Physics Solver"
+        self.current_task_desc: str = "Sovereign Deep-Work Distraction Shield & Focus Enforcer"
 
         # Distribution Counters (Pure Systems OS Programming Languages)
-        self.language_stats: Dict[str, int] = {"Assembly": 48, "Rust": 56, "C": 38, "Python": 28, "JavaScript": 22, "HTML": 14}
-        self.project_stats: Dict[str, int] = {"bharatos-sovereign-desktop": 120, "arcade-solaris-engine": 45}
+        self.language_stats: Dict[str, int] = {"Rust": 75, "Assembly": 52, "C": 44, "Python": 32, "JavaScript": 22, "HTML": 14}
+        self.project_stats: Dict[str, int] = {"focusdefend-sovereign-shield": 140, "bharatos-sovereign-desktop": 120, "arcade-solaris-engine": 45}
 
         # Active Contracts & Stream
         self.active_contracts: List[Dict[str, Any]] = []
@@ -283,49 +283,8 @@ class MasterUnifiedDaemon:
         snippet = ""
         task_desc = ""
 
-        # MODE A: FREELANCE CONTRACT IN FLIGHT
-        if active_freelance_building or (active_freelance_scouted and len(active_freelance_scouted) > 0 and random.random() < 0.65):
-            self.current_mode = "FREELANCE_GIG"
-            
-            # Handle delivery first
-            delivered = False
-            for job in self.active_contracts:
-                if job["status"] == "REVIEW":
-                    res = delivery_manager.complete_and_collect_payment(job)
-                    self.log(f"Delivered gig '{job['title']}' to {job['client']}! Payout: +${res['total']:.2f}", "PAYOUT")
-                    delivered = True
-                    break
-
-            if not delivered:
-                # Handle building won contracts
-                for job in self.active_contracts:
-                    if job["status"] == "WON":
-                        res = project_builder.build_contract(job)
-                        pref = job.get("id_prefix", job.get("id", "contract").split("-")[0])
-                        project_name = f"freelance-{pref}"
-                        entity_name = job["deliverables"][0] if job.get("deliverables") else "src/main.py"
-                        lang = job["tech_stack"][0] if job.get("tech_stack") else "Python"
-                        lines = res["total_lines"]
-                        snippet = f"# Autonomously Building: {job['title']}\n# Client: {job['client']}\n# Budget: ${job['budget']:.2f}\n# Deliverables: {', '.join(job['deliverables'])}\n"
-                        task_desc = f"Client Gig: {job['title']}"
-                        self.log(f"Building contract deliverable '{entity_name}' for {job['client']} (${job['budget']:.2f})", "BUILD")
-                        break
-
-            if not project_name and active_freelance_scouted:
-                best_job = active_freelance_scouted[0]
-                bid_res = proposal_engine.draft_and_submit_bid(best_job)
-                if bid_res["won"]:
-                    self.log(f"Bid Accepted! Contract awarded: '{best_job['title']}' (${best_job['budget']:.2f})", "WON")
-                pref = best_job.get("id_prefix", best_job.get("id", "contract").split("-")[0])
-                project_name = f"freelance-{pref}"
-                entity_name = f"src/{pref}_core.rs"
-                lang = "Rust"
-                lines = 85
-                snippet = best_job.get("proposal_text", "// Sovereign high-performance Rust implementation")[:400]
-                task_desc = f"Client Delivery for {best_job['title']}"
-
-        # MODE B: MAJOR LONG-TERM SOFTWARE PROJECT ARCHITECTURE
-        if not project_name:
+        # MODE A: MAJOR PROJECT BUILD (FocusDefend Sovereign Suite)
+        if True:
             self.current_mode = "MAJOR_PROJECT_BUILD"
             self.major_project_step_counter += 1
             
