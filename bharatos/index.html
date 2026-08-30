@@ -3778,7 +3778,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="flex items-center space-x-2">
                                 <span class="text-sm">🔄</span>
                                 <span class="font-bold text-xs text-slate-900 dark:text-white">Autonomous Hybrid Coding Alternator</span>
-                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Dynamic Alternating</span>
+                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold">☀️ Circadian Smart (Day: Human • Night: AI)</span>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <button onclick="forceTelemetryCycleShift()" class="px-2.5 py-1 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 font-bold text-[10px] transition-all flex items-center space-x-1">
@@ -3788,11 +3788,19 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
 
                         <!-- Strategy Selector Buttons -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-cyan-500/50 bg-cyan-500/10 text-left transition-all">
-                                <div class="font-bold text-[11px] text-cyan-400 flex items-center justify-between">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                            <button id="btn-strat-circadian" onclick="setTelemetryStrategy('CIRCADIAN_SMART')" class="p-2.5 rounded-xl border border-amber-500/50 bg-amber-500/10 text-left transition-all">
+                                <div class="font-bold text-[11px] text-amber-400 flex items-center justify-between">
+                                    <span>☀️ Circadian Smart</span>
+                                    <span id="strat-dot-circadian" class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                </div>
+                                <div class="text-[9px] opacity-70 mt-1">Human in Day (7 AM–12 AM) • AI at Night (12 AM–7 AM)</div>
+                            </button>
+
+                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
+                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
                                     <span>🔄 Dynamic Alternating</span>
-                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-slate-600"></span>
                                 </div>
                                 <div class="text-[9px] opacity-70 mt-1">Autonomous cyclic shift (Human ↔ AI)</div>
                             </button>
@@ -12564,23 +12572,38 @@ Available Sovereign Applications:<br>
             // Strategy Badge
             const stratBadge = document.getElementById('ht-strategy-badge');
             if (stratBadge) {
-                stratBadge.textContent = strat === 'DYNAMIC_ALTERNATING' ? 'Dynamic Alternating (Human ↔ AI)' : strat === 'HUMAN_ONLY' ? '100% Human Locked' : '100% AI Locked';
-                stratBadge.className = strat === 'DYNAMIC_ALTERNATING' ? 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold' : 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold';
+                if (strat === 'CIRCADIAN_SMART') {
+                    stratBadge.textContent = '☀️ Circadian Smart (Day: Human • Night: AI)';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold';
+                } else if (strat === 'DYNAMIC_ALTERNATING') {
+                    stratBadge.textContent = 'Dynamic Alternating (Human ↔ AI)';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold';
+                } else if (strat === 'HUMAN_ONLY') {
+                    stratBadge.textContent = '100% Human Locked';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold';
+                } else {
+                    stratBadge.textContent = '100% AI Locked';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold';
+                }
             }
 
             // Strategy Selector Buttons Highlights
+            const btnCirc = document.getElementById('btn-strat-circadian');
             const btnDyn = document.getElementById('btn-strat-dynamic');
             const btnHum = document.getElementById('btn-strat-human');
             const btnAI = document.getElementById('btn-strat-ai');
+            const dotCirc = document.getElementById('strat-dot-circadian');
             const dotDyn = document.getElementById('strat-dot-dynamic');
             const dotHum = document.getElementById('strat-dot-human');
             const dotAI = document.getElementById('strat-dot-ai');
 
-            if (btnDyn && btnHum && btnAI) {
+            if (btnCirc && btnDyn && btnHum && btnAI) {
+                btnCirc.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'CIRCADIAN_SMART' ? 'border-amber-500 bg-amber-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnDyn.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'DYNAMIC_ALTERNATING' ? 'border-cyan-500 bg-cyan-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnHum.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'HUMAN_ONLY' ? 'border-emerald-500 bg-emerald-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnAI.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'AI_ONLY' ? 'border-purple-500 bg-purple-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 
+                if (dotCirc) dotCirc.className = `w-2 h-2 rounded-full ${strat === 'CIRCADIAN_SMART' ? 'bg-amber-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotDyn) dotDyn.className = `w-2 h-2 rounded-full ${strat === 'DYNAMIC_ALTERNATING' ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotHum) dotHum.className = `w-2 h-2 rounded-full ${strat === 'HUMAN_ONLY' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotAI) dotAI.className = `w-2 h-2 rounded-full ${strat === 'AI_ONLY' ? 'bg-purple-400 animate-pulse' : 'bg-slate-600'}`;
@@ -12597,7 +12620,10 @@ Available Sovereign Applications:<br>
                 cycleTitle.className = isHuman ? 'font-bold text-xs text-emerald-400' : 'font-bold text-xs text-cyan-400';
             }
             if (cycleCountdown) {
-                if (strat === 'DYNAMIC_ALTERNATING') {
+                if (strat === 'CIRCADIAN_SMART') {
+                    cycleCountdown.textContent = isHuman ? `Human Focus (${timeStr})` : `AI Night Stream (${timeStr})`;
+                    cycleCountdown.className = isHuman ? 'font-mono font-bold text-xs text-emerald-400' : 'font-mono font-bold text-xs text-cyan-400 animate-pulse';
+                } else if (strat === 'DYNAMIC_ALTERNATING') {
                     const nextTarget = isHuman ? 'AI' : 'Human';
                     cycleCountdown.textContent = `Shift to ${nextTarget} in ${timeStr}`;
                     cycleCountdown.className = 'font-mono font-bold text-xs text-amber-400 animate-pulse';

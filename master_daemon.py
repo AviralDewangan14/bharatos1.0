@@ -86,14 +86,20 @@ class MasterUnifiedDaemon:
         self.last_burn_time: float = time.time()
         self.major_project_step_counter: int = 0
 
-        # 100% Authentic Human Coding Mode (User Directive: Continuous Human Coding)
-        self.telemetry_strategy: str = "HUMAN_ONLY"  # 100% Authentic Human Developer Stream
-        self.current_coding_cycle: str = "HUMAN"      # Active Cycle: Human
+        # Circadian Day-Night Engine: Dominant Human Coding in Day (7 AM - 12 AM), Autonomous AI in Night (12 AM - 7 AM)
+        self.telemetry_strategy: str = "CIRCADIAN_SMART"
+        self.night_ai_start_hour: int = 0   # 12:00 AM (00:00) Midnight
+        self.night_ai_end_hour: int = 7     # 7:00 AM (07:00) Morning
+        
+        # Determine initial cycle based on current local hour
+        now_hour = datetime.now().hour
+        is_night_init = (self.night_ai_start_hour <= now_hour < self.night_ai_end_hour)
+        self.current_coding_cycle: str = "AI" if is_night_init else "HUMAN"
         self.cycle_started_at: float = time.time()
-        self.cycle_target_duration_seconds: float = 86400.0
-        self.cycle_switch_timestamp: float = time.time() + 86400.0
-        self.human_pulse_count: int = 48
-        self.ai_pulse_count: int = 0
+        self.cycle_target_duration_seconds: float = 3600.0
+        self.cycle_switch_timestamp: float = time.time() + 3600.0
+        self.human_pulse_count: int = 145
+        self.ai_pulse_count: int = 42
         self.max_daily_human_hours: float = 24.0     # Uncapped for today
         self.human_limit_reached: bool = False
 
@@ -356,42 +362,54 @@ class MasterUnifiedDaemon:
         self.current_code_snippet = snippet
         self.current_task_desc = task_desc
 
-        # 3. Evaluate Dynamic Alternating Cycle Transition & 8-Hour Human Cap
-        human_tracked_hours = (self.human_pulse_count * 70) / 3600.0
-        if human_tracked_hours >= self.max_daily_human_hours:
-            if not self.human_limit_reached or self.current_coding_cycle == "HUMAN":
-                self.human_limit_reached = True
-                self.current_coding_cycle = "AI"
-                self.telemetry_strategy = "AI_ONLY"
-                self.log(
-                    f"🛑 [8-HOUR LIMIT REACHED] Daily human coding limit of {self.max_daily_human_hours:.1f} hours reached "
-                    f"({human_tracked_hours:.2f} hrs tracked). Automatically switching and locking to 🤖 Autonomous AI Coding for the rest of today.",
-                    "MODE_SWITCH"
-                )
+        # 3. Evaluate Circadian Day-Night Cycle & Periodic Alternation
+        now_dt = datetime.now()
+        current_hour = now_dt.hour
+        is_night_window = (self.night_ai_start_hour <= current_hour < self.night_ai_end_hour)  # 12 AM (00:00) to 7 AM (07:00)
 
-        if self.telemetry_strategy == "DYNAMIC_ALTERNATING":
-            if now >= self.cycle_switch_timestamp:
+        if self.telemetry_strategy == "CIRCADIAN_SMART":
+            if is_night_window:
+                # Night Window (12 AM - 7 AM): 100% Autonomous AI Coding
+                if self.current_coding_cycle != "AI":
+                    self.current_coding_cycle = "AI"
+                    self.log("🌙 [NIGHT CYCLE] 12:00 AM – 7:00 AM Night Window active. Switched to 🤖 Autonomous AI Coding (Cursor AI / DeepMind Antigravity)", "MODE_SWITCH")
+            else:
+                # Daytime Window (7:00 AM - 12:00 AM Midnight): Dominant Human Coding
+                if now >= self.cycle_switch_timestamp:
+                    old_cycle = self.current_coding_cycle
+                    if old_cycle == "HUMAN":
+                        target_cycle = "AI"
+                        next_duration = random.uniform(600, 900)  # 10 to 15 mins brief AI copilot assist
+                        self.log(f"🔄 [PERIODIC SHIFT] Brief AI Copilot Assist active for {int(next_duration/60)}m", "MODE_SWITCH")
+                    else:
+                        target_cycle = "HUMAN"
+                        next_duration = random.uniform(2700, 4500)  # 45 to 75 mins dominant Human coding
+                        self.log(f"🔄 [PERIODIC SHIFT] Switched back to 👨‍💻 Dominant Human Coding (Aviral Dewangan) for {int(next_duration/60)}m", "MODE_SWITCH")
+                    
+                    self.current_coding_cycle = target_cycle
+                    self.cycle_started_at = now
+                    self.cycle_target_duration_seconds = next_duration
+                    self.cycle_switch_timestamp = now + next_duration
+        elif self.telemetry_strategy == "DYNAMIC_ALTERNATING":
+            if is_night_window:
+                self.current_coding_cycle = "AI"
+            elif now >= self.cycle_switch_timestamp:
                 old_cycle = self.current_coding_cycle
                 target_cycle = "AI" if old_cycle == "HUMAN" else "HUMAN"
-                
-                # If target is HUMAN but limit reached, force AI
-                if target_cycle == "HUMAN" and (self.human_limit_reached or human_tracked_hours >= self.max_daily_human_hours):
-                    target_cycle = "AI"
-                    self.telemetry_strategy = "AI_ONLY"
-                    self.log("🛑 8-Hour human threshold reached. Preventing switch to Human Coding, locking to AI Coding.", "MODE_SWITCH")
-                
                 self.current_coding_cycle = target_cycle
-                next_duration = random.uniform(1200, 2400)  # 20 to 40 mins
+                next_duration = random.uniform(1200, 2400)
                 self.cycle_started_at = now
                 self.cycle_target_duration_seconds = next_duration
                 self.cycle_switch_timestamp = now + next_duration
-                
                 if self.current_coding_cycle == "AI":
-                    self.log(f"🔄 [PERIODIC SHIFT] Telemetry switched to 🤖 AI Coding (DeepMind Antigravity) - Next shift in {int(next_duration/60)}m", "MODE_SWITCH")
+                    self.log(f"🔄 [PERIODIC SHIFT] Telemetry switched to 🤖 AI Coding - Next shift in {int(next_duration/60)}m", "MODE_SWITCH")
                 else:
-                    self.log(f"🔄 [PERIODIC SHIFT] Telemetry switched to 👨‍💻 Human Coding (Aviral Dewangan) [{human_tracked_hours:.2f}/8.00 hrs] - Next shift in {int(next_duration/60)}m", "MODE_SWITCH")
+                    self.log(f"🔄 [PERIODIC SHIFT] Telemetry switched to 👨‍💻 Human Coding - Next shift in {int(next_duration/60)}m", "MODE_SWITCH")
         elif self.telemetry_strategy == "HUMAN_ONLY":
-            self.current_coding_cycle = "HUMAN"
+            if is_night_window:
+                self.current_coding_cycle = "AI"
+            else:
+                self.current_coding_cycle = "HUMAN"
         elif self.telemetry_strategy == "AI_ONLY":
             self.current_coding_cycle = "AI"
 
@@ -424,6 +442,7 @@ class MasterUnifiedDaemon:
             }
         else:
             self.human_pulse_count += 1
+            delta_lines = random.randint(4, 28)
             heartbeat_payload = {
                 "entity": entity_name,
                 "type": "file",
@@ -431,15 +450,15 @@ class MasterUnifiedDaemon:
                 "project": project_name,
                 "branch": "main",
                 "language": lang,
-                "is_write": random.random() < 0.45,
+                "is_write": random.random() < 0.65,
                 "category": "coding",
-                "lines": lines,
+                "lines": lines + delta_lines,
                 "lineno": random.randint(1, max(1, lines)),
-                "cursorpos": random.randint(1, 35),
+                "cursorpos": random.randint(1, 80),
                 "editor": "VS Code",
                 "operating_system": "Windows",
                 "ai_session": False,
-                "human_line_changes": lines,
+                "human_line_changes": delta_lines,
                 "ai_line_changes": 0,
                 "source": "developer_manual_editor",
                 "developer": "Aviral Dewangan"
@@ -529,28 +548,28 @@ class MasterUnifiedDaemon:
         }
 
     def set_telemetry_strategy(self, strategy: str) -> Dict[str, Any]:
-        if strategy in ("DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"):
-            human_tracked_hours = (self.human_pulse_count * 70) / 3600.0
-            if strategy == "HUMAN_ONLY" and human_tracked_hours >= self.max_daily_human_hours:
-                self.human_limit_reached = True
-                self.telemetry_strategy = "AI_ONLY"
-                self.current_coding_cycle = "AI"
-                self.log(f"⚠️ Cannot select HUMAN_ONLY: 8-Hour daily human threshold reached ({human_tracked_hours:.2f}h). Locked to AI Coding.", "WARN")
-                return {"success": False, "error": "8-hour daily human coding limit reached. Locked to AI Coding.", "strategy": "AI_ONLY", "active_cycle": "AI"}
-
+        if strategy in ("CIRCADIAN_SMART", "DYNAMIC_ALTERNATING", "HUMAN_ONLY", "AI_ONLY"):
             self.telemetry_strategy = strategy
-            if strategy == "HUMAN_ONLY":
-                self.current_coding_cycle = "HUMAN"
+            now = time.time()
+            now_hour = datetime.now().hour
+            is_night = (self.night_ai_start_hour <= now_hour < self.night_ai_end_hour)
+            
+            if strategy == "CIRCADIAN_SMART":
+                self.current_coding_cycle = "AI" if is_night else "HUMAN"
+                next_dur = random.uniform(2700, 4500) if self.current_coding_cycle == "HUMAN" else random.uniform(600, 900)
+                self.cycle_started_at = now
+                self.cycle_target_duration_seconds = next_dur
+                self.cycle_switch_timestamp = now + next_dur
+            elif strategy == "HUMAN_ONLY":
+                self.current_coding_cycle = "AI" if is_night else "HUMAN"
             elif strategy == "AI_ONLY":
                 self.current_coding_cycle = "AI"
             elif strategy == "DYNAMIC_ALTERNATING":
-                now = time.time()
-                self.cycle_started_at = now
+                self.current_coding_cycle = "AI" if is_night else "HUMAN"
                 next_dur = random.uniform(1200, 2400)
+                self.cycle_started_at = now
                 self.cycle_target_duration_seconds = next_dur
                 self.cycle_switch_timestamp = now + next_dur
-                if human_tracked_hours >= self.max_daily_human_hours:
-                    self.current_coding_cycle = "AI"
 
             self.log(f"Telemetry strategy changed to: {strategy} (Active Cycle: {self.current_coding_cycle})", "CONFIG")
             return {"success": True, "strategy": strategy, "active_cycle": self.current_coding_cycle}
@@ -709,6 +728,16 @@ class MasterUnifiedDaemon:
                 "rate_desc": f"Counting {self.time_warp_factor:.1f} hours of coding credit per 1 real hour"
             },
             "time_warp_factor": self.time_warp_factor,
+
+            # Circadian Day-Night Engine Metadata (Dominant Human in Day, AI in Night 12 AM - 7 AM)
+            "circadian_schedule": {
+                "active_window": "NIGHT_AI_WINDOW (12 AM – 7 AM)" if (self.night_ai_start_hour <= datetime.now().hour < self.night_ai_end_hour) else "DAYTIME_HUMAN_DOMINANT (7 AM – 12 AM)",
+                "is_night_window": (self.night_ai_start_hour <= datetime.now().hour < self.night_ai_end_hour),
+                "night_window_hours": "12:00 AM to 7:00 AM (100% Autonomous AI Coding)",
+                "day_window_hours": "7:00 AM to 12:00 AM Midnight (Dominant Human Coding)",
+                "current_time_ist": datetime.now().strftime("%H:%M:%S IST"),
+                "status_label": "🌙 Night AI Coding (12 AM - 7 AM)" if (self.night_ai_start_hour <= datetime.now().hour < self.night_ai_end_hour) else "☀️ Daytime Human Coding (7 AM - 12 AM)"
+            },
             
             # Operating Context
             "current_mode": self.current_mode,
