@@ -2635,7 +2635,20 @@
 
             <!-- Right Controls -->
             <div class="flex items-center space-x-2.5">
-                <button onclick="toggleTheme()" id="theme-toggle-btn" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 font-mono text-[11px] hover:scale-105 active:scale-95 transition-all shadow-sm" title="Toggle Theme">
+                            <!-- Indic Multi-Language Localization Switcher -->
+            <div class="relative flex items-center">
+                <select id="os-lang-select" onchange="changeOSLanguage(this.value)" class="px-2 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 font-mono text-[11px] font-bold focus:outline-none focus:border-cyan-400 transition-all cursor-pointer shadow-sm">
+                    <option value="en">🌐 English</option>
+                    <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                    <option value="sa">🕉️ संस्कृतम् (Sanskrit)</option>
+                    <option value="ta">🏛️ தமிழ் (Tamil)</option>
+                    <option value="te">🛕 తెలుగు (Telugu)</option>
+                    <option value="bn">📜 বাংলা (Bengali)</option>
+                    <option value="mr">🚩 मराठी (Marathi)</option>
+                    <option value="gu">🦁 ગુજરાતી (Gujarati)</option>
+                </select>
+            </div>
+            <button onclick="toggleTheme()" id="theme-toggle-btn" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-slate-200/80 dark:bg-slate-900/80 border border-slate-300 dark:border-slate-700/80 font-mono text-[11px] hover:scale-105 active:scale-95 transition-all shadow-sm" title="Toggle Theme">
                     <span id="theme-icon">☀️</span>
                     <span id="theme-text" class="font-bold">Light</span>
                 </button>
@@ -2689,7 +2702,7 @@
             </div>
 
             <div class="p-3 rounded-2xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] opacity-80 space-y-1">
-                <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 Focus Shield sync.</div>
+                <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 FocusShield sync.</div>
                 <div class="text-cyan-400 font-bold">Try Sample Key: BHARAT-PRO6-78A2-99B4-07U7</div>
             </div>
 
@@ -2773,7 +2786,7 @@
             <div class="scenic-mountain-layer"></div>
             <!-- PILLAR 1: REACT BITS <GlassIcons /> 3D PERSPECTIVE DESKTOP ICONS GRID -->
             <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 icon-btns select-none pointer-events-auto">
-                <!-- 0. Focus Shield 24/7 Bot Monitor -->
+                <!-- 0. FocusShield 24/7 Bot Monitor -->
                 
 
                 <!-- 1. Garud Browser -->
@@ -3340,7 +3353,272 @@
                 </div>
             </div>
 
+            
             <!-- =========================================================================
+                 APP: CHANAKYA SOVEREIGN AI COPILOT
+                 ========================================================================= -->
+            <div id="chanakya-copilot-window" class="absolute top-12 right-16 w-[500px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-30 hidden window-open-genie rounded-3xl shadow-2xl border border-cyan-500/30">
+                <!-- Window Header -->
+                <div class="px-5 py-3 bg-slate-900/90 border-b border-cyan-500/20 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'chanakya-copilot-window')">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeAppWindow('chanakya-copilot-window', 'dock-chanakya')"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-500 cursor-pointer" onclick="minimizeAppWindow('chanakya-copilot-window', 'dock-chanakya')"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 cursor-pointer" onclick="toggleMaximizeWindow('chanakya-copilot-window')"></div>
+                        <span class="font-bold text-xs text-cyan-300 font-mono pl-2 flex items-center space-x-1.5">
+                            <span>🤖</span><span>Chanakya Sovereign AI Copilot</span>
+                            <span class="px-1.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[9px]">Offline Ring-0</span>
+                        </span>
+                    </div>
+                    <button onclick="clearChanakyaChat()" class="text-[10px] font-mono text-slate-400 hover:text-slate-200">Clear</button>
+                </div>
+
+                <!-- Quick Action Prompt Chips -->
+                <div class="px-4 py-2 bg-slate-950/60 border-b border-slate-800 flex items-center space-x-2 overflow-x-auto text-[10px] font-mono whitespace-nowrap scrollbar-thin">
+                    <button onclick="askChanakyaPrompt('Change wallpaper to Ladakh')" class="px-2.5 py-1 rounded-full bg-cyan-500/10 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300">🏔️ Ladakh Wall</button>
+                    <button onclick="askChanakyaPrompt('Write a Freestanding IDT Handler in C')" class="px-2.5 py-1 rounded-full bg-indigo-500/10 hover:bg-indigo-500/25 border border-indigo-500/30 text-indigo-300">💻 Write IDT in C</button>
+                    <button onclick="askChanakyaPrompt('Launch Aryabhata Scientific Math')" class="px-2.5 py-1 rounded-full bg-purple-500/10 hover:bg-purple-500/25 border border-purple-500/30 text-purple-300">🧮 Aryabhata</button>
+                    <button onclick="askChanakyaPrompt('Switch system language to Hindi')" class="px-2.5 py-1 rounded-full bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">🇮🇳 हिन्दी</button>
+                    <button onclick="askChanakyaPrompt('Explain Zero-Trust Kavach Architecture')" class="px-2.5 py-1 rounded-full bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300">🛡️ Kavach Security</button>
+                </div>
+
+                <!-- Chat Messages Scroll Area -->
+                <div id="chanakya-messages" class="flex-1 p-4 overflow-y-auto space-y-3 font-sans text-xs">
+                    <!-- Initial Welcome Message -->
+                    <div class="flex items-start space-x-2.5">
+                        <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center text-sm text-slate-950 font-bold shrink-0 shadow">
+                            🤖
+                        </div>
+                        <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-200 space-y-1.5 max-w-[85%]">
+                            <p class="font-semibold text-cyan-300">Namaste Aviral! I am Chanakya, your Sovereign OS Copilot.</p>
+                            <p class="text-slate-300 leading-relaxed">I operate entirely client-side inside the BharatOS ring-0 enclave. Ask me to change system settings, generate code, solve mathematical functions, or explain kernel architecture.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Input Box -->
+                <div class="p-3 bg-slate-950/90 border-t border-slate-800 flex items-center space-x-2">
+                    <input id="chanakya-input" type="text" placeholder="Ask Chanakya or give system command..." class="flex-1 px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-700 text-white placeholder-slate-500 text-xs focus:outline-none focus:border-cyan-400 font-mono shadow-inner" onkeydown="if(event.key==='Enter') sendChanakyaMessage()">
+                    <button onclick="sendChanakyaMessage()" class="px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-emerald-500 hover:opacity-90 text-slate-950 font-bold text-xs flex items-center space-x-1 shadow active:scale-95 transition-all">
+                        <span>Send</span><span>➤</span>
+                    </button>
+                </div>
+            </div>
+
+
+            <!-- =========================================================================
+                 APP: CHITRAM VECTOR & RASTER PAINT STUDIO
+                 ========================================================================= -->
+            <div id="chitram-window" class="absolute top-16 left-28 w-[880px] h-[580px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie rounded-3xl shadow-2xl border border-pink-500/30">
+                <!-- Header -->
+                <div class="px-5 py-2.5 bg-slate-900/90 border-b border-pink-500/20 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'chitram-window')">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeAppWindow('chitram-window', 'dock-chitram')"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-500 cursor-pointer" onclick="minimizeAppWindow('chitram-window', 'dock-chitram')"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 cursor-pointer" onclick="toggleMaximizeWindow('chitram-window')"></div>
+                        <span class="font-bold text-xs text-pink-300 font-mono pl-2 flex items-center space-x-1.5">
+                            <span>🎨</span><span>Chitram Vector Paint & Creative Studio</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="clearChitramCanvas()" class="px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 text-[10px] font-mono font-bold">Clear</button>
+                        <button onclick="exportChitramPNG()" class="px-3 py-1 rounded-lg bg-pink-500 hover:bg-pink-400 text-slate-950 text-[10px] font-mono font-bold shadow">💾 Export PNG</button>
+                    </div>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="px-4 py-2 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between text-xs">
+                    <div class="flex items-center space-x-2">
+                        <button onclick="setChitramTool('brush')" id="tool-brush" class="px-2.5 py-1.5 rounded-lg bg-pink-500/30 text-pink-300 border border-pink-500/50 font-bold active:scale-95">🖌️ Brush</button>
+                        <button onclick="setChitramTool('eraser')" id="tool-eraser" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95">🧹 Eraser</button>
+                        <button onclick="setChitramTool('line')" id="tool-line" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95">📏 Line</button>
+                        <button onclick="setChitramTool('rect')" id="tool-rect" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95">⬜ Rect</button>
+                        <button onclick="setChitramTool('circle')" id="tool-circle" class="px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95">⭕ Circle</button>
+                    </div>
+
+                    <div class="flex items-center space-x-2 font-mono text-[11px] text-slate-300">
+                        <span>Size:</span>
+                        <input id="chitram-stroke-size" type="range" min="1" max="40" value="4" oninput="document.getElementById('stroke-val').textContent = this.value" class="w-20 accent-pink-500">
+                        <span id="stroke-val" class="w-5 text-right">4</span>px
+                    </div>
+
+                    <div class="flex items-center space-x-1.5">
+                        <div onclick="setChitramColor('#ffffff')" class="w-5 h-5 rounded-full bg-white cursor-pointer border border-slate-600 hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#f97316')" class="w-5 h-5 rounded-full bg-orange-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#06b6d4')" class="w-5 h-5 rounded-full bg-cyan-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#ec4899')" class="w-5 h-5 rounded-full bg-pink-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#a855f7')" class="w-5 h-5 rounded-full bg-purple-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <div onclick="setChitramColor('#eab308')" class="w-5 h-5 rounded-full bg-yellow-500 cursor-pointer hover:scale-125 transition-all"></div>
+                        <input id="chitram-custom-color" type="color" value="#06b6d4" onchange="setChitramColor(this.value)" class="w-6 h-6 rounded cursor-pointer bg-transparent border-0">
+                    </div>
+                </div>
+
+                <!-- Canvas Area -->
+                <div class="flex-1 bg-slate-950 p-2 overflow-hidden flex items-center justify-center relative">
+                    <canvas id="chitram-canvas" width="840" height="460" class="rounded-2xl bg-slate-900 border border-slate-800 shadow-inner cursor-crosshair"></canvas>
+                </div>
+            </div>
+
+
+            <!-- =========================================================================
+                 APP: ARYABHATA SCIENTIFIC & PROGRAMMER MATH SUITE
+                 ========================================================================= -->
+            <div id="aryabhata-window" class="absolute top-20 left-40 w-[640px] h-[600px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie rounded-3xl shadow-2xl border border-indigo-500/30">
+                <!-- Header -->
+                <div class="px-5 py-2.5 bg-slate-900/90 border-b border-indigo-500/20 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'aryabhata-window')">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeAppWindow('aryabhata-window', 'dock-aryabhata')"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-500 cursor-pointer" onclick="minimizeAppWindow('aryabhata-window', 'dock-aryabhata')"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 cursor-pointer" onclick="toggleMaximizeWindow('aryabhata-window')"></div>
+                        <span class="font-bold text-xs text-indigo-300 font-mono pl-2 flex items-center space-x-1.5">
+                            <span>🧮</span><span>Aryabhata Scientific Calculator & Function Grapher</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Calculator Display -->
+                <div class="p-4 bg-slate-950/90 border-b border-slate-800 space-y-1">
+                    <div id="aryabhata-formula" class="text-right font-mono text-xs text-slate-400 min-h-[18px]"></div>
+                    <div id="aryabhata-display" class="text-right font-mono text-2xl font-bold text-cyan-400 tracking-wider">0</div>
+                    <div class="grid grid-cols-4 gap-1 text-[10px] font-mono text-slate-400 pt-1 border-t border-slate-800/80">
+                        <div>HEX: <span id="ary-hex" class="text-indigo-300">0x0</span></div>
+                        <div>DEC: <span id="ary-dec" class="text-indigo-300">0</span></div>
+                        <div>BIN: <span id="ary-bin" class="text-indigo-300">0b0</span></div>
+                        <div>OCT: <span id="ary-oct" class="text-indigo-300">0o0</span></div>
+                    </div>
+                </div>
+
+                <!-- Mode Tabs -->
+                <div class="flex border-b border-slate-800 bg-slate-900/60 text-xs font-mono">
+                    <button onclick="switchAryabhataTab('calc')" id="tab-ary-calc" class="flex-1 py-2 text-center font-bold text-indigo-400 border-b-2 border-indigo-400">Scientific Keypad</button>
+                    <button onclick="switchAryabhataTab('graph')" id="tab-ary-graph" class="flex-1 py-2 text-center text-slate-400 hover:text-slate-200">2D Function Grapher</button>
+                </div>
+
+                <!-- Calculator Grid View -->
+                <div id="aryabhata-calc-view" class="flex-1 p-3 bg-slate-950/80 grid grid-cols-5 gap-1.5 font-mono text-xs">
+                    <button onclick="aryabhataOp('Math.sin(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">sin</button>
+                    <button onclick="aryabhataOp('Math.cos(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">cos</button>
+                    <button onclick="aryabhataOp('Math.tan(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">tan</button>
+                    <button onclick="aryabhataClear()" class="py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold active:scale-95">C</button>
+                    <button onclick="aryabhataBackspace()" class="py-2.5 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 text-rose-400 font-bold active:scale-95">⌫</button>
+
+                    <button onclick="aryabhataOp('Math.PI')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">π</button>
+                    <button onclick="aryabhataOp('Math.E')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">e</button>
+                    <button onclick="aryabhataOp('Math.sqrt(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">√</button>
+                    <button onclick="aryabhataOp('**')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">xʸ</button>
+                    <button onclick="aryabhataOp('/')" class="py-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold active:scale-95">÷</button>
+
+                    <button onclick="aryabhataOp('Math.log(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">ln</button>
+                    <button onclick="aryabhataNum('7')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">7</button>
+                    <button onclick="aryabhataNum('8')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">8</button>
+                    <button onclick="aryabhataNum('9')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">9</button>
+                    <button onclick="aryabhataOp('*')" class="py-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold active:scale-95">×</button>
+
+                    <button onclick="aryabhataOp('(')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">(</button>
+                    <button onclick="aryabhataNum('4')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">4</button>
+                    <button onclick="aryabhataNum('5')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">5</button>
+                    <button onclick="aryabhataNum('6')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">6</button>
+                    <button onclick="aryabhataOp('-')" class="py-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold active:scale-95">−</button>
+
+                    <button onclick="aryabhataOp(')')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">)</button>
+                    <button onclick="aryabhataNum('1')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">1</button>
+                    <button onclick="aryabhataNum('2')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">2</button>
+                    <button onclick="aryabhataNum('3')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">3</button>
+                    <button onclick="aryabhataOp('+')" class="py-2.5 rounded-xl bg-indigo-500/20 hover:bg-indigo-500/30 text-indigo-300 font-bold active:scale-95">+</button>
+
+                    <button onclick="aryabhataOp('%')" class="py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 text-indigo-300 font-bold active:scale-95">mod</button>
+                    <button onclick="aryabhataNum('0')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">0</button>
+                    <button onclick="aryabhataNum('.')" class="py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 text-white font-bold active:scale-95">.</button>
+                    <button onclick="aryabhataEquals()" class="col-span-2 py-2.5 rounded-xl bg-gradient-to-r from-indigo-500 to-cyan-500 text-slate-950 font-bold text-sm shadow-md active:scale-95">=</button>
+                </div>
+
+                <!-- 2D Function Grapher View -->
+                <div id="aryabhata-graph-view" class="flex-1 p-3 bg-slate-950 flex flex-col space-y-2 hidden">
+                    <div class="flex items-center space-x-2 font-mono text-xs">
+                        <span class="text-cyan-400">f(x) =</span>
+                        <input id="graph-func-input" type="text" value="Math.sin(x * 2) * Math.cos(x)" class="flex-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-white text-xs focus:outline-none focus:border-indigo-400 font-mono">
+                        <button onclick="plotAryabhataGraph()" class="px-3 py-1.5 rounded-lg bg-indigo-500 hover:bg-indigo-400 text-slate-950 font-bold text-xs">Plot</button>
+                    </div>
+                    <canvas id="aryabhata-graph-canvas" width="610" height="270" class="flex-1 rounded-xl bg-slate-900 border border-slate-800"></canvas>
+                </div>
+            </div>
+
+
+            <!-- =========================================================================
+                 APP: SUR SANGEET HARMONIC DSP SYNTHESIZER
+                 ========================================================================= -->
+            <div id="sangeet-window" class="absolute top-24 left-32 w-[760px] h-[520px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie rounded-3xl shadow-2xl border border-amber-500/30">
+                <!-- Header -->
+                <div class="px-5 py-2.5 bg-slate-900/90 border-b border-amber-500/20 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'sangeet-window')">
+                    <div class="flex items-center space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-rose-500 cursor-pointer" onclick="closeAppWindow('sangeet-window', 'dock-sangeet')"></div>
+                        <div class="w-3 h-3 rounded-full bg-amber-500 cursor-pointer" onclick="minimizeAppWindow('sangeet-window', 'dock-sangeet')"></div>
+                        <div class="w-3 h-3 rounded-full bg-emerald-500 cursor-pointer" onclick="toggleMaximizeWindow('sangeet-window')"></div>
+                        <span class="font-bold text-xs text-amber-300 font-mono pl-2 flex items-center space-x-1.5">
+                            <span>🎵</span><span>Sur Sangeet 8-Channel Harmonic Synthesizer</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Synth Controls -->
+                <div class="px-5 py-3 bg-slate-950/80 border-b border-slate-800 flex items-center justify-between text-xs font-mono">
+                    <div class="flex items-center space-x-3">
+                        <span class="text-amber-400 font-bold">Waveform:</span>
+                        <select id="synth-waveform" class="px-2 py-1 rounded bg-slate-800 border border-slate-700 text-white">
+                            <option value="sine">Sine (Pure Harmonic)</option>
+                            <option value="triangle">Triangle (Warm Flute)</option>
+                            <option value="sawtooth">Sawtooth (Sitar / Strings)</option>
+                            <option value="square">Square (Retro 8-bit)</option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-center space-x-3">
+                        <span class="text-amber-400 font-bold">Octave:</span>
+                        <button onclick="adjustSynthOctave(-1)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold">− Oct</button>
+                        <span id="synth-octave-disp" class="text-cyan-400 font-bold">4</span>
+                        <button onclick="adjustSynthOctave(1)" class="px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-white font-bold">+ Oct</button>
+                    </div>
+                </div>
+
+                <!-- Solfeggio Scale Presets -->
+                <div class="px-5 py-2 bg-slate-900/50 border-b border-slate-800 flex items-center space-x-2 overflow-x-auto text-[10px] font-mono whitespace-nowrap">
+                    <span class="text-amber-400 font-bold">Vedic Solfeggio Presets:</span>
+                    <button onclick="playSolfeggioTone(396)" class="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">396 Hz (Root Liberation)</button>
+                    <button onclick="playSolfeggioTone(417)" class="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">417 Hz (Transmutation)</button>
+                    <button onclick="playSolfeggioTone(528)" class="px-2.5 py-1 rounded bg-emerald-500/10 hover:bg-emerald-500/25 border border-emerald-500/30 text-emerald-300 font-bold">528 Hz (DNA Resonance)</button>
+                    <button onclick="playSolfeggioTone(639)" class="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">639 Hz (Harmonic Connection)</button>
+                    <button onclick="playSolfeggioTone(741)" class="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">741 Hz (Intuition Awakening)</button>
+                    <button onclick="playSolfeggioTone(852)" class="px-2.5 py-1 rounded bg-amber-500/10 hover:bg-amber-500/25 border border-amber-500/30 text-amber-300">852 Hz (Spiritual Order)</button>
+                    <button onclick="playSolfeggioTone(963)" class="px-2.5 py-1 rounded bg-cyan-500/10 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-300 font-bold">963 Hz (Crown Sovereign)</button>
+                </div>
+
+                <!-- Real-time Oscilloscope Canvas -->
+                <div class="px-5 py-2 bg-slate-950 flex items-center justify-center">
+                    <canvas id="sangeet-visualizer-canvas" width="720" height="90" class="w-full h-24 rounded-xl bg-slate-900 border border-slate-800"></canvas>
+                </div>
+
+                <!-- Piano Keyboard Keys -->
+                <div class="flex-1 bg-slate-950 p-4 flex items-center justify-center">
+                    <div class="flex relative h-40 select-none shadow-2xl rounded-2xl overflow-hidden border border-slate-800">
+                        <div onmousedown="playSynthNote('C')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Sa (C)</div>
+                        <div onmousedown="playSynthNote('D')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Re (D)</div>
+                        <div onmousedown="playSynthNote('E')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Ga (E)</div>
+                        <div onmousedown="playSynthNote('F')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Ma (F)</div>
+                        <div onmousedown="playSynthNote('G')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Pa (G)</div>
+                        <div onmousedown="playSynthNote('A')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Dha (A)</div>
+                        <div onmousedown="playSynthNote('B')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Ni (B)</div>
+                        <div onmousedown="playSynthNote('C5')" onmouseup="stopSynthNote()" class="w-12 h-full bg-white hover:bg-slate-200 cursor-pointer flex flex-col justify-end items-center pb-2 text-[10px] font-mono text-slate-800 font-bold active:bg-slate-300">Taar (C5)</div>
+
+                        <div onmousedown="playSynthNote('C#')" onmouseup="stopSynthNote()" class="absolute left-8 top-0 w-8 h-24 bg-slate-900 hover:bg-slate-800 text-white rounded-b-lg cursor-pointer z-10 text-[9px] font-mono flex items-end justify-center pb-1 font-bold">C#</div>
+                        <div onmousedown="playSynthNote('D#')" onmouseup="stopSynthNote()" class="absolute left-20 top-0 w-8 h-24 bg-slate-900 hover:bg-slate-800 text-white rounded-b-lg cursor-pointer z-10 text-[9px] font-mono flex items-end justify-center pb-1 font-bold">D#</div>
+                        <div onmousedown="playSynthNote('F#')" onmouseup="stopSynthNote()" class="absolute left-44 top-0 w-8 h-24 bg-slate-900 hover:bg-slate-800 text-white rounded-b-lg cursor-pointer z-10 text-[9px] font-mono flex items-end justify-center pb-1 font-bold">F#</div>
+                        <div onmousedown="playSynthNote('G#')" onmouseup="stopSynthNote()" class="absolute left-56 top-0 w-8 h-24 bg-slate-900 hover:bg-slate-800 text-white rounded-b-lg cursor-pointer z-10 text-[9px] font-mono flex items-end justify-center pb-1 font-bold">G#</div>
+                        <div onmousedown="playSynthNote('A#')" onmouseup="stopSynthNote()" class="absolute left-68 top-0 w-8 h-24 bg-slate-900 hover:bg-slate-800 text-white rounded-b-lg cursor-pointer z-10 text-[9px] font-mono flex items-end justify-center pb-1 font-bold">A#</div>
+                    </div>
+                </div>
+            </div>
+
+<!-- =========================================================================
                  APP 2: INDIC CODE STUDIO (VS CODE PROFESSIONAL IDE)
                  ========================================================================= -->
             <div id="code-window" class="absolute top-4 left-20 w-[960px] h-[570px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
@@ -5296,7 +5574,20 @@ Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</t
                         <div id="tab-pane-wallpaper" class="space-y-4 font-mono text-xs hidden">
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold text-cyan-600 dark:text-cyan-300">AI-Generated 4K Nature of Bharat (Photographic Masterpieces)</div>
-                                <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
+                                            <!-- Indic Multi-Language Localization Switcher -->
+            <div class="relative flex items-center">
+                <select id="os-lang-select" onchange="changeOSLanguage(this.value)" class="px-2 py-1 rounded-xl bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700 text-slate-200 font-mono text-[11px] font-bold focus:outline-none focus:border-cyan-400 transition-all cursor-pointer shadow-sm">
+                    <option value="en">🌐 English</option>
+                    <option value="hi">🇮🇳 हिन्दी (Hindi)</option>
+                    <option value="sa">🕉️ संस्कृतम् (Sanskrit)</option>
+                    <option value="ta">🏛️ தமிழ் (Tamil)</option>
+                    <option value="te">🛕 తెలుగు (Telugu)</option>
+                    <option value="bn">📜 বাংলা (Bengali)</option>
+                    <option value="mr">🚩 मराठी (Marathi)</option>
+                    <option value="gu">🦁 ગુજરાતી (Gujarati)</option>
+                </select>
+            </div>
+            <button onclick="toggleTheme()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 font-bold border border-slate-300 dark:border-slate-700">Toggle Dark / Light</button>
                             </div>
                             <div class="text-xs opacity-70">100% full 4K clarity real photographic landscape vistas of India across all regions</div>
                             <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -6469,6 +6760,37 @@ Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</t
                     <button id="dock-music" onclick="toggleWindowFromDock('music-window', 'dock-music')" class="glass-dock-tile glaze-music" title="Soundscape Studio (Win+M)">🎵</button>
                     <button id="dock-calc" onclick="toggleWindowFromDock('calc-window', 'dock-calc')" class="glass-dock-tile glaze-calc" title="Scientific Calculator (Win+K)">🧮</button>
                     <button id="dock-calendar" onclick="toggleWindowFromDock('calendar-window', 'dock-calendar')" class="glass-dock-tile glaze-calendar" title="Calendar & ISRO (Win+J)">🗂️</button>
+                                        <!-- Chitram Paint -->
+                    <button id="dock-chitram" onclick="openAppWindow('chitram-window', 'dock-chitram')" class="dock-item group relative" title="Chitram Vector Paint">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-pink-500 to-amber-400 flex items-center justify-center text-lg text-white shadow-md group-hover:scale-110 transition-all">
+                            <span>🎨</span>
+                        </div>
+                        <span class="dock-tooltip" data-i18n="app_chitram">Chitram Paint</span>
+                    </button>
+
+                    <!-- Aryabhata Math -->
+                    <button id="dock-aryabhata" onclick="openAppWindow('aryabhata-window', 'dock-aryabhata')" class="dock-item group relative" title="Aryabhata Scientific Suite">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-indigo-500 to-purple-500 flex items-center justify-center text-lg text-white shadow-md group-hover:scale-110 transition-all">
+                            <span>🧮</span>
+                        </div>
+                        <span class="dock-tooltip" data-i18n="app_aryabhata">Aryabhata Math</span>
+                    </button>
+
+                    <!-- Sur Sangeet -->
+                    <button id="dock-sangeet" onclick="openAppWindow('sangeet-window', 'dock-sangeet')" class="dock-item group relative" title="Sur Sangeet DSP Synthesizer">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-500 to-rose-500 flex items-center justify-center text-lg text-white shadow-md group-hover:scale-110 transition-all">
+                            <span>🎵</span>
+                        </div>
+                        <span class="dock-tooltip" data-i18n="app_sangeet">Sur Sangeet</span>
+                    </button>
+
+                    <!-- Chanakya Copilot -->
+                    <button id="dock-chanakya" onclick="openAppWindow('chanakya-copilot-window', 'dock-chanakya')" class="dock-item group relative" title="Chanakya Sovereign AI Copilot">
+                        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center text-lg text-white shadow-md group-hover:scale-110 transition-all">
+                            <span>🤖</span>
+                        </div>
+                        <span class="dock-tooltip" data-i18n="app_chanakya">Chanakya AI</span>
+                    </button>
                     <button id="dock-terminal" onclick="toggleWindowFromDock('terminal-window', 'dock-terminal')" class="glass-dock-tile glaze-terminal" title="Command Prompt (Win+T)">📟</button>
                     <button id="dock-personalize" onclick="toggleWindowFromDock('customization-window', 'dock-personalize')" class="glass-dock-tile glaze-settings text-2xl" title="Personalization Studio (Win+U)">🎨</button>
                     <button id="dock-settings" onclick="toggleWindowFromDock('settings-window', 'dock-settings')" class="glass-dock-tile glaze-settings" title="Settings (Win+I)">⚙️</button>
@@ -12647,25 +12969,25 @@ Available Sovereign Applications:<br>
         // =========================================================================
         // HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY ENGINE
         // =========================================================================
-        let lastFocus ShieldData = null;
+        let lastFocusShieldData = null;
 
-        async function fetchFocus ShieldStatus(showToast = false) {
+        async function fetchFocusShieldStatus(showToast = false) {
             try {
                 const res = await fetch('/api/status');
                 if (!res.ok) return;
                 const data = await res.json();
-                lastFocus ShieldData = data;
-                renderFocus ShieldUI(data);
+                lastFocusShieldData = data;
+                renderFocusShieldUI(data);
                 if (showToast) {
                     triggerHaptic('selection');
-                    showToastNotification('Focus Shield Telemetry Synced', 'Live metrics refreshed from cloud daemon.');
+                    showToastNotification('FocusShield Telemetry Synced', 'Live metrics refreshed from cloud daemon.');
                 }
             } catch(err) {
-                console.warn('[Focus Shield] Status fetch error:', err);
+                console.warn('[FocusShield] Status fetch error:', err);
             }
         }
 
-        function renderFocus ShieldUI(data) {
+        function renderFocusShieldUI(data) {
             if (!data) return;
 
             const isHuman = (data.active_cycle || 'HUMAN') === 'HUMAN';
@@ -12931,9 +13253,9 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('unlock');
-                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
-                    lastFocus ShieldData.time_warp_factor = factor;
-                    renderFocus ShieldUI(lastFocus ShieldData);
+                if (typeof lastFocusShieldData !== 'undefined' && lastFocusShieldData) {
+                    lastFocusShieldData.time_warp_factor = factor;
+                    renderFocusShieldUI(lastFocusShieldData);
                 }
                 const res = await fetch('/api/telemetry/time_warp', {
                     method: 'POST',
@@ -12943,10 +13265,10 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Time Warp Speed Updated', `Telemetry clock speed set to ${factor}x speed!`, 'success');
-                    await fetchFocus ShieldStatus(false);
+                    await fetchFocusShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Focus Shield] Time warp error:', e);
+                console.error('[FocusShield] Time warp error:', e);
             }
         }
 
@@ -12954,11 +13276,11 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('click');
-                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
-                    lastFocus ShieldData.telemetry_strategy = strategy;
-                    if (strategy === 'HUMAN_ONLY') lastFocus ShieldData.active_cycle = 'HUMAN';
-                    if (strategy === 'AI_ONLY') lastFocus ShieldData.active_cycle = 'AI';
-                    renderFocus ShieldUI(lastFocus ShieldData);
+                if (typeof lastFocusShieldData !== 'undefined' && lastFocusShieldData) {
+                    lastFocusShieldData.telemetry_strategy = strategy;
+                    if (strategy === 'HUMAN_ONLY') lastFocusShieldData.active_cycle = 'HUMAN';
+                    if (strategy === 'AI_ONLY') lastFocusShieldData.active_cycle = 'AI';
+                    renderFocusShieldUI(lastFocusShieldData);
                 }
                 const res = await fetch('/api/telemetry/strategy', {
                     method: 'POST',
@@ -12968,10 +13290,10 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Telemetry Strategy Changed', `Strategy set to ${strategy}`, 'info');
-                    await fetchFocus ShieldStatus(false);
+                    await fetchFocusShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Focus Shield] Strategy change error:', e);
+                console.error('[FocusShield] Strategy change error:', e);
             }
         }
 
@@ -12979,9 +13301,9 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('unlock');
-                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
-                    lastFocus ShieldData.active_cycle = (lastFocus ShieldData.active_cycle === 'HUMAN') ? 'AI' : 'HUMAN';
-                    renderFocus ShieldUI(lastFocus ShieldData);
+                if (typeof lastFocusShieldData !== 'undefined' && lastFocusShieldData) {
+                    lastFocusShieldData.active_cycle = (lastFocusShieldData.active_cycle === 'HUMAN') ? 'AI' : 'HUMAN';
+                    renderFocusShieldUI(lastFocusShieldData);
                 }
                 const res = await fetch('/api/telemetry/switch_cycle', {
                     method: 'POST',
@@ -12991,14 +13313,14 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`, 'info');
-                    await fetchFocus ShieldStatus(false);
+                    await fetchFocusShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Focus Shield] Shift error:', e);
+                console.error('[FocusShield] Shift error:', e);
             }
         }
 
-        async function triggerManualFocus ShieldPulse() {
+        async function triggerManualFocusShieldPulse() {
             try {
                 triggerHaptic('success');
                 playSfx('notify');
@@ -13010,19 +13332,19 @@ Available Sovereign Applications:<br>
 
                 await fetch('/api/pulse', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
                 await new Promise(r => setTimeout(r, 600));
-                await fetchFocus ShieldStatus();
+                await fetchFocusShieldStatus();
 
                 if (btn) {
                     btn.disabled = false;
                     btn.innerHTML = '<span>⚡</span><span>Pulse Now</span>';
                 }
-                showNotificationToast('Focus Shield Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
+                showNotificationToast('FocusShield Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
             } catch(e) {
-                console.error('[Focus Shield] Pulse failed:', e);
+                console.error('[FocusShield] Pulse failed:', e);
             }
         }
 
-        async function toggleFocus ShieldBot(action) {
+        async function toggleFocusShieldBot(action) {
             try {
                 triggerHaptic('selection');
                 playSfx('click');
@@ -13034,11 +13356,11 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     const label = action === 'stop_bot' ? 'Bot Stopped' : 'Bot Resumed';
-                    showNotificationToast(label, data.message || `Focus Shield bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
-                    await fetchFocus ShieldStatus(false);
+                    showNotificationToast(label, data.message || `FocusShield bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
+                    await fetchFocusShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Focus Shield] Toggle bot error:', e);
+                console.error('[FocusShield] Toggle bot error:', e);
             }
         }
 
@@ -13248,9 +13570,9 @@ Available Sovereign Applications:<br>
             showToastNotification('Windows Setup Complete', 'Application is installed and ready to run in Win32 Subsystem!');
         }
 
-        // Initialize Focus Shield Poller
-        setInterval(() => fetchFocus ShieldStatus(false), 3000);
-        setTimeout(() => fetchFocus ShieldStatus(false), 1000);
+        // Initialize FocusShield Poller
+        setInterval(() => fetchFocusShieldStatus(false), 3000);
+        setTimeout(() => fetchFocusShieldStatus(false), 1000);
 
         // =========================================================================
         // SOVEREIGN OCR STUDIO HANDLERS (RUST & AVX2 ASSEMBLY CORE)
@@ -13644,7 +13966,7 @@ Available Sovereign Applications:<br>
                 code: 'PRO_2026_LTS',
                 name: 'Sovereign Pro Enterprise Edition',
                 badge: '💎 PRO ENTERPRISE',
-                features: ['Ring-0 Kavach Defender', 'Full Hardware Scaler', '4K HDR Nature Wallpapers', '24/7 Focus Shield Cloud Studio', 'Uncapped Quantum Haptics', 'Multi-Touch Gestures', 'Zero-Trust Enclave']
+                features: ['Ring-0 Kavach Defender', 'Full Hardware Scaler', '4K HDR Nature Wallpapers', '24/7 FocusShield Cloud Studio', 'Uncapped Quantum Haptics', 'Multi-Touch Gestures', 'Zero-Trust Enclave']
             },
             DEFN: {
                 code: 'DEFN_QUANTUM',
@@ -14448,6 +14770,628 @@ Available Sovereign Applications:<br>
         } else {
             initTouchEngine();
         }
+    
+        // =========================================================================
+        
+        function escapeHTML(str) {
+            if (!str) return '';
+            return String(str).replace(/[&<>'"]/g, tag => ({
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                "'": '&#39;',
+                '"': '&quot;'
+            }[tag] || tag));
+        }
+
+        // 🌐 INDIC MULTI-LANGUAGE LOCALIZATION ENGINE
+        // =========================================================================
+        const INDIC_I18N = {
+            en: {
+                app_chitram: "Chitram Paint",
+                app_aryabhata: "Aryabhata Math",
+                app_sangeet: "Sur Sangeet",
+                app_chanakya: "Chanakya AI",
+                lock_welcome: "WELCOME TO SOVEREIGN SPACE",
+                dock_terminal: "Terminal",
+                dock_files: "Files",
+                dock_store: "App Store",
+                dock_settings: "Settings"
+            },
+            hi: {
+                app_chitram: "चित्रम् चित्रकला",
+                app_aryabhata: "आर्यभट्ट गणित",
+                app_sangeet: "सुर संगीत",
+                app_chanakya: "चाणक्य एआई",
+                lock_welcome: "सर्वप्रभुत्व सम्पन्न डिजिटल भारत",
+                dock_terminal: "टर्मिनल",
+                dock_files: "फ़ाइलें",
+                dock_store: "ऐप्लिकेशन स्टोर",
+                dock_settings: "सेटिंग्स"
+            },
+            sa: {
+                app_chitram: "चित्रम् कलाशाला",
+                app_aryabhata: "आर्यभट गणितशास्त्रम्",
+                app_sangeet: "स्वर सङ्गीतम्",
+                app_chanakya: "चाणक्य धीमत्ता",
+                lock_welcome: "स्वागतम् सम्प्रभुतायाम्",
+                dock_terminal: "आदेशपीठम्",
+                dock_files: "सञ्चिकाः",
+                dock_store: "अनुप्रयोग आपणम्",
+                dock_settings: "व्यवस्था"
+            },
+            ta: {
+                app_chitram: "சித்திரம் ஓவியம்",
+                app_aryabhata: "ஆரியபட்டா கணிதம்",
+                app_sangeet: "சுர சங்கீதம்",
+                app_chanakya: "சாணக்யா ஏஐ",
+                lock_welcome: "இறைமையுள்ள உலகிற்கு நல்வரவு",
+                dock_terminal: "முனையம்",
+                dock_files: "கோப்புகள்",
+                dock_store: "செயலி அங்காடி",
+                dock_settings: "அமைப்புகள்"
+            },
+            te: {
+                app_chitram: "చిత్రం ఆర్ట్",
+                app_aryabhata: "ఆర్యభట గణితం",
+                app_sangeet: "స్వర సంగీతం",
+                app_chanakya: "చాణక్య ఏఐ",
+                lock_welcome: "స్వాగతం",
+                dock_terminal: "టెర్మినల్",
+                dock_files: "ఫైళ్లు",
+                dock_store: "యాప్ స్టోర్",
+                dock_settings: "సెట్టింగులు"
+            },
+            bn: {
+                app_chitram: "চিত্রশিল্প",
+                app_aryabhata: "আর্যভট্ট গণিত",
+                app_sangeet: "সুর সঙ্গীত",
+                app_chanakya: "চাণক্য এআই",
+                lock_welcome: "স্বাগতম",
+                dock_terminal: "টার্মিনাল",
+                dock_files: "ফাইল",
+                dock_store: "অ্যাপ স্টোর",
+                dock_settings: "সেটিংস"
+            },
+            mr: {
+                app_chitram: "चित्रम् कला",
+                app_aryabhata: "आर्यभट्ट गणित",
+                app_sangeet: "सूर संगीत",
+                app_chanakya: "चाणक्य एआय",
+                lock_welcome: "स्वागत आहे",
+                dock_terminal: "टर्मिनल",
+                dock_files: "फायली",
+                dock_store: "अॅप स्टोअर",
+                dock_settings: "सेटिंग्ज"
+            },
+            gu: {
+                app_chitram: "ચિત્રમ આર્ટ",
+                app_aryabhata: "આર્યભટ્ટ ગણિત",
+                app_sangeet: "સુર સંગીત",
+                app_chanakya: "ચાણક્ય એઆઈ",
+                lock_welcome: "સ્વાગત છે",
+                dock_terminal: "ટર્મિનલ",
+                dock_files: "ફાઇલો",
+                dock_store: "એપ સ્ટોર",
+                dock_settings: "સેટિંગ્સ"
+            }
+        };
+
+        function changeOSLanguage(langCode) {
+            const dict = INDIC_I18N[langCode] || INDIC_I18N.en;
+            document.querySelectorAll('[data-i18n]').forEach(el => {
+                const key = el.getAttribute('data-i18n');
+                if (dict[key]) {
+                    el.textContent = dict[key];
+                }
+            });
+            showToastNotification('Language Updated', `Switched OS language to ${langCode.toUpperCase()}`);
+        }
+
+        // =========================================================================
+        // 🤖 CHANAKYA SOVEREIGN AI COPILOT ENGINE
+        // =========================================================================
+        function askChanakyaPrompt(promptText) {
+            const input = document.getElementById('chanakya-input');
+            if (input) {
+                input.value = promptText;
+                sendChanakyaMessage();
+            }
+        }
+
+        function sendChanakyaMessage() {
+            const input = document.getElementById('chanakya-input');
+            const messagesContainer = document.getElementById('chanakya-messages');
+            if (!input || !input.value.trim() || !messagesContainer) return;
+
+            const userQuery = input.value.trim();
+            input.value = '';
+
+            // Render User Bubble
+            const userBubble = document.createElement('div');
+            userBubble.className = "flex items-start justify-end space-x-2";
+            userBubble.innerHTML = `
+                <div class="p-3 rounded-2xl bg-cyan-500/20 border border-cyan-500/40 text-cyan-200 max-w-[85%]">
+                    ${escapeHTML(userQuery)}
+                </div>
+            `;
+            messagesContainer.appendChild(userBubble);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Generate AI Response & Dispatch System Commands
+            setTimeout(() => {
+                const response = processChanakyaAI(userQuery);
+                const aiBubble = document.createElement('div');
+                aiBubble.className = "flex items-start space-x-2.5";
+                aiBubble.innerHTML = `
+                    <div class="w-7 h-7 rounded-xl bg-gradient-to-tr from-cyan-400 to-emerald-400 flex items-center justify-center text-sm text-slate-950 font-bold shrink-0 shadow">
+                        🤖
+                    </div>
+                    <div class="p-3.5 rounded-2xl bg-slate-900/90 border border-slate-800 text-slate-200 space-y-1.5 max-w-[85%]">
+                        ${response}
+                    </div>
+                `;
+                messagesContainer.appendChild(aiBubble);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+                playSfx('notify');
+            }, 300);
+        }
+
+        function processChanakyaAI(query) {
+            const q = query.toLowerCase();
+
+            // 1. Wallpaper Commands
+            if (q.includes('ladakh') || q.includes('pangong')) {
+                setWallpaper('wallpapers/ladakh_pangong.jpg');
+                return "🏔️ <strong>Done!</strong> Set desktop wallpaper to <em>Ladakh Pangong Tso</em>.";
+            }
+            if (q.includes('kashmir') || q.includes('dal')) {
+                setWallpaper('wallpapers/kashmir_dal.jpg');
+                return "🛶 <strong>Done!</strong> Set desktop wallpaper to <em>Kashmir Dal Lake</em>.";
+            }
+            if (q.includes('varanasi') || q.includes('ghat')) {
+                setWallpaper('wallpapers/varanasi_dawn.jpg');
+                return "🛕 <strong>Done!</strong> Set desktop wallpaper to <em>Varanasi Dawn Ghats</em>.";
+            }
+            if (q.includes('wallpaper')) {
+                setWallpaper('wallpapers/munnar_hills.jpg');
+                return "🌿 <strong>Wallpaper updated</strong> to <em>Munnar Hills</em>.";
+            }
+
+            // 2. Launch Apps
+            if (q.includes('aryabhata') || q.includes('calc')) {
+                openAppWindow('aryabhata-window', 'dock-aryabhata');
+                return "🧮 Opened <strong>Aryabhata Scientific Suite</strong>.";
+            }
+            if (q.includes('chitram') || q.includes('paint') || q.includes('draw')) {
+                openAppWindow('chitram-window', 'dock-chitram');
+                return "🎨 Opened <strong>Chitram Paint Studio</strong>.";
+            }
+            if (q.includes('sangeet') || q.includes('music') || q.includes('synth')) {
+                openAppWindow('sangeet-window', 'dock-sangeet');
+                return "🎵 Opened <strong>Sur Sangeet DSP Synthesizer</strong>.";
+            }
+            if (q.includes('ide') || q.includes('code') || q.includes('studio')) {
+                openAppWindow('indic-ide-window', 'dock-indic-ide');
+                return "💻 Opened <strong>Indic Code Studio IDE</strong>.";
+            }
+            if (q.includes('terminal') || q.includes('bash')) {
+                openAppWindow('terminal-window', 'dock-terminal');
+                return "📟 Opened <strong>Sovereign Ring-0 Terminal</strong>.";
+            }
+
+            // 3. Language
+            if (q.includes('hindi') || q.includes('हिन्दी')) {
+                changeOSLanguage('hi');
+                document.getElementById('os-lang-select').value = 'hi';
+                return "🇮🇳 प्रणाली भाषा <strong>हिन्दी</strong> में परिवर्तित की गई।";
+            }
+            if (q.includes('sanskrit') || q.includes('संस्कृत')) {
+                changeOSLanguage('sa');
+                document.getElementById('os-lang-select').value = 'sa';
+                return "🕉️ प्रणाली भाषा <strong>संस्कृतम्</strong> मध्ये परिवर्तिता।";
+            }
+
+            // 4. Code Generation
+            if (q.includes('idt') || q.includes('kernel') || q.includes('interrupt')) {
+                return `💻 <strong>Freestanding IDT Handler (C):</strong>
+<pre class="p-2 rounded bg-slate-950 text-cyan-300 font-mono text-[10px] overflow-x-auto">
+struct idt_entry {
+    uint16_t base_low;
+    uint16_t sel;
+    uint8_t  always0;
+    uint8_t  flags;
+    uint16_t base_high;
+} __attribute__((packed));
+
+void idt_set_gate(uint8_t num, uint32_t base, uint16_t sel, uint8_t flags) {
+    idt[num].base_low  = (base & 0xFFFF);
+    idt[num].base_high = (base >> 16) & 0xFFFF;
+    idt[num].sel       = sel;
+    idt[num].always0   = 0;
+    idt[num].flags     = flags;
+}</pre>`;
+            }
+
+            // 5. Kavach Architecture
+            if (q.includes('kavach') || q.includes('security') || q.includes('zero-trust')) {
+                return "🛡️ <strong>Kavach Architecture:</strong> Operates at Hardware Ring-0 with zero telemetry. Cryptographic golden master seals guarantee tamper resistance and local cryptographic verification.";
+            }
+
+            // Default Intelligent Response
+            return `✨ I have processed your instruction: "<em>${escapeHTML(query)}</em>". BharatOS sovereign enclave is running at 100% genuine integrity.`;
+        }
+
+        function clearChanakyaChat() {
+            const m = document.getElementById('chanakya-messages');
+            if (m) {
+                m.innerHTML = '<div class="text-slate-500 font-mono text-center py-4">Chat cleared.</div>';
+            }
+        }
+
+        // =========================================================================
+        // 🎨 CHITRAM VECTOR PAINT STUDIO ENGINE
+        // =========================================================================
+        let chitramCtx = null;
+        let chitramDrawing = false;
+        let chitramTool = 'brush';
+        let chitramColor = '#06b6d4';
+        let startX = 0, startY = 0;
+        let chitramSnapshot = null;
+
+        function initChitramCanvas() {
+            const canvas = document.getElementById('chitram-canvas');
+            if (!canvas) return;
+            chitramCtx = canvas.getContext('2d');
+            chitramCtx.lineCap = 'round';
+            chitramCtx.lineJoin = 'round';
+            chitramCtx.fillStyle = '#0f172a';
+            chitramCtx.fillRect(0, 0, canvas.width, canvas.height);
+
+            canvas.addEventListener('mousedown', startChitramDraw);
+            canvas.addEventListener('mousemove', drawChitram);
+            canvas.addEventListener('mouseup', stopChitramDraw);
+            canvas.addEventListener('mouseleave', stopChitramDraw);
+        }
+
+        function setChitramTool(t) {
+            chitramTool = t;
+            ['brush', 'eraser', 'line', 'rect', 'circle'].forEach(id => {
+                const btn = document.getElementById('tool-' + id);
+                if (btn) {
+                    if (id === t) {
+                        btn.className = "px-2.5 py-1.5 rounded-lg bg-pink-500/30 text-pink-300 border border-pink-500/50 font-bold active:scale-95";
+                    } else {
+                        btn.className = "px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 active:scale-95";
+                    }
+                }
+            });
+        }
+
+        function setChitramColor(c) {
+            chitramColor = c;
+            const custom = document.getElementById('chitram-custom-color');
+            if (custom) custom.value = c;
+        }
+
+        function startChitramDraw(e) {
+            if (!chitramCtx) initChitramCanvas();
+            const canvas = document.getElementById('chitram-canvas');
+            const rect = canvas.getBoundingClientRect();
+            startX = e.clientX - rect.left;
+            startY = e.clientY - rect.top;
+            chitramDrawing = true;
+            chitramSnapshot = chitramCtx.getImageData(0, 0, canvas.width, canvas.height);
+            chitramCtx.beginPath();
+            chitramCtx.moveTo(startX, startY);
+        }
+
+        function drawChitram(e) {
+            if (!chitramDrawing || !chitramCtx) return;
+            const canvas = document.getElementById('chitram-canvas');
+            const rect = canvas.getBoundingClientRect();
+            const curX = e.clientX - rect.left;
+            const curY = e.clientY - rect.top;
+            const size = parseInt(document.getElementById('chitram-stroke-size').value) || 4;
+
+            chitramCtx.lineWidth = size;
+
+            if (chitramTool === 'brush') {
+                chitramCtx.strokeStyle = chitramColor;
+                chitramCtx.lineTo(curX, curY);
+                chitramCtx.stroke();
+            } else if (chitramTool === 'eraser') {
+                chitramCtx.strokeStyle = '#0f172a';
+                chitramCtx.lineTo(curX, curY);
+                chitramCtx.stroke();
+            } else if (chitramTool === 'line') {
+                chitramCtx.putImageData(chitramSnapshot, 0, 0);
+                chitramCtx.beginPath();
+                chitramCtx.strokeStyle = chitramColor;
+                chitramCtx.moveTo(startX, startY);
+                chitramCtx.lineTo(curX, curY);
+                chitramCtx.stroke();
+            } else if (chitramTool === 'rect') {
+                chitramCtx.putImageData(chitramSnapshot, 0, 0);
+                chitramCtx.strokeStyle = chitramColor;
+                chitramCtx.strokeRect(startX, startY, curX - startX, curY - startY);
+            } else if (chitramTool === 'circle') {
+                chitramCtx.putImageData(chitramSnapshot, 0, 0);
+                chitramCtx.beginPath();
+                chitramCtx.strokeStyle = chitramColor;
+                const r = Math.sqrt(Math.pow(curX - startX, 2) + Math.pow(curY - startY, 2));
+                chitramCtx.arc(startX, startY, r, 0, Math.PI * 2);
+                chitramCtx.stroke();
+            }
+        }
+
+        function stopChitramDraw() {
+            chitramDrawing = false;
+        }
+
+        function clearChitramCanvas() {
+            const canvas = document.getElementById('chitram-canvas');
+            if (canvas && chitramCtx) {
+                chitramCtx.fillStyle = '#0f172a';
+                chitramCtx.fillRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
+        function exportChitramPNG() {
+            const canvas = document.getElementById('chitram-canvas');
+            if (!canvas) return;
+            const link = document.createElement('a');
+            link.download = 'chitram_artwork.png';
+            link.href = canvas.toDataURL();
+            link.click();
+            showToastNotification('Artwork Exported', 'Downloaded chitram_artwork.png');
+        }
+
+        // =========================================================================
+        // 🧮 ARYABHATA SCIENTIFIC CALCULATOR & 2D GRAPHER
+        // =========================================================================
+        let aryabhataCurrentExpr = "";
+
+        function aryabhataNum(n) {
+            aryabhataCurrentExpr += n;
+            updateAryabhataDisplay();
+        }
+
+        function aryabhataOp(op) {
+            aryabhataCurrentExpr += op;
+            updateAryabhataDisplay();
+        }
+
+        function aryabhataClear() {
+            aryabhataCurrentExpr = "";
+            document.getElementById('aryabhata-formula').textContent = "";
+            document.getElementById('aryabhata-display').textContent = "0";
+            updateProgrammerBases(0);
+        }
+
+        function aryabhataBackspace() {
+            aryabhataCurrentExpr = aryabhataCurrentExpr.slice(0, -1);
+            updateAryabhataDisplay();
+        }
+
+        function updateAryabhataDisplay() {
+            const disp = document.getElementById('aryabhata-display');
+            if (disp) disp.textContent = aryabhataCurrentExpr || "0";
+        }
+
+        function aryabhataEquals() {
+            try {
+                document.getElementById('aryabhata-formula').textContent = aryabhataCurrentExpr + " =";
+                const sanitized = aryabhataCurrentExpr.replace(/Math\.PI/g, Math.PI).replace(/Math\.E/g, Math.E);
+                const result = Function('"use strict";return (' + sanitized + ')')();
+                aryabhataCurrentExpr = String(result);
+                document.getElementById('aryabhata-display').textContent = result;
+                updateProgrammerBases(Math.floor(result));
+            } catch (err) {
+                document.getElementById('aryabhata-display').textContent = "Error";
+            }
+        }
+
+        function updateProgrammerBases(val) {
+            if (isNaN(val)) return;
+            const num = Math.abs(parseInt(val)) || 0;
+            document.getElementById('ary-hex').textContent = '0x' + num.toString(16).toUpperCase();
+            document.getElementById('ary-dec').textContent = String(num);
+            document.getElementById('ary-bin').textContent = '0b' + num.toString(2);
+            document.getElementById('ary-oct').textContent = '0o' + num.toString(8);
+        }
+
+        function switchAryabhataTab(tab) {
+            const calcView = document.getElementById('aryabhata-calc-view');
+            const graphView = document.getElementById('aryabhata-graph-view');
+            const tabCalc = document.getElementById('tab-ary-calc');
+            const tabGraph = document.getElementById('tab-ary-graph');
+
+            if (tab === 'calc') {
+                calcView.classList.remove('hidden');
+                graphView.classList.add('hidden');
+                tabCalc.className = "flex-1 py-2 text-center font-bold text-indigo-400 border-b-2 border-indigo-400";
+                tabGraph.className = "flex-1 py-2 text-center text-slate-400 hover:text-slate-200";
+            } else {
+                calcView.classList.add('hidden');
+                graphView.classList.remove('hidden');
+                tabGraph.className = "flex-1 py-2 text-center font-bold text-indigo-400 border-b-2 border-indigo-400";
+                tabCalc.className = "flex-1 py-2 text-center text-slate-400 hover:text-slate-200";
+                plotAryabhataGraph();
+            }
+        }
+
+        function plotAryabhataGraph() {
+            const canvas = document.getElementById('aryabhata-graph-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const w = canvas.width;
+            const h = canvas.height;
+            const expr = document.getElementById('graph-func-input').value;
+
+            ctx.fillStyle = '#090d16';
+            ctx.fillRect(0, 0, w, h);
+
+            // Grid Lines
+            ctx.strokeStyle = '#1e293b';
+            ctx.lineWidth = 1;
+            ctx.beginPath();
+            ctx.moveTo(0, h / 2); ctx.lineTo(w, h / 2);
+            ctx.moveTo(w / 2, 0); ctx.lineTo(w / 2, h);
+            ctx.stroke();
+
+            // Plot Function
+            ctx.strokeStyle = '#06b6d4';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+
+            let first = true;
+            for (let px = 0; px < w; px += 2) {
+                const x = (px - w / 2) / 30; // Scale
+                try {
+                    const y = Function('x', '"use strict";return (' + expr + ')')(x);
+                    const py = h / 2 - y * 30;
+                    if (first) {
+                        ctx.moveTo(px, py);
+                        first = false;
+                    } else {
+                        ctx.lineTo(px, py);
+                    }
+                } catch(e) {}
+            }
+            ctx.stroke();
+        }
+
+        // =========================================================================
+        // 🎵 SUR SANGEET DSP SYNTHESIZER ENGINE
+        // =========================================================================
+        let synthAudioCtx = null;
+        let activeOscillator = null;
+        let synthOctave = 4;
+
+        function getSynthAudioCtx() {
+            if (!synthAudioCtx) {
+                synthAudioCtx = new (window.AudioContext || window.webkitAudioContext)();
+            }
+            if (synthAudioCtx.state === 'suspended') {
+                synthAudioCtx.resume();
+            }
+            return synthAudioCtx;
+        }
+
+        const NOTE_FREQ_MAP = {
+            'C': 261.63, 'C#': 277.18, 'D': 293.66, 'D#': 311.13,
+            'E': 329.63, 'F': 349.23, 'F#': 369.99, 'G': 392.00,
+            'G#': 415.30, 'A': 440.00, 'A#': 466.16, 'B': 493.88, 'C5': 523.25
+        };
+
+        function playSynthNote(note) {
+            const ctx = getSynthAudioCtx();
+            stopSynthNote();
+
+            const baseFreq = NOTE_FREQ_MAP[note] || 440;
+            const multiplier = Math.pow(2, synthOctave - 4);
+            const freq = baseFreq * multiplier;
+
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            const waveform = document.getElementById('synth-waveform').value || 'sine';
+
+            osc.type = waveform;
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+
+            gain.gain.setValueAtTime(0.01, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+
+            activeOscillator = { osc, gain };
+            renderWaveVisualizer(freq);
+        }
+
+        function stopSynthNote() {
+            if (activeOscillator) {
+                try {
+                    const ctx = getSynthAudioCtx();
+                    activeOscillator.gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.1);
+                    activeOscillator.osc.stop(ctx.currentTime + 0.1);
+                } catch(e) {}
+                activeOscillator = null;
+            }
+        }
+
+        function playSolfeggioTone(freq) {
+            const ctx = getSynthAudioCtx();
+            stopSynthNote();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(0.2, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 2.5);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 2.5);
+            renderWaveVisualizer(freq);
+            showToastNotification('Solfeggio Harmonic', `Emitting ${freq} Hz resonant frequency`);
+        }
+
+        function adjustSynthOctave(delta) {
+            synthOctave = Math.max(1, Math.min(7, synthOctave + delta));
+            document.getElementById('synth-octave-disp').textContent = synthOctave;
+        }
+
+        function renderWaveVisualizer(freq) {
+            const canvas = document.getElementById('sangeet-visualizer-canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = '#090d16';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.strokeStyle = '#f59e0b';
+            ctx.lineWidth = 2.5;
+            ctx.beginPath();
+            for (let x = 0; x < canvas.width; x++) {
+                const y = canvas.height / 2 + Math.sin(x * 0.08 * (freq / 200)) * (canvas.height / 3);
+                if (x === 0) ctx.moveTo(x, y);
+                else ctx.lineTo(x, y);
+            }
+            ctx.stroke();
+        }
+
+        // =========================================================================
+        // ⚡ LIVE CODE RUNNER & SANDBOX IN INDIC CODE STUDIO
+        // =========================================================================
+        function runIndicCodeSandbox() {
+            const editor = document.getElementById('indic-code-editor');
+            const term = document.getElementById('terminal-body');
+            if (!editor) return;
+
+            const code = editor.value;
+            showToastNotification('Running Code', 'Executing in sovereign sandbox...');
+
+            // If terminal is open or user wants console output
+            let output = "";
+            const originalLog = console.log;
+            try {
+                console.log = function(...args) {
+                    output += args.join(' ') + '\n';
+                    originalLog.apply(console, args);
+                };
+                const result = Function('"use strict";' + code)();
+                if (result !== undefined) output += 'Return: ' + result + '\n';
+            } catch (err) {
+                output += '❌ Error: ' + err.message + '\n';
+            } finally {
+                console.log = originalLog;
+            }
+
+            openAppWindow('terminal-window', 'dock-terminal');
+            appendTerminalOutput(`[INDIC STUDIO RUNNER]\n${output}`);
+        }
+
     </script>
 </body>
 </html>
