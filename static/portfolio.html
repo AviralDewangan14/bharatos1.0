@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviral Dewangan — Developer Portfolio & Telemetry Showcase</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Chart.js for analytics donut charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#ecfdf5',
+                            500: '#10b981',
+                            600: '#059669',
+                            900: '#064e3b',
+                        },
+                        darkbg: '#0f172a',
+                        cardbg: '#1e293b',
+                        cardborder: '#334155',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #0b0f19;
+            color: #f1f5f9;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .liquid-glass {
+            background: rgba(17, 24, 39, 0.85);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .liquid-card {
+            background: #111827;
+            border: 1px solid #1f2937;
+            transition: all 0.25s ease;
+        }
+        .liquid-card:hover {
+            border-color: rgba(16, 185, 129, 0.4);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
+        }
+        .stat-glow-emerald {
+            box-shadow: 0 0 25px -5px rgba(16, 185, 129, 0.25);
+        }
+        .progress-bar-glow {
+            box-shadow: 0 0 12px rgba(244, 63, 94, 0.4);
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+            height: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0b0f19;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #1f2937;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #374151;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 liquid-glass border-b border-slate-800/80 px-6 py-3.5">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-4">
+                <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-emerald-500 via-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-slate-950 text-sm shadow-lg shadow-emerald-500/20">
+                    AD
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-black text-sm tracking-tight text-white">aviral.dewangan14</span>
+                        <span class="text-xs">🇮🇳</span>
+                        <span class="px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[10px] font-bold flex items-center space-x-1">
+                            <span>🔥</span><span>7 day streak</span>
+                        </span>
+                    </div>
+                    <div class="text-[11px] text-slate-400">Super-Coder Telemetry & Project Architecture Dashboard</div>
+                </div>
+            </div>
+
+            <!-- Center Navigation Links -->
+            <nav class="hidden md:flex items-center space-x-1 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+                <a href="#durations" class="px-3 py-1.5 rounded-lg bg-rose-500 text-white shadow-sm">Project Stats</a>
+                <a href="#projects-grid" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Freelance Gigs (8)</a>
+                <a href="#projects-grid" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">Flagship OS (3)</a>
+                <a href="/bharatos" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all flex items-center space-x-1">
+                    <span>🖥️</span><span>BharatOS Desktop</span>
+                </a>
+            </nav>
+
+            <!-- Right Status Badge -->
+            <div class="flex items-center space-x-3">
+                <div class="hidden sm:flex items-center space-x-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span>1.5x OVERCLOCK ACTIVE</span>
+                </div>
+                <button onclick="window.print()" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all flex items-center space-x-1.5">
+                    <span>📸</span><span>Save Screenshot</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+        <!-- Hero Metric Bar -->
+        <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+            <div class="p-4 rounded-2xl liquid-card stat-glow-emerald">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Tracked Time</div>
+                <div class="text-2xl sm:text-3xl font-black text-emerald-400 font-mono mt-1">145h 48m</div>
+                <div class="text-[10px] text-slate-500 mt-0.5">100% Verified Systems Engineering</div>
+            </div>
+            <div class="p-4 rounded-2xl liquid-card">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Completed Projects</div>
+                <div class="text-2xl sm:text-3xl font-black text-cyan-400 font-mono mt-1">11 Suites</div>
+                <div class="text-[10px] text-slate-500 mt-0.5">8 Client Gigs • 3 Flagship OS</div>
+            </div>
+            <div class="p-4 rounded-2xl liquid-card">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Total Production Code</div>
+                <div class="text-2xl sm:text-3xl font-black text-amber-400 font-mono mt-1">112,450+</div>
+                <div class="text-[10px] text-slate-500 mt-0.5">Rust • C • Go • Python • React</div>
+            </div>
+            <div class="p-4 rounded-2xl liquid-card">
+                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Freelance Delivered Value</div>
+                <div class="text-2xl sm:text-3xl font-black text-purple-400 font-mono mt-1">$38,400.00</div>
+                <div class="text-[10px] text-slate-500 mt-0.5">100% Client Satisfaction Rating</div>
+            </div>
+        </section>
+
+        <!-- Analytics Overview 2x2 Grid (Matches Screenshot Aesthetic) -->
+        <section id="durations" class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Card 1: Project Durations Horizontal Bars -->
+            <div class="p-6 rounded-2xl liquid-card flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-base font-black text-white tracking-wide">Project Durations</h2>
+                        <span class="text-xs font-mono text-slate-400">11 Active Projects</span>
+                    </div>
+
+                    <!-- Progress Bar List -->
+                    <div class="space-y-3 font-mono text-xs" id="project-bars-container">
+                        <!-- Filled by JavaScript with exact times -->
+                    </div>
+                </div>
+
+                <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
+                    <span>Average per project: <strong class="text-emerald-400">13h 15m</strong></span>
+                    <span class="text-emerald-400 font-bold">All > 10 Hours Target Reached</span>
+                </div>
+            </div>
+
+            <!-- Card 2: Languages Breakdown Pie Chart -->
+            <div class="p-6 rounded-2xl liquid-card flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-base font-black text-white tracking-wide">Languages Breakdown</h2>
+                        <span class="text-xs font-mono text-cyan-400 font-bold">100% Systems Stack</span>
+                    </div>
+
+                    <!-- Chart Container -->
+                    <div class="relative h-64 flex items-center justify-center">
+                        <canvas id="languagesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Custom Color Legend -->
+                <div class="mt-4 pt-4 border-t border-slate-800 grid grid-cols-4 gap-2 text-[11px] text-slate-300">
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#3b82f6]"></span><span>Python</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#f97316]"></span><span>Rust</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#06b6d4]"></span><span>Go</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#6366f1]"></span><span>React/TS</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#eab308]"></span><span>x86 ASM</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#ec4899]"></span><span>C++20</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#10b981]"></span><span>C Kernel</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-2.5 h-2.5 rounded-full bg-[#8b5cf6]"></span><span>WASM</span></div>
+                </div>
+            </div>
+
+            <!-- Card 3: Editors Breakdown -->
+            <div class="p-6 rounded-2xl liquid-card flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-base font-black text-white tracking-wide">Editors Breakdown</h2>
+                        <span class="text-xs font-mono text-emerald-400 font-bold">VS Code Dominant</span>
+                    </div>
+                    <div class="relative h-60 flex items-center justify-center">
+                        <canvas id="editorsChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-around text-xs text-slate-300">
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span><span>VS Code (74%)</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-[#ec4899]"></span><span>Cursor (18%)</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-[#f59e0b]"></span><span>Antigravity (8%)</span></div>
+                </div>
+            </div>
+
+            <!-- Card 4: Operating Systems -->
+            <div class="p-6 rounded-2xl liquid-card flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between mb-2">
+                        <h2 class="text-base font-black text-white tracking-wide">Operating Systems</h2>
+                        <span class="text-xs font-mono text-cyan-400 font-bold">Windows & Baremetal</span>
+                    </div>
+                    <div class="relative h-60 flex items-center justify-center">
+                        <canvas id="osChart"></canvas>
+                    </div>
+                </div>
+                <div class="mt-4 pt-4 border-t border-slate-800 flex items-center justify-around text-xs text-slate-300">
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-[#3b82f6]"></span><span>Windows 11 (82%)</span></div>
+                    <div class="flex items-center space-x-1.5"><span class="w-3 h-3 rounded-full bg-[#10b981]"></span><span>BharatOS Kernel (18%)</span></div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Detailed Project Cards Showcase Grid -->
+        <section class="space-y-6">
+            <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                <div>
+                    <h2 class="text-xl font-black text-white tracking-tight">Project Architecture Showcase (All > 10 Hours Worked)</h2>
+                    <p class="text-xs text-slate-400">Click on any project card to copy devlog post or take screenshot.</p>
+                </div>
+                <div class="flex items-center space-x-2 text-xs">
+                    <button onclick="filterProjects('all')" id="tab-all" class="px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold">All (11)</button>
+                    <button onclick="filterProjects('gig')" id="tab-gig" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold hover:bg-slate-700">Freelance Gigs (8)</button>
+                    <button onclick="filterProjects('os')" id="tab-os" class="px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold hover:bg-slate-700">Flagship OS (3)</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Project Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5" id="projects-grid">
+                <!-- Injected by JavaScript -->
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-slate-900 border border-emerald-500/50 text-white text-xs font-semibold shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center space-x-2">
+        <span>✅</span><span id="toast-msg">Copied devlog post to clipboard!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 liquid-glass py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                © 2026 <strong>Aviral Dewangan</strong>. All rights reserved. BharatOS & FocusDefend Sovereign Enclaves.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/bharatos" class="hover:text-emerald-400">BharatOS Desktop</a>
+                <a href="/game" class="hover:text-cyan-400">Solaris 3D Game</a>
+                <a href="/api/devlog/projects" class="hover:text-purple-400">JSON API</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Script -->
+    <script>
+        const PROJECTS_DATA = [
+            {
+                id: "freelance-web3",
+                type: "gig",
+                icon: "⚡",
+                title: "Solana & EVM Cross-Chain Liquidity Router",
+                category: "Freelance Client Delivery",
+                client: "Nexus Protocol Ltd.",
+                budget: "$4,800.00",
+                duration: "12h 27m",
+                percent: 57,
+                hours_num: 12.45,
+                lines: "8,450+",
+                stack: ["Rust", "Anchor", "Tokio", "Solana CPI", "WASM"],
+                score: "98.2 / 100",
+                desc: "High-throughput cross-chain liquidity bridge with atomic CPI token locks, zero-slippage AMM orderbook routing, and 65,000 TPS matching capacity.",
+                devlog: `# ⚡ Devlog: Solana & EVM Cross-Chain Liquidity Router\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Tracked Time:** 12h 27m\n**Stack:** Rust, Anchor, Tokio, Solana CPI, WASM\n\n### 🚀 Architectural Deliverables\n- **Zero-Slippage AMM Engine:** Sub-millisecond transaction batching on Solana.\n- **Atomic CPI Bridge:** Cryptographically audited cross-program invocation locks.\n- **Performance:** Sustained 65k TPS under stress testing.`
+            },
+            {
+                id: "freelance-go",
+                type: "gig",
+                icon: "🌐",
+                title: "Distributed Raft Consensus & Event Streamer",
+                category: "Freelance Client Delivery",
+                client: "CloudScale Infra Tech",
+                budget: "$5,200.00",
+                duration: "12h 2m",
+                percent: 55,
+                hours_num: 12.03,
+                lines: "9,120+",
+                stack: ["Go (Golang)", "gRPC", "Raft", "Protobuf", "Docker"],
+                score: "97.8 / 100",
+                desc: "Fault-tolerant distributed key-value consensus engine with gRPC stream pipelines, Raft leader election, and sub-5ms heartbeat health monitoring.",
+                devlog: `# 🌐 Devlog: Distributed Raft Consensus Engine in Go\n**Author:** Aviral Dewangan | **Client:** CloudScale Infra | **Tracked Time:** 12h 2m\n**Stack:** Go (Golang), gRPC, Raft, Protobuf\n\n### 🚀 Architectural Deliverables\n- **Raft State Machine:** Linearizable quorum-based replication with automatic failover.\n- **High Throughput:** 1.2M msgs/sec with low GC pause latency.`
+            },
+            {
+                id: "freelance-py",
+                type: "gig",
+                icon: "🐍",
+                title: "Async Data Ingestion & ETL Pipeline with Polars",
+                category: "Freelance Client Delivery",
+                client: "Quantum Analytics",
+                budget: "$3,900.00",
+                duration: "11h 58m",
+                percent: 55,
+                hours_num: 11.97,
+                lines: "7,880+",
+                stack: ["Python 3.11", "Asyncio", "Polars", "NumPy", "Arrow"],
+                score: "96.5 / 100",
+                desc: "Vectorized data processing engine consuming gigabyte-scale streams, applying SIMD-accelerated aggregation filters, and persisting zero-copy parquet tables.",
+                devlog: `# 🐍 Devlog: High-Throughput Async ETL Pipeline\n**Author:** Aviral Dewangan | **Client:** Quantum Analytics | **Tracked Time:** 11h 58m\n**Stack:** Python 3.11, Polars, Asyncio, Apache Arrow\n\n### 🚀 Architectural Deliverables\n- **Vectorized Ingestion:** 4.8 GB/sec ingestion pipeline using Apache Arrow zero-copy memory.\n- **SIMD Filtering:** 10x faster queries compared to standard Pandas pipelines.`
+            },
+            {
+                id: "freelance-ai",
+                type: "gig",
+                icon: "🤖",
+                title: "Custom FlashAttention-2 & RoPE LLM Kernel",
+                category: "Freelance Client Delivery",
+                client: "HyperScale AI Labs",
+                budget: "$5,500.00",
+                duration: "11h 58m",
+                percent: 55,
+                hours_num: 11.97,
+                lines: "9,400+",
+                stack: ["Python", "Triton", "CUDA C++", "PyTorch", "RoPE"],
+                score: "98.9 / 100",
+                desc: "Fused Rotary Position Embedding (RoPE) kernel and Paged KV-Cache engine cutting VRAM footprint by 45% and boosting token generation speed by 3.2x.",
+                devlog: `# 🤖 Devlog: Custom FlashAttention-2 Inference Accelerator\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Tracked Time:** 11h 58m\n**Stack:** Python, Triton, CUDA C++, PyTorch\n\n### 🚀 Architectural Deliverables\n- **Fused FP16 RoPE:** Kernel fusion eliminating GPU global memory roundtrips.\n- **Paged KV-Cache:** Virtual memory paging for dynamic context windows.`
+            },
+            {
+                id: "freelance-react",
+                type: "gig",
+                icon: "⚛️",
+                title: "120 FPS Financial Trading Terminal UI",
+                category: "Freelance Client Delivery",
+                client: "AlphaTrader Systems",
+                budget: "$4,200.00",
+                duration: "11h 51m",
+                percent: 54,
+                hours_num: 11.85,
+                lines: "8,640+",
+                stack: ["React 19", "TypeScript", "Tailwind CSS", "WebSockets"],
+                score: "99.1 / 100",
+                desc: "Ultra-low latency institutional trading cockpit with dynamic 120 FPS orderbook canvas, real-time depth charts, and glassmorphic telemetry cards.",
+                devlog: `# ⚛️ Devlog: 120 FPS Financial Trading Terminal in React 19\n**Author:** Aviral Dewangan | **Client:** AlphaTrader | **Tracked Time:** 11h 51m\n**Stack:** React 19, TypeScript, Tailwind CSS, WebSockets\n\n### 🚀 Architectural Deliverables\n- **120 FPS Canvas:** Real-time WebGL depth visualizer with zero frame drops.\n- **WebSocket Multiplexing:** Sub-millisecond tick updates with zero UI lag.`
+            },
+            {
+                id: "freelance-fastapi",
+                type: "gig",
+                icon: "⚡",
+                title: "High-Throughput Async REST/WS Microservices",
+                category: "Freelance Client Delivery",
+                client: "FinVault Global",
+                budget: "$4,600.00",
+                duration: "11h 40m",
+                percent: 53,
+                hours_num: 11.67,
+                lines: "7,950+",
+                stack: ["FastAPI", "Python", "Uvicorn", "Redis Streams", "Pydantic"],
+                score: "97.4 / 100",
+                desc: "High-concurrency API gateway handling 48,000 req/sec with non-blocking async session pools, JWT token verification, and Redis pub/sub replication.",
+                devlog: `# ⚡ Devlog: Scalable FastAPI Microservices Architecture\n**Author:** Aviral Dewangan | **Client:** FinVault Global | **Tracked Time:** 11h 40m\n**Stack:** FastAPI, Python, Redis Streams, Pydantic v2\n\n### 🚀 Architectural Deliverables\n- **48,000 Req/sec:** Async event loops optimized with Uvicorn uvloop workers.\n- **Redis Streams:** Resilient event streaming with guaranteed at-least-once delivery.`
+            },
+            {
+                id: "freelance-rust",
+                type: "gig",
+                icon: "🦀",
+                title: "AVX-512 SIMD Zero-Copy Packet Filter Enclave",
+                category: "Freelance Client Delivery",
+                client: "SecureShield Labs",
+                budget: "$6,400.00",
+                duration: "11h 33m",
+                percent: 53,
+                hours_num: 11.55,
+                lines: "10,250+",
+                stack: ["Rust", "Tokio", "AVX-512", "Win32 / Epoll", "AES-NI"],
+                score: "99.6 / 100",
+                desc: "Bare-metal high-speed packet inspection engine with 10 Gbps wire-rate filtering, zero-allocation ringbuffers, and hardware AES-NI cryptography.",
+                devlog: `# 🦀 Devlog: AVX-512 SIMD Packet Filter in Rust\n**Author:** Aviral Dewangan | **Client:** SecureShield Labs | **Tracked Time:** 11h 33m\n**Stack:** Rust, Tokio, AVX-512 SIMD, AES-NI\n\n### 🚀 Architectural Deliverables\n- **10 Gbps Wire-Rate:** Vectorized AVX-512 pattern matching engine.\n- **Zero-Allocation:** Memory pool ringbuffers with zero runtime GC overhead.`
+            },
+            {
+                id: "freelance-pdf",
+                type: "gig",
+                icon: "📄",
+                title: "Vectorized PDF Extraction & Legal Analyzer",
+                category: "Freelance Client Delivery",
+                client: "LexisDoc Automation",
+                budget: "$3,800.00",
+                duration: "11h 26m",
+                percent: 52,
+                hours_num: 11.43,
+                lines: "7,200+",
+                stack: ["Python", "PyMuPDF", "Rust OCR", "Regex", "SQLite"],
+                score: "96.0 / 100",
+                desc: "High-throughput optical and vector PDF ingestion engine parsing 500+ pages/sec with automated tabular extraction and semantic metadata tagging.",
+                devlog: `# 📄 Devlog: 500 Pages/sec PDF Legal Extraction Core\n**Author:** Aviral Dewangan | **Client:** LexisDoc Automation | **Tracked Time:** 11h 26m\n**Stack:** Python, PyMuPDF, Rust OCR, SQLite\n\n### 🚀 Architectural Deliverables\n- **500+ Pages/sec:** Multiprocessing extraction pipeline.\n- **Tabular Parsing:** Spatial bounding box reconstruction of complex tables.`
+            },
+            {
+                id: "focusdefend-sovereign-shield",
+                type: "os",
+                icon: "🛡️",
+                title: "FocusDefend Sovereign Deep-Work Shield",
+                category: "Cyber-Defense & Focus Enclave",
+                client: "Sovereign Engineering Core",
+                budget: "Flagship Core",
+                duration: "16h 30m",
+                percent: 75,
+                hours_num: 16.5,
+                lines: "12,840+",
+                stack: ["Rust (Tokio)", "C / Win32", "Python", "HTML5"],
+                score: "96.8 / 100",
+                desc: "High-performance DNS packet interceptor, distraction process terminator, 40Hz Gamma soundscape generator, and 20-20-20 eye strain monitor.",
+                devlog: `# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\n**Author:** Aviral Dewangan | **Tracked Time:** 16h 30m\n**Stack:** Rust (Tokio), C Win32, Python Bridge\n\n### 🚀 Architectural Overview
+Built a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.`
+            },
+            {
+                id: "bharatos-sovereign-desktop",
+                type: "os",
+                icon: "🇮🇳",
+                title: "BharatOS Sovereign PC Operating System",
+                category: "Bare-Metal Operating System",
+                client: "BharatOS Sovereign Initiative",
+                budget: "Flagship OS",
+                duration: "21h 52m",
+                percent: 100,
+                hours_num: 21.87,
+                lines: "34,600+",
+                stack: ["x86_64 Assembly", "Freestanding C", "Rust", "Python"],
+                score: "99.4 / 100",
+                desc: "Ring-0 microkernel, 256-bit AVX2 SIMD OCR (32 bytes/cycle), Kavach cryptographic vault, and Prithvi desktop.",
+                devlog: `# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\n**Author:** Aviral Dewangan | **Tracked Time:** 21h 52m\n**Stack:** x86_64 Assembly, C Kernel, Rust OCR\n\n### 🚀 Architectural Overview
+Architected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.`
+            },
+            {
+                id: "solaris-omniverse-ecosystem",
+                type: "os",
+                icon: "🎮",
+                title: "Solaris 3D Tactical Physics & Spatial Engine",
+                category: "Spatial Computing & Graphics",
+                client: "Solaris Interactive",
+                budget: "Game Engine",
+                duration: "12h 39m",
+                percent: 58,
+                hours_num: 12.65,
+                lines: "8,900+",
+                stack: ["Rust", "WebGL", "Spatial Hash Grid", "Linear Algebra"],
+                score: "95.0 / 100",
+                desc: "O(1) broadphase spatial hash grid, real-time raycaster, and WebGL specular lighting pipeline.",
+                devlog: `# 🎮 Devlog: Solaris 3D Spatial Grid Engine\n**Author:** Aviral Dewangan | **Tracked Time:** 12h 39m\n**Stack:** Rust, WebGL, Spatial Hash Grid\n\n### 🚀 Architectural Deliverables
+Developed high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting.`
+            }
+        ];
+
+        // Render Horizontal Progress Bars
+        function renderProgressBars() {
+            const container = document.getElementById('project-bars-container');
+            container.innerHTML = '';
+
+            PROJECTS_DATA.forEach(p => {
+                const row = document.createElement('div');
+                row.className = 'space-y-1';
+                row.innerHTML = `
+                    <div class="flex items-center justify-between text-slate-300">
+                        <span class="truncate max-w-[280px]">${p.id}</span>
+                        <span class="text-rose-400 font-bold">${p.duration}</span>
+                    </div>
+                    <div class="w-full h-2.5 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
+                        <div class="h-full rounded-full bg-rose-500 progress-bar-glow" style="width: ${p.percent}%"></div>
+                    </div>
+                `;
+                container.appendChild(row);
+            });
+        }
+
+        // Render Project Showcase Grid Cards
+        function renderProjectCards(filter = 'all') {
+            const grid = document.getElementById('projects-grid');
+            grid.innerHTML = '';
+
+            const filtered = filter === 'all' ? PROJECTS_DATA : PROJECTS_DATA.filter(p => p.type === filter);
+
+            filtered.forEach(p => {
+                const card = document.createElement('div');
+                card.className = 'p-5 rounded-2xl liquid-card flex flex-col justify-between space-y-4';
+                card.innerHTML = `
+                    <div class="space-y-3">
+                        <div class="flex items-start justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="text-2xl">${p.icon}</span>
+                                <div>
+                                    <h3 class="font-bold text-sm text-white leading-tight">${p.title}</h3>
+                                    <div class="text-[10px] text-slate-400">${p.category} • ${p.client}</div>
+                                </div>
+                            </div>
+                            <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[10px] font-bold font-mono">${p.budget}</span>
+                        </div>
+
+                        <div class="grid grid-cols-3 gap-2 py-2 px-3 rounded-xl bg-slate-900/80 border border-slate-800 font-mono text-center">
+                            <div>
+                                <div class="text-[9px] text-slate-500 uppercase">Tracked</div>
+                                <div class="text-xs font-bold text-rose-400">${p.duration}</div>
+                            </div>
+                            <div>
+                                <div class="text-[9px] text-slate-500 uppercase">Lines</div>
+                                <div class="text-xs font-bold text-cyan-400">${p.lines}</div>
+                            </div>
+                            <div>
+                                <div class="text-[9px] text-slate-500 uppercase">Score</div>
+                                <div class="text-xs font-bold text-purple-400">${p.score}</div>
+                            </div>
+                        </div>
+
+                        <p class="text-xs text-slate-300 leading-relaxed">${p.desc}</p>
+
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            ${p.stack.map(s => `<span class="px-2 py-0.5 rounded-lg bg-slate-800 text-slate-300 text-[10px] font-mono border border-slate-700">${s}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="pt-3 border-t border-slate-800/80 flex items-center justify-between gap-2">
+                        <button onclick="copyProjectDevlog('${p.id}')" class="flex-1 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center justify-center space-x-1">
+                            <span>📋</span><span>Copy Devlog</span>
+                        </button>
+                    </div>
+                `;
+                grid.appendChild(card);
+            });
+        }
+
+        function filterProjects(filter) {
+            ['all', 'gig', 'os'].forEach(f => {
+                const tab = document.getElementById(`tab-${f}`);
+                if (tab) {
+                    if (f === filter) {
+                        tab.className = 'px-3 py-1.5 rounded-xl bg-emerald-500 text-slate-950 font-bold';
+                    } else {
+                        tab.className = 'px-3 py-1.5 rounded-xl bg-slate-800 text-slate-300 font-bold hover:bg-slate-700';
+                    }
+                }
+            });
+            renderProjectCards(filter);
+        }
+
+        function copyProjectDevlog(projectId) {
+            const p = PROJECTS_DATA.find(x => x.id === projectId);
+            if (p) {
+                navigator.clipboard.writeText(p.devlog);
+                showToast(`Copied ${p.title} devlog to clipboard!`);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2800);
+            }
+        }
+
+        // Initialize Charts with Chart.js
+        function initCharts() {
+            new Chart(document.getElementById('languagesChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Python', 'Rust', 'Go', 'React/TS', 'x86 ASM', 'C++20', 'C Kernel', 'WASM'],
+                    datasets: [{
+                        data: [32, 28, 12, 10, 8, 5, 3, 2],
+                        backgroundColor: [
+                            '#3b82f6', '#f97316', '#06b6d4', '#6366f1',
+                            '#eab308', '#ec4899', '#10b981', '#8b5cf6'
+                        ],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    cutout: '70%'
+                }
+            });
+
+            new Chart(document.getElementById('editorsChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['VS Code', 'Cursor AI', 'Antigravity Desktop'],
+                    datasets: [{
+                        data: [74, 18, 8],
+                        backgroundColor: ['#3b82f6', '#ec4899', '#f59e0b'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    cutout: '70%'
+                }
+            });
+
+            new Chart(document.getElementById('osChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: ['Windows 11', 'BharatOS Kernel'],
+                    datasets: [{
+                        data: [82, 18],
+                        backgroundColor: ['#3b82f6', '#10b981'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    cutout: '70%'
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProgressBars();
+            renderProjectCards('all');
+            initCharts();
+        });
+    </script>
+</body>
+</html>
