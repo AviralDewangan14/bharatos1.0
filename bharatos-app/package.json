@@ -12,7 +12,6 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.3.3",
     "bharatos": "file:..",
-    "bharatos-sovereign-desktop": "file:..",
     "clsx": "^2.1.1",
     "idb": "^8.0.3",
     "lucide-react": "^1.38.0",

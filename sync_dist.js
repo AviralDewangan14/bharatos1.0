@@ -18,20 +18,28 @@ function copyDir(src, dest) {
   }
 }
 
-const publicDir = path.join(__dirname, 'public');
-const distDir = path.join(__dirname, 'dist');
-const wallpapersDir = path.join(__dirname, 'wallpapers');
-const bharatosDir = path.join(__dirname, 'bharatos');
+const rootDir = __dirname;
+const appDist = path.join(rootDir, 'bharatos-app', 'dist');
+const publicDir = path.join(rootDir, 'public');
+const distDir = path.join(rootDir, 'dist');
+const bharatosDir = path.join(rootDir, 'bharatos');
+const wallpapersDir = path.join(rootDir, 'wallpapers');
 
-// Sync wallpapers to public and dist
+// 1. Sync app dist to root dist, public, and bharatos
+if (fs.existsSync(appDist)) {
+  copyDir(appDist, distDir);
+  copyDir(appDist, publicDir);
+  copyDir(appDist, bharatosDir);
+  if (fs.existsSync(path.join(appDist, 'index.html'))) {
+    fs.copyFileSync(path.join(appDist, 'index.html'), path.join(rootDir, 'index.html'));
+  }
+}
+
+// 2. Sync wallpapers to dist/wallpapers, public/wallpapers, and bharatos-app/dist/wallpapers
 if (fs.existsSync(wallpapersDir)) {
-  copyDir(wallpapersDir, path.join(publicDir, 'wallpapers'));
   copyDir(wallpapersDir, path.join(distDir, 'wallpapers'));
+  copyDir(wallpapersDir, path.join(publicDir, 'wallpapers'));
+  copyDir(wallpapersDir, path.join(appDist, 'wallpapers'));
 }
 
-// Sync public to dist and root
-if (fs.existsSync(publicDir)) {
-  copyDir(publicDir, distDir);
-  copyDir(publicDir, bharatosDir);
-  console.log('Synced assets across public/, dist/, and bharatos/');
-}
+console.log('Successfully synchronized production distribution across all directories.');
