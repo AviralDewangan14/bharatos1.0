@@ -11,13 +11,18 @@
   <!-- Desktop Wallpaper -->
   <div id="desktop-bg"></div>
 
-  <!-- Top Bar -->
+  <!-- Top Navigation Bar -->
   <div class="topbar">
     <div class="topbar-brand">☸️ BharatOS</div>
-    <div id="top-clock" class="topbar-clock">12:00 PM</div>
+    <div class="topbar-right">
+      <div class="status-badge">
+        <span class="status-dot"></span> Online
+      </div>
+      <div id="top-clock" class="topbar-clock">12:00 PM</div>
+    </div>
   </div>
 
-  <!-- Desktop Shortcuts -->
+  <!-- Desktop Shortcuts (Left Grid) -->
   <div class="desktop-grid">
     <div class="desktop-icon" onclick="openApp('win-paint', 'dock-paint')">
       <div class="icon-img">🎨</div>
@@ -49,10 +54,12 @@
     </div>
   </div>
 
-  <!-- Windows -->
+  <!-- =========================================================================
+       WINDOWS
+       ========================================================================= -->
 
-  <!-- 1. Paint Window -->
-  <div id="win-paint" class="window" style="width: 680px; height: 460px; top: 46px; left: 110px; display: none;" onmousedown="focusWindow(this)">
+  <!-- 1. Paint Studio Window (Advanced Toolbar, Shapes, Undo/Redo) -->
+  <div id="win-paint" class="window" style="width: 740px; height: 500px; top: 44px; left: 100px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-paint')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-paint', 'dock-paint', event)"></button>
@@ -62,28 +69,63 @@
       <div class="window-title">🎨 Paint Studio</div>
       <div style="width: 40px;"></div>
     </div>
-    <div class="paint-toolbar">
+
+    <!-- Top Tools Bar -->
+    <div class="paint-toolbar-top">
       <div class="paint-tools">
-        <button id="tool-brush" class="paint-btn active" onclick="setTool('brush')">Brush</button>
-        <button id="tool-eraser" class="paint-btn" onclick="setTool('eraser')">Eraser</button>
-        <button class="paint-btn" onclick="clearCanvas()">Clear</button>
-        <button class="paint-btn" onclick="saveDrawing()" style="background: #0284c7;">Save PNG</button>
+        <button id="tool-brush" class="paint-btn active" onclick="setTool('brush')" title="Brush">🖌️ Brush</button>
+        <button id="tool-eraser" class="paint-btn" onclick="setTool('eraser')" title="Eraser">🧹 Eraser</button>
+        <button id="tool-line" class="paint-btn" onclick="setTool('line')" title="Line Tool">📏 Line</button>
+        <button id="tool-rect" class="paint-btn" onclick="setTool('rect')" title="Rectangle">⬛ Rect</button>
+        <button id="tool-circle" class="paint-btn" onclick="setTool('circle')" title="Circle">⭕ Circle</button>
+        <button id="tool-fill" class="paint-btn" onclick="setTool('fill')" title="Fill Bucket">🪣 Bucket</button>
+        <button id="tool-picker" class="paint-btn" onclick="setTool('picker')" title="Color Eyedropper">💧 Picker</button>
       </div>
-      <div class="paint-colors">
-        <div class="color-dot" style="background: #38bdf8;" onclick="setColor('#38bdf8')"></div>
-        <div class="color-dot" style="background: #ef4444;" onclick="setColor('#ef4444')"></div>
-        <div class="color-dot" style="background: #10b981;" onclick="setColor('#10b981')"></div>
-        <div class="color-dot" style="background: #f59e0b;" onclick="setColor('#f59e0b')"></div>
-        <div class="color-dot" style="background: #ffffff;" onclick="setColor('#ffffff')"></div>
+
+      <div class="paint-tools">
+        <button class="paint-btn" onclick="undoPaint()" title="Undo (Ctrl+Z)">↩️ Undo</button>
+        <button class="paint-btn" onclick="redoPaint()" title="Redo (Ctrl+Y)">↪️ Redo</button>
+        <button class="paint-btn" onclick="clearCanvas()" title="Clear Canvas">🗑️ Clear</button>
+        <button class="paint-btn" onclick="saveDrawing()" style="background: #0284c7; font-weight: 700;">💾 Save PNG</button>
       </div>
     </div>
+
+    <!-- Sub-bar: Size, Opacity & Color Palette -->
+    <div class="paint-toolbar-bottom">
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span>Size:</span>
+          <input type="range" min="1" max="30" value="4" oninput="setBrushSize(this.value)" style="width: 70px; cursor: pointer;">
+          <span id="brush-size-val" style="font-family: monospace; color: #38bdf8;">4px</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 6px;">
+          <span>Opacity:</span>
+          <input type="range" min="0.1" max="1.0" step="0.1" value="1.0" oninput="setBrushOpacity(this.value)" style="width: 70px; cursor: pointer;">
+          <span id="brush-opacity-val" style="font-family: monospace; color: #38bdf8;">100%</span>
+        </div>
+      </div>
+
+      <div class="paint-colors">
+        <div class="color-dot" style="background: #38bdf8;" onclick="setColor('#38bdf8')" title="Cyan"></div>
+        <div class="color-dot" style="background: #3b82f6;" onclick="setColor('#3b82f6')" title="Blue"></div>
+        <div class="color-dot" style="background: #10b981;" onclick="setColor('#10b981')" title="Green"></div>
+        <div class="color-dot" style="background: #f59e0b;" onclick="setColor('#f59e0b')" title="Amber"></div>
+        <div class="color-dot" style="background: #ef4444;" onclick="setColor('#ef4444')" title="Red"></div>
+        <div class="color-dot" style="background: #a855f7;" onclick="setColor('#a855f7')" title="Purple"></div>
+        <div class="color-dot" style="background: #ec4899;" onclick="setColor('#ec4899')" title="Pink"></div>
+        <div class="color-dot" style="background: #ffffff;" onclick="setColor('#ffffff')" title="White"></div>
+        <input type="color" id="custom-color-picker" value="#38bdf8" onchange="setColor(this.value)" title="Custom Color" style="width: 22px; height: 22px; border: none; background: transparent; cursor: pointer;">
+      </div>
+    </div>
+
+    <!-- Canvas Area -->
     <div class="paint-canvas-wrap">
-      <canvas id="paint-canvas" width="650" height="370"></canvas>
+      <canvas id="paint-canvas" width="710" height="380"></canvas>
     </div>
   </div>
 
   <!-- 2. Terminal Window -->
-  <div id="win-term" class="window" style="width: 560px; height: 380px; top: 60px; left: 140px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-term" class="window" style="width: 580px; height: 400px; top: 60px; left: 140px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-term')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-term', 'dock-term', event)"></button>
@@ -95,7 +137,7 @@
     </div>
     <div class="term-container">
       <div id="term-body" class="term-output">
-        <div class="term-line" style="color: #38bdf8;">BharatOS Terminal v1.0. Type 'help' for available commands.</div>
+        <div class="term-line" style="color: #38bdf8;">BharatOS Terminal v1.0. Type 'help' or 'neofetch' for system info.</div>
       </div>
       <div class="term-input-row">
         <span class="term-prompt">aviral@bharatos:~$</span>
@@ -264,15 +306,15 @@
     </div>
   </div>
 
-  <!-- Bottom Dock -->
+  <!-- Bottom Dock with Tooltip Labels -->
   <div class="dock">
-    <div id="dock-paint" class="dock-item" onclick="openApp('win-paint', 'dock-paint')" title="Paint">🎨</div>
-    <div id="dock-term" class="dock-item" onclick="openApp('win-term', 'dock-term')" title="Terminal">💻</div>
-    <div id="dock-notes" class="dock-item" onclick="openApp('win-notes', 'dock-notes')" title="Notes">📝</div>
-    <div id="dock-calc" class="dock-item" onclick="openApp('win-calc', 'dock-calc')" title="Calculator">🧮</div>
-    <div id="dock-synth" class="dock-item" onclick="openApp('win-synth', 'dock-synth')" title="Synthesizer">🎵</div>
-    <div id="dock-snake" class="dock-item" onclick="openApp('win-snake', 'dock-snake')" title="Snake Game">🐍</div>
-    <div id="dock-settings" class="dock-item" onclick="openApp('win-settings', 'dock-settings')" title="Settings">⚙️</div>
+    <div id="dock-paint" class="dock-item" data-title="Paint Studio" onclick="openApp('win-paint', 'dock-paint')">🎨</div>
+    <div id="dock-term" class="dock-item" data-title="Terminal CLI" onclick="openApp('win-term', 'dock-term')">💻</div>
+    <div id="dock-notes" class="dock-item" data-title="Notes Editor" onclick="openApp('win-notes', 'dock-notes')">📝</div>
+    <div id="dock-calc" class="dock-item" data-title="Calculator" onclick="openApp('win-calc', 'dock-calc')">🧮</div>
+    <div id="dock-synth" class="dock-item" data-title="Synthesizer" onclick="openApp('win-synth', 'dock-synth')">🎵</div>
+    <div id="dock-snake" class="dock-item" data-title="Snake Arcade" onclick="openApp('win-snake', 'dock-snake')">🐍</div>
+    <div id="dock-settings" class="dock-item" data-title="System Settings" onclick="openApp('win-settings', 'dock-settings')">⚙️</div>
   </div>
 
   <!-- Lockscreen -->

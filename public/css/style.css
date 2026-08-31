@@ -1,5 +1,5 @@
 /* ==========================================================================
-   BharatOS — Web Desktop Environment
+   BharatOS — Web Desktop Stylesheet
    Hand-crafted by Aviral Dewangan
    ========================================================================== */
 
@@ -37,7 +37,7 @@ body, html {
   left: 0;
   right: 0;
   height: 34px;
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.88);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
@@ -57,6 +57,29 @@ body, html {
   align-items: center;
   gap: 8px;
   cursor: pointer;
+}
+
+.topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.status-badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #34d399;
+  font-family: monospace;
+}
+
+.status-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #34d399;
+  box-shadow: 0 0 6px #34d399;
 }
 
 .topbar-clock {
@@ -183,13 +206,13 @@ body, html {
   background: #090d16;
 }
 
-/* Bottom Taskbar / Dock */
+/* Bottom Taskbar / Dock with Tooltips */
 .dock {
   position: fixed;
   bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.85);
+  background: rgba(15, 23, 42, 0.88);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
@@ -214,13 +237,17 @@ body, html {
   font-size: 22px;
   cursor: pointer;
   position: relative;
-  transition: transform 0.18s, background 0.18s;
+  transition: transform 0.18s cubic-bezier(0.2, 0, 0, 1), background 0.18s;
 }
 
 .dock-item:hover {
-  transform: translateY(-6px) scale(1.15);
+  transform: translateY(-8px) scale(1.18);
   background: rgba(255, 255, 255, 0.16);
   border-color: #38bdf8;
+}
+
+.dock-item:active {
+  transform: scale(0.92);
 }
 
 .dock-item.active {
@@ -232,103 +259,41 @@ body, html {
   content: '';
   position: absolute;
   bottom: -4px;
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
   background: #38bdf8;
+  box-shadow: 0 0 6px #38bdf8;
 }
 
-/* Lock Screen */
-.lockscreen {
-  position: fixed;
-  inset: 0;
-  z-index: 10000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: opacity 0.35s ease;
-  overflow: hidden;
-}
-
-.lockscreen-bg {
+/* Tooltip on Dock Hover */
+.dock-item::before {
+  content: attr(data-title);
   position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-position: center;
-  filter: blur(24px);
-  transform: scale(1.06);
-  z-index: 1;
+  top: -34px;
+  left: 50%;
+  transform: translateX(-50%) scale(0.9);
+  padding: 4px 8px;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  color: #f8fafc;
+  font-size: 11px;
+  font-weight: 600;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s, transform 0.15s;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
-.lockscreen-overlay {
-  position: absolute;
-  inset: 0;
-  background: rgba(10, 15, 29, 0.55);
-  z-index: 2;
+.dock-item:hover::before {
+  opacity: 1;
+  transform: translateX(-50%) scale(1);
 }
 
-.lock-card {
-  position: relative;
-  z-index: 3;
-  width: 320px;
-  background: rgba(15, 23, 42, 0.88);
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
-  border-radius: 24px;
-  padding: 34px 26px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.lock-clock {
-  font-size: 38px;
-  font-weight: 700;
-  font-family: monospace;
-  color: #ffffff;
-  margin: 10px 0 2px 0;
-  text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
-}
-
-.lock-input {
-  width: 100%;
-  padding: 11px 16px;
-  background: #020617;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 10px;
-  color: #ffffff;
-  font-family: monospace;
-  font-size: 15px;
-  text-align: center;
-  margin: 18px 0 14px 0;
-  outline: none;
-}
-
-.lock-input:focus {
-  border-color: #38bdf8;
-}
-
-.lock-btn {
-  width: 100%;
-  padding: 11px;
-  border-radius: 10px;
-  border: none;
-  background: #0284c7;
-  color: #ffffff;
-  font-weight: 700;
-  font-size: 13px;
-  cursor: pointer;
-  transition: background 0.15s, transform 0.1s;
-}
-
-.lock-btn:hover {
-  background: #0369a1;
-  transform: translateY(-1px);
-}
-
-/* App: Paint */
-.paint-toolbar {
+/* App: Advanced Paint Studio */
+.paint-toolbar-top {
   padding: 8px 14px;
   background: #1e293b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
@@ -336,23 +301,40 @@ body, html {
   align-items: center;
   justify-content: space-between;
   font-size: 12px;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.paint-toolbar-bottom {
+  padding: 6px 14px;
+  background: #0f172a;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #94a3b8;
 }
 
 .paint-tools {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .paint-btn {
-  padding: 5px 12px;
+  padding: 5px 10px;
   background: #334155;
   border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   border-radius: 6px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: all 0.1s;
 }
 
 .paint-btn:hover { background: #475569; }
@@ -364,19 +346,19 @@ body, html {
 .paint-colors {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
 }
 
 .color-dot {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.3);
   transition: transform 0.1s;
 }
 
-.color-dot:hover { transform: scale(1.2); }
+.color-dot:hover { transform: scale(1.25); }
 
 .paint-canvas-wrap {
   flex: 1;
@@ -385,12 +367,13 @@ body, html {
   justify-content: center;
   padding: 8px;
   background: #020617;
+  overflow: auto;
 }
 
 #paint-canvas {
   background: #0f172a;
   border: 1px solid #1e293b;
-  border-radius: 10px;
+  border-radius: 8px;
   cursor: crosshair;
 }
 
@@ -635,6 +618,93 @@ body, html {
   font-size: 11px;
   color: #94a3b8;
   margin-top: 2px;
+}
+
+/* Lock Screen */
+.lockscreen {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.35s ease;
+  overflow: hidden;
+}
+
+.lockscreen-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  filter: blur(24px);
+  transform: scale(1.06);
+  z-index: 1;
+}
+
+.lockscreen-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 15, 29, 0.55);
+  z-index: 2;
+}
+
+.lock-card {
+  position: relative;
+  z-index: 3;
+  width: 320px;
+  background: rgba(15, 23, 42, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  border-radius: 24px;
+  padding: 34px 26px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.lock-clock {
+  font-size: 38px;
+  font-weight: 700;
+  font-family: monospace;
+  color: #ffffff;
+  margin: 10px 0 2px 0;
+  text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
+}
+
+.lock-input {
+  width: 100%;
+  padding: 11px 16px;
+  background: #020617;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 15px;
+  text-align: center;
+  margin: 18px 0 14px 0;
+  outline: none;
+}
+
+.lock-input:focus { border-color: #38bdf8; }
+
+.lock-btn {
+  width: 100%;
+  padding: 11px;
+  border-radius: 10px;
+  border: none;
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+}
+
+.lock-btn:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
 }
 
 /* Custom Scrollbars */
