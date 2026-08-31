@@ -1,58 +1,58 @@
 # GenAz Programming Language
 
-A fast, expressive, and easy-to-learn native programming language designed for real-world software engineering, scientific data analytics, AI matrix computation, and high-concurrency network services.
-
-## Key Features
-
-1. **Easy to Learn & Highly Expressive**:
-   - Clean, readable syntax without boilerplate.
-   - Hindley-Milner static type inference catches bugs at compile-time without demanding manual type annotations.
-   - Helpful error messages with automatic typo suggestions (e.g. *Did you mean 'println'?*).
-
-2. **Real-World Standard Library**:
-   - **File System & I/O**: `read_file`, `write_file`, `append_file`, `file_exists`.
-   - **JSON & Data Serialization**: `json_encode`, `json_decode`.
-   - **Advanced Mathematics**: `sin`, `cos`, `tan`, `sqrt`, `pow`, `exp`, `log`, `gcd`, `factorial`, `clamp`.
-   - **Data Science & Statistics**: `mean`, `median`, `variance`, `std_dev`, `sum`, `min`, `max`.
-   - **Linear Algebra & AI Tensors**: `matmul` (matrix multiplication), `transpose`, `dot` (dot products), `zeros`, `ones`, `eye`.
-   - **String Utilities**: `split`, `join`, `trim`, `replace`, `to_upper`, `to_lower`, `contains`, `starts_with`, `ends_with`.
-   - **HTTP Networking**: `http_get`, `http_post`.
-   - **Concurrency**: `spawn` lightweight green threads, and thread-safe typed channels (`chan`).
-
-3. **Fast Native Bytecode Virtual Machine**:
-   - Compiles `.gaz` source code into standalone `.gbc` binary bytecode files.
-   - Stack-based bytecode runtime with 25+ specialized opcodes.
-
-4. **Native Desktop IDE**:
-   - Built-in desktop development environment (`genaz gui`) featuring code editing, live disassembly, and execution output.
+GenAz is a lightweight, compiled programming language that compiles to binary bytecode and executes on a stack-based virtual machine runtime. It includes a built-in type checker, bytecode disassembler, standard library, interactive REPL, and desktop IDE.
 
 ---
 
-## 🚀 Quick Start & CLI Commands
+## Architecture & Components
+
+### 1. Lexer & Parser (`genaz/src/lexer.py`, `genaz/src/parser.py`)
+- Hand-written recursive descent parser generating an Abstract Syntax Tree (AST).
+- Syntax features: variables (`let`, `let mut`), control flow (`if`/`else`, `for`/`while`), functions (`fn`), data structures (`lists`, `maps`), and concurrency primitives (`spawn`, `chan`, `<-`).
+
+### 2. Type Checker (`genaz/src/type_checker.py`)
+- Performs compile-time validation and static type inference before bytecode generation.
+- Suggests fixes for misspelled identifiers and catches type mismatches early.
+
+### 3. Bytecode Compiler & Binary Format (`genaz/src/compiler.py`, `genaz/src/binary_format.py`)
+- Emits instruction opcodes into custom `.gbc` binary files with magic header verification (`0x47415A01`), constant pool serialization, and function symbol tables.
+
+### 4. Stack Virtual Machine (`genaz/src/vm.py`)
+- Executes compiled bytecode instructions against an evaluation stack.
+- Built-in standard library functions:
+  - **I/O & Filesystem**: `read_file`, `write_file`, `append_file`, `file_exists`
+  - **Data Processing**: `json_encode`, `json_decode`, `split`, `join`, `trim`
+  - **Math & Statistics**: `sin`, `cos`, `tan`, `sqrt`, `pow`, `mean`, `median`, `variance`, `std_dev`
+  - **Linear Algebra**: `matmul`, `transpose`, `dot`, `zeros`, `ones`, `eye`
+  - **Concurrency**: `spawn` green threads with thread-safe FIFO channels (`chan`)
+
+---
+
+## CLI Usage
 
 ```bash
-# 1. Run a GenAz script
-python genaz/src/main.py run genaz/examples/06_data_statistics.gaz
+# Run a source script directly
+python genaz/src/main.py run genaz/examples/01_hello.gaz
 
-# 2. Compile to native binary bytecode (.gbc)
+# Compile source to binary bytecode (.gbc)
 python genaz/src/main.py build genaz/examples/02_fibonacci.gaz -o fib.gbc
 
-# 3. Execute the binary bytecode directly
+# Execute compiled bytecode
 python genaz/src/main.py run fib.gbc
 
-# 4. Disassemble bytecode into readable assembly
+# Disassemble bytecode to inspect opcodes
 python genaz/src/main.py dis genaz/examples/01_hello.gaz
 
-# 5. Interactive REPL prompt
+# Launch the interactive REPL
 python genaz/src/main.py repl
 
-# 6. Launch Native Desktop GUI IDE
+# Launch the desktop IDE
 python genaz/src/main.py gui
 ```
 
 ---
 
-## 📝 Code Examples
+## Examples
 
 ### 1. Data Statistics & Linear Algebra
 ```genaz
@@ -63,7 +63,6 @@ println("Mean:    " + str(mean(dataset)));
 println("Median:  " + str(median(dataset)));
 println("Std Dev: " + str(round(std_dev(dataset), 2)));
 
-// Dot product
 let weights = [0.2, 0.3, 0.5];
 let inputs  = [10.0, 20.0, 30.0];
 println("Weighted Score: " + str(dot(weights, inputs)));
@@ -85,7 +84,7 @@ let parsed = json_decode(loaded);
 println("Loaded service: " + parsed.service);
 ```
 
-### 3. Lightweight Concurrency & Channels
+### 3. Concurrency with Channels
 ```genaz
 fn compute(ch, id) {
     let mut total = 0;
@@ -105,33 +104,31 @@ println("Result 2: " + str(<-c));
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
-```
+```text
 genaz/
-├── bin/
-│   ├── genaz.bat            # Windows command line runner
-│   ├── genaz.cmd            # Windows Batch executable
-│   └── genaz                # Unix / macOS shell script
-├── src/
+├── bin/                     # Platform execution wrappers
+│   ├── genaz.bat            # Windows batch launcher
+│   ├── genaz.cmd            # Windows CMD runner
+│   └── genaz                # POSIX shell script
+├── src/                     # Compiler & VM pipeline
 │   ├── lexer.py             # Lexical tokenizer
-│   ├── parser.py            # Recursive descent AST parser
-│   ├── type_checker.py      # Type inference engine
-│   ├── compiler.py          # Stack bytecode compiler
-│   ├── binary_format.py     # Binary bytecode (.gbc) serializer
-│   ├── vm.py                # Virtual machine runtime with full stdlib
+│   ├── parser.py            # AST parser
+│   ├── type_checker.py      # Type inference
+│   ├── compiler.py          # Bytecode emitter
+│   ├── binary_format.py     # Binary bytecode format (.gbc)
+│   ├── vm.py                # Virtual machine runtime & stdlib
 │   ├── disassembler.py      # Bytecode disassembler
 │   ├── repl.py              # Interactive REPL
-│   ├── gui.py               # Native Desktop Tkinter IDE
-│   └── main.py              # Universal CLI entrypoint
-├── ide/
-│   └── index.html           # Web playground interface
-├── examples/                # 7 complete real-world examples (.gaz)
-└── tests/                   # Automated unit test suite
+│   ├── gui.py               # Tkinter desktop GUI
+│   └── main.py              # Unified CLI
+├── examples/                # Example scripts (.gaz)
+└── tests/                   # Test suite
 ```
 
 ---
 
-## 👤 Author
-Created by **Aviral Dewangan**  
+## Author
+Aviral Dewangan  
 GitHub: [@AviralDewangan14](https://github.com/AviralDewangan14)
