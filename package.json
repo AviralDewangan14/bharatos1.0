@@ -1,12 +1,12 @@
 {
   "name": "bharatos-sovereign-desktop",
   "version": "2026.1.0",
-  "description": "BharatOS Sovereign Operating System & Engineering Consultancy Studio",
+  "description": "BharatOS — Browser Desktop Environment & GenAz Programming Language",
   "author": "Aviral Dewangan <aviral.dewangan14@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "python main.py",
-    "dev": "python main.py",
-    "build": "node -e \"console.log('Production static distribution verified in public/')\""
+    "dev": "npm --prefix bharatos-app run dev",
+    "build": "npm --prefix bharatos-app run build",
+    "start": "python main.py"
   }
 }
