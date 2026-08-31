@@ -4716,74 +4716,121 @@ Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</t
                         <div class="flex items-center space-x-2">
                             <span class="text-sm">📰</span>
                             <span class="font-bold text-xs tracking-wide text-slate-800 dark:text-slate-200">Devlog & Freelance Project Showcase Studio</span>
-                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">6 ARCHITECTURES</span>
+                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">11 ARCHITECTURES • 8 GIGS</span>
                         </div>
                     </div>
                     <div class="flex items-center space-x-3 text-[11px] text-slate-400">
                         <span>Developer: <strong class="text-emerald-400">Aviral Dewangan</strong></span>
                         <span class="text-slate-600">•</span>
-                        <span>Total Portfolio: <strong class="text-amber-400">93.7k+ Lines</strong></span>
+                        <span>Total Portfolio: <strong class="text-amber-400">145.8+ Hours • 112k+ Lines</strong></span>
                     </div>
                 </div>
 
                 <!-- Window Body -->
                 <div class="flex-1 flex overflow-hidden">
                     <!-- Left Sidebar: Project Selector List -->
-                    <div class="w-72 p-3 border-r border-slate-800/80 bg-slate-950/90 flex flex-col space-y-1.5 overflow-y-auto">
-                        <div class="text-[10px] font-bold text-slate-500 uppercase px-2 py-1 tracking-wider">Major & Freelance Portfolio</div>
+                    <div class="w-80 p-3 border-r border-slate-800/80 bg-slate-950/90 flex flex-col space-y-1.5 overflow-y-auto">
+                        <div class="text-[10px] font-bold text-slate-500 uppercase px-2 py-1 tracking-wider">Freelance Client Gigs (8)</div>
 
-                        <button onclick="selectDevlogProject('focusdefend-sovereign-shield')" id="devlog-btn-focusdefend-sovereign-shield" class="p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-left transition-all flex items-center space-x-3 w-full">
-                            <span class="text-lg">🛡️</span>
+                        <button onclick="selectDevlogProject('freelance-web3')" id="devlog-btn-freelance-web3" class="p-2.5 rounded-xl bg-purple-500/20 border border-purple-500/50 text-left transition-all flex items-center space-x-3 w-full">
+                            <span class="text-lg">⚡</span>
                             <div class="flex-1 min-w-0">
-                                <div class="font-bold text-xs text-emerald-300 truncate">FocusDefend Shield</div>
-                                <div class="text-[10px] text-slate-400">Rust • C • 16.5 hrs</div>
+                                <div class="font-bold text-xs text-purple-300 truncate">Solana DEX Router</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • Anchor • 12h 27m</div>
                             </div>
-                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/30 text-emerald-300 text-[9px] font-bold">Active</span>
+                            <span class="px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-300 text-[9px] font-bold">$4.8k</span>
                         </button>
 
-                        <button onclick="selectDevlogProject('bharatos-sovereign-desktop')" id="devlog-btn-bharatos-sovereign-desktop" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80">
+                        <button onclick="selectDevlogProject('freelance-go')" id="devlog-btn-freelance-go" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🌐</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Raft Event Streamer</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Go • gRPC • 12h 2m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">$5.2k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-py')" id="devlog-btn-freelance-py" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-blue-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🐍</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Async ETL & Polars</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • Arrow • 11h 58m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[9px] font-bold">$3.9k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-ai')" id="devlog-btn-freelance-ai" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-rose-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🤖</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FlashAttention Kernel</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • CUDA • 11h 58m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">$5.5k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-react')" id="devlog-btn-freelance-react" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-indigo-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">⚛️</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Trading Terminal UI</div>
+                                <div class="text-[10px] text-slate-400 font-mono">React 19 • Canvas • 11h 51m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">$4.2k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-fastapi')" id="devlog-btn-freelance-fastapi" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-emerald-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">⚡</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FastAPI Gateway</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • Redis • 11h 40m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">$4.6k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-rust')" id="devlog-btn-freelance-rust" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-amber-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🦀</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">AVX-512 Packet Filter</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • SIMD • 11h 33m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">$6.4k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-pdf')" id="devlog-btn-freelance-pdf" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-teal-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">📄</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">PDF Legal Analyzer</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • OCR • 11h 26m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[9px] font-bold">$3.8k</span>
+                        </button>
+
+                        <div class="text-[10px] font-bold text-slate-500 uppercase px-2 pt-2 pb-1 tracking-wider">Flagship OS & Suites (3)</div>
+
+                        <button onclick="selectDevlogProject('focusdefend-sovereign-shield')" id="devlog-btn-focusdefend-sovereign-shield" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-emerald-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🛡️</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FocusDefend Shield</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • C • 16h 30m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">Focus</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('bharatos-sovereign-desktop')" id="devlog-btn-bharatos-sovereign-desktop" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
                             <span class="text-lg">🇮🇳</span>
                             <div class="flex-1 min-w-0">
                                 <div class="font-bold text-xs text-slate-200 truncate">BharatOS Desktop OS</div>
-                                <div class="text-[10px] text-slate-400">x86_64 ASM • C • 38.2h</div>
+                                <div class="text-[10px] text-slate-400 font-mono">x86_64 ASM • 21h 52m</div>
                             </div>
                             <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">OS</span>
                         </button>
 
-                        <button onclick="selectDevlogProject('freelance-web3')" id="devlog-btn-freelance-web3" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-purple-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80">
-                            <span class="text-lg">⚡</span>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-xs text-slate-200 truncate">Solana DEX Router</div>
-                                <div class="text-[10px] text-slate-400">Rust • Anchor • $4.8k</div>
-                            </div>
-                            <span class="px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-300 text-[9px] font-bold">Gig</span>
-                        </button>
-
-                        <button onclick="selectDevlogProject('freelance-fintech')" id="devlog-btn-freelance-fintech" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-amber-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80">
-                            <span class="text-lg">📈</span>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-xs text-slate-200 truncate">FIX Matching Engine</div>
-                                <div class="text-[10px] text-slate-400">C++20 • 840ns • $6.2k</div>
-                            </div>
-                            <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">Gig</span>
-                        </button>
-
-                        <button onclick="selectDevlogProject('freelance-ai')" id="devlog-btn-freelance-ai" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-rose-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80">
-                            <span class="text-lg">🤖</span>
-                            <div class="flex-1 min-w-0">
-                                <div class="font-bold text-xs text-slate-200 truncate">FlashAttention Kernel</div>
-                                <div class="text-[10px] text-slate-400">Python • Triton • $5.5k</div>
-                            </div>
-                            <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">Gig</span>
-                        </button>
-
-                        <button onclick="selectDevlogProject('arcade-solaris-engine')" id="devlog-btn-arcade-solaris-engine" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-indigo-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80">
+                        <button onclick="selectDevlogProject('solaris-omniverse-ecosystem')" id="devlog-btn-solaris-omniverse-ecosystem" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-indigo-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
                             <span class="text-lg">🎮</span>
                             <div class="flex-1 min-w-0">
-                                <div class="font-bold text-xs text-slate-200 truncate">Solaris 3D Physics</div>
-                                <div class="text-[10px] text-slate-400">Rust • WebGL • 14.5h</div>
+                                <div class="font-bold text-xs text-slate-200 truncate">Solaris 3D Engine</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • WebGL • 12h 39m</div>
                             </div>
-                            <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">Engine</span>
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">Game</span>
                         </button>
                     </div>
 
@@ -13631,17 +13678,113 @@ Available Sovereign Applications:<br>
         // DEVLOG & FREELANCE SHOWCASE STUDIO JS
         // =========================================================================
         const DEVLOG_PROJECTS_DATABASE = {
+            'freelance-web3': {
+                title: 'Solana & EVM Cross-Chain Liquidity Router',
+                badge: 'Delivered Gig ($4,800)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Web3 / DeFi',
+                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.',
+                hours: '12h 27m',
+                lines: '8,450+',
+                stack: 'Rust • Anchor • Tokio',
+                score: '98.2 / 100',
+                markdown: `# ⚡ Devlog: Solana & EVM Cross-Chain Liquidity Router\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Tracked Time:** 12h 27m\n**Stack:** Rust, Anchor, Tokio, Solana CPI, WASM\n\n### 🚀 Architectural Deliverables\n- **Zero-Slippage AMM Engine:** Sub-millisecond transaction batching on Solana.\n- **Atomic CPI Bridge:** Cryptographically audited cross-program invocation locks.\n- **Performance:** Sustained 65k TPS under stress testing.`
+            },
+            'freelance-go': {
+                title: 'Distributed Raft Consensus & Microservice Event Streamer',
+                badge: 'Delivered Gig ($5,200)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Distributed Systems',
+                desc: 'Fault-tolerant distributed key-value consensus engine with gRPC stream pipelines, Raft leader election, and sub-5ms heartbeat health monitoring.',
+                hours: '12h 2m',
+                lines: '9,120+',
+                stack: 'Go (Golang) • gRPC • Raft',
+                score: '97.8 / 100',
+                markdown: `# 🌐 Devlog: Distributed Raft Consensus Engine in Go\n**Author:** Aviral Dewangan | **Client:** CloudScale Infra | **Tracked Time:** 12h 2m\n**Stack:** Go (Golang), gRPC, Raft, Protobuf\n\n### 🚀 Architectural Deliverables\n- **Raft State Machine:** Linearizable quorum-based replication with automatic failover.\n- **High Throughput:** 1.2M msgs/sec with low GC pause latency.`
+            },
+            'freelance-py': {
+                title: 'Async Data Ingestion & ETL Pipeline with Polars & Arrow',
+                badge: 'Delivered Gig ($3,900)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Data Engineering',
+                desc: 'Vectorized data processing engine consuming gigabyte-scale streams, applying SIMD-accelerated aggregation filters, and persisting zero-copy parquet tables.',
+                hours: '11h 58m',
+                lines: '7,880+',
+                stack: 'Python 3.11 • Polars • Arrow',
+                score: '96.5 / 100',
+                markdown: `# 🐍 Devlog: High-Throughput Async ETL Pipeline\n**Author:** Aviral Dewangan | **Client:** Quantum Analytics | **Tracked Time:** 11h 58m\n**Stack:** Python 3.11, Polars, Asyncio, Apache Arrow\n\n### 🚀 Architectural Deliverables\n- **Vectorized Ingestion:** 4.8 GB/sec ingestion pipeline using Apache Arrow zero-copy memory.\n- **SIMD Filtering:** 10x faster queries compared to standard Pandas pipelines.`
+            },
+            'freelance-ai': {
+                title: 'Custom FlashAttention-2 & RoPE LLM Inference Accelerator',
+                badge: 'Delivered Gig ($5,500)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • AI & GPU Kernels',
+                desc: 'Fused Rotary Position Embedding (RoPE) kernel and Paged KV-Cache engine cutting VRAM footprint by 45% and boosting token generation speed by 3.2x.',
+                hours: '11h 58m',
+                lines: '9,400+',
+                stack: 'Python • Triton • CUDA C++',
+                score: '98.9 / 100',
+                markdown: `# 🤖 Devlog: Custom FlashAttention-2 Inference Accelerator\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Tracked Time:** 11h 58m\n**Stack:** Python, Triton, CUDA C++, PyTorch\n\n### 🚀 Architectural Deliverables\n- **Fused FP16 RoPE:** Kernel fusion eliminating GPU global memory roundtrips.\n- **Paged KV-Cache:** Virtual memory paging for dynamic context windows.`
+            },
+            'freelance-react': {
+                title: 'Real-Time Glassmorphic Financial Trading Terminal & UI',
+                badge: 'Delivered Gig ($4,200)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Frontend Architecture',
+                desc: 'Ultra-low latency institutional trading cockpit with dynamic 120 FPS orderbook canvas, real-time depth charts, and glassmorphic telemetry cards.',
+                hours: '11h 51m',
+                lines: '8,640+',
+                stack: 'React 19 • TypeScript • Canvas',
+                score: '99.1 / 100',
+                markdown: `# ⚛️ Devlog: 120 FPS Financial Trading Terminal in React 19\n**Author:** Aviral Dewangan | **Client:** AlphaTrader | **Tracked Time:** 11h 51m\n**Stack:** React 19, TypeScript, Tailwind CSS, WebSockets\n\n### 🚀 Architectural Deliverables\n- **120 FPS Canvas:** Real-time WebGL depth visualizer with zero frame drops.\n- **WebSocket Multiplexing:** Sub-millisecond tick updates with zero UI lag.`
+            },
+            'freelance-fastapi': {
+                title: 'High-Throughput Asynchronous REST/WebSocket Microservices',
+                badge: 'Delivered Gig ($4,600)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Backend API',
+                desc: 'High-concurrency API gateway handling 48,000 req/sec with non-blocking async session pools, JWT token verification, and Redis pub/sub replication.',
+                hours: '11h 40m',
+                lines: '7,950+',
+                stack: 'FastAPI • Python • Redis',
+                score: '97.4 / 100',
+                markdown: `# ⚡ Devlog: Scalable FastAPI Microservices Architecture\n**Author:** Aviral Dewangan | **Client:** FinVault Global | **Tracked Time:** 11h 40m\n**Stack:** FastAPI, Python, Redis Streams, Pydantic v2\n\n### 🚀 Architectural Deliverables\n- **48,000 Req/sec:** Async event loops optimized with Uvicorn uvloop workers.\n- **Redis Streams:** Resilient event streaming with guaranteed at-least-once delivery.`
+            },
+            'freelance-rust': {
+                title: 'AVX-512 SIMD Zero-Copy Network Packet Filter Enclave',
+                badge: 'Delivered Gig ($6,400)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Cyber-Defense',
+                desc: 'Bare-metal high-speed packet inspection engine with 10 Gbps wire-rate filtering, zero-allocation ringbuffers, and hardware AES-NI cryptography.',
+                hours: '11h 33m',
+                lines: '10,250+',
+                stack: 'Rust • Tokio • AVX-512',
+                score: '99.6 / 100',
+                markdown: `# 🦀 Devlog: AVX-512 SIMD Packet Filter in Rust\n**Author:** Aviral Dewangan | **Client:** SecureShield Labs | **Tracked Time:** 11h 33m\n**Stack:** Rust, Tokio, AVX-512 SIMD, AES-NI\n\n### 🚀 Architectural Deliverables\n- **10 Gbps Wire-Rate:** Vectorized AVX-512 pattern matching engine.\n- **Zero-Allocation:** Memory pool ringbuffers with zero runtime GC overhead.`
+            },
+            'freelance-pdf': {
+                title: 'Vectorized PDF Extraction & Legal Document Analyzer',
+                badge: 'Delivered Gig ($3,800)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Document Intelligence',
+                desc: 'High-throughput optical and vector PDF ingestion engine parsing 500+ pages/sec with automated tabular extraction and semantic metadata tagging.',
+                hours: '11h 26m',
+                lines: '7,200+',
+                stack: 'Python • PyMuPDF • OCR',
+                score: '96.0 / 100',
+                markdown: `# 📄 Devlog: 500 Pages/sec PDF Legal Extraction Core\n**Author:** Aviral Dewangan | **Client:** LexisDoc Automation | **Tracked Time:** 11h 26m\n**Stack:** Python, PyMuPDF, Rust OCR, SQLite\n\n### 🚀 Architectural Deliverables\n- **500+ Pages/sec:** Multiprocessing extraction pipeline.\n- **Tabular Parsing:** Spatial bounding box reconstruction of complex tables.`
+            },
             'focusdefend-sovereign-shield': {
-                title: 'FocusDefend Sovereign Deep-Work Shield',
+                title: 'FocusDefend Sovereign Deep-Work Distraction Shield',
                 badge: 'Active Focus',
                 badgeClass: 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold',
                 category: 'Cyber-Defense & Focus Enclave',
-                desc: 'High-performance DNS packet interceptor, distraction process terminator, and 40Hz Gamma soundscape generator.',
-                hours: '16.5 hrs',
+                desc: 'High-performance DNS packet interceptor, distraction process terminator, 40Hz Gamma soundscape generator, and 20-20-20 eye strain monitor.',
+                hours: '16h 30m',
                 lines: '12,840+',
                 stack: 'Rust • C Win32 • Tokio',
                 score: '96.8 / 100',
-                markdown: `# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\n**Author:** Aviral Dewangan | **Stack:** Rust (Tokio), C Win32, Python Bridge\n\n### 🚀 Architectural Overview\nBuilt a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.\n- **Rust Core:** Zero-copy async DNS packet filter with multi-threaded rule engine.\n- **Win32 Hook:** C-based foreground window title classifier.\n- **Binaural Audio:** Integrated 40 Hz Gamma wave generator for peak cognitive performance.`
+                markdown: `# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\n**Author:** Aviral Dewangan | **Tracked Time:** 16h 30m\n**Stack:** Rust (Tokio), C Win32, Python Bridge\n\n### 🚀 Architectural Overview\nBuilt a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.\n- **Rust Core:** Zero-copy async DNS packet filter with multi-threaded rule engine.\n- **Win32 Hook:** C-based foreground window title classifier.\n- **Binaural Audio:** Integrated 40 Hz Gamma wave generator for peak cognitive performance.`
             },
             'bharatos-sovereign-desktop': {
                 title: 'BharatOS Sovereign PC Operating System',
@@ -13649,59 +13792,23 @@ Available Sovereign Applications:<br>
                 badgeClass: 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold',
                 category: 'Bare-Metal Operating System',
                 desc: 'Ring-0 microkernel, 256-bit AVX2 SIMD OCR (32 bytes/cycle), Kavach cryptographic vault, and Prithvi desktop.',
-                hours: '38.2 hrs',
+                hours: '21h 52m',
                 lines: '34,600+',
                 stack: 'x86_64 ASM • C • Rust',
                 score: '99.4 / 100',
-                markdown: `# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\n**Author:** Aviral Dewangan | **Stack:** x86_64 Assembly, C Kernel, Rust OCR\n\n### 🚀 Architectural Overview\nArchitected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.\n- **AVX2 OCR:** Processes 32 grayscale bytes per CPU clock cycle.\n- **Zero Telemetry:** 100% hardware cryptographic isolation with Kavach Armor.`
+                markdown: `# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\n**Author:** Aviral Dewangan | **Tracked Time:** 21h 52m\n**Stack:** x86_64 Assembly, C Kernel, Rust OCR\n\n### 🚀 Architectural Overview\nArchitected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.\n- **AVX2 OCR:** Processes 32 grayscale bytes per CPU clock cycle.\n- **Zero Telemetry:** 100% hardware cryptographic isolation with Kavach Armor.`
             },
-            'freelance-web3': {
-                title: 'Solana & EVM Cross-Chain Liquidity Router',
-                badge: 'Delivered Gig ($4,800)',
-                badgeClass: 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold',
-                category: 'Freelance Client Delivery',
-                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.',
-                hours: '18.4 hrs',
-                lines: '8,450+',
-                stack: 'Rust • Anchor • Tokio',
-                score: '95.2 / 100',
-                markdown: `# ⚡ Devlog: Web3 Cross-Chain Liquidity Router\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Stack:** Rust, Anchor, Tokio\n\n### 🚀 Architectural Deliverables\nDelivered cross-chain CPI bridge handling atomic token locks and zero-slippage swap execution with 65k TPS.\n- **Anchor Framework:** Verifiable smart contract state transitions.\n- **Tokio Router:** Sub-millisecond transaction batching.`
-            },
-            'freelance-fintech': {
-                title: 'Ultra-Low Latency FIX Protocol Matching Engine',
-                badge: 'Delivered Gig ($6,200)',
-                badgeClass: 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold',
-                category: 'Freelance Client Delivery',
-                desc: 'Sub-microsecond FIX 4.4 trading engine with cache-line padded lock-free queues and 840ns p99 matching latency.',
-                hours: '21.2 hrs',
-                lines: '11,200+',
-                stack: 'C++20 • Lock-Free • epoll',
-                score: '98.6 / 100',
-                markdown: `# 📈 Devlog: Sub-Microsecond FIX Order Matching Engine\n**Author:** Aviral Dewangan | **Client:** Apex Quantitative | **Stack:** C++20, Lock-Free Ringbuffers\n\n### 🚀 Architectural Deliverables\nDelivered zero-allocation FIX 4.4 parser and lock-free SPSC orderbook matching engine with 840ns latency.\n- **Memory Model:** Cache-line aligned circular buffers (zero malloc in hot path).\n- **SIMD String Scanner:** Vectorized tag-value FIX tokenization.`
-            },
-            'freelance-ai': {
-                title: 'Distributed LLM FlashAttention-2 Inference Kernel',
-                badge: 'Delivered Gig ($5,500)',
-                badgeClass: 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[10px] font-bold',
-                category: 'Freelance Client Delivery',
-                desc: 'Fused Rotary Position Embedding (RoPE) and Paged KV-Cache engine reducing VRAM footprint by 45%.',
-                hours: '16.8 hrs',
-                lines: '9,100+',
-                stack: 'Python • Triton • CUDA',
-                score: '97.1 / 100',
-                markdown: `# 🤖 Devlog: Custom FlashAttention Inference Kernel\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Stack:** Python, Triton, CUDA\n\n### 🚀 Architectural Deliverables\nEngineered fused FP16 RoPE attention kernels and paged memory manager cutting inference latency by 3.2x.\n- **Fused RoPE:** Reduced global memory roundtrips by 60%.\n- **Paged KV-Cache:** Non-contiguous physical block allocation eliminating fragmentation.`
-            },
-            'arcade-solaris-engine': {
+            'solaris-omniverse-ecosystem': {
                 title: 'Solaris 3D Tactical Physics & Spatial Engine',
                 badge: 'Game Engine',
                 badgeClass: 'px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 text-[10px] font-bold',
                 category: 'Spatial Computing & Graphics',
                 desc: 'O(1) broadphase spatial hash grid, real-time raycaster, and WebGL specular lighting pipeline.',
-                hours: '14.5 hrs',
-                lines: '7,600+',
+                hours: '12h 39m',
+                lines: '8,900+',
                 stack: 'Rust • WebGL • Math',
-                score: '94.0 / 100',
-                markdown: `# 🎮 Devlog: Solaris 3D Spatial Grid Engine\n**Author:** Aviral Dewangan | **Stack:** Rust, WebGL, Spatial Hash Grid\n\n### 🚀 Architectural Deliverables\nDeveloped high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting.\n- **Spatial Hash Grid:** O(1) broadphase collision candidate queries.\n- **Particle Pipeline:** GPU instanced rendering for 10,000 active particles at 60 FPS.`
+                score: '95.0 / 100',
+                markdown: `# 🎮 Devlog: Solaris 3D Spatial Grid Engine\n**Author:** Aviral Dewangan | **Tracked Time:** 12h 39m\n**Stack:** Rust, WebGL, Spatial Hash Grid\n\n### 🚀 Architectural Deliverables\nDeveloped high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting.`
             }
         };
 
