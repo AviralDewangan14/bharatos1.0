@@ -1,0 +1,20 @@
+{
+  "name": "bharatos-sovereign-desktop",
+  "version": "2026.1.0",
+  "description": "BharatOS Sovereign Operating System & Engineering Consultancy Studio",
+  "author": "Aviral Dewangan <aviral.dewangan14@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "build": "echo 'BharatOS static build ready for Vercel deployment'",
+    "start": "python main.py",
+    "deploy": "npx vercel --prod"
+  },
+  "keywords": [
+    "bharatos",
+    "operating-system",
+    "web-os",
+    "sovereign-desktop",
+    "portfolio",
+    "client-pipeline"
+  ]
+}

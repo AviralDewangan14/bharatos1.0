@@ -2333,9 +2333,9 @@
             </div>
 
             <!-- Main User Authenticator Card -->
-            <div class="z-10 flex flex-col items-center space-y-5 p-7 rounded-3xl ultra-liquid-glass w-88 shadow-2xl">
+            <div class="z-10 flex flex-col items-center space-y-4 p-6 sm:p-7 rounded-3xl ultra-liquid-glass w-[360px] sm:w-[400px] shadow-2xl">
                 <div onclick="attemptBiometricSensorScan()" class="relative cursor-pointer group" title="Touch ID Sensor (Requires PIN Enrolment)">
-                    <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-2xl chakra-pulse group-hover:scale-105 transition-all overflow-hidden flex items-center justify-center">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-2xl chakra-pulse group-hover:scale-105 transition-all overflow-hidden flex items-center justify-center">
                         <div id="lock-user-avatar-display" class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-3xl overflow-hidden">
                             <span>☸️</span>
                         </div>
@@ -2347,10 +2347,19 @@
 
                 <div class="text-center">
                     <div class="flex items-center justify-center space-x-1.5">
-                        <h3 id="lock-user-fullname" class="text-base font-bold">Aviral Dewangan</h3>
+                        <h3 id="lock-user-fullname" class="text-base font-bold text-white">Aviral Dewangan</h3>
                         <span id="lock-user-role-badge" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[9px] font-mono font-bold">Admin</span>
                     </div>
-                    <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
+                    <p id="lock-user-handle" class="text-[11px] font-mono opacity-75 text-slate-300">aviral@bharatos (Zero-Trust Ring-0)</p>
+                </div>
+
+                <!-- Prominent Passcode / Password Banner -->
+                <div onclick="quickAutofillUnlock('1234')" class="w-full cursor-pointer px-3.5 py-2 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold flex items-center justify-between transition-all shadow-sm group active:scale-95" title="Click to instantly enter PIN 1234 and unlock">
+                    <div class="flex items-center space-x-2">
+                        <span>🔑</span>
+                        <span>Passcode: <strong class="text-white group-hover:text-emerald-300">1234</strong></span>
+                    </div>
+                    <span class="text-[10px] bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-2.5 py-0.5 rounded-full font-sans font-extrabold uppercase shadow">⚡ Quick Unlock</span>
                 </div>
 
                 <div id="lock-pin-alert" class="w-full text-center px-3 py-2 rounded-2xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden space-y-0.5">
@@ -2365,16 +2374,17 @@
 
                 <div class="w-full space-y-3" id="lock-input-container">
                     <!-- iOS / iPadOS Style PIN Indicator Dots -->
-                    <div class="flex items-center justify-center space-x-3 py-1" id="pin-dots-container">
+                    <div class="flex items-center justify-center space-x-3 py-0.5" id="pin-dots-container">
                         <div id="pindot-0" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                     </div>
 
-                    <div class="relative">
-                        <input id="lock-pin-input" type="password" placeholder="Enter PIN (Auto-unlocks at 4 digits)" maxlength="8" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-base tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" oninput="handleLockPinInput(this.value)" onkeydown="if(event.key==='Enter') unlockDesktop()" autofocus>
-                        <button onclick="clearLockPin()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs font-mono font-bold" title="Clear">✕</button>
+                    <div class="relative flex items-center">
+                        <input id="lock-pin-input" type="password" placeholder="Enter PIN / Password (1234)" maxlength="16" class="w-full px-10 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" oninput="handleLockPinInput(this.value)" onkeydown="if(event.key==='Enter') unlockDesktop()" autofocus>
+                        <button type="button" onclick="toggleLockPasswordVisibility()" id="btn-toggle-eye" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-sm" title="Show / Hide Password">👁️</button>
+                        <button type="button" onclick="clearLockPin()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs font-mono font-bold" title="Clear">✕</button>
                     </div>
 
                     <!-- On-Screen Numeric Keypad -->
@@ -7178,6 +7188,33 @@ Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</t
         let failedPinAttempts = 0;
         let isLockoutActive = false;
 
+        
+        // Quick Auto-Fill and Password Visibility Engine
+        function toggleLockPasswordVisibility() {
+            const input = document.getElementById('lock-pin-input');
+            const eyeBtn = document.getElementById('btn-toggle-eye');
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    if (eyeBtn) eyeBtn.textContent = '🔒';
+                } else {
+                    input.type = 'password';
+                    if (eyeBtn) eyeBtn.textContent = '👁️';
+                }
+            }
+        }
+
+        function quickAutofillUnlock(pin = '1234') {
+            triggerHaptic('success');
+            playSfx('click');
+            const input = document.getElementById('lock-pin-input');
+            if (input) {
+                input.value = pin;
+                handleLockPinInput(pin);
+            }
+            unlockDesktop();
+        }
+
         function unlockDesktop() {
             if (isLockoutActive) return;
             const pinInput = document.getElementById('lock-pin-input');
@@ -9703,6 +9740,33 @@ vulkano = "0.34"`
             }
             hideLockPinAlert();
             renderLockScreenUsersList();
+        }
+
+        
+        // Quick Auto-Fill and Password Visibility Engine
+        function toggleLockPasswordVisibility() {
+            const input = document.getElementById('lock-pin-input');
+            const eyeBtn = document.getElementById('btn-toggle-eye');
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    if (eyeBtn) eyeBtn.textContent = '🔒';
+                } else {
+                    input.type = 'password';
+                    if (eyeBtn) eyeBtn.textContent = '👁️';
+                }
+            }
+        }
+
+        function quickAutofillUnlock(pin = '1234') {
+            triggerHaptic('success');
+            playSfx('click');
+            const input = document.getElementById('lock-pin-input');
+            if (input) {
+                input.value = pin;
+                handleLockPinInput(pin);
+            }
+            unlockDesktop();
         }
 
         function unlockDesktop() {

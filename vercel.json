@@ -1,0 +1,91 @@
+{
+  "version": 2,
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/",
+      "destination": "/bharatos/index.html"
+    },
+    {
+      "source": "/bharatos",
+      "destination": "/bharatos/index.html"
+    },
+    {
+      "source": "/os",
+      "destination": "/bharatos/index.html"
+    },
+    {
+      "source": "/bharat",
+      "destination": "/bharatos/index.html"
+    },
+    {
+      "source": "/portfolio",
+      "destination": "/static/portfolio.html"
+    },
+    {
+      "source": "/devlog",
+      "destination": "/static/portfolio.html"
+    },
+    {
+      "source": "/clients",
+      "destination": "/static/portfolio.html"
+    },
+    {
+      "source": "/showcase",
+      "destination": "/static/portfolio.html"
+    },
+    {
+      "source": "/projects",
+      "destination": "/static/portfolio.html"
+    },
+    {
+      "source": "/project/:id",
+      "destination": "/static/project_dashboard.html"
+    },
+    {
+      "source": "/p/:id",
+      "destination": "/static/project_dashboard.html"
+    },
+    {
+      "source": "/game",
+      "destination": "/solaris/index.html"
+    },
+    {
+      "source": "/solaris",
+      "destination": "/solaris/index.html"
+    }
+  ],
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    },
+    {
+      "source": "/bharatos/index.html",
+      "headers": [
+        {
+          "key": "X-BharatOS-Sovereign-Version",
+          "value": "2026.1-LTS"
+        },
+        {
+          "key": "X-BharatOS-Integrity",
+          "value": "VERIFIED_GENUINE"
+        }
+      ]
+    }
+  ]
+}

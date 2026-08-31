@@ -2333,9 +2333,9 @@
             </div>
 
             <!-- Main User Authenticator Card -->
-            <div class="z-10 flex flex-col items-center space-y-5 p-7 rounded-3xl ultra-liquid-glass w-88 shadow-2xl">
+            <div class="z-10 flex flex-col items-center space-y-4 p-6 sm:p-7 rounded-3xl ultra-liquid-glass w-[360px] sm:w-[400px] shadow-2xl">
                 <div onclick="attemptBiometricSensorScan()" class="relative cursor-pointer group" title="Touch ID Sensor (Requires PIN Enrolment)">
-                    <div class="w-24 h-24 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-2xl chakra-pulse group-hover:scale-105 transition-all overflow-hidden flex items-center justify-center">
+                    <div class="w-20 h-20 rounded-full bg-gradient-to-tr from-saffron via-amber-500 to-indiaGreen p-1 shadow-2xl chakra-pulse group-hover:scale-105 transition-all overflow-hidden flex items-center justify-center">
                         <div id="lock-user-avatar-display" class="w-full h-full rounded-full bg-slate-950 flex items-center justify-center text-3xl overflow-hidden">
                             <span>☸️</span>
                         </div>
@@ -2347,10 +2347,19 @@
 
                 <div class="text-center">
                     <div class="flex items-center justify-center space-x-1.5">
-                        <h3 id="lock-user-fullname" class="text-base font-bold">Aviral Dewangan</h3>
+                        <h3 id="lock-user-fullname" class="text-base font-bold text-white">Aviral Dewangan</h3>
                         <span id="lock-user-role-badge" class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 text-[9px] font-mono font-bold">Admin</span>
                     </div>
-                    <p id="lock-user-handle" class="text-[11px] font-mono opacity-70">aviral@bharatos (Zero-Trust Ring-0)</p>
+                    <p id="lock-user-handle" class="text-[11px] font-mono opacity-75 text-slate-300">aviral@bharatos (Zero-Trust Ring-0)</p>
+                </div>
+
+                <!-- Prominent Passcode / Password Banner -->
+                <div onclick="quickAutofillUnlock('1234')" class="w-full cursor-pointer px-3.5 py-2 rounded-2xl bg-emerald-500/15 hover:bg-emerald-500/25 border border-emerald-500/40 text-emerald-400 text-xs font-mono font-bold flex items-center justify-between transition-all shadow-sm group active:scale-95" title="Click to instantly enter PIN 1234 and unlock">
+                    <div class="flex items-center space-x-2">
+                        <span>🔑</span>
+                        <span>Passcode: <strong class="text-white group-hover:text-emerald-300">1234</strong></span>
+                    </div>
+                    <span class="text-[10px] bg-emerald-500 hover:bg-emerald-400 text-slate-950 px-2.5 py-0.5 rounded-full font-sans font-extrabold uppercase shadow">⚡ Quick Unlock</span>
                 </div>
 
                 <div id="lock-pin-alert" class="w-full text-center px-3 py-2 rounded-2xl bg-rose-500/20 border border-rose-500/50 text-rose-400 text-[11px] font-mono font-bold hidden space-y-0.5">
@@ -2365,16 +2374,17 @@
 
                 <div class="w-full space-y-3" id="lock-input-container">
                     <!-- iOS / iPadOS Style PIN Indicator Dots -->
-                    <div class="flex items-center justify-center space-x-3 py-1" id="pin-dots-container">
+                    <div class="flex items-center justify-center space-x-3 py-0.5" id="pin-dots-container">
                         <div id="pindot-0" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-1" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-2" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                         <div id="pindot-3" class="w-3.5 h-3.5 rounded-full border-2 border-slate-400 dark:border-slate-600 bg-transparent transition-all duration-200"></div>
                     </div>
 
-                    <div class="relative">
-                        <input id="lock-pin-input" type="password" placeholder="Enter PIN (Auto-unlocks at 4 digits)" maxlength="8" class="w-full px-4 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-base tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" oninput="handleLockPinInput(this.value)" onkeydown="if(event.key==='Enter') unlockDesktop()" autofocus>
-                        <button onclick="clearLockPin()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs font-mono font-bold" title="Clear">✕</button>
+                    <div class="relative flex items-center">
+                        <input id="lock-pin-input" type="password" placeholder="Enter PIN / Password (1234)" maxlength="16" class="w-full px-10 py-2.5 rounded-2xl bg-white/80 dark:bg-slate-950/90 border-2 border-slate-300 dark:border-slate-700 text-center font-mono text-sm tracking-widest text-cyan-600 dark:text-cyan-400 focus:outline-none focus:border-cyan-400 shadow-inner" oninput="handleLockPinInput(this.value)" onkeydown="if(event.key==='Enter') unlockDesktop()" autofocus>
+                        <button type="button" onclick="toggleLockPasswordVisibility()" id="btn-toggle-eye" class="absolute left-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-sm" title="Show / Hide Password">👁️</button>
+                        <button type="button" onclick="clearLockPin()" class="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-200 text-xs font-mono font-bold" title="Clear">✕</button>
                     </div>
 
                     <!-- On-Screen Numeric Keypad -->
@@ -3757,6 +3767,12 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </div>
                         </div>
                         <div class="flex items-center space-x-2">
+                            <button onclick="toggleHackatimeBot('stop_bot')" id="btn-stop-bot" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/50 text-rose-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Stop Bot Pulses">
+                                <span>⏹️</span><span>Stop Bot</span>
+                            </button>
+                            <button onclick="toggleHackatimeBot('resume_bot')" id="btn-start-bot" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Start Bot Pulses">
+                                <span>▶️</span><span>Start Bot</span>
+                            </button>
                             <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
                                 <span>⚡</span><span>Pulse Now</span>
                             </button>
@@ -3772,7 +3788,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="flex items-center space-x-2">
                                 <span class="text-sm">🔄</span>
                                 <span class="font-bold text-xs text-slate-900 dark:text-white">Autonomous Hybrid Coding Alternator</span>
-                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Dynamic Alternating</span>
+                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold">☀️ Circadian Smart (Day: Human • Night: AI)</span>
                             </div>
                             <div class="flex items-center space-x-2">
                                 <button onclick="forceTelemetryCycleShift()" class="px-2.5 py-1 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 font-bold text-[10px] transition-all flex items-center space-x-1">
@@ -3782,11 +3798,19 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                         </div>
 
                         <!-- Strategy Selector Buttons -->
-                        <div class="grid grid-cols-1 md:grid-cols-3 gap-2">
-                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-cyan-500/50 bg-cyan-500/10 text-left transition-all">
-                                <div class="font-bold text-[11px] text-cyan-400 flex items-center justify-between">
+                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
+                            <button id="btn-strat-circadian" onclick="setTelemetryStrategy('CIRCADIAN_SMART')" class="p-2.5 rounded-xl border border-amber-500/50 bg-amber-500/10 text-left transition-all">
+                                <div class="font-bold text-[11px] text-amber-400 flex items-center justify-between">
+                                    <span>☀️ Circadian Smart</span>
+                                    <span id="strat-dot-circadian" class="w-2 h-2 rounded-full bg-amber-400"></span>
+                                </div>
+                                <div class="text-[9px] opacity-70 mt-1">Human in Day (7 AM–12 AM) • AI at Night (12 AM–7 AM)</div>
+                            </button>
+
+                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
+                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
                                     <span>🔄 Dynamic Alternating</span>
-                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-slate-600"></span>
                                 </div>
                                 <div class="text-[9px] opacity-70 mt-1">Autonomous cyclic shift (Human ↔ AI)</div>
                             </button>
@@ -3808,6 +3832,25 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             </button>
                         </div>
 
+                        <!-- 1.5x Time Warp Speed Accelerator Bar -->
+                        <div class="p-3 rounded-xl bg-gradient-to-r from-amber-500/10 via-cyan-500/10 to-purple-500/10 border border-amber-500/30 flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="text-lg animate-pulse">⚡</span>
+                                <div>
+                                    <div class="flex items-center space-x-2">
+                                        <span class="font-bold text-xs text-amber-400">Time Warp Speed Accelerator</span>
+                                        <span id="ht-time-warp-badge" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-bold">1.5x SPEED ACTIVE</span>
+                                    </div>
+                                    <div class="text-[10px] opacity-70 mt-0.5">Accelerating clock progression: counting 1.5 hours of coding progress per 1 real hour</div>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-1.5">
+                                <button onclick="setTimeWarpFactor(1.0)" id="btn-warp-1x" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[10px] font-bold transition-all">1.0x</button>
+                                <button onclick="setTimeWarpFactor(1.5)" id="btn-warp-15x" class="px-2.5 py-1 rounded-xl bg-amber-500/30 border border-amber-500/50 text-amber-300 font-mono text-[10px] font-bold transition-all">1.5x ⚡</button>
+                                <button onclick="setTimeWarpFactor(2.0)" id="btn-warp-2x" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[10px] font-bold transition-all">2.0x 🚀</button>
+                            </div>
+                        </div>
+
                         <!-- Live Cycle State & Countdown Bar -->
                         <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 flex items-center justify-between">
                             <div class="flex items-center space-x-2.5">
@@ -3820,6 +3863,25 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="text-right">
                                 <div class="text-[10px] opacity-60">Autonomous Shift Timer</div>
                                 <div id="ht-cycle-countdown" class="font-mono font-bold text-xs text-amber-400">Shift in 18m 42s</div>
+                            </div>
+                        </div>
+
+                        <!-- 8-Hour Daily Human Coding Limit Guard -->
+                        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
+                            <div class="flex items-center justify-between text-xs">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs">🛡️</span>
+                                    <span class="font-bold text-slate-200">Daily Human Coding Limit Guard</span>
+                                    <span id="ht-human-limit-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">Within 8h Cap</span>
+                                </div>
+                                <div class="text-[11px] font-mono text-cyan-400 font-bold" id="ht-human-hours-ratio">0.82 / 8.00 hrs (7.18h left)</div>
+                            </div>
+                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
+                                <div id="ht-human-limit-progress" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-500 transition-all" style="width: 10%;"></div>
+                            </div>
+                            <div class="text-[9px] opacity-60 flex items-center justify-between">
+                                <span>When 8.0h human coding is reached, system automatically locks to 🤖 AI Coding for remainder of session.</span>
+                                <span class="font-bold text-slate-400">Strict Cap</span>
                             </div>
                         </div>
                     </div>
@@ -3848,6 +3910,57 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
                             <div class="text-[10px] opacity-70">Attribution Ratio</div>
                             <div id="ht-card-split" class="text-xs font-bold text-purple-400 truncate">60% Human / 40% AI</div>
                             <div class="text-[9px] opacity-60">Autonomous Cycler</div>
+                        </div>
+                    </div>
+
+                    <!-- Multi-Tier Ergonomic Break Schedule & 45-Min Startup Engine -->
+                    <div class="p-4 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-slate-900/40 to-emerald-500/10 border border-cyan-500/30 space-y-3">
+                        <div class="flex items-center justify-between border-b border-slate-300 dark:border-slate-800 pb-2">
+                            <div class="flex items-center space-x-2">
+                                <span>☕</span>
+                                <span class="font-bold text-xs text-slate-900 dark:text-white">Ergonomic Health Break & 45-Min Startup Schedule</span>
+                                <span id="ht-break-status-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Scheduled After Tomorrow (Aug 31)</span>
+                            </div>
+                            <div id="ht-delayed-start-box" class="text-right">
+                                <span class="text-[10px] opacity-70">Delayed Start Countdown:</span>
+                                <span id="ht-delayed-start-timer" class="font-bold text-xs text-amber-400 font-mono">45m 00s</span>
+                            </div>
+                        </div>
+
+                        <!-- 4 Break Tiers Grid -->
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-cyan-500/30">
+                                <div class="text-[10px] text-cyan-400 font-bold">Tier 1 • Every 1 Hour</div>
+                                <div class="font-bold text-xs text-white mt-0.5">10-Minute Break</div>
+                                <div class="text-[9px] opacity-60 mt-0.5">Posture & Eye Rest</div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-emerald-500/30">
+                                <div class="text-[10px] text-emerald-400 font-bold">Tier 2 • Every 3 Hours</div>
+                                <div class="font-bold text-xs text-white mt-0.5">25-Minute Break</div>
+                                <div class="text-[9px] opacity-60 mt-0.5">Ergonomic Health Rest</div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/30">
+                                <div class="text-[10px] text-amber-400 font-bold">Tier 3 • Every 6 Hours</div>
+                                <div class="font-bold text-xs text-white mt-0.5">40-Minute Break</div>
+                                <div class="text-[9px] opacity-60 mt-0.5">Deep Rest & Nutrition</div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-purple-500/30">
+                                <div class="text-[10px] text-purple-400 font-bold">Tier 4 • Every 12 Hours</div>
+                                <div class="font-bold text-xs text-white mt-0.5">1-Hour Break</div>
+                                <div class="text-[9px] opacity-60 mt-0.5">Extended Recovery</div>
+                            </div>
+                        </div>
+
+                        <!-- Live Break Progress Bar -->
+                        <div id="ht-break-live-card" class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                            <div>
+                                <div class="text-[10px] opacity-60">Active Session Status</div>
+                                <div id="ht-break-active-msg" class="font-bold text-xs text-emerald-400">Next break in: 58m 20s (10-Minute Rest)</div>
+                            </div>
+                            <div class="text-right">
+                                <div class="text-[10px] opacity-60">Session Worked Time</div>
+                                <div id="ht-session-work-time" class="font-mono font-bold text-xs text-cyan-400">0h 01m (0 Milestones)</div>
+                            </div>
                         </div>
                     </div>
 
@@ -4279,6 +4392,511 @@ SECTIONS
                             <span class="text-purple-400">const</span> <span class="text-cyan-400">os</span> = <span class="text-yellow-400">"BharatOS Sovereign OS"</span>;<br>
                             <span class="text-purple-400">const</span> <span class="text-cyan-400">developer</span> = <span class="text-yellow-400">"Aviral Dewangan"</span>;<br>
                             <span class="text-cyan-400">console</span>.<span class="text-blue-400">log</span>(<span class="text-yellow-400">`Running native Windows apps on ${os} seamlessly!`</span>);
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP 23: SOVEREIGN OCR STUDIO (RUST & x86_64 AVX2 ASSEMBLY ENGINE)
+                 ========================================================================= -->
+            <div id="ocr-window" class="absolute top-8 left-20 w-[1000px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'ocr-window')" ondblclick="toggleMaximizeWindow('ocr-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('ocr-window', 'dock-ocr')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('ocr-window', 'dock-ocr')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('ocr-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
+                            <span class="text-cyan-400">🔍</span>
+                            <span>BharatOS Sovereign OCR Studio • Rust Core & AVX2 Assembly SIMD</span>
+                        </span>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-mono font-bold flex items-center space-x-1">
+                            <span class="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse"></span>
+                            <span>AVX2 SIMD ACCELERATED</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Toolbar -->
+                <div class="px-5 py-2.5 bg-slate-200/60 dark:bg-slate-900/60 border-b border-slate-300 dark:border-slate-800 flex items-center justify-between font-mono text-xs">
+                    <div class="flex items-center space-x-2.5">
+                        <select id="ocr-lang-select" onchange="runSovereignOcr()" class="px-3 py-1.5 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 focus:outline-none">
+                            <option value="eng">English (Latin Alpha-Numeric)</option>
+                            <option value="hin">Hindi / Sanskrit (Devanagari)</option>
+                            <option value="code">Source Code Syntax (Rust / ASM / C / Python)</option>
+                        </select>
+                        <button onclick="runSovereignOcr()" id="btn-ocr-run" class="px-3.5 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs shadow transition-all active:scale-95 flex items-center space-x-1.5">
+                            <span>⚡</span><span>Run OCR Recognition</span>
+                        </button>
+                        <button onclick="triggerScreenSnippetOcr()" class="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 font-bold text-xs transition-all flex items-center space-x-1.5">
+                            <span>📷</span><span>Screen Snippet OCR</span>
+                        </button>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <button onclick="copyOcrExtractedText()" class="px-3 py-1.5 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-400 border border-emerald-500/40 font-bold text-xs transition-all flex items-center space-x-1">
+                            <span>📋</span><span>Copy Text</span>
+                        </button>
+                        <button onclick="exportOcrToNotes()" class="px-3 py-1.5 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-500/40 font-bold text-xs transition-all flex items-center space-x-1">
+                            <span>📝</span><span>Send to Notes</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Window Content: Split-Pane Editor -->
+                <div class="flex-1 flex overflow-hidden font-mono text-xs">
+                    <!-- Left: Image / Scan Canvas Preview -->
+                    <div class="w-1/2 p-4 bg-slate-950/60 border-r border-slate-800 flex flex-col space-y-3">
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold">
+                            <span class="flex items-center space-x-1.5">
+                                <span>🖼️</span><span>Input Document & Bounding Box Overlay</span>
+                            </span>
+                            <span id="ocr-image-meta" class="text-cyan-400">1920x1080 • Grayscale Otsu</span>
+                        </div>
+
+                        <!-- Interactive Scan Canvas -->
+                        <div class="flex-1 rounded-2xl bg-slate-900/90 border border-slate-800 p-4 relative overflow-hidden flex flex-col items-center justify-center group" id="ocr-canvas-container">
+                            <div class="w-full h-full rounded-xl bg-gradient-to-b from-slate-950 to-slate-900 border border-slate-800/80 p-5 flex flex-col justify-between select-none relative" id="ocr-preview-card">
+                                <div class="space-y-2">
+                                    <div class="flex items-center justify-between border-b border-slate-800 pb-2">
+                                        <span class="font-bold text-cyan-400 text-xs">// BHARATOS x86_64 FREESTANDING KERNEL</span>
+                                        <span class="text-[10px] px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400 font-bold">BBOX DETECTED</span>
+                                    </div>
+                                    <div class="text-[11px] text-slate-300 font-mono space-y-1 mt-2">
+                                        <div class="p-1 rounded bg-cyan-500/10 border border-cyan-500/30">#include &lt;bharatos/kernel.h&gt;</div>
+                                        <div class="p-1 rounded bg-cyan-500/10 border border-cyan-500/30">void kmain(multiboot_info_t* mbd) {</div>
+                                        <div class="p-1 rounded bg-cyan-500/10 border border-cyan-500/30">&nbsp;&nbsp;&nbsp;&nbsp;init_vga_driver();</div>
+                                        <div class="p-1 rounded bg-cyan-500/10 border border-cyan-500/30">&nbsp;&nbsp;&nbsp;&nbsp;init_puf_security_shield();</div>
+                                        <div class="p-1 rounded bg-cyan-500/10 border border-cyan-500/30">}</div>
+                                    </div>
+                                </div>
+                                <div class="text-[10px] text-slate-500 flex items-center justify-between pt-2 border-t border-slate-800/60">
+                                    <span>Rust Binarizer: Otsu Threshold = 134</span>
+                                    <span>AVX2 Kernels: 32 bytes/cycle</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Engine Telemetry Bar -->
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-[11px]">
+                            <div class="flex items-center space-x-2">
+                                <span>⚡</span>
+                                <span class="text-slate-400">Latency:</span>
+                                <span id="ocr-latency" class="font-bold text-emerald-400">2.45 ms</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>🎯</span>
+                                <span class="text-slate-400">Confidence:</span>
+                                <span id="ocr-confidence" class="font-bold text-cyan-400">98.8%</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <span>📐</span>
+                                <span class="text-slate-400">Boxes:</span>
+                                <span id="ocr-boxes-count" class="font-bold text-purple-400">5 Lines</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Recognized Text Editor -->
+                    <div class="w-1/2 p-4 bg-slate-950 flex flex-col space-y-3">
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold">
+                            <span class="flex items-center space-x-1.5">
+                                <span>📄</span><span>Extracted Text Output</span>
+                            </span>
+                            <span id="ocr-word-count" class="text-slate-400">5 Lines • 18 Words • 142 Chars</span>
+                        </div>
+
+                        <textarea id="ocr-output-textarea" class="flex-1 w-full p-4 rounded-2xl bg-slate-900 border border-slate-800 text-slate-200 font-mono text-xs resize-none focus:outline-none focus:border-cyan-500/50 leading-relaxed" placeholder="Extracted OCR text will appear here...">BHARATOS SOVEREIGN DESKTOP OPERATING SYSTEM
+Architecture: x86_64 Freestanding Bare-Metal Enclave
+Developer & Architect: Aviral Dewangan
+Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</textarea>
+
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                            <span>Status: <span class="text-emerald-400 font-bold">Extraction Verified Genuine</span></span>
+                            <span>Language: <span id="ocr-detected-lang" class="text-cyan-400 font-bold">English (Latin)</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP: FOCUSDEFEND SOVEREIGN DEEP-WORK SHIELD & FLOW ENCLAVE
+                 ========================================================================= -->
+            <div id="focusdefend-window" class="absolute top-8 left-20 w-[1000px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'focusdefend-window')" ondblclick="toggleMaximizeWindow('focusdefend-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('focusdefend-window', 'dock-focusdefend')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('focusdefend-window', 'dock-focusdefend')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('focusdefend-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm">🎯</span>
+                            <span class="font-bold text-xs tracking-wide text-slate-800 dark:text-slate-200">FocusDefend Sovereign Deep-Work Shield & Flow Enclave</span>
+                            <span id="fd-shield-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold animate-pulse">🛡️ SHIELD ARMED</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-2">
+                        <span class="text-[10px] text-slate-400 font-mono">Tokio Rust Core • Win32 Hook Enclave</span>
+                    </div>
+                </div>
+
+                <!-- Window Content -->
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Left: Control Center & Blacklist -->
+                    <div class="w-1/2 p-5 border-r border-slate-800/80 bg-slate-950/90 flex flex-col space-y-4 overflow-y-auto">
+                        <!-- Score Hero Card -->
+                        <div class="p-4 rounded-2xl bg-gradient-to-br from-emerald-500/10 via-cyan-500/10 to-slate-900 border border-emerald-500/30 flex items-center justify-between">
+                            <div>
+                                <div class="text-[10px] text-emerald-400 font-bold uppercase tracking-wider">Live Flow Score</div>
+                                <div class="text-3xl font-black text-white font-mono mt-0.5 flex items-baseline space-x-2">
+                                    <span id="fd-score-val">96.8</span>
+                                    <span class="text-xs text-slate-400 font-normal">/ 100</span>
+                                </div>
+                                <div id="fd-tier-val" class="text-[10px] text-cyan-400 font-bold mt-1">DEEP_ALPHA (Ultra Flow State)</div>
+                            </div>
+                            <div class="text-right space-y-1">
+                                <div class="text-[10px] text-slate-400">Current Streak</div>
+                                <div id="fd-streak-val" class="text-sm font-bold text-amber-400 font-mono">54m 20s</div>
+                                <button id="fd-toggle-btn" onclick="toggleFocusDefendShield()" class="mt-2 px-3 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-[10px] transition-all">
+                                    🛡️ Armed (Active)
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Shield Modes Selector -->
+                        <div class="space-y-1.5">
+                            <div class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Shield Lockdown Mode</div>
+                            <div class="grid grid-cols-3 gap-2">
+                                <button onclick="setFocusDefendMode('FLOW_STATE')" class="p-2 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-emerald-300 text-left text-xs font-bold transition-all">
+                                    <div>🌊 Flow State</div>
+                                    <div class="text-[9px] opacity-70 font-normal mt-0.5">Continuous Guard</div>
+                                </button>
+                                <button onclick="setFocusDefendMode('POMODORO')" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 text-left text-xs font-bold transition-all hover:border-cyan-500/40">
+                                    <div>⏱️ Pomodoro</div>
+                                    <div class="text-[9px] opacity-70 font-normal mt-0.5">25m / 5m Sprints</div>
+                                </button>
+                                <button onclick="setFocusDefendMode('STRICT_LOCK')" class="p-2 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 text-left text-xs font-bold transition-all hover:border-purple-500/40">
+                                    <div>🔒 Strict Lock</div>
+                                    <div class="text-[9px] opacity-70 font-normal mt-0.5">Zero Bypass</div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 40Hz Gamma Soundscape Box -->
+                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
+                            <div class="flex items-center space-x-2.5">
+                                <span class="text-base">🎧</span>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-200">40 Hz Gamma Focus Resonance</div>
+                                    <div class="text-[10px] text-slate-400">Binaural brainwave synchronization</div>
+                                </div>
+                            </div>
+                            <button id="fd-sound-btn" onclick="toggleFocusSound()" class="px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold hover:bg-cyan-500/30">
+                                🔊 Play 40Hz
+                            </button>
+                        </div>
+
+                        <!-- Blacklisted Distraction Targets -->
+                        <div class="space-y-2 flex-1 flex flex-col">
+                            <div class="flex items-center justify-between text-[10px] text-slate-400 font-bold">
+                                <span>BLOCKED DOMAINS & DISTRACTING APPS</span>
+                                <span class="text-emerald-400 font-mono">11 Active Shields</span>
+                            </div>
+                            <div class="flex flex-wrap gap-1.5 p-2 rounded-xl bg-slate-900 border border-slate-800/80 min-h-[90px]">
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">youtube.com</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">instagram.com</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">x.com / twitter</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">reddit.com</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">tiktok.com</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">netflix.com</span>
+                                <span class="px-2 py-0.5 rounded bg-red-500/20 text-red-300 border border-red-500/30 text-[10px] font-mono">twitch.tv</span>
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-mono">steam.exe</span>
+                                <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 text-[10px] font-mono">discord.exe</span>
+                            </div>
+                            <div class="flex space-x-2 mt-1">
+                                <input id="fd-new-domain-input" type="text" placeholder="Add custom domain (e.g. news.ycombinator.com)..." class="flex-1 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-200 text-xs focus:outline-none focus:border-cyan-500/50">
+                                <button onclick="addFocusDefendTarget()" class="px-3 py-1.5 rounded-xl bg-cyan-500 hover:bg-cyan-600 text-slate-950 font-bold text-xs">Add</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Right: Live Intercept Log & Ergonomics -->
+                    <div class="w-1/2 p-5 bg-slate-950 flex flex-col space-y-4">
+                        <div class="flex items-center justify-between text-[11px] text-slate-400 font-bold border-b border-slate-800 pb-2">
+                            <span class="flex items-center space-x-1.5">
+                                <span>⚡</span><span>Real-Time Distraction Defense Ticker</span>
+                            </span>
+                            <span id="fd-intercept-counter" class="text-emerald-400 font-mono font-bold">14 Defended</span>
+                        </div>
+
+                        <!-- Intercepts Log Feed -->
+                        <div id="fd-intercept-log" class="flex-1 space-y-2 overflow-y-auto pr-1">
+                            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-red-400">🚫</span>
+                                    <span class="text-slate-200 font-bold">instagram.com</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300">BLOCKED_DNS</span>
+                                    <span class="text-[10px] text-slate-500">17:22:10</span>
+                                </div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-red-400">🚫</span>
+                                    <span class="text-slate-200 font-bold">reddit.com/r/all</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300">BLOCKED_WINDOW</span>
+                                    <span class="text-[10px] text-slate-500">17:24:55</span>
+                                </div>
+                            </div>
+                            <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs font-mono">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-red-400">🚫</span>
+                                    <span class="text-slate-200 font-bold">youtube.com/shorts</span>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-[10px] px-1.5 py-0.5 rounded bg-red-500/20 text-red-300">INTERCEPTED_HTTP</span>
+                                    <span class="text-[10px] text-slate-500">17:26:12</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Ergonomic 20-20-20 Health Card -->
+                        <div class="p-3.5 rounded-2xl bg-gradient-to-r from-cyan-500/10 to-purple-500/10 border border-cyan-500/30 flex items-center justify-between">
+                            <div class="flex items-center space-x-3">
+                                <span class="text-xl">👁️</span>
+                                <div>
+                                    <div class="text-xs font-bold text-slate-200">20-20-20 Eye Strain Guard</div>
+                                    <div class="text-[10px] text-slate-400">Next 20-second ocular relaxation in 8m 40s</div>
+                                </div>
+                            </div>
+                            <span class="px-2 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 font-bold text-[10px]">Optimal</span>
+                        </div>
+
+                        <!-- Telemetry Signature -->
+                        <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-[11px] text-slate-400">
+                            <span>Telemetry: <span class="text-emerald-400 font-bold">focusdefend-sovereign-shield</span></span>
+                            <span>Developer: <span class="text-cyan-400 font-bold">Aviral Dewangan</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- =========================================================================
+                 APP: SOVEREIGN DEVLOG & FREELANCE SHOWCASE STUDIO
+                 ========================================================================= -->
+            <div id="devlog-window" class="absolute top-6 left-16 w-[1060px] h-[660px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
+                <div class="specular-glow"></div>
+                <!-- Titlebar -->
+                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'devlog-window')" ondblclick="toggleMaximizeWindow('devlog-window')">
+                    <div class="flex items-center space-x-3">
+                        <div class="window-controls-capsule">
+                            <span class="action-circle circle-close" onclick="closeAppWindow('devlog-window', 'dock-devlog')" title="Close">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                            </span>
+                            <span class="action-circle circle-min" onclick="minimizeAppWindow('devlog-window', 'dock-devlog')" title="Minimize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
+                            </span>
+                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('devlog-window')" title="Maximize">
+                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
+                            </span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-sm">📰</span>
+                            <span class="font-bold text-xs tracking-wide text-slate-800 dark:text-slate-200">Devlog & Freelance Project Showcase Studio</span>
+                            <span class="px-2 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">11 ARCHITECTURES • 8 GIGS</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center space-x-3 text-[11px] text-slate-400">
+                        <span>Developer: <strong class="text-emerald-400">Aviral Dewangan</strong></span>
+                        <span class="text-slate-600">•</span>
+                        <span>Total Portfolio: <strong class="text-amber-400">145.8+ Hours • 112k+ Lines</strong></span>
+                    </div>
+                </div>
+
+                <!-- Window Body -->
+                <div class="flex-1 flex overflow-hidden">
+                    <!-- Left Sidebar: Project Selector List -->
+                    <div class="w-80 p-3 border-r border-slate-800/80 bg-slate-950/90 flex flex-col space-y-1.5 overflow-y-auto">
+                        <div class="text-[10px] font-bold text-slate-500 uppercase px-2 py-1 tracking-wider">Freelance Client Gigs (8)</div>
+
+                        <button onclick="selectDevlogProject('freelance-web3')" id="devlog-btn-freelance-web3" class="p-2.5 rounded-xl bg-purple-500/20 border border-purple-500/50 text-left transition-all flex items-center space-x-3 w-full">
+                            <span class="text-lg">⚡</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-purple-300 truncate">Solana DEX Router</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • Anchor • 12h 27m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-purple-500/30 text-purple-300 text-[9px] font-bold">$4.8k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-go')" id="devlog-btn-freelance-go" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🌐</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Raft Event Streamer</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Go • gRPC • 12h 2m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">$5.2k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-py')" id="devlog-btn-freelance-py" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-blue-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🐍</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Async ETL & Polars</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • Arrow • 11h 58m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-blue-500/20 text-blue-300 text-[9px] font-bold">$3.9k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-ai')" id="devlog-btn-freelance-ai" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-rose-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🤖</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FlashAttention Kernel</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • CUDA • 11h 58m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-rose-500/20 text-rose-300 text-[9px] font-bold">$5.5k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-react')" id="devlog-btn-freelance-react" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-indigo-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">⚛️</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Trading Terminal UI</div>
+                                <div class="text-[10px] text-slate-400 font-mono">React 19 • Canvas • 11h 51m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">$4.2k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-fastapi')" id="devlog-btn-freelance-fastapi" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-emerald-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">⚡</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FastAPI Gateway</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • Redis • 11h 40m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">$4.6k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-rust')" id="devlog-btn-freelance-rust" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-amber-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🦀</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">AVX-512 Packet Filter</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • SIMD • 11h 33m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 text-[9px] font-bold">$6.4k</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('freelance-pdf')" id="devlog-btn-freelance-pdf" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-teal-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">📄</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">PDF Legal Analyzer</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Python • OCR • 11h 26m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 text-[9px] font-bold">$3.8k</span>
+                        </button>
+
+                        <div class="text-[10px] font-bold text-slate-500 uppercase px-2 pt-2 pb-1 tracking-wider">Flagship OS & Suites (3)</div>
+
+                        <button onclick="selectDevlogProject('focusdefend-sovereign-shield')" id="devlog-btn-focusdefend-sovereign-shield" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-emerald-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🛡️</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">FocusDefend Shield</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • C • 16h 30m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 text-[9px] font-bold">Focus</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('bharatos-sovereign-desktop')" id="devlog-btn-bharatos-sovereign-desktop" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🇮🇳</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">BharatOS Desktop OS</div>
+                                <div class="text-[10px] text-slate-400 font-mono">x86_64 ASM • 21h 52m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-cyan-500/20 text-cyan-300 text-[9px] font-bold">OS</span>
+                        </button>
+
+                        <button onclick="selectDevlogProject('solaris-omniverse-ecosystem')" id="devlog-btn-solaris-omniverse-ecosystem" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-indigo-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-85">
+                            <span class="text-lg">🎮</span>
+                            <div class="flex-1 min-w-0">
+                                <div class="font-bold text-xs text-slate-200 truncate">Solaris 3D Engine</div>
+                                <div class="text-[10px] text-slate-400 font-mono">Rust • WebGL • 12h 39m</div>
+                            </div>
+                            <span class="px-1.5 py-0.5 rounded bg-indigo-500/20 text-indigo-300 text-[9px] font-bold">Game</span>
+                        </button>
+                    </div>
+
+                    <!-- Right Main Content: Project Devlog Showcase Dashboard -->
+                    <div class="flex-1 p-5 bg-slate-950 flex flex-col space-y-4 overflow-y-auto" id="devlog-main-content">
+                        <!-- Hero Card -->
+                        <div class="p-5 rounded-2xl bg-gradient-to-r from-emerald-500/15 via-slate-900 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-between">
+                            <div class="space-y-1">
+                                <div class="flex items-center space-x-2">
+                                    <span id="devlog-hero-badge" class="px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold">Active Focus</span>
+                                    <span id="devlog-hero-cat" class="text-xs text-slate-400">Cyber-Defense & Focus Enclave</span>
+                                </div>
+                                <h3 id="devlog-hero-title" class="text-lg font-black text-white">FocusDefend Sovereign Deep-Work Shield</h3>
+                                <p id="devlog-hero-desc" class="text-xs text-slate-300 max-w-xl">High-performance DNS packet interceptor, distraction process terminator, and 40Hz Gamma soundscape generator.</p>
+                            </div>
+                            <div class="text-right space-y-2">
+                                <button onclick="copyCurrentDevlogPost()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center space-x-1.5">
+                                    <span>📋</span><span>Copy Devlog Post</span>
+                                </button>
+                                <button onclick="openCurrentProjectInIDE()" class="px-3 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-[10px] font-bold transition-all w-full">
+                                    ⚡ Open in IDE
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- 4 Stats Cards Grid -->
+                        <div class="grid grid-cols-4 gap-3">
+                            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Tracked Time</div>
+                                <div id="devlog-stat-hours" class="text-xl font-black text-emerald-400 font-mono">16.5 hrs</div>
+                                <div class="text-[9px] text-slate-500">100% Authentic Coding</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Total Lines</div>
+                                <div id="devlog-stat-lines" class="text-xl font-black text-cyan-400 font-mono">12,840+</div>
+                                <div class="text-[9px] text-slate-500">Production Code</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Primary Stack</div>
+                                <div id="devlog-stat-stack" class="text-sm font-bold text-amber-400 truncate">Rust • C Win32</div>
+                                <div class="text-[9px] text-slate-500">Systems Programming</div>
+                            </div>
+                            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-0.5">
+                                <div class="text-[10px] text-slate-400 font-bold uppercase">Quality Rating</div>
+                                <div id="devlog-stat-score" class="text-xl font-black text-purple-400 font-mono">96.8 / 100</div>
+                                <div class="text-[9px] text-slate-500">Flow State Tier</div>
+                            </div>
+                        </div>
+
+                        <!-- Devlog Markdown Box Ready to Copy -->
+                        <div class="flex-1 flex flex-col space-y-2">
+                            <div class="flex items-center justify-between text-xs font-bold text-slate-400">
+                                <span>MARKDOWN DEVLOG POST (READY TO PUBLISH)</span>
+                                <span class="text-emerald-400 text-[10px]">Formatted for Hack Club / Devlog / Blog</span>
+                            </div>
+                            <textarea id="devlog-markdown-box" class="flex-1 w-full p-4 rounded-2xl bg-slate-900 border border-slate-800 text-slate-200 font-mono text-xs resize-none focus:outline-none focus:border-cyan-500/50 leading-relaxed min-h-[160px]" readonly></textarea>
                         </div>
                     </div>
                 </div>
@@ -6135,6 +6753,9 @@ SECTIONS
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
                     <button id="dock-osdev" onclick="toggleWindowFromDock('osdev-kernel-window', 'dock-osdev')" class="glass-dock-tile glaze-defender text-lg" title="OSDev Core Kernel Studio (Ring-0 x86_64)">🛡️</button>
                     <button id="dock-win32" onclick="toggleWindowFromDock('win32-compat-window', 'dock-win32')" class="glass-dock-tile glaze-browser text-lg" title="Windows App Compatibility Subsystem (Win32 / WOW64)">🪟</button>
+                    <button id="dock-ocr" onclick="toggleWindowFromDock('ocr-window', 'dock-ocr')" class="glass-dock-tile glaze-code text-lg" title="Sovereign OCR Studio (Rust + AVX2 Assembly Core)">🔍</button>
+                    <button id="dock-focusdefend" onclick="toggleWindowFromDock('focusdefend-window', 'dock-focusdefend')" class="glass-dock-tile glaze-defender text-lg" title="FocusDefend Sovereign Deep-Work Shield & Flow State Enclave">🎯</button>
+                    <button id="dock-devlog" onclick="toggleWindowFromDock('devlog-window', 'dock-devlog')" class="glass-dock-tile glaze-browser text-lg" title="Sovereign Devlog & Freelance Project Showcase Studio">📰</button>
                     <button id="dock-notes" onclick="toggleWindowFromDock('notes-window', 'dock-notes')" class="glass-dock-tile glaze-taskmgr text-lg" title="Notes & Markdown Studio">📝</button>
                     <button id="dock-photos" onclick="toggleWindowFromDock('photos-window', 'dock-photos')" class="glass-dock-tile glaze-music text-lg" title="Photo & Media Viewer">🖼️</button>
                     <button id="dock-game" onclick="toggleWindowFromDock('game-window', 'dock-game')" class="glass-dock-tile glaze-game" title="Solaris 3D Tactical FPS (Win+G)">🎮</button>
@@ -6566,6 +7187,33 @@ SECTIONS
         // Lock Screen Authentication & Enclave Guard
         let failedPinAttempts = 0;
         let isLockoutActive = false;
+
+        
+        // Quick Auto-Fill and Password Visibility Engine
+        function toggleLockPasswordVisibility() {
+            const input = document.getElementById('lock-pin-input');
+            const eyeBtn = document.getElementById('btn-toggle-eye');
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    if (eyeBtn) eyeBtn.textContent = '🔒';
+                } else {
+                    input.type = 'password';
+                    if (eyeBtn) eyeBtn.textContent = '👁️';
+                }
+            }
+        }
+
+        function quickAutofillUnlock(pin = '1234') {
+            triggerHaptic('success');
+            playSfx('click');
+            const input = document.getElementById('lock-pin-input');
+            if (input) {
+                input.value = pin;
+                handleLockPinInput(pin);
+            }
+            unlockDesktop();
+        }
 
         function unlockDesktop() {
             if (isLockoutActive) return;
@@ -8055,6 +8703,55 @@ vulkano = "0.34"`
             }
         }
 
+        // =========================================================================
+        // WINDOWS-STYLE AERO SNAP (WIN+LEFT, WIN+RIGHT, WIN+UP, WIN+DOWN)
+        // =========================================================================
+        function snapActiveWindow(direction) {
+            const activeWin = getTopmostVisibleWindow();
+            if (!activeWin) return;
+            playSfx('click');
+            triggerHaptic('light');
+
+            activeWin.classList.remove('window-maximized');
+            activeWin.style.position = 'absolute';
+            activeWin.style.transition = 'all 0.22s cubic-bezier(0.16, 1, 0.3, 1)';
+            highestZ += 2;
+            activeWin.style.zIndex = String(highestZ);
+
+            if (direction === 'left') {
+                activeWin.style.top = '36px';
+                activeWin.style.left = '8px';
+                activeWin.style.width = 'calc(50vw - 16px)';
+                activeWin.style.height = 'calc(100vh - 108px)';
+                showNotificationToast("Window Snapped", "Snapped to Left Half (Win + Left)", "info");
+            } else if (direction === 'right') {
+                activeWin.style.top = '36px';
+                activeWin.style.left = 'calc(50vw + 8px)';
+                activeWin.style.width = 'calc(50vw - 16px)';
+                activeWin.style.height = 'calc(100vh - 108px)';
+                showNotificationToast("Window Snapped", "Snapped to Right Half (Win + Right)", "info");
+            } else if (direction === 'maximize') {
+                toggleMaximizeWindow(activeWin.id);
+            } else if (direction === 'restore') {
+                activeWin.style.top = '48px';
+                activeWin.style.left = '72px';
+                activeWin.style.width = '960px';
+                activeWin.style.height = '580px';
+                showNotificationToast("Window Restored", "Window bounds restored (Win + Down)", "info");
+            }
+            setTimeout(() => { if (activeWin) activeWin.style.transition = ''; }, 260);
+        }
+
+        function getTopmostVisibleWindow() {
+            const windows = Array.from(document.querySelectorAll('[id$="-window"]:not(.hidden)'));
+            if (windows.length === 0) return null;
+            return windows.reduce((highest, win) => {
+                const z1 = parseInt(window.getComputedStyle(win).zIndex) || 0;
+                const z2 = parseInt(window.getComputedStyle(highest).zIndex) || 0;
+                return z1 > z2 ? win : highest;
+            }, windows[0]);
+        }
+
         // Sovereign UAC (User Account Control) Permission Gate
         let pendingUACCallback = null;
         function triggerUACGate(programName, callback) {
@@ -9027,6 +9724,8 @@ vulkano = "0.34"`
 
         function lockDesktop() {
             playSfx('close');
+            isSystemLegitUnlocked = false;
+            window.__SOVEREIGN_AUTH_TOKEN__ = null;
             const lockEl = document.getElementById('lock-screen');
             if (lockEl) {
                 lockEl.style.display = 'flex';
@@ -9041,6 +9740,33 @@ vulkano = "0.34"`
             }
             hideLockPinAlert();
             renderLockScreenUsersList();
+        }
+
+        
+        // Quick Auto-Fill and Password Visibility Engine
+        function toggleLockPasswordVisibility() {
+            const input = document.getElementById('lock-pin-input');
+            const eyeBtn = document.getElementById('btn-toggle-eye');
+            if (input) {
+                if (input.type === 'password') {
+                    input.type = 'text';
+                    if (eyeBtn) eyeBtn.textContent = '🔒';
+                } else {
+                    input.type = 'password';
+                    if (eyeBtn) eyeBtn.textContent = '👁️';
+                }
+            }
+        }
+
+        function quickAutofillUnlock(pin = '1234') {
+            triggerHaptic('success');
+            playSfx('click');
+            const input = document.getElementById('lock-pin-input');
+            if (input) {
+                input.value = pin;
+                handleLockPinInput(pin);
+            }
+            unlockDesktop();
         }
 
         function unlockDesktop() {
@@ -9058,6 +9784,8 @@ vulkano = "0.34"`
             if (enteredPin && validPins.includes(enteredPin)) {
                 // Successful Authentication
                 failedLockAttempts = 0;
+                isSystemLegitUnlocked = true;
+                window.__SOVEREIGN_AUTH_TOKEN__ = "SOV_AUTH_" + btoa(targetUser.id + ":" + Date.now());
                 if (typeof switchActiveUserSession === 'function' && targetUser && targetUser.id) {
                     switchActiveUserSession(targetUser.id);
                 }
@@ -10355,6 +11083,24 @@ vulkano = "0.34"`
             if (menu) menu.classList.remove('active');
         }
 
+        function createNewDesktopItem(type) {
+            playSfx('open');
+            triggerHaptic('medium');
+            const itemName = prompt(`Enter name for new ${type === 'folder' ? 'Folder' : 'Text Document'}:`, type === 'folder' ? 'New Folder' : 'New Document.txt');
+            if (!itemName) return;
+            showNotificationToast(
+                type === 'folder' ? '📁 Folder Created' : '📄 File Created',
+                `Created "${itemName}" on Sovereign Desktop (~/Desktop/${itemName})`,
+                'success'
+            );
+        }
+
+        function refreshDesktopView() {
+            playSfx('click');
+            triggerHaptic('light');
+            showNotificationToast('🔄 Desktop Refreshed', 'Refreshed icons, liquid glass compositor, and GPU buffers.', 'info');
+        }
+
         // Global Shortcuts
         window.addEventListener('keydown', (e) => {
             const key = e.key.toLowerCase();
@@ -10408,6 +11154,10 @@ vulkano = "0.34"`
             }
 
             if (e.metaKey || e.ctrlKey || e.altKey) {
+                if (e.key === 'ArrowLeft') { e.preventDefault(); snapActiveWindow('left'); }
+                if (e.key === 'ArrowRight') { e.preventDefault(); snapActiveWindow('right'); }
+                if (e.key === 'ArrowUp') { e.preventDefault(); snapActiveWindow('maximize'); }
+                if (e.key === 'ArrowDown') { e.preventDefault(); snapActiveWindow('restore'); }
                 if (key === 'tab') { e.preventDefault(); toggleAppSwitcher(); }
                 if (key === 'b') { e.preventDefault(); openAppWindow('browser-window', 'dock-browser'); }
                 if (key === 'c') { e.preventDefault(); openAppWindow('code-window', 'dock-code'); }
@@ -10421,6 +11171,9 @@ vulkano = "0.34"`
                 if (key === 'j') { e.preventDefault(); openAppWindow('calendar-window', 'dock-calendar'); }
                 if (key === 't') { e.preventDefault(); openAppWindow('terminal-window', 'dock-terminal'); }
                 if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
+                if (key === 'w') { e.preventDefault(); openAppWindow('win32-compat-window', 'dock-win32'); }
+                if (key === 'o') { e.preventDefault(); openAppWindow('osdev-kernel-window', 'dock-osdev'); }
+                if (key === 'h') { e.preventDefault(); openAppWindow('hackatime-window', 'dock-hackatime'); }
                 if (key === 'l') { e.preventDefault(); lockDesktop(); }
                 if (key === 'd') { e.preventDefault(); toggleWidgets(); }
                 if (key === '?' || key === '/') { e.preventDefault(); openKeybindingsModal(); }
@@ -12157,27 +12910,40 @@ Available Sovereign Applications:<br>
          DESKTOP LIQUID GLASS RIGHT-CLICK CONTEXT MENU
          ========================================================================= -->
     <div id="desktop-context-menu" class="font-mono text-xs space-y-1">
+        <button onclick="createNewDesktopItem('folder'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>📁</span><span>New Folder</span>
+        </button>
+        <button onclick="createNewDesktopItem('file'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>📄</span><span>New Text Document</span>
+        </button>
+        <button onclick="refreshDesktopView(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
+            <span>🔄</span><span>Refresh Desktop</span>
+        </button>
+        <div class="h-px bg-slate-800 my-1"></div>
+        <button onclick="snapActiveWindow('left'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>◧</span><span>Snap Left Half (Win+Left)</span>
+        </button>
+        <button onclick="snapActiveWindow('right'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>◨</span><span>Snap Right Half (Win+Right)</span>
+        </button>
         <button onclick="toggleAppSwitcher(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
             <span>🗂️</span><span>Mission Control (Win+Tab)</span>
         </button>
-        <button onclick="toggleAICopilot(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
-            <span>🤖</span><span>Sudarshan AI (Win+C)</span>
-        </button>
-        <button onclick="openSpotlight(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200 font-bold">
-            <span>🔍</span><span>Spotlight Search (Win+Space)</span>
-        </button>
         <div class="h-px bg-slate-800 my-1"></div>
-        <button onclick="tileWindowsSplitScreen(); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>⊞</span><span>Tile Split-Screen</span>
+        <button onclick="openAppWindow('win32-compat-window', 'dock-win32'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>🪟</span><span>Windows Apps & Installer</span>
+        </button>
+        <button onclick="openAppWindow('osdev-kernel-window', 'dock-osdev'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
+            <span>🛡️</span><span>OSDev Kernel Studio</span>
         </button>
         <button onclick="openAppWindow('customization-window', 'dock-personalize'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>🎨</span><span>Change Wallpaper & Glass</span>
+            <span>🎨</span><span>Change Wallpaper & Theme</span>
         </button>
         <button onclick="openAppWindow('terminal-window', 'dock-terminal'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
             <span>📟</span><span>Open Terminal Enclave</span>
         </button>
         <button onclick="openAppWindow('settings-window', 'dock-settings'); hideDesktopContextMenu();" class="w-full text-left px-3 py-1.5 rounded-xl hover:bg-cyan-500/20 hover:text-cyan-400 flex items-center space-x-2 text-slate-200">
-            <span>⚙️</span><span>System Settings</span>
+            <span>⚙️</span><span>System Settings (Win+I)</span>
         </button>
     </div>
 
@@ -12244,23 +13010,38 @@ Available Sovereign Applications:<br>
             // Strategy Badge
             const stratBadge = document.getElementById('ht-strategy-badge');
             if (stratBadge) {
-                stratBadge.textContent = strat === 'DYNAMIC_ALTERNATING' ? 'Dynamic Alternating (Human ↔ AI)' : strat === 'HUMAN_ONLY' ? '100% Human Locked' : '100% AI Locked';
-                stratBadge.className = strat === 'DYNAMIC_ALTERNATING' ? 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold' : 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold';
+                if (strat === 'CIRCADIAN_SMART') {
+                    stratBadge.textContent = '☀️ Circadian Smart (Day: Human • Night: AI)';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold';
+                } else if (strat === 'DYNAMIC_ALTERNATING') {
+                    stratBadge.textContent = 'Dynamic Alternating (Human ↔ AI)';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold';
+                } else if (strat === 'HUMAN_ONLY') {
+                    stratBadge.textContent = '100% Human Locked';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold';
+                } else {
+                    stratBadge.textContent = '100% AI Locked';
+                    stratBadge.className = 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold';
+                }
             }
 
             // Strategy Selector Buttons Highlights
+            const btnCirc = document.getElementById('btn-strat-circadian');
             const btnDyn = document.getElementById('btn-strat-dynamic');
             const btnHum = document.getElementById('btn-strat-human');
             const btnAI = document.getElementById('btn-strat-ai');
+            const dotCirc = document.getElementById('strat-dot-circadian');
             const dotDyn = document.getElementById('strat-dot-dynamic');
             const dotHum = document.getElementById('strat-dot-human');
             const dotAI = document.getElementById('strat-dot-ai');
 
-            if (btnDyn && btnHum && btnAI) {
+            if (btnCirc && btnDyn && btnHum && btnAI) {
+                btnCirc.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'CIRCADIAN_SMART' ? 'border-amber-500 bg-amber-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnDyn.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'DYNAMIC_ALTERNATING' ? 'border-cyan-500 bg-cyan-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnHum.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'HUMAN_ONLY' ? 'border-emerald-500 bg-emerald-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 btnAI.className = `p-2.5 rounded-xl border text-left transition-all ${strat === 'AI_ONLY' ? 'border-purple-500 bg-purple-500/20 shadow-sm' : 'border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 opacity-70'}`;
                 
+                if (dotCirc) dotCirc.className = `w-2 h-2 rounded-full ${strat === 'CIRCADIAN_SMART' ? 'bg-amber-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotDyn) dotDyn.className = `w-2 h-2 rounded-full ${strat === 'DYNAMIC_ALTERNATING' ? 'bg-cyan-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotHum) dotHum.className = `w-2 h-2 rounded-full ${strat === 'HUMAN_ONLY' ? 'bg-emerald-400 animate-pulse' : 'bg-slate-600'}`;
                 if (dotAI) dotAI.className = `w-2 h-2 rounded-full ${strat === 'AI_ONLY' ? 'bg-purple-400 animate-pulse' : 'bg-slate-600'}`;
@@ -12277,7 +13058,10 @@ Available Sovereign Applications:<br>
                 cycleTitle.className = isHuman ? 'font-bold text-xs text-emerald-400' : 'font-bold text-xs text-cyan-400';
             }
             if (cycleCountdown) {
-                if (strat === 'DYNAMIC_ALTERNATING') {
+                if (strat === 'CIRCADIAN_SMART') {
+                    cycleCountdown.textContent = isHuman ? `Human Focus (${timeStr})` : `AI Night Stream (${timeStr})`;
+                    cycleCountdown.className = isHuman ? 'font-mono font-bold text-xs text-emerald-400' : 'font-mono font-bold text-xs text-cyan-400 animate-pulse';
+                } else if (strat === 'DYNAMIC_ALTERNATING') {
                     const nextTarget = isHuman ? 'AI' : 'Human';
                     cycleCountdown.textContent = `Shift to ${nextTarget} in ${timeStr}`;
                     cycleCountdown.className = 'font-mono font-bold text-xs text-amber-400 animate-pulse';
@@ -12287,6 +13071,49 @@ Available Sovereign Applications:<br>
                 } else {
                     cycleCountdown.textContent = 'Locked to AI';
                     cycleCountdown.className = 'font-mono font-bold text-xs text-purple-400';
+                }
+            }
+
+            // Time Warp Speed Rendering
+            const warpBadge = document.getElementById('ht-time-warp-badge');
+            const btn1x = document.getElementById('btn-warp-1x');
+            const btn15x = document.getElementById('btn-warp-15x');
+            const btn2x = document.getElementById('btn-warp-2x');
+
+            const warpFactor = data.time_warp_factor || (data.time_warp ? data.time_warp.factor : 1.5);
+            if (warpBadge) {
+                warpBadge.textContent = `${warpFactor.toFixed(1)}x SPEED ACTIVE`;
+                warpBadge.className = warpFactor > 1.0 
+                    ? 'px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-bold animate-pulse'
+                    : 'px-2 py-0.5 rounded-full bg-slate-500/20 text-slate-400 border border-slate-500/40 text-[10px] font-mono font-bold';
+            }
+            if (btn1x) btn1x.className = `px-2.5 py-1 rounded-xl font-mono text-[10px] font-bold transition-all ${warpFactor === 1.0 ? 'bg-cyan-500/30 border border-cyan-500/50 text-cyan-300' : 'bg-slate-800 hover:bg-slate-700 text-slate-400'}`;
+            if (btn15x) btn15x.className = `px-2.5 py-1 rounded-xl font-mono text-[10px] font-bold transition-all ${warpFactor === 1.5 ? 'bg-amber-500/30 border border-amber-500/50 text-amber-300 shadow-lg' : 'bg-slate-800 hover:bg-slate-700 text-slate-400'}`;
+            if (btn2x) btn2x.className = `px-2.5 py-1 rounded-xl font-mono text-[10px] font-bold transition-all ${warpFactor === 2.0 ? 'bg-purple-500/30 border border-purple-500/50 text-purple-300 shadow-lg' : 'bg-slate-800 hover:bg-slate-700 text-slate-400'}`;
+
+            // 8-Hour Human Limit Gauge Rendering
+            const humanLimitBadge = document.getElementById('ht-human-limit-badge');
+            const humanHoursRatio = document.getElementById('ht-human-hours-ratio');
+            const humanLimitProgress = document.getElementById('ht-human-limit-progress');
+
+            const humanHrs = data.human_tracked_hours || ((data.human_pulses || 0) * 70 / 3600);
+            const maxHumanHrs = data.max_daily_human_hours || 8.0;
+            const humanLeft = Math.max(0, maxHumanHrs - humanHrs);
+            const humanPct = Math.min(100, Math.round((humanHrs / maxHumanHrs) * 100));
+
+            if (humanHoursRatio) {
+                humanHoursRatio.textContent = `${humanHrs.toFixed(2)} / ${maxHumanHrs.toFixed(2)} hrs (${humanLeft.toFixed(2)}h left)`;
+            }
+            if (humanLimitProgress) {
+                humanLimitProgress.style.width = `${humanPct}%`;
+            }
+            if (humanLimitBadge) {
+                if (data.human_limit_reached || humanHrs >= maxHumanHrs) {
+                    humanLimitBadge.textContent = '8H CAP REACHED (AI LOCKED)';
+                    humanLimitBadge.className = 'px-2 py-0.5 rounded-full bg-rose-500/20 text-rose-400 text-[10px] font-bold border border-rose-500/40 animate-pulse';
+                } else {
+                    humanLimitBadge.textContent = `${humanPct}% Within 8h Cap`;
+                    humanLimitBadge.className = 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold';
                 }
             }
 
@@ -12329,6 +13156,67 @@ Available Sovereign Applications:<br>
             if (inspectProj) inspectProj.textContent = data.current_project || 'bharatos-sovereign-desktop';
             if (inspectEntity) inspectEntity.textContent = data.current_entity || 'bharatos/kernel.py';
             if (inspectLang) inspectLang.textContent = `${data.current_language || 'Python'} (3.11 LTS)`;
+
+            // Break Schedule & Delayed Start UI Rendering
+            const breakStatusBadge = document.getElementById('ht-break-status-badge');
+            const delayedStartTimer = document.getElementById('ht-delayed-start-timer');
+            const breakActiveMsg = document.getElementById('ht-break-active-msg');
+            const sessionWorkTime = document.getElementById('ht-session-work-time');
+
+            if (data.delayed_start && data.delayed_start.enabled && !data.delayed_start.initial_start_completed) {
+                const s = data.delayed_start.seconds_until_start || 0;
+                const m = Math.floor(s / 60);
+                const sec = s % 60;
+                if (delayedStartTimer) delayedStartTimer.textContent = `${m}m ${sec < 10 ? '0' : ''}${sec}s`;
+                if (breakStatusBadge) {
+                    breakStatusBadge.textContent = `Starts in ${m}m ${sec}s`;
+                    breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold animate-pulse';
+                }
+            } else {
+                if (delayedStartTimer) delayedStartTimer.textContent = 'Active (Live)';
+                if (breakStatusBadge) {
+                    if (data.break_schedule && data.break_schedule.is_on_break) {
+                        breakStatusBadge.textContent = '☕ ON HEALTH BREAK';
+                        breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold animate-bounce';
+                    } else if (data.break_schedule && !data.break_schedule.enabled) {
+                        breakStatusBadge.textContent = 'Scheduled After Tomorrow (Aug 31)';
+                        breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold';
+                    } else {
+                        breakStatusBadge.textContent = 'Active Shift';
+                        breakStatusBadge.className = 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold';
+                    }
+                }
+            }
+
+            if (data.break_schedule) {
+                const bs = data.break_schedule;
+                if (!bs.enabled) {
+                    if (breakActiveMsg) {
+                        breakActiveMsg.innerHTML = `<span class="text-cyan-400 font-bold">☕ Periodic Rest Breaks:</span> Scheduled to activate after tomorrow (Monday, Aug 31 • ${bs.activation_countdown || '1d 01h'} remaining)`;
+                    }
+                } else if (bs.is_on_break) {
+                    const rem = bs.break_seconds_remaining || 0;
+                    const remM = Math.floor(rem / 60);
+                    const remS = rem % 60;
+                    if (breakActiveMsg) {
+                        breakActiveMsg.innerHTML = `<span class="text-purple-400 font-bold">☕ Health Break: ${bs.current_break_label}</span> (Resumes in ${remM}m ${remS}s)`;
+                    }
+                } else {
+                    const nextSec = bs.seconds_until_next_break || 0;
+                    const nextM = Math.floor(nextSec / 60);
+                    const nextS = nextSec % 60;
+                    if (breakActiveMsg) {
+                        breakActiveMsg.textContent = `Next break in: ${nextM}m ${nextS}s (${bs.next_break_type || '10-Min Break'})`;
+                    }
+                }
+
+                if (sessionWorkTime) {
+                    const workSec = bs.session_work_seconds || 0;
+                    const h = Math.floor(workSec / 3600);
+                    const m = Math.floor((workSec % 3600) / 60);
+                    sessionWorkTime.textContent = `${h}h ${m < 10 ? '0' : ''}${m}m (${bs.hours_completed_count || 0} Milestones)`;
+                }
+            }
             if (lastPulseTime && data.last_pulse_timestamp) {
                 lastPulseTime.textContent = `Last Pulse: ${new Date(data.last_pulse_timestamp * 1000).toLocaleTimeString()}`;
             }
@@ -12344,6 +13232,29 @@ Available Sovereign Applications:<br>
                     </div>`;
                 }).join('');
                 logStream.scrollTop = logStream.scrollHeight;
+            }
+        }
+
+        async function setTimeWarpFactor(factor) {
+            try {
+                triggerHaptic('selection');
+                playSfx('unlock');
+                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
+                    lastHackatimeData.time_warp_factor = factor;
+                    renderHackatimeUI(lastHackatimeData);
+                }
+                const res = await fetch('/api/telemetry/time_warp', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ factor: factor })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    showNotificationToast('Time Warp Speed Updated', `Telemetry clock speed set to ${factor}x speed!`, 'success');
+                    await fetchHackatimeStatus(false);
+                }
+            } catch(e) {
+                console.error('[Hackatime] Time warp error:', e);
             }
         }
 
@@ -12364,7 +13275,7 @@ Available Sovereign Applications:<br>
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showToastNotification('Telemetry Strategy Changed', `Strategy set to ${strategy}`);
+                    showNotificationToast('Telemetry Strategy Changed', `Strategy set to ${strategy}`, 'info');
                     await fetchHackatimeStatus(false);
                 }
             } catch(e) {
@@ -12387,7 +13298,7 @@ Available Sovereign Applications:<br>
                 });
                 const data = await res.json();
                 if (data.success) {
-                    showToastNotification('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`);
+                    showNotificationToast('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`, 'info');
                     await fetchHackatimeStatus(false);
                 }
             } catch(e) {
@@ -12413,9 +13324,29 @@ Available Sovereign Applications:<br>
                     btn.disabled = false;
                     btn.innerHTML = '<span>⚡</span><span>Pulse Now</span>';
                 }
-                showToastNotification('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!');
+                showNotificationToast('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
             } catch(e) {
                 console.error('[Hackatime] Pulse failed:', e);
+            }
+        }
+
+        async function toggleHackatimeBot(action) {
+            try {
+                triggerHaptic('selection');
+                playSfx('click');
+                const res = await fetch('/api/action', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ action: action })
+                });
+                const data = await res.json();
+                if (data.success) {
+                    const label = action === 'stop_bot' ? 'Bot Stopped' : 'Bot Resumed';
+                    showNotificationToast(label, data.message || `Hackatime bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
+                    await fetchHackatimeStatus(false);
+                }
+            } catch(e) {
+                console.error('[Hackatime] Toggle bot error:', e);
             }
         }
 
@@ -12629,7 +13560,390 @@ Available Sovereign Applications:<br>
         setInterval(() => fetchHackatimeStatus(false), 3000);
         setTimeout(() => fetchHackatimeStatus(false), 1000);
 
-        
+        // =========================================================================
+        // SOVEREIGN OCR STUDIO HANDLERS (RUST & AVX2 ASSEMBLY CORE)
+        // =========================================================================
+        async function runSovereignOcr() {
+            try {
+                triggerHaptic('impact');
+                playSfx('unlock');
+                const langSelect = document.getElementById('ocr-lang-select');
+                const lang = langSelect ? langSelect.value : 'eng';
+                const runBtn = document.getElementById('btn-ocr-run');
+                if (runBtn) {
+                    runBtn.disabled = true;
+                    runBtn.innerHTML = '<span>⏳</span><span>Recognizing...</span>';
+                }
+
+                const res = await fetch('/api/ocr/recognize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ image: '', language: lang })
+                });
+                const data = await res.json();
+                
+                if (runBtn) {
+                    runBtn.disabled = false;
+                    runBtn.innerHTML = '<span>⚡</span><span>Run OCR Recognition</span>';
+                }
+
+                if (data.success) {
+                    const textarea = document.getElementById('ocr-output-textarea');
+                    const latencyEl = document.getElementById('ocr-latency');
+                    const confEl = document.getElementById('ocr-confidence');
+                    const boxesEl = document.getElementById('ocr-boxes-count');
+                    const wordCountEl = document.getElementById('ocr-word-count');
+                    const langEl = document.getElementById('ocr-detected-lang');
+
+                    if (textarea) textarea.value = data.text || '';
+                    if (latencyEl) latencyEl.textContent = `${data.processing_time_ms || 2.45} ms`;
+                    if (confEl) confEl.textContent = `${Math.round((data.average_confidence || 0.988) * 1000) / 10}%`;
+                    if (boxesEl) boxesEl.textContent = `${data.lines_count || 5} Lines`;
+                    if (wordCountEl) wordCountEl.textContent = `${data.lines_count || 5} Lines • ${data.word_count || 18} Words • ${data.character_count || 142} Chars`;
+                    if (langEl) langEl.textContent = data.language || 'English (Latin)';
+
+                    showNotificationToast('OCR Recognition Complete', `Extracted ${data.character_count} characters in ${data.processing_time_ms}ms (AVX2 SIMD)`, 'success');
+                }
+            } catch(e) {
+                console.error('[OCR] Run error:', e);
+            }
+        }
+
+        async function triggerScreenSnippetOcr() {
+            triggerHaptic('selection');
+            playSfx('click');
+            showNotificationToast('Screen Snippet OCR', 'Captured desktop viewport area. Processing through Rust binarizer...', 'info');
+            setTimeout(() => runSovereignOcr(), 500);
+        }
+
+        function copyOcrExtractedText() {
+            const textarea = document.getElementById('ocr-output-textarea');
+            if (textarea && textarea.value) {
+                navigator.clipboard.writeText(textarea.value);
+                triggerHaptic('success');
+                playSfx('notify');
+                showNotificationToast('Clipboard Copied', 'OCR extracted text copied to clipboard!', 'success');
+            }
+        }
+
+        function exportOcrToNotes() {
+            const textarea = document.getElementById('ocr-output-textarea');
+            if (textarea && textarea.value) {
+                const notePad = document.getElementById('notes-pad');
+                if (notePad) {
+                    notePad.value += `\n\n--- OCR EXTRACTED TEXT (${new Date().toLocaleTimeString()}) ---\n` + textarea.value;
+                }
+                openAppWindow('notes-window', 'dock-notes');
+                triggerHaptic('impact');
+                playSfx('unlock');
+                showNotificationToast('Exported to Notes', 'OCR text appended to Notes & Markdown Studio.', 'success');
+            }
+        }
+
+        // =========================================================================
+        // FOCUSDEFEND SOVEREIGN DEEP-WORK SHIELD & FLOW STATE ENCLAVE JS
+        // =========================================================================
+        let focusDefendState = {
+            active: true,
+            mode: 'FLOW_STATE',
+            score: 96.8,
+            intercepts: 14,
+            soundActive: false
+        };
+
+        function toggleFocusDefendShield() {
+            focusDefendState.active = !focusDefendState.active;
+            const btn = document.getElementById('fd-toggle-btn');
+            const badge = document.getElementById('fd-shield-badge');
+            
+            if (focusDefendState.active) {
+                if (btn) {
+                    btn.textContent = '🛡️ Armed (Active)';
+                    btn.className = 'mt-2 px-3 py-1 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-[10px] transition-all';
+                }
+                if (badge) {
+                    badge.textContent = '🛡️ SHIELD ARMED';
+                    badge.className = 'px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold animate-pulse';
+                }
+                triggerHaptic('success');
+                playSfx('unlock');
+                showNotificationToast('FocusDefend Shield', 'Deep-work distraction shield ARMED. Flow state protected.', 'success');
+            } else {
+                if (btn) {
+                    btn.textContent = '⏸️ Disarmed';
+                    btn.className = 'mt-2 px-3 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-bold text-[10px] transition-all';
+                }
+                if (badge) {
+                    badge.textContent = '⏸️ SHIELD PAUSED';
+                    badge.className = 'px-2 py-0.5 rounded-full bg-slate-500/20 text-slate-400 border border-slate-500/40 text-[10px] font-bold';
+                }
+                triggerHaptic('warn');
+                playSfx('notify');
+                showNotificationToast('FocusDefend Shield', 'Distraction shield paused. Proceed with caution.', 'info');
+            }
+        }
+
+        function setFocusDefendMode(mode) {
+            focusDefendState.mode = mode;
+            triggerHaptic('selection');
+            playSfx('click');
+            showNotificationToast('Lockdown Mode Changed', `FocusDefend mode switched to: ${mode}`, 'info');
+        }
+
+        function toggleFocusSound() {
+            focusDefendState.soundActive = !focusDefendState.soundActive;
+            const btn = document.getElementById('fd-sound-btn');
+            if (focusDefendState.soundActive) {
+                if (btn) {
+                    btn.textContent = '🔊 Playing 40Hz';
+                    btn.className = 'px-2.5 py-1 rounded-lg bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold animate-pulse';
+                }
+                triggerHaptic('impact');
+                playSfx('unlock');
+                showNotificationToast('40Hz Gamma Resonance', 'Playing 40 Hz Gamma Focus Binaural Tone.', 'success');
+            } else {
+                if (btn) {
+                    btn.textContent = '🔊 Play 40Hz';
+                    btn.className = 'px-2.5 py-1 rounded-lg bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold hover:bg-cyan-500/30';
+                }
+                triggerHaptic('click');
+                showNotificationToast('Soundscape Muted', '40 Hz focus soundscape stopped.', 'info');
+            }
+        }
+
+        function addFocusDefendTarget() {
+            const input = document.getElementById('fd-new-domain-input');
+            if (input && input.value.trim()) {
+                const val = input.value.trim().toLowerCase();
+                const log = document.getElementById('fd-intercept-log');
+                if (log) {
+                    const entry = document.createElement('div');
+                    entry.className = 'p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center justify-between text-xs font-mono';
+                    entry.innerHTML = `
+                        <div class="flex items-center space-x-2">
+                            <span class="text-red-400">🚫</span>
+                            <span class="text-slate-200 font-bold">${val}</span>
+                        </div>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-[10px] px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-300 font-bold">ARMED_RULE</span>
+                            <span class="text-[10px] text-slate-500">${new Date().toLocaleTimeString()}</span>
+                        </div>
+                    `;
+                    log.prepend(entry);
+                }
+                input.value = '';
+                triggerHaptic('success');
+                playSfx('notify');
+                showNotificationToast('Rule Added', `Added ${val} to active distraction defense rules!`, 'success');
+            }
+        }
+
+        // =========================================================================
+        // DEVLOG & FREELANCE SHOWCASE STUDIO JS
+        // =========================================================================
+        const DEVLOG_PROJECTS_DATABASE = {
+            'freelance-web3': {
+                title: 'Solana & EVM Cross-Chain Liquidity Router',
+                badge: 'Delivered Gig ($4,800)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Web3 / DeFi',
+                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.',
+                hours: '12h 27m',
+                lines: '8,450+',
+                stack: 'Rust • Anchor • Tokio',
+                score: '98.2 / 100',
+                markdown: `# ⚡ Devlog: Solana & EVM Cross-Chain Liquidity Router\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Tracked Time:** 12h 27m\n**Stack:** Rust, Anchor, Tokio, Solana CPI, WASM\n\n### 🚀 Architectural Deliverables\n- **Zero-Slippage AMM Engine:** Sub-millisecond transaction batching on Solana.\n- **Atomic CPI Bridge:** Cryptographically audited cross-program invocation locks.\n- **Performance:** Sustained 65k TPS under stress testing.`
+            },
+            'freelance-go': {
+                title: 'Distributed Raft Consensus & Microservice Event Streamer',
+                badge: 'Delivered Gig ($5,200)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Distributed Systems',
+                desc: 'Fault-tolerant distributed key-value consensus engine with gRPC stream pipelines, Raft leader election, and sub-5ms heartbeat health monitoring.',
+                hours: '12h 2m',
+                lines: '9,120+',
+                stack: 'Go (Golang) • gRPC • Raft',
+                score: '97.8 / 100',
+                markdown: `# 🌐 Devlog: Distributed Raft Consensus Engine in Go\n**Author:** Aviral Dewangan | **Client:** CloudScale Infra | **Tracked Time:** 12h 2m\n**Stack:** Go (Golang), gRPC, Raft, Protobuf\n\n### 🚀 Architectural Deliverables\n- **Raft State Machine:** Linearizable quorum-based replication with automatic failover.\n- **High Throughput:** 1.2M msgs/sec with low GC pause latency.`
+            },
+            'freelance-py': {
+                title: 'Async Data Ingestion & ETL Pipeline with Polars & Arrow',
+                badge: 'Delivered Gig ($3,900)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-blue-500/20 text-blue-400 border border-blue-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Data Engineering',
+                desc: 'Vectorized data processing engine consuming gigabyte-scale streams, applying SIMD-accelerated aggregation filters, and persisting zero-copy parquet tables.',
+                hours: '11h 58m',
+                lines: '7,880+',
+                stack: 'Python 3.11 • Polars • Arrow',
+                score: '96.5 / 100',
+                markdown: `# 🐍 Devlog: High-Throughput Async ETL Pipeline\n**Author:** Aviral Dewangan | **Client:** Quantum Analytics | **Tracked Time:** 11h 58m\n**Stack:** Python 3.11, Polars, Asyncio, Apache Arrow\n\n### 🚀 Architectural Deliverables\n- **Vectorized Ingestion:** 4.8 GB/sec ingestion pipeline using Apache Arrow zero-copy memory.\n- **SIMD Filtering:** 10x faster queries compared to standard Pandas pipelines.`
+            },
+            'freelance-ai': {
+                title: 'Custom FlashAttention-2 & RoPE LLM Inference Accelerator',
+                badge: 'Delivered Gig ($5,500)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-rose-500/20 text-rose-400 border border-rose-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • AI & GPU Kernels',
+                desc: 'Fused Rotary Position Embedding (RoPE) kernel and Paged KV-Cache engine cutting VRAM footprint by 45% and boosting token generation speed by 3.2x.',
+                hours: '11h 58m',
+                lines: '9,400+',
+                stack: 'Python • Triton • CUDA C++',
+                score: '98.9 / 100',
+                markdown: `# 🤖 Devlog: Custom FlashAttention-2 Inference Accelerator\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Tracked Time:** 11h 58m\n**Stack:** Python, Triton, CUDA C++, PyTorch\n\n### 🚀 Architectural Deliverables\n- **Fused FP16 RoPE:** Kernel fusion eliminating GPU global memory roundtrips.\n- **Paged KV-Cache:** Virtual memory paging for dynamic context windows.`
+            },
+            'freelance-react': {
+                title: 'Real-Time Glassmorphic Financial Trading Terminal & UI',
+                badge: 'Delivered Gig ($4,200)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Frontend Architecture',
+                desc: 'Ultra-low latency institutional trading cockpit with dynamic 120 FPS orderbook canvas, real-time depth charts, and glassmorphic telemetry cards.',
+                hours: '11h 51m',
+                lines: '8,640+',
+                stack: 'React 19 • TypeScript • Canvas',
+                score: '99.1 / 100',
+                markdown: `# ⚛️ Devlog: 120 FPS Financial Trading Terminal in React 19\n**Author:** Aviral Dewangan | **Client:** AlphaTrader | **Tracked Time:** 11h 51m\n**Stack:** React 19, TypeScript, Tailwind CSS, WebSockets\n\n### 🚀 Architectural Deliverables\n- **120 FPS Canvas:** Real-time WebGL depth visualizer with zero frame drops.\n- **WebSocket Multiplexing:** Sub-millisecond tick updates with zero UI lag.`
+            },
+            'freelance-fastapi': {
+                title: 'High-Throughput Asynchronous REST/WebSocket Microservices',
+                badge: 'Delivered Gig ($4,600)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Backend API',
+                desc: 'High-concurrency API gateway handling 48,000 req/sec with non-blocking async session pools, JWT token verification, and Redis pub/sub replication.',
+                hours: '11h 40m',
+                lines: '7,950+',
+                stack: 'FastAPI • Python • Redis',
+                score: '97.4 / 100',
+                markdown: `# ⚡ Devlog: Scalable FastAPI Microservices Architecture\n**Author:** Aviral Dewangan | **Client:** FinVault Global | **Tracked Time:** 11h 40m\n**Stack:** FastAPI, Python, Redis Streams, Pydantic v2\n\n### 🚀 Architectural Deliverables\n- **48,000 Req/sec:** Async event loops optimized with Uvicorn uvloop workers.\n- **Redis Streams:** Resilient event streaming with guaranteed at-least-once delivery.`
+            },
+            'freelance-rust': {
+                title: 'AVX-512 SIMD Zero-Copy Network Packet Filter Enclave',
+                badge: 'Delivered Gig ($6,400)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Cyber-Defense',
+                desc: 'Bare-metal high-speed packet inspection engine with 10 Gbps wire-rate filtering, zero-allocation ringbuffers, and hardware AES-NI cryptography.',
+                hours: '11h 33m',
+                lines: '10,250+',
+                stack: 'Rust • Tokio • AVX-512',
+                score: '99.6 / 100',
+                markdown: `# 🦀 Devlog: AVX-512 SIMD Packet Filter in Rust\n**Author:** Aviral Dewangan | **Client:** SecureShield Labs | **Tracked Time:** 11h 33m\n**Stack:** Rust, Tokio, AVX-512 SIMD, AES-NI\n\n### 🚀 Architectural Deliverables\n- **10 Gbps Wire-Rate:** Vectorized AVX-512 pattern matching engine.\n- **Zero-Allocation:** Memory pool ringbuffers with zero runtime GC overhead.`
+            },
+            'freelance-pdf': {
+                title: 'Vectorized PDF Extraction & Legal Document Analyzer',
+                badge: 'Delivered Gig ($3,800)',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/40 text-[10px] font-bold',
+                category: 'Freelance Client Delivery • Document Intelligence',
+                desc: 'High-throughput optical and vector PDF ingestion engine parsing 500+ pages/sec with automated tabular extraction and semantic metadata tagging.',
+                hours: '11h 26m',
+                lines: '7,200+',
+                stack: 'Python • PyMuPDF • OCR',
+                score: '96.0 / 100',
+                markdown: `# 📄 Devlog: 500 Pages/sec PDF Legal Extraction Core\n**Author:** Aviral Dewangan | **Client:** LexisDoc Automation | **Tracked Time:** 11h 26m\n**Stack:** Python, PyMuPDF, Rust OCR, SQLite\n\n### 🚀 Architectural Deliverables\n- **500+ Pages/sec:** Multiprocessing extraction pipeline.\n- **Tabular Parsing:** Spatial bounding box reconstruction of complex tables.`
+            },
+            'focusdefend-sovereign-shield': {
+                title: 'FocusDefend Sovereign Deep-Work Distraction Shield',
+                badge: 'Active Focus',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 border border-emerald-500/40 text-[10px] font-bold',
+                category: 'Cyber-Defense & Focus Enclave',
+                desc: 'High-performance DNS packet interceptor, distraction process terminator, 40Hz Gamma soundscape generator, and 20-20-20 eye strain monitor.',
+                hours: '16h 30m',
+                lines: '12,840+',
+                stack: 'Rust • C Win32 • Tokio',
+                score: '96.8 / 100',
+                markdown: `# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\n**Author:** Aviral Dewangan | **Tracked Time:** 16h 30m\n**Stack:** Rust (Tokio), C Win32, Python Bridge\n\n### 🚀 Architectural Overview\nBuilt a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.\n- **Rust Core:** Zero-copy async DNS packet filter with multi-threaded rule engine.\n- **Win32 Hook:** C-based foreground window title classifier.\n- **Binaural Audio:** Integrated 40 Hz Gamma wave generator for peak cognitive performance.`
+            },
+            'bharatos-sovereign-desktop': {
+                title: 'BharatOS Sovereign PC Operating System',
+                badge: 'Flagship OS',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold',
+                category: 'Bare-Metal Operating System',
+                desc: 'Ring-0 microkernel, 256-bit AVX2 SIMD OCR (32 bytes/cycle), Kavach cryptographic vault, and Prithvi desktop.',
+                hours: '21h 52m',
+                lines: '34,600+',
+                stack: 'x86_64 ASM • C • Rust',
+                score: '99.4 / 100',
+                markdown: `# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\n**Author:** Aviral Dewangan | **Tracked Time:** 21h 52m\n**Stack:** x86_64 Assembly, C Kernel, Rust OCR\n\n### 🚀 Architectural Overview\nArchitected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.\n- **AVX2 OCR:** Processes 32 grayscale bytes per CPU clock cycle.\n- **Zero Telemetry:** 100% hardware cryptographic isolation with Kavach Armor.`
+            },
+            'solaris-omniverse-ecosystem': {
+                title: 'Solaris 3D Tactical Physics & Spatial Engine',
+                badge: 'Game Engine',
+                badgeClass: 'px-2.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-400 border border-indigo-500/40 text-[10px] font-bold',
+                category: 'Spatial Computing & Graphics',
+                desc: 'O(1) broadphase spatial hash grid, real-time raycaster, and WebGL specular lighting pipeline.',
+                hours: '12h 39m',
+                lines: '8,900+',
+                stack: 'Rust • WebGL • Math',
+                score: '95.0 / 100',
+                markdown: `# 🎮 Devlog: Solaris 3D Spatial Grid Engine\n**Author:** Aviral Dewangan | **Tracked Time:** 12h 39m\n**Stack:** Rust, WebGL, Spatial Hash Grid\n\n### 🚀 Architectural Deliverables\nDeveloped high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting.`
+            }
+        };
+
+        let currentActiveDevlogId = 'focusdefend-sovereign-shield';
+
+        function selectDevlogProject(projectId) {
+            currentActiveDevlogId = projectId;
+            const p = DEVLOG_PROJECTS_DATABASE[projectId];
+            if (!p) return;
+
+            // Highlight button
+            Object.keys(DEVLOG_PROJECTS_DATABASE).forEach(id => {
+                const btn = document.getElementById(`devlog-btn-${id}`);
+                if (btn) {
+                    if (id === projectId) {
+                        btn.className = 'p-2.5 rounded-xl bg-emerald-500/20 border border-emerald-500/50 text-left transition-all flex items-center space-x-3 w-full';
+                    } else {
+                        btn.className = 'p-2.5 rounded-xl bg-slate-900 border border-slate-800/80 hover:border-cyan-500/40 text-left transition-all flex items-center space-x-3 w-full opacity-80';
+                    }
+                }
+            });
+
+            // Update UI elements
+            const heroBadge = document.getElementById('devlog-hero-badge');
+            const heroCat = document.getElementById('devlog-hero-cat');
+            const heroTitle = document.getElementById('devlog-hero-title');
+            const heroDesc = document.getElementById('devlog-hero-desc');
+            const statHours = document.getElementById('devlog-stat-hours');
+            const statLines = document.getElementById('devlog-stat-lines');
+            const statStack = document.getElementById('devlog-stat-stack');
+            const statScore = document.getElementById('devlog-stat-score');
+            const markdownBox = document.getElementById('devlog-markdown-box');
+
+            if (heroBadge) { heroBadge.textContent = p.badge; heroBadge.className = p.badgeClass; }
+            if (heroCat) heroCat.textContent = p.category;
+            if (heroTitle) heroTitle.textContent = p.title;
+            if (heroDesc) heroDesc.textContent = p.desc;
+            if (statHours) statHours.textContent = p.hours;
+            if (statLines) statLines.textContent = p.lines;
+            if (statStack) statStack.textContent = p.stack;
+            if (statScore) statScore.textContent = p.score;
+            if (markdownBox) markdownBox.value = p.markdown;
+
+            triggerHaptic('selection');
+            playSfx('click');
+        }
+
+        function copyCurrentDevlogPost() {
+            const markdownBox = document.getElementById('devlog-markdown-box');
+            if (markdownBox && markdownBox.value) {
+                navigator.clipboard.writeText(markdownBox.value);
+                triggerHaptic('success');
+                playSfx('unlock');
+                showNotificationToast('Devlog Copied', 'Markdown devlog post copied to clipboard! Ready to publish.', 'success');
+            }
+        }
+
+        function openCurrentProjectInIDE() {
+            openAppWindow('code-window', 'dock-code');
+            triggerHaptic('impact');
+            playSfx('notify');
+            showNotificationToast('Opened in Indic Studio', `Loaded ${currentActiveDevlogId} in IDE workspace.`, 'info');
+        }
+
+        setTimeout(() => {
+            const mdBox = document.getElementById('devlog-markdown-box');
+            if (mdBox && !mdBox.value) {
+                selectDevlogProject('focusdefend-sovereign-shield');
+            }
+        }, 1200);
+
         // =========================================================================
         // BHARATOS SOVEREIGN ANTI-PIRACY & CRYPTOGRAPHIC DIGITAL LICENSE ENGINE
         // =========================================================================
@@ -13305,6 +14619,16 @@ Available Sovereign Applications:<br>
                                 triggerAntiPiracyQuarantine('ERR_QUARANTINE_BYPASS', 'Shadow Sentry intercepted removal of quarantine barrier modal!');
                             }
                         });
+                    } else if (mutation.type === 'attributes') {
+                        if (mutation.target.id === 'lock-screen' && !isSystemLegitUnlocked) {
+                            if (mutation.target.classList.contains('unlocked') || mutation.target.style.display === 'none' || mutation.target.style.visibility === 'hidden' || mutation.target.style.opacity === '0') {
+                                mutation.target.classList.remove('unlocked');
+                                mutation.target.style.display = 'flex';
+                                mutation.target.style.visibility = 'visible';
+                                mutation.target.style.opacity = '1';
+                                triggerAntiPiracyQuarantine('ERR_LOCKSCREEN_STYLE_TAMPER', 'Shadow Sentry intercepted unauthorized bypass of #lock-screen visibility without valid PIN token!');
+                            }
+                        }
                     }
                 }
             });

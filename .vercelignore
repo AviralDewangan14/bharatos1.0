@@ -1,0 +1,10 @@
+# Vercel Ignore
+.git
+__pycache__/
+*.pyc
+simulated_workspaces/
+*.log
+scratch/
+dist/*.iso
+dist/*.zip
+dist/*.bin
