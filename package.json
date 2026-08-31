@@ -5,16 +5,7 @@
   "author": "Aviral Dewangan <aviral.dewangan14@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "echo 'BharatOS static build ready for Vercel deployment'",
-    "start": "python main.py",
+    "build": "echo 'Static assets ready in public/'",
     "deploy": "npx vercel --prod"
-  },
-  "keywords": [
-    "bharatos",
-    "operating-system",
-    "web-os",
-    "sovereign-desktop",
-    "portfolio",
-    "client-pipeline"
-  ]
+  }
 }
