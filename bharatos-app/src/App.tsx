@@ -8,12 +8,13 @@ import { initFS } from './services/filesystem';
 import { registerAllApps } from './apps';
 import { useSettingsStore } from './stores/settingsStore';
 import { sound } from './services/sound';
-import { Sparkles, Power, RotateCcw, CheckCircle2 } from 'lucide-react';
+import { Power } from 'lucide-react';
 
 export default function App() {
   const [locked, setLocked] = useState(true);
   const [launcherOpen, setLauncherOpen] = useState(false);
-  const [bootStage, setBootStage] = useState(0); // 0: starting, 1: vfs, 2: apps, 3: ready
+  const [bootProgress, setBootProgress] = useState(0); // 0 to 100
+  const [isBooted, setIsBooted] = useState(false);
   const [isShuttingDown, setIsShuttingDown] = useState(false);
   const [isPoweredOff, setIsPoweredOff] = useState(false);
 
@@ -22,16 +23,26 @@ export default function App() {
   useEffect(() => {
     registerAllApps();
 
-    // Staged realistic boot animation sequence
-    const t1 = setTimeout(() => setBootStage(1), 400);
-    const t2 = setTimeout(() => {
-      initFS().catch(console.error);
-      setBootStage(2);
-    }, 900);
-    const t3 = setTimeout(() => {
-      setBootStage(3);
-      if (soundEnabled) sound.playNotification(soundVolume * 0.4);
-    }, 1500);
+    // Natural, smooth progress bar load
+    let current = 0;
+    const interval = setInterval(() => {
+      current += Math.floor(Math.random() * 25) + 15;
+      if (current >= 100) {
+        current = 100;
+        setBootProgress(100);
+        clearInterval(interval);
+        initFS()
+          .then(() => {
+            setTimeout(() => {
+              setIsBooted(true);
+              if (soundEnabled) sound.playNotification(soundVolume * 0.3);
+            }, 300);
+          })
+          .catch(console.error);
+      } else {
+        setBootProgress(current);
+      }
+    }, 120);
 
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.metaKey && e.key === ' ') {
@@ -42,9 +53,7 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
-      clearTimeout(t3);
+      clearInterval(interval);
       window.removeEventListener('keydown', handleKeyDown);
     };
   }, []);
@@ -55,7 +64,7 @@ export default function App() {
     setTimeout(() => {
       setIsShuttingDown(false);
       setIsPoweredOff(true);
-    }, 1200);
+    }, 900);
   };
 
   const handleRestart = () => {
@@ -63,48 +72,62 @@ export default function App() {
     if (soundEnabled) sound.playLock(soundVolume);
     setTimeout(() => {
       setIsShuttingDown(false);
-      setBootStage(0);
+      setBootProgress(0);
+      setIsBooted(false);
       setLocked(true);
-      setTimeout(() => setBootStage(1), 300);
-      setTimeout(() => setBootStage(2), 700);
-      setTimeout(() => {
-        setBootStage(3);
-        if (soundEnabled) sound.playNotification(soundVolume * 0.4);
-      }, 1200);
-    }, 1000);
+
+      let current = 0;
+      const interval = setInterval(() => {
+        current += 30;
+        if (current >= 100) {
+          setBootProgress(100);
+          clearInterval(interval);
+          setTimeout(() => {
+            setIsBooted(true);
+            if (soundEnabled) sound.playNotification(soundVolume * 0.3);
+          }, 250);
+        } else {
+          setBootProgress(current);
+        }
+      }, 100);
+    }, 800);
   };
 
   const handlePowerOn = () => {
     setIsPoweredOff(false);
-    setBootStage(0);
+    setBootProgress(0);
+    setIsBooted(false);
     setLocked(true);
-    setTimeout(() => setBootStage(1), 300);
-    setTimeout(() => setBootStage(2), 700);
-    setTimeout(() => {
-      setBootStage(3);
-      if (soundEnabled) sound.playNotification(soundVolume * 0.4);
-    }, 1200);
+
+    let current = 0;
+    const interval = setInterval(() => {
+      current += 25;
+      if (current >= 100) {
+        setBootProgress(100);
+        clearInterval(interval);
+        setTimeout(() => {
+          setIsBooted(true);
+          if (soundEnabled) sound.playNotification(soundVolume * 0.3);
+        }, 250);
+      } else {
+        setBootProgress(current);
+      }
+    }, 100);
   };
 
-  // 1. Standby / Powered Off Screen
+  // 1. Powered Off Standby Screen
   if (isPoweredOff) {
     return (
-      <div className="w-screen h-screen bg-[#05080c] flex flex-col items-center justify-center select-none text-slate-400 font-sans p-6">
-        <div className="flex flex-col items-center max-w-sm text-center space-y-6 animate-in fade-in duration-500">
-          <div className="w-20 h-20 rounded-3xl bg-slate-900/80 border border-white/10 flex items-center justify-center text-slate-500 shadow-2xl">
-            <Power size={32} />
-          </div>
-          <div>
-            <h2 className="text-xl font-bold text-white mb-1">BharatOS is Powered Off</h2>
-            <p className="text-xs text-slate-500">System safely halted and virtual state saved to local storage.</p>
-          </div>
+      <div className="w-screen h-screen bg-black flex flex-col items-center justify-center select-none text-slate-500 font-sans p-6">
+        <div className="flex flex-col items-center space-y-6 animate-in fade-in duration-500">
           <button
             onClick={handlePowerOn}
-            className="flex items-center gap-2 px-6 py-2.5 rounded-2xl bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-400 hover:to-orange-500 text-slate-950 font-bold text-xs shadow-xl shadow-orange-500/25 transition-all hover:scale-105"
+            className="w-16 h-16 rounded-full bg-white/5 hover:bg-white/15 border border-white/10 hover:border-white/30 text-white/50 hover:text-white flex items-center justify-center transition-all hover:scale-105 active:scale-95 shadow-2xl"
+            title="Power On"
           >
-            <Power size={15} />
-            <span>Power On System</span>
+            <Power size={24} />
           </button>
+          <span className="text-xs tracking-wider uppercase text-white/40">Click to power on</span>
         </div>
       </div>
     );
@@ -113,62 +136,44 @@ export default function App() {
   // 2. Shutting Down Transition
   if (isShuttingDown) {
     return (
-      <div className="w-screen h-screen bg-[#090d12] flex flex-col items-center justify-center select-none text-slate-300 font-sans animate-in fade-in duration-300">
+      <div className="w-screen h-screen bg-black flex flex-col items-center justify-center select-none text-white/70 font-sans animate-in fade-in duration-300">
         <div className="flex flex-col items-center space-y-4">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-500 to-orange-600 flex items-center justify-center text-slate-950 shadow-xl animate-spin">
-            <RotateCcw size={20} />
-          </div>
-          <h2 className="text-base font-bold text-white tracking-wide">Shutting down BharatOS...</h2>
-          <p className="text-xs text-slate-500 font-mono">Syncing IndexedDB storage & closing sessions</p>
+          <div className="w-6 h-6 border-2 border-white/20 border-t-white rounded-full animate-spin" />
+          <span className="text-xs text-white/60 font-medium tracking-wide">Shutting down...</span>
         </div>
       </div>
     );
   }
 
-  // 3. Staged Booting Splash Animation
-  if (bootStage < 3) {
+  // 3. Minimalist Clean OS Boot Screen
+  if (!isBooted) {
     return (
-      <div className="w-screen h-screen bg-[#070b0e] flex flex-col items-center justify-center select-none text-slate-300 font-sans p-6">
-        <div className="flex flex-col items-center max-w-xs w-full text-center space-y-6">
+      <div className="w-screen h-screen bg-black flex flex-col items-center justify-center select-none font-sans p-6">
+        <div className="flex flex-col items-center max-w-[200px] w-full space-y-8 animate-in fade-in duration-300">
           
-          {/* Sovereign Logo Emblem */}
-          <div className="w-20 h-20 rounded-3xl bg-gradient-to-tr from-amber-500 via-orange-500 to-amber-600 flex items-center justify-center text-slate-950 shadow-2xl shadow-orange-500/30 ring-4 ring-amber-500/20 animate-pulse">
-            <Sparkles size={36} className="stroke-[2.5]" />
+          {/* Minimalist Monogram / Logo */}
+          <div className="flex items-center gap-2 text-white">
+            <span className="text-2xl font-light tracking-wider">BharatOS</span>
           </div>
 
-          <div>
-            <h1 className="text-2xl font-bold text-white tracking-wider">BharatOS</h1>
-            <p className="text-xs text-amber-400 font-semibold tracking-widest uppercase mt-0.5">Sovereign Edition</p>
-          </div>
-
-          {/* Progress Bar */}
-          <div className="w-full bg-slate-900 rounded-full h-1.5 overflow-hidden border border-white/10">
+          {/* Minimal Apple-Style Thin Loading Bar */}
+          <div className="w-full bg-white/15 rounded-full h-[3px] overflow-hidden">
             <div
-              className="bg-gradient-to-r from-amber-500 to-orange-500 h-full transition-all duration-500 ease-out"
-              style={{ width: bootStage === 0 ? '25%' : bootStage === 1 ? '65%' : '100%' }}
+              className="bg-white h-full transition-all duration-150 ease-out"
+              style={{ width: `${bootProgress}%` }}
             />
           </div>
 
-          {/* Boot Status Log */}
-          <div className="text-[11px] font-mono text-slate-400 flex items-center gap-1.5 h-6">
-            <CheckCircle2 size={13} className="text-emerald-400" />
-            <span>
-              {bootStage === 0 && 'Initializing kernel runtime...'}
-              {bootStage === 1 && 'Mounting IndexedDB filesystem...'}
-              {bootStage === 2 && 'Starting window compositor...'}
-            </span>
-          </div>
-
         </div>
       </div>
     );
   }
 
-  // 4. Main Desktop Environment
+  // 4. Active Desktop Environment
   return (
     <div className="w-screen h-screen overflow-hidden bg-black text-slate-100 font-sans select-none relative">
       
-      {/* Global Hardware Brightness Dimming Layer */}
+      {/* Global Brightness Dimming Layer */}
       {brightness < 100 && (
         <div
           className="fixed inset-0 z-[300] bg-black pointer-events-none transition-opacity duration-150"
