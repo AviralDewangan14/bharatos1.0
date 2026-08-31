@@ -1,120 +1,107 @@
 # BharatOS
 
-A functional browser-based desktop operating system built with React 18, TypeScript, Vite, Tailwind CSS, Zustand, and IndexedDB.
+A browser-based desktop environment built with React 18, TypeScript, Vite, Tailwind CSS, Zustand, and IndexedDB.
 
-BharatOS is an independent desktop environment running entirely on client-side web technologies. It is not a static landing page or mock dashboard — it is a modular desktop operating system running inside the browser with genuine window management, a persistent virtual filesystem, a terminal shell, and built-in system applications.
-
----
-
-## 🖥️ System Architecture & Features
-
-### 1. Window Management & Desktop Shell
-- **Window Manager (`src/components/Window.tsx`, `src/stores/windowStore.ts`)**:
-  - Full mouse-driven dragging with titlebar collision detection.
-  - Multi-directional resizing (right, bottom, bottom-right).
-  - Window state controls: Minimize to dock, Maximize/Restore with smooth viewport scaling, and Close.
-  - Stacking context & focus management: clicking any window brings it to the top z-index.
-- **Desktop (`src/components/Desktop.tsx`)**:
-  - Grid-aligned application shortcuts.
-  - Desktop context menu (New Folder, New File, Change Wallpaper, System Settings).
-  - Dynamic wallpaper switching.
-- **Taskbar / Dock (`src/components/Taskbar.tsx`)**:
-  - Running application indicators and focus toggles.
-  - Pinned system app launchers.
-  - Live clock with date popover and notification badge indicators.
-- **Application Launcher (`src/components/Launcher.tsx`)**:
-  - Fullscreen app launcher overlay with instant fuzzy search.
-  - Category tabs: All, System, Utilities, Productivity, Media, Internet.
-  - Keyboard accessible (`Super` / `Win` / `Cmd` + `Space` shortcut).
-- **Lock Screen (`src/components/LockScreen.tsx`)**:
-  - Ambient lock screen with live clock and user profile avatar.
+I built BharatOS to see how far a desktop operating system paradigm could be pushed inside standard web browsers without relying on server-side runtimes, Electron, or cloud backends. Everything—from window management and file storage to terminal command parsing—runs entirely client-side.
 
 ---
 
-### 2. Virtual Filesystem (IndexedDB)
-Located at `src/services/filesystem.ts`, the virtual filesystem provides a persistent Unix-style directory tree backed by browser IndexedDB (`idb`):
-- **Standard Hierarchy**: Pre-populated with `/home`, `/home/Desktop`, `/home/Documents`, `/home/Downloads`, `/home/Pictures`, `/home/Music`, `/home/Videos`, and `/home/Trash`.
-- **File Operations**: Full asynchronous CRUD API supporting `createFile`, `createDir`, `readFile`, `writeFile`, `rename`, `moveNode`, `copyNode`, `deleteNode`, and `listDir`.
-- **Path Resolution**: Handles relative paths, parent directories (`..`), and current directory (`.`).
-- **Data Persistence**: All user files and folder modifications survive browser restarts and page refreshes.
+## Architecture & How It Works
+
+### Window Management (`src/components/Window.tsx`, `src/stores/windowStore.ts`)
+The window manager handles window state, coordinates, dimensions, and z-index ordering.
+- **Drag & Resize**: Implemented via custom hooks (`useDrag`, `useResize`) that attach global `mousemove` and `mouseup` listeners to the document during interaction, ensuring smooth movement even if the cursor leaves the window bounds.
+- **Z-Index Stacking**: Clicking a window focuses it and increments its `zIndex` in `windowStore`. Zustand allows isolated state updates so dragging one window does not cause unnecessary re-renders across the entire component tree.
+- **Window States**: Supports minimize (dock badge), maximize (snaps to screen bounds minus the 48px taskbar), and restore to previous coordinates.
+
+### Virtual Filesystem (`src/services/filesystem.ts`)
+The filesystem is a hierarchical tree stored locally in the browser via IndexedDB (`idb`).
+- **Initialization**: On first boot, the system initializes `/home`, `/home/Desktop`, `/home/Documents`, `/home/Downloads`, `/home/Pictures`, `/home/Music`, `/home/Videos`, and `/home/Trash`.
+- **API**: Provides standard async operations: `createFile`, `createDir`, `readFile`, `writeFile`, `rename`, `moveNode`, `copyNode`, `deleteNode`, and `listDir`.
+- **Path Resolution**: Handles relative paths, current directory (`.`), and parent directory (`..`) traversal.
+- **Persistence**: File edits in Notes, terminal manipulations, and file explorer operations persist across page reloads.
+
+### Terminal & Shell Service (`src/apps/terminal/TerminalApp.tsx`, `src/services/shell.ts`)
+The terminal emulator connects directly to the virtual filesystem service:
+- **Command Parser**: Splits input strings while respecting double-quoted arguments.
+- **Built-in Commands**: `ls` (with `-l` flag), `cd`, `pwd`, `cat`, `touch`, `mkdir`, `rm` (`-r`), `cp`, `mv`, `echo` (with `>` and `>>` file redirection), `date`, `whoami`, `neofetch`, `history`, `help`, `clear`.
+- **Input History**: Maintains an internal command buffer navigable via the Up/Down arrow keys.
+
+### Expression Parser (`src/apps/calculator/parser.ts`)
+The Calculator avoids `eval()` and `new Function()` for security. Instead, it evaluates expressions using a small recursive descent parser with precedence climbing:
+- Handles operator precedence: exponentiation (`^`) > multiplication/division/modulo (`*`, `/`, `%`) > addition/subtraction (`+`, `-`).
+- Supports unary negation, floating-point decimals, and parenthetical sub-expressions.
+
+### System Settings & i18n (`src/apps/settings/SettingsApp.tsx`, `src/i18n/`)
+- **Themes & Accents**: Supports dark/light modes and customizable accent colors (saffron, emerald, royal blue, crimson).
+- **Internationalization**: Full dictionary translations for English (`en.ts`) and Hindi (`hi.ts`). Switching language updates UI labels instantly through a reactive `t(key)` helper.
 
 ---
 
-### 3. Built-in Applications
+## Built-in Applications
 
-BharatOS comes equipped with 10 native applications:
-
-| Application | Path | Description |
-|---|---|---|
-| **Files** | `src/apps/files/FilesApp.tsx` | Graphical file explorer with breadcrumbs, grid/list view toggles, folder navigation, and file deletion. |
-| **Terminal** | `src/apps/terminal/TerminalApp.tsx` | Unix shell emulator hooked into the virtual filesystem (`ls`, `cd`, `pwd`, `cat`, `touch`, `mkdir`, `rm`, `cp`, `mv`, `echo`, `date`, `whoami`, `neofetch`, `history`). |
-| **Notes** | `src/apps/notes/NotesApp.tsx` | Document scratchpad with automatic debounced saving to `~/Documents`. |
-| **Calculator** | `src/apps/calculator/CalculatorApp.tsx` | Safe arithmetic engine using a custom recursive descent parser (`parser.ts`) without `eval()` or `Function()`. |
-| **Settings** | `src/apps/settings/SettingsApp.tsx` | System preferences for wallpaper selection, theme toggling, accent colors, and English/Hindi language options. |
-| **Browser** | `src/apps/browser/BrowserApp.tsx` | Sandboxed web browsing viewer with navigation controls, address bar, and presets. |
-| **App Store** | `src/apps/app-store/AppStoreApp.tsx` | Catalogue and launcher for installed system utilities and packages. |
-| **Gallery** | `src/apps/gallery/GalleryApp.tsx` | Photo viewer featuring high-definition scenic wallpapers with fullscreen viewing modal. |
-| **Music** | `src/apps/music/MusicApp.tsx` | Web Audio API tone synthesizer with interactive piano keys and waveform oscillators. |
-| **System Monitor** | `src/apps/system-monitor/SystemMonitorApp.tsx` | Real-time session uptime tracking, active window counter, and storage usage metrics. |
+1. **Files (`src/apps/files/FilesApp.tsx`)**: File explorer with folder navigation, breadcrumbs, grid/list views, and delete-to-trash actions.
+2. **Terminal (`src/apps/terminal/TerminalApp.tsx`)**: Shell emulator hooked into the virtual filesystem.
+3. **Notes (`src/apps/notes/NotesApp.tsx`)**: Multi-document scratchpad with debounced autosaving to `~/Documents`.
+4. **Calculator (`src/apps/calculator/CalculatorApp.tsx`)**: Safe arithmetic calculator with history log.
+5. **Settings (`src/apps/settings/SettingsApp.tsx`)**: Personalize wallpaper, accent color, theme, and language.
+6. **Browser (`src/apps/browser/BrowserApp.tsx`)**: Sandboxed iframe browser with address bar, history stack, and bookmarks *(Note: external websites setting `X-Frame-Options: DENY` or restrictive CSP headers cannot be embedded)*.
+7. **App Store (`src/apps/app-store/AppStoreApp.tsx`)**: Registry catalog showing installed system utilities.
+8. **Gallery (`src/apps/gallery/GalleryApp.tsx`)**: Scenic wallpaper photo viewer with fullscreen modal.
+9. **Music (`src/apps/music/MusicApp.tsx`)**: Web Audio API synthesizer with clickable piano keys and selectable oscillator waveforms (sine, square, triangle, sawtooth).
+10. **System Monitor (`src/apps/system-monitor/SystemMonitorApp.tsx`)**: Session uptime, open window counter, and IndexedDB storage estimator.
 
 ---
 
-### 4. Internationalization (i18n)
-- Comprehensive English (`src/i18n/en.ts`) and Hindi (`src/i18n/hi.ts`) translation dictionaries.
-- Dynamic `t(key)` helper that reacts immediately to language changes in System Settings.
-
----
-
-## 📂 Project Structure
+## Project Structure
 
 ```text
 bharatos-app/
 ├── src/
 │   ├── apps/               # Built-in applications
-│   │   ├── app-store/      # App Store catalog
-│   │   ├── browser/        # Web browser frame
-│   │   ├── calculator/     # Calculator & recursive descent parser
-│   │   ├── files/          # File manager
-│   │   ├── gallery/        # Scenic photo gallery
-│   │   ├── music/          # Web Audio synth
-│   │   ├── notes/          # Notes scratchpad
-│   │   ├── settings/       # System preferences & customization
-│   │   ├── system-monitor/ # Resource & uptime monitor
-│   │   ├── terminal/       # Command line shell
-│   │   └── index.ts        # App registration entry
+│   │   ├── app-store/
+│   │   ├── browser/
+│   │   ├── calculator/
+│   │   ├── files/
+│   │   ├── gallery/
+│   │   ├── music/
+│   │   ├── notes/
+│   │   ├── settings/
+│   │   ├── system-monitor/
+│   │   ├── terminal/
+│   │   └── index.ts        # Central app registry setup
 │   ├── components/         # Desktop shell components
-│   │   ├── ContextMenu.tsx # Right-click context menus
-│   │   ├── Desktop.tsx     # Desktop workspace & icon grid
-│   │   ├── Launcher.tsx    # App search launcher overlay
-│   │   ├── LockScreen.tsx  # Ambient lock screen
-│   │   ├── NotificationCenter.tsx # System tray toasts & drawer
-│   │   ├── Taskbar.tsx     # Bottom dock & system tray
-│   │   └── Window.tsx      # Window chrome & drag/resize container
-│   ├── hooks/              # Reusable interaction hooks (useDrag, useResize, useContextMenu)
-│   ├── i18n/               # Localization (English & Hindi dictionaries)
+│   │   ├── ContextMenu.tsx
+│   │   ├── Desktop.tsx
+│   │   ├── Launcher.tsx
+│   │   ├── LockScreen.tsx
+│   │   ├── NotificationCenter.tsx
+│   │   ├── Taskbar.tsx
+│   │   └── Window.tsx
+│   ├── hooks/              # Custom hooks (useDrag, useResize, useContextMenu)
+│   ├── i18n/               # Language dictionaries (en, hi)
 │   ├── services/           # IndexedDB Virtual Filesystem & Shell Parser
-│   ├── stores/             # Zustand state management (windows, settings, notifications, desktop)
-│   ├── styles/             # Tailwind CSS v4 styling
-│   ├── types/              # Strict TypeScript interfaces
-│   ├── App.tsx             # Main OS shell layout
+│   ├── stores/             # Zustand stores (windowStore, desktopStore, settingsStore, notificationStore)
+│   ├── styles/             # Tailwind CSS v4 entry
+│   ├── types/              # TypeScript interface definitions
+│   ├── App.tsx             # Root desktop layout
 │   └── main.tsx            # React root mount
 ├── public/
-│   └── wallpapers/         # System wallpapers
-├── index.html              # HTML shell
-├── package.json            # App dependencies
-├── tsconfig.json           # TypeScript configuration
-└── vite.config.ts          # Vite build pipeline
+│   └── wallpapers/         # Background wallpapers
+├── package.json
+├── tsconfig.json
+└── vite.config.ts
 ```
 
 ---
 
-## 🚀 Getting Started
+## Local Development
 
 ### Prerequisites
-- Node.js (v18 or higher recommended)
-- npm or yarn
+- Node.js 18+
+- npm
 
-### Installation & Local Development
+### Setup & Run
 
 ```bash
 # Clone the repository
@@ -128,35 +115,41 @@ npm install --prefix bharatos-app
 npm run dev
 ```
 
-Open your browser at `http://localhost:3000` to interact with BharatOS.
+The app will be available at `http://localhost:3000`.
 
 ### Production Build
 
 ```bash
-# Build the production distribution into public/
+# Compile TypeScript and bundle via Vite into public/
 npm run build
 ```
 
 ---
 
-## 🛠️ Technology Stack & Engineering Choices
+## Design Decisions & Trade-offs
 
-- **React 18 + TypeScript**: Strict types across window instances, filesystem nodes, and app registry items ensure stability without runtime type errors.
-- **Tailwind CSS v4**: Clean utility styling featuring a dark slate palette (`#0f1419`) with warm saffron accents (`#d4722a`) and backdrop blur effects.
-- **Zustand**: Lightweight, decoupled state management avoiding context provider re-rendering overhead.
-- **IndexedDB (`idb`)**: Asynchronous, high-capacity client-side storage for the entire virtual filesystem hierarchy.
-- **Lucide Icons**: Consistent vector iconography across all system components.
+- **Zustand over React Context**: Window coordinates update at up to 60fps during dragging. React Context triggers full subtree re-renders on every coordinate change, whereas Zustand allows individual components to subscribe only to the specific slices of state they need.
+- **IndexedDB over localStorage**: `localStorage` has a strict ~5MB synchronous limit and blocks the main thread on writes. `IndexedDB` operates asynchronously and accommodates larger files without freezing the UI.
+- **Tailwind CSS v4**: Uses the latest CSS-first configuration to keep stylesheet bundle sizes minimal (~45KB production CSS) without needing a heavy config file.
+- **Lucide Icons**: Lightweight, tree-shakeable icons that keep the initial JS chunk small.
 
 ---
 
-## 👤 Author
+## Known Limitations
+
+- **Browser App Framing**: Because modern websites often send `X-Frame-Options: SAMEORIGIN` or `frame-ancestors 'none'`, many external domains cannot load inside the sandboxed browser iframe.
+- **Audio Synthesizer**: Requires user interaction on the page first before the browser's `AudioContext` can transition out of the suspended state.
+
+---
+
+## Author
 
 **Aviral Dewangan**  
-- GitHub: [@AviralDewangan14](https://github.com/AviralDewangan14)  
-- Email: aviral.dewangan14@gmail.com
+GitHub: [@AviralDewangan14](https://github.com/AviralDewangan14)  
+Email: aviral.dewangan14@gmail.com
 
 ---
 
-## 📄 License
+## License
 
-This project is licensed under the MIT License.
+MIT License. Feel free to explore, fork, and build on top of this project.
