@@ -1,4 +1,4 @@
-# ☸️ BharatOS 1.0 — A Web-Based Sovereign Desktop Environment
+# ☸️ BharatOS 1.0 — A Web-Based Desktop Environment
 
 ![BharatOS Desktop](public/assets/bharatos_banner.jpg)
 
@@ -9,37 +9,39 @@ This is **BharatOS 1.0**, a web desktop environment that I built from scratch us
 
 ## 🚀 Live Demo & Quick Testing
 - **Live Desktop:** [https://bharatos1-0.vercel.app/os](https://bharatos1-0.vercel.app/os)
-- **Lock Screen PIN:** `1234` (or click **⚡ QUICK UNLOCK**)
+- **Lock Screen Passcode:** `1234` (or click **⚡ UNLOCK**)
 
 ---
 
 ## 🛠️ What I Built & How It Works
 
-### 1. 🪟 Custom Window Manager (`js/window_manager.js`)
+### 1. 🪟 Custom Window Manager (`js/window.js`)
 - Hand-wrote a draggable window system without external UI libraries.
 - Uses `mousedown`, `mousemove`, and `mouseup` event listeners to calculate dynamic viewport offsets and keep windows inside screen bounds.
-- Tracks `topZIndex` counter to bring clicked windows to the front when focused.
+- Tracks `highestZ` counter to bring clicked windows to the front when focused.
 - Window controls for Minimize, Maximize, and Close with smooth CSS transitions.
 
-### 2. 🎵 Web Audio DSP Synthesizer (`js/apps/sangeet.js`)
-- Built an interactive synthesizer using the browser's native `AudioContext` and `OscillatorNode`.
-- Supports 4 waveforms: Sine (harmonic), Triangle (warm), Sawtooth (strings), and Square (8-bit chiptune).
-- Programmed a responsive piano keyboard spanning octaves 1 through 8 with precise Hz note frequencies (Sa=261.63Hz, Re=293.66Hz, Ga=329.63Hz, etc.).
-- Includes Vedic harmonic frequencies (396 Hz, 528 Hz, 639 Hz, 963 Hz).
+### 2. 💻 Interactive Web Terminal (`js/apps/terminal.js`)
+- Real interactive command prompt with history recall (`ArrowUp` / `ArrowDown`).
+- Built-in commands: `help`, `ls`, `cat <file>`, `calc <expression>`, `date`, `clear`, `snake`, `synth`, and `about`.
 
-### 3. 🎨 Canvas 2D Vector Paint Studio (`js/apps/chitram.js`)
-- HTML5 Canvas drawing tool with freehand Brush, Eraser, Line, Rectangle, and Circle tools.
-- Uses 2D canvas context imageData buffering (`getImageData` / `putImageData`) to preview geometric shapes in real-time before committing strokes.
-- Includes color palette picker, stroke size slider, canvas clear, and instant PNG export (`canvas.toDataURL()`).
+### 3. 📝 Auto-Saving Notes App (`js/apps/notes.js`)
+- Text editor that automatically saves your notes to browser `localStorage` in real-time.
+- Live word counter and character counter.
 
-### 4. 🧮 Aryabhata Calculator & Function Grapher (`js/apps/aryabhata.js`)
-- Scientific calculator with support for arithmetic, powers, square roots, and trigonometric functions (`sin`, `cos`, `tan`).
-- Real-time conversion to Hexadecimal (`0x...`) and Binary (`0b...`).
-- 2D cartesian coordinate plotter on a custom HTML5 canvas that dynamically graphs mathematical functions (e.g. `Math.sin(x * 2) * Math.cos(x)`).
+### 4. 🎨 Canvas Paint Studio (`js/apps/paint.js`)
+- HTML5 Canvas drawing tool with freehand Brush, Eraser, color palette selection, canvas clear, and instant PNG export (`canvas.toDataURL()`).
 
-### 5. 🤖 Chanakya Offline Copilot (`js/apps/chanakya.js`)
-- Fast client-side command assistant that lets you control the OS with natural text.
-- Can change desktop wallpapers, switch system language, open apps, and display low-level kernel code snippets.
+### 5. 🧮 Calculator with Keyboard Support (`js/apps/calculator.js`)
+- Responsive grid calculator supporting addition, subtraction, multiplication, division, brackets, and full keyboard typing support.
+
+### 6. 🎵 Web Audio Synthesizer (`js/apps/synth.js`)
+- Native Web Audio API (`AudioContext` & `OscillatorNode`) synthesizer.
+- Supports 4 waveforms (Sine, Triangle, Sawtooth, Square) and interactive piano keys spanning note frequencies from C4 to C5.
+
+### 7. 🐍 Snake Arcade Game (`js/apps/snake.js`)
+- Playable classic Snake game rendered on HTML5 Canvas.
+- Arrow key steering, real-time collision detection, food spawning, score tracking, and persistent high score.
 
 ---
 
@@ -50,24 +52,25 @@ bharatos/
 ├── css/
 │   └── style.css            # Custom CSS variables, glassmorphism & layout
 ├── js/
-│   ├── window_manager.js    # Drag, z-index elevation, maximize/minimize
-│   ├── lockscreen.js        # Passcode check (1234) & live IST clock
-│   ├── apps/
-│   │   ├── chanakya.js      # Offline assistant logic & wallpaper switcher
-│   │   ├── sangeet.js       # Web Audio API 8-channel synthesizer
-│   │   ├── chitram.js       # Canvas 2D paint tools & PNG export
-│   │   ├── aryabhata.js     # Scientific calculator & 2D graph plotter
-│   │   └── settings.js      # Wallpaper switcher & language dictionaries
-│   └── main.js              # DOM initialization & startup
+│   ├── window.js            # Drag, focus, maximize/minimize window manager
+│   ├── main.js              # Initialization, clock, and lockscreen handler
+│   └── apps/
+│       ├── terminal.js      # Interactive command shell
+│       ├── notes.js         # Notepad with localStorage saving
+│       ├── paint.js         # Canvas drawing tool with PNG download
+│       ├── calculator.js    # Scientific calculator with keyboard support
+│       ├── synth.js         # Web Audio piano synth
+│       ├── snake.js         # Playable Snake arcade game
+│       └── settings.js      # Wallpaper switcher
 ├── wallpapers/              # High-resolution landscape wallpapers
-└── index.html               # Semantic HTML desktop markup (~450 lines)
+└── index.html               # Semantic HTML desktop markup (~250 lines)
 ```
 
 ---
 
 ## 💻 Running Locally
 
-No complicated setup or build tools required:
+No build tools or heavy dependencies required:
 
 ```bash
 # Clone the repository
@@ -77,7 +80,7 @@ cd bharatos1.0
 # Open in any browser or launch a local server:
 python -m http.server 8000
 ```
-Then visit `http://localhost:8000/public/index.html` or `http://localhost:8000/bharatos/index.html`.
+Then open `http://localhost:8000/public/index.html` or `http://localhost:8000/bharatos/index.html`.
 
 ---
 
@@ -85,4 +88,4 @@ Then visit `http://localhost:8000/public/index.html` or `http://localhost:8000/b
 - **Developer:** Aviral Dewangan
 - **GitHub:** [@AviralDewangan14](https://github.com/AviralDewangan14)
 - **Discord:** `@AviralDewangan` (Available in `#ask-the-shipwrights`)
-- **Reviewer Note:** If you have any feedback or questions, please feel free to DM me!
+- **Reviewer Note:** If you have any feedback or questions, please feel free to reach out!
