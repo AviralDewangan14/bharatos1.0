@@ -373,9 +373,37 @@ class MasterUnifiedDaemon:
             self.current_coding_cycle = "AI"
 
         # 4. Construct Heartbeat Payload Based on Active Cycle
+        pulse_list = []
+        scale = max(1.0, self.time_warp_factor)
+
         if self.current_coding_cycle == "AI":
             self.ai_pulse_count += 1
-            heartbeat_payload = {
+            if scale > 1.0:
+                pulse_list.append({
+                    "entity": entity_name,
+                    "type": "file",
+                    "time": now - 40 * (scale - 1.0),
+                    "project": project_name,
+                    "branch": "main",
+                    "language": lang,
+                    "is_write": True,
+                    "category": "ai coding",
+                    "lines": lines,
+                    "lineno": random.randint(1, max(1, lines)),
+                    "cursorpos": random.randint(1, 35),
+                    "editor": "Cursor AI",
+                    "operating_system": "Windows",
+                    "ai_model": "DeepMind Antigravity Sovereign AI Agent",
+                    "ai_session": True,
+                    "ai_input_tokens": random.randint(1500, 4200),
+                    "ai_output_tokens": random.randint(600, 2100),
+                    "ai_line_changes": lines,
+                    "human_line_changes": 0,
+                    "source": "autonomous_ai_coding_agent",
+                    "agent": "Antigravity AI Sovereign Engine",
+                    "developer": "Aviral Dewangan"
+                })
+            pulse_list.append({
                 "entity": entity_name,
                 "type": "file",
                 "time": now,
@@ -398,11 +426,32 @@ class MasterUnifiedDaemon:
                 "source": "autonomous_ai_coding_agent",
                 "agent": "Antigravity AI Sovereign Engine",
                 "developer": "Aviral Dewangan"
-            }
+            })
         else:
             self.human_pulse_count += 1
             delta_lines = random.randint(4, 28)
-            heartbeat_payload = {
+            if scale > 1.0:
+                pulse_list.append({
+                    "entity": entity_name,
+                    "type": "file",
+                    "time": now - 40 * (scale - 1.0),
+                    "project": project_name,
+                    "branch": "main",
+                    "language": lang,
+                    "is_write": True,
+                    "category": "coding",
+                    "lines": lines + max(1, delta_lines // 2),
+                    "lineno": random.randint(1, max(1, lines)),
+                    "cursorpos": random.randint(1, 80),
+                    "editor": "VS Code",
+                    "operating_system": "Windows",
+                    "ai_session": False,
+                    "human_line_changes": max(1, delta_lines // 2),
+                    "ai_line_changes": 0,
+                    "source": "developer_manual_editor",
+                    "developer": "Aviral Dewangan"
+                })
+            pulse_list.append({
                 "entity": entity_name,
                 "type": "file",
                 "time": now,
@@ -421,13 +470,13 @@ class MasterUnifiedDaemon:
                 "ai_line_changes": 0,
                 "source": "developer_manual_editor",
                 "developer": "Aviral Dewangan"
-            }
+            })
 
-        self.total_pulses += 1
-        self.language_stats[lang] = self.language_stats.get(lang, 0) + 1
-        self.project_stats[project_name] = self.project_stats.get(project_name, 0) + 1
+        self.total_pulses += len(pulse_list)
+        self.language_stats[lang] = self.language_stats.get(lang, 0) + len(pulse_list)
+        self.project_stats[project_name] = self.project_stats.get(project_name, 0) + len(pulse_list)
 
-        dispatch_res = dispatcher.dispatch_heartbeat(heartbeat_payload)
+        dispatch_res = dispatcher.dispatch_heartbeat(pulse_list)
         if dispatch_res.get("success"):
             self.successful_pulses += 1
             status_code = dispatch_res.get("status_code", 202)
