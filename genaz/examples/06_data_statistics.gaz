@@ -1,0 +1,19 @@
+// 06_data_statistics.gaz - Real-World Scientific Statistics & Linear Algebra
+let dataset = [12.5, 18.2, 25.0, 31.4, 42.1, 55.8, 67.2, 80.0];
+
+println("=== GenAz Data Science & Statistics ===");
+println("Dataset: " + str(dataset));
+println("Count:    " + str(len(dataset)));
+println("Sum:      " + str(sum(dataset)));
+println("Mean:     " + str(mean(dataset)));
+println("Median:   " + str(median(dataset)));
+println("Variance: " + str(round(variance(dataset), 2)));
+println("Std Dev:  " + str(round(std_dev(dataset), 2)));
+println("Min:      " + str(min(dataset)));
+println("Max:      " + str(max(dataset)));
+
+// Linear Algebra & Dot Product
+let weights = [0.2, 0.3, 0.5];
+let inputs  = [10.0, 20.0, 30.0];
+let score   = dot(weights, inputs);
+println("Weighted Dot Product Score: " + str(score));

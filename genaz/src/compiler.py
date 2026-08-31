@@ -196,8 +196,8 @@ class BytecodeCompiler:
 
             loop_start = len(self.instructions)
             self.emit(OpCode.LOAD, idx_var)
-            self.emit(OpCode.LOAD, iter_var)
             self.emit(OpCode.LOAD, "len")
+            self.emit(OpCode.LOAD, iter_var)
             self.emit(OpCode.CALL, 1)
             self.emit(OpCode.LT)
             exit_jump = self.emit(OpCode.JUMP_IF_FALSE, 0)
@@ -220,14 +220,14 @@ class BytecodeCompiler:
             self.instructions[exit_jump].arg = len(self.instructions)
 
         elif isinstance(stmt, SpawnStmt):
+            self.compile_expr(stmt.call.callee)
             for arg in stmt.call.args:
                 self.compile_expr(arg)
-            self.compile_expr(stmt.call.callee)
             self.emit(OpCode.SPAWN, len(stmt.call.args))
 
         elif isinstance(stmt, ChannelSend):
-            self.compile_expr(stmt.value)
             self.compile_expr(stmt.channel)
+            self.compile_expr(stmt.value)
             self.emit(OpCode.CHAN_SEND)
 
         elif isinstance(stmt, (FunctionCall, BinaryOp, UnaryOp)):
@@ -249,7 +249,11 @@ class BytecodeCompiler:
 
         elif isinstance(expr, MapLiteral):
             for k, v in expr.pairs:
-                self.compile_expr(k)
+                if isinstance(k, Identifier):
+                    c_idx = self.add_constant(k.name)
+                    self.emit(OpCode.CONST, c_idx)
+                else:
+                    self.compile_expr(k)
                 self.compile_expr(v)
             self.emit(OpCode.MAKE_MAP, len(expr.pairs))
 
@@ -274,9 +278,9 @@ class BytecodeCompiler:
             elif expr.op == "!": self.emit(OpCode.NOT)
 
         elif isinstance(expr, FunctionCall):
+            self.compile_expr(expr.callee)
             for arg in expr.args:
                 self.compile_expr(arg)
-            self.compile_expr(expr.callee)
             self.emit(OpCode.CALL, len(expr.args))
 
         elif isinstance(expr, ChannelRecv):
@@ -286,4 +290,10 @@ class BytecodeCompiler:
         elif isinstance(expr, IndexAccess):
             self.compile_expr(expr.collection)
             self.compile_expr(expr.index)
+            self.emit(OpCode.INDEX_GET)
+
+        elif isinstance(expr, MemberAccess):
+            self.compile_expr(expr.object_expr)
+            c_idx = self.add_constant(expr.member_name)
+            self.emit(OpCode.CONST, c_idx)
             self.emit(OpCode.INDEX_GET)

@@ -1,0 +1,21 @@
+// 07_file_and_json.gaz - Real-World File I/O & JSON Data Processing
+println("=== GenAz File I/O & JSON Pipeline ===");
+
+let config_data = {
+    app_name: "GenAz Sovereign Engine",
+    version: 1.0,
+    features: ["Bytecode VM", "Hindley-Milner", "Green Threads", "Matrix Kernel"],
+    is_production: true
+};
+
+let serialized = json_encode(config_data);
+println("JSON Encoded Config:");
+println(serialized);
+
+let temp_file = "app_config_temp.json";
+write_file(temp_file, serialized);
+println("Saved configuration to: " + temp_file);
+
+let loaded_content = read_file(temp_file);
+let parsed_obj = json_decode(loaded_content);
+println("Successfully re-loaded and parsed JSON: " + parsed_obj.app_name);
