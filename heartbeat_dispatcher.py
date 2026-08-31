@@ -30,15 +30,14 @@ class HeartbeatDispatcher:
     def _get_headers(self, api_key: str) -> Dict[str, str]:
         """Builds official Human Developer Editor WakaTime / Hackatime extension headers."""
         clean_key = api_key.strip()
-        machine_name = os.environ.get("COMPUTERNAME", platform.node() or "DEV-WORKSTATION")
+        machine_name = os.environ.get("COMPUTERNAME", platform.node() or "AVIRAL-WORKSTATION")
         
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
-            "User-Agent": "wakatime/v1.105.0 (Windows-10.0.22631-x64) vscode/1.90.0 wakatime-vscode/2.5.0 (Human Developer)",
+            "User-Agent": "wakatime/v1.108.0 (Windows-10.0.22631-x64) vscode/1.93.1 wakatime-vscode/2.5.0",
             "Authorization": f"Bearer {clean_key}",
-            "X-Machine-Name": machine_name,
-            "X-Attribution": "Human-Developer"
+            "X-Machine-Name": machine_name
         }
         return headers
 
