@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GenAz IDE Playground</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #090d16;
+      color: #f8fafc;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      height: 48px;
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+    }
+    .brand {
+      font-weight: 700;
+      font-size: 15px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #38bdf8;
+    }
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    select, button {
+      background: #1f2937;
+      border: 1px solid #374151;
+      color: #f8fafc;
+      padding: 6px 12px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    button.run-btn {
+      background: #0284c7;
+      border-color: #38bdf8;
+      color: #ffffff;
+    }
+    button.run-btn:hover { background: #0369a1; }
+    main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      background: #1f2937;
+      overflow: hidden;
+    }
+    .panel {
+      background: #090d16;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    .panel-header {
+      height: 36px;
+      background: #111827;
+      border-bottom: 1px solid #1f2937;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 14px;
+      font-size: 12px;
+      font-weight: 600;
+      color: #94a3b8;
+    }
+    .editor {
+      flex: 1;
+      background: #090d16;
+      border: none;
+      outline: none;
+      color: #f8fafc;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 16px;
+      resize: none;
+      white-space: pre;
+    }
+    .output-tabs {
+      display: flex;
+      gap: 4px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      padding: 4px 8px;
+      font-size: 11px;
+    }
+    .tab-btn.active {
+      color: #38bdf8;
+      background: #1f2937;
+      border-radius: 4px;
+    }
+    .output-view {
+      flex: 1;
+      padding: 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      overflow-y: auto;
+      color: #e2e8f0;
+      white-space: pre-wrap;
+    }
+    .log-success { color: #34d399; }
+    .log-info { color: #38bdf8; }
+    .log-err { color: #f87171; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="brand">
+      <span>⚡</span> GenAz IDE Playground
+    </div>
+    <div class="controls">
+      <select id="example-picker" onchange="loadPreset(this.value)">
+        <option value="hello">01_hello.gaz</option>
+        <option value="fibonacci">02_fibonacci.gaz</option>
+        <option value="concurrency">03_concurrency.gaz</option>
+        <option value="ai_tensors">04_ai_tensors.gaz</option>
+        <option value="web_api">05_web_api.gaz</option>
+      </select>
+      <button class="run-btn" onclick="runGenAz()">▶ Run Code</button>
+      <button onclick="formatCode()">Format</button>
+    </div>
+  </header>
+
+  <main>
+    <div class="panel">
+      <div class="panel-header">
+        <span>Source Code (.gaz)</span>
+        <span style="font-family: monospace; font-size: 11px; color: #64748b;">UTF-8</span>
+      </div>
+      <textarea id="code-editor" class="editor" spellcheck="false"></textarea>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <span>Compiler Output</span>
+        <div class="output-tabs">
+          <button id="tab-stdout" class="tab-btn active" onclick="switchTab('stdout')">Output</button>
+          <button id="tab-dis" class="tab-btn" onclick="switchTab('dis')">Bytecode</button>
+          <button id="tab-tokens" class="tab-btn" onclick="switchTab('tokens')">Tokens</button>
+        </div>
+      </div>
+      <div id="output-box" class="output-view">Ready. Click 'Run Code' or choose an example.</div>
+    </div>
+  </main>
+
+  <script>
+    const PRESETS = {
+      hello: `// 01_hello.gaz - Basic Hello World and Functions\nfn greet(name) {\n    return "Namaste, " + name + "! Welcome to GenAz.";\n}\n\nlet author = "Aviral Dewangan";\nprint(greet(author));\nprint("Version: GenAz 1.0 (Fast & Simple)");`,
+      fibonacci: `// 02_fibonacci.gaz - Recursive & Iterative Fibonacci\nfn fib(n) {\n    if n <= 1 {\n        return n;\n    }\n    return fib(n - 1) + fib(n - 2);\n}\n\nprint("Computing Fibonacci sequence:");\nfor i in 0..10 {\n    print("fib(" + str(i) + ") = " + str(fib(i)));\n}`,
+      concurrency: `// 03_concurrency.gaz - Lightweight Thread Spawning & Channels\nfn worker(ch, id) {\n    print("Worker " + str(id) + " starting task...");\n    ch <- "Result from worker " + str(id);\n}\n\nlet c = chan(4);\nspawn worker(c, 1);\nspawn worker(c, 2);\n\nprint("Receiver waiting for messages:");\nprint(<-c);\nprint(<-c);`,
+      ai_tensors: `// 04_ai_tensors.gaz - Matrix Multiplication Engine\nlet A = [[1, 2], [3, 4]];\nlet B = [[5, 6], [7, 8]];\n\nlet C = matmul(A, B);\nprint("Matrix Multiplication A x B:");\nprint(C);`,
+      web_api: `// 05_web_api.gaz - Data Structures and Map Parsing\nlet server = {\n    host: "127.0.0.1",\n    port: 8080,\n    name: "GenAz Sovereign Gateway"\n};\n\nprint("Server configured at " + server.host + ":" + str(server.port));`
+    };
+
+    let activeTab = 'stdout';
+    let lastStdout = '';
+    let lastBytecode = '';
+    let lastTokens = '';
+
+    function loadPreset(key) {
+      document.getElementById('code-editor').value = PRESETS[key] || '';
+      document.getElementById('output-box').textContent = "Loaded " + key + ". Click 'Run Code'.";
+    }
+
+    function switchTab(t) {
+      activeTab = t;
+      ['stdout', 'dis', 'tokens'].forEach(tab => {
+        document.getElementById('tab-' + tab).classList.toggle('active', tab === t);
+      });
+      const box = document.getElementById('output-box');
+      if (t === 'stdout') box.textContent = lastStdout || "No output yet.";
+      if (t === 'dis') box.textContent = lastBytecode || "Bytecode not compiled yet.";
+      if (t === 'tokens') box.textContent = lastTokens || "Tokens not tokenized yet.";
+    }
+
+    function formatCode() {
+      const ed = document.getElementById('code-editor');
+      ed.value = ed.value.trim();
+    }
+
+    function runGenAz() {
+      const code = document.getElementById('code-editor').value;
+      const box = document.getElementById('output-box');
+      box.textContent = "Compiling & executing in GenAz VM...";
+
+      // Simple browser-side interpreter simulator for IDE demo
+      setTimeout(() => {
+        let out = [];
+        try {
+          const lines = code.split('\n');
+          for (let line of lines) {
+            line = line.trim();
+            if (line.startsWith('print(') && line.endsWith(');')) {
+              let inner = line.substring(6, line.length - 2);
+              if (inner.startsWith('"') && inner.endsWith('"')) {
+                out.push(inner.slice(1, -1));
+              } else {
+                out.push("[Evaluated: " + inner + "]");
+              }
+            }
+          }
+          if (out.length === 0) {
+            out.push("[Program exited cleanly with code 0]");
+          }
+          lastStdout = out.join('\n');
+          lastBytecode = "=== GenAz Bytecode ===\n0000: LOAD_CONST (0)\n0001: STORE_VAR (greet)\n0002: CALL_FN (1)\n0003: PRINT\n0004: HALT";
+          lastTokens = "Token stream generated: " + code.length + " bytes parsed.";
+
+          if (activeTab === 'stdout') box.textContent = lastStdout;
+          else switchTab(activeTab);
+        } catch (err) {
+          box.textContent = "Error: " + err.message;
+        }
+      }, 150);
+    }
+
+    window.onload = () => loadPreset('hello');
+  </script>
+</body>
+</html>
