@@ -1,41 +1,5 @@
 {
-  "version": 2,
-  "cleanUrls": false,
-  "trailingSlash": false,
-  "outputDirectory": "public",
   "rewrites": [
-    {
-      "source": "/bharatos/:path*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/bharatos",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/bharatos1.0/:path*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/bharatos1.0",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/os/:path*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/os",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/bharat/:path*",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/bharat",
-      "destination": "/index.html"
-    },
     {
       "source": "/portfolio",
       "destination": "/portfolio.html"
@@ -43,26 +7,6 @@
     {
       "source": "/devlog",
       "destination": "/devlog.html"
-    },
-    {
-      "source": "/clients",
-      "destination": "/portfolio.html"
-    },
-    {
-      "source": "/showcase",
-      "destination": "/portfolio.html"
-    },
-    {
-      "source": "/projects",
-      "destination": "/portfolio.html"
-    },
-    {
-      "source": "/project/:id",
-      "destination": "/project_dashboard.html"
-    },
-    {
-      "source": "/p/:id",
-      "destination": "/project_dashboard.html"
     },
     {
       "source": "/game",
@@ -73,27 +17,8 @@
       "destination": "/solaris.html"
     },
     {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/((?!assets/|wallpapers/|.*\\..*).*)",
-      "destination": "/index.html"
-    }
-  ],
-  "headers": [
-    {
       "source": "/(.*)",
-      "headers": [
-        {
-          "key": "X-Frame-Options",
-          "value": "SAMEORIGIN"
-        },
-        {
-          "key": "X-Content-Type-Options",
-          "value": "nosniff"
-        }
-      ]
+      "destination": "/index.html"
     }
   ]
 }
