@@ -27,10 +27,10 @@ BHARATOS_*_REPORT.md
 bharatos_full_clean_check.js
 
 # Build artifacts
-dist/
-dist_info.json
 *.iso
 *.sha256
+*.zip
+*.bin
 __pycache__/
 *.py[cod]
 *$py.class

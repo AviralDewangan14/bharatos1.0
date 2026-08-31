@@ -6,7 +6,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "npm --prefix bharatos-app run dev",
-    "build": "npm --prefix bharatos-app install && npm --prefix bharatos-app run build",
+    "build": "npm --prefix bharatos-app install && npm --prefix bharatos-app run build && node sync_dist.js",
     "start": "python main.py"
   }
 }

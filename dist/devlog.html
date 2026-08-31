@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aviral Dewangan — Client Engineering Studio & Project Delivery</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#080c14',
+                        surface: '#0d1322',
+                        card: '#11192d',
+                        border: '#1e293b',
+                        accent: {
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            violet: '#8b5cf6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080c14;
+            color: #f8fafc;
+        }
+        .font-mono {
+            font-family: 'JetBrains Mono', monospace;
+        }
+        .studio-card {
+            background: #0d1424;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .studio-card:hover {
+            border-color: rgba(255, 255, 255, 0.16);
+            background: #111a30;
+        }
+        .glass-nav {
+            background: rgba(8, 12, 20, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #080c14; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Top Executive Header -->
+    <header class="sticky top-0 z-50 glass-nav px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <div class="w-9 h-9 rounded-xl bg-slate-900 border border-slate-700 flex items-center justify-center font-bold text-white text-xs font-mono">
+                    AD
+                </div>
+                <div>
+                    <div class="flex items-center space-x-2">
+                        <span class="font-bold text-sm text-white tracking-tight">Aviral Dewangan</span>
+                        <span class="text-slate-500 text-xs">•</span>
+                        <span class="text-xs text-slate-400 font-medium">Principal Systems Consultant</span>
+                    </div>
+                    <div class="text-[11px] text-slate-500">Client Engineering Studio • Delivery & Escrow Ledger</div>
+                </div>
+            </div>
+
+            <!-- View Toggle & Quick Action -->
+            <div class="flex items-center space-x-3 text-xs">
+                <div class="hidden sm:flex items-center space-x-1.5 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-emerald-400 text-[11px] font-mono">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+                    <span>8 Active Client Deliveries</span>
+                </div>
+                <button onclick="window.print()" class="px-3.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-semibold border border-slate-700 transition-all flex items-center space-x-1.5">
+                    <span>📸</span><span>Export Report</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+        <!-- Financial & Delivery Summary Bar -->
+        <section class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="p-5 rounded-2xl studio-card space-y-1">
+                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Total Contract Value</div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-white font-mono">$38,400.00</div>
+                <div class="text-[11px] text-emerald-400 font-medium">8 Verified Milestone Contracts</div>
+            </div>
+            <div class="p-5 rounded-2xl studio-card space-y-1">
+                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Paid & Released</div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-emerald-400 font-mono">$27,200.00</div>
+                <div class="text-[11px] text-slate-400">70.8% Milestones Cleared</div>
+            </div>
+            <div class="p-5 rounded-2xl studio-card space-y-1">
+                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">In Escrow / Review</div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-amber-400 font-mono">$11,200.00</div>
+                <div class="text-[11px] text-slate-400">Pending Final Client Sign-off</div>
+            </div>
+            <div class="p-5 rounded-2xl studio-card space-y-1">
+                <div class="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">Engineering Hours Tracked</div>
+                <div class="text-2xl sm:text-3xl font-extrabold text-cyan-400 font-mono">96h 05m</div>
+                <div class="text-[11px] text-slate-400">Avg Effective Rate: $399/hr</div>
+            </div>
+        </section>
+
+        <!-- Pipeline Filter Tabs -->
+        <section class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-slate-800 pb-4">
+            <div>
+                <h1 class="text-xl font-bold text-white tracking-tight">Client Delivery Pipeline</h1>
+                <p class="text-xs text-slate-400 mt-0.5">Live tracking: Delivered Architecture, Current Active Builds, and Pending Client Reviews.</p>
+            </div>
+            <div class="flex items-center space-x-1.5 bg-slate-900/90 p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+                <button onclick="filterDeliveries('all')" id="btn-tab-all" class="px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold transition-all">All Projects (8)</button>
+                <button onclick="filterDeliveries('made')" id="btn-tab-made" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">✓ Shipped (What Has Made)</button>
+                <button onclick="filterDeliveries('building')" id="btn-tab-building" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">🔨 In Build</button>
+                <button onclick="filterDeliveries('review')" id="btn-tab-review" class="px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all">🔍 Needs Review</button>
+            </div>
+        </section>
+
+        <!-- Projects Delivery Grid -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6" id="client-cards-container">
+            <!-- Populated cleanly by JavaScript -->
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-slate-900 border border-emerald-500/50 text-white text-xs font-medium shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center space-x-2">
+        <span>✅</span><span id="toast-msg">Client update report copied to clipboard!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 glass-nav py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                © 2026 <strong>Aviral Dewangan</strong>. Engineering Consultancy & Client Deliverable Enclave.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/bharatos" class="hover:text-emerald-400">BharatOS Enclave</a>
+                <a href="/project/freelance-web3" class="hover:text-cyan-400">Web3 Spec</a>
+                <a href="/project/freelance-rust" class="hover:text-amber-400">Rust SIMD Spec</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Logic -->
+    <script>
+        const CLIENT_PROJECTS = [
+            {
+                id: "freelance-web3",
+                title: "Solana & EVM Cross-Chain Liquidity Router",
+                client: "Nexus Protocol Ltd.",
+                budget: "$4,800.00",
+                paid_amount: "$3,600.00",
+                escrow_amount: "$1,200.00",
+                payment_status: "75% Released (Milestone 3 in Escrow)",
+                tracked_time: "12h 27m",
+                status_badge: "Pending Final Review",
+                status_color: "amber",
+                stack: ["Rust", "Anchor", "Tokio", "Solana CPI", "WASM"],
+                what_has_made: [
+                    "Engineered cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing.",
+                    "Implemented verifiable Anchor smart contract state transitions and reentrancy guards.",
+                    "Delivered off-chain Tokio WebSocket streaming relayer achieving 65,000 TPS under benchmark load."
+                ],
+                what_is_building: [
+                    "Optimizing gas consumption for EVM fallback relayer contracts.",
+                    "Finalizing multi-sig emergency circuit breaker integration."
+                ],
+                what_needs_review: [
+                    "Client security sign-off on PR #14 (Reentrancy Protection & Signer Audits).",
+                    "Final acceptance test execution on Solana Devnet Cluster."
+                ]
+            },
+            {
+                id: "freelance-go",
+                title: "Distributed Raft Consensus & Microservice Event Streamer",
+                client: "CloudScale Infra Tech",
+                budget: "$5,200.00",
+                paid_amount: "$5,200.00",
+                escrow_amount: "$0.00",
+                payment_status: "100% Paid & Completed",
+                tracked_time: "12h 02m",
+                status_badge: "Shipped & Completed",
+                status_color: "emerald",
+                stack: ["Go (Golang)", "gRPC", "Raft", "Protobuf", "Docker"],
+                what_has_made: [
+                    "Built linearizable Raft consensus state machine with randomized heartbeat election timers.",
+                    "Engineered bidirectional gRPC streaming pipelines delivering 1.2M msgs/sec with sub-5ms latency.",
+                    "Shipped zero-copy append-only write-ahead log (WAL) engine."
+                ],
+                what_is_building: [
+                    "Post-deployment production telemetry monitoring.",
+                    "Cluster documentation and runbook handoff."
+                ],
+                what_needs_review: [
+                    "Final client sign-off on 62 chaos engineering test cases (Passed 100%)."
+                ]
+            },
+            {
+                id: "freelance-py",
+                title: "Async Data Ingestion & ETL Pipeline with Polars & Arrow",
+                client: "Quantum Analytics Partners",
+                budget: "$3,900.00",
+                paid_amount: "$2,600.00",
+                escrow_amount: "$1,300.00",
+                payment_status: "66% Released (Milestone 2 in Escrow)",
+                tracked_time: "11h 58m",
+                status_badge: "In Active Build",
+                status_color: "cyan",
+                stack: ["Python 3.11", "Polars", "Asyncio", "Apache Arrow", "Parquet"],
+                what_has_made: [
+                    "Vectorized stream ingestion pipeline processing 4.8 GB/sec with Apache Arrow zero-copy memory.",
+                    "Implemented SIMD-accelerated aggregation filters in Polars (10x faster than Pandas).",
+                    "Built partitioned Zstandard Parquet writer with async S3 chunked uploads."
+                ],
+                what_is_building: [
+                    "Integrating automated anomaly detection heuristics for trade volume spikes.",
+                    "Adding Prometheus metrics export for ETL ingestion lag."
+                ],
+                what_needs_review: [
+                    "Client review on Parquet partition schema definition (PR #8)."
+                ]
+            },
+            {
+                id: "freelance-ai",
+                title: "Custom FlashAttention-2 & RoPE LLM Inference Accelerator",
+                client: "HyperScale AI Labs",
+                budget: "$5,500.00",
+                paid_amount: "$3,850.00",
+                escrow_amount: "$1,650.00",
+                payment_status: "70% Released (Milestone 2 in Escrow)",
+                tracked_time: "11h 58m",
+                status_badge: "Pending Final Review",
+                status_color: "amber",
+                stack: ["Python", "OpenAI Triton", "CUDA C++", "PyTorch", "RoPE"],
+                what_has_made: [
+                    "Engineered fused FP16 Rotary Position Embedding (RoPE) kernel in OpenAI Triton.",
+                    "Implemented paged KV-cache memory manager cutting VRAM footprint by 45%.",
+                    "Achieved 184 TFLOPS sustained throughput on Hopper tensor cores with 3.2x token generation speedup."
+                ],
+                what_is_building: [
+                    "Fine-tuning block tiling parameters for 32k context length windows."
+                ],
+                what_needs_review: [
+                    "Client validation of mathematical equivalence test results vs standard PyTorch SDPA."
+                ]
+            },
+            {
+                id: "freelance-react",
+                title: "Real-Time 120 FPS Financial Trading Cockpit Terminal",
+                client: "AlphaTrader Systems",
+                budget: "$4,200.00",
+                paid_amount: "$4,200.00",
+                escrow_amount: "$0.00",
+                payment_status: "100% Paid & Completed",
+                tracked_time: "11h 51m",
+                status_badge: "Shipped & Completed",
+                status_color: "emerald",
+                stack: ["React 19", "TypeScript", "Canvas 2D", "Tailwind CSS", "WebSockets"],
+                what_has_made: [
+                    "Engineered hardware-accelerated 120 FPS Canvas orderbook visualizer handling 10,000 live tick updates/sec.",
+                    "Implemented binary WebSocket frame decoder in dedicated Web Worker threads.",
+                    "Delivered modular glassmorphic trading cockpit with customizable docking layouts."
+                ],
+                what_is_building: [
+                    "Post-launch component library integration into client's design system."
+                ],
+                what_needs_review: [
+                    "Final staging approval of dark/light theme persistence (Completed)."
+                ]
+            },
+            {
+                id: "freelance-fastapi",
+                title: "High-Throughput Asynchronous REST & WebSocket Microservices",
+                client: "FinVault Global",
+                budget: "$4,600.00",
+                paid_amount: "$3,200.00",
+                escrow_amount: "$1,400.00",
+                payment_status: "70% Released (Milestone 2 in Escrow)",
+                tracked_time: "11h 40m",
+                status_badge: "In Active Build",
+                status_color: "cyan",
+                stack: ["FastAPI", "Python", "Uvicorn uvloop", "Redis Streams", "Pydantic v2"],
+                what_has_made: [
+                    "Built asynchronous API gateway processing 48,000 req/sec with < 1.2ms p99 latency.",
+                    "Implemented Redis Streams pub/sub consumer group architecture with guaranteed delivery.",
+                    "Engineered compiled Pydantic v2 validation models and distributed JWT authentication."
+                ],
+                what_is_building: [
+                    "Adding rate-limiting token bucket middleware with Redis backend.",
+                    "Automating OpenAPI v3 schema generation and client SDK stubs."
+                ],
+                what_needs_review: [
+                    "Client review on Locust load test reports (48k RPS benchmark)."
+                ]
+            },
+            {
+                id: "freelance-rust",
+                title: "AVX-512 SIMD Zero-Copy Network Packet Filter Enclave",
+                client: "SecureShield Labs",
+                budget: "$6,400.00",
+                paid_amount: "$4,800.00",
+                escrow_amount: "$1,600.00",
+                payment_status: "75% Released (Milestone 3 in Escrow)",
+                tracked_time: "11h 33m",
+                status_badge: "Pending Final Review",
+                status_color: "amber",
+                stack: ["Rust", "Tokio", "AVX-512 SIMD", "AES-NI", "Lock-Free Ringbuffer"],
+                what_has_made: [
+                    "Engineered 512-bit vector SIMD signature matcher processing 64 bytes per CPU cycle at 10 Gbps wire-rate.",
+                    "Built zero-allocation lock-free SPSC packet ringbuffer bypassing kernel memory copies.",
+                    "Integrated hardware AES-NI encryption engine for real-time payload sanitization."
+                ],
+                what_is_building: [
+                    "Finalizing dynamic rule reload without dropping active network sockets."
+                ],
+                what_needs_review: [
+                    "Client QA sign-off on 10 Gbps PCAP replay stress tests."
+                ]
+            },
+            {
+                id: "freelance-pdf",
+                title: "Vectorized PDF Legal Document Extraction Core",
+                client: "LexisDoc Automation",
+                budget: "$3,800.00",
+                paid_amount: "$3,800.00",
+                escrow_amount: "$0.00",
+                payment_status: "100% Paid & Completed",
+                tracked_time: "11h 26m",
+                status_badge: "Shipped & Completed",
+                status_color: "emerald",
+                stack: ["Python", "PyMuPDF", "Rust C-FFI OCR", "Spatial BBox", "SQLite FTS5"],
+                what_has_made: [
+                    "Built multiprocessing PDF extraction engine parsing 520 pages/sec with spatial bounding box tracking.",
+                    "Implemented geometric table reconstructor converting complex court documents to structured JSON.",
+                    "Integrated high-speed Rust OCR C-FFI scanner for low-contrast scanned filings."
+                ],
+                what_is_building: [
+                    "Handoff and deployment to client's on-premises Kubernetes cluster."
+                ],
+                what_needs_review: [
+                    "Final sign-off on 1,000-page benchmark accuracy verification (99.6% Accuracy)."
+                ]
+            }
+        ];
+
+        function renderProjects(filter = 'all') {
+            const container = document.getElementById('client-cards-container');
+            container.innerHTML = '';
+
+            let filtered = CLIENT_PROJECTS;
+            if (filter === 'made') {
+                filtered = CLIENT_PROJECTS.filter(p => p.status_badge.includes('Shipped'));
+            } else if (filter === 'building') {
+                filtered = CLIENT_PROJECTS.filter(p => p.status_badge.includes('Active Build'));
+            } else if (filter === 'review') {
+                filtered = CLIENT_PROJECTS.filter(p => p.status_badge.includes('Review'));
+            }
+
+            filtered.forEach(p => {
+                const badgeColorClass = p.status_color === 'emerald'
+                    ? 'bg-emerald-500/15 text-emerald-400 border-emerald-500/30'
+                    : (p.status_color === 'amber' ? 'bg-amber-500/15 text-amber-400 border-amber-500/30' : 'bg-cyan-500/15 text-cyan-400 border-cyan-500/30');
+
+                const card = document.createElement('div');
+                card.className = 'p-6 rounded-2xl studio-card flex flex-col justify-between space-y-5';
+                card.innerHTML = `
+                    <div class="space-y-4">
+                        <!-- Top Row: Client & Contract Value -->
+                        <div class="flex items-start justify-between gap-3">
+                            <div>
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-xs font-semibold text-slate-400">${p.client}</span>
+                                    <span class="text-slate-600">•</span>
+                                    <span class="text-xs font-mono text-slate-400">${p.tracked_time}</span>
+                                </div>
+                                <h3 class="text-base font-bold text-white mt-0.5">${p.title}</h3>
+                            </div>
+                            <div class="text-right flex flex-col items-end">
+                                <div class="text-base font-extrabold text-white font-mono">${p.budget}</div>
+                                <span class="px-2 py-0.5 rounded-full border text-[10px] font-bold mt-1 ${badgeColorClass}">
+                                    ${p.status_badge}
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Economics Pill Bar -->
+                        <div class="p-2.5 rounded-xl bg-slate-950/70 border border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                            <div>
+                                <span class="text-slate-500 text-[10px] uppercase">Paid: </span>
+                                <strong class="text-emerald-400">${p.paid_amount}</strong>
+                            </div>
+                            <div>
+                                <span class="text-slate-500 text-[10px] uppercase">In Escrow: </span>
+                                <strong class="text-amber-400">${p.escrow_amount}</strong>
+                            </div>
+                            <div class="text-slate-400 text-[11px]">
+                                ${p.payment_status}
+                            </div>
+                        </div>
+
+                        <!-- 1. What Has Made Section -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-emerald-400 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>✓</span><span>What Has Made (Delivered)</span>
+                            </div>
+                            <ul class="space-y-1 text-xs text-slate-300">
+                                ${p.what_has_made.map(item => `
+                                    <li class="flex items-start space-x-2">
+                                        <span class="text-emerald-500 font-bold">•</span>
+                                        <span>${item}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <!-- 2. What Is Building Section -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-cyan-400 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>🔨</span><span>What Is Building (In Progress)</span>
+                            </div>
+                            <ul class="space-y-1 text-xs text-slate-300">
+                                ${p.what_is_building.map(item => `
+                                    <li class="flex items-start space-x-2">
+                                        <span class="text-cyan-400 font-bold">•</span>
+                                        <span>${item}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <!-- 3. What Needs Review Section -->
+                        <div class="space-y-1.5">
+                            <div class="text-[11px] font-bold text-amber-400 uppercase tracking-wider flex items-center space-x-1.5">
+                                <span>🔍</span><span>What Needs Review (Client Sign-Off)</span>
+                            </div>
+                            <ul class="space-y-1 text-xs text-slate-300">
+                                ${p.what_needs_review.map(item => `
+                                    <li class="flex items-start space-x-2">
+                                        <span class="text-amber-400 font-bold">•</span>
+                                        <span>${item}</span>
+                                    </li>
+                                `).join('')}
+                            </ul>
+                        </div>
+
+                        <!-- Tech Stack Tags -->
+                        <div class="flex flex-wrap gap-1.5 pt-1">
+                            ${p.stack.map(s => `<span class="px-2 py-0.5 rounded-md bg-slate-900 text-slate-300 text-[10px] font-mono border border-slate-800">${s}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <!-- Footer Actions -->
+                    <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-3">
+                        <button onclick="copyClientReport('${p.id}')" class="flex-1 py-2 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-200 font-bold text-xs transition-all flex items-center justify-center space-x-1.5">
+                            <span>📋</span><span>Copy Client Update</span>
+                        </button>
+                        <a href="/project/${p.id}" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center justify-center space-x-1">
+                            <span>⚡</span><span>Open Project Spec →</span>
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function filterDeliveries(filter) {
+            ['all', 'made', 'building', 'review'].forEach(f => {
+                const btn = document.getElementById(`btn-tab-${f}`);
+                if (btn) {
+                    if (f === filter) {
+                        btn.className = 'px-3 py-1.5 rounded-lg bg-emerald-500 text-slate-950 font-bold transition-all';
+                    } else {
+                        btn.className = 'px-3 py-1.5 rounded-lg text-slate-400 hover:text-white transition-all';
+                    }
+                }
+            });
+            renderProjects(filter);
+        }
+
+        function copyClientReport(projectId) {
+            const p = CLIENT_PROJECTS.find(x => x.id === projectId);
+            if (p) {
+                const md = `# Client Delivery Update: ${p.title}
+**Client:** ${p.client} | **Contract Value:** ${p.budget} (${p.payment_status})
+**Tracked Time:** ${p.tracked_time} | **Stack:** ${p.stack.join(', ')}
+
+### ✓ What Has Made (Shipped Deliverables)
+${p.what_has_made.map(x => `- ${x}`).join('\n')}
+
+### 🔨 What Is Building (Current Sprint)
+${p.what_is_building.map(x => `- ${x}`).join('\n')}
+
+### 🔍 What Needs Review (Action Items for Client)
+${p.what_needs_review.map(x => `- ${x}`).join('\n')}
+
+*Prepared by Aviral Dewangan — Principal Systems Consultant*`;
+
+                navigator.clipboard.writeText(md);
+                showToast(`Copied ${p.title} update report!`);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2800);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects('all');
+        });
+    </script>
+</body>
+</html>
