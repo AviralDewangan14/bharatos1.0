@@ -7,27 +7,30 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Desktop Background -->
+  <!-- Desktop Wallpaper (Visible on Lockscreen and Desktop) -->
   <div id="desktop-bg"></div>
 
-  <!-- Top Bar -->
+  <!-- Top Navigation Bar -->
   <div id="topbar">
-    <div class="topbar-left">
+    <div class="flex items-center space-x-3">
       <span class="topbar-brand"><span>☸️</span> BharatOS</span>
-      <span class="text-xs text-slate-400">Desktop</span>
+      <span class="text-xs text-slate-400 font-mono">1.0 Sovereign</span>
     </div>
-    <div class="topbar-right">
+    <div class="flex items-center space-x-4">
+      <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Offline Privacy
+      </span>
       <span id="top-clock" class="topbar-clock">12:00:00 PM</span>
     </div>
   </div>
 
-  <!-- Desktop Shortcuts -->
+  <!-- Desktop Shortcuts (Left Grid) -->
   <div id="desktop-grid">
     <div class="app-shortcut" onclick="openApp('win-term', 'dock-term')">
       <div class="shortcut-icon">💻</div>
@@ -59,13 +62,59 @@
     </div>
   </div>
 
+  <!-- Desktop Widgets Panel (Right Side) -->
+  <div id="widgets-panel">
+    <!-- 1. System Health Widget -->
+    <div class="widget-card">
+      <div class="flex items-center justify-between mb-2">
+        <span class="text-xs font-bold text-slate-200">System Telemetry</span>
+        <span class="text-[10px] text-cyan-400 font-mono">0.00% Tracking</span>
+      </div>
+      <div class="space-y-2 text-xs font-mono">
+        <div>
+          <div class="flex justify-between text-[11px] text-slate-400 mb-0.5">
+            <span>CPU Usage</span>
+            <span id="widget-cpu-text" class="text-cyan-300 font-bold">12%</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div id="widget-cpu-bar" class="h-full bg-cyan-400 rounded-full transition-all duration-500" style="width: 25%"></div>
+          </div>
+        </div>
+        <div>
+          <div class="flex justify-between text-[11px] text-slate-400 mb-0.5">
+            <span>Memory (RAM)</span>
+            <span id="widget-ram-text" class="text-indigo-300 font-bold">1.4 GB / 8.0 GB</span>
+          </div>
+          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
+            <div id="widget-ram-bar" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width: 18%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. Today Widget -->
+    <div class="widget-card">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">BharatOS Desktop</div>
+          <div id="widget-date" class="text-sm font-bold text-white mt-0.5">Mon, Aug 31</div>
+        </div>
+        <div class="text-2xl">🇮🇳</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       WINDOWS (With Working Traffic Light Gems)
+       ========================================================================= -->
+
   <!-- 1. Terminal Window -->
-  <div id="win-term" class="window w-[560px] h-[380px] top-12 left-28 hidden" onmousedown="focusWindow(this)">
+  <div id="win-term" class="window w-[580px] h-[400px] top-12 left-28 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-term')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-term', 'dock-term')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-term')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-term')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-term', 'dock-term', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-term', 'dock-term', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-term', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>💻</span> Terminal</div>
       <div class="w-10"></div>
@@ -82,105 +131,105 @@
   </div>
 
   <!-- 2. Notes Window -->
-  <div id="win-notes" class="window w-[540px] h-[400px] top-16 left-36 hidden" onmousedown="focusWindow(this)">
+  <div id="win-notes" class="window w-[540px] h-[420px] top-16 left-36 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-notes')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-notes', 'dock-notes')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-notes')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-notes')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-notes', 'dock-notes', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-notes', 'dock-notes', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-notes', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>📝</span> Notes</div>
-      <button onclick="newNote()" class="text-xs px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">New Note</button>
+      <button onclick="newNote()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium">New Note</button>
     </div>
     <div class="window-body flex flex-col">
-      <textarea id="notes-textarea" class="flex-1 bg-transparent p-4 outline-none text-slate-100 font-sans text-sm resize-none" placeholder="Type your notes here... (Auto-saved to browser)"></textarea>
-      <div class="px-4 py-1.5 bg-slate-900 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex justify-between">
+      <textarea id="notes-textarea" class="flex-1 bg-transparent p-4 outline-none text-slate-100 font-sans text-sm resize-none leading-relaxed" placeholder="Type your notes here... (Auto-saved to browser localStorage)"></textarea>
+      <div class="px-4 py-2 bg-slate-900/90 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex justify-between">
         <span id="notes-count">0 words, 0 chars</span>
-        <span class="text-emerald-400">● Auto-saved</span>
+        <span class="text-emerald-400 font-bold">● Auto-saved</span>
       </div>
     </div>
   </div>
 
   <!-- 3. Paint Window -->
-  <div id="win-paint" class="window w-[680px] h-[460px] top-20 left-44 hidden" onmousedown="focusWindow(this)">
+  <div id="win-paint" class="window w-[700px] h-[480px] top-20 left-44 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-paint')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-paint', 'dock-paint')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-paint')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-paint')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-paint', 'dock-paint', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-paint', 'dock-paint', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-paint', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>🎨</span> Paint Studio</div>
       <div class="flex items-center space-x-2">
-        <button onclick="clearCanvas()" class="text-xs px-2 py-0.5 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">Clear</button>
-        <button onclick="saveDrawing()" class="text-xs px-2 py-0.5 rounded bg-cyan-500 text-slate-950 font-bold">Save PNG</button>
+        <button onclick="clearCanvas()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">Clear</button>
+        <button onclick="saveDrawing()" class="text-xs px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold shadow">Save PNG</button>
       </div>
     </div>
     <div class="p-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs">
       <div class="flex items-center space-x-2">
-        <button id="tool-brush" onclick="setTool('brush')" class="px-2.5 py-1 rounded bg-cyan-500/30 text-cyan-300 font-bold">🖌️ Brush</button>
-        <button id="tool-eraser" onclick="setTool('eraser')" class="px-2.5 py-1 rounded bg-slate-800 text-slate-300">🧹 Eraser</button>
+        <button id="tool-brush" onclick="setTool('brush')" class="px-3 py-1 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold">🖌️ Brush</button>
+        <button id="tool-eraser" onclick="setTool('eraser')" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300">🧹 Eraser</button>
       </div>
-      <div class="flex items-center space-x-1.5">
-        <div onclick="setColor('#06b6d4')" class="w-5 h-5 rounded-full bg-cyan-500 cursor-pointer"></div>
-        <div onclick="setColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500 cursor-pointer"></div>
-        <div onclick="setColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 cursor-pointer"></div>
-        <div onclick="setColor('#f59e0b')" class="w-5 h-5 rounded-full bg-amber-500 cursor-pointer"></div>
-        <div onclick="setColor('#ffffff')" class="w-5 h-5 rounded-full bg-white cursor-pointer"></div>
+      <div class="flex items-center space-x-2">
+        <div onclick="setColor('#06b6d4')" class="w-5 h-5 rounded-full bg-cyan-500 cursor-pointer border border-white/20"></div>
+        <div onclick="setColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500 cursor-pointer border border-white/20"></div>
+        <div onclick="setColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 cursor-pointer border border-white/20"></div>
+        <div onclick="setColor('#f59e0b')" class="w-5 h-5 rounded-full bg-amber-500 cursor-pointer border border-white/20"></div>
+        <div onclick="setColor('#ffffff')" class="w-5 h-5 rounded-full bg-white cursor-pointer border border-white/20"></div>
       </div>
     </div>
     <div class="window-body p-2 flex items-center justify-center">
-      <canvas id="paint-canvas" width="650" height="360" class="rounded bg-slate-900 border border-slate-800 cursor-crosshair"></canvas>
+      <canvas id="paint-canvas" width="670" height="380" class="rounded-xl bg-slate-900 border border-slate-800 cursor-crosshair"></canvas>
     </div>
   </div>
 
   <!-- 4. Calculator Window -->
-  <div id="win-calc" class="window w-[320px] h-[440px] top-24 left-52 hidden" onmousedown="focusWindow(this)">
+  <div id="win-calc" class="window w-[320px] h-[450px] top-24 left-52 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-calc')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-calc', 'dock-calc')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-calc')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-calc')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-calc', 'dock-calc', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-calc', 'dock-calc', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-calc', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>🧮</span> Calculator</div>
       <div class="w-10"></div>
     </div>
     <div class="p-4 bg-slate-900 border-b border-slate-800 text-right">
-      <div id="calc-display" class="text-2xl font-mono font-bold text-cyan-400 overflow-x-auto">0</div>
+      <div id="calc-display" class="text-3xl font-mono font-bold text-cyan-400 overflow-x-auto">0</div>
     </div>
-    <div class="window-body p-2 grid grid-cols-4 gap-1.5 font-mono text-sm">
-      <button onclick="calcClear()" class="p-3 rounded bg-rose-500/20 text-rose-300 font-bold">C</button>
-      <button onclick="calcAdd('(')" class="p-3 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">(</button>
-      <button onclick="calcAdd(')')" class="p-3 rounded bg-slate-800 hover:bg-slate-700 text-slate-200">)</button>
-      <button onclick="calcAdd('/')" class="p-3 rounded bg-cyan-500/20 text-cyan-300 font-bold">÷</button>
+    <div class="window-body p-2.5 grid grid-cols-4 gap-1.5 font-mono text-sm">
+      <button onclick="calcClear()" class="p-3 rounded-xl bg-rose-500/20 text-rose-300 font-bold hover:bg-rose-500/30">C</button>
+      <button onclick="calcAdd('(')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200">(</button>
+      <button onclick="calcAdd(')')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200">)</button>
+      <button onclick="calcAdd('/')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">÷</button>
 
-      <button onclick="calcAdd('7')" class="p-3 rounded bg-slate-800 text-white font-bold">7</button>
-      <button onclick="calcAdd('8')" class="p-3 rounded bg-slate-800 text-white font-bold">8</button>
-      <button onclick="calcAdd('9')" class="p-3 rounded bg-slate-800 text-white font-bold">9</button>
-      <button onclick="calcAdd('*')" class="p-3 rounded bg-cyan-500/20 text-cyan-300 font-bold">×</button>
+      <button onclick="calcAdd('7')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">7</button>
+      <button onclick="calcAdd('8')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">8</button>
+      <button onclick="calcAdd('9')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">9</button>
+      <button onclick="calcAdd('*')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">×</button>
 
-      <button onclick="calcAdd('4')" class="p-3 rounded bg-slate-800 text-white font-bold">4</button>
-      <button onclick="calcAdd('5')" class="p-3 rounded bg-slate-800 text-white font-bold">5</button>
-      <button onclick="calcAdd('6')" class="p-3 rounded bg-slate-800 text-white font-bold">6</button>
-      <button onclick="calcAdd('-')" class="p-3 rounded bg-cyan-500/20 text-cyan-300 font-bold">−</button>
+      <button onclick="calcAdd('4')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">4</button>
+      <button onclick="calcAdd('5')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">5</button>
+      <button onclick="calcAdd('6')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">6</button>
+      <button onclick="calcAdd('-')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">−</button>
 
-      <button onclick="calcAdd('1')" class="p-3 rounded bg-slate-800 text-white font-bold">1</button>
-      <button onclick="calcAdd('2')" class="p-3 rounded bg-slate-800 text-white font-bold">2</button>
-      <button onclick="calcAdd('3')" class="p-3 rounded bg-slate-800 text-white font-bold">3</button>
-      <button onclick="calcAdd('+')" class="p-3 rounded bg-cyan-500/20 text-cyan-300 font-bold">+</button>
+      <button onclick="calcAdd('1')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">1</button>
+      <button onclick="calcAdd('2')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">2</button>
+      <button onclick="calcAdd('3')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">3</button>
+      <button onclick="calcAdd('+')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">+</button>
 
-      <button onclick="calcAdd('0')" class="col-span-2 p-3 rounded bg-slate-800 text-white font-bold">0</button>
-      <button onclick="calcAdd('.')" class="p-3 rounded bg-slate-800 text-white font-bold">.</button>
-      <button onclick="calcEquals()" class="p-3 rounded bg-cyan-500 text-slate-950 font-bold">=</button>
+      <button onclick="calcAdd('0')" class="col-span-2 p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">0</button>
+      <button onclick="calcAdd('.')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">.</button>
+      <button onclick="calcEquals()" class="p-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">=</button>
     </div>
   </div>
 
   <!-- 5. Synthesizer Window -->
-  <div id="win-synth" class="window w-[600px] h-[340px] top-28 left-60 hidden" onmousedown="focusWindow(this)">
+  <div id="win-synth" class="window w-[620px] h-[360px] top-28 left-60 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-synth')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-synth', 'dock-synth')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-synth')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-synth')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-synth', 'dock-synth', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-synth', 'dock-synth', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-synth', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>🎵</span> Synthesizer</div>
       <div class="w-10"></div>
@@ -195,7 +244,7 @@
       </select>
     </div>
     <div class="window-body p-4 flex items-center justify-center">
-      <div class="flex relative h-36 border border-slate-700 rounded-lg overflow-hidden select-none">
+      <div class="flex relative h-36 border border-slate-700 rounded-xl overflow-hidden select-none shadow-2xl">
         <div onmousedown="startNote('C4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">C</div>
         <div onmousedown="startNote('D4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">D</div>
         <div onmousedown="startNote('E4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">E</div>
@@ -205,11 +254,11 @@
         <div onmousedown="startNote('B4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">B</div>
         <div onmousedown="startNote('C5')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">C5</div>
 
-        <div onmousedown="startNote('Db4')" onmouseup="stopNote()" class="absolute left-8 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1">C#</div>
-        <div onmousedown="startNote('Eb4')" onmouseup="stopNote()" class="absolute left-20 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1">D#</div>
-        <div onmousedown="startNote('Gb4')" onmouseup="stopNote()" class="absolute left-44 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1">F#</div>
-        <div onmousedown="startNote('Ab4')" onmouseup="stopNote()" class="absolute left-56 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1">G#</div>
-        <div onmousedown="startNote('Bb4')" onmouseup="stopNote()" class="absolute left-68 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1">A#</div>
+        <div onmousedown="startNote('Db4')" onmouseup="stopNote()" class="absolute left-8 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">C#</div>
+        <div onmousedown="startNote('Eb4')" onmouseup="stopNote()" class="absolute left-20 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">D#</div>
+        <div onmousedown="startNote('Gb4')" onmouseup="stopNote()" class="absolute left-44 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">F#</div>
+        <div onmousedown="startNote('Ab4')" onmouseup="stopNote()" class="absolute left-56 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">G#</div>
+        <div onmousedown="startNote('Bb4')" onmouseup="stopNote()" class="absolute left-68 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">A#</div>
       </div>
     </div>
   </div>
@@ -218,42 +267,42 @@
   <div id="win-snake" class="window w-[440px] h-[480px] top-16 left-48 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-snake')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-snake', 'dock-snake')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-snake')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-snake')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-snake', 'dock-snake', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-snake', 'dock-snake', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-snake', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>🐍</span> Snake Arcade</div>
-      <button onclick="startSnakeGame()" class="text-xs px-2.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-bold">New Game</button>
+      <button onclick="startSnakeGame()" class="text-xs px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow">New Game</button>
     </div>
     <div class="px-4 py-2 bg-slate-900 border-b border-slate-800 flex justify-between text-xs font-mono">
       <span id="snake-score" class="text-cyan-400 font-bold">Score: 0</span>
       <span id="snake-high" class="text-slate-400 font-bold">Best: 0</span>
     </div>
     <div class="window-body p-2 flex flex-col items-center justify-center">
-      <canvas id="snake-canvas" width="400" height="340" class="rounded bg-slate-950 border border-slate-800"></canvas>
+      <canvas id="snake-canvas" width="400" height="340" class="rounded-xl bg-slate-950 border border-slate-800"></canvas>
       <div class="text-[11px] text-slate-500 mt-2 font-mono">Use Arrow Keys on your keyboard to steer</div>
     </div>
   </div>
 
   <!-- 7. Settings Window -->
-  <div id="win-settings" class="window w-[420px] h-[320px] top-24 left-56 hidden" onmousedown="focusWindow(this)">
+  <div id="win-settings" class="window w-[440px] h-[340px] top-24 left-56 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
-        <div class="control-dot dot-close" onclick="closeApp('win-settings', 'dock-settings')"></div>
-        <div class="control-dot dot-min" onclick="minimizeApp('win-settings')"></div>
-        <div class="control-dot dot-max" onclick="toggleMax('win-settings')"></div>
+        <div class="gem-btn gem-close" onclick="closeApp('win-settings', 'dock-settings', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-settings', 'dock-settings', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-settings', event)" title="Maximize"><span>⤢</span></div>
       </div>
       <div class="window-title"><span>⚙️</span> Settings</div>
       <div class="w-10"></div>
     </div>
-    <div class="window-body p-4 space-y-4 text-xs">
+    <div class="window-body p-5 space-y-4 text-xs">
       <div>
-        <div class="font-bold text-slate-300 mb-2">Change Wallpaper:</div>
-        <div class="grid grid-cols-2 gap-2">
-          <button onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')" class="p-2 rounded bg-slate-800 hover:bg-slate-700 text-left font-mono">🏔️ Ladakh</button>
-          <button onclick="setWallpaper('wallpapers/kashmir_dal.jpg')" class="p-2 rounded bg-slate-800 hover:bg-slate-700 text-left font-mono">🌸 Kashmir</button>
-          <button onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')" class="p-2 rounded bg-slate-800 hover:bg-slate-700 text-left font-mono">🕉️ Varanasi</button>
-          <button onclick="setWallpaper('wallpapers/thar_twilight.jpg')" class="p-2 rounded bg-slate-800 hover:bg-slate-700 text-left font-mono">🏜️ Thar</button>
+        <div class="font-bold text-slate-200 mb-2.5">Desktop Wallpaper:</div>
+        <div class="grid grid-cols-2 gap-2.5">
+          <button onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🏔️ Ladakh</button>
+          <button onclick="setWallpaper('wallpapers/kashmir_dal.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🌸 Kashmir</button>
+          <button onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🕉️ Varanasi</button>
+          <button onclick="setWallpaper('wallpapers/thar_twilight.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🏜️ Thar</button>
         </div>
       </div>
     </div>
@@ -270,13 +319,13 @@
     <div id="dock-settings" class="dock-btn" onclick="openApp('win-settings', 'dock-settings')" title="Settings">⚙️</div>
   </div>
 
-  <!-- Lock Screen -->
+  <!-- Lock Screen with Frosted Wallpaper Glass -->
   <div id="lockscreen">
     <div class="lock-box">
       <div class="text-4xl">☸️</div>
       <h2 class="text-base font-bold text-white mt-1">BharatOS</h2>
       <div id="lock-clock" class="lock-time">12:00:00 PM</div>
-      <div id="lock-date" class="text-xs text-slate-400 font-mono">Monday, Aug 31</div>
+      <div id="lock-date" class="text-xs text-slate-300 font-mono">Monday, Aug 31</div>
       
       <input id="lock-pass" type="password" placeholder="Passcode (1234)" class="lock-input" onkeydown="if(event.key==='Enter') unlock()">
       <button onclick="unlock()" class="unlock-btn">⚡ UNLOCK</button>

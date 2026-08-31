@@ -4,6 +4,7 @@ let activeDrag = null;
 let mouseOffset = { x: 0, y: 0 };
 
 function focusWindow(win) {
+  if (!win) return;
   highestZ++;
   win.style.zIndex = highestZ;
 }
@@ -21,7 +22,8 @@ function openApp(id, dockBtnId) {
   }
 }
 
-function closeApp(id, dockBtnId) {
+function closeApp(id, dockBtnId, event) {
+  if (event) event.stopPropagation();
   const win = document.getElementById(id);
   if (!win) return;
   win.style.display = 'none';
@@ -32,12 +34,15 @@ function closeApp(id, dockBtnId) {
   }
 }
 
-function minimizeApp(id) {
+function minimizeApp(id, dockBtnId, event) {
+  if (event) event.stopPropagation();
   const win = document.getElementById(id);
-  if (win) win.style.display = 'none';
+  if (!win) return;
+  win.style.display = 'none';
 }
 
-function toggleMax(id) {
+function toggleMax(id, event) {
+  if (event) event.stopPropagation();
   const win = document.getElementById(id);
   if (!win) return;
   
@@ -53,15 +58,20 @@ function toggleMax(id) {
     win.dataset.origWidth = win.style.width;
     win.dataset.origHeight = win.style.height;
     
-    win.style.top = '38px';
-    win.style.left = '6px';
-    win.style.width = 'calc(100vw - 12px)';
-    win.style.height = 'calc(100vh - 100px)';
+    win.style.top = '40px';
+    win.style.left = '8px';
+    win.style.width = 'calc(100vw - 16px)';
+    win.style.height = 'calc(100vh - 110px)';
     win.dataset.max = 'true';
   }
 }
 
 function startDrag(e, winId) {
+  // Prevent dragging if clicking window control buttons or header inputs
+  if (e.target.closest('.window-controls') || e.target.closest('button') || e.target.closest('select')) {
+    return;
+  }
+
   const win = document.getElementById(winId);
   if (!win || win.dataset.max === 'true') return;
   
@@ -83,7 +93,7 @@ function onDrag(e) {
   let y = e.clientY - mouseOffset.y;
   
   x = Math.max(0, Math.min(window.innerWidth - 80, x));
-  y = Math.max(36, Math.min(window.innerHeight - 80, y));
+  y = Math.max(38, Math.min(window.innerHeight - 80, y));
   
   activeDrag.style.left = x + 'px';
   activeDrag.style.top = y + 'px';
