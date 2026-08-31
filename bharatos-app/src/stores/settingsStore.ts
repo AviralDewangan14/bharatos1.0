@@ -26,8 +26,9 @@ interface SettingsStore {
   soundVolume: number; // 0 to 1
   outputDevice: string;
 
-  // Screen Brightness
+  // Screen Brightness & Night Shift
   brightness: number; // 10 to 100
+  nightShift: boolean;
 
   // Wi-Fi Connection
   wifiEnabled: boolean;
@@ -56,6 +57,7 @@ interface SettingsStore {
   setSoundVolume: (volume: number) => void;
   setOutputDevice: (dev: string) => void;
   setBrightness: (b: number) => void;
+  setNightShift: (ns: boolean) => void;
   setWifiEnabled: (enabled: boolean) => void;
   setWifiConnectedSsid: (ssid: string) => void;
   setIsPowerOff: (off: boolean) => void;
@@ -102,6 +104,7 @@ export const useSettingsStore = create<SettingsStore>()(
       outputDevice: 'Built-in HD Speakers',
 
       brightness: 100,
+      nightShift: false,
 
       wifiEnabled: true,
       wifiConnectedSsid: 'BharatNet-5G Ultra',
@@ -125,6 +128,7 @@ export const useSettingsStore = create<SettingsStore>()(
       setSoundVolume: (soundVolume) => set({ soundVolume }),
       setOutputDevice: (outputDevice) => set({ outputDevice }),
       setBrightness: (brightness) => set({ brightness }),
+      setNightShift: (nightShift) => set({ nightShift }),
       setWifiEnabled: (wifiEnabled) => set({ wifiEnabled }),
       setWifiConnectedSsid: (wifiConnectedSsid) => set({ wifiConnectedSsid }),
       setIsPowerOff: (isPowerOff) => set({ isPowerOff }),

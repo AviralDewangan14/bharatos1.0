@@ -9,6 +9,7 @@ import AppStoreApp from './app-store/AppStoreApp';
 import GalleryApp from './gallery/GalleryApp';
 import MusicApp from './music/MusicApp';
 import SystemMonitorApp from './system-monitor/SystemMonitorApp';
+import FocusDefendApp from './focusdefend/FocusDefendApp';
 
 export function registerAllApps() {
   const { registerApp } = useAppRegistry.getState();
@@ -126,5 +127,18 @@ export function registerAllApps() {
     defaultSize: { width: 600, height: 450 },
     singleton: true,
     component: SystemMonitorApp
+  });
+
+  registerApp({
+    id: 'focusdefend',
+    name: 'FocusDefend',
+    icon: 'Shield',
+    description: 'Deep-work flow timer, distraction firewall, and procedural focus soundscapes.',
+    category: 'productivity',
+    defaultSize: { width: 850, height: 580 },
+    pinnedToDock: true,
+    showOnDesktop: true,
+    singleton: true,
+    component: FocusDefendApp
   });
 }

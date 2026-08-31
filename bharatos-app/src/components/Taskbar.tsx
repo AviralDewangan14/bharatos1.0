@@ -42,7 +42,8 @@ const DOCK_APP_COLORS: Record<string, { bg: string; text: string; glow: string }
   'app-store': { bg: 'from-purple-500 to-indigo-700', text: 'text-white', glow: 'shadow-purple-500/30' },
   gallery: { bg: 'from-pink-500 to-rose-600', text: 'text-white', glow: 'shadow-rose-500/30' },
   music: { bg: 'from-violet-500 to-fuchsia-700', text: 'text-white', glow: 'shadow-violet-500/30' },
-  'system-monitor': { bg: 'from-teal-400 to-emerald-600', text: 'text-white', glow: 'shadow-teal-500/30' }
+  'system-monitor': { bg: 'from-teal-400 to-emerald-600', text: 'text-white', glow: 'shadow-teal-500/30' },
+  focusdefend: { bg: 'from-rose-500 to-amber-600', text: 'text-white', glow: 'shadow-rose-500/30' }
 };
 
 const NEARBY_WIFI = [

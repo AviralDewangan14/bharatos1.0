@@ -131,6 +131,38 @@ export const resolvePath = (path: string, cwd: string): string => {
   return '/' + resolved.join('/');
 };
 
+export const getGlobalStats = async () => {
+  const db = await getDB();
+  const allNodes = await db.getAll(STORE_NAME);
+  const files = allNodes.filter((n: any) => n.type === 'file');
+  const dirs = allNodes.filter((n: any) => n.type === 'directory');
+  const totalSize = files.reduce((acc: number, f: any) => acc + (f.size || f.content?.length || 0), 0);
+
+  let quotaUsedMb = (totalSize / (1024 * 1024)).toFixed(2);
+  let quotaTotalGb = '50.0';
+  let percentUsed = 2;
+
+  if (typeof navigator !== 'undefined' && navigator.storage && navigator.storage.estimate) {
+    try {
+      const est = await navigator.storage.estimate();
+      const used = (est.usage || totalSize) / (1024 * 1024);
+      const total = (est.quota || 50 * 1024 * 1024 * 1024) / (1024 * 1024 * 1024);
+      quotaUsedMb = used < 0.1 ? (used * 1024).toFixed(1) + ' KB' : used.toFixed(2) + ' MB';
+      quotaTotalGb = total.toFixed(1) + ' GB';
+      percentUsed = Math.min(100, Math.max(2, Math.round(((est.usage || totalSize) / (est.quota || 1)) * 100)));
+    } catch {}
+  }
+
+  return {
+    totalFiles: files.length,
+    totalDirs: dirs.length,
+    totalSize,
+    quotaUsedMb,
+    quotaTotalGb,
+    percentUsed
+  };
+};
+
 const getNodeById = async (id: string): Promise<FSNode | null> => {
   const db = await getDB();
   return (await db.get(STORE_NAME, id)) || null;

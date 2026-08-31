@@ -1,0 +1,20 @@
+[package]
+name = "focusdefend"
+version = "1.0.0"
+edition = "2021"
+authors = ["Aviral Dewangan <aviral.dewangan14@gmail.com>"]
+description = "Sovereign Deep-Work Shield, Distraction Firewall, and Focus Analytics Suite"
+license = "MIT"
+
+[dependencies]
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+chrono = { version = "0.4", features = ["serde"] }
+
+[lib]
+name = "focusdefend"
+path = "src/lib.rs"
+
+[[bin]]
+name = "focusdefend"
+path = "src/main.rs"

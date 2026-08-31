@@ -76,6 +76,8 @@ export default function FilesApp({ windowId: _windowId }: AppComponentProps) {
   const [isCreatingFile, setIsCreatingFile] = useState(false);
   const [newItemName, setNewItemName] = useState('');
   const [storageUsage, setStorageUsage] = useState<string>('0 KB');
+  const [storagePercent, setStoragePercent] = useState<number>(2);
+  const [storageFileCount, setStorageFileCount] = useState<number>(0);
 
   const { openWindow } = useWindowStore();
 
@@ -95,9 +97,11 @@ export default function FilesApp({ windowId: _windowId }: AppComponentProps) {
       setCurrentPath(path);
       setSelectedFile(null);
 
-      // Estimate storage
-      const totalBytes = mapped.reduce((acc, f) => acc + (f.size || 0), 0);
-      setStorageUsage(`${(totalBytes / 1024).toFixed(1)} KB`);
+      // Load true browser storage metrics
+      const stats = await filesystem.getGlobalStats();
+      setStorageUsage(`${stats.quotaUsedMb} of ${stats.quotaTotalGb}`);
+      setStoragePercent(stats.percentUsed);
+      setStorageFileCount(stats.totalFiles);
     } catch (e) {
       console.error('Error reading directory:', e);
     }
@@ -502,18 +506,24 @@ export default function FilesApp({ windowId: _windowId }: AppComponentProps) {
             </div>
           </div>
 
-          {/* Storage Meter Widget */}
-          <div className="bg-slate-900/90 rounded-xl p-3 border border-white/10 text-xs">
-            <div className="flex items-center gap-2 text-slate-300 font-medium mb-1.5">
-              <HardDrive size={14} className="text-amber-400" />
-              <span>Virtual Storage</span>
+          {/* Real Storage Meter Widget */}
+          <div className="bg-slate-900/90 rounded-2xl p-3 border border-white/10 text-xs shadow-md">
+            <div className="flex items-center justify-between text-slate-300 font-medium mb-1.5">
+              <div className="flex items-center gap-1.5">
+                <HardDrive size={13} className="text-amber-400" />
+                <span className="font-semibold text-white">Browser Storage</span>
+              </div>
+              <span className="text-[10px] font-mono text-amber-400 font-bold">{storagePercent}%</span>
             </div>
             <div className="w-full bg-slate-800 rounded-full h-1.5 mb-1.5 overflow-hidden">
-              <div className="bg-gradient-to-r from-amber-500 to-orange-500 h-full w-[15%]" />
+              <div
+                className="bg-gradient-to-r from-amber-500 to-orange-500 h-full transition-all duration-300"
+                style={{ width: `${Math.max(4, storagePercent)}%` }}
+              />
             </div>
             <div className="flex justify-between text-[10px] text-slate-400 font-mono">
-              <span>{storageUsage} used</span>
-              <span>IndexedDB</span>
+              <span className="truncate">{storageUsage}</span>
+              <span className="shrink-0 ml-1">{storageFileCount} files</span>
             </div>
           </div>
 
