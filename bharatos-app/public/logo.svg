@@ -1,0 +1,25 @@
+<svg width="64" height="64" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bharatSaffron" x1="8" y1="4" x2="40" y2="24" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FF7722" />
+      <stop offset="1" stop-color="#E65100" />
+    </linearGradient>
+    <linearGradient id="bharatEmerald" x1="8" y1="24" x2="40" y2="44" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#10B981" />
+      <stop offset="1" stop-color="#059669" />
+    </linearGradient>
+    <linearGradient id="bharatCore" x1="16" y1="16" x2="32" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#3B82F6" />
+      <stop offset="1" stop-color="#1D4ED8" />
+    </linearGradient>
+  </defs>
+  <path d="M24 4.5L39.5 13.4485V31.3515L24 40.3L8.5 31.3515V13.4485L24 4.5Z" stroke="url(#bharatSaffron)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M17 14.5L24 10.5L31 14.5" stroke="url(#bharatSaffron)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <path d="M17 30.5L24 34.5L31 30.5" stroke="url(#bharatEmerald)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+  <circle cx="24" cy="22.5" r="5.5" fill="url(#bharatCore)" stroke="#60A5FA" stroke-width="1.5" />
+  <circle cx="24" cy="22.5" r="1.75" fill="#FFFFFF" />
+  <path d="M24 17V15" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M24 30V28" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M19 22.5H17" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+  <path d="M31 22.5H29" stroke="#FFFFFF" stroke-width="1.5" stroke-linecap="round" />
+</svg>

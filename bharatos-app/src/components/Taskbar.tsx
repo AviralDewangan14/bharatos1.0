@@ -19,6 +19,7 @@ import {
   Check,
   Radio
 } from 'lucide-react';
+import { BharatLogo } from './BharatLogo';
 import clsx from 'clsx';
 import * as LucideIcons from 'lucide-react';
 import type { AppDefinition } from '../types/app';
@@ -158,15 +159,13 @@ export function Taskbar({
           className={clsx(
             "h-12 px-3.5 rounded-2xl flex items-center gap-2.5 backdrop-blur-2xl border transition-all duration-200 shadow-xl group",
             isLauncherOpen
-              ? "bg-amber-500 text-slate-950 border-amber-400 shadow-amber-500/25 scale-105"
+              ? "bg-amber-500/20 text-white border-amber-400 shadow-amber-500/25 scale-105"
               : "bg-slate-950/75 hover:bg-slate-900/90 text-white border-white/15 hover:border-amber-500/40 hover:shadow-amber-500/10"
           )}
           title="BharatOS Launcher (Cmd/Win + Space)"
         >
-          <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-amber-500 to-orange-500 flex items-center justify-center text-slate-950 shadow-md group-hover:scale-110 transition-transform">
-            <Sparkles size={14} className="stroke-[2.5]" />
-          </div>
-          <span className="text-xs font-bold tracking-wide hidden md:inline">BharatOS</span>
+          <BharatLogo size={22} variant="color" className="group-hover:scale-110 transition-transform" />
+          <span className="text-xs font-semibold tracking-wide hidden md:inline">BharatOS</span>
         </button>
 
         {/* ISLAND 2: Center Applications Dock */}

@@ -8,6 +8,7 @@ import { initFS } from './services/filesystem';
 import { registerAllApps } from './apps';
 import { useSettingsStore } from './stores/settingsStore';
 import { sound } from './services/sound';
+import { BharatLogo } from './components/BharatLogo';
 import { Power } from 'lucide-react';
 
 export default function App() {
@@ -149,15 +150,17 @@ export default function App() {
   if (!isBooted) {
     return (
       <div className="w-screen h-screen bg-black flex flex-col items-center justify-center select-none font-sans p-6">
-        <div className="flex flex-col items-center max-w-[200px] w-full space-y-8 animate-in fade-in duration-300">
+        <div className="flex flex-col items-center max-w-[200px] w-full space-y-6 animate-in fade-in duration-500">
           
-          {/* Minimalist Monogram / Logo */}
-          <div className="flex items-center gap-2 text-white">
-            <span className="text-2xl font-light tracking-wider">BharatOS</span>
+          {/* Professional Vector BharatOS Emblem */}
+          <BharatLogo size={56} variant="color" className="drop-shadow-[0_0_15px_rgba(249,115,22,0.4)]" />
+
+          <div className="flex flex-col items-center">
+            <span className="text-xl font-light tracking-[0.2em] text-white">BharatOS</span>
           </div>
 
           {/* Minimal Apple-Style Thin Loading Bar */}
-          <div className="w-full bg-white/15 rounded-full h-[3px] overflow-hidden">
+          <div className="w-full bg-white/15 rounded-full h-[2.5px] overflow-hidden mt-2">
             <div
               className="bg-white h-full transition-all duration-150 ease-out"
               style={{ width: `${bootProgress}%` }}
