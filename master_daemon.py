@@ -66,7 +66,7 @@ class MasterUnifiedDaemon:
         self.current_mode: str = "MAJOR_PROJECT_BUILD"
 
         # Current Active Code Context (FocusDefend Sovereign Suite - Boosted)
-        self.current_project: str = "focusdefend-sovereign-shield"
+        self.current_project: str = "bharatos-sovereign-desktop"
         self.current_language: str = "Rust"
         self.current_entity: str = "focusdefend/src/shield.rs"
         self.current_lines: int = 280

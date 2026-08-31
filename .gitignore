@@ -1,61 +1,44 @@
-# =============================================================================
-# BHARATOS & CLIENT PORTFOLIO - PUBLIC GITHUB SECURITY & CLEANLINESS GITIGNORE
-# =============================================================================
-
-# Confidential Configuration & Secret API Keys
+# Environment & secrets
 .env
-.env.*
-*.env
 *.cfg
-*.secret
-*.key
 wakatime.cfg
-config.json
+*.key
+*.pem
 
-# Internal Simulation & Generated Contract Workspaces
+# Bot & Telemetry internal scripts
+survival_agent/
+simulation_engine.py
+stardust_engine.py
+workspace_writer.py
+*.bat
+!run_bharatos.bat
+*.vbs
 simulated_workspaces/
-survival_agent/completed_contracts/
-dist/iso_staging/
-dist/*.iso
-dist/*.zip
-dist/*.bin
+temp_script_*.js
 
-# Python Bytecode & Environments
+# Test captures in root directory
+bharatos_*.png
+solaris_*.png
+*.png
+!public/assets/*.png
+
+# Markdown reports
+BHARATOS_*_REPORT.md
+bharatos_full_clean_check.js
+
+# Build artifacts
+dist/
+dist_info.json
+*.iso
+*.sha256
 __pycache__/
 *.py[cod]
 *$py.class
-*.pyd
-.venv/
-venv/
-env/
-ENV/
-
-# System, Logs & Telemetry Caches
 *.log
-*.sqlite
-*.sqlite3
-*.db
 .system_generated/
 scratch/
-.pytest_cache/
-.coverage
 
-# IDE & OS Artifacts
-.DS_Store
+# OS specific
 Thumbs.db
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Node & Vercel
-node_modules/
-.vercel/
-npm-debug.log*
-
-# Test Screenshots (Keep wallpapers/ and core assets clean)
-bharatos_*.png
-clean_*.png
-project_dash_*.png
-web_dashboard_*.png
-solaris_game_*.png
+Desktop.ini
+.DS_Store

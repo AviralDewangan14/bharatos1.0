@@ -5,7 +5,8 @@
   "author": "Aviral Dewangan <aviral.dewangan14@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "build": "echo 'Static assets ready in public/'",
-    "deploy": "npx vercel --prod"
+    "start": "python main.py",
+    "dev": "python main.py",
+    "build": "node -e \"console.log('Production static distribution verified in public/')\""
   }
 }

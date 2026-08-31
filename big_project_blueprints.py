@@ -320,7 +320,7 @@ class BigProjectScheduler:
 
     def __init__(self):
         self.blueprints = BIG_PROJECT_BLUEPRINTS
-        self.current_project_idx = 0
+        self.current_project_idx = 1
         self.current_phase_idx = 0
         self.total_major_milestones_completed = 0
 
