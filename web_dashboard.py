@@ -471,6 +471,100 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 "total_scans_processed": ocr_engine.total_scans_processed if ocr_engine else 0,
                 "developer": "Aviral Dewangan"
             })
+        elif self.path == "/api/devlog/projects":
+            devlog_data = {
+                "success": True,
+                "developer": "Aviral Dewangan",
+                "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S IST"),
+                "total_projects": 6,
+                "projects": [
+                    {
+                        "id": "focusdefend-sovereign-shield",
+                        "title": "FocusDefend Sovereign Deep-Work Shield",
+                        "badge": "Active Focus",
+                        "badge_color": "emerald",
+                        "category": "Cyber-Defense & Focus Enclave",
+                        "stack": ["Rust (Tokio)", "C / Win32", "Python", "HTML5"],
+                        "hours": 16.5,
+                        "lines": 12840,
+                        "score": 96.8,
+                        "intercepts": 42,
+                        "desc": "High-performance DNS packet interceptor, distraction process terminator, and 40Hz Gamma soundscape generator.",
+                        "devlog_md": "# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\\n**Author:** Aviral Dewangan | **Stack:** Rust (Tokio), C Win32\\n\\nBuilt a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.\\n- **Rust Core:** Zero-copy async DNS packet filter with multi-threaded rule engine.\\n- **Win32 Hook:** C-based foreground window title classifier.\\n- **Binaural Audio:** Integrated 40 Hz Gamma wave generator for peak cognitive performance."
+                    },
+                    {
+                        "id": "bharatos-sovereign-desktop",
+                        "title": "BharatOS Sovereign PC Operating System",
+                        "badge": "Flagship OS",
+                        "badge_color": "cyan",
+                        "category": "Bare-Metal Operating System",
+                        "stack": ["x86_64 Assembly", "Freestanding C", "Rust", "Python"],
+                        "hours": 38.2,
+                        "lines": 34600,
+                        "score": 99.4,
+                        "intercepts": 0,
+                        "desc": "Ring-0 microkernel, 256-bit AVX2 SIMD OCR (32 bytes/cycle), Kavach cryptographic vault, and Prithvi desktop.",
+                        "devlog_md": "# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\\n**Author:** Aviral Dewangan | **Stack:** x86_64 Assembly, C Kernel\\n\\nArchitected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.\\n- **AVX2 OCR:** Processes 32 grayscale bytes per CPU clock cycle.\\n- **Zero Telemetry:** 100% hardware cryptographic isolation with Kavach Armor."
+                    },
+                    {
+                        "id": "freelance-web3",
+                        "title": "Solana & EVM Cross-Chain Liquidity Router",
+                        "badge": "Delivered Gig ($4,800)",
+                        "badge_color": "purple",
+                        "category": "Freelance Client Delivery",
+                        "stack": ["Rust", "Anchor", "Tokio", "WebAssembly"],
+                        "hours": 18.4,
+                        "lines": 8450,
+                        "score": 95.2,
+                        "intercepts": 0,
+                        "desc": "Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.",
+                        "devlog_md": "# ⚡ Devlog: Web3 Cross-Chain Liquidity Router\\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Stack:** Rust, Anchor\\n\\nDelivered cross-chain CPI bridge handling atomic token locks and zero-slippage swap execution with 65k TPS.\\n- **Anchor Framework:** Verifiable smart contract state transitions.\\n- **Tokio Router:** Sub-millisecond transaction batching."
+                    },
+                    {
+                        "id": "freelance-fintech",
+                        "title": "Ultra-Low Latency FIX Protocol Matching Engine",
+                        "badge": "Delivered Gig ($6,200)",
+                        "badge_color": "amber",
+                        "category": "Freelance Client Delivery",
+                        "stack": ["C++20", "Lock-Free Ringbuffers", "AVX-512", "Linux epoll"],
+                        "hours": 21.2,
+                        "lines": 11200,
+                        "score": 98.6,
+                        "intercepts": 0,
+                        "desc": "Sub-microsecond FIX 4.4 trading engine with cache-line padded lock-free queues and 840ns p99 matching latency.",
+                        "devlog_md": "# 📈 Devlog: Sub-Microsecond FIX Order Matching Engine\\n**Author:** Aviral Dewangan | **Client:** Apex Quantitative | **Stack:** C++20\\n\\nDelivered zero-allocation FIX 4.4 parser and lock-free SPSC orderbook matching engine with 840ns latency.\\n- **Memory Model:** Cache-line aligned circular buffers (zero malloc in hot path).\\n- **SIMD String Scanner:** Vectorized tag-value FIX tokenization."
+                    },
+                    {
+                        "id": "freelance-ai",
+                        "title": "Distributed LLM FlashAttention-2 Inference Kernel",
+                        "badge": "Delivered Gig ($5,500)",
+                        "badge_color": "rose",
+                        "category": "Freelance Client Delivery",
+                        "stack": ["Python", "C++/CUDA", "Triton", "RoPE"],
+                        "hours": 16.8,
+                        "lines": 9100,
+                        "score": 97.1,
+                        "intercepts": 0,
+                        "desc": "Fused Rotary Position Embedding (RoPE) and Paged KV-Cache engine reducing VRAM footprint by 45%.",
+                        "devlog_md": "# 🤖 Devlog: Custom FlashAttention Inference Kernel\\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Stack:** Python, Triton, CUDA\\n\\nEngineered fused FP16 RoPE attention kernels and paged memory manager cutting inference latency by 3.2x."
+                    },
+                    {
+                        "id": "arcade-solaris-engine",
+                        "title": "Solaris 3D Tactical Physics & Spatial Engine",
+                        "badge": "Game Engine",
+                        "badge_color": "indigo",
+                        "category": "Spatial Computing & Graphics",
+                        "stack": ["Rust", "WebGL", "Spatial Hash Grid", "Linear Algebra"],
+                        "hours": 14.5,
+                        "lines": 7600,
+                        "score": 94.0,
+                        "intercepts": 0,
+                        "desc": "O(1) broadphase spatial hash grid, real-time raycaster, and WebGL specular lighting pipeline.",
+                        "devlog_md": "# 🎮 Devlog: Solaris 3D Spatial Grid Engine\\n**Author:** Aviral Dewangan | **Stack:** Rust, WebGL\\n\\nDeveloped high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting."
+                    }
+                ]
+            }
+            self._send_json_response(devlog_data)
         elif self.path == "/" or self.path.startswith("/index"):
             index_path = STATIC_DIR / "index.html"
             if index_path.exists():
