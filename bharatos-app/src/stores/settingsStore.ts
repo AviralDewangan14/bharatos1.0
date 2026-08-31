@@ -21,9 +21,20 @@ interface SettingsStore {
   fontSize: FontSize;
   userName: string;
 
-  // Sound Effects
+  // Sound Effects & Audio
   soundEnabled: boolean;
   soundVolume: number; // 0 to 1
+  outputDevice: string;
+
+  // Screen Brightness
+  brightness: number; // 10 to 100
+
+  // Wi-Fi Connection
+  wifiEnabled: boolean;
+  wifiConnectedSsid: string;
+
+  // System Power State
+  isPowerOff: boolean;
 
   // Lock Screen Customization
   lockScreenWallpaper: string;
@@ -43,6 +54,11 @@ interface SettingsStore {
   setUserName: (name: string) => void;
   setSoundEnabled: (enabled: boolean) => void;
   setSoundVolume: (volume: number) => void;
+  setOutputDevice: (dev: string) => void;
+  setBrightness: (b: number) => void;
+  setWifiEnabled: (enabled: boolean) => void;
+  setWifiConnectedSsid: (ssid: string) => void;
+  setIsPowerOff: (off: boolean) => void;
   setLockScreenWallpaper: (url: string) => void;
   setLockScreenGreeting: (greeting: string) => void;
   setLockScreenClockFormat: (format: '12h' | '24h') => void;
@@ -82,7 +98,15 @@ export const useSettingsStore = create<SettingsStore>()(
       userName: 'Aviral Dewangan',
 
       soundEnabled: true,
-      soundVolume: 0.5,
+      soundVolume: 0.7,
+      outputDevice: 'Built-in HD Speakers',
+
+      brightness: 100,
+
+      wifiEnabled: true,
+      wifiConnectedSsid: 'BharatNet-5G Ultra',
+
+      isPowerOff: false,
 
       lockScreenWallpaper: '/wallpapers/ladakh_pangong.jpg',
       lockScreenGreeting: 'Welcome to BharatOS',
@@ -99,6 +123,11 @@ export const useSettingsStore = create<SettingsStore>()(
       setUserName: (userName) => set({ userName }),
       setSoundEnabled: (soundEnabled) => set({ soundEnabled }),
       setSoundVolume: (soundVolume) => set({ soundVolume }),
+      setOutputDevice: (outputDevice) => set({ outputDevice }),
+      setBrightness: (brightness) => set({ brightness }),
+      setWifiEnabled: (wifiEnabled) => set({ wifiEnabled }),
+      setWifiConnectedSsid: (wifiConnectedSsid) => set({ wifiConnectedSsid }),
+      setIsPowerOff: (isPowerOff) => set({ isPowerOff }),
       setLockScreenWallpaper: (lockScreenWallpaper) => set({ lockScreenWallpaper }),
       setLockScreenGreeting: (lockScreenGreeting) => set({ lockScreenGreeting }),
       setLockScreenClockFormat: (lockScreenClockFormat) => set({ lockScreenClockFormat }),
@@ -113,7 +142,7 @@ export const useSettingsStore = create<SettingsStore>()(
       }),
 
       removeUser: (id) => set((state) => {
-        if (state.users.length <= 1) return state; // Keep at least one
+        if (state.users.length <= 1) return state;
         const filtered = state.users.filter(u => u.id !== id);
         const newActive = state.activeUserId === id ? filtered[0].id : state.activeUserId;
         const activeUser = filtered.find(u => u.id === newActive);
