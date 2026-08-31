@@ -1,42 +1,46 @@
 # GenAz Programming Language
 
-GenAz is a fast, simple, and expressive programming language designed for clean general-purpose programming, concurrency, and high-performance computation.
+A fast, clean, and expressive native programming language featuring static type inference, a stack bytecode virtual machine, lightweight concurrency, and a native desktop IDE.
 
-## Features
-- **Clean Syntax**: Intuitive and readable without syntactic noise.
-- **Static Type Inference**: Hindley-Milner type inference engine catches errors early without requiring verbose type annotations.
-- **Stack Bytecode VM**: High-performance bytecode virtual machine with 25+ specialized opcodes.
-- **Built-in Concurrency**: Lightweight `spawn` green threads and thread-safe channels (`chan`).
-- **Matrix & Tensor Acceleration**: Native matrix multiplication kernel (`matmul`).
-- **Interactive Toolchain**: CLI with `run`, `check`, `dis` (disassembler), `ast`, `tokens`, `repl`, and `gui` (web IDE).
+## Overview
+GenAz is designed from scratch as a standalone, general-purpose language with:
+- **Fast Bytecode Compiler**: Compiles `.gaz` source code into binary `.gbc` bytecode files.
+- **Virtual Machine**: Stack-based execution engine with 25+ opcodes, green threads, and thread-safe channels.
+- **Native Desktop IDE**: Built-in desktop editor and debugger (`genaz gui`).
+- **Hindley-Milner Type Inference**: Static type validation without requiring repetitive type annotations.
 
-## Getting Started
+---
 
-### 1. Run a GenAz Program
+## 🚀 Installation & CLI Usage
+
+Add the `genaz/bin` folder to your system PATH, or run directly:
+
 ```bash
-python -m genaz.src.main run genaz/examples/01_hello.gaz
+# 1. Run a source script directly
+python genaz/src/main.py run genaz/examples/01_hello.gaz
+
+# 2. Compile to native binary bytecode (.gbc)
+python genaz/src/main.py build genaz/examples/02_fibonacci.gaz -o fib.gbc
+
+# 3. Run the compiled binary bytecode
+python genaz/src/main.py run fib.gbc
+
+# 4. Disassemble bytecode
+python genaz/src/main.py dis genaz/examples/01_hello.gaz
+
+# 5. Interactive REPL
+python genaz/src/main.py repl
+
+# 6. Launch Native Desktop GUI IDE
+python genaz/src/main.py gui
 ```
 
-### 2. Interactive REPL
-```bash
-python -m genaz.src.main repl
-```
+---
 
-### 3. Bytecode Disassembler
-```bash
-python -m genaz.src.main dis genaz/examples/02_fibonacci.gaz
-```
+## 📝 Syntax & Language Features
 
-### 4. Interactive Web IDE
-```bash
-python -m genaz.src.main gui
-```
-Or open `genaz/ide/index.html` in your browser.
-
-## Code Example
-
+### Functions & Control Flow
 ```genaz
-// Fibonacci calculation
 fn fib(n) {
     if n <= 1 {
         return n;
@@ -45,28 +49,62 @@ fn fib(n) {
 }
 
 for i in 0..10 {
-    print("fib(" + str(i) + ") = " + str(fib(i)));
+    println("fib(" + str(i) + ") = " + str(fib(i)));
 }
 ```
 
-## Directory Structure
+### Concurrency (Green Threads & Channels)
+```genaz
+fn worker(ch, id) {
+    println("Worker " + str(id) + " processing data...");
+    ch <- "Result from worker " + str(id);
+}
+
+let c = chan(4);
+spawn worker(c, 1);
+spawn worker(c, 2);
+
+println(<-c);
+println(<-c);
+```
+
+### Matrices & Tensors
+```genaz
+let A = [[1, 2], [3, 4]];
+let B = [[5, 6], [7, 8]];
+
+let C = matmul(A, B);
+println("Matrix Multiplication:");
+println(C);
+```
+
+---
+
+## 📂 Project Structure
+
 ```
 genaz/
+├── bin/
+│   ├── genaz.bat            # Windows command line runner
+│   ├── genaz.cmd            # Windows CMD runner
+│   └── genaz                # Unix / macOS shell script
 ├── src/
-│   ├── lexer.py             # Tokenizer with line & column tracking
+│   ├── lexer.py             # Lexical tokenizer
 │   ├── parser.py            # Recursive descent AST parser
-│   ├── type_checker.py      # Hindley-Milner type checker
+│   ├── type_checker.py      # Type inference engine
 │   ├── compiler.py          # Stack bytecode compiler
-│   ├── vm.py                # High-speed virtual machine
+│   ├── binary_format.py     # Binary bytecode (.gbc) serializer
+│   ├── vm.py                # Virtual machine runtime
 │   ├── disassembler.py      # Bytecode disassembler
-│   ├── repl.py              # Interactive REPL shell
-│   └── main.py              # Universal CLI
-├── ide/
-│   └── index.html           # Web-based IDE playground
-├── examples/                # Real example scripts (.gaz)
+│   ├── repl.py              # Interactive REPL
+│   ├── gui.py               # Native Desktop Tkinter IDE
+│   └── main.py              # Universal CLI entrypoint
+├── examples/                # Example scripts (.gaz)
 └── tests/                   # Automated unit tests
 ```
 
-## Author
+---
+
+## 👤 Author
 Created by **Aviral Dewangan**  
 GitHub: [@AviralDewangan14](https://github.com/AviralDewangan14)
