@@ -5,13 +5,14 @@ import clsx from 'clsx';
 
 export default function GalleryApp({ windowId: _windowId }: AppComponentProps) {
   const [images] = useState([
-    { id: 1, name: 'Default Wallpaper', src: '/wallpapers/default.jpg', type: 'wallpaper' },
-    { id: 2, name: 'Nature', src: '/wallpapers/nature.jpg', type: 'wallpaper' },
-    { id: 3, name: 'Abstract', src: '/wallpapers/abstract.jpg', type: 'wallpaper' },
-    { id: 4, name: 'Space', src: '/wallpapers/space.jpg', type: 'wallpaper' },
-    // Mock local images
-    { id: 5, name: 'Screenshot_1.png', src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjNTVhYWZmIiAvPjwvc3ZnPg==', type: 'local' },
-    { id: 6, name: 'Design_Mockup.jpg', src: 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAiIGhlaWdodD0iMTAwIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZmY1NWFhIiAvPjwvc3ZnPg==', type: 'local' },
+    { id: 1, name: 'Pangong Lake, Ladakh', src: '/wallpapers/ladakh_pangong.jpg', type: 'wallpaper' },
+    { id: 2, name: 'Dal Lake, Kashmir', src: '/wallpapers/kashmir_dal.jpg', type: 'wallpaper' },
+    { id: 3, name: 'Tea Hills, Munnar', src: '/wallpapers/munnar_hills.jpg', type: 'wallpaper' },
+    { id: 4, name: 'Ghats, Varanasi', src: '/wallpapers/varanasi_dawn.jpg', type: 'wallpaper' },
+    { id: 5, name: 'Dunes, Thar Desert', src: '/wallpapers/thar_twilight.jpg', type: 'wallpaper' },
+    { id: 6, name: 'Radhanagar Beach, Andaman', src: '/wallpapers/andaman_beach.jpg', type: 'wallpaper' },
+    { id: 7, name: 'White Desert, Kutch', src: '/wallpapers/kutch_rann.jpg', type: 'wallpaper' },
+    { id: 8, name: 'Western Ghats Waterfall', src: '/wallpapers/waterfall_ghats.jpg', type: 'wallpaper' },
   ]);
 
   const [viewerOpen, setViewerOpen] = useState(false);

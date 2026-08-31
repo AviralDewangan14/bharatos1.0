@@ -5,17 +5,14 @@ import { X, BellOff, Info, AlertTriangle, CheckCircle, XCircle } from 'lucide-re
 export function NotificationCenter() {
   const { notifications, drawerOpen, dismissNotification, clearAll } = useNotificationStore();
 
-  // Simple auto-dismiss logic for toasty notifications
   useEffect(() => {
-    const intervals = notifications.map(() => {
-      // 5 seconds auto dismiss
-      return setTimeout(() => {
-        // Here we could just set a flag like "read" rather than remove, but spec says auto-dismiss
-        // Assuming the store has markAsRead, but we'll leave them in drawer if needed
-      }, 5000);
-    });
-    return () => intervals.forEach(clearTimeout);
-  }, [notifications]);
+    const timer = setTimeout(() => {
+      if (notifications.length > 0) {
+        dismissNotification(notifications[0].id);
+      }
+    }, 5000);
+    return () => clearTimeout(timer);
+  }, [notifications, dismissNotification]);
 
   const getIcon = (type: string) => {
     switch(type) {

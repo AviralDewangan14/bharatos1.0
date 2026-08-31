@@ -11,13 +11,9 @@ export const useContextMenu = () => {
   const onContextMenu = useCallback((e: React.MouseEvent | MouseEvent) => {
     e.preventDefault();
     
-    // Simple viewport containment heuristic
     const clickX = e.clientX;
     const clickY = e.clientY;
     
-    // Assume menu is approx 200px wide, 250px high max for quick calculation
-    // A more robust implementation would use a ref on the rendered menu to adjust,
-    // but this gives a snappy native feel without layout thrashing.
     const menuWidth = 200; 
     const menuHeight = 250;
     

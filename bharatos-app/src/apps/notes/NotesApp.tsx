@@ -1,7 +1,7 @@
 import { useState, useEffect,   } from 'react';
 import type { AppComponentProps } from '../../types/app';
 import * as filesystem from '../../services/filesystem';
-import { Plus, Trash, Search, Save, FileText } from 'lucide-react';
+import { Plus, Trash2, Search, Save, FileText } from 'lucide-react';
 import clsx from 'clsx';
 
 type Note = { name: string; path: string };
@@ -125,7 +125,7 @@ export default function NotesApp({ windowId: _windowId }: AppComponentProps) {
                 onClick={(e) => { e.stopPropagation(); deleteNote(note.path); }}
                 className="opacity-0 group-hover:opacity-100 p-1 hover:text-red-400 text-gray-500"
               >
-                <Trash size={14} />
+                <Trash2 size={14} />
               </button>
             </div>
           ))}
