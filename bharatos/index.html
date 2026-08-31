@@ -13,13 +13,13 @@
 </head>
 <body>
 
-  <!-- Desktop Wallpaper -->
+  <!-- Home Screen Wallpaper Layer -->
   <div id="desktop-bg"></div>
 
   <!-- Top Navigation Bar -->
   <div id="topbar">
     <div class="flex items-center space-x-3">
-      <div class="topbar-brand" onclick="toggleStartMenu()" title="Open BharatOS Menu">
+      <div class="topbar-brand">
         <span>☸️</span> <span>BharatOS</span>
       </div>
       <span class="text-xs text-slate-400 font-mono">1.0 Sovereign</span>
@@ -32,31 +32,7 @@
     </div>
   </div>
 
-  <!-- Start Menu App Launcher -->
-  <div id="start-menu" class="hidden">
-    <div class="flex items-center gap-3 p-2 bg-slate-900/80 rounded-xl border border-slate-800">
-      <div class="text-2xl">☸️</div>
-      <div>
-        <div class="text-xs font-bold text-white">BharatOS Sovereign Edition</div>
-        <div class="text-[10px] text-cyan-400">By Aviral Dewangan</div>
-      </div>
-    </div>
-    <div class="space-y-1">
-      <div class="start-item" onclick="openApp('win-paint', 'dock-paint'); toggleStartMenu()">🎨 <span>Chitram Paint Studio</span></div>
-      <div class="start-item" onclick="openApp('win-term', 'dock-term'); toggleStartMenu()">💻 <span>Interactive Terminal</span></div>
-      <div class="start-item" onclick="openApp('win-notes', 'dock-notes'); toggleStartMenu()">📝 <span>Auto-Saving Notes</span></div>
-      <div class="start-item" onclick="openApp('win-calc', 'dock-calc'); toggleStartMenu()">🧮 <span>Scientific Calculator</span></div>
-      <div class="start-item" onclick="openApp('win-synth', 'dock-synth'); toggleStartMenu()">🎵 <span>Web Audio Synthesizer</span></div>
-      <div class="start-item" onclick="openApp('win-snake', 'dock-snake'); toggleStartMenu()">🐍 <span>Snake Arcade Game</span></div>
-      <div class="start-item" onclick="openApp('win-settings', 'dock-settings'); toggleStartMenu()">⚙️ <span>System Settings & About</span></div>
-    </div>
-    <div class="pt-2 border-t border-slate-800 flex justify-between">
-      <button onclick="lockDesktop()" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 font-mono">🔒 Lock Screen</button>
-      <span class="text-[10px] text-slate-500 self-center">v1.0.0</span>
-    </div>
-  </div>
-
-  <!-- Desktop Shortcuts -->
+  <!-- Desktop Shortcuts (Left Grid) -->
   <div id="desktop-grid">
     <div class="app-shortcut" onclick="openApp('win-paint', 'dock-paint')">
       <div class="shortcut-icon">🎨</div>
@@ -88,45 +64,9 @@
     </div>
   </div>
 
-  <!-- Desktop Widgets Panel -->
-  <div id="widgets-panel">
-    <div class="widget-card">
-      <div class="flex items-center justify-between mb-2">
-        <span class="text-xs font-bold text-slate-200">System Telemetry</span>
-        <span class="text-[10px] text-cyan-400 font-mono">0.00% External Leak</span>
-      </div>
-      <div class="space-y-2 text-xs font-mono">
-        <div>
-          <div class="flex justify-between text-[11px] text-slate-400 mb-0.5">
-            <span>CPU Load</span>
-            <span id="widget-cpu-text" class="text-cyan-300 font-bold">10%</span>
-          </div>
-          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-            <div id="widget-cpu-bar" class="h-full bg-cyan-400 rounded-full transition-all duration-500" style="width: 22%"></div>
-          </div>
-        </div>
-        <div>
-          <div class="flex justify-between text-[11px] text-slate-400 mb-0.5">
-            <span>Memory (RAM)</span>
-            <span id="widget-ram-text" class="text-indigo-300 font-bold">1.4 GB / 8.0 GB</span>
-          </div>
-          <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-            <div id="widget-ram-bar" class="h-full bg-indigo-500 rounded-full transition-all duration-500" style="width: 18%"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="widget-card">
-      <div class="flex items-center justify-between">
-        <div>
-          <div class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Independent OS for Bharat</div>
-          <div id="widget-date" class="text-sm font-bold text-white mt-0.5">Mon, Aug 31</div>
-        </div>
-        <div class="text-2xl">🇮🇳</div>
-      </div>
-    </div>
-  </div>
+  <!-- =========================================================================
+       WINDOWS
+       ========================================================================= -->
 
   <!-- 1. Paint Studio Window -->
   <div id="win-paint" class="window w-[720px] h-[500px] top-12 left-32 hidden" onmousedown="focusWindow(this)">
@@ -305,8 +245,8 @@
     </div>
   </div>
 
-  <!-- 7. Settings Window -->
-  <div id="win-settings" class="window w-[540px] h-[440px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
+  <!-- 7. Settings Window (Dual Wallpaper Engine, About & Display Tabs) -->
+  <div id="win-settings" class="window w-[560px] h-[460px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
         <div class="gem-btn gem-close" onclick="closeApp('win-settings', 'dock-settings', event)" title="Close"><span>✕</span></div>
@@ -325,29 +265,45 @@
     </div>
 
     <div class="window-body p-4 text-xs overflow-y-auto">
-      <!-- Tab 1: Wallpapers -->
+      <!-- Tab 1: Wallpapers (Customizable for Home, Lock, or Both) -->
       <div id="settings-tab-wallpapers" class="space-y-3">
-        <div class="font-bold text-slate-200">Select Desktop & Lock Screen Wallpaper:</div>
-        <div class="grid grid-cols-2 gap-3">
-          <button data-src="wallpapers/ladakh_pangong.jpg" onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+        <div class="flex items-center justify-between">
+          <span class="font-bold text-slate-200">Target Screen:</span>
+          <div class="flex items-center space-x-1 font-mono text-[11px]">
+            <button id="target-btn-home" onclick="setTargetScreen('home')" class="px-2.5 py-1 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold">🏠 Home Screen</button>
+            <button id="target-btn-lock" onclick="setTargetScreen('lock')" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300">🔒 Lock Screen</button>
+            <button id="target-btn-both" onclick="setTargetScreen('both')" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300">⚡ Both</button>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 gap-2.5 pt-1">
+          <button onclick="applyWallpaper('wallpapers/ladakh_pangong.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
             <div class="font-bold text-slate-200">🏔️ Ladakh Lake</div>
             <div class="text-[10px] text-slate-400 mt-0.5">Pangong Tso 4K Landscape</div>
           </button>
-          <button data-src="wallpapers/kashmir_dal.jpg" onclick="setWallpaper('wallpapers/kashmir_dal.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+          <button onclick="applyWallpaper('wallpapers/kashmir_dal.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
             <div class="font-bold text-slate-200">🌸 Kashmir Valley</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Dal Lake Sunset & Shikaras</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Dal Lake Sunset</div>
           </button>
-          <button data-src="wallpapers/varanasi_dawn.jpg" onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+          <button onclick="applyWallpaper('wallpapers/varanasi_dawn.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
             <div class="font-bold text-slate-200">🕉️ Varanasi Ghats</div>
             <div class="text-[10px] text-slate-400 mt-0.5">Holy Ganges Sunrise</div>
           </button>
-          <button data-src="wallpapers/thar_twilight.jpg" onclick="setWallpaper('wallpapers/thar_twilight.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+          <button onclick="applyWallpaper('wallpapers/thar_twilight.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
             <div class="font-bold text-slate-200">🏜️ Thar Desert</div>
             <div class="text-[10px] text-slate-400 mt-0.5">Golden Twilight Dunes</div>
           </button>
+          <button onclick="applyWallpaper('wallpapers/munnar_hills.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🌿 Munnar Hills</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Kerala Tea Gardens</div>
+          </button>
+          <button onclick="applyWallpaper('wallpapers/andaman_beach.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🏝️ Andaman Waters</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Turquoise Coral Reefs</div>
+          </button>
         </div>
-        <div class="text-[11px] text-slate-400 font-mono mt-2">
-          💡 Selected wallpaper immediately applies to both the desktop workspace and the lock screen.
+        <div class="text-[11px] text-slate-400 font-mono mt-1">
+          💡 You can customize separate wallpapers for Home Screen vs Lock Screen!
         </div>
       </div>
 
@@ -362,7 +318,7 @@
         </div>
 
         <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 font-sans text-slate-300 leading-relaxed text-[11px]">
-          🇮🇳 <strong>Mission Statement:</strong> "I wanted to build an OS for Bharat so that India will become independent in the OS sector, ensuring that major outages or failures in Windows or macOS will never paralyze our digital infrastructure." — <em>Aviral Dewangan</em>
+          🇮🇳 <strong>Mission Statement:</strong> "I want to build an OS for Bharat so that India becomes independent in the OS sector, ensuring that serious proprietary OS failures (like Windows/macOS global crashes) will never affect our country's infrastructure." — <em>Aviral Dewangan</em>
         </div>
 
         <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-[11px]">
@@ -399,8 +355,32 @@
     </div>
   </div>
 
-  <!-- Bottom Dock -->
+  <!-- Dock Profile Menu (Pops up from Dock on Profile Click) -->
+  <div id="dock-profile-menu" class="hidden">
+    <div class="flex items-center gap-3 p-2 bg-slate-900/80 rounded-xl border border-slate-800">
+      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-white text-sm shadow-md">AD</div>
+      <div>
+        <div class="text-xs font-bold text-white">Aviral Dewangan</div>
+        <div class="text-[10px] text-cyan-400 font-mono">Developer & Sovereign Admin</div>
+      </div>
+    </div>
+    <div class="space-y-1">
+      <div class="profile-menu-item" onclick="openApp('win-paint', 'dock-paint'); toggleProfileMenu()">🎨 <span>Paint Studio</span></div>
+      <div class="profile-menu-item" onclick="openApp('win-term', 'dock-term'); toggleProfileMenu()">💻 <span>Interactive Terminal</span></div>
+      <div class="profile-menu-item" onclick="openApp('win-notes', 'dock-notes'); toggleProfileMenu()">📝 <span>Notes App</span></div>
+      <div class="profile-menu-item" onclick="openApp('win-settings', 'dock-settings'); toggleProfileMenu()">⚙️ <span>Settings & Wallpapers</span></div>
+    </div>
+    <div class="pt-2 border-t border-slate-800 flex justify-between items-center">
+      <button onclick="lockDesktop()" class="text-xs text-rose-300 hover:text-white px-2.5 py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 font-mono">🔒 Lock Screen</button>
+      <span class="text-[10px] text-slate-500 font-mono">BharatOS 1.0</span>
+    </div>
+  </div>
+
+  <!-- Bottom Dock (With Profile Avatar Logo on Left) -->
   <div id="dock">
+    <div id="dock-profile-btn" class="dock-btn" onclick="toggleProfileMenu(event)" title="Aviral Dewangan Profile">
+      <div class="dock-profile-avatar">AD</div>
+    </div>
     <div id="dock-paint" class="dock-btn" onclick="openApp('win-paint', 'dock-paint')" title="Paint Studio">🎨</div>
     <div id="dock-term" class="dock-btn" onclick="openApp('win-term', 'dock-term')" title="Terminal">💻</div>
     <div id="dock-notes" class="dock-btn" onclick="openApp('win-notes', 'dock-notes')" title="Notes">📝</div>
@@ -410,8 +390,11 @@
     <div id="dock-settings" class="dock-btn" onclick="openApp('win-settings', 'dock-settings')" title="Settings">⚙️</div>
   </div>
 
-  <!-- Lock Screen with Frosted Wallpaper Glass -->
+  <!-- Lock Screen with Dedicated Frosted Wallpaper Glass -->
   <div id="lockscreen">
+    <div id="lockscreen-bg"></div>
+    <div id="lockscreen-overlay"></div>
+    
     <div class="lock-box">
       <div class="text-4xl">☸️</div>
       <h2 class="text-base font-bold text-white mt-1">BharatOS</h2>

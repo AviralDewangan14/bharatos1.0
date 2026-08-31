@@ -1,16 +1,39 @@
-// Settings App — Multi-tab Settings, About System, and Wallpaper Persistence
-function setWallpaper(src) {
+// Settings App — Independent Home Screen & Lock Screen Wallpaper Engine
+let selectedTarget = 'home'; // 'home', 'lock', or 'both'
+
+function setTargetScreen(target) {
+  selectedTarget = target;
+  document.getElementById('target-btn-home')?.classList.toggle('bg-cyan-500/30', target === 'home');
+  document.getElementById('target-btn-home')?.classList.toggle('text-cyan-300', target === 'home');
+  document.getElementById('target-btn-lock')?.classList.toggle('bg-cyan-500/30', target === 'lock');
+  document.getElementById('target-btn-lock')?.classList.toggle('text-cyan-300', target === 'lock');
+  document.getElementById('target-btn-both')?.classList.toggle('bg-cyan-500/30', target === 'both');
+  document.getElementById('target-btn-both')?.classList.toggle('text-cyan-300', target === 'both');
+}
+
+function applyWallpaper(src) {
+  if (selectedTarget === 'home' || selectedTarget === 'both') {
+    setHomeWallpaper(src);
+  }
+  if (selectedTarget === 'lock' || selectedTarget === 'both') {
+    setLockWallpaper(src);
+  }
+}
+
+function setHomeWallpaper(src) {
   const bg = document.getElementById('desktop-bg');
   if (bg) {
     bg.style.backgroundImage = `url('${src}')`;
-    localStorage.setItem('bharatos_wallpaper', src);
+    localStorage.setItem('bharatos_home_wallpaper', src);
   }
-  
-  document.querySelectorAll('.wallpaper-btn').forEach(btn => {
-    btn.classList.toggle('border-cyan-400', btn.dataset.src === src);
-    btn.classList.toggle('ring-2', btn.dataset.src === src);
-    btn.classList.toggle('ring-cyan-400/40', btn.dataset.src === src);
-  });
+}
+
+function setLockWallpaper(src) {
+  const lockBg = document.getElementById('lockscreen-bg');
+  if (lockBg) {
+    lockBg.style.backgroundImage = `url('${src}')`;
+    localStorage.setItem('bharatos_lock_wallpaper', src);
+  }
 }
 
 function switchSettingsTab(tabName) {
