@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 function copyDir(src, dest) {
+  if (!fs.existsSync(src)) return;
   if (!fs.existsSync(dest)) {
     fs.mkdirSync(dest, { recursive: true });
   }
@@ -19,9 +20,18 @@ function copyDir(src, dest) {
 
 const publicDir = path.join(__dirname, 'public');
 const distDir = path.join(__dirname, 'dist');
+const wallpapersDir = path.join(__dirname, 'wallpapers');
+const bharatosDir = path.join(__dirname, 'bharatos');
 
-// Copy public to dist
+// Sync wallpapers to public and dist
+if (fs.existsSync(wallpapersDir)) {
+  copyDir(wallpapersDir, path.join(publicDir, 'wallpapers'));
+  copyDir(wallpapersDir, path.join(distDir, 'wallpapers'));
+}
+
+// Sync public to dist and root
 if (fs.existsSync(publicDir)) {
   copyDir(publicDir, distDir);
-  console.log('Synced public/ -> dist/');
+  copyDir(publicDir, bharatosDir);
+  console.log('Synced assets across public/, dist/, and bharatos/');
 }

@@ -1,24 +1,15 @@
 {
-  "rewrites": [
+  "version": 2,
+  "outputDirectory": "dist",
+  "buildCommand": "npm --prefix bharatos-app install && npm --prefix bharatos-app run build && node sync_dist.js",
+  "cleanUrls": true,
+  "routes": [
     {
-      "source": "/portfolio",
-      "destination": "/portfolio.html"
+      "handle": "filesystem"
     },
     {
-      "source": "/devlog",
-      "destination": "/devlog.html"
-    },
-    {
-      "source": "/game",
-      "destination": "/game.html"
-    },
-    {
-      "source": "/solaris",
-      "destination": "/solaris.html"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
+      "src": "/(.*)",
+      "dest": "/index.html"
     }
   ]
 }
