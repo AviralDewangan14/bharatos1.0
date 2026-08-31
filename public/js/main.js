@@ -1,4 +1,4 @@
-// Main Application Entry, Widgets & Lockscreen Handler
+// Main Application Entry, Start Menu, Widgets & Lockscreen Handler
 function unlock() {
   const input = document.getElementById('lock-pass');
   if (!input || input.value === '1234' || input.value === '') {
@@ -10,6 +10,31 @@ function unlock() {
   } else {
     alert('Incorrect passcode! Try 1234');
     input.value = '';
+  }
+}
+
+function toggleStartMenu() {
+  const menu = document.getElementById('start-menu');
+  if (menu) {
+    menu.classList.toggle('hidden');
+  }
+}
+
+// Close Start Menu on clicking desktop
+document.addEventListener('click', (e) => {
+  if (!e.target.closest('#start-menu') && !e.target.closest('.topbar-brand')) {
+    const menu = document.getElementById('start-menu');
+    if (menu) menu.classList.add('hidden');
+  }
+});
+
+function lockDesktop() {
+  const lock = document.getElementById('lockscreen');
+  const start = document.getElementById('start-menu');
+  if (start) start.classList.add('hidden');
+  if (lock) {
+    lock.style.display = 'flex';
+    setTimeout(() => { lock.style.opacity = '1'; }, 20);
   }
 }
 
@@ -48,10 +73,10 @@ function updateSystemResourceWidget() {
 
 window.addEventListener('DOMContentLoaded', () => {
   const savedWall = localStorage.getItem('bharatos_wallpaper') || 'wallpapers/ladakh_pangong.jpg';
-  setWallpaper(savedWall);
+  if (typeof setWallpaper === 'function') setWallpaper(savedWall);
 
   const savedAccent = localStorage.getItem('bharatos_accent');
-  if (savedAccent) setAccentColor(savedAccent);
+  if (savedAccent && typeof setAccentColor === 'function') setAccentColor(savedAccent);
 
   updateClock();
   setInterval(updateClock, 1000);

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BharatOS 1.0</title>
+  <title>BharatOS 1.0 — Sovereign Desktop</title>
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -19,19 +19,49 @@
   <!-- Top Navigation Bar -->
   <div id="topbar">
     <div class="flex items-center space-x-3">
-      <span class="topbar-brand"><span>☸️</span> BharatOS</span>
+      <div class="topbar-brand" onclick="toggleStartMenu()" title="Open BharatOS Menu">
+        <span>☸️</span> <span>BharatOS</span>
+      </div>
       <span class="text-xs text-slate-400 font-mono">1.0 Sovereign</span>
     </div>
     <div class="flex items-center space-x-4">
       <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Offline Privacy
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Atmanirbhar Bharat
       </span>
       <span id="top-clock" class="topbar-clock">12:00:00 PM</span>
     </div>
   </div>
 
+  <!-- Start Menu App Launcher -->
+  <div id="start-menu" class="hidden">
+    <div class="flex items-center gap-3 p-2 bg-slate-900/80 rounded-xl border border-slate-800">
+      <div class="text-2xl">☸️</div>
+      <div>
+        <div class="text-xs font-bold text-white">BharatOS Sovereign Edition</div>
+        <div class="text-[10px] text-cyan-400">By Aviral Dewangan</div>
+      </div>
+    </div>
+    <div class="space-y-1">
+      <div class="start-item" onclick="openApp('win-paint', 'dock-paint'); toggleStartMenu()">🎨 <span>Chitram Paint Studio</span></div>
+      <div class="start-item" onclick="openApp('win-term', 'dock-term'); toggleStartMenu()">💻 <span>Interactive Terminal</span></div>
+      <div class="start-item" onclick="openApp('win-notes', 'dock-notes'); toggleStartMenu()">📝 <span>Auto-Saving Notes</span></div>
+      <div class="start-item" onclick="openApp('win-calc', 'dock-calc'); toggleStartMenu()">🧮 <span>Scientific Calculator</span></div>
+      <div class="start-item" onclick="openApp('win-synth', 'dock-synth'); toggleStartMenu()">🎵 <span>Web Audio Synthesizer</span></div>
+      <div class="start-item" onclick="openApp('win-snake', 'dock-snake'); toggleStartMenu()">🐍 <span>Snake Arcade Game</span></div>
+      <div class="start-item" onclick="openApp('win-settings', 'dock-settings'); toggleStartMenu()">⚙️ <span>System Settings & About</span></div>
+    </div>
+    <div class="pt-2 border-t border-slate-800 flex justify-between">
+      <button onclick="lockDesktop()" class="text-xs text-slate-400 hover:text-white px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 font-mono">🔒 Lock Screen</button>
+      <span class="text-[10px] text-slate-500 self-center">v1.0.0</span>
+    </div>
+  </div>
+
   <!-- Desktop Shortcuts -->
   <div id="desktop-grid">
+    <div class="app-shortcut" onclick="openApp('win-paint', 'dock-paint')">
+      <div class="shortcut-icon">🎨</div>
+      <div class="shortcut-label">Paint</div>
+    </div>
     <div class="app-shortcut" onclick="openApp('win-term', 'dock-term')">
       <div class="shortcut-icon">💻</div>
       <div class="shortcut-label">Terminal</div>
@@ -39,10 +69,6 @@
     <div class="app-shortcut" onclick="openApp('win-notes', 'dock-notes')">
       <div class="shortcut-icon">📝</div>
       <div class="shortcut-label">Notes</div>
-    </div>
-    <div class="app-shortcut" onclick="openApp('win-paint', 'dock-paint')">
-      <div class="shortcut-icon">🎨</div>
-      <div class="shortcut-label">Paint</div>
     </div>
     <div class="app-shortcut" onclick="openApp('win-calc', 'dock-calc')">
       <div class="shortcut-icon">🧮</div>
@@ -67,16 +93,16 @@
     <div class="widget-card">
       <div class="flex items-center justify-between mb-2">
         <span class="text-xs font-bold text-slate-200">System Telemetry</span>
-        <span class="text-[10px] text-cyan-400 font-mono">0.00% Tracking</span>
+        <span class="text-[10px] text-cyan-400 font-mono">0.00% External Leak</span>
       </div>
       <div class="space-y-2 text-xs font-mono">
         <div>
           <div class="flex justify-between text-[11px] text-slate-400 mb-0.5">
-            <span>CPU Usage</span>
-            <span id="widget-cpu-text" class="text-cyan-300 font-bold">12%</span>
+            <span>CPU Load</span>
+            <span id="widget-cpu-text" class="text-cyan-300 font-bold">10%</span>
           </div>
           <div class="w-full h-1.5 bg-slate-800 rounded-full overflow-hidden">
-            <div id="widget-cpu-bar" class="h-full bg-cyan-400 rounded-full transition-all duration-500" style="width: 25%"></div>
+            <div id="widget-cpu-bar" class="h-full bg-cyan-400 rounded-full transition-all duration-500" style="width: 22%"></div>
           </div>
         </div>
         <div>
@@ -94,7 +120,7 @@
     <div class="widget-card">
       <div class="flex items-center justify-between">
         <div>
-          <div class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">BharatOS Desktop</div>
+          <div class="text-[10px] uppercase font-bold text-cyan-400 tracking-wider">Independent OS for Bharat</div>
           <div id="widget-date" class="text-sm font-bold text-white mt-0.5">Mon, Aug 31</div>
         </div>
         <div class="text-2xl">🇮🇳</div>
@@ -102,50 +128,8 @@
     </div>
   </div>
 
-  <!-- 1. Terminal Window -->
-  <div id="win-term" class="window w-[580px] h-[400px] top-12 left-28 hidden" onmousedown="focusWindow(this)">
-    <div class="window-header" onmousedown="startDrag(event, 'win-term')">
-      <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-term', 'dock-term', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-term', 'dock-term', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-term', event)" title="Maximize"><span>⤢</span></div>
-      </div>
-      <div class="window-title"><span>💻</span> Terminal</div>
-      <div class="w-10"></div>
-    </div>
-    <div id="term-scroll" class="window-body p-3 font-mono text-xs text-slate-200 overflow-y-auto">
-      <div id="term-body">
-        <div class="term-line text-cyan-400 mb-2">BharatOS Terminal v1.0. Type 'help' for available commands.</div>
-      </div>
-      <div class="flex items-center mt-1">
-        <span class="text-cyan-400 mr-2">aviral@bharatos:~$</span>
-        <input id="term-input" type="text" class="flex-1 bg-transparent outline-none text-white font-mono" autofocus>
-      </div>
-    </div>
-  </div>
-
-  <!-- 2. Notes Window -->
-  <div id="win-notes" class="window w-[540px] h-[420px] top-16 left-36 hidden" onmousedown="focusWindow(this)">
-    <div class="window-header" onmousedown="startDrag(event, 'win-notes')">
-      <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-notes', 'dock-notes', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-notes', 'dock-notes', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-notes', event)" title="Maximize"><span>⤢</span></div>
-      </div>
-      <div class="window-title"><span>📝</span> Notes</div>
-      <button onclick="newNote()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium">New Note</button>
-    </div>
-    <div class="window-body flex flex-col">
-      <textarea id="notes-textarea" class="flex-1 bg-transparent p-4 outline-none text-slate-100 font-sans text-sm resize-none leading-relaxed" placeholder="Type your notes here... (Auto-saved to browser localStorage)"></textarea>
-      <div class="px-4 py-2 bg-slate-900/90 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex justify-between">
-        <span id="notes-count">0 words, 0 chars</span>
-        <span class="text-emerald-400 font-bold">● Auto-saved</span>
-      </div>
-    </div>
-  </div>
-
-  <!-- 3. Paint Window -->
-  <div id="win-paint" class="window w-[700px] h-[480px] top-20 left-44 hidden" onmousedown="focusWindow(this)">
+  <!-- 1. Paint Studio Window -->
+  <div id="win-paint" class="window w-[720px] h-[500px] top-12 left-32 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-paint')">
       <div class="window-controls">
         <div class="gem-btn gem-close" onclick="closeApp('win-paint', 'dock-paint', event)" title="Close"><span>✕</span></div>
@@ -168,11 +152,54 @@
         <div onclick="setColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500 cursor-pointer border border-white/20"></div>
         <div onclick="setColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 cursor-pointer border border-white/20"></div>
         <div onclick="setColor('#f59e0b')" class="w-5 h-5 rounded-full bg-amber-500 cursor-pointer border border-white/20"></div>
+        <div onclick="setColor('#a855f7')" class="w-5 h-5 rounded-full bg-purple-500 cursor-pointer border border-white/20"></div>
         <div onclick="setColor('#ffffff')" class="w-5 h-5 rounded-full bg-white cursor-pointer border border-white/20"></div>
       </div>
     </div>
     <div class="window-body p-2 flex items-center justify-center">
-      <canvas id="paint-canvas" width="670" height="380" class="rounded-xl bg-slate-900 border border-slate-800 cursor-crosshair"></canvas>
+      <canvas id="paint-canvas" width="690" height="400" class="rounded-xl bg-slate-900 border border-slate-800 cursor-crosshair"></canvas>
+    </div>
+  </div>
+
+  <!-- 2. Terminal Window -->
+  <div id="win-term" class="window w-[580px] h-[400px] top-16 left-28 hidden" onmousedown="focusWindow(this)">
+    <div class="window-header" onmousedown="startDrag(event, 'win-term')">
+      <div class="window-controls">
+        <div class="gem-btn gem-close" onclick="closeApp('win-term', 'dock-term', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-term', 'dock-term', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-term', event)" title="Maximize"><span>⤢</span></div>
+      </div>
+      <div class="window-title"><span>💻</span> Terminal</div>
+      <div class="w-10"></div>
+    </div>
+    <div id="term-scroll" class="window-body p-3 font-mono text-xs text-slate-200 overflow-y-auto">
+      <div id="term-body">
+        <div class="term-line text-cyan-400 mb-2">BharatOS Terminal v1.0. Type 'help' for available commands.</div>
+      </div>
+      <div class="flex items-center mt-1">
+        <span class="text-cyan-400 mr-2">aviral@bharatos:~$</span>
+        <input id="term-input" type="text" class="flex-1 bg-transparent outline-none text-white font-mono" autofocus>
+      </div>
+    </div>
+  </div>
+
+  <!-- 3. Notes Window -->
+  <div id="win-notes" class="window w-[540px] h-[420px] top-20 left-36 hidden" onmousedown="focusWindow(this)">
+    <div class="window-header" onmousedown="startDrag(event, 'win-notes')">
+      <div class="window-controls">
+        <div class="gem-btn gem-close" onclick="closeApp('win-notes', 'dock-notes', event)" title="Close"><span>✕</span></div>
+        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-notes', 'dock-notes', event)" title="Minimize"><span>−</span></div>
+        <div class="gem-btn gem-maximize" onclick="toggleMax('win-notes', event)" title="Maximize"><span>⤢</span></div>
+      </div>
+      <div class="window-title"><span>📝</span> Notes</div>
+      <button onclick="newNote()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium">New Note</button>
+    </div>
+    <div class="window-body flex flex-col">
+      <textarea id="notes-textarea" class="flex-1 bg-transparent p-4 outline-none text-slate-100 font-sans text-sm resize-none leading-relaxed" placeholder="Type your notes here... (Auto-saved to browser localStorage)"></textarea>
+      <div class="px-4 py-2 bg-slate-900/90 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex justify-between">
+        <span id="notes-count">0 words, 0 chars</span>
+        <span class="text-emerald-400 font-bold">● Auto-saved</span>
+      </div>
     </div>
   </div>
 
@@ -278,8 +305,8 @@
     </div>
   </div>
 
-  <!-- 7. Settings Window (With Wallpapers, About & Display Tabs) -->
-  <div id="win-settings" class="window w-[520px] h-[420px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
+  <!-- 7. Settings Window -->
+  <div id="win-settings" class="window w-[540px] h-[440px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
         <div class="gem-btn gem-close" onclick="closeApp('win-settings', 'dock-settings', event)" title="Close"><span>✕</span></div>
@@ -290,7 +317,7 @@
       <div class="w-10"></div>
     </div>
 
-    <!-- Settings Sub-Navigation Tabs -->
+    <!-- Navigation Tabs -->
     <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center space-x-1.5 text-xs font-medium">
       <button id="settings-nav-wallpapers" onclick="switchSettingsTab('wallpapers')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold">🖼️ Wallpapers</button>
       <button id="settings-nav-about" onclick="switchSettingsTab('about')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">💻 About BharatOS</button>
@@ -330,8 +357,12 @@
           <div class="text-3xl">☸️</div>
           <div>
             <div class="text-sm font-bold text-white font-sans">BharatOS 1.0</div>
-            <div class="text-[11px] text-cyan-400">Sovereign Web Desktop Environment</div>
+            <div class="text-[11px] text-cyan-400">Independent Operating System for Bharat</div>
           </div>
+        </div>
+
+        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 font-sans text-slate-300 leading-relaxed text-[11px]">
+          🇮🇳 <strong>Mission Statement:</strong> "I wanted to build an OS for Bharat so that India will become independent in the OS sector, ensuring that major outages or failures in Windows or macOS will never paralyze our digital infrastructure." — <em>Aviral Dewangan</em>
         </div>
 
         <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-[11px]">
@@ -341,24 +372,20 @@
           </div>
           <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
             <span class="text-slate-400">Architecture:</span>
-            <span class="text-slate-200">Vanilla ES6 + HTML5 + CSS3</span>
+            <span class="text-slate-200">100% Vanilla ES6 • Zero External Dependencies</span>
           </div>
           <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
-            <span class="text-slate-400">Audio Engine:</span>
-            <span class="text-slate-200">Web Audio API (AudioContext)</span>
-          </div>
-          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
-            <span class="text-slate-400">Graphics Engine:</span>
-            <span class="text-slate-200">HTML5 Canvas 2D Vector Context</span>
+            <span class="text-slate-400">Flagship Studio:</span>
+            <span class="text-slate-200 font-bold text-cyan-300">Chitram Vector Paint Studio</span>
           </div>
           <div class="flex justify-between">
-            <span class="text-slate-400">Privacy Status:</span>
-            <span class="text-emerald-400 font-bold">100% Client-Side / 0% Telemetry</span>
+            <span class="text-slate-400">Digital Sovereignty:</span>
+            <span class="text-emerald-400 font-bold">100% Client-Side / 0.00% Telemetry</span>
           </div>
         </div>
       </div>
 
-      <!-- Tab 3: Appearance & Accent Colors -->
+      <!-- Tab 3: Appearance -->
       <div id="settings-tab-display" class="space-y-3 hidden text-xs">
         <div class="font-bold text-slate-200">Theme Accent Color:</div>
         <div class="flex items-center space-x-3">
@@ -374,9 +401,9 @@
 
   <!-- Bottom Dock -->
   <div id="dock">
+    <div id="dock-paint" class="dock-btn" onclick="openApp('win-paint', 'dock-paint')" title="Paint Studio">🎨</div>
     <div id="dock-term" class="dock-btn" onclick="openApp('win-term', 'dock-term')" title="Terminal">💻</div>
     <div id="dock-notes" class="dock-btn" onclick="openApp('win-notes', 'dock-notes')" title="Notes">📝</div>
-    <div id="dock-paint" class="dock-btn" onclick="openApp('win-paint', 'dock-paint')" title="Paint">🎨</div>
     <div id="dock-calc" class="dock-btn" onclick="openApp('win-calc', 'dock-calc')" title="Calculator">🧮</div>
     <div id="dock-synth" class="dock-btn" onclick="openApp('win-synth', 'dock-synth')" title="Synthesizer">🎵</div>
     <div id="dock-snake" class="dock-btn" onclick="openApp('win-snake', 'dock-snake')" title="Snake Game">🐍</div>
