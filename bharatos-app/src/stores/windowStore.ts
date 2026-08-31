@@ -44,6 +44,10 @@ export const useWindowStore = create<WindowStore>((set, get) => ({
       nextZIndex: state.nextZIndex + 1,
     }));
 
+    try {
+      import('../services/sound').then(({ sound }) => sound.playWindowOpen(0.15));
+    } catch {}
+
     return id;
   },
 

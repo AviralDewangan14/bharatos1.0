@@ -3,6 +3,7 @@ import * as LucideIcons from 'lucide-react';
 import { Minus, Square, X, Maximize2 } from 'lucide-react';
 import clsx from 'clsx';
 import { useWindowStore } from '../stores/windowStore';
+import { sound } from '../services/sound';
 import type { WindowState } from '../types/window';
 
 interface WindowProps {
@@ -120,20 +121,32 @@ export function Window({ windowState, children }: WindowProps) {
         </div>
         <div className="flex items-center gap-2 window-controls ml-2">
           <button
-            onClick={() => minimizeWindow(id)}
+            onClick={() => {
+              minimizeWindow(id);
+              sound.playWindowClose(0.12);
+            }}
             className="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+            title="Minimize"
           >
             <Minus size={14} />
           </button>
           <button
-            onClick={() => maximizeWindow(id)}
+            onClick={() => {
+              maximizeWindow(id);
+              sound.playClick(0.12);
+            }}
             className="p-1.5 text-gray-400 hover:text-white hover:bg-white/10 rounded-full transition-colors"
+            title={isMaximized ? "Restore" : "Maximize"}
           >
             {isMaximized ? <Maximize2 size={14} /> : <Square size={14} />}
           </button>
           <button
-            onClick={() => closeWindow(id)}
+            onClick={() => {
+              closeWindow(id);
+              sound.playWindowClose(0.15);
+            }}
             className="p-1.5 text-gray-400 hover:text-white hover:bg-red-500/80 rounded-full transition-colors"
+            title="Close"
           >
             <X size={14} />
           </button>
