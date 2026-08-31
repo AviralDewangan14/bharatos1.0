@@ -3,1009 +3,453 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Project Telemetry & Architecture Dashboard — Aviral Dewangan</title>
+    <title>Client Project Specification & Deliverables — Aviral Dewangan</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Chart.js for telemetry activity charts -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <!-- Prism.js for syntax highlighting -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rust.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-go.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-jsx.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
     <script>
         tailwind.config = {
             darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            50: '#ecfdf5',
-                            500: '#10b981',
-                            600: '#059669',
-                            900: '#064e3b',
-                        },
-                        darkbg: '#0b0f19',
-                        cardbg: '#111827',
-                        cardborder: '#1f2937',
+                        obsidian: '#080c14',
+                        surface: '#0d1322',
+                        card: '#11192d',
+                        border: '#1e293b',
+                        accent: {
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            violet: '#8b5cf6'
+                        }
                     }
                 }
             }
         }
     </script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
         body {
             font-family: 'Plus Jakarta Sans', sans-serif;
-            background-color: #0b0f19;
-            color: #f1f5f9;
+            background-color: #080c14;
+            color: #f8fafc;
         }
-        .font-mono {
-            font-family: 'JetBrains Mono', monospace;
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .studio-card {
+            background: #0d1424;
+            border: 1px solid rgba(255, 255, 255, 0.07);
         }
-        .liquid-glass {
-            background: rgba(17, 24, 39, 0.85);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
+        .glass-nav {
+            background: rgba(8, 12, 20, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
         }
-        .liquid-card {
-            background: #111827;
-            border: 1px solid #1f2937;
-            transition: all 0.25s ease;
-        }
-        .liquid-card:hover {
-            border-color: rgba(16, 185, 129, 0.4);
-            box-shadow: 0 12px 30px -10px rgba(16, 185, 129, 0.15);
-        }
-        pre[class*="language-"] {
-            background: #0d1117 !important;
-            border: 1px solid #1e293b !important;
-            border-radius: 0.75rem !important;
-            font-size: 0.8rem !important;
-            line-height: 1.45 !important;
-        }
-        ::-webkit-scrollbar {
-            width: 6px;
-            height: 6px;
-        }
-        ::-webkit-scrollbar-track {
-            background: #0b0f19;
-        }
-        ::-webkit-scrollbar-thumb {
-            background: #1f2937;
-            border-radius: 9999px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: #374151;
-        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #080c14; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
     </style>
 </head>
 <body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
 
     <!-- Top Navigation Bar -->
-    <header class="sticky top-0 z-50 liquid-glass border-b border-slate-800/80 px-6 py-3.5">
+    <header class="sticky top-0 z-50 glass-nav px-6 py-4">
         <div class="max-w-7xl mx-auto flex items-center justify-between">
-            <div class="flex items-center space-x-4">
-                <a href="/portfolio" class="px-3 py-1.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-xs font-bold transition-all flex items-center space-x-1.5">
-                    <span>←</span><span>Global Portfolio</span>
+            <div class="flex items-center space-x-3.5">
+                <a href="/portfolio" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold transition-all flex items-center space-x-1.5">
+                    <span>←</span><span>Client Pipeline</span>
                 </a>
-                <div class="h-5 w-[1px] bg-slate-800"></div>
-                <div class="flex items-center space-x-2">
-                    <span id="nav-project-icon" class="text-xl">⚡</span>
-                    <span id="nav-project-title" class="font-black text-sm text-white tracking-tight">Solana DEX Router</span>
-                    <span id="nav-project-badge" class="px-2 py-0.5 rounded-full bg-purple-500/20 text-purple-400 border border-purple-500/40 text-[10px] font-bold">Delivered Gig ($4,800)</span>
+                <div class="h-4 w-[1px] bg-slate-800"></div>
+                <div>
+                    <span id="nav-title" class="font-bold text-sm text-white">Solana DEX Router</span>
+                    <span id="nav-client" class="text-xs text-slate-400 ml-2">Nexus Protocol</span>
                 </div>
             </div>
 
-            <!-- Project Switcher & Actions -->
-            <div class="flex items-center space-x-3">
+            <!-- Project Switcher & Export -->
+            <div class="flex items-center space-x-3 text-xs">
                 <div class="flex items-center space-x-2">
-                    <label class="text-[11px] font-bold text-slate-400 hidden sm:inline">Switch Project:</label>
-                    <select id="project-select-dropdown" onchange="switchProject(this.value)" class="bg-slate-900 border border-slate-700 text-white text-xs font-bold rounded-xl px-3 py-1.5 focus:outline-none focus:border-emerald-500">
-                        <!-- Populated by JS -->
+                    <label class="text-[11px] font-semibold text-slate-400 hidden sm:inline">Switch Client:</label>
+                    <select id="project-dropdown" onchange="switchProject(this.value)" class="bg-slate-900 border border-slate-700 text-white text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:border-emerald-500">
                     </select>
                 </div>
-                <button onclick="window.print()" class="px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all flex items-center space-x-1">
-                    <span>📸</span><span class="hidden sm:inline">Screenshot</span>
+                <button onclick="copyProjectReport()" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold transition-all flex items-center space-x-1">
+                    <span>📋</span><span>Copy Report</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <!-- Main Content Container -->
+    <!-- Main Container -->
     <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
 
-        <!-- Hero Card -->
-        <section class="p-6 sm:p-8 rounded-3xl liquid-card bg-gradient-to-r from-slate-900 via-slate-900/90 to-emerald-950/30 border border-slate-800 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-            <div class="space-y-2 max-w-3xl">
-                <div class="flex flex-wrap items-center gap-2">
-                    <span id="hero-category" class="text-xs font-bold text-slate-400">Freelance Client Delivery • Web3 / DeFi</span>
-                    <span class="text-slate-600">•</span>
-                    <span id="hero-client" class="text-xs font-semibold text-emerald-400">Client: Nexus Protocol Ltd.</span>
-                    <span class="text-slate-600">•</span>
-                    <span class="text-xs font-mono text-cyan-400">Aviral Dewangan 🇮🇳</span>
-                </div>
-                <h1 id="hero-title" class="text-2xl sm:text-3xl font-black text-white tracking-tight">Solana & EVM Cross-Chain Liquidity Router</h1>
-                <p id="hero-desc" class="text-sm text-slate-300 leading-relaxed">
-                    Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.
-                </p>
-                <div class="flex flex-wrap gap-2 pt-2" id="hero-stack-badges">
-                    <!-- Populated by JS -->
-                </div>
-            </div>
-
-            <!-- Action Buttons -->
-            <div class="flex flex-col sm:flex-row md:flex-col gap-2 min-w-[200px]">
-                <button onclick="copyCurrentProjectDevlog()" class="px-5 py-2.5 rounded-2xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-black text-xs shadow-lg shadow-emerald-500/20 transition-all flex items-center justify-center space-x-2">
-                    <span>📋</span><span>Copy Devlog Post</span>
-                </button>
-                <a href="/portfolio#durations" class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs border border-slate-700 transition-all text-center">
-                    📊 View In Leaderboard
-                </a>
-            </div>
-        </section>
-
-        <!-- Metric Grid Cards -->
-        <section class="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            <div class="p-5 rounded-2xl liquid-card">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Tracked Time</div>
-                <div id="stat-tracked-time" class="text-2xl sm:text-3xl font-black text-rose-400 font-mono mt-1">12h 27m</div>
-                <div class="text-[10px] text-emerald-400 mt-0.5 font-bold">✓ 100% Genuine Human Coding</div>
-            </div>
-            <div class="p-5 rounded-2xl liquid-card">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Production Code</div>
-                <div id="stat-lines" class="text-2xl sm:text-3xl font-black text-cyan-400 font-mono mt-1">8,450+</div>
-                <div class="text-[10px] text-slate-500 mt-0.5">Lines of verified source</div>
-            </div>
-            <div class="p-5 rounded-2xl liquid-card">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Flow & Quality Score</div>
-                <div id="stat-score" class="text-2xl sm:text-3xl font-black text-purple-400 font-mono mt-1">98.2 / 100</div>
-                <div class="text-[10px] text-purple-400 mt-0.5 font-bold">Elite Engineering Tier</div>
-            </div>
-            <div class="p-5 rounded-2xl liquid-card">
-                <div class="text-[11px] font-bold text-slate-400 uppercase tracking-wider">Contract Budget</div>
-                <div id="stat-budget" class="text-2xl sm:text-3xl font-black text-amber-400 font-mono mt-1">$4,800.00</div>
-                <div class="text-[10px] text-emerald-400 mt-0.5 font-bold">✓ Milestone Completed & Paid</div>
-            </div>
-        </section>
-
-        <!-- Main Content 2-Column Split: Telemetry Chart & Core Architecture -->
-        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-
-            <!-- Card 1: 24-Hour Telemetry Coding Activity Chart -->
-            <div class="p-6 rounded-2xl liquid-card space-y-4">
-                <div class="flex items-center justify-between">
-                    <div>
-                        <h2 class="text-base font-black text-white">Coding Activity & Circadian Pulses</h2>
-                        <div class="text-xs text-slate-400">Heartbeat density across engineering sessions</div>
+        <!-- Executive Hero Header -->
+        <section class="p-6 sm:p-8 rounded-2xl studio-card space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span id="proj-client" class="font-bold text-emerald-400">Nexus Protocol Ltd.</span>
+                        <span class="text-slate-600">•</span>
+                        <span id="proj-time" class="font-mono text-slate-300">12h 27m Tracked</span>
+                        <span class="text-slate-600">•</span>
+                        <span id="proj-status" class="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold">Pending Final Review</span>
                     </div>
-                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-300 text-[10px] font-mono font-bold">1.5x Telemetry Pulse</span>
-                </div>
-                <div class="relative h-64">
-                    <canvas id="projectActivityChart"></canvas>
-                </div>
-                <div class="pt-2 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
-                    <span>Active Editor: <strong class="text-slate-200">VS Code / Tokio Enclave</strong></span>
-                    <span>Language: <strong id="chart-primary-lang" class="text-cyan-400">Rust</strong></span>
-                </div>
-            </div>
-
-            <!-- Card 2: Performance Benchmarks & Architecture Deliverables -->
-            <div class="p-6 rounded-2xl liquid-card space-y-4 flex flex-col justify-between">
-                <div>
-                    <h2 class="text-base font-black text-white mb-1">Architectural Deliverables & Benchmarks</h2>
-                    <div class="text-xs text-slate-400 mb-4">Core technical innovations and performance SLA guarantees</div>
-
-                    <div class="grid grid-cols-2 gap-3 mb-4 font-mono text-xs">
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="text-[10px] text-slate-500 uppercase">Throughput / Speed</div>
-                            <div id="bench-speed" class="text-base font-bold text-emerald-400 mt-0.5">65,000 TPS</div>
-                        </div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="text-[10px] text-slate-500 uppercase">Latency / Execution</div>
-                            <div id="bench-latency" class="text-base font-bold text-cyan-400 mt-0.5">< 840ns p99</div>
-                        </div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="text-[10px] text-slate-500 uppercase">Test Suite Coverage</div>
-                            <div id="bench-coverage" class="text-base font-bold text-purple-400 mt-0.5">99.4% (52 Tests)</div>
-                        </div>
-                        <div class="p-3 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="text-[10px] text-slate-500 uppercase">Memory Footprint</div>
-                            <div id="bench-memory" class="text-base font-bold text-amber-400 mt-0.5">Zero-Alloc Pool</div>
-                        </div>
-                    </div>
-
-                    <ul class="space-y-2 text-xs text-slate-300" id="architecture-bullet-list">
-                        <!-- Populated by JS -->
-                    </ul>
+                    <h1 id="proj-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Solana & EVM Cross-Chain Liquidity Router</h1>
+                    <p id="proj-desc" class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+                        Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching capacity.
+                    </p>
                 </div>
 
-                <div class="pt-3 border-t border-slate-800 flex items-center justify-between text-xs text-slate-400">
-                    <span>Audit Status: <strong class="text-emerald-400">Verified Passed</strong></span>
-                    <span>Milestone: <strong class="text-slate-200">100% Production Ready</strong></span>
+                <!-- Financial Card Box -->
+                <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-right space-y-1 min-w-[200px]">
+                    <div class="text-[10px] uppercase font-bold text-slate-400">Contract Value</div>
+                    <div id="proj-budget" class="text-2xl font-extrabold text-white font-mono">$4,800.00</div>
+                    <div id="proj-payout-status" class="text-[11px] text-emerald-400 font-mono">75% Released ($3,600)</div>
                 </div>
             </div>
 
+            <!-- Tech Stack Badges -->
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/80" id="proj-stack">
+            </div>
         </section>
 
-        <!-- File Structure Anatomy & Code Viewer -->
+        <!-- 3 Core Deliverable Columns (What Has Made, What Is Building, What Needs Review) -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-            <!-- File Tree Sidebar -->
-            <div class="lg:col-span-1 p-6 rounded-2xl liquid-card space-y-4">
-                <div class="flex items-center justify-between">
-                    <h2 class="text-base font-black text-white">Repository Anatomy</h2>
-                    <span id="file-count-badge" class="text-xs font-mono text-slate-400">6 Core Modules</span>
+            <!-- Column 1: What Has Made (Delivered) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+                    <h2 class="text-sm font-bold text-white">What Has Made (Shipped)</h2>
                 </div>
-                <div class="space-y-1.5" id="file-tree-container">
-                    <!-- Populated by JS -->
-                </div>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-has-made">
+                </ul>
             </div>
 
-            <!-- Syntax-Highlighted Code Viewer -->
-            <div class="lg:col-span-2 p-6 rounded-2xl liquid-card space-y-4 flex flex-col justify-between">
-                <div>
-                    <div class="flex items-center justify-between mb-2">
-                        <div class="flex items-center space-x-2">
-                            <span class="text-sm">⚡</span>
-                            <h2 class="text-base font-black text-white" id="code-viewer-title">Core Execution Engine</h2>
-                        </div>
-                        <span id="code-viewer-lang" class="px-2 py-0.5 rounded-md bg-slate-800 text-slate-300 text-[10px] font-mono border border-slate-700">Rust</span>
-                    </div>
-                    <pre class="overflow-x-auto max-h-96 p-4 rounded-xl font-mono text-xs"><code id="code-viewer-block" class="language-rust">// Code snippet loading...</code></pre>
+            <!-- Column 2: What Is Building (In Progress) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xs">🔨</span>
+                    <h2 class="text-sm font-bold text-white">What Is Building (In Progress)</h2>
                 </div>
-                <div class="pt-2 flex items-center justify-between text-xs text-slate-500 font-mono">
-                    <span>Encrypted Enclave Verified</span>
-                    <span>Zero Runtime Overhead</span>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-is-building">
+                </ul>
+            </div>
+
+            <!-- Column 3: What Needs Review (Sign-Off) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs">🔍</span>
+                    <h2 class="text-sm font-bold text-white">What Needs Review (Action Items)</h2>
                 </div>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-needs-review">
+                </ul>
             </div>
 
         </section>
 
-        <!-- Markdown Devlog Post (Ready to Publish) -->
-        <section class="p-6 rounded-2xl liquid-card space-y-4">
-            <div class="flex items-center justify-between">
-                <div>
-                    <h2 class="text-base font-black text-white">Devlog Markdown Post (Ready to Publish)</h2>
-                    <div class="text-xs text-slate-400">Formatted for Hack Club Devlog, Twitter, GitHub, or Personal Portfolio</div>
+        <!-- Milestones Escrow Breakdown & Markdown Report -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Milestone Ledger -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h2 class="text-sm font-bold text-white">Milestone Escrow Ledger</h2>
+                    <span class="text-xs font-mono text-emerald-400 font-bold" id="milestone-cleared-pct">75% Cleared</span>
                 </div>
-                <button onclick="copyCurrentProjectDevlog()" class="px-4 py-2 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center space-x-1.5">
-                    <span>📋</span><span>Copy Markdown</span>
-                </button>
+                <div class="space-y-2.5" id="milestones-container">
+                </div>
             </div>
-            <textarea id="project-markdown-box" readonly class="w-full h-48 p-4 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-mono text-xs focus:outline-none resize-none selection:bg-emerald-500 selection:text-black"></textarea>
+
+            <!-- Markdown Summary -->
+            <div class="p-6 rounded-2xl studio-card space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                        <h2 class="text-sm font-bold text-white">Client Weekly Update (Markdown)</h2>
+                        <button onclick="copyProjectReport()" class="text-xs text-emerald-400 font-bold hover:underline">📋 Copy</button>
+                    </div>
+                    <textarea id="markdown-report" readonly class="w-full h-44 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-mono text-xs focus:outline-none resize-none selection:bg-emerald-500 selection:text-black"></textarea>
+                </div>
+                <div class="text-[11px] text-slate-500 font-mono flex items-center justify-between pt-2">
+                    <span>Consultant: Aviral Dewangan</span>
+                    <span>Ready for Slack / Email / Notion</span>
+                </div>
+            </div>
+
         </section>
 
     </main>
 
     <!-- Toast Notification -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-2xl bg-slate-900 border border-emerald-500/50 text-white text-xs font-semibold shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center space-x-2">
-        <span>✅</span><span id="toast-msg">Copied devlog post to clipboard!</span>
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-slate-900 border border-emerald-500/50 text-white text-xs font-medium shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center space-x-2">
+        <span>✅</span><span id="toast-msg">Client update report copied to clipboard!</span>
     </div>
 
     <!-- Footer -->
-    <footer class="border-t border-slate-800/80 liquid-glass py-6 text-center text-xs text-slate-500">
+    <footer class="border-t border-slate-800/80 glass-nav py-6 text-center text-xs text-slate-500">
         <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
             <div>
-                © 2026 <strong>Aviral Dewangan</strong>. All rights reserved. BharatOS & FocusDefend Sovereign Enclaves.
+                © 2026 <strong>Aviral Dewangan</strong>. Engineering Consultancy & Client Deliverable Enclave.
             </div>
             <div class="flex items-center space-x-4">
-                <a href="/portfolio" class="hover:text-emerald-400">Global Portfolio</a>
-                <a href="/bharatos" class="hover:text-cyan-400">BharatOS Desktop</a>
-                <a href="/api/devlog/projects" class="hover:text-purple-400">JSON API</a>
+                <a href="/portfolio" class="hover:text-emerald-400">Client Pipeline</a>
+                <a href="/bharatos" class="hover:text-cyan-400">BharatOS Enclave</a>
             </div>
         </div>
     </footer>
 
-    <!-- Interactive Script -->
+    <!-- Interactive Data -->
     <script>
-        const PROJECTS_EXTENDED_DB = {
+        const CLIENT_PROJECTS_EXT = {
             'freelance-web3': {
                 id: 'freelance-web3',
-                icon: '⚡',
                 title: 'Solana & EVM Cross-Chain Liquidity Router',
-                category: 'Freelance Client Delivery • Web3 / DeFi',
                 client: 'Nexus Protocol Ltd.',
                 budget: '$4,800.00',
-                duration: '12h 27m',
-                lines: '8,450+',
-                score: '98.2 / 100',
-                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching engine.',
+                paid_amount: '$3,600.00',
+                escrow_amount: '$1,200.00',
+                payment_status: '75% Released ($3,600)',
+                tracked_time: '12h 27m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
+                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching capacity.',
                 stack: ['Rust', 'Anchor', 'Tokio', 'Solana CPI', 'WASM'],
-                speed: '65,000 TPS',
-                latency: '420ms Finality',
-                coverage: '99.2% (48 Tests)',
-                memory: 'Zero-Alloc Pool',
-                lang: 'Rust',
-                code_lang: 'rust',
-                bullets: [
-                    'Built cross-program invocation (CPI) smart contract locks on Solana utilizing Anchor framework.',
-                    'Engineered sub-millisecond atomic swap matching engine with constant-product invariant verification.',
-                    'Integrated off-chain Tokio WebSocket event relayer streaming liquidity pool state updates.'
+                what_has_made: [
+                    'Engineered cross-program invocation (CPI) lockup bridge on Solana with Anchor framework.',
+                    'Built zero-slippage constant-product AMM router ensuring mathematical price invariant bounds.',
+                    'Delivered off-chain Tokio WebSocket streaming relayer processing 65k TPS under stress testing.'
                 ],
-                files: [
-                    { name: 'programs/router/src/lib.rs', lines: '2,840 lines', desc: 'Anchor entrypoints & CPI state dispatch' },
-                    { name: 'programs/router/src/amm.rs', lines: '1,920 lines', desc: 'Constant-product math & curve equations' },
-                    { name: 'programs/router/src/security.rs', lines: '1,150 lines', desc: 'Reentrancy guard & cryptographic signer checks' },
-                    { name: 'relayer/src/tokio_bridge.rs', lines: '1,420 lines', desc: 'Off-chain multi-threaded transaction batcher' },
-                    { name: 'tests/router.ts', lines: '1,120 lines', desc: '48 Mocha & Anchor integration test suites' }
+                what_is_building: [
+                    'Optimizing EVM gas consumption for fallback relayer smart contracts.',
+                    'Finalizing multi-sig emergency circuit breaker logic.'
                 ],
-                sample_code: `use anchor_lang::prelude::*;
-use anchor_spl::token::{self, Token, TokenAccount, Transfer};
-
-#[program]
-pub mod liquidity_router {
-    use super::*;
-
-    pub fn execute_atomic_swap(ctx: Context<ExecuteSwap>, amount_in: u64, min_amount_out: u64) -> Result<()> {
-        let pool = &mut ctx.accounts.liquidity_pool;
-        require!(!pool.is_paused, RouterError::PoolPaused);
-
-        // Calculate invariant: k = x * y with zero-slippage protection
-        let amount_out = pool.calculate_output_amount(amount_in)?;
-        require!(amount_out >= min_amount_out, RouterError::SlippageExceeded);
-
-        // Execute CPI Token Transfer
-        let cpi_accounts = Transfer {
-            from: ctx.accounts.user_source_token.to_account_info(),
-            to: ctx.accounts.pool_vault_token.to_account_info(),
-            authority: ctx.accounts.user_authority.to_account_info(),
-        };
-        token::transfer(CpiContext::new(ctx.accounts.token_program.to_account_info(), cpi_accounts), amount_in)?;
-
-        emit!(SwapExecutedEvent {
-            user: ctx.accounts.user_authority.key(),
-            amount_in,
-            amount_out,
-            timestamp: Clock::get()?.unix_timestamp,
-        });
-
-        Ok(())
-    }
-}`,
-                markdown: `# ⚡ Devlog: Solana & EVM Cross-Chain Liquidity Router\n**Author:** Aviral Dewangan | **Client:** Nexus Protocol | **Tracked Time:** 12h 27m\n**Stack:** Rust, Anchor, Tokio, Solana CPI, WASM\n\n### 🚀 Architectural Deliverables\n- **Zero-Slippage AMM Engine:** Sub-millisecond transaction batching on Solana.\n- **Atomic CPI Bridge:** Cryptographically audited cross-program invocation locks.\n- **Performance:** Sustained 65k TPS under stress testing.`
+                what_needs_review: [
+                    'Client security review on PR #14 (Reentrancy Guard & Signer Check audits).',
+                    'Devnet cluster acceptance sign-off before mainnet deployment.'
+                ],
+                milestones: [
+                    { name: 'M1: Solana Anchor Smart Contracts & CPI Bridge', amount: '$2,400.00', status: 'RELEASED', date: 'Aug 24, 2026' },
+                    { name: 'M2: Tokio High-Throughput Relayer & Engine', amount: '$1,200.00', status: 'RELEASED', date: 'Aug 28, 2026' },
+                    { name: 'M3: Audit Sign-Off & Mainnet Deployment', amount: '$1,200.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
             },
             'freelance-go': {
                 id: 'freelance-go',
-                icon: '🌐',
-                title: 'Distributed Raft Consensus & Event Streamer',
-                category: 'Freelance Client Delivery • Distributed Systems',
+                title: 'Distributed Raft Consensus & Microservice Event Streamer',
                 client: 'CloudScale Infra Tech',
                 budget: '$5,200.00',
-                duration: '12h 2m',
-                lines: '9,120+',
-                score: '97.8 / 100',
+                paid_amount: '$5,200.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($5,200)',
+                tracked_time: '12h 02m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
                 desc: 'Fault-tolerant distributed key-value consensus engine with gRPC stream pipelines, Raft leader election, and sub-5ms heartbeat health monitoring.',
                 stack: ['Go (Golang)', 'gRPC', 'Raft', 'Protobuf', 'Docker'],
-                speed: '1.2M msgs/sec',
-                latency: '< 3.2ms p99',
-                coverage: '98.5% (62 Tests)',
-                memory: '48MB Res Set',
-                lang: 'Go',
-                code_lang: 'go',
-                bullets: [
-                    'Implemented complete Raft consensus state machine with leader election and log replication.',
-                    'Engineered bidirectional gRPC streaming RPCs for sub-5ms cluster heartbeat verification.',
-                    'Optimized memory allocations achieving 1.2M msgs/sec with negligible GC pause times.'
+                what_has_made: [
+                    'Built linearizable Raft consensus state machine with randomized election timers and quorum leader election.',
+                    'Engineered bidirectional gRPC streaming pipelines delivering 1.2M msgs/sec with sub-5ms latency.',
+                    'Shipped zero-copy append-only write-ahead log (WAL) engine with atomic disk sync.'
                 ],
-                files: [
-                    { name: 'raft/server.go', lines: '3,100 lines', desc: 'Raft consensus core & term timer loop' },
-                    { name: 'raft/rpc_grpc.go', lines: '2,040 lines', desc: 'gRPC stream handlers & heartbeat multiplexer' },
-                    { name: 'storage/wal.go', lines: '1,880 lines', desc: 'Write-ahead append-only binary log store' },
-                    { name: 'cluster/membership.go', lines: '1,200 lines', desc: 'Dynamic quorum node join/leave protocol' },
-                    { name: 'tests/raft_chaos_test.go', lines: '900 lines', desc: 'Network partition & chaos recovery tests' }
+                what_is_building: [
+                    'Post-deployment production telemetry monitoring and dashboard integration.',
+                    'Runbook documentation handoff for client SRE team.'
                 ],
-                sample_code: `package raft
-
-import (
-	"context"
-	"sync"
-	"time"
-)
-
-type ConsensusNode struct {
-	mu          sync.RWMutex
-	currentTerm uint64
-	votedFor    string
-	state       NodeRole
-	logEntries  []LogEntry
-	peers       map[string]RaftClient
-	heartbeatCh chan struct{}
-}
-
-func (n *ConsensusNode) RunElectionTimer(ctx context.Context) {
-	timeout := n.randomElectionTimeout()
-	ticker := time.NewTicker(timeout)
-	defer ticker.Stop()
-
-	for {
-		select {
-		case <-ctx.Done():
-			return
-		case <-n.heartbeatCh:
-			ticker.Reset(n.randomElectionTimeout())
-		case <-ticker.C:
-			n.mu.Lock()
-			if n.state != LeaderRole {
-				n.startElection()
-			}
-			n.mu.Unlock()
-		}
-	}
-}`,
-                markdown: `# 🌐 Devlog: Distributed Raft Consensus Engine in Go\n**Author:** Aviral Dewangan | **Client:** CloudScale Infra | **Tracked Time:** 12h 2m\n**Stack:** Go (Golang), gRPC, Raft, Protobuf\n\n### 🚀 Architectural Deliverables\n- **Raft State Machine:** Linearizable quorum-based replication with automatic failover.\n- **High Throughput:** 1.2M msgs/sec with low GC pause latency.`
+                what_needs_review: [
+                    'Final sign-off on 62 chaos engineering partition test cases (Passed 100%).'
+                ],
+                milestones: [
+                    { name: 'M1: Raft Consensus Engine & Leader Election', amount: '$2,600.00', status: 'RELEASED', date: 'Aug 22, 2026' },
+                    { name: 'M2: gRPC Stream Pipeline & WAL Storage', amount: '$1,800.00', status: 'RELEASED', date: 'Aug 27, 2026' },
+                    { name: 'M3: Chaos Test Suite & Benchmark Sign-Off', amount: '$800.00', status: 'RELEASED', date: 'Aug 30, 2026' }
+                ]
             },
             'freelance-py': {
                 id: 'freelance-py',
-                icon: '🐍',
-                title: 'Async Data Ingestion & ETL Pipeline with Polars',
-                category: 'Freelance Client Delivery • Data Engineering',
+                title: 'Async Data Ingestion & ETL Pipeline with Polars & Arrow',
                 client: 'Quantum Analytics Partners',
                 budget: '$3,900.00',
-                duration: '11h 58m',
-                lines: '7,880+',
-                score: '96.5 / 100',
+                paid_amount: '$2,600.00',
+                escrow_amount: '$1,300.00',
+                payment_status: '66% Released ($2,600)',
+                tracked_time: '11h 58m',
+                status_badge: 'In Active Build',
+                status_color: 'cyan',
                 desc: 'Vectorized data processing engine consuming gigabyte-scale streams, applying SIMD-accelerated aggregation filters, and persisting zero-copy parquet tables.',
-                stack: ['Python 3.11', 'Asyncio', 'Polars', 'Apache Arrow', 'NumPy'],
-                speed: '4.8 GB/sec',
-                latency: '< 15ms batch',
-                coverage: '97.8% (42 Tests)',
-                memory: 'Zero-Copy Stream',
-                lang: 'Python',
-                code_lang: 'python',
-                bullets: [
-                    'Built vectorized stream ingestor processing multi-gigabyte financial feeds into Apache Arrow frames.',
-                    'Implemented SIMD column filtering with Polars achieving 10x speedup over Pandas.',
-                    'Designed automated partitioned Parquet persister with asynchronous S3 multipart uploads.'
+                stack: ['Python 3.11', 'Polars', 'Asyncio', 'Apache Arrow', 'Parquet'],
+                what_has_made: [
+                    'Vectorized stream ingestion pipeline processing 4.8 GB/sec with Apache Arrow zero-copy memory.',
+                    'Implemented SIMD-accelerated aggregation filters in Polars (10x faster than Pandas).',
+                    'Built partitioned Zstandard Parquet writer with async S3 chunked uploads.'
                 ],
-                files: [
-                    { name: 'pipeline/ingest.py', lines: '2,450 lines', desc: 'Async HTTP & Kafka socket consumer' },
-                    { name: 'pipeline/transform.py', lines: '2,100 lines', desc: 'Vectorized Polars query plan optimizations' },
-                    { name: 'pipeline/arrow_bridge.py', lines: '1,650 lines', desc: 'Zero-copy memory mapped record batches' },
-                    { name: 'storage/parquet_writer.py', lines: '980 lines', desc: 'Zstandard-compressed partitioned output' },
-                    { name: 'tests/test_benchmark.py', lines: '700 lines', desc: 'Throughput & memory regression suite' }
+                what_is_building: [
+                    'Integrating automated anomaly detection heuristics for trade volume spikes.',
+                    'Adding Prometheus metrics export for ETL ingestion lag.'
                 ],
-                sample_code: `import asyncio
-import polars as pl
-import pyarrow as pa
-from typing import AsyncIterator
-
-class VectorizedETLPipeline:
-    def __init__(self, batch_size: int = 100_000):
-        self.batch_size = batch_size
-        self.schema = pa.schema([
-            ("timestamp", pa.int64()),
-            ("instrument_id", pa.string()),
-            ("price", pa.float64()),
-            ("volume", pa.float64()),
-        ])
-
-    async def transform_stream(self, raw_stream: AsyncIterator[bytes]) -> pl.DataFrame:
-        batches = []
-        async for chunk in raw_stream:
-            df = pl.read_ipc(chunk).lazy()
-            # Vectorized VWAP and outlier filtering
-            clean_df = (
-                df.filter(pl.col("volume") > 0)
-                .with_columns([
-                    (pl.col("price") * pl.col("volume")).alias("notional"),
-                    pl.col("timestamp").cast(pl.Datetime("ms"))
-                ])
-                .group_by_dynamic("timestamp", every="1s", by="instrument_id")
-                .agg([
-                    (pl.col("notional").sum() / pl.col("volume").sum()).alias("vwap"),
-                    pl.col("volume").sum().alias("total_volume")
-                ])
-            ).collect()
-            batches.append(clean_df)
-        return pl.concat(batches)`,
-                markdown: `# 🐍 Devlog: High-Throughput Async ETL Pipeline\n**Author:** Aviral Dewangan | **Client:** Quantum Analytics | **Tracked Time:** 11h 58m\n**Stack:** Python 3.11, Polars, Asyncio, Apache Arrow\n\n### 🚀 Architectural Deliverables\n- **Vectorized Ingestion:** 4.8 GB/sec ingestion pipeline using Apache Arrow zero-copy memory.\n- **SIMD Filtering:** 10x faster queries compared to standard Pandas pipelines.`
+                what_needs_review: [
+                    'Client review on Parquet partition schema definition (PR #8).'
+                ],
+                milestones: [
+                    { name: 'M1: Async Ingestor & Arrow Bridge', amount: '$2,600.00', status: 'RELEASED', date: 'Aug 25, 2026' },
+                    { name: 'M2: Polars Aggregations & S3 Writer', amount: '$1,300.00', status: 'IN ESCROW', date: 'Active Sprint' }
+                ]
             },
             'freelance-ai': {
                 id: 'freelance-ai',
-                icon: '🤖',
-                title: 'Custom FlashAttention-2 & RoPE LLM Kernel',
-                category: 'Freelance Client Delivery • AI & GPU Kernels',
+                title: 'Custom FlashAttention-2 & RoPE LLM Inference Accelerator',
                 client: 'HyperScale AI Labs',
                 budget: '$5,500.00',
-                duration: '11h 58m',
-                lines: '9,400+',
-                score: '98.9 / 100',
+                paid_amount: '$3,850.00',
+                escrow_amount: '$1,650.00',
+                payment_status: '70% Released ($3,850)',
+                tracked_time: '11h 58m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
                 desc: 'Fused Rotary Position Embedding (RoPE) kernel and Paged KV-Cache engine cutting VRAM footprint by 45% and boosting token generation speed by 3.2x.',
-                stack: ['Python', 'Triton', 'CUDA C++', 'PyTorch', 'RoPE'],
-                speed: '184 TFLOPS',
-                latency: '1.4ms (4k ctx)',
-                coverage: '99.6% (38 Tests)',
-                memory: '45% VRAM Drop',
-                lang: 'Python/Triton',
-                code_lang: 'python',
-                bullets: [
-                    'Engineered fused FP16 RoPE attention kernel in OpenAI Triton eliminating global GPU memory roundtrips.',
-                    'Implemented paged KV-cache memory manager eliminating VRAM external fragmentation.',
-                    'Optimized FlashAttention block tiling for NVIDIA Hopper and Ada Lovelace tensor cores.'
+                stack: ['Python', 'OpenAI Triton', 'CUDA C++', 'PyTorch', 'RoPE'],
+                what_has_made: [
+                    'Engineered fused FP16 Rotary Position Embedding (RoPE) kernel in OpenAI Triton.',
+                    'Implemented paged KV-cache memory manager cutting VRAM footprint by 45%.',
+                    'Achieved 184 TFLOPS sustained throughput on Hopper tensor cores with 3.2x token generation speedup.'
                 ],
-                files: [
-                    { name: 'kernels/flash_attn_triton.py', lines: '3,200 lines', desc: 'Custom Triton tiled FP16 attention kernel' },
-                    { name: 'kernels/fused_rope.py', lines: '2,150 lines', desc: 'Rotary position embedding fused in-place' },
-                    { name: 'cache/paged_kv.py', lines: '2,050 lines', desc: 'Non-contiguous physical page table manager' },
-                    { name: 'csrc/cuda_launcher.cu', lines: '1,200 lines', desc: 'CUDA C++ high-priority launch wrapper' },
-                    { name: 'tests/test_correctness.py', lines: '800 lines', desc: 'Exact mathematical equivalence to SDPA' }
+                what_is_building: [
+                    'Fine-tuning block tiling parameters for 32k context length windows.'
                 ],
-                sample_code: `import torch
-import triton
-import triton.language as tl
-
-@triton.jit
-def _fused_flash_attn_forward_kernel(
-    Q, K, V, Out,
-    stride_qz, stride_qh, stride_qm, stride_qk,
-    stride_kz, stride_kh, stride_kn, stride_kk,
-    Z, H, N_CTX,
-    BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr,
-):
-    start_m = tl.program_id(0)
-    off_hz = tl.program_id(1)
-    
-    # Block pointers for tiled fast SRAM caching
-    offs_m = start_m * BLOCK_M + tl.arange(0, BLOCK_M)
-    offs_n = tl.arange(0, BLOCK_N)
-    offs_k = tl.arange(0, 64)
-    
-    q = tl.load(Q + off_hz * stride_qh + offs_m[:, None] * stride_qm + offs_k[None, :] * stride_qk)
-    m_i = tl.zeros([BLOCK_M], dtype=tl.float32) - float("inf")
-    l_i = tl.zeros([BLOCK_M], dtype=tl.float32)
-    acc = tl.zeros([BLOCK_M, 64], dtype=tl.float32)
-    
-    # Online Softmax update loop
-    for start_n in range(0, (start_m + 1) * BLOCK_M, BLOCK_N):
-        k = tl.load(K + off_hz * stride_kh + (start_n + offs_n[:, None]) * stride_kn + offs_k[None, :] * stride_kk)
-        qk = tl.dot(q, tl.trans(k))
-        m_ij = tl.maximum(m_i, tl.max(qk, 1))
-        p = tl.exp(qk - m_ij[:, None])
-        l_ij = tl.sum(p, 1)
-        # Scale accumulation
-        acc = acc * tl.exp(m_i - m_ij)[:, None] + tl.dot(p.to(tl.float16), tl.load(V + ...))
-        m_i = m_ij
-        l_i = l_i * tl.exp(m_i - m_ij) + l_ij`,
-                markdown: `# 🤖 Devlog: Custom FlashAttention-2 Inference Accelerator\n**Author:** Aviral Dewangan | **Client:** HyperScale AI | **Tracked Time:** 11h 58m\n**Stack:** Python, Triton, CUDA C++, PyTorch\n\n### 🚀 Architectural Deliverables\n- **Fused FP16 RoPE:** Kernel fusion eliminating GPU global memory roundtrips.\n- **Paged KV-Cache:** Virtual memory paging for dynamic context windows.`
+                what_needs_review: [
+                    'Client validation of mathematical equivalence test results vs standard PyTorch SDPA.'
+                ],
+                milestones: [
+                    { name: 'M1: Triton Fused RoPE & Paged Cache', amount: '$3,850.00', status: 'RELEASED', date: 'Aug 26, 2026' },
+                    { name: 'M2: 32k Context Window Tuning & Equivalence Audit', amount: '$1,650.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
             },
             'freelance-react': {
                 id: 'freelance-react',
-                icon: '⚛️',
-                title: '120 FPS Financial Trading Terminal UI',
-                category: 'Freelance Client Delivery • Frontend Architecture',
+                title: 'Real-Time 120 FPS Financial Trading Cockpit Terminal',
                 client: 'AlphaTrader Systems',
                 budget: '$4,200.00',
-                duration: '11h 51m',
-                lines: '8,640+',
-                score: '99.1 / 100',
+                paid_amount: '$4,200.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($4,200)',
+                tracked_time: '11h 51m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
                 desc: 'Ultra-low latency institutional trading cockpit with dynamic 120 FPS orderbook canvas, real-time depth charts, and glassmorphic telemetry cards.',
-                stack: ['React 19', 'TypeScript', 'Tailwind CSS', 'WebSockets', 'Canvas'],
-                speed: '120 FPS Solid',
-                latency: '< 1ms UI Tick',
-                coverage: '98.9% (55 Tests)',
-                memory: 'Zero Dropped Frames',
-                lang: 'React/TS',
-                code_lang: 'tsx',
-                bullets: [
-                    'Built hardware-accelerated 2D Canvas orderbook visualizer rendering 10,000 price level changes at 120 FPS.',
-                    'Engineered binary WebSocket frame demultiplexer decoding protobuf ticks in web workers.',
-                    'Crafted responsive glassmorphic UI architecture with Tailwind CSS and CSS container queries.'
+                stack: ['React 19', 'TypeScript', 'Canvas 2D', 'Tailwind CSS', 'WebSockets'],
+                what_has_made: [
+                    'Engineered hardware-accelerated 120 FPS Canvas orderbook visualizer handling 10,000 live tick updates/sec.',
+                    'Implemented binary WebSocket frame decoder in dedicated Web Worker threads.',
+                    'Delivered modular glassmorphic trading cockpit with customizable docking layouts.'
                 ],
-                files: [
-                    { name: 'src/components/OrderBookCanvas.tsx', lines: '2,900 lines', desc: '120 FPS WebGL/Canvas depth chart' },
-                    { name: 'src/workers/stream_worker.ts', lines: '1,850 lines', desc: 'Web worker binary tick unpacker' },
-                    { name: 'src/hooks/useMarketDepth.ts', lines: '1,420 lines', desc: 'Sub-millisecond state synchronization' },
-                    { name: 'src/components/TradingCockpit.tsx', lines: '1,350 lines', desc: 'Glassmorphic panel docking framework' },
-                    { name: 'tests/orderbook.test.tsx', lines: '1,120 lines', desc: 'React testing library benchmark suite' }
+                what_is_building: [
+                    'Post-launch component library integration into client design system.'
                 ],
-                sample_code: `import React, { useEffect, useRef } from 'react';
-
-interface OrderBookProps {
-    bids: [number, number][];
-    asks: [number, number][];
-}
-
-export const OrderBookCanvas: React.FC<OrderBookProps> = ({ bids, asks }) => {
-    const canvasRef = useRef<HTMLCanvasElement | null>(null);
-
-    useEffect(() => {
-        const canvas = canvasRef.current;
-        if (!canvas) return;
-        const ctx = canvas.getContext('2d', { alpha: false });
-        if (!ctx) return;
-
-        let animFrameId: number;
-        const render = () => {
-            ctx.fillStyle = '#0b0f19';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw Bid Depth Gradient (Emerald)
-            let runningBidVolume = 0;
-            bids.forEach(([price, volume], index) => {
-                runningBidVolume += volume;
-                const y = index * 20;
-                const barWidth = (runningBidVolume / 1000) * canvas.width * 0.4;
-                ctx.fillStyle = 'rgba(16, 185, 129, 0.25)';
-                ctx.fillRect(0, y, barWidth, 18);
-                ctx.fillStyle = '#10b981';
-                ctx.fillText(\`\${price.toFixed(2)} | \${volume.toFixed(4)}\`, 10, y + 14);
-            });
-
-            animFrameId = requestAnimationFrame(render);
-        };
-        render();
-        return () => cancelAnimationFrame(animFrameId);
-    }, [bids, asks]);
-
-    return <canvas ref={canvasRef} width={600} height={400} className="w-full rounded-2xl border border-slate-800" />;
-};`,
-                markdown: `# ⚛️ Devlog: 120 FPS Financial Trading Terminal in React 19\n**Author:** Aviral Dewangan | **Client:** AlphaTrader | **Tracked Time:** 11h 51m\n**Stack:** React 19, TypeScript, Tailwind CSS, WebSockets\n\n### 🚀 Architectural Deliverables\n- **120 FPS Canvas:** Real-time WebGL depth visualizer with zero frame drops.\n- **WebSocket Multiplexing:** Sub-millisecond tick updates with zero UI lag.`
+                what_needs_review: [
+                    'Final staging approval of dark/light theme persistence (Completed).'
+                ],
+                milestones: [
+                    { name: 'M1: 120 FPS Canvas Visualizer Engine', amount: '$2,500.00', status: 'RELEASED', date: 'Aug 23, 2026' },
+                    { name: 'M2: Web Worker Binary Frame Demux & Layouts', amount: '$1,700.00', status: 'RELEASED', date: 'Aug 29, 2026' }
+                ]
             },
             'freelance-fastapi': {
                 id: 'freelance-fastapi',
-                icon: '⚡',
-                title: 'High-Throughput Async REST/WS Microservices',
-                category: 'Freelance Client Delivery • Backend API',
+                title: 'High-Throughput Asynchronous REST & WebSocket Microservices',
                 client: 'FinVault Global',
                 budget: '$4,600.00',
-                duration: '11h 40m',
-                lines: '7,950+',
-                score: '97.4 / 100',
+                paid_amount: '$3,200.00',
+                escrow_amount: '$1,400.00',
+                payment_status: '70% Released ($3,200)',
+                tracked_time: '11h 40m',
+                status_badge: 'In Active Build',
+                status_color: 'cyan',
                 desc: 'High-concurrency API gateway handling 48,000 req/sec with non-blocking async session pools, JWT token verification, and Redis pub/sub replication.',
-                stack: ['FastAPI', 'Python', 'Uvicorn', 'Redis Streams', 'Pydantic'],
-                speed: '48,000 Req/sec',
-                latency: '1.2ms p99',
-                coverage: '98.2% (46 Tests)',
-                memory: 'Uvloop Async Pool',
-                lang: 'Python/FastAPI',
-                code_lang: 'python',
-                bullets: [
-                    'Engineered async gateway with Uvicorn uvloop workers handling 48,000 requests/sec with sub-2ms response latency.',
-                    'Implemented resilient Redis Streams event publisher with consumer group re-balancing.',
-                    'Integrated strict Pydantic v2 schemas and distributed JWT auth validation middleware.'
+                stack: ['FastAPI', 'Python', 'Uvicorn uvloop', 'Redis Streams', 'Pydantic v2'],
+                what_has_made: [
+                    'Built asynchronous API gateway processing 48,000 req/sec with < 1.2ms p99 latency.',
+                    'Implemented Redis Streams pub/sub consumer group architecture with guaranteed delivery.',
+                    'Engineered compiled Pydantic v2 validation models and distributed JWT authentication.'
                 ],
-                files: [
-                    { name: 'app/main.py', lines: '2,100 lines', desc: 'FastAPI lifespan & middleware configuration' },
-                    { name: 'app/routers/streams.py', lines: '1,950 lines', desc: 'WebSocket broadcast & subscription multiplexer' },
-                    { name: 'app/services/redis_pubsub.py', lines: '1,700 lines', desc: 'Redis streams producer & consumer groups' },
-                    { name: 'app/schemas/payloads.py', lines: '1,200 lines', desc: 'Pydantic v2 high-speed compiled models' },
-                    { name: 'tests/test_gateway_load.py', lines: '1,000 lines', desc: 'Locust load & concurrency benchmarks' }
+                what_is_building: [
+                    'Adding rate-limiting token bucket middleware with Redis backend.',
+                    'Automating OpenAPI v3 schema generation and client SDK stubs.'
                 ],
-                sample_code: `from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends
-from redis.asyncio import Redis
-import asyncio
-
-app = FastAPI(title="FinVault Async Gateway")
-redis_client = Redis.from_url("redis://localhost:6379", decode_responses=True)
-
-@app.websocket("/ws/market-events/{channel_id}")
-async def market_event_stream(websocket: WebSocket, channel_id: str):
-    await websocket.accept()
-    pubsub = redis_client.pubsub()
-    await pubsub.subscribe(f"channel:{channel_id}")
-
-    async def forward_redis_messages():
-        try:
-            async for message in pubsub.listen():
-                if message["type"] == "message":
-                    await websocket.send_text(message["data"])
-        except Exception:
-            pass
-
-    task = asyncio.create_task(forward_redis_messages())
-    try:
-        while True:
-            # Client heartbeat ping/pong
-            data = await websocket.receive_text()
-            if data == "ping":
-                await websocket.send_text("pong")
-    except WebSocketDisconnect:
-        task.cancel()
-        await pubsub.unsubscribe(f"channel:{channel_id}")`,
-                markdown: `# ⚡ Devlog: Scalable FastAPI Microservices Architecture\n**Author:** Aviral Dewangan | **Client:** FinVault Global | **Tracked Time:** 11h 40m\n**Stack:** FastAPI, Python, Redis Streams, Pydantic v2\n\n### 🚀 Architectural Deliverables\n- **48,000 Req/sec:** Async event loops optimized with Uvicorn uvloop workers.\n- **Redis Streams:** Resilient event streaming with guaranteed at-least-once delivery.`
+                what_needs_review: [
+                    'Client review on Locust load test reports (48k RPS benchmark).'
+                ],
+                milestones: [
+                    { name: 'M1: Uvicorn Async Gateway & Auth', amount: '$3,200.00', status: 'RELEASED', date: 'Aug 25, 2026' },
+                    { name: 'M2: Redis Consumer Groups & Rate Limiter', amount: '$1,400.00', status: 'IN ESCROW', date: 'Active Sprint' }
+                ]
             },
             'freelance-rust': {
                 id: 'freelance-rust',
-                icon: '🦀',
-                title: 'AVX-512 SIMD Zero-Copy Packet Filter Enclave',
-                category: 'Freelance Client Delivery • Cyber-Defense',
+                title: 'AVX-512 SIMD Zero-Copy Network Packet Filter Enclave',
                 client: 'SecureShield Labs',
                 budget: '$6,400.00',
-                duration: '11h 33m',
-                lines: '10,250+',
-                score: '99.6 / 100',
+                paid_amount: '$4,800.00',
+                escrow_amount: '$1,600.00',
+                payment_status: '75% Released ($4,800)',
+                tracked_time: '11h 33m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
                 desc: 'Bare-metal high-speed packet inspection engine with 10 Gbps wire-rate filtering, zero-allocation ringbuffers, and hardware AES-NI cryptography.',
-                stack: ['Rust', 'Tokio', 'AVX-512', 'Win32 / Epoll', 'AES-NI'],
-                speed: '10 Gbps Wire-Rate',
-                latency: '< 180ns packet',
-                coverage: '99.8% (64 Tests)',
-                memory: 'Hardware Ringbuffer',
-                lang: 'Rust',
-                code_lang: 'rust',
-                bullets: [
-                    'Engineered 512-bit vector SIMD signature matcher processing 64 bytes per CPU clock cycle.',
-                    'Built zero-allocation lock-free circular packet ringbuffer bypassing kernel memory copies.',
+                stack: ['Rust', 'Tokio', 'AVX-512 SIMD', 'AES-NI', 'Lock-Free Ringbuffer'],
+                what_has_made: [
+                    'Engineered 512-bit vector SIMD signature matcher processing 64 bytes per CPU cycle at 10 Gbps wire-rate.',
+                    'Built zero-allocation lock-free SPSC packet ringbuffer bypassing kernel memory copies.',
                     'Integrated hardware AES-NI encryption engine for real-time payload sanitization.'
                 ],
-                files: [
-                    { name: 'src/filter/avx512_scanner.rs', lines: '3,400 lines', desc: '512-bit vector intrinsics pattern matching' },
-                    { name: 'src/ringbuffer/lockfree.rs', lines: '2,650 lines', desc: 'Atomic SPSC memory-mapped packet queue' },
-                    { name: 'src/crypto/aes_ni.rs', lines: '1,900 lines', desc: 'Hardware accelerated payload decryption' },
-                    { name: 'src/main.rs', lines: '1,300 lines', desc: 'Multi-threaded packet dispatch daemon' },
-                    { name: 'benches/filter_bench.rs', lines: '1,000 lines', desc: 'Criterion 10 Gbps throughput benchmarks' }
+                what_is_building: [
+                    'Finalizing dynamic rule reload without dropping active network sockets.'
                 ],
-                sample_code: `use std::arch::x86_64::*;
-
-pub struct Avx512PacketFilter {
-    target_pattern: __m512i,
-}
-
-impl Avx512PacketFilter {
-    #[target_feature(enable = "avx512f,avx512bw")]
-    pub unsafe fn scan_payload_64bytes(&self, packet_chunk: &[u8; 64]) -> bool {
-        let chunk_vec = _mm512_loadu_si512(packet_chunk.as_ptr() as *const __m512i);
-        let cmp_mask = _mm512_cmpeq_epi8_mask(chunk_vec, self.target_pattern);
-        cmp_mask != 0
-    }
-
-    pub fn inspect_wire_stream(&self, stream: &[u8]) -> usize {
-        let mut violations = 0;
-        for chunk in stream.chunks_exact(64) {
-            unsafe {
-                if self.scan_payload_64bytes(chunk.try_into().unwrap()) {
-                    violations += 1;
-                }
-            }
-        }
-        violations
-    }
-}`,
-                markdown: `# 🦀 Devlog: AVX-512 SIMD Packet Filter in Rust\n**Author:** Aviral Dewangan | **Client:** SecureShield Labs | **Tracked Time:** 11h 33m\n**Stack:** Rust, Tokio, AVX-512 SIMD, AES-NI\n\n### 🚀 Architectural Deliverables\n- **10 Gbps Wire-Rate:** Vectorized AVX-512 pattern matching engine.\n- **Zero-Allocation:** Memory pool ringbuffers with zero runtime GC overhead.`
+                what_needs_review: [
+                    'Client QA sign-off on 10 Gbps PCAP replay stress tests.'
+                ],
+                milestones: [
+                    { name: 'M1: AVX-512 SIMD Pattern Matching Kernel', amount: '$3,200.00', status: 'RELEASED', date: 'Aug 24, 2026' },
+                    { name: 'M2: Lock-Free Packet Ringbuffer & AES-NI', amount: '$1,600.00', status: 'RELEASED', date: 'Aug 28, 2026' },
+                    { name: 'M3: 10 Gbps PCAP Replay Stress Sign-Off', amount: '$1,600.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
             },
             'freelance-pdf': {
                 id: 'freelance-pdf',
-                icon: '📄',
-                title: 'Vectorized PDF Extraction & Legal Analyzer',
-                category: 'Freelance Client Delivery • Document Intelligence',
+                title: 'Vectorized PDF Legal Document Extraction Core',
                 client: 'LexisDoc Automation',
                 budget: '$3,800.00',
-                duration: '11h 26m',
-                lines: '7,200+',
-                score: '96.0 / 100',
+                paid_amount: '$3,800.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($3,800)',
+                tracked_time: '11h 26m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
                 desc: 'High-throughput optical and vector PDF ingestion engine parsing 500+ pages/sec with automated tabular extraction and semantic metadata tagging.',
-                stack: ['Python', 'PyMuPDF', 'Rust OCR', 'Regex', 'SQLite'],
-                speed: '520 Pages/sec',
-                latency: '< 8ms page',
-                coverage: '97.2% (36 Tests)',
-                memory: 'Zero-Leak Stream',
-                lang: 'Python/Rust',
-                code_lang: 'python',
-                bullets: [
-                    'Built multi-process PDF parsing engine achieving 520 pages/sec with spatial bbox tracking.',
-                    'Implemented automatic tabular reconstruction converting complex financial tables to JSON/CSV.',
-                    'Integrated fast Rust C-FFI OCR fallback for low-contrast scanned court filings.'
+                stack: ['Python', 'PyMuPDF', 'Rust C-FFI OCR', 'Spatial BBox', 'SQLite FTS5'],
+                what_has_made: [
+                    'Built multiprocessing PDF extraction engine parsing 520 pages/sec with spatial bounding box tracking.',
+                    'Implemented geometric table reconstructor converting complex court documents to structured JSON.',
+                    'Integrated high-speed Rust OCR C-FFI scanner for low-contrast scanned filings.'
                 ],
-                files: [
-                    { name: 'extractor/pdf_engine.py', lines: '2,300 lines', desc: 'PyMuPDF multiprocess page dispatcher' },
-                    { name: 'extractor/table_reconstructor.py', lines: '1,850 lines', desc: 'Spatial bounding box geometric clustering' },
-                    { name: 'ocr_bridge/rust_ocr.rs', lines: '1,450 lines', desc: 'Rust C-FFI high-speed binarization scanner' },
-                    { name: 'storage/sqlite_vault.py', lines: '900 lines', desc: 'Full-text FTS5 legal index repository' },
-                    { name: 'tests/test_pdf_accuracy.py', lines: '700 lines', desc: '1,000 page ground truth accuracy verification' }
+                what_is_building: [
+                    'Handoff and deployment to client on-premises Kubernetes cluster.'
                 ],
-                sample_code: `import fitz  # PyMuPDF
-import multiprocessing as mp
-from typing import List, Dict
-
-class LegalDocumentExtractor:
-    def __init__(self, doc_path: str):
-        self.doc_path = doc_path
-
-    def extract_page_text_and_tables(self, page_num: int) -> Dict:
-        doc = fitz.open(self.doc_path)
-        page = doc[page_num]
-        
-        # Spatial text block extraction with font size & weight
-        blocks = page.get_text("dict")["blocks"]
-        tables = page.find_tables()
-        
-        extracted_tables = []
-        for tab in tables:
-            extracted_tables.append(tab.extract())
-
-        return {
-            "page": page_num,
-            "char_count": len(page.get_text()),
-            "tables_found": len(extracted_tables),
-            "tables": extracted_tables,
-            "bbox_count": len(blocks),
-        }`,
-                markdown: `# 📄 Devlog: 500 Pages/sec PDF Legal Extraction Core\n**Author:** Aviral Dewangan | **Client:** LexisDoc Automation | **Tracked Time:** 11h 26m\n**Stack:** Python, PyMuPDF, Rust OCR, SQLite\n\n### 🚀 Architectural Deliverables\n- **500+ Pages/sec:** Multiprocessing extraction pipeline.\n- **Tabular Parsing:** Spatial bounding box reconstruction of complex tables.`
-            },
-            'focusdefend-sovereign-shield': {
-                id: 'focusdefend-sovereign-shield',
-                icon: '🛡️',
-                title: 'FocusDefend Sovereign Deep-Work Shield',
-                category: 'Cyber-Defense & Focus Enclave',
-                client: 'Sovereign Engineering Core',
-                budget: 'Flagship Core',
-                duration: '16h 30m',
-                lines: '12,840+',
-                score: '96.8 / 100',
-                desc: 'High-performance DNS packet interceptor, distraction process terminator, 40Hz Gamma soundscape generator, and 20-20-20 eye strain monitor.',
-                stack: ['Rust (Tokio)', 'C Win32', 'Python', 'HTML5'],
-                speed: '< 50µs Intercept',
-                latency: '0ms Audio Jitter',
-                coverage: '99.5% (58 Tests)',
-                memory: '14MB Enclave',
-                lang: 'Rust/C',
-                code_lang: 'rust',
-                bullets: [
-                    'Built kernel-level zero-copy DNS interceptor in Rust with Tokio blocking blacklisted domain resolution.',
-                    'Implemented Win32 C foreground window hook monitoring cognitive context switching.',
-                    'Engineered real-time 40Hz Gamma wave binaural tone generator for neuro-cognitive focus enhancement.'
+                what_needs_review: [
+                    'Final sign-off on 1,000-page benchmark accuracy verification (99.6% Accuracy).'
                 ],
-                files: [
-                    { name: 'src/shield.rs', lines: '3,850 lines', desc: 'Tokio async DNS interceptor & rule engine' },
-                    { name: 'src/win32_intercept.c', lines: '2,900 lines', desc: 'Low-level Win32 window event hook' },
-                    { name: 'src/analytics.rs', lines: '2,450 lines', desc: 'Real-time focus score & flow calculator' },
-                    { name: 'src/soundscape.rs', lines: '2,140 lines', desc: '40Hz Gamma wave DSP binaural synthesizer' },
-                    { name: 'focusdefend_daemon.py', lines: '1,500 lines', desc: 'Python IPC bridge & system tray integration' }
-                ],
-                sample_code: `use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Arc;
-use tokio::net::UdpSocket;
-
-pub struct FocusShieldInterceptor {
-    running: Arc<AtomicBool>,
-    blacklisted_domains: Arc<Vec<String>>,
-}
-
-impl FocusShieldInterceptor {
-    pub async fn start_dns_defense(&self, listen_addr: &str) -> tokio::io::Result<()> {
-        let socket = UdpSocket::bind(listen_addr).await?;
-        let mut buf = [0u8; 512];
-
-        while self.running.load(Ordering::Relaxed) {
-            let (len, peer) = socket.recv_from(&mut buf).await?;
-            let domain = self.parse_dns_query(&buf[..len]);
-            
-            if self.blacklisted_domains.contains(&domain) {
-                // Drop distraction DNS request or return 127.0.0.1
-                let sinkhole_resp = self.build_sinkhole_response(&buf[..len]);
-                socket.send_to(&sinkhole_resp, peer).await?;
-            } else {
-                // Forward genuine query to upstream DNS
-                self.forward_upstream(&buf[..len], peer, &socket).await?;
-            }
-        }
-        Ok(())
-    }
-}`,
-                markdown: `# 🛡️ Devlog: FocusDefend - Sovereign Deep-Work Shield\n**Author:** Aviral Dewangan | **Tracked Time:** 16h 30m\n**Stack:** Rust (Tokio), C Win32, Python Bridge\n\n### 🚀 Architectural Overview\nBuilt a military-grade distraction defense system in Rust that intercepts DNS requests, terminates background distraction processes, and monitors developer flow state in real-time.`
-            },
-            'bharatos-sovereign-desktop': {
-                id: 'bharatos-sovereign-desktop',
-                icon: '🇮🇳',
-                title: 'BharatOS Sovereign PC Operating System',
-                category: 'Bare-Metal Operating System',
-                client: 'BharatOS Sovereign Initiative',
-                budget: 'Flagship OS',
-                duration: '21h 52m',
-                lines: '34,600+',
-                score: '99.4 / 100',
-                desc: 'Ring-0 microkernel, 256-bit AVX2 SIMD OCR (32 bytes/cycle), Kavach cryptographic vault, and Prithvi desktop.',
-                stack: ['x86_64 ASM', 'Freestanding C', 'Rust', 'Python'],
-                speed: '32 Bytes/cycle',
-                latency: '< 50µs Context',
-                coverage: '99.8% (120 Tests)',
-                memory: '4.2MB Microkernel',
-                lang: 'ASM/C/Rust',
-                code_lang: 'c',
-                bullets: [
-                    'Built freestanding x86_64 microkernel with custom GDT/IDT interrupt handlers and PIC timer.',
-                    'Engineered AVX2 SIMD OCR engine scanning 32 grayscale bytes per CPU clock cycle in Indic scripts.',
-                    'Architected zero-telemetry hardware enclave with Kavach AES-256 cryptographic memory protection.'
-                ],
-                files: [
-                    { name: 'kernel/arch/x86_64/boot.asm', lines: '4,800 lines', desc: 'Long mode initialization & paging tables' },
-                    { name: 'kernel/core/kernel.c', lines: '8,400 lines', desc: 'Microkernel scheduler & IPC message channels' },
-                    { name: 'ocr/avx2_binarize.asm', lines: '5,200 lines', desc: '256-bit AVX2 SIMD Otsu thresholding' },
-                    { name: 'kavach/crypto_vault.c', lines: '6,100 lines', desc: 'AES-256 hardware ring-0 memory cipher' },
-                    { name: 'bharatos/index.html', lines: '14,600 lines', desc: 'Prithvi Sovereign desktop environment' }
-                ],
-                sample_code: `#include <stdint.h>
-#include <immintrin.h>
-
-// BharatOS AVX2 SIMD Vector Binarization (32 Bytes/Clock Cycle)
-void bharatos_avx2_binarize_row(const uint8_t* src, uint8_t* dst, uint32_t len, uint8_t threshold) {
-    __m256i thresh_vec = _mm256_set1_epi8(threshold);
-    __m256i zero_vec   = _mm256_setzero_si256();
-    __m256i ones_vec   = _mm256_set1_epi8(0xFF);
-
-    for (uint32_t i = 0; i < len; i += 32) {
-        __m256i pixel_chunk = _mm256_loadu_si256((const __m256i*)(src + i));
-        // Compare pixels against threshold (unsigned saturation)
-        __m256i mask = _mm256_cmpgt_epi8(_mm256_subs_epu8(pixel_chunk, thresh_vec), zero_vec);
-        // Store 32 binarized bytes
-        _mm256_storeu_si256((__m256i*)(dst + i), _mm256_and_si256(mask, ones_vec));
-    }
-}`,
-                markdown: `# 🇮🇳 Devlog: BharatOS - Sovereign Operating System\n**Author:** Aviral Dewangan | **Tracked Time:** 21h 52m\n**Stack:** x86_64 Assembly, C Kernel, Rust OCR\n\n### 🚀 Architectural Overview\nArchitected freestanding OS with custom IDT/PIC drivers, AVX2 binarization processing 32 bytes/cycle, and zero-telemetry hardware enclave.`
-            },
-            'solaris-omniverse-ecosystem': {
-                id: 'solaris-omniverse-ecosystem',
-                icon: '🎮',
-                title: 'Solaris 3D Tactical Physics & Spatial Engine',
-                category: 'Spatial Computing & Graphics',
-                client: 'Solaris Interactive',
-                budget: 'Game Engine',
-                duration: '12h 39m',
-                lines: '8,900+',
-                score: '95.0 / 100',
-                desc: 'O(1) broadphase spatial hash grid, real-time raycaster, and WebGL specular lighting pipeline.',
-                stack: ['Rust', 'WebGL', 'Spatial Hash Grid', 'Linear Algebra'],
-                speed: '60 FPS @ 10k Parts',
-                latency: '< 0.4ms Physics',
-                coverage: '98.0% (34 Tests)',
-                memory: 'GPU VBO Instanced',
-                lang: 'Rust/WebGL',
-                code_lang: 'rust',
-                bullets: [
-                    'Designed O(1) broadphase 3D spatial hash grid partitioning active collision candidates.',
-                    'Engineered GPU-instanced WebGL particle system rendering 10,000 dynamic projectiles at 60 FPS.',
-                    'Built deterministic fixed-timestep physics solver for network-synchronized multiplayer.'
-                ],
-                files: [
-                    { name: 'src/physics/spatial_grid.rs', lines: '2,900 lines', desc: 'O(1) 3D spatial hash partitioning' },
-                    { name: 'src/graphics/webgl_pipeline.rs', lines: '2,400 lines', desc: 'Shader compiling & instanced VBO draw' },
-                    { name: 'src/math/quaternion.rs', lines: '1,750 lines', desc: 'Fast SIMD quaternion & 3D vector math' },
-                    { name: 'src/gameplay/multiplayer.rs', lines: '1,150 lines', desc: 'Deterministic client-side prediction' },
-                    { name: 'tests/physics_bench.rs', lines: '700 lines', desc: 'Spatial collision benchmark suite' }
-                ],
-                sample_code: `use std::collections::HashMap;
-
-pub struct SpatialHashGrid {
-    cell_size: f32,
-    grid: HashMap<(i32, i32, i32), Vec<usize>>,
-}
-
-impl SpatialHashGrid {
-    pub fn new(cell_size: f32) -> Self {
-        Self { cell_size, grid: HashMap::new() }
-    }
-
-    #[inline(always)]
-    pub fn hash_position(&self, x: f32, y: f32, z: f32) -> (i32, i32, i32) {
-        (
-            (x / self.cell_size).floor() as i32,
-            (y / self.cell_size).floor() as i32,
-            (z / self.cell_size).floor() as i32,
-        )
-    }
-
-    pub fn insert_entity(&mut self, id: usize, x: f32, y: f32, z: f32) {
-        let cell = self.hash_position(x, y, z);
-        self.grid.entry(cell).or_default().push(id);
-    }
-}`,
-                markdown: `# 🎮 Devlog: Solaris 3D Spatial Grid Engine\n**Author:** Aviral Dewangan | **Tracked Time:** 12h 39m\n**Stack:** Rust, WebGL, Spatial Hash Grid\n\n### 🚀 Architectural Deliverables\nDeveloped high-performance 2D/3D physics collider using spatial hash grid partitioning and dynamic lighting.`
+                milestones: [
+                    { name: 'M1: PyMuPDF Extraction & Spatial Parser', amount: '$2,200.00', status: 'RELEASED', date: 'Aug 22, 2026' },
+                    { name: 'M2: Rust OCR Bridge & Table Reconstructor', amount: '$1,600.00', status: 'RELEASED', date: 'Aug 29, 2026' }
+                ]
             }
         };
 
-        let currentProjectId = 'freelance-web3';
-        let activityChart = null;
+        let currentId = 'freelance-web3';
 
         function getProjectIdFromURL() {
-            const pathParts = window.location.pathname.split('/').filter(Boolean);
-            if (pathParts.length >= 2 && pathParts[0] === 'project') {
-                return pathParts[1];
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            if (parts.length >= 2 && parts[0] === 'project') {
+                return parts[1];
             }
             const params = new URLSearchParams(window.location.search);
             if (params.has('id')) {
@@ -1015,105 +459,114 @@ impl SpatialHashGrid {
         }
 
         function populateDropdown() {
-            const select = document.getElementById('project-select-dropdown');
-            select.innerHTML = '';
-            Object.keys(PROJECTS_EXTENDED_DB).forEach(id => {
-                const p = PROJECTS_EXTENDED_DB[id];
+            const dropdown = document.getElementById('project-dropdown');
+            dropdown.innerHTML = '';
+            Object.keys(CLIENT_PROJECTS_EXT).forEach(id => {
+                const p = CLIENT_PROJECTS_EXT[id];
                 const opt = document.createElement('option');
                 opt.value = id;
-                opt.textContent = `${p.icon} ${p.title} (${p.duration})`;
-                if (id === currentProjectId) opt.selected = true;
-                select.appendChild(opt);
+                opt.textContent = `${p.client} — ${p.title.substring(0, 24)}... (${p.budget})`;
+                if (id === currentId) opt.selected = true;
+                dropdown.appendChild(opt);
             });
         }
 
         function renderProject(projectId) {
-            const p = PROJECTS_EXTENDED_DB[projectId] || PROJECTS_EXTENDED_DB['freelance-web3'];
-            currentProjectId = p.id;
+            const p = CLIENT_PROJECTS_EXT[projectId] || CLIENT_PROJECTS_EXT['freelance-web3'];
+            currentId = p.id;
 
-            // Update Header & Breadcrumb
-            document.title = `${p.title} — Devlog & Telemetry Dashboard`;
-            document.getElementById('nav-project-icon').textContent = p.icon;
-            document.getElementById('nav-project-title').textContent = p.title;
-            document.getElementById('nav-project-badge').textContent = `${p.category.split('•')[0].trim()} (${p.budget})`;
+            document.title = `${p.title} — ${p.client} Delivery Spec`;
+            document.getElementById('nav-title').textContent = p.title;
+            document.getElementById('nav-client').textContent = p.client;
 
-            // Update Hero
-            document.getElementById('hero-category').textContent = p.category;
-            document.getElementById('hero-client').textContent = `Client: ${p.client}`;
-            document.getElementById('hero-title').textContent = `${p.icon} ${p.title}`;
-            document.getElementById('hero-desc').textContent = p.desc;
+            document.getElementById('proj-client').textContent = p.client;
+            document.getElementById('proj-time').textContent = `${p.tracked_time} Tracked`;
+            document.getElementById('proj-status').textContent = p.status_badge;
+            document.getElementById('proj-title').textContent = p.title;
+            document.getElementById('proj-desc').textContent = p.desc;
+            document.getElementById('proj-budget').textContent = p.budget;
+            document.getElementById('proj-payout-status').textContent = p.payment_status;
 
-            // Stack Badges
-            const stackContainer = document.getElementById('hero-stack-badges');
-            stackContainer.innerHTML = p.stack.map(s => `
-                <span class="px-2.5 py-1 rounded-xl bg-slate-800 text-slate-200 border border-slate-700 text-xs font-mono font-bold">${s}</span>
+            // Stack
+            document.getElementById('proj-stack').innerHTML = p.stack.map(s => `
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono">${s}</span>
             `).join('');
 
-            // Metrics
-            document.getElementById('stat-tracked-time').textContent = p.duration;
-            document.getElementById('stat-lines').textContent = p.lines;
-            document.getElementById('stat-score').textContent = p.score;
-            document.getElementById('stat-budget').textContent = p.budget;
-
-            // Benchmarks
-            document.getElementById('bench-speed').textContent = p.speed;
-            document.getElementById('bench-latency').textContent = p.latency;
-            document.getElementById('bench-coverage').textContent = p.coverage;
-            document.getElementById('bench-memory').textContent = p.memory;
-            document.getElementById('chart-primary-lang').textContent = p.lang;
-
-            // Architecture bullets
-            const bulletContainer = document.getElementById('architecture-bullet-list');
-            bulletContainer.innerHTML = p.bullets.map(b => `
+            // What has made
+            document.getElementById('list-has-made').innerHTML = p.what_has_made.map(item => `
                 <li class="flex items-start space-x-2">
-                    <span class="text-emerald-400 font-bold mt-0.5">✓</span>
-                    <span>${b}</span>
+                    <span class="text-emerald-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
                 </li>
             `).join('');
 
-            // File Tree
-            document.getElementById('file-count-badge').textContent = `${p.files.length} Core Modules`;
-            const fileContainer = document.getElementById('file-tree-container');
-            fileContainer.innerHTML = p.files.map((f, i) => `
-                <div class="p-2.5 rounded-xl bg-slate-900/90 border border-slate-800 hover:border-emerald-500/40 transition-all cursor-pointer">
-                    <div class="flex items-center justify-between text-xs font-bold text-slate-200">
-                        <span class="truncate font-mono">${f.name}</span>
-                        <span class="text-cyan-400 font-mono text-[10px]">${f.lines}</span>
-                    </div>
-                    <div class="text-[10px] text-slate-400 mt-0.5">${f.desc}</div>
-                </div>
+            // What is building
+            document.getElementById('list-is-building').innerHTML = p.what_is_building.map(item => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-cyan-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
+                </li>
             `).join('');
 
-            // Code Viewer
-            document.getElementById('code-viewer-title').textContent = `${p.title} — Hot Execution Path`;
-            document.getElementById('code-viewer-lang').textContent = p.lang;
-            const codeBlock = document.getElementById('code-viewer-block');
-            codeBlock.className = `language-${p.code_lang}`;
-            codeBlock.textContent = p.sample_code;
-            Prism.highlightElement(codeBlock);
+            // What needs review
+            document.getElementById('list-needs-review').innerHTML = p.what_needs_review.map(item => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-amber-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
 
-            // Devlog markdown
-            document.getElementById('project-markdown-box').value = p.markdown;
+            // Milestones
+            document.getElementById('milestones-container').innerHTML = p.milestones.map(m => {
+                const isReleased = m.status === 'RELEASED';
+                return `
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                        <div>
+                            <div class="font-bold text-white">${m.name}</div>
+                            <div class="text-[10px] text-slate-500">${m.date}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-extrabold ${isReleased ? 'text-emerald-400' : 'text-amber-400'}">${m.amount}</div>
+                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${isReleased ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">${m.status}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
 
-            // Update Chart
-            updateActivityChart(p);
+            // Markdown
+            const md = `# Client Delivery Update: ${p.title}
+**Client:** ${p.client} | **Contract Value:** ${p.budget} (${p.payment_status})
+**Tracked Time:** ${p.tracked_time} | **Stack:** ${p.stack.join(', ')}
 
-            // Sync Dropdown
-            const select = document.getElementById('project-select-dropdown');
-            if (select) select.value = p.id;
+### ✓ What Has Made (Shipped Deliverables)
+${p.what_has_made.map(x => `- ${x}`).join('\n')}
+
+### 🔨 What Is Building (Current Sprint)
+${p.what_is_building.map(x => `- ${x}`).join('\n')}
+
+### 🔍 What Needs Review (Action Items for Client)
+${p.what_needs_review.map(x => `- ${x}`).join('\n')}
+
+*Prepared by Aviral Dewangan — Principal Systems Consultant*`;
+
+            document.getElementById('markdown-report').value = md;
+
+            const dropdown = document.getElementById('project-dropdown');
+            if (dropdown) dropdown.value = p.id;
         }
 
         function switchProject(projectId) {
             window.history.pushState({}, '', `/project/${projectId}`);
             renderProject(projectId);
-            showToast(`Loaded ${PROJECTS_EXTENDED_DB[projectId].title} dashboard!`);
+            showToast(`Loaded ${CLIENT_PROJECTS_EXT[projectId].client} project spec!`);
         }
 
-        function copyCurrentProjectDevlog() {
-            const p = PROJECTS_EXTENDED_DB[currentProjectId];
+        function copyProjectReport() {
+            const p = CLIENT_PROJECTS_EXT[currentId];
             if (p) {
-                navigator.clipboard.writeText(p.markdown);
-                showToast(`Copied ${p.title} devlog post to clipboard!`);
+                const textarea = document.getElementById('markdown-report');
+                navigator.clipboard.writeText(textarea.value);
+                showToast(`Copied ${p.client} update report!`);
             }
         }
 
@@ -1127,59 +580,6 @@ impl SpatialHashGrid {
                     toast.classList.add('translate-y-20', 'opacity-0');
                 }, 2800);
             }
-        }
-
-        function updateActivityChart(project) {
-            const ctx = document.getElementById('projectActivityChart');
-            if (!ctx) return;
-
-            if (activityChart) {
-                activityChart.destroy();
-            }
-
-            // Generate deterministic 24-hr session activity curve for the project
-            const hours = Array.from({length: 24}, (_, i) => `${i.toString().padStart(2, '0')}:00`);
-            const seed = project.id.length;
-            const dataPoints = hours.map((_, i) => {
-                if (i >= 0 && i <= 5) return 0; // Sleeping
-                if (i >= 8 && i <= 13) return Math.floor(40 + Math.sin(i + seed) * 35);
-                if (i >= 14 && i <= 19) return Math.floor(55 + Math.cos(i + seed) * 40);
-                if (i >= 20 && i <= 23) return Math.floor(65 + Math.sin(i * 2 + seed) * 30);
-                return 15;
-            });
-
-            activityChart = new Chart(ctx, {
-                type: 'bar',
-                data: {
-                    labels: hours,
-                    datasets: [{
-                        label: 'Heartbeats / Pulses',
-                        data: dataPoints,
-                        backgroundColor: 'rgba(16, 185, 129, 0.4)',
-                        borderColor: '#10b981',
-                        borderWidth: 1.5,
-                        borderRadius: 6,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    scales: {
-                        x: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } },
-                        y: { grid: { color: 'rgba(255, 255, 255, 0.04)' }, ticks: { color: '#64748b', font: { family: 'JetBrains Mono', size: 10 } } }
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: {
-                            backgroundColor: '#111827',
-                            titleColor: '#10b981',
-                            bodyColor: '#f1f5f9',
-                            borderColor: '#334155',
-                            borderWidth: 1,
-                        }
-                    }
-                }
-            });
         }
 
         window.addEventListener('popstate', () => {
