@@ -24,6 +24,12 @@ DEFAULT_SETTINGS: Dict[str, Any] = {
     "web_dashboard_host": "127.0.0.1",
     "active_projects": [
         {
+            "name": "genaz-programming-language",
+            "languages": ["Python", "Rust", "C", "GenAz"],
+            "branch": "main",
+            "categories": ["coding", "designing", "building"]
+        },
+        {
             "name": "arcade-solaris-engine",
             "languages": ["Rust", "C++", "GLSL"],
             "branch": "main",

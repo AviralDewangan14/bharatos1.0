@@ -1,0 +1,13 @@
+# 01_hello.gaz — Basic Syntax & Variables
+let name = "Developer"
+let mut count: i64 = 3
+
+println("👋 Welcome to GenAz Programming Language!")
+println("Hello, " + name)
+
+while count > 0 {
+    println("Countdown: " + count)
+    count -= 1
+}
+
+println("🚀 GenAz is ready to build high-performance software!")

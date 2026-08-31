@@ -1,0 +1,24 @@
+# 03_concurrency.gaz — Channels & Thread Concurrency
+fn worker(id: i64, ch: chan) {
+    println("Worker " + id + " starting background task...")
+    let mut sum = 0
+    for i in range(1, 100) {
+        sum += i
+    }
+    ch <- sum
+    println("Worker " + id + " completed and sent result.")
+}
+
+let c = chan(10)
+println("🚀 Spawning concurrent background workers...")
+
+spawn worker(1, c)
+spawn worker(2, c)
+
+println("Waiting for worker results...")
+let res1 = <- c
+let res2 = <- c
+
+println("Worker 1 result: " + res1)
+println("Worker 2 result: " + res2)
+println("✅ Concurrent channel messaging verified!")

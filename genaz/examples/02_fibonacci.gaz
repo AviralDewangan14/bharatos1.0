@@ -1,0 +1,33 @@
+# 02_fibonacci.gaz — Recursive & Iterative Fibonacci Benchmark
+fn fib_recursive(n: i64) -> i64 {
+    if n <= 1 {
+        return n
+    }
+    return fib_recursive(n - 1) + fib_recursive(n - 2)
+}
+
+fn fib_iterative(n: i64) -> i64 {
+    if n <= 1 {
+        return n
+    }
+    let mut a = 0
+    let mut b = 1
+    let mut i = 2
+    while i <= n {
+        let temp = a + b
+        a = b
+        b = temp
+        i += 1
+    }
+    return b
+}
+
+let n = 20
+println("Computing Fibonacci(" + n + ")...")
+let r_res = fib_recursive(n)
+let i_res = fib_iterative(n)
+
+println("Fibonacci(" + n + ") Recursive: " + r_res)
+println("Fibonacci(" + n + ") Iterative: " + i_res)
+assert(r_res == i_res, "Fibonacci calculation mismatch")
+println("✅ Test passed 100%!")

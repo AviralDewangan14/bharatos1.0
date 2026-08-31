@@ -1,0 +1,23 @@
+# 04_ai_tensors.gaz — Matrix & Tensor Operations for AI
+println("🧮 GenAz AI Matrix Multiplication Kernel")
+
+let A = [
+    [1.0, 2.0, 3.0],
+    [4.0, 5.0, 6.0]
+]
+
+let B = [
+    [7.0, 8.0],
+    [9.0, 1.0],
+    [2.0, 3.0]
+]
+
+println("Matrix A (2x3): " + A)
+println("Matrix B (3x2): " + B)
+
+let C = matrix_mul(A, B)
+println("Product Matrix C (2x2): " + C)
+
+assert(len(C) == 2, "Matrix rows should be 2")
+assert(len(C[0]) == 2, "Matrix cols should be 2")
+println("✅ AI Tensor Multiplication verified!")

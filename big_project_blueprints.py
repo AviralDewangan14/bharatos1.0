@@ -8,6 +8,42 @@ from typing import List, Dict, Any
 
 BIG_PROJECT_BLUEPRINTS: List[Dict[str, Any]] = [
     {
+        "id": "genaz-programming-language",
+        "name": "GenAz Universal Programming Language & Bytecode Compiler",
+        "category": "Compilers, Virtual Machines & Language Design",
+        "stack": ["Python", "GenAz", "Rust", "C", "Bytecode"],
+        "target_dir": "genaz",
+        "phases": [
+            {
+                "phase_num": 1,
+                "subsystem": "Lexer & Parser",
+                "name": "Recursive Descent Parser & Token Scanner",
+                "entity": "genaz/src/parser.py",
+                "language": "Python",
+                "lines_est": 350,
+                "desc": "Lexical analysis and AST construction for expressions, statements, and concurrency."
+            },
+            {
+                "phase_num": 2,
+                "subsystem": "Bytecode Compiler & VM",
+                "name": "High-Performance Bytecode Virtual Machine & Opcode Dispatcher",
+                "entity": "genaz/src/vm.py",
+                "language": "Python",
+                "lines_est": 420,
+                "desc": "Stack-based runtime, green thread scheduler, and thread-safe channels."
+            },
+            {
+                "phase_num": 3,
+                "subsystem": "Standard Library & AI Math",
+                "name": "Tensor Mathematics, Vector Operations & REPL Shell",
+                "entity": "genaz/src/main.py",
+                "language": "GenAz",
+                "lines_est": 290,
+                "desc": "Built-in matrix multiplication kernels, I/O streams, and interactive CLI."
+            }
+        ]
+    },
+    {
         "id": "focusdefend-sovereign-shield",
         "name": "FocusDefend Sovereign Deep-Work Distraction Shield & Flow Enclave",
         "category": "Deep-Work, Cyber-Defense & Productivity Enclave",
