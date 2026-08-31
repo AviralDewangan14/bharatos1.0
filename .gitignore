@@ -1,6 +1,61 @@
-__pycache__/
-*.pyc
-*.pyo
-.DS_Store
+# =============================================================================
+# BHARATOS & CLIENT PORTFOLIO - PUBLIC GITHUB SECURITY & CLEANLINESS GITIGNORE
+# =============================================================================
+
+# Confidential Configuration & Secret API Keys
+.env
+.env.*
+*.env
+*.cfg
+*.secret
+*.key
+wakatime.cfg
+config.json
+
+# Internal Simulation & Generated Contract Workspaces
 simulated_workspaces/
+survival_agent/completed_contracts/
+dist/iso_staging/
+dist/*.iso
+dist/*.zip
+dist/*.bin
+
+# Python Bytecode & Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyd
+.venv/
+venv/
+env/
+ENV/
+
+# System, Logs & Telemetry Caches
 *.log
+*.sqlite
+*.sqlite3
+*.db
+.system_generated/
+scratch/
+.pytest_cache/
+.coverage
+
+# IDE & OS Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Node & Vercel
+node_modules/
+.vercel/
+npm-debug.log*
+
+# Test Screenshots (Keep wallpapers/ and core assets clean)
+bharatos_*.png
+clean_*.png
+project_dash_*.png
+web_dashboard_*.png
+solaris_game_*.png
