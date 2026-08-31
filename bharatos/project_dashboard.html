@@ -1,0 +1,595 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Project Specification & Deliverables — Aviral Dewangan</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        obsidian: '#080c14',
+                        surface: '#0d1322',
+                        card: '#11192d',
+                        border: '#1e293b',
+                        accent: {
+                            emerald: '#10b981',
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            rose: '#f43f5e',
+                            violet: '#8b5cf6'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #080c14;
+            color: #f8fafc;
+        }
+        .font-mono { font-family: 'JetBrains Mono', monospace; }
+        .studio-card {
+            background: #0d1424;
+            border: 1px solid rgba(255, 255, 255, 0.07);
+        }
+        .glass-nav {
+            background: rgba(8, 12, 20, 0.88);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        ::-webkit-scrollbar { width: 5px; height: 5px; }
+        ::-webkit-scrollbar-track { background: #080c14; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 9999px; }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col antialiased selection:bg-emerald-500 selection:text-black">
+
+    <!-- Top Navigation Bar -->
+    <header class="sticky top-0 z-50 glass-nav px-6 py-4">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <div class="flex items-center space-x-3.5">
+                <a href="/portfolio" class="px-3 py-1.5 rounded-lg bg-slate-900 hover:bg-slate-800 border border-slate-700 text-slate-300 text-xs font-semibold transition-all flex items-center space-x-1.5">
+                    <span>←</span><span>Client Pipeline</span>
+                </a>
+                <div class="h-4 w-[1px] bg-slate-800"></div>
+                <div>
+                    <span id="nav-title" class="font-bold text-sm text-white">Solana DEX Router</span>
+                    <span id="nav-client" class="text-xs text-slate-400 ml-2">Nexus Protocol</span>
+                </div>
+            </div>
+
+            <!-- Project Switcher & Export -->
+            <div class="flex items-center space-x-3 text-xs">
+                <div class="flex items-center space-x-2">
+                    <label class="text-[11px] font-semibold text-slate-400 hidden sm:inline">Switch Client:</label>
+                    <select id="project-dropdown" onchange="switchProject(this.value)" class="bg-slate-900 border border-slate-700 text-white text-xs font-semibold rounded-lg px-3 py-1.5 focus:outline-none focus:border-emerald-500">
+                    </select>
+                </div>
+                <button onclick="copyProjectReport()" class="px-3.5 py-1.5 rounded-lg bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold transition-all flex items-center space-x-1">
+                    <span>📋</span><span>Copy Report</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+        <!-- Executive Hero Header -->
+        <section class="p-6 sm:p-8 rounded-2xl studio-card space-y-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="space-y-1">
+                    <div class="flex items-center space-x-2 text-xs">
+                        <span id="proj-client" class="font-bold text-emerald-400">Nexus Protocol Ltd.</span>
+                        <span class="text-slate-600">•</span>
+                        <span id="proj-time" class="font-mono text-slate-300">12h 27m Tracked</span>
+                        <span class="text-slate-600">•</span>
+                        <span id="proj-status" class="px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-400 border border-amber-500/30 text-[10px] font-bold">Pending Final Review</span>
+                    </div>
+                    <h1 id="proj-title" class="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">Solana & EVM Cross-Chain Liquidity Router</h1>
+                    <p id="proj-desc" class="text-xs text-slate-300 max-w-3xl leading-relaxed">
+                        Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching capacity.
+                    </p>
+                </div>
+
+                <!-- Financial Card Box -->
+                <div class="p-4 rounded-xl bg-slate-950/80 border border-slate-800 text-right space-y-1 min-w-[200px]">
+                    <div class="text-[10px] uppercase font-bold text-slate-400">Contract Value</div>
+                    <div id="proj-budget" class="text-2xl font-extrabold text-white font-mono">$4,800.00</div>
+                    <div id="proj-payout-status" class="text-[11px] text-emerald-400 font-mono">75% Released ($3,600)</div>
+                </div>
+            </div>
+
+            <!-- Tech Stack Badges -->
+            <div class="flex flex-wrap gap-1.5 pt-2 border-t border-slate-800/80" id="proj-stack">
+            </div>
+        </section>
+
+        <!-- 3 Core Deliverable Columns (What Has Made, What Is Building, What Needs Review) -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+
+            <!-- Column 1: What Has Made (Delivered) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-emerald-500/10 text-emerald-400 flex items-center justify-center font-bold text-xs">✓</span>
+                    <h2 class="text-sm font-bold text-white">What Has Made (Shipped)</h2>
+                </div>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-has-made">
+                </ul>
+            </div>
+
+            <!-- Column 2: What Is Building (In Progress) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-cyan-500/10 text-cyan-400 flex items-center justify-center font-bold text-xs">🔨</span>
+                    <h2 class="text-sm font-bold text-white">What Is Building (In Progress)</h2>
+                </div>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-is-building">
+                </ul>
+            </div>
+
+            <!-- Column 3: What Needs Review (Sign-Off) -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center space-x-2 border-b border-slate-800 pb-3">
+                    <span class="w-6 h-6 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center font-bold text-xs">🔍</span>
+                    <h2 class="text-sm font-bold text-white">What Needs Review (Action Items)</h2>
+                </div>
+                <ul class="space-y-3 text-xs text-slate-300" id="list-needs-review">
+                </ul>
+            </div>
+
+        </section>
+
+        <!-- Milestones Escrow Breakdown & Markdown Report -->
+        <section class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+
+            <!-- Milestone Ledger -->
+            <div class="p-6 rounded-2xl studio-card space-y-4">
+                <div class="flex items-center justify-between border-b border-slate-800 pb-3">
+                    <h2 class="text-sm font-bold text-white">Milestone Escrow Ledger</h2>
+                    <span class="text-xs font-mono text-emerald-400 font-bold" id="milestone-cleared-pct">75% Cleared</span>
+                </div>
+                <div class="space-y-2.5" id="milestones-container">
+                </div>
+            </div>
+
+            <!-- Markdown Summary -->
+            <div class="p-6 rounded-2xl studio-card space-y-4 flex flex-col justify-between">
+                <div>
+                    <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                        <h2 class="text-sm font-bold text-white">Client Weekly Update (Markdown)</h2>
+                        <button onclick="copyProjectReport()" class="text-xs text-emerald-400 font-bold hover:underline">📋 Copy</button>
+                    </div>
+                    <textarea id="markdown-report" readonly class="w-full h-44 p-3.5 rounded-xl bg-slate-950 border border-slate-800 text-slate-300 font-mono text-xs focus:outline-none resize-none selection:bg-emerald-500 selection:text-black"></textarea>
+                </div>
+                <div class="text-[11px] text-slate-500 font-mono flex items-center justify-between pt-2">
+                    <span>Consultant: Aviral Dewangan</span>
+                    <span>Ready for Slack / Email / Notion</span>
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 px-4 py-3 rounded-xl bg-slate-900 border border-emerald-500/50 text-white text-xs font-medium shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center space-x-2">
+        <span>✅</span><span id="toast-msg">Client update report copied to clipboard!</span>
+    </div>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 glass-nav py-6 text-center text-xs text-slate-500">
+        <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <div>
+                © 2026 <strong>Aviral Dewangan</strong>. Engineering Consultancy & Client Deliverable Enclave.
+            </div>
+            <div class="flex items-center space-x-4">
+                <a href="/portfolio" class="hover:text-emerald-400">Client Pipeline</a>
+                <a href="/bharatos" class="hover:text-cyan-400">BharatOS Enclave</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Data -->
+    <script>
+        const CLIENT_PROJECTS_EXT = {
+            'freelance-web3': {
+                id: 'freelance-web3',
+                title: 'Solana & EVM Cross-Chain Liquidity Router',
+                client: 'Nexus Protocol Ltd.',
+                budget: '$4,800.00',
+                paid_amount: '$3,600.00',
+                escrow_amount: '$1,200.00',
+                payment_status: '75% Released ($3,600)',
+                tracked_time: '12h 27m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
+                desc: 'Cross-program invocation (CPI) lockup bridge with zero-slippage AMM routing and 65,000 TPS matching capacity.',
+                stack: ['Rust', 'Anchor', 'Tokio', 'Solana CPI', 'WASM'],
+                what_has_made: [
+                    'Engineered cross-program invocation (CPI) lockup bridge on Solana with Anchor framework.',
+                    'Built zero-slippage constant-product AMM router ensuring mathematical price invariant bounds.',
+                    'Delivered off-chain Tokio WebSocket streaming relayer processing 65k TPS under stress testing.'
+                ],
+                what_is_building: [
+                    'Optimizing EVM gas consumption for fallback relayer smart contracts.',
+                    'Finalizing multi-sig emergency circuit breaker logic.'
+                ],
+                what_needs_review: [
+                    'Client security review on PR #14 (Reentrancy Guard & Signer Check audits).',
+                    'Devnet cluster acceptance sign-off before mainnet deployment.'
+                ],
+                milestones: [
+                    { name: 'M1: Solana Anchor Smart Contracts & CPI Bridge', amount: '$2,400.00', status: 'RELEASED', date: 'Aug 24, 2026' },
+                    { name: 'M2: Tokio High-Throughput Relayer & Engine', amount: '$1,200.00', status: 'RELEASED', date: 'Aug 28, 2026' },
+                    { name: 'M3: Audit Sign-Off & Mainnet Deployment', amount: '$1,200.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
+            },
+            'freelance-go': {
+                id: 'freelance-go',
+                title: 'Distributed Raft Consensus & Microservice Event Streamer',
+                client: 'CloudScale Infra Tech',
+                budget: '$5,200.00',
+                paid_amount: '$5,200.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($5,200)',
+                tracked_time: '12h 02m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
+                desc: 'Fault-tolerant distributed key-value consensus engine with gRPC stream pipelines, Raft leader election, and sub-5ms heartbeat health monitoring.',
+                stack: ['Go (Golang)', 'gRPC', 'Raft', 'Protobuf', 'Docker'],
+                what_has_made: [
+                    'Built linearizable Raft consensus state machine with randomized election timers and quorum leader election.',
+                    'Engineered bidirectional gRPC streaming pipelines delivering 1.2M msgs/sec with sub-5ms latency.',
+                    'Shipped zero-copy append-only write-ahead log (WAL) engine with atomic disk sync.'
+                ],
+                what_is_building: [
+                    'Post-deployment production telemetry monitoring and dashboard integration.',
+                    'Runbook documentation handoff for client SRE team.'
+                ],
+                what_needs_review: [
+                    'Final sign-off on 62 chaos engineering partition test cases (Passed 100%).'
+                ],
+                milestones: [
+                    { name: 'M1: Raft Consensus Engine & Leader Election', amount: '$2,600.00', status: 'RELEASED', date: 'Aug 22, 2026' },
+                    { name: 'M2: gRPC Stream Pipeline & WAL Storage', amount: '$1,800.00', status: 'RELEASED', date: 'Aug 27, 2026' },
+                    { name: 'M3: Chaos Test Suite & Benchmark Sign-Off', amount: '$800.00', status: 'RELEASED', date: 'Aug 30, 2026' }
+                ]
+            },
+            'freelance-py': {
+                id: 'freelance-py',
+                title: 'Async Data Ingestion & ETL Pipeline with Polars & Arrow',
+                client: 'Quantum Analytics Partners',
+                budget: '$3,900.00',
+                paid_amount: '$2,600.00',
+                escrow_amount: '$1,300.00',
+                payment_status: '66% Released ($2,600)',
+                tracked_time: '11h 58m',
+                status_badge: 'In Active Build',
+                status_color: 'cyan',
+                desc: 'Vectorized data processing engine consuming gigabyte-scale streams, applying SIMD-accelerated aggregation filters, and persisting zero-copy parquet tables.',
+                stack: ['Python 3.11', 'Polars', 'Asyncio', 'Apache Arrow', 'Parquet'],
+                what_has_made: [
+                    'Vectorized stream ingestion pipeline processing 4.8 GB/sec with Apache Arrow zero-copy memory.',
+                    'Implemented SIMD-accelerated aggregation filters in Polars (10x faster than Pandas).',
+                    'Built partitioned Zstandard Parquet writer with async S3 chunked uploads.'
+                ],
+                what_is_building: [
+                    'Integrating automated anomaly detection heuristics for trade volume spikes.',
+                    'Adding Prometheus metrics export for ETL ingestion lag.'
+                ],
+                what_needs_review: [
+                    'Client review on Parquet partition schema definition (PR #8).'
+                ],
+                milestones: [
+                    { name: 'M1: Async Ingestor & Arrow Bridge', amount: '$2,600.00', status: 'RELEASED', date: 'Aug 25, 2026' },
+                    { name: 'M2: Polars Aggregations & S3 Writer', amount: '$1,300.00', status: 'IN ESCROW', date: 'Active Sprint' }
+                ]
+            },
+            'freelance-ai': {
+                id: 'freelance-ai',
+                title: 'Custom FlashAttention-2 & RoPE LLM Inference Accelerator',
+                client: 'HyperScale AI Labs',
+                budget: '$5,500.00',
+                paid_amount: '$3,850.00',
+                escrow_amount: '$1,650.00',
+                payment_status: '70% Released ($3,850)',
+                tracked_time: '11h 58m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
+                desc: 'Fused Rotary Position Embedding (RoPE) kernel and Paged KV-Cache engine cutting VRAM footprint by 45% and boosting token generation speed by 3.2x.',
+                stack: ['Python', 'OpenAI Triton', 'CUDA C++', 'PyTorch', 'RoPE'],
+                what_has_made: [
+                    'Engineered fused FP16 Rotary Position Embedding (RoPE) kernel in OpenAI Triton.',
+                    'Implemented paged KV-cache memory manager cutting VRAM footprint by 45%.',
+                    'Achieved 184 TFLOPS sustained throughput on Hopper tensor cores with 3.2x token generation speedup.'
+                ],
+                what_is_building: [
+                    'Fine-tuning block tiling parameters for 32k context length windows.'
+                ],
+                what_needs_review: [
+                    'Client validation of mathematical equivalence test results vs standard PyTorch SDPA.'
+                ],
+                milestones: [
+                    { name: 'M1: Triton Fused RoPE & Paged Cache', amount: '$3,850.00', status: 'RELEASED', date: 'Aug 26, 2026' },
+                    { name: 'M2: 32k Context Window Tuning & Equivalence Audit', amount: '$1,650.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
+            },
+            'freelance-react': {
+                id: 'freelance-react',
+                title: 'Real-Time 120 FPS Financial Trading Cockpit Terminal',
+                client: 'AlphaTrader Systems',
+                budget: '$4,200.00',
+                paid_amount: '$4,200.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($4,200)',
+                tracked_time: '11h 51m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
+                desc: 'Ultra-low latency institutional trading cockpit with dynamic 120 FPS orderbook canvas, real-time depth charts, and glassmorphic telemetry cards.',
+                stack: ['React 19', 'TypeScript', 'Canvas 2D', 'Tailwind CSS', 'WebSockets'],
+                what_has_made: [
+                    'Engineered hardware-accelerated 120 FPS Canvas orderbook visualizer handling 10,000 live tick updates/sec.',
+                    'Implemented binary WebSocket frame decoder in dedicated Web Worker threads.',
+                    'Delivered modular glassmorphic trading cockpit with customizable docking layouts.'
+                ],
+                what_is_building: [
+                    'Post-launch component library integration into client design system.'
+                ],
+                what_needs_review: [
+                    'Final staging approval of dark/light theme persistence (Completed).'
+                ],
+                milestones: [
+                    { name: 'M1: 120 FPS Canvas Visualizer Engine', amount: '$2,500.00', status: 'RELEASED', date: 'Aug 23, 2026' },
+                    { name: 'M2: Web Worker Binary Frame Demux & Layouts', amount: '$1,700.00', status: 'RELEASED', date: 'Aug 29, 2026' }
+                ]
+            },
+            'freelance-fastapi': {
+                id: 'freelance-fastapi',
+                title: 'High-Throughput Asynchronous REST & WebSocket Microservices',
+                client: 'FinVault Global',
+                budget: '$4,600.00',
+                paid_amount: '$3,200.00',
+                escrow_amount: '$1,400.00',
+                payment_status: '70% Released ($3,200)',
+                tracked_time: '11h 40m',
+                status_badge: 'In Active Build',
+                status_color: 'cyan',
+                desc: 'High-concurrency API gateway handling 48,000 req/sec with non-blocking async session pools, JWT token verification, and Redis pub/sub replication.',
+                stack: ['FastAPI', 'Python', 'Uvicorn uvloop', 'Redis Streams', 'Pydantic v2'],
+                what_has_made: [
+                    'Built asynchronous API gateway processing 48,000 req/sec with < 1.2ms p99 latency.',
+                    'Implemented Redis Streams pub/sub consumer group architecture with guaranteed delivery.',
+                    'Engineered compiled Pydantic v2 validation models and distributed JWT authentication.'
+                ],
+                what_is_building: [
+                    'Adding rate-limiting token bucket middleware with Redis backend.',
+                    'Automating OpenAPI v3 schema generation and client SDK stubs.'
+                ],
+                what_needs_review: [
+                    'Client review on Locust load test reports (48k RPS benchmark).'
+                ],
+                milestones: [
+                    { name: 'M1: Uvicorn Async Gateway & Auth', amount: '$3,200.00', status: 'RELEASED', date: 'Aug 25, 2026' },
+                    { name: 'M2: Redis Consumer Groups & Rate Limiter', amount: '$1,400.00', status: 'IN ESCROW', date: 'Active Sprint' }
+                ]
+            },
+            'freelance-rust': {
+                id: 'freelance-rust',
+                title: 'AVX-512 SIMD Zero-Copy Network Packet Filter Enclave',
+                client: 'SecureShield Labs',
+                budget: '$6,400.00',
+                paid_amount: '$4,800.00',
+                escrow_amount: '$1,600.00',
+                payment_status: '75% Released ($4,800)',
+                tracked_time: '11h 33m',
+                status_badge: 'Pending Final Review',
+                status_color: 'amber',
+                desc: 'Bare-metal high-speed packet inspection engine with 10 Gbps wire-rate filtering, zero-allocation ringbuffers, and hardware AES-NI cryptography.',
+                stack: ['Rust', 'Tokio', 'AVX-512 SIMD', 'AES-NI', 'Lock-Free Ringbuffer'],
+                what_has_made: [
+                    'Engineered 512-bit vector SIMD signature matcher processing 64 bytes per CPU cycle at 10 Gbps wire-rate.',
+                    'Built zero-allocation lock-free SPSC packet ringbuffer bypassing kernel memory copies.',
+                    'Integrated hardware AES-NI encryption engine for real-time payload sanitization.'
+                ],
+                what_is_building: [
+                    'Finalizing dynamic rule reload without dropping active network sockets.'
+                ],
+                what_needs_review: [
+                    'Client QA sign-off on 10 Gbps PCAP replay stress tests.'
+                ],
+                milestones: [
+                    { name: 'M1: AVX-512 SIMD Pattern Matching Kernel', amount: '$3,200.00', status: 'RELEASED', date: 'Aug 24, 2026' },
+                    { name: 'M2: Lock-Free Packet Ringbuffer & AES-NI', amount: '$1,600.00', status: 'RELEASED', date: 'Aug 28, 2026' },
+                    { name: 'M3: 10 Gbps PCAP Replay Stress Sign-Off', amount: '$1,600.00', status: 'IN ESCROW', date: 'Pending Sign-Off' }
+                ]
+            },
+            'freelance-pdf': {
+                id: 'freelance-pdf',
+                title: 'Vectorized PDF Legal Document Extraction Core',
+                client: 'LexisDoc Automation',
+                budget: '$3,800.00',
+                paid_amount: '$3,800.00',
+                escrow_amount: '$0.00',
+                payment_status: '100% Released ($3,800)',
+                tracked_time: '11h 26m',
+                status_badge: 'Shipped & Completed',
+                status_color: 'emerald',
+                desc: 'High-throughput optical and vector PDF ingestion engine parsing 500+ pages/sec with automated tabular extraction and semantic metadata tagging.',
+                stack: ['Python', 'PyMuPDF', 'Rust C-FFI OCR', 'Spatial BBox', 'SQLite FTS5'],
+                what_has_made: [
+                    'Built multiprocessing PDF extraction engine parsing 520 pages/sec with spatial bounding box tracking.',
+                    'Implemented geometric table reconstructor converting complex court documents to structured JSON.',
+                    'Integrated high-speed Rust OCR C-FFI scanner for low-contrast scanned filings.'
+                ],
+                what_is_building: [
+                    'Handoff and deployment to client on-premises Kubernetes cluster.'
+                ],
+                what_needs_review: [
+                    'Final sign-off on 1,000-page benchmark accuracy verification (99.6% Accuracy).'
+                ],
+                milestones: [
+                    { name: 'M1: PyMuPDF Extraction & Spatial Parser', amount: '$2,200.00', status: 'RELEASED', date: 'Aug 22, 2026' },
+                    { name: 'M2: Rust OCR Bridge & Table Reconstructor', amount: '$1,600.00', status: 'RELEASED', date: 'Aug 29, 2026' }
+                ]
+            }
+        };
+
+        let currentId = 'freelance-web3';
+
+        function getProjectIdFromURL() {
+            const parts = window.location.pathname.split('/').filter(Boolean);
+            if (parts.length >= 2 && parts[0] === 'project') {
+                return parts[1];
+            }
+            const params = new URLSearchParams(window.location.search);
+            if (params.has('id')) {
+                return params.get('id');
+            }
+            return 'freelance-web3';
+        }
+
+        function populateDropdown() {
+            const dropdown = document.getElementById('project-dropdown');
+            dropdown.innerHTML = '';
+            Object.keys(CLIENT_PROJECTS_EXT).forEach(id => {
+                const p = CLIENT_PROJECTS_EXT[id];
+                const opt = document.createElement('option');
+                opt.value = id;
+                opt.textContent = `${p.client} — ${p.title.substring(0, 24)}... (${p.budget})`;
+                if (id === currentId) opt.selected = true;
+                dropdown.appendChild(opt);
+            });
+        }
+
+        function renderProject(projectId) {
+            const p = CLIENT_PROJECTS_EXT[projectId] || CLIENT_PROJECTS_EXT['freelance-web3'];
+            currentId = p.id;
+
+            document.title = `${p.title} — ${p.client} Delivery Spec`;
+            document.getElementById('nav-title').textContent = p.title;
+            document.getElementById('nav-client').textContent = p.client;
+
+            document.getElementById('proj-client').textContent = p.client;
+            document.getElementById('proj-time').textContent = `${p.tracked_time} Tracked`;
+            document.getElementById('proj-status').textContent = p.status_badge;
+            document.getElementById('proj-title').textContent = p.title;
+            document.getElementById('proj-desc').textContent = p.desc;
+            document.getElementById('proj-budget').textContent = p.budget;
+            document.getElementById('proj-payout-status').textContent = p.payment_status;
+
+            // Stack
+            document.getElementById('proj-stack').innerHTML = p.stack.map(s => `
+                <span class="px-2.5 py-1 rounded-lg bg-slate-900 border border-slate-800 text-slate-300 text-xs font-mono">${s}</span>
+            `).join('');
+
+            // What has made
+            document.getElementById('list-has-made').innerHTML = p.what_has_made.map(item => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-emerald-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // What is building
+            document.getElementById('list-is-building').innerHTML = p.what_is_building.map(item => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-cyan-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // What needs review
+            document.getElementById('list-needs-review').innerHTML = p.what_needs_review.map(item => `
+                <li class="flex items-start space-x-2">
+                    <span class="text-amber-400 font-bold mt-0.5">•</span>
+                    <span>${item}</span>
+                </li>
+            `).join('');
+
+            // Milestones
+            document.getElementById('milestones-container').innerHTML = p.milestones.map(m => {
+                const isReleased = m.status === 'RELEASED';
+                return `
+                    <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80 flex items-center justify-between text-xs font-mono">
+                        <div>
+                            <div class="font-bold text-white">${m.name}</div>
+                            <div class="text-[10px] text-slate-500">${m.date}</div>
+                        </div>
+                        <div class="text-right">
+                            <div class="font-extrabold ${isReleased ? 'text-emerald-400' : 'text-amber-400'}">${m.amount}</div>
+                            <span class="text-[9px] font-bold px-1.5 py-0.5 rounded ${isReleased ? 'bg-emerald-500/20 text-emerald-300' : 'bg-amber-500/20 text-amber-300'}">${m.status}</span>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            // Markdown
+            const md = `# Client Delivery Update: ${p.title}
+**Client:** ${p.client} | **Contract Value:** ${p.budget} (${p.payment_status})
+**Tracked Time:** ${p.tracked_time} | **Stack:** ${p.stack.join(', ')}
+
+### ✓ What Has Made (Shipped Deliverables)
+${p.what_has_made.map(x => `- ${x}`).join('\n')}
+
+### 🔨 What Is Building (Current Sprint)
+${p.what_is_building.map(x => `- ${x}`).join('\n')}
+
+### 🔍 What Needs Review (Action Items for Client)
+${p.what_needs_review.map(x => `- ${x}`).join('\n')}
+
+*Prepared by Aviral Dewangan — Principal Systems Consultant*`;
+
+            document.getElementById('markdown-report').value = md;
+
+            const dropdown = document.getElementById('project-dropdown');
+            if (dropdown) dropdown.value = p.id;
+        }
+
+        function switchProject(projectId) {
+            window.history.pushState({}, '', `/project/${projectId}`);
+            renderProject(projectId);
+            showToast(`Loaded ${CLIENT_PROJECTS_EXT[projectId].client} project spec!`);
+        }
+
+        function copyProjectReport() {
+            const p = CLIENT_PROJECTS_EXT[currentId];
+            if (p) {
+                const textarea = document.getElementById('markdown-report');
+                navigator.clipboard.writeText(textarea.value);
+                showToast(`Copied ${p.client} update report!`);
+            }
+        }
+
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-msg');
+            if (toast && toastMsg) {
+                toastMsg.textContent = msg;
+                toast.classList.remove('translate-y-20', 'opacity-0');
+                setTimeout(() => {
+                    toast.classList.add('translate-y-20', 'opacity-0');
+                }, 2800);
+            }
+        }
+
+        window.addEventListener('popstate', () => {
+            renderProject(getProjectIdFromURL());
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            populateDropdown();
+            renderProject(getProjectIdFromURL());
+        });
+    </script>
+</body>
+</html>
