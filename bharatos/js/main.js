@@ -13,13 +13,6 @@ function unlock() {
   }
 }
 
-function setWallpaper(src) {
-  const bg = document.getElementById('desktop-bg');
-  if (bg) {
-    bg.style.backgroundImage = `url('${src}')`;
-  }
-}
-
 function updateClock() {
   const now = new Date();
   const timeStr = now.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -39,7 +32,6 @@ function updateClock() {
 }
 
 function updateSystemResourceWidget() {
-  // Realistic simulated CPU / Memory telemetry
   const cpuEl = document.getElementById('widget-cpu-text');
   const cpuBar = document.getElementById('widget-cpu-bar');
   const ramEl = document.getElementById('widget-ram-text');
@@ -55,7 +47,12 @@ function updateSystemResourceWidget() {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
-  setWallpaper('wallpapers/ladakh_pangong.jpg');
+  const savedWall = localStorage.getItem('bharatos_wallpaper') || 'wallpapers/ladakh_pangong.jpg';
+  setWallpaper(savedWall);
+
+  const savedAccent = localStorage.getItem('bharatos_accent');
+  if (savedAccent) setAccentColor(savedAccent);
+
   updateClock();
   setInterval(updateClock, 1000);
   setInterval(updateSystemResourceWidget, 3000);

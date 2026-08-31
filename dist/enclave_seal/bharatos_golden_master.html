@@ -13,7 +13,7 @@
 </head>
 <body>
 
-  <!-- Desktop Wallpaper (Visible on Lockscreen and Desktop) -->
+  <!-- Desktop Wallpaper -->
   <div id="desktop-bg"></div>
 
   <!-- Top Navigation Bar -->
@@ -30,7 +30,7 @@
     </div>
   </div>
 
-  <!-- Desktop Shortcuts (Left Grid) -->
+  <!-- Desktop Shortcuts -->
   <div id="desktop-grid">
     <div class="app-shortcut" onclick="openApp('win-term', 'dock-term')">
       <div class="shortcut-icon">💻</div>
@@ -62,9 +62,8 @@
     </div>
   </div>
 
-  <!-- Desktop Widgets Panel (Right Side) -->
+  <!-- Desktop Widgets Panel -->
   <div id="widgets-panel">
-    <!-- 1. System Health Widget -->
     <div class="widget-card">
       <div class="flex items-center justify-between mb-2">
         <span class="text-xs font-bold text-slate-200">System Telemetry</span>
@@ -92,7 +91,6 @@
       </div>
     </div>
 
-    <!-- 2. Today Widget -->
     <div class="widget-card">
       <div class="flex items-center justify-between">
         <div>
@@ -103,10 +101,6 @@
       </div>
     </div>
   </div>
-
-  <!-- =========================================================================
-       WINDOWS (With Working Traffic Light Gems)
-       ========================================================================= -->
 
   <!-- 1. Terminal Window -->
   <div id="win-term" class="window w-[580px] h-[400px] top-12 left-28 hidden" onmousedown="focusWindow(this)">
@@ -284,25 +278,95 @@
     </div>
   </div>
 
-  <!-- 7. Settings Window -->
-  <div id="win-settings" class="window w-[440px] h-[340px] top-24 left-56 hidden" onmousedown="focusWindow(this)">
+  <!-- 7. Settings Window (With Wallpapers, About & Display Tabs) -->
+  <div id="win-settings" class="window w-[520px] h-[420px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
         <div class="gem-btn gem-close" onclick="closeApp('win-settings', 'dock-settings', event)" title="Close"><span>✕</span></div>
         <div class="gem-btn gem-minimize" onclick="minimizeApp('win-settings', 'dock-settings', event)" title="Minimize"><span>−</span></div>
         <div class="gem-btn gem-maximize" onclick="toggleMax('win-settings', event)" title="Maximize"><span>⤢</span></div>
       </div>
-      <div class="window-title"><span>⚙️</span> Settings</div>
+      <div class="window-title"><span>⚙️</span> System Settings</div>
       <div class="w-10"></div>
     </div>
-    <div class="window-body p-5 space-y-4 text-xs">
-      <div>
-        <div class="font-bold text-slate-200 mb-2.5">Desktop Wallpaper:</div>
-        <div class="grid grid-cols-2 gap-2.5">
-          <button onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🏔️ Ladakh</button>
-          <button onclick="setWallpaper('wallpapers/kashmir_dal.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🌸 Kashmir</button>
-          <button onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🕉️ Varanasi</button>
-          <button onclick="setWallpaper('wallpapers/thar_twilight.jpg')" class="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-left font-mono border border-slate-700 hover:border-cyan-400 transition-all">🏜️ Thar</button>
+
+    <!-- Settings Sub-Navigation Tabs -->
+    <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center space-x-1.5 text-xs font-medium">
+      <button id="settings-nav-wallpapers" onclick="switchSettingsTab('wallpapers')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold">🖼️ Wallpapers</button>
+      <button id="settings-nav-about" onclick="switchSettingsTab('about')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">💻 About BharatOS</button>
+      <button id="settings-nav-display" onclick="switchSettingsTab('display')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">🎨 Appearance</button>
+    </div>
+
+    <div class="window-body p-4 text-xs overflow-y-auto">
+      <!-- Tab 1: Wallpapers -->
+      <div id="settings-tab-wallpapers" class="space-y-3">
+        <div class="font-bold text-slate-200">Select Desktop & Lock Screen Wallpaper:</div>
+        <div class="grid grid-cols-2 gap-3">
+          <button data-src="wallpapers/ladakh_pangong.jpg" onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🏔️ Ladakh Lake</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Pangong Tso 4K Landscape</div>
+          </button>
+          <button data-src="wallpapers/kashmir_dal.jpg" onclick="setWallpaper('wallpapers/kashmir_dal.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🌸 Kashmir Valley</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Dal Lake Sunset & Shikaras</div>
+          </button>
+          <button data-src="wallpapers/varanasi_dawn.jpg" onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🕉️ Varanasi Ghats</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Holy Ganges Sunrise</div>
+          </button>
+          <button data-src="wallpapers/thar_twilight.jpg" onclick="setWallpaper('wallpapers/thar_twilight.jpg')" class="wallpaper-btn p-3 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
+            <div class="font-bold text-slate-200">🏜️ Thar Desert</div>
+            <div class="text-[10px] text-slate-400 mt-0.5">Golden Twilight Dunes</div>
+          </button>
+        </div>
+        <div class="text-[11px] text-slate-400 font-mono mt-2">
+          💡 Selected wallpaper immediately applies to both the desktop workspace and the lock screen.
+        </div>
+      </div>
+
+      <!-- Tab 2: About BharatOS -->
+      <div id="settings-tab-about" class="space-y-3 hidden font-mono text-xs">
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
+          <div class="text-3xl">☸️</div>
+          <div>
+            <div class="text-sm font-bold text-white font-sans">BharatOS 1.0</div>
+            <div class="text-[11px] text-cyan-400">Sovereign Web Desktop Environment</div>
+          </div>
+        </div>
+
+        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-[11px]">
+          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+            <span class="text-slate-400">Developer:</span>
+            <span class="text-slate-200 font-bold">Aviral Dewangan (@AviralDewangan14)</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+            <span class="text-slate-400">Architecture:</span>
+            <span class="text-slate-200">Vanilla ES6 + HTML5 + CSS3</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+            <span class="text-slate-400">Audio Engine:</span>
+            <span class="text-slate-200">Web Audio API (AudioContext)</span>
+          </div>
+          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
+            <span class="text-slate-400">Graphics Engine:</span>
+            <span class="text-slate-200">HTML5 Canvas 2D Vector Context</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-400">Privacy Status:</span>
+            <span class="text-emerald-400 font-bold">100% Client-Side / 0% Telemetry</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Tab 3: Appearance & Accent Colors -->
+      <div id="settings-tab-display" class="space-y-3 hidden text-xs">
+        <div class="font-bold text-slate-200">Theme Accent Color:</div>
+        <div class="flex items-center space-x-3">
+          <div onclick="setAccentColor('#06b6d4')" class="w-7 h-7 rounded-xl bg-cyan-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Cyan Accent"></div>
+          <div onclick="setAccentColor('#3b82f6')" class="w-7 h-7 rounded-xl bg-blue-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Blue Accent"></div>
+          <div onclick="setAccentColor('#10b981')" class="w-7 h-7 rounded-xl bg-emerald-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Emerald Accent"></div>
+          <div onclick="setAccentColor('#8b5cf6')" class="w-7 h-7 rounded-xl bg-purple-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Purple Accent"></div>
+          <div onclick="setAccentColor('#f59e0b')" class="w-7 h-7 rounded-xl bg-amber-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Amber Accent"></div>
         </div>
       </div>
     </div>
