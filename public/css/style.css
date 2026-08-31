@@ -1,1443 +1,262 @@
-
-        * {
-            box-sizing: border-box;
-            user-select: none;
-            -webkit-user-select: none;
-        }
-
-        :root {
-            --accent-color: #38bdf8;
-            --accent-rgb: 56, 189, 248;
-            --glass-blur: 40px;
-            --glass-opacity: 0.82;
-            --trans-speed: 0.28s;
-            --ui-scale: 1;
-
-            /* LIGHT PORCELAIN THEME */
-            --bg-base: #f8fafc;
-            --text-main: #0f172a;
-            --text-sub: #334155;
-            --text-muted: #64748b;
-            --glass-bg: rgba(255, 255, 255, 0.82);
-            --glass-border: rgba(255, 255, 255, 0.95);
-            --glass-border-subtle: rgba(203, 213, 225, 0.7);
-            --glass-shadow: 0 20px 60px rgba(15, 23, 42, 0.12), inset 0 1px 2px rgba(255, 255, 255, 1);
-            --taskbar-bg: rgba(255, 255, 255, 0.88);
-            --card-bg: rgba(241, 245, 249, 0.85);
-            --dock-hover-bg: rgba(15, 23, 42, 0.08);
-            --lock-bg: radial-gradient(circle at 50% 40%, rgba(255, 255, 255, 0.96) 0%, #e2e8f0 100%);
-            --controls-bg: rgba(15, 23, 42, 0.05);
-            --controls-border: rgba(15, 23, 42, 0.12);
-        }
-
-        [data-theme="dark"] {
-            /* DARK OBSIDIAN THEME */
-            --bg-base: #020408;
-            --text-main: #f8fafc;
-            --text-sub: #cbd5e1;
-            --text-muted: #64748b;
-            --glass-bg: rgba(9, 14, 26, 0.86);
-            --glass-border: rgba(255, 255, 255, 0.16);
-            --glass-border-subtle: rgba(255, 255, 255, 0.08);
-            --glass-shadow: 0 35px 90px rgba(0, 0, 0, 0.85), inset 0 1px 1px rgba(255, 255, 255, 0.25);
-            --taskbar-bg: rgba(9, 14, 26, 0.92);
-            --card-bg: rgba(15, 23, 42, 0.85);
-            --dock-hover-bg: rgba(255, 255, 255, 0.14);
-            --lock-bg: radial-gradient(circle at 50% 40%, rgba(14, 23, 42, 0.96) 0%, #020408 100%);
-            --controls-bg: rgba(255, 255, 255, 0.06);
-            --controls-border: rgba(255, 255, 255, 0.14);
-        }
-
-        /* STRICT FULL-VIEWPORT LAYOUT: BOTTOM BAR ALWAYS PINNED */
-        #screen-root {
-            position: fixed;
-            inset: 0;
-            width: 100vw;
-            height: 100vh;
-            max-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            overflow: hidden;
-            filter: brightness(var(--os-brightness, 100%));
-            zoom: var(--ui-scale, 1);
-            transition: filter 0.15s ease;
-        }
-
-        body {
-            background-color: var(--bg-base);
-            color: var(--text-main);
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-            margin: 0;
-            padding: 0;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-            transition: background var(--trans-speed) ease, color var(--trans-speed) ease;
-        }
-
-        /* =========================================================================
-           ULTRA-HD 4K PHOTOGRAPHIC NATURE OF BHARAT (INDIA) WALLPAPERS
-           ========================================================================= */
-        
-        /* 1. Ladakh Pangong Tso Lake & Himalayan Snow Peaks (Photographic 4K) */
-        body.wall-ladakh-ai {
-            background: url('wallpapers/ladakh_pangong.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 2. Western Ghats & Munnar Tea Plantation Mist (Photographic 4K) */
-        body.wall-munnar-ai {
-            background: url('wallpapers/munnar_hills.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 3. Varanasi Ganges River Sunrise & Golden Hour (Photographic 4K) */
-        body.wall-varanasi-ai {
-            background: url('wallpapers/varanasi_dawn.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 4. Thar Desert Golden Dunes of Jaisalmer (Photographic 4K) */
-        body.wall-thar-ai {
-            background: url('wallpapers/thar_twilight.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 5. Kashmir Dal Lake Shikaras & Pir Panjal Mountains (Photographic 4K) */
-        body.wall-kashmir-ai {
-            background: url('wallpapers/kashmir_dal.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 6. Andaman Radhanagar Beach & Havelock Island Coral Waters (Photographic 4K) */
-        body.wall-andaman-ai {
-            background: url('wallpapers/andaman_beach.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 7. Western Ghats Athirappilly Majestic Rainforest Waterfall (Photographic 4K) */
-        body.wall-waterfall-ai {
-            background: url('wallpapers/waterfall_ghats.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        /* 8. White Rann of Kutch Full Moon Crystalline Salt Desert (Photographic 4K) */
-        body.wall-kutch-ai {
-            background: url('wallpapers/kutch_rann.jpg') no-repeat center center fixed;
-            background-size: cover;
-        }
-
-        body.night-light { filter: sepia(0.3) hue-rotate(-15deg); }
-
-        .scenic-mountain-layer {
-            position: absolute;
-            bottom: 48px;
-            left: 0;
-            right: 0;
-            height: 180px;
-            pointer-events: none;
-            opacity: 0.25;
-            background: linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.4) 100%);
-            mask-image: radial-gradient(ellipse at 50% 100%, black 60%, transparent 100%);
-        }
-
-        /* SHUTDOWN OVERLAY */
-        #power-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 20000;
-            background: #020408;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        #power-overlay.active { opacity: 1; pointer-events: auto; }
-
-        /* BOOT SCREEN */
-        #boot-screen {
-            position: fixed;
-            inset: 0;
-            background: #020408;
-            z-index: 10000;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .minimal-emblem { animation: gentle-breath 2.4s ease-in-out infinite alternate; }
-        @keyframes gentle-breath {
-            0% { transform: scale(0.96); filter: drop-shadow(0 0 15px rgba(255, 153, 51, 0.2)); opacity: 0.85; }
-            100% { transform: scale(1.04); filter: drop-shadow(0 0 45px rgba(255, 153, 51, 0.6)); opacity: 1; }
-        }
-        .fade-out-boot { opacity: 0 !important; transform: scale(1.06) !important; pointer-events: none !important; }
-
-        /* LOCK SCREEN */
-        #lock-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 9000;
-            background: var(--lock-bg);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
-            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: space-between;
-            padding: 40px 50px 30px 50px;
-            transition: opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1), transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #lock-screen.unlocked {
-            opacity: 0 !important;
-            transform: scale(1.06) translateY(-40px) !important;
-            pointer-events: none !important;
-        }
-
-        .astro-ring {
-            position: absolute;
-            border-radius: 9999px;
-            border: 1px dashed rgba(var(--accent-rgb), 0.25);
-            pointer-events: none;
-            animation: astro-spin 40s linear infinite;
-        }
-        .astro-ring-outer {
-            width: 420px;
-            height: 420px;
-            border: 1px solid rgba(255, 153, 51, 0.2);
-            animation: astro-spin-rev 60s linear infinite;
-        }
-        @keyframes astro-spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        @keyframes astro-spin-rev { from { transform: rotate(360deg); } to { transform: rotate(0deg); } }
-
-        .chakra-pulse { animation: chakra-ripple 2.2s infinite cubic-bezier(0.34, 1.56, 0.64, 1); }
-        @keyframes chakra-ripple {
-            0% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0.5), 0 0 15px rgba(var(--accent-rgb), 0.3); }
-            70% { box-shadow: 0 0 0 22px rgba(255, 153, 51, 0), 0 0 35px rgba(var(--accent-rgb), 0); }
-            100% { box-shadow: 0 0 0 0 rgba(255, 153, 51, 0), 0 0 0 rgba(var(--accent-rgb), 0); }
-        }
-
-        .shake-error { animation: input-shake 0.4s cubic-bezier(0.36, 0.07, 0.19, 0.97) both; }
-        @keyframes input-shake {
-            10%, 90% { transform: translate3d(-2px, 0, 0); }
-            20%, 80% { transform: translate3d(4px, 0, 0); }
-            30%, 50%, 70% { transform: translate3d(-6px, 0, 0); }
-            40%, 60% { transform: translate3d(6px, 0, 0); }
-        }
-
-        /* =========================================================================
-           APPLE OS 26 & 27 HYPER-FLUID GLASS (VISIONOS / MACOS SPECULAR DEPTH)
-           ========================================================================= */
-        .ultra-liquid-glass {
-            background: var(--glass-bg);
-            backdrop-filter: blur(55px) saturate(280%) brightness(105%);
-            -webkit-backdrop-filter: blur(55px) saturate(280%) brightness(105%);
-            border: 1px solid var(--glass-border);
-            border-radius: 24px;
-            box-shadow: 
-                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.45),
-                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.2),
-                var(--glass-shadow);
-            transition: transform 0.15s ease-out, box-shadow 0.25s ease, opacity 0.28s cubic-bezier(0.16, 1, 0.3, 1), background var(--trans-speed) ease;
-            transform-origin: bottom center;
-            position: relative;
-        }
-        .ultra-liquid-glass:hover {
-            box-shadow: 
-                inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.6),
-                inset 0 -1px 1px 0 rgba(0, 0, 0, 0.25),
-                0 35px 90px rgba(0, 0, 0, 0.28),
-                0 0 35px rgba(var(--accent-rgb), 0.18);
-        }
-
-        .specular-glow {
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
-            pointer-events: none;
-            background: radial-gradient(circle 420px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.16), transparent 75%);
-            mix-blend-mode: overlay;
-        }
-
-        /* FLAWLESS LIQUID GLASS WINDOW ACTION CONTROLS */
-        .window-controls-capsule {
-            display: inline-flex;
-            align-items: center;
-            gap: 7px;
-            padding: 4px 10px;
-            background: var(--controls-bg);
-            border: 1px solid var(--controls-border);
-            border-radius: 9999px;
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.2);
-        }
-        .window-controls-capsule:hover {
-            background: rgba(255, 255, 255, 0.15);
-            border-color: rgba(255, 255, 255, 0.3);
-        }
-
-        .action-circle {
-            width: 13px;
-            height: 13px;
-            border-radius: 9999px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            position: relative;
-            transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
-            border: 1px solid transparent;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5);
-        }
-
-        .action-circle .circle-svg {
-            width: 7.5px;
-            height: 7.5px;
-            opacity: 0;
-            transform: scale(0.5);
-            transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .window-controls-capsule:hover .action-circle .circle-svg {
-            opacity: 1;
-            transform: scale(1);
-        }
-
-        .circle-close { background: rgba(244, 63, 94, 0.35); border-color: rgba(244, 63, 94, 0.6); color: #ffffff; }
-        .circle-close:hover { background: #f43f5e; border-color: #f43f5e; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(244, 63, 94, 0.7); }
-
-        .circle-min { background: rgba(245, 158, 11, 0.35); border-color: rgba(245, 158, 11, 0.6); color: #ffffff; }
-        .circle-min:hover { background: #f59e0b; border-color: #f59e0b; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(245, 158, 11, 0.7); }
-
-        .circle-max { background: rgba(16, 185, 129, 0.35); border-color: rgba(16, 185, 129, 0.6); color: #ffffff; }
-        .circle-max:hover { background: #10b981; border-color: #10b981; color: #ffffff; transform: scale(1.2); box-shadow: 0 0 14px rgba(16, 185, 129, 0.7); }
-
-        /* BHARAT ISLAND CONTROL */
-        #dynamic-island-container {
-            transition: all 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), background var(--trans-speed) ease;
-            box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35), 0 0 25px rgba(var(--accent-rgb), 0.18), inset 0 1px 1px rgba(255, 255, 255, 0.35);
-        }
-        #dynamic-island-container.compact { width: 320px; height: 38px; border-radius: 9999px; padding: 4px 16px; }
-        #dynamic-island-container.expanded { width: 580px; height: 250px; border-radius: 26px; padding: 18px 24px; }
-
-        /* APPLE-STYLE FLUID GLASS SWITCH TOGGLE */
-        .glass-toggle {
-            position: relative;
-            display: inline-block;
-            width: 44px;
-            height: 24px;
-            cursor: pointer;
-        }
-        .glass-toggle input { opacity: 0; width: 0; height: 0; }
-        .glass-toggle-slider {
-            position: absolute;
-            inset: 0;
-            background: rgba(148, 163, 184, 0.3);
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(15px);
-        }
-        .glass-toggle-slider:before {
-            position: absolute;
-            content: "";
-            height: 18px;
-            width: 18px;
-            left: 2px;
-            bottom: 2px;
-            background: #ffffff;
-            border-radius: 50%;
-            transition: 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
-        }
-        input:checked + .glass-toggle-slider {
-            background: linear-gradient(135deg, #10b981, #059669);
-            border-color: #10b981;
-            box-shadow: 0 0 12px rgba(16, 185, 129, 0.5);
-        }
-        input:checked + .glass-toggle-slider:before {
-            transform: translateX(20px);
-        }
-
-        /* RADAR SWEEP ANIMATION */
-        @keyframes radar-sweep {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-        .radar-beam {
-            transform-origin: center center;
-            animation: radar-sweep 4s linear infinite;
-        }
-
-        /* HOLOGRAM SHIELD GLOW */
-        @keyframes shield-float {
-            0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 0 25px rgba(16, 185, 129, 0.4)); }
-            50% { transform: translateY(-6px) scale(1.03); filter: drop-shadow(0 0 45px rgba(16, 185, 129, 0.7)); }
-        }
-        .hologram-shield {
-            animation: shield-float 3s ease-in-out infinite;
-        }
-
-        /* =========================================================================
-           REVOLUTIONARY LIQUID GLASS SPRING & MORPH ANIMATIONS (VISIONOS / APPLE 26)
-           ========================================================================= */
-        .window-open-genie { 
-            animation: revolutionary-open 0.32s cubic-bezier(0.19, 1, 0.22, 1) forwards !important; 
-            transform-origin: center center !important;
-            will-change: transform, opacity, filter;
-        }
-
-        .window-minimize-genie { 
-            animation: revolutionary-close 0.22s cubic-bezier(0.25, 1, 0.5, 1) forwards !important; 
-            transform-origin: center center !important;
-            pointer-events: none !important;
-            will-change: transform, opacity, filter;
-        }
-
-        @keyframes revolutionary-open {
-            0% {
-                transform: scale(0.78) translateY(36px) perspective(1000px) rotateX(4deg);
-                opacity: 0;
-                filter: blur(20px) brightness(1.3);
-            }
-            65% {
-                transform: scale(1.018) translateY(-4px) perspective(1000px) rotateX(-1deg);
-                opacity: 0.98;
-                filter: blur(0px) brightness(1.05);
-            }
-            85% {
-                transform: scale(0.995) translateY(1px);
-            }
-            100% {
-                transform: scale(1) translateY(0) rotateX(0deg);
-                opacity: 1;
-                filter: blur(0px) brightness(1);
-            }
-        }
-
-        @keyframes revolutionary-close {
-            0% {
-                transform: scale(1) translateY(0);
-                opacity: 1;
-                filter: blur(0px);
-            }
-            30% {
-                transform: scale(0.98) translateY(-4px);
-                opacity: 0.95;
-                filter: blur(1px);
-            }
-            100% {
-                transform: scale(0.72) translateY(55px) perspective(1000px) rotateX(-8deg);
-                opacity: 0;
-                filter: blur(22px) brightness(0.7);
-            }
-        }
-
-        /* REVOLUTIONARY MAXIMIZED FLUID MORPH */
-        .ultra-liquid-glass {
-            transition: width 0.32s cubic-bezier(0.16, 1, 0.3, 1), height 0.32s cubic-bezier(0.16, 1, 0.3, 1), left 0.32s cubic-bezier(0.16, 1, 0.3, 1), top 0.32s cubic-bezier(0.16, 1, 0.3, 1), border-radius 0.32s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .window-maximized {
-            position: fixed !important;
-            top: 42px !important;
-            left: 14px !important;
-            right: 14px !important;
-            width: calc(100vw - 28px) !important;
-            height: calc(100vh - 124px) !important;
-            max-width: 100vw !important;
-            max-height: 100vh !important;
-            border-radius: 28px !important;
-            margin: 0 !important;
-            box-shadow: 0 35px 70px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 229, 255, 0.25) !important;
-            border: 2px solid rgba(0, 229, 255, 0.5) !important;
-            z-index: 9999 !important;
-        }
-
-        .horizon-taskbar {
-            background: var(--taskbar-bg);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(260%);
-            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(260%);
-            border-top: 1px solid var(--glass-border);
-            box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
-            transition: background var(--trans-speed) ease;
-            flex-shrink: 0;
-            height: 48px;
-        }
-
-        .taskbar-item {
-            transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), background-color 0.15s ease;
-            position: relative;
-        }
-        .taskbar-item:hover {
-            transform: translateY(-4px) scale(1.15);
-            background: var(--dock-hover-bg);
-        }
-
-        .taskbar-item.active::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 14px;
-            height: 3px;
-            border-radius: 9999px;
-            background: var(--accent-color);
-            box-shadow: 0 0 8px var(--accent-color);
-        }
-
-        .desktop-widget {
-            background: var(--glass-bg);
-            backdrop-filter: blur(35px) saturate(220%);
-            -webkit-backdrop-filter: blur(35px) saturate(220%);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--glass-shadow);
-            transition: transform 0.25s ease, opacity 0.25s ease, box-shadow 0.2s ease, background var(--trans-speed) ease;
-        }
-
-        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
-        .custom-scroll::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.08); }
-        .custom-scroll::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 4px; }
-    
-        /* =========================================================================
-           ULTRA-PREMIUM CRYSTAL LIQUID GLASS TASKBAR & 3D GLASS ICONS
-           ========================================================================= */
-        .horizon-taskbar-wrapper {
-            position: relative;
-            z-index: 40;
-            padding: 0 20px 12px 20px;
-            display: flex;
-            justify-content: center;
-            flex-shrink: 0;
-        }
-
-        .horizon-taskbar-liquid {
-            width: auto;
-            min-width: 900px;
-            max-width: 1450px;
-            height: 66px;
-            padding: 6px 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 16px;
-            border-radius: 32px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(15, 23, 42, 0.75) 100%);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(240%) brightness(1.15);
-            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(240%) brightness(1.15);
-            border: 2px solid rgba(255, 255, 255, 0.45);
-            border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 2px 3px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 229, 255, 0.15);
-            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-        }
-
-        .light .horizon-taskbar-liquid {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.75) 35%, rgba(203, 213, 225, 0.85) 100%);
-            border: 2px solid rgba(255, 255, 255, 1);
-            border-bottom: 2px solid rgba(148, 163, 184, 0.6);
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.2), inset 0 2px 3px rgba(255, 255, 255, 1), inset 0 -1.5px 2px rgba(0, 0, 0, 0.1);
-        }
-
-        /* 3D Crystal Glass Icon Tiles with Distinct Borders & Separation */
-        .glass-dock-tile {
-            position: relative;
-            width: 48px;
-            height: 48px;
-            margin: 0 3px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.65) !important;
-            border-bottom: 2px solid rgba(0, 0, 0, 0.45) !important;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-            box-shadow: inset 0 2px 3px rgba(255, 255, 255, 0.85), inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 8px 18px rgba(0, 0, 0, 0.45);
-        }
-
-        .glass-dock-tile::before {
-            content: '';
-            position: absolute;
-            top: 2px;
-            left: 12%;
-            right: 12%;
-            height: 40%;
-            border-radius: 12px 12px 16px 16px;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.05) 100%);
-            pointer-events: none;
-        }
-
-        .glass-dock-tile:hover {
-            transform: translateY(-10px) scale(1.26);
-            border-color: rgba(255, 255, 255, 1) !important;
-            box-shadow: inset 0 2.5px 4px rgba(255, 255, 255, 1), 0 16px 32px rgba(0, 0, 0, 0.6), 0 0 24px rgba(0, 229, 255, 0.7) !important;
-            z-index: 20;
-        }
-
-        .glass-dock-tile:active {
-            transform: translateY(-2px) scale(1.08);
-        }
-
-        /* Active Running Indicator */
-        .glass-dock-tile.app-running::after {
-            content: '';
-            position: absolute;
-            bottom: -6px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 18px;
-            height: 4px;
-            border-radius: 9999px;
-            background: #00e5ff;
-            box-shadow: 0 0 12px #00e5ff, 0 0 4px #fff;
-        }
-
-        /* Individual Distinct Glazes with High Contrast & Deep 3D Colors */
-        .glaze-sudarshan {
-            background: linear-gradient(135deg, rgba(255, 153, 51, 0.85) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(19, 136, 8, 0.85) 100%) !important;
-            border: 2px solid rgba(255, 215, 120, 0.95) !important;
-        }
-        .glaze-browser {
-            background: linear-gradient(135deg, rgba(2, 132, 199, 0.8) 0%, rgba(14, 165, 233, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(56, 189, 248, 0.9) !important;
-        }
-        .glaze-code {
-            background: linear-gradient(135deg, rgba(147, 51, 234, 0.8) 0%, rgba(168, 85, 247, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(192, 132, 252, 0.9) !important;
-        }
-        .glaze-game {
-            background: linear-gradient(135deg, rgba(225, 29, 72, 0.8) 0%, rgba(244, 63, 94, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(251, 113, 133, 0.9) !important;
-        }
-        .glaze-files {
-            background: linear-gradient(135deg, rgba(217, 119, 6, 0.8) 0%, rgba(245, 158, 11, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(251, 191, 36, 0.9) !important;
-        }
-        .glaze-defender {
-            background: linear-gradient(135deg, rgba(5, 150, 105, 0.8) 0%, rgba(16, 185, 129, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(52, 211, 153, 0.9) !important;
-        }
-        .glaze-devmgr {
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.8) 0%, rgba(59, 130, 246, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(96, 165, 250, 0.9) !important;
-        }
-        .glaze-network {
-            background: linear-gradient(135deg, rgba(13, 148, 136, 0.8) 0%, rgba(20, 184, 166, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(45, 212, 191, 0.9) !important;
-        }
-        .glaze-taskmgr {
-            background: linear-gradient(135deg, rgba(8, 145, 178, 0.8) 0%, rgba(6, 182, 212, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(34, 211, 238, 0.9) !important;
-        }
-        .glaze-store {
-            background: linear-gradient(135deg, rgba(234, 88, 12, 0.8) 0%, rgba(249, 115, 22, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(251, 146, 60, 0.9) !important;
-        }
-        .glaze-music {
-            background: linear-gradient(135deg, rgba(219, 39, 119, 0.8) 0%, rgba(236, 72, 153, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(244, 114, 182, 0.9) !important;
-        }
-        .glaze-calc {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.8) 0%, rgba(99, 102, 241, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(129, 140, 248, 0.9) !important;
-        }
-        .glaze-calendar {
-            background: linear-gradient(135deg, rgba(15, 118, 110, 0.8) 0%, rgba(13, 148, 136, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(45, 212, 191, 0.9) !important;
-        }
-        .glaze-terminal {
-            background: linear-gradient(135deg, rgba(15, 23, 42, 0.95) 0%, rgba(30, 41, 59, 0.7) 50%, rgba(2, 6, 23, 0.95) 100%) !important;
-            border: 2px solid rgba(148, 163, 184, 0.9) !important;
-        }
-        .glaze-settings {
-            background: linear-gradient(135deg, rgba(71, 85, 105, 0.8) 0%, rgba(100, 116, 139, 0.45) 50%, rgba(2, 6, 23, 0.85) 100%) !important;
-            border: 2px solid rgba(148, 163, 184, 0.9) !important;
-        }
-
-        /* Distinct Glass System Tray Capsules */
-        .glass-tray-capsule {
-            padding: 6px 14px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.12);
-            border: 1.5px solid rgba(255, 255, 255, 0.35);
-            backdrop-filter: blur(24px);
-            box-shadow: inset 0 1.5px 2px rgba(255, 255, 255, 0.5), 0 4px 12px rgba(0, 0, 0, 0.25);
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .glass-tray-capsule:hover {
-            background: rgba(255, 255, 255, 0.22);
-            border-color: rgba(0, 229, 255, 0.6);
-            transform: scale(1.06);
-            box-shadow: 0 0 16px rgba(0, 229, 255, 0.4);
-        }
-
-    
-        /* =========================================================================
-           REACT BITS <GlassSurface /> ADVANCED CHROMATIC DISPLACEMENT ARCHITECTURE
-           ========================================================================= */
-        .glass-surface-svg-filter {
-            position: absolute;
-            width: 0;
-            height: 0;
-            pointer-events: none;
-            opacity: 0;
-            z-index: -1;
-        }
-
-        .glass-surface,
-        .horizon-taskbar-liquid,
-        .ultra-liquid-glass,
-        .glass-dock-tile,
-        .glass-tray-capsule,
-        .desktop-widget {
-            position: relative;
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(28px) saturate(220%) brightness(1.15);
-            -webkit-backdrop-filter: blur(28px) saturate(220%) brightness(1.15);
-            border: 1.5px solid rgba(255, 255, 255, 0.4);
-            box-shadow:
-                0 0 2px 1px rgba(255, 255, 255, 0.5) inset,
-                0 0 12px 3px rgba(255, 255, 255, 0.15) inset,
-                0px 4px 16px rgba(17, 17, 26, 0.25),
-                0px 8px 28px rgba(17, 17, 26, 0.3),
-                0px 16px 56px rgba(17, 17, 26, 0.4),
-                0px 4px 16px rgba(255, 255, 255, 0.2) inset,
-                0px 8px 24px rgba(255, 255, 255, 0.1) inset;
-        }
-
-        .light .glass-surface,
-        .light .horizon-taskbar-liquid,
-        .light .ultra-liquid-glass,
-        .light .glass-dock-tile,
-        .light .glass-tray-capsule,
-        .light .desktop-widget {
-            background: rgba(255, 255, 255, 0.78);
-            border: 1.5px solid rgba(255, 255, 255, 0.95);
-            box-shadow:
-                0 0 2px 1px rgba(255, 255, 255, 0.9) inset,
-                0 0 10px 4px rgba(255, 255, 255, 0.4) inset,
-                0px 4px 16px rgba(17, 17, 26, 0.08),
-                0px 8px 24px rgba(17, 17, 26, 0.08),
-                0px 16px 56px rgba(17, 17, 26, 0.08),
-                0px 4px 16px rgba(255, 255, 255, 0.6) inset;
-        }
-
-        /* 3D Glass Dock Tiles with Prismatic Refraction */
-        .glass-dock-tile {
-            width: 48px;
-            height: 48px;
-            margin: 0 4px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            cursor: pointer;
-            border: 2px solid rgba(255, 255, 255, 0.7) !important;
-            transition: transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease, border-color 0.25s ease;
-            box-shadow:
-                inset 0 2px 3px rgba(255, 255, 255, 0.9),
-                inset 0 -2px 3px rgba(0, 0, 0, 0.4),
-                0 8px 20px rgba(0, 0, 0, 0.35),
-                0 0 15px rgba(255, 255, 255, 0.15) !important;
-        }
-
-        .glass-dock-tile:hover {
-            transform: translateY(-10px) scale(1.26);
-            border-color: rgba(255, 255, 255, 1) !important;
-            box-shadow:
-                inset 0 3px 5px rgba(255, 255, 255, 1),
-                0 16px 36px rgba(0, 0, 0, 0.6),
-                0 0 28px rgba(0, 229, 255, 0.7) !important;
-            z-index: 20;
-        }
-
-    
-        /* =========================================================================
-           REACT BITS <GlassIcons /> 3D PERSPECTIVE GLASS COMPONENT
-           ========================================================================= */
-        .icon-btns {
-            display: grid;
-            grid-auto-flow: column;
-            grid-template-rows: repeat(6, minmax(0, 1fr));
-            gap: 1.6rem 1.4rem;
-            margin: 0;
-            padding: 0;
-            overflow: visible;
-        }
-
-        .icon-btn {
-            background-color: transparent;
-            outline: none;
-            position: relative;
-            width: 4.4em;
-            height: 4.4em;
-            perspective: 24em;
-            transform-style: preserve-3d;
-            -webkit-tap-highlight-color: transparent;
-            border: none;
-            cursor: pointer;
-            padding: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .icon-btn__back,
-        .icon-btn__front,
-        .icon-btn__label {
-            transition:
-                opacity 0.35s cubic-bezier(0.83, 0, 0.17, 1),
-                transform 0.35s cubic-bezier(0.83, 0, 0.17, 1),
-                box-shadow 0.3s ease;
-        }
-
-        .icon-btn__back,
-        .icon-btn__front {
-            border-radius: 1.25em;
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        .icon-btn__back {
-            box-shadow: 0.5em -0.5em 0.85em rgba(0, 0, 0, 0.35);
-            display: block;
-            transform: rotate(15deg);
-            transform-origin: 100% 100%;
-            will-change: transform;
-            opacity: 0.85;
-        }
-
-        .icon-btn__front {
-            background-color: rgba(255, 255, 255, 0.16);
-            box-shadow: 0 0 0 0.12em rgba(255, 255, 255, 0.45) inset, 0 8px 24px rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(0.75em);
-            -webkit-backdrop-filter: blur(0.75em);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transform-origin: 80% 50%;
-            will-change: transform;
-            border: 1px solid rgba(255, 255, 255, 0.5);
-        }
-
-        .icon-btn__icon {
-            margin: auto;
-            width: 1.6em;
-            height: 1.6em;
-            font-size: 1.6em;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
-        }
-
-        .icon-btn__label {
-            font-size: 0.72rem;
-            font-weight: 700;
-            white-space: nowrap;
-            text-align: center;
-            line-height: 1.4;
-            opacity: 0.92;
-            position: absolute;
-            top: 108%;
-            right: -20px;
-            left: -20px;
-            transform: translateY(0);
-            color: #fff;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.85), 0 0 10px rgba(0, 0, 0, 0.5);
-            pointer-events: none;
-            font-family: 'Plus Jakarta Sans', sans-serif;
-        }
-
-        .light .icon-btn__label {
-            color: #0f172a;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
-        }
-
-        .icon-btn:focus-visible .icon-btn__back,
-        .icon-btn:hover .icon-btn__back {
-            transform: rotate(26deg) translate3d(-0.55em, -0.55em, 0.55em);
-            opacity: 1;
-            box-shadow: 0.8em -0.8em 1.2em rgba(0, 0, 0, 0.5);
-        }
-
-        .icon-btn:focus-visible .icon-btn__front,
-        .icon-btn:hover .icon-btn__front {
-            transform: translate3d(0, 0, 2em);
-            background-color: rgba(255, 255, 255, 0.28);
-            box-shadow: 0 0 0 0.15em rgba(255, 255, 255, 0.75) inset, 0 12px 32px rgba(0, 229, 255, 0.4);
-            border-color: rgba(255, 255, 255, 0.9);
-        }
-
-        .icon-btn:focus-visible .icon-btn__label,
-        .icon-btn:hover .icon-btn__label {
-            opacity: 1;
-            transform: translateY(20%);
-            color: #00e5ff;
-        }
-
-        /* React Bits Gradient Palette Mapping */
-        .bg-grad-blue { background: linear-gradient(hsl(223, 90%, 50%), hsl(208, 90%, 50%)); }
-        .bg-grad-purple { background: linear-gradient(hsl(283, 90%, 50%), hsl(268, 90%, 50%)); }
-        .bg-grad-red { background: linear-gradient(hsl(3, 90%, 50%), hsl(348, 90%, 50%)); }
-        .bg-grad-indigo { background: linear-gradient(hsl(253, 90%, 50%), hsl(238, 90%, 50%)); }
-        .bg-grad-orange { background: linear-gradient(hsl(43, 90%, 50%), hsl(28, 90%, 50%)); }
-        .bg-grad-green { background: linear-gradient(hsl(123, 90%, 40%), hsl(108, 90%, 40%)); }
-        .bg-grad-cyan { background: linear-gradient(hsl(188, 90%, 45%), hsl(173, 90%, 45%)); }
-        .bg-grad-pink { background: linear-gradient(hsl(328, 90%, 50%), hsl(313, 90%, 50%)); }
-        .bg-grad-saffron { background: linear-gradient(hsl(30, 95%, 55%), hsl(15, 95%, 50%)); }
-        .bg-grad-teal { background: linear-gradient(hsl(165, 90%, 40%), hsl(150, 90%, 40%)); }
-        .bg-grad-obsidian { background: linear-gradient(hsl(220, 30%, 25%), hsl(220, 40%, 15%)); }
-        .bg-grad-titanium { background: linear-gradient(hsl(215, 20%, 55%), hsl(215, 25%, 35%)); }
-
-    
-        /* =========================================================================
-           CRISP HIGH-CONTRAST READABLE WINDOWS & ZERO-LATENCY CLICKABLE ICONS
-           ========================================================================= */
-        .icon-btn {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            z-index: 20 !important;
-        }
-
-        .icon-btn__back,
-        .icon-btn__front,
-        .icon-btn__icon,
-        .icon-btn__label {
-            pointer-events: none !important;
-        }
-
-        /* High-Contrast Crisp Readable Glass Windows (No Washed Out Transparency) */
-        .ultra-liquid-glass {
-            background: rgba(10, 16, 30, 0.93) !important;
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(200%) brightness(1.05) !important;
-            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(200%) brightness(1.05) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
-            color: #ffffff !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
-        }
-
-        .light .ultra-liquid-glass {
-            background: rgba(255, 255, 255, 0.96) !important;
-            border: 1.5px solid rgba(203, 213, 225, 0.85) !important;
-            color: #0f172a !important;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.15), inset 0 1.5px 2px rgba(255, 255, 255, 1) !important;
-        }
-
-        /* Ensure all window viewport areas are completely solid and readable */
-        #browser-viewport,
-        #code-editor-container,
-        #vfs-file-grid,
-        #kavach-tab-content,
-        #network-tab-content,
-        #dev-details-pane,
-        #custom-tab-content {
-            background-color: rgba(15, 23, 42, 0.95) !important;
-            color: #f1f5f9 !important;
-        }
-
-        .light #browser-viewport,
-        .light #code-editor-container,
-        .light #vfs-file-grid,
-        .light #kavach-tab-content,
-        .light #network-tab-content,
-        .light #dev-details-pane,
-        .light #custom-tab-content {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-        }
-
-        /* Fluid glass background canvas strictly in background */
-        #fluid-glass-canvas {
-            z-index: 0 !important;
-            opacity: 0.65 !important;
-            pointer-events: none !important;
-        }
-
-    
-        /* =========================================================================
-           ZERO-OVERLAP DESKTOP GRID & ULTRA-RESPONSIVE TASKBAR DOCK
-           ========================================================================= */
-        .icon-btns {
-            display: grid !important;
-            grid-auto-flow: column !important;
-            grid-template-rows: repeat(5, minmax(0, 1fr)) !important;
-            gap: 2.8rem 1.8rem !important;
-            margin: 0 !important;
-            padding: 0 !important;
-            overflow: visible !important;
-        }
-
-        .icon-btn {
-            position: relative !important;
-            width: 4.6em !important;
-            height: 4.6em !important;
-            margin-bottom: 0.8rem !important;
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            z-index: 20 !important;
-        }
-
-        .icon-btn__label {
-            font-size: 0.74rem !important;
-            font-weight: 700 !important;
-            white-space: nowrap !important;
-            text-align: center !important;
-            line-height: 1.2 !important;
-            opacity: 0.95 !important;
-            position: absolute !important;
-            top: calc(100% + 8px) !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            color: #ffffff !important;
-            text-shadow: 0 2px 6px rgba(0, 0, 0, 0.95), 0 0 10px rgba(0, 0, 0, 0.7) !important;
-            pointer-events: none !important;
-        }
-
-        .light .icon-btn__label {
-            color: #0f172a !important;
-            text-shadow: 0 1px 3px rgba(255, 255, 255, 0.95) !important;
-        }
-
-        .horizon-taskbar-wrapper,
-        .horizon-taskbar-liquid {
-            pointer-events: auto !important;
-            z-index: 50 !important;
-        }
-
-        .glass-dock-tile {
-            pointer-events: auto !important;
-            cursor: pointer !important;
-            user-select: none !important;
-        }
-
-    
-        /* =========================================================================
-           BHARATOS 3D LIQUID GLASS EMBLEM ANIMATIONS
-           ========================================================================= */
-        .bharatos-liquid-logo {
-            filter: drop-shadow(0 12px 28px rgba(0, 0, 0, 0.45)) drop-shadow(0 0 20px rgba(0, 229, 255, 0.35));
-            transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.35s ease;
-            user-select: none;
-            display: inline-block;
-        }
-
-        .bharatos-liquid-logo:hover {
-            transform: scale(1.1) rotate(4deg);
-            filter: drop-shadow(0 16px 36px rgba(0, 0, 0, 0.6)) drop-shadow(0 0 32px rgba(255, 153, 51, 0.6)) drop-shadow(0 0 32px rgba(0, 229, 255, 0.5));
-        }
-
-        .chakra-spin-pulse {
-            transform-origin: center center;
-            animation: chakra-rotate-subtle 24s linear infinite;
-        }
-
-        @keyframes chakra-rotate-subtle {
-            0% { transform: translate(60px, 60px) rotate(0deg); }
-            100% { transform: translate(60px, 60px) rotate(360deg); }
-        }
-
-    
-        /* =========================================================================
-           SCENIC 4K WALLPAPER PRESERVATION & ADAPTIVE LIQUID GLASS THEMES
-           ========================================================================= */
-        body {
-            background-repeat: no-repeat !important;
-            background-position: center center !important;
-            background-size: cover !important;
-            background-attachment: fixed !important;
-            min-height: 100vh !important;
-            width: 100vw !important;
-            overflow: hidden !important;
-        }
-
-        /* Subtle ambient vignette that enriches wallpaper in Dark/Light themes without flat colors */
-        #screen-root {
-            background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0.15) 0%, rgba(2, 6, 23, 0.45) 100%);
-            transition: background 0.4s ease;
-        }
-
-        [data-theme="light"] #screen-root,
-        .light #screen-root {
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.15) 0%, rgba(224, 242, 254, 0.35) 100%) !important;
-        }
-
-        /* Adaptive Ultra-Liquid-Glass Windows in Dark vs Light Themes */
-        .ultra-liquid-glass {
-            background: rgba(10, 16, 30, 0.88) !important;
-            backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
-            -webkit-backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.3) !important;
-            color: #ffffff !important;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1.5px 2px rgba(255, 255, 255, 0.5) !important;
-        }
-
-        [data-theme="light"] .ultra-liquid-glass,
-        .light .ultra-liquid-glass {
-            background: rgba(255, 255, 255, 0.88) !important;
-            backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
-            -webkit-backdrop-filter: blur(45px) saturate(220%) brightness(1.05) !important;
-            border: 1.5px solid rgba(255, 255, 255, 0.95) !important;
-            border-bottom: 1.5px solid rgba(148, 163, 184, 0.5) !important;
-            color: #0f172a !important;
-            box-shadow: 0 20px 50px rgba(15, 23, 42, 0.18), inset 0 1.5px 2px rgba(255, 255, 255, 1) !important;
-        }
-
-        /* High-Contrast Content Panes */
-        [data-theme="dark"] #browser-viewport,
-        [data-theme="dark"] #code-editor-container,
-        [data-theme="dark"] #vfs-file-grid,
-        [data-theme="dark"] #kavach-tab-content,
-        [data-theme="dark"] #network-tab-content,
-        [data-theme="dark"] #dev-details-pane,
-        [data-theme="dark"] #custom-tab-content {
-            background-color: rgba(15, 23, 42, 0.95) !important;
-            color: #f1f5f9 !important;
-        }
-
-        [data-theme="light"] #browser-viewport,
-        [data-theme="light"] #code-editor-container,
-        [data-theme="light"] #vfs-file-grid,
-        [data-theme="light"] #kavach-tab-content,
-        [data-theme="light"] #network-tab-content,
-        [data-theme="light"] #dev-details-pane,
-        [data-theme="light"] #custom-tab-content,
-        .light #browser-viewport,
-        .light #code-editor-container,
-        .light #vfs-file-grid,
-        .light #kavach-tab-content,
-        .light #network-tab-content,
-        .light #dev-details-pane,
-        .light #custom-tab-content {
-            background-color: #ffffff !important;
-            color: #0f172a !important;
-        }
-
-    
-        /* =========================================================================
-           IPADOS / MACOS MISSION CONTROL & APP EXPOSÉ SWITCHER
-           ========================================================================= */
-        #app-switcher-overlay {
-            position: fixed;
-            inset: 0;
-            z-index: 10500;
-            background: rgba(2, 6, 23, 0.72);
-            backdrop-filter: blur(55px) saturate(220%) brightness(0.9);
-            -webkit-backdrop-filter: blur(55px) saturate(220%) brightness(0.9);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 2.5rem 3.5rem;
-            opacity: 0;
-            pointer-events: none;
-            transform: scale(1.08);
-            transition: opacity 0.32s cubic-bezier(0.16, 1, 0.3, 1), transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #app-switcher-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: scale(1);
-        }
-
-        .stage-card {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1.5px solid rgba(255, 255, 255, 0.2);
-            border-radius: 1.5rem;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), inset 0 1px 2px rgba(255, 255, 255, 0.4);
-            transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.28s ease, border-color 0.28s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            height: 280px;
-        }
-
-        .stage-card:hover {
-            transform: translateY(-8px) scale(1.03);
-            border-color: #00e5ff;
-            box-shadow: 0 35px 80px rgba(0, 229, 255, 0.25), inset 0 1.5px 2px rgba(255, 255, 255, 0.8);
-        }
-
-        .stage-card.focused {
-            border-color: #38bdf8;
-            box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.5), 0 30px 70px rgba(0, 0, 0, 0.8);
-        }
-
-    
-        /* =========================================================================
-           FLAGSHIP ENHANCEMENTS: AI COPILOT, SPOTLIGHT, ACTION CENTER, CONTEXT MENU
-           ========================================================================= */
-
-        /* Sliding Side Drawers (AI Copilot & Action Center) */
-        .glass-side-drawer {
-            position: fixed;
-            top: 0;
-            bottom: 0;
-            width: 400px;
-            max-width: 90vw;
-            z-index: 10600;
-            background: rgba(10, 16, 30, 0.88);
-            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
-            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
-            border-left: 1.5px solid rgba(255, 255, 255, 0.15);
-            box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
-            display: flex;
-            flex-direction: column;
-            transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
-        }
-
-        .dark .glass-side-drawer {
-            background: rgba(10, 16, 30, 0.92);
-            border-left-color: rgba(0, 229, 255, 0.25);
-        }
-
-        :not(.dark) .glass-side-drawer {
-            background: rgba(248, 250, 252, 0.92);
-            border-left: 1.5px solid rgba(203, 213, 225, 0.8);
-            color: #0f172a;
-        }
-
-        #ai-copilot-drawer {
-            right: 0;
-            transform: translateX(105%);
-        }
-
-        #ai-copilot-drawer.active {
-            transform: translateX(0);
-        }
-
-        #action-center-drawer {
-            right: 0;
-            transform: translateX(105%);
-        }
-
-        #action-center-drawer.active {
-            transform: translateX(0);
-        }
-
-        /* Spotlight Floating Search Overlay */
-        #spotlight-modal {
-            position: fixed;
-            inset: 0;
-            z-index: 10700;
-            background: rgba(0, 0, 0, 0.65);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            display: flex;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 15vh;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.24s ease, transform 0.24s cubic-bezier(0.16, 1, 0.3, 1);
-            transform: scale(0.96);
-        }
-
-        #spotlight-modal.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: scale(1);
-        }
-
-        .spotlight-card {
-            width: 640px;
-            max-width: 95vw;
-            background: rgba(15, 23, 42, 0.92);
-            border: 1.5px solid rgba(0, 229, 255, 0.3);
-            border-radius: 1.5rem;
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.2);
-            overflow: hidden;
-        }
-
-        :not(.dark) .spotlight-card {
-            background: rgba(255, 255, 255, 0.95);
-            border-color: rgba(14, 165, 233, 0.4);
-            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.2), 0 0 35px rgba(14, 165, 233, 0.15);
-        }
-
-        /* Desktop Context Menu */
-        #desktop-context-menu {
-            position: fixed;
-            z-index: 10800;
-            width: 230px;
-            background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(35px);
-            -webkit-backdrop-filter: blur(35px);
-            border: 1.5px solid rgba(255, 255, 255, 0.18);
-            border-radius: 1.25rem;
-            padding: 0.5rem;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), inset 0 1px 1px rgba(255, 255, 255, 0.2);
-            opacity: 0;
-            pointer-events: none;
-            transform: scale(0.92);
-            transform-origin: top left;
-            transition: opacity 0.18s ease, transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        #desktop-context-menu.active {
-            opacity: 1;
-            pointer-events: auto;
-            transform: scale(1);
-        }
-
-        :not(.dark) #desktop-context-menu {
-            background: rgba(255, 255, 255, 0.94);
-            border-color: rgba(203, 213, 225, 0.8);
-            color: #0f172a;
-        }
-
-        /* Snap Layouts Flyout Menu */
-        .snap-layouts-flyout {
-            position: absolute;
-            top: 100%;
-            right: 0;
-            margin-top: 6px;
-            width: 170px;
-            background: rgba(15, 23, 42, 0.95);
-            backdrop-filter: blur(25px);
-            border: 1.5px solid rgba(0, 229, 255, 0.3);
-            border-radius: 1rem;
-            padding: 8px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7);
-            display: none;
-            z-index: 50;
-        }
-
-        .snap-btn-wrapper:hover .snap-layouts-flyout {
-            display: block;
-        }
-
-    
-        /* =========================================================================
-           NEXT-GEN PC OS SUBSYSTEMS & CRAFT UI STYLES
-           ========================================================================= */
-        #brightness-overlay {
-            pointer-events: none;
-            position: fixed;
-            inset: 0;
-            z-index: 99998;
-            background-color: black;
-            opacity: 0;
-            transition: opacity 0.2s ease;
-        }
-
-        #nightlight-overlay {
-            pointer-events: none;
-            position: fixed;
-            inset: 0;
-            z-index: 99997;
-            background: rgba(255, 140, 0, 0.18);
-            mix-blend-mode: multiply;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .spotlight-modal {
-            box-shadow: 0 30px 90px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.15);
-        }
-
-        .context-menu-pop {
-            position: fixed;
-            z-index: 99999;
-            width: 220px;
-            background: rgba(15, 23, 42, 0.92);
-            backdrop-filter: blur(24px) saturate(180%);
-            -webkit-backdrop-filter: blur(24px) saturate(180%);
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            border-radius: 18px;
-            padding: 6px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 0 1px rgba(0, 229, 255, 0.2);
-            display: none;
-            transform-origin: top left;
-            animation: contextPop 0.15s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes contextPop {
-            0% { opacity: 0; transform: scale(0.92); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .workspace-chip {
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 10px;
-            font-family: monospace;
-            font-weight: bold;
-            transition: all 0.2s ease;
-            cursor: pointer;
-        }
-        .workspace-chip.active {
-            background: rgba(0, 229, 255, 0.25);
-            color: #00e5ff;
-            border: 1px solid rgba(0, 229, 255, 0.6);
-            box-shadow: 0 0 12px rgba(0, 229, 255, 0.3);
-        }
-        .workspace-chip:not(.active) {
-            background: rgba(255, 255, 255, 0.05);
-            color: rgba(255, 255, 255, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        .workspace-chip:not(.active):hover {
-            background: rgba(255, 255, 255, 0.12);
-            color: #ffffff;
-        }
-
-        /* Note editor styling */
-        .markdown-preview h1 { font-size: 1.5rem; font-weight: bold; margin-bottom: 0.5rem; color: #38bdf8; }
-        .markdown-preview h2 { font-size: 1.25rem; font-weight: bold; margin-bottom: 0.4rem; color: #818cf8; }
-        .markdown-preview h3 { font-size: 1.1rem; font-weight: bold; margin-bottom: 0.3rem; }
-        .markdown-preview p { margin-bottom: 0.6rem; line-height: 1.5; }
-        .markdown-preview ul { list-style-type: disc; margin-left: 1.25rem; margin-bottom: 0.6rem; }
-        .markdown-preview ol { list-style-type: decimal; margin-left: 1.25rem; margin-bottom: 0.6rem; }
-        .markdown-preview code { background: rgba(0,0,0,0.3); padding: 2px 6px; border-radius: 4px; font-family: monospace; color: #f43f5e; }
-        .markdown-preview pre { background: rgba(0,0,0,0.5); padding: 8px; border-radius: 8px; font-family: monospace; margin-bottom: 0.6rem; overflow-x: auto; }
-        .markdown-preview blockquote { border-left: 3px solid #00e5ff; padding-left: 8px; opacity: 0.85; margin-bottom: 0.6rem; font-style: italic; }
-
-        /* Range slider custom styling */
-        input[type="range"].liquid-slider {
-            -webkit-appearance: none;
-            height: 6px;
-            border-radius: 3px;
-            background: rgba(255, 255, 255, 0.2);
-            outline: none;
-        }
-        input[type="range"].liquid-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
-            background: #00e5ff;
-            cursor: pointer;
-            box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
-            border: 2px solid white;
-        }
-
-    
-        /* GPU Hardware Accelerated Rendering */
-        .ultra-liquid-glass, .app-window {
-            transform: translateZ(0);
-            backface-visibility: hidden;
-            perspective: 1000px;
-            will-change: transform, opacity;
-        }
-
-    
+/* ==========================================================================
+   BharatOS 1.0 — Clean Desktop Stylesheet
+   Crafted with custom CSS variables, smooth animations, and glassmorphism.
+   ========================================================================== */
+
+:root {
+    --bg-glass: rgba(15, 23, 42, 0.75);
+    --border-glass: rgba(255, 255, 255, 0.12);
+    --shadow-window: 0 20px 50px rgba(0, 0, 0, 0.5);
+    --accent: #06b6d4;
+    --font-mono: 'Fira Code', monospace, monospace;
+    --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    font-family: var(--font-sans);
+    background-color: #020617;
+    color: #f8fafc;
+}
+
+#desktop-wallpaper {
+    position: fixed;
+    inset: 0;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 0.5s ease-in-out;
+    z-index: 1;
+}
+
+.glass-panel {
+    background: var(--bg-glass);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid var(--border-glass);
+}
+
+.glass-card {
+    background: rgba(30, 41, 59, 0.6);
+    backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 38px;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+#desktop-icons {
+    position: absolute;
+    top: 48px;
+    left: 16px;
+    display: grid;
+    grid-template-columns: repeat(1, 90px);
+    gap: 14px;
+    z-index: 2;
+}
+
+.desktop-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 6px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border: 1px solid transparent;
+}
+
+.desktop-icon:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.15);
+    transform: translateY(-2px);
+}
+
+.desktop-icon .icon-emoji {
+    font-size: 28px;
+    margin-bottom: 4px;
+}
+
+.desktop-icon .icon-title {
+    font-size: 11px;
+    font-weight: 600;
+    text-align: center;
+    color: #f1f5f9;
+    text-shadow: 0 1px 3px rgba(0,0,0,0.8);
+}
+
+.os-window {
+    position: absolute;
+    border-radius: 18px;
+    box-shadow: var(--shadow-window);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 10;
+    animation: windowPop 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes windowPop {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.window-titlebar {
+    height: 40px;
+    padding: 0 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(15, 23, 42, 0.85);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: move;
+}
+
+.window-controls {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.win-btn {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+.win-btn:hover { transform: scale(1.15); }
+.win-close { background-color: #ef4444; }
+.win-minimize { background-color: #f59e0b; }
+.win-maximize { background-color: #10b981; }
+
+.window-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: #cbd5e1;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.window-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background: rgba(10, 15, 29, 0.92);
+}
+
+#dock-container {
+    position: fixed;
+    bottom: 14px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9998;
+    padding: 8px 14px;
+    border-radius: 24px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
+}
+
+.dock-item {
+    width: 44px;
+    height: 44px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.dock-item:hover {
+    transform: scale(1.2) translateY(-6px);
+    background: rgba(255, 255, 255, 0.15);
+    border-color: var(--accent);
+}
+
+.dock-item.active {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(6, 182, 212, 0.4);
+}
+
+#lock-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    background: #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.lock-card {
+    width: 340px;
+    padding: 32px 24px;
+    border-radius: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.lock-input {
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: 12px;
+    background: rgba(15, 23, 42, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-family: var(--font-mono);
+    font-size: 16px;
+    text-align: center;
+    outline: none;
+    margin: 16px 0 10px 0;
+}
+
+.lock-input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 10px rgba(6, 182, 212, 0.3);
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(15, 23, 42, 0.4); }
+::-webkit-scrollbar-thumb { background: rgba(100, 116, 139, 0.5); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(148, 163, 184, 0.8); }

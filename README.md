@@ -1,153 +1,88 @@
-# 🇮🇳 BharatOS 1.0 — Web-Native Sovereign Operating System
+# ☸️ BharatOS 1.0 — A Web-Based Sovereign Desktop Environment
 
-<div align="center">
-  <img src="public/assets/bharatos_banner.jpg" alt="BharatOS 1.0 Live Desktop Running" width="100%" style="border-radius: 14px; box-shadow: 0 20px 50px rgba(0,0,0,0.5);" />
-  <br /><br />
-  <p><strong>A high-performance, zero-telemetry web desktop environment built entirely in modern Web standards.</strong></p>
-  <p><em>Featuring an offline AI Copilot, Web Audio harmonic synthesizer, 2D vector paint canvas, scientific function grapher, and 8-language Indic localization.</em></p>
-  
-  <p>
-    <a href="https://bharatos1-0.vercel.app/os"><strong>🌐 Launch Live Web OS</strong></a> •
-    <a href="https://bharatos1-0.vercel.app/portfolio"><strong>💼 Engineering Portfolio</strong></a> •
-    <a href="https://bharatos1-0.vercel.app/game"><strong>🎮 Solaris 3D Engine</strong></a>
-  </p>
-</div>
+![BharatOS Desktop](public/assets/bharatos_banner.jpg)
+
+Hey! I'm **Aviral Dewangan** (@AviralDewangan14).  
+This is **BharatOS 1.0**, a web desktop environment that I built from scratch using HTML5, modern CSS, and vanilla JavaScript. Everything runs entirely in the browser with 0 external tracking or cloud telemetry.
 
 ---
 
-## 📖 Why I Built BharatOS
-
-Operating systems today are increasingly bloated with non-consensual telemetry, background tracking daemons, and heavy resource overhead.
-
-I built **BharatOS 1.0** as an engineering experiment to prove that a complete, multi-window desktop operating system with productive apps—audio synthesizers, vector illustration tools, math graphers, and offline AI assistants—can run **100% client-side in the browser** at silky 120 FPS with **zero external telemetry and zero data leakage**.
+## 🚀 Live Demo & Quick Testing
+- **Live Desktop:** [https://bharatos1-0.vercel.app/os](https://bharatos1-0.vercel.app/os)
+- **Lock Screen PIN:** `1234` (or click **⚡ QUICK UNLOCK**)
 
 ---
 
-## ⚡ Key Applications & Features
+## 🛠️ What I Built & How It Works
 
-| Application | Description | Tech Stack |
-|---|---|---|
-| **🤖 Chanakya AI Copilot** | Built-in offline assistant that parses natural language to change system settings, switch wallpapers, write code, and explain kernel concepts. | JavaScript ES6+ Regex/Intent Engine |
-| **🎵 Sur Sangeet Synthesizer** | 8-Channel synthesizer with Solfeggio scale presets (396Hz to 963Hz), octave shifters, waveform selectors, and a real-time oscilloscope. | Web Audio API (`AudioContext`, `OscillatorNode`) |
-| **🎨 Chitram Vector Paint** | Digital sketching suite with brush, eraser, geometry shapes (lines, rectangles, circles), stroke width controls, and 1-click PNG image exporter. | HTML5 Canvas 2D Rendering Context |
-| **🧮 Aryabhata Math Suite** | Scientific calculator, programmer radix converter (Hex, Dec, Bin, Oct), and interactive 2D function grapher (`y = f(x)`). | Canvas Cartesian Math Plotter |
-| **🌐 Indic Localization** | Instant multi-language UI translation across 8 Indian languages (Hindi, Sanskrit, Tamil, Telugu, Bengali, Marathi, Gujarati, English). | DOM Data-Attribute Translation Layer |
-| **💻 Indic Code Studio** | In-browser code editor with integrated compiler sandbox and live terminal output. | Custom Sandboxed Execution Runtime |
-| **🔐 Zero-Trust Lock Screen** | Streamlined authentication with default PIN `1234`, password visibility toggle, and instant 1-click Quick Unlock. | Hardware Enclave Simulation |
+### 1. 🪟 Custom Window Manager (`js/window_manager.js`)
+- Hand-wrote a draggable window system without external UI libraries.
+- Uses `mousedown`, `mousemove`, and `mouseup` event listeners to calculate dynamic viewport offsets and keep windows inside screen bounds.
+- Tracks `topZIndex` counter to bring clicked windows to the front when focused.
+- Window controls for Minimize, Maximize, and Close with smooth CSS transitions.
+
+### 2. 🎵 Web Audio DSP Synthesizer (`js/apps/sangeet.js`)
+- Built an interactive synthesizer using the browser's native `AudioContext` and `OscillatorNode`.
+- Supports 4 waveforms: Sine (harmonic), Triangle (warm), Sawtooth (strings), and Square (8-bit chiptune).
+- Programmed a responsive piano keyboard spanning octaves 1 through 8 with precise Hz note frequencies (Sa=261.63Hz, Re=293.66Hz, Ga=329.63Hz, etc.).
+- Includes Vedic harmonic frequencies (396 Hz, 528 Hz, 639 Hz, 963 Hz).
+
+### 3. 🎨 Canvas 2D Vector Paint Studio (`js/apps/chitram.js`)
+- HTML5 Canvas drawing tool with freehand Brush, Eraser, Line, Rectangle, and Circle tools.
+- Uses 2D canvas context imageData buffering (`getImageData` / `putImageData`) to preview geometric shapes in real-time before committing strokes.
+- Includes color palette picker, stroke size slider, canvas clear, and instant PNG export (`canvas.toDataURL()`).
+
+### 4. 🧮 Aryabhata Calculator & Function Grapher (`js/apps/aryabhata.js`)
+- Scientific calculator with support for arithmetic, powers, square roots, and trigonometric functions (`sin`, `cos`, `tan`).
+- Real-time conversion to Hexadecimal (`0x...`) and Binary (`0b...`).
+- 2D cartesian coordinate plotter on a custom HTML5 canvas that dynamically graphs mathematical functions (e.g. `Math.sin(x * 2) * Math.cos(x)`).
+
+### 5. 🤖 Chanakya Offline Copilot (`js/apps/chanakya.js`)
+- Fast client-side command assistant that lets you control the OS with natural text.
+- Can change desktop wallpapers, switch system language, open apps, and display low-level kernel code snippets.
 
 ---
 
-## 🏗️ Architectural Overview
+## 📂 Project Structure
 
 ```
-+-----------------------------------------------------------------------+
-|                             BHARATOS 1.0                              |
-+-----------------------------------------------------------------------+
-|  TOP BAR: Status Tickers • Kavach 100% • Language Switcher • Widgets  |
-+-----------------------------------------------------------------------+
-|                                                                       |
-|   +-----------------------+               +-----------------------+   |
-|   |  🎵 Sur Sangeet Synth |               |  🤖 Chanakya AI       |   |
-|   |  - Web Audio Context  |               |  - Natural Intent     |   |
-|   |  - 528Hz Solfeggio    |               |  - OS Automation      |   |
-|   |  - Live Oscilloscope  |               |  - Code Generation    |   |
-|   +-----------------------+               +-----------------------+   |
-|                                                                       |
-|   +-----------------------+               +-----------------------+   |
-|   |  🎨 Chitram Paint     |               |  🧮 Aryabhata Math    |   |
-|   |  - Canvas 2D Paths    |               |  - 2D Grapher Engine  |   |
-|   |  - PNG Exporter       |               |  - Radix Converter    |   |
-|   +-----------------------+               +-----------------------+   |
-|                                                                       |
-+-----------------------------------------------------------------------+
-|   DOCK: Quick App Launchers • Running Task Indicators • Glassmorphism  |
-+-----------------------------------------------------------------------+
-|         CORE: Window Manager • Z-Index Stack • DOM Event Bus          |
-+-----------------------------------------------------------------------+
+bharatos/
+├── css/
+│   └── style.css            # Custom CSS variables, glassmorphism & layout
+├── js/
+│   ├── window_manager.js    # Drag, z-index elevation, maximize/minimize
+│   ├── lockscreen.js        # Passcode check (1234) & live IST clock
+│   ├── apps/
+│   │   ├── chanakya.js      # Offline assistant logic & wallpaper switcher
+│   │   ├── sangeet.js       # Web Audio API 8-channel synthesizer
+│   │   ├── chitram.js       # Canvas 2D paint tools & PNG export
+│   │   ├── aryabhata.js     # Scientific calculator & 2D graph plotter
+│   │   └── settings.js      # Wallpaper switcher & language dictionaries
+│   └── main.js              # DOM initialization & startup
+├── wallpapers/              # High-resolution landscape wallpapers
+└── index.html               # Semantic HTML desktop markup (~450 lines)
 ```
 
-### 1. Window Management System
-- **Z-Index Layering**: Active windows automatically elevate their `z-index` when clicked or dragged.
-- **Hardware Acceleration**: Windows use CSS `transform: translateZ(0)` and `backface-visibility: hidden` to utilize GPU rasterization, keeping frame rates at a steady 60–120 FPS even on low-end hardware.
-- **Drag & Resize Math**: Mouse events calculate relative offsets from window headers to prevent cursor snapping.
-
-### 2. Audio DSP Engine (`Sur Sangeet`)
-- Utilizes the browser's native `AudioContext` without external audio libraries.
-- Frequencies are calculated dynamically using standard chromatic intervals:
-  $$	ext{Frequency} = 	ext{BaseFreq} 	imes 2^{	ext{Octave} - 4}$$
-- Custom gain nodes apply exponential decay curves to eliminate harsh clicking artifacts on note release.
-
-### 3. Vector Canvas Pipeline (`Chitram`)
-- Implements smooth sub-pixel freehand path interpolation with `lineCap = 'round'` and `lineJoin = 'round'`.
-- Geometric previews (rectangles, circles, lines) use a snapshot-and-restore buffer (`getImageData` / `putImageData`) for seamless real-time previewing during active drag.
-
 ---
 
-## 🧪 Reviewer & Testing Guide (How to Test in 2 Minutes)
+## 💻 Running Locally
 
-1. **Unlock Desktop**:
-   - On the lock screen, enter PIN **`1234`** (or click the green **`⚡ QUICK UNLOCK`** button).
-2. **Test Chanakya AI Copilot**:
-   - Click **`🤖 Chanakya AI`** in the top bar.
-   - Click the prompt chip **`🏔️ Ladakh Wall`** (watches wallpaper change instantly).
-   - Click **`💻 Write IDT in C`** to see kernel code generation.
-3. **Test Sur Sangeet Synthesizer**:
-   - Click the **`🎵 Sur Sangeet`** icon on the dock.
-   - Click the **`528 Hz (DNA Resonance)`** Solfeggio preset button.
-   - Click piano keys (Sa, Re, Ga, Ma...) and observe the live oscilloscope waveform.
-4. **Test Aryabhata Math & Grapher**:
-   - Open **`🧮 Aryabhata`** from the dock or desktop.
-   - Switch to the **`2D Function Grapher`** tab and click **Plot** to render `f(x) = sin(2x) * cos(x)`.
-5. **Test Multi-Language Localization**:
-   - Select **`🇮🇳 हिन्दी (Hindi)`** or **`🕉️ संस्कृतम् (Sanskrit)`** from the top bar dropdown.
-   - Notice all desktop icons, tooltips, and app titles localize dynamically without reloading.
-
----
-
-## 🛠️ Local Development Setup
-
-No complex build tools or heavy node dependencies required. Everything runs cleanly via standard HTTP:
+No complicated setup or build tools required:
 
 ```bash
-# 1. Clone the repository
+# Clone the repository
 git clone https://github.com/AviralDewangan14/bharatos1.0.git
 cd bharatos1.0
 
-# 2. Start the local server
-python main.py
-
-# 3. Open in your browser
-# Navigate to: http://localhost:5678/bharatos
+# Open in any browser or launch a local server:
+python -m http.server 8000
 ```
+Then visit `http://localhost:8000/public/index.html` or `http://localhost:8000/bharatos/index.html`.
 
 ---
 
-## 📁 Repository Structure
-
-```
-├── bharatos/                  # Core BharatOS Source Files
-│   ├── index.html             # Master Single-File Sovereign Desktop
-│   ├── kernel.py              # Microkernel & VFS process emulator
-│   ├── core_kernel/           # Freestanding C interrupt handlers (IDT/GDT)
-│   ├── ocr/                   # AVX2 binarization OCR engine
-│   ├── graphics/              # Vulkan/Direct3D compositor bridges
-│   └── wallpapers/            # 4K Indian landscape wallpapers
-├── public/                    # Vercel Zero-Config Production Distribution
-│   ├── index.html             # BharatOS Sovereign Web Desktop
-│   ├── portfolio.html         # Engineering Consultancy Studio
-│   ├── project_dashboard.html # Project Milestone & Escrow Specs
-│   ├── game.html              # Solaris 3D Spatial Grid Engine
-│   └── assets/                # Real running screenshots & banners
-├── vercel.json                # Edge rewrite & routing configuration
-└── README.md                  # Project documentation & technical specs
-```
-
----
-
-## 👨‍💻 Author & Engineering Credits
-
-Crafted with care by **Aviral Dewangan**  
-- **GitHub**: [@AviralDewangan14](https://github.com/AviralDewangan14)  
-- **Email**: aviral.dewangan14@gmail.com  
-
-Licensed under the **MIT License**.
+## 👤 Author & Contact
+- **Developer:** Aviral Dewangan
+- **GitHub:** [@AviralDewangan14](https://github.com/AviralDewangan14)
+- **Discord:** `@AviralDewangan` (Available in `#ask-the-shipwrights`)
+- **Reviewer Note:** If you have any feedback or questions, please feel free to DM me!
