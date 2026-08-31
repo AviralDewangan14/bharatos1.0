@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "cleanUrls": true,
+  "cleanUrls": false,
   "trailingSlash": false,
   "outputDirectory": "public",
   "rewrites": [
     {
-      "source": "/",
+      "source": "/bharatos/:path*",
       "destination": "/index.html"
     },
     {
@@ -13,7 +13,23 @@
       "destination": "/index.html"
     },
     {
+      "source": "/bharatos1.0/:path*",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/bharatos1.0",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/os/:path*",
+      "destination": "/index.html"
+    },
+    {
       "source": "/os",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/bharat/:path*",
       "destination": "/index.html"
     },
     {
@@ -26,7 +42,7 @@
     },
     {
       "source": "/devlog",
-      "destination": "/portfolio.html"
+      "destination": "/devlog.html"
     },
     {
       "source": "/clients",
@@ -55,6 +71,14 @@
     {
       "source": "/solaris",
       "destination": "/solaris.html"
+    },
+    {
+      "source": "/",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/((?!assets/|wallpapers/|.*\\..*).*)",
+      "destination": "/index.html"
     }
   ],
   "headers": [
