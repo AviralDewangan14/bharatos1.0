@@ -42,13 +42,52 @@ export const initFS = async (): Promise<void> => {
   if (!rootExists) {
     const rootNode = { ...createNode('', 'directory', null), id: 'root' };
     const homeNode = { ...createNode('home', 'directory', 'root'), id: 'home' };
-    const desktopNode = { ...createNode('Desktop', 'directory', 'home') };
-    const docsNode = { ...createNode('Documents', 'directory', 'home') };
-    const downNode = { ...createNode('Downloads', 'directory', 'home') };
-    const picsNode = { ...createNode('Pictures', 'directory', 'home') };
-    const musicNode = { ...createNode('Music', 'directory', 'home') };
-    const vidsNode = { ...createNode('Videos', 'directory', 'home') };
-    const trashNode = { ...createNode('Trash', 'directory', 'home') };
+    const desktopNode = { ...createNode('Desktop', 'directory', 'home'), id: 'desktop' };
+    const docsNode = { ...createNode('Documents', 'directory', 'home'), id: 'documents' };
+    const downNode = { ...createNode('Downloads', 'directory', 'home'), id: 'downloads' };
+    const picsNode = { ...createNode('Pictures', 'directory', 'home'), id: 'pictures' };
+    const musicNode = { ...createNode('Music', 'directory', 'home'), id: 'music' };
+    const vidsNode = { ...createNode('Videos', 'directory', 'home'), id: 'videos' };
+    const trashNode = { ...createNode('Trash', 'directory', 'home'), id: 'trash' };
+
+    // Initial files
+    const welcomeFile = createNode(
+      'Welcome_to_BharatOS.md',
+      'file',
+      'documents',
+      '# Welcome to BharatOS\n\nBharatOS is a browser-based desktop operating system built with React 18, TypeScript, Tailwind CSS, and IndexedDB.\n\n### Key Features:\n- Persistent virtual filesystem stored in IndexedDB\n- Shell terminal with Unix-style commands (ls, cat, mkdir, rm, etc.)\n- Safe mathematical calculator with recursive-descent parsing\n- Notes editor with auto-save\n- Synthesizer toy powered by Web Audio API\n- Multilingual interface (English & Hindi)\n\nEnjoy exploring your system!'
+    );
+
+    const notesFile = createNode(
+      'Project_Notes.txt',
+      'file',
+      'documents',
+      'BharatOS Engineering Log\n- Client-side virtual filesystem verified\n- Window stacking and focus tracking active\n- Floating liquid glass dock implemented\n- Color-coded application icon themes active\n'
+    );
+
+    const manifestFile = createNode(
+      'system_packages.json',
+      'file',
+      'downloads',
+      JSON.stringify(
+        {
+          os: 'BharatOS',
+          version: '1.0.0',
+          engine: 'React 18 + Vite',
+          filesystem: 'IndexedDB Virtual VFS',
+          author: 'Aviral Dewangan'
+        },
+        null,
+        2
+      )
+    );
+
+    const quickStartFile = createNode(
+      'Quick_Start.md',
+      'file',
+      'desktop',
+      '# BharatOS Quick Tips\n\n- Press `Cmd/Win + Space` to trigger the app launcher.\n- Double click on desktop icons or use the bottom dock to launch apps.\n- Right-click anywhere on the desktop to switch wallpapers or create new notes.\n- Open the Terminal to run shell commands on the virtual filesystem.\n'
+    );
 
     const tx = db.transaction(STORE_NAME, 'readwrite');
     await Promise.all([
@@ -61,6 +100,10 @@ export const initFS = async (): Promise<void> => {
       tx.store.put(musicNode),
       tx.store.put(vidsNode),
       tx.store.put(trashNode),
+      tx.store.put(welcomeFile),
+      tx.store.put(notesFile),
+      tx.store.put(manifestFile),
+      tx.store.put(quickStartFile),
     ]);
     await tx.done;
   }
