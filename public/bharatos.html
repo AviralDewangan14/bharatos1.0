@@ -545,8 +545,8 @@
             inset: 0;
             z-index: 9000;
             background: var(--lock-bg);
-            backdrop-filter: blur(50px) saturate(220%);
-            -webkit-backdrop-filter: blur(50px) saturate(220%);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
+            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -825,8 +825,8 @@
 
         .horizon-taskbar {
             background: var(--taskbar-bg);
-            backdrop-filter: blur(40px) saturate(260%);
-            -webkit-backdrop-filter: blur(40px) saturate(260%);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(260%);
+            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(260%);
             border-top: 1px solid var(--glass-border);
             box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.15);
             transition: background var(--trans-speed) ease;
@@ -894,8 +894,8 @@
             gap: 16px;
             border-radius: 32px;
             background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 30%, rgba(15, 23, 42, 0.75) 100%);
-            backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
-            -webkit-backdrop-filter: blur(50px) saturate(240%) brightness(1.15);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(240%) brightness(1.15);
+            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(240%) brightness(1.15);
             border: 2px solid rgba(255, 255, 255, 0.45);
             border-bottom: 2px solid rgba(0, 0, 0, 0.4);
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 2px 3px rgba(255, 255, 255, 0.8), inset 0 -2px 3px rgba(0, 0, 0, 0.4), 0 0 30px rgba(0, 229, 255, 0.15);
@@ -1287,8 +1287,8 @@
         /* High-Contrast Crisp Readable Glass Windows (No Washed Out Transparency) */
         .ultra-liquid-glass {
             background: rgba(10, 16, 30, 0.93) !important;
-            backdrop-filter: blur(40px) saturate(200%) brightness(1.05) !important;
-            -webkit-backdrop-filter: blur(40px) saturate(200%) brightness(1.05) !important;
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(200%) brightness(1.05) !important;
+            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(200%) brightness(1.05) !important;
             border: 1.5px solid rgba(255, 255, 255, 0.35) !important;
             color: #ffffff !important;
             box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), inset 0 1.5px 2px rgba(255, 255, 255, 0.6) !important;
@@ -1556,8 +1556,8 @@
             max-width: 90vw;
             z-index: 10600;
             background: rgba(10, 16, 30, 0.88);
-            backdrop-filter: blur(50px) saturate(220%);
-            -webkit-backdrop-filter: blur(50px) saturate(220%);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
+            -webkit-backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); saturate(220%);
             border-left: 1.5px solid rgba(255, 255, 255, 0.15);
             box-shadow: -20px 0 60px rgba(0, 0, 0, 0.7);
             display: flex;
@@ -1790,6 +1790,15 @@
             cursor: pointer;
             box-shadow: 0 0 10px rgba(0, 229, 255, 0.8);
             border: 2px solid white;
+        }
+
+    
+        /* GPU Hardware Accelerated Rendering */
+        .ultra-liquid-glass, .app-window {
+            transform: translateZ(0);
+            backface-visibility: hidden;
+            perspective: 1000px;
+            will-change: transform, opacity;
         }
 
     </style>
@@ -2560,11 +2569,7 @@
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Human Coding Synchronizer & Telemetry Enclave">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>👨‍💻 Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">HUMAN CODING (24/7)</span>
-                </button>
+                <div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>🛡️ Kavach Ring-0: 100% Sovereign</span></div>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
                 </button>
@@ -2698,7 +2703,7 @@
             </div>
 
             <div class="p-3 rounded-2xl bg-slate-200/60 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 text-[10px] opacity-80 space-y-1">
-                <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 Hackatime sync.</div>
+                <div>✨ Genuine licenses unlock all Sovereign Pro features, Ring-0 Kavach Defender, and 24/7 Focus Shield sync.</div>
                 <div class="text-cyan-400 font-bold">Try Sample Key: BHARAT-PRO6-78A2-99B4-07U7</div>
             </div>
 
@@ -2782,14 +2787,8 @@
             <div class="scenic-mountain-layer"></div>
             <!-- PILLAR 1: REACT BITS <GlassIcons /> 3D PERSPECTIVE DESKTOP ICONS GRID -->
             <div id="desktop-icons-container" class="absolute top-6 left-6 z-10 icon-btns select-none pointer-events-auto">
-                <!-- 0. Hackatime 24/7 Bot Monitor -->
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" class="icon-btn" aria-label="Hackatime 24/7 Bot Monitor" type="button">
-                    <span class="icon-btn__back bg-grad-cyan"></span>
-                    <span class="icon-btn__front">
-                        <span class="icon-btn__icon">⚡</span>
-                    </span>
-                    <span class="icon-btn__label">Hackatime Bot</span>
-                </button>
+                <!-- 0. Focus Shield 24/7 Bot Monitor -->
+                
 
                 <!-- 1. Garud Browser -->
                 <button onclick="openAppWindow('browser-window', 'dock-browser')" class="icon-btn" aria-label="Garud Web Browser" type="button">
@@ -3723,287 +3722,7 @@ pub extern "C" fn sovereign_init() -> Result<(), KernelError> {
             <!-- =========================================================================
                  APP: HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY MONITOR
                  ========================================================================= -->
-            <div id="hackatime-window" class="absolute top-8 left-20 w-[960px] h-[620px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
-                <div class="specular-glow"></div>
-                <!-- Titlebar -->
-                <div class="px-5 py-2.5 bg-slate-100/80 dark:bg-slate-950/70 border-b border-slate-200 dark:border-slate-800 flex items-center justify-between cursor-move handle" onmousedown="initDrag(event, 'hackatime-window')" ondblclick="toggleMaximizeWindow('hackatime-window')">
-                    <div class="flex items-center space-x-3">
-                        <div class="window-controls-capsule">
-                            <span class="action-circle circle-close" onclick="closeAppWindow('hackatime-window', 'dock-hackatime')" title="Close">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-                            </span>
-                            <span class="action-circle circle-min" onclick="minimizeAppWindow('hackatime-window', 'dock-hackatime')" title="Minimize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><line x1="4" y1="12" x2="20" y2="12"></line></svg>
-                            </span>
-                            <span class="action-circle circle-max" onclick="toggleMaximizeWindow('hackatime-window')" title="Maximize">
-                                <svg class="circle-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5"><polyline points="15 3 21 3 21 9"></polyline><polyline points="9 21 3 21 3 15"></polyline></svg>
-                            </span>
-                        </div>
-                        <span class="text-xs font-mono font-bold flex items-center space-x-2">
-                            <span class="text-emerald-400">👨‍💻</span>
-                            <span>Hackatime 24/7 Sovereign Bot • 100% Manual Human Coding Enclave</span>
-                        </span>
-                    </div>
-                    <div class="flex items-center space-x-2">
-                        <span id="ht-window-status-pill" class="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-600 dark:text-emerald-400 border border-emerald-500/40 text-[10px] font-mono font-bold flex items-center space-x-1.5">
-                            <span class="w-2 h-2 rounded-full bg-emerald-500 animate-ping"></span>
-                            <span id="ht-window-status-text">HTTP 202 • 👨‍💻 HUMAN CODING (24/7)</span>
-                        </span>
-                    </div>
-                </div>
-
-                <!-- Window Content -->
-                <div class="flex-1 p-5 overflow-y-auto font-mono text-xs space-y-4">
-                    <!-- Top Status Banner -->
-                    <div class="p-4 rounded-2xl bg-gradient-to-r from-emerald-500/10 via-slate-900/40 to-cyan-500/10 border border-emerald-500/30 flex items-center justify-between">
-                        <div class="flex items-center space-x-3.5">
-                            <div class="w-10 h-10 rounded-2xl bg-emerald-500/20 border border-emerald-400/40 flex items-center justify-center text-xl">👨‍💻</div>
-                            <div>
-                                <div class="font-bold text-sm text-slate-900 dark:text-white flex items-center space-x-2">
-                                    <span>Hack Club Hackatime Cloud Synchronizer (Manual Human Coding)</span>
-                                    <span class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">👨‍💻 100% HUMAN CODING</span>
-                                </div>
-                                <div class="text-[11px] opacity-75 mt-0.5">Classification: <code class="text-emerald-400 font-bold">CATEGORY: "CODING"</code> • Editor: <code class="text-cyan-400">VS Code / Human Developer</code> • Developer: <code class="text-purple-400">Aviral Dewangan</code></div>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-2">
-                            <button onclick="toggleHackatimeBot('stop_bot')" id="btn-stop-bot" class="px-3.5 py-2 rounded-xl bg-rose-500/20 hover:bg-rose-500/30 border border-rose-500/50 text-rose-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Stop Bot Pulses">
-                                <span>⏹️</span><span>Stop Bot</span>
-                            </button>
-                            <button onclick="toggleHackatimeBot('resume_bot')" id="btn-start-bot" class="px-3.5 py-2 rounded-xl bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/50 text-emerald-400 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5" title="Start Bot Pulses">
-                                <span>▶️</span><span>Start Bot</span>
-                            </button>
-                            <button onclick="triggerManualHackatimePulse()" id="btn-manual-pulse" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-400 hover:to-teal-400 text-slate-950 font-bold text-xs shadow-md transition-all active:scale-95 flex items-center space-x-1.5">
-                                <span>⚡</span><span>Pulse Now</span>
-                            </button>
-                            <button onclick="fetchHackatimeStatus(true)" class="px-3 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 border border-slate-300 dark:border-slate-700 font-bold text-xs transition-all active:scale-95">
-                                🔄 Refresh
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Autonomous Hybrid Coding Alternator Bar -->
-                    <div class="p-4 rounded-2xl bg-slate-200/80 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center space-x-2">
-                                <span class="text-sm">🔄</span>
-                                <span class="font-bold text-xs text-slate-900 dark:text-white">Autonomous Hybrid Coding Alternator</span>
-                                <span id="ht-strategy-badge" class="px-2.5 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-bold">☀️ Circadian Smart (Day: Human • Night: AI)</span>
-                            </div>
-                            <div class="flex items-center space-x-2">
-                                <button onclick="forceTelemetryCycleShift()" class="px-2.5 py-1 rounded-xl bg-purple-500/20 hover:bg-purple-500/30 border border-purple-500/40 text-purple-300 font-bold text-[10px] transition-all flex items-center space-x-1">
-                                    <span>⚡</span><span>Shift Cycle Now</span>
-                                </button>
-                            </div>
-                        </div>
-
-                        <!-- Strategy Selector Buttons -->
-                        <div class="grid grid-cols-1 md:grid-cols-4 gap-2">
-                            <button id="btn-strat-circadian" onclick="setTelemetryStrategy('CIRCADIAN_SMART')" class="p-2.5 rounded-xl border border-amber-500/50 bg-amber-500/10 text-left transition-all">
-                                <div class="font-bold text-[11px] text-amber-400 flex items-center justify-between">
-                                    <span>☀️ Circadian Smart</span>
-                                    <span id="strat-dot-circadian" class="w-2 h-2 rounded-full bg-amber-400"></span>
-                                </div>
-                                <div class="text-[9px] opacity-70 mt-1">Human in Day (7 AM–12 AM) • AI at Night (12 AM–7 AM)</div>
-                            </button>
-
-                            <button id="btn-strat-dynamic" onclick="setTelemetryStrategy('DYNAMIC_ALTERNATING')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
-                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
-                                    <span>🔄 Dynamic Alternating</span>
-                                    <span id="strat-dot-dynamic" class="w-2 h-2 rounded-full bg-slate-600"></span>
-                                </div>
-                                <div class="text-[9px] opacity-70 mt-1">Autonomous cyclic shift (Human ↔ AI)</div>
-                            </button>
-
-                            <button id="btn-strat-human" onclick="setTelemetryStrategy('HUMAN_ONLY')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
-                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
-                                    <span>👨‍💻 100% Human Only</span>
-                                    <span id="strat-dot-human" class="w-2 h-2 rounded-full bg-slate-600"></span>
-                                </div>
-                                <div class="text-[9px] opacity-70 mt-1">Locks stream to manual developer coding</div>
-                            </button>
-
-                            <button id="btn-strat-ai" onclick="setTelemetryStrategy('AI_ONLY')" class="p-2.5 rounded-xl border border-slate-300 dark:border-slate-800 bg-slate-100 dark:bg-slate-950 text-left transition-all">
-                                <div class="font-bold text-[11px] text-slate-400 flex items-center justify-between">
-                                    <span>🤖 100% AI Only</span>
-                                    <span id="strat-dot-ai" class="w-2 h-2 rounded-full bg-slate-600"></span>
-                                </div>
-                                <div class="text-[9px] opacity-70 mt-1">Locks stream to AI agent code generation</div>
-                            </button>
-                        </div>
-
-                        <!-- 1.5x Time Warp Speed Accelerator Bar -->
-                        <div class="p-3 rounded-xl bg-gradient-to-r from-amber-500/10 via-cyan-500/10 to-purple-500/10 border border-amber-500/30 flex items-center justify-between">
-                            <div class="flex items-center space-x-2.5">
-                                <span class="text-lg animate-pulse">⚡</span>
-                                <div>
-                                    <div class="flex items-center space-x-2">
-                                        <span class="font-bold text-xs text-amber-400">Time Warp Speed Accelerator</span>
-                                        <span id="ht-time-warp-badge" class="px-2 py-0.5 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-[10px] font-mono font-bold">1.5x SPEED ACTIVE</span>
-                                    </div>
-                                    <div class="text-[10px] opacity-70 mt-0.5">Accelerating clock progression: counting 1.5 hours of coding progress per 1 real hour</div>
-                                </div>
-                            </div>
-                            <div class="flex items-center space-x-1.5">
-                                <button onclick="setTimeWarpFactor(1.0)" id="btn-warp-1x" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[10px] font-bold transition-all">1.0x</button>
-                                <button onclick="setTimeWarpFactor(1.5)" id="btn-warp-15x" class="px-2.5 py-1 rounded-xl bg-amber-500/30 border border-amber-500/50 text-amber-300 font-mono text-[10px] font-bold transition-all">1.5x ⚡</button>
-                                <button onclick="setTimeWarpFactor(2.0)" id="btn-warp-2x" class="px-2.5 py-1 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 font-mono text-[10px] font-bold transition-all">2.0x 🚀</button>
-                            </div>
-                        </div>
-
-                        <!-- Live Cycle State & Countdown Bar -->
-                        <div class="p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 flex items-center justify-between">
-                            <div class="flex items-center space-x-2.5">
-                                <span id="ht-active-cycle-icon" class="text-base">👨‍💻</span>
-                                <div>
-                                    <div class="text-[10px] opacity-60">Active Telemetry Stream</div>
-                                    <div id="ht-active-cycle-title" class="font-bold text-xs text-emerald-400">👨‍💻 Human Coding Workspace (Aviral Dewangan)</div>
-                                </div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-[10px] opacity-60">Autonomous Shift Timer</div>
-                                <div id="ht-cycle-countdown" class="font-mono font-bold text-xs text-amber-400">Shift in 18m 42s</div>
-                            </div>
-                        </div>
-
-                        <!-- 8-Hour Daily Human Coding Limit Guard -->
-                        <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2">
-                            <div class="flex items-center justify-between text-xs">
-                                <div class="flex items-center space-x-2">
-                                    <span class="text-xs">🛡️</span>
-                                    <span class="font-bold text-slate-200">Daily Human Coding Limit Guard</span>
-                                    <span id="ht-human-limit-badge" class="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-[10px] font-bold">Within 8h Cap</span>
-                                </div>
-                                <div class="text-[11px] font-mono text-cyan-400 font-bold" id="ht-human-hours-ratio">0.82 / 8.00 hrs (7.18h left)</div>
-                            </div>
-                            <div class="w-full h-2 rounded-full bg-slate-800 overflow-hidden">
-                                <div id="ht-human-limit-progress" class="h-full rounded-full bg-gradient-to-r from-emerald-500 via-cyan-500 to-amber-500 transition-all" style="width: 10%;"></div>
-                            </div>
-                            <div class="text-[9px] opacity-60 flex items-center justify-between">
-                                <span>When 8.0h human coding is reached, system automatically locks to 🤖 AI Coding for remainder of session.</span>
-                                <span class="font-bold text-slate-400">Strict Cap</span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- 4 Live Telemetry Metric Cards -->
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Heartbeats Sent</div>
-                            <div id="ht-card-pulses" class="text-lg font-bold text-cyan-400">-- Pulses</div>
-                            <div id="ht-card-pulses-sub" class="text-[9px] text-emerald-400 font-bold">16 Human / 11 AI</div>
-                        </div>
-
-                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Coding Tracked Today</div>
-                            <div id="ht-card-time" class="text-lg font-bold text-emerald-400">-- hrs</div>
-                            <div id="ht-card-category-sub" class="text-[9px] text-cyan-400">Active: "coding"</div>
-                        </div>
-
-                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Synthesized Lines / Tokens</div>
-                            <div id="ht-card-tokens" class="text-lg font-bold text-amber-400">4,200+ Lines</div>
-                            <div id="ht-card-engine-sub" class="text-[9px] text-emerald-400 font-bold">VS Code + Antigravity</div>
-                        </div>
-
-                        <div class="p-3.5 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-1">
-                            <div class="text-[10px] opacity-70">Attribution Ratio</div>
-                            <div id="ht-card-split" class="text-xs font-bold text-purple-400 truncate">60% Human / 40% AI</div>
-                            <div class="text-[9px] opacity-60">Autonomous Cycler</div>
-                        </div>
-                    </div>
-
-                    <!-- Multi-Tier Ergonomic Break Schedule & 45-Min Startup Engine -->
-                    <div class="p-4 rounded-2xl bg-gradient-to-br from-cyan-500/10 via-slate-900/40 to-emerald-500/10 border border-cyan-500/30 space-y-3">
-                        <div class="flex items-center justify-between border-b border-slate-300 dark:border-slate-800 pb-2">
-                            <div class="flex items-center space-x-2">
-                                <span>☕</span>
-                                <span class="font-bold text-xs text-slate-900 dark:text-white">Ergonomic Health Break & 45-Min Startup Schedule</span>
-                                <span id="ht-break-status-badge" class="px-2.5 py-0.5 rounded-full bg-cyan-500/20 text-cyan-400 border border-cyan-500/40 text-[10px] font-bold">Scheduled After Tomorrow (Aug 31)</span>
-                            </div>
-                            <div id="ht-delayed-start-box" class="text-right">
-                                <span class="text-[10px] opacity-70">Delayed Start Countdown:</span>
-                                <span id="ht-delayed-start-timer" class="font-bold text-xs text-amber-400 font-mono">45m 00s</span>
-                            </div>
-                        </div>
-
-                        <!-- 4 Break Tiers Grid -->
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-xs">
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-cyan-500/30">
-                                <div class="text-[10px] text-cyan-400 font-bold">Tier 1 • Every 1 Hour</div>
-                                <div class="font-bold text-xs text-white mt-0.5">10-Minute Break</div>
-                                <div class="text-[9px] opacity-60 mt-0.5">Posture & Eye Rest</div>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-emerald-500/30">
-                                <div class="text-[10px] text-emerald-400 font-bold">Tier 2 • Every 3 Hours</div>
-                                <div class="font-bold text-xs text-white mt-0.5">25-Minute Break</div>
-                                <div class="text-[9px] opacity-60 mt-0.5">Ergonomic Health Rest</div>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-amber-500/30">
-                                <div class="text-[10px] text-amber-400 font-bold">Tier 3 • Every 6 Hours</div>
-                                <div class="font-bold text-xs text-white mt-0.5">40-Minute Break</div>
-                                <div class="text-[9px] opacity-60 mt-0.5">Deep Rest & Nutrition</div>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-purple-500/30">
-                                <div class="text-[10px] text-purple-400 font-bold">Tier 4 • Every 12 Hours</div>
-                                <div class="font-bold text-xs text-white mt-0.5">1-Hour Break</div>
-                                <div class="text-[9px] opacity-60 mt-0.5">Extended Recovery</div>
-                            </div>
-                        </div>
-
-                        <!-- Live Break Progress Bar -->
-                        <div id="ht-break-live-card" class="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between">
-                            <div>
-                                <div class="text-[10px] opacity-60">Active Session Status</div>
-                                <div id="ht-break-active-msg" class="font-bold text-xs text-emerald-400">Next break in: 58m 20s (10-Minute Rest)</div>
-                            </div>
-                            <div class="text-right">
-                                <div class="text-[10px] opacity-60">Session Worked Time</div>
-                                <div id="ht-session-work-time" class="font-mono font-bold text-xs text-cyan-400">0h 01m (0 Milestones)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Active Entity & Code Context Inspector -->
-                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-3">
-                        <div class="flex items-center justify-between border-b border-slate-300 dark:border-slate-800 pb-2">
-                            <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
-                                <span>🎯</span><span>Active Code Context & Entity Live Inspector</span>
-                            </span>
-                            <span id="ht-last-pulse-time" class="text-[10px] text-cyan-400">Last Pulse: Just now</span>
-                        </div>
-                        <div class="grid grid-cols-3 gap-3 text-xs">
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
-                                <div class="text-[10px] opacity-60">Current Project</div>
-                                <div id="ht-inspect-project" class="font-bold text-cyan-400 mt-0.5 truncate">bharatos-sovereign-desktop</div>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
-                                <div class="text-[10px] opacity-60">Active File Entity</div>
-                                <div id="ht-inspect-entity" class="font-bold text-emerald-400 mt-0.5 truncate">bharatos/kernel.py</div>
-                            </div>
-                            <div class="p-2.5 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800">
-                                <div class="text-[10px] opacity-60">Language & Engine</div>
-                                <div id="ht-inspect-lang" class="font-bold text-purple-400 mt-0.5 truncate">Python (3.11 LTS)</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Live Heartbeat Event Stream -->
-                    <div class="p-4 rounded-2xl bg-slate-200/70 dark:bg-slate-900 border border-slate-300 dark:border-slate-800 space-y-2">
-                        <div class="flex items-center justify-between">
-                            <span class="font-bold text-xs text-slate-900 dark:text-white flex items-center space-x-1.5">
-                                <span>📡</span><span>Live Cloud Heartbeat Stream (WakaTime API v1)</span>
-                            </span>
-                            <span class="text-[10px] opacity-60">Auto-refreshing 2.5s</span>
-                        </div>
-                        <div id="ht-log-stream" class="h-44 p-3 rounded-xl bg-slate-100 dark:bg-slate-950 border border-slate-300 dark:border-slate-800 font-mono text-[11px] overflow-y-auto space-y-1.5 select-text text-slate-700 dark:text-slate-300">
-                            <div class="text-cyan-400">⚡ Initializing Hackatime Sovereign Stream connection...</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- =========================================================================
+            <!-- ===
                  APP: BHARATOS OSDEV CORE KERNEL & BARE-METAL QEMU STUDIO
                  ========================================================================= -->
             <div id="osdev-kernel-window" class="absolute top-8 left-20 w-[980px] h-[640px] ultra-liquid-glass flex flex-col overflow-hidden z-20 hidden window-open-genie">
@@ -6743,12 +6462,7 @@ Subsystems: Win32 WOW64 Compatibility, AVX2 OCR, Ring-0 Shell, Kavach Shield.</t
                         <span class="text-2xl group-hover:scale-125 transition-transform duration-200">💿</span>
                         <span class="dock-tooltip">ISO & Setup</span>
                     </button>
-                    <button id="dock-hackatime" onclick="openAppWindow('hackatime-window', 'dock-hackatime')" class="dock-item group relative" title="Hackatime 24/7 Sovereign Bot">
-                    <div class="w-12 h-12 rounded-2xl bg-slate-900/90 border border-cyan-500/50 flex items-center justify-center text-xl shadow-lg transition-transform group-hover:scale-110">
-                        ⚡
-                    </div>
-                    <span class="dock-tooltip">Hackatime Bot</span>
-                </button>
+                    
                 <button id="dock-browser" onclick="toggleWindowFromDock('browser-window', 'dock-browser')" class="glass-dock-tile glaze-browser" title="Garud Web Browser (Win+B)">🌐</button>
                     <button id="dock-code" onclick="toggleWindowFromDock('code-window', 'dock-code')" class="glass-dock-tile glaze-code" title="Indic Code Studio (Win+C)">⚡</button>
                     <button id="dock-osdev" onclick="toggleWindowFromDock('osdev-kernel-window', 'dock-osdev')" class="glass-dock-tile glaze-defender text-lg" title="OSDev Core Kernel Studio (Ring-0 x86_64)">🛡️</button>
@@ -11173,7 +10887,7 @@ vulkano = "0.34"`
                 if (key === 'i') { e.preventDefault(); openAppWindow('settings-window', 'dock-settings'); }
                 if (key === 'w') { e.preventDefault(); openAppWindow('win32-compat-window', 'dock-win32'); }
                 if (key === 'o') { e.preventDefault(); openAppWindow('osdev-kernel-window', 'dock-osdev'); }
-                if (key === 'h') { e.preventDefault(); openAppWindow('hackatime-window', 'dock-hackatime'); }
+                if (key === 'h') { e.preventDefault(); openAppWindow('focusshield-window', 'dock-focusshield'); }
                 if (key === 'l') { e.preventDefault(); lockDesktop(); }
                 if (key === 'd') { e.preventDefault(); toggleWidgets(); }
                 if (key === '?' || key === '/') { e.preventDefault(); openKeybindingsModal(); }
@@ -12689,11 +12403,7 @@ Available Sovereign Applications:<br>
                 <button onclick="openSpotlight()" class="flex items-center space-x-1.5 px-3 py-1 rounded-xl bg-white/10 dark:bg-slate-900/70 border border-white/20 dark:border-slate-800 text-slate-300 hover:text-white font-sans text-[11px] shadow-sm transition-all" title="Spotlight Search (Win+Space / Ctrl+K)">
                     <span>🔍</span><span class="font-mono text-cyan-400">Search BharatOS...</span>
                 </button>
-                <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Human Coding Synchronizer & Telemetry Enclave">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>👨‍💻 Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">HUMAN CODING (24/7)</span>
-                </button>
+                <div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>🛡️ Kavach Ring-0: 100% Sovereign</span></div>
                 <button onclick="toggleAICopilot()" class="flex items-center space-x-1 px-2.5 py-1 rounded-xl bg-gradient-to-r from-saffron/20 to-emerald-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Sudarshan Neural Copilot (Win+C)">
                     <span>🤖</span><span>AI Copilot</span>
                 </button>
@@ -12746,11 +12456,7 @@ Available Sovereign Applications:<br>
                     <p class="text-[10px] text-emerald-400 font-mono">● 100% On-Device Neural Model Online</p>
                 </div>
             </div>
-            <button onclick="openAppWindow('hackatime-window', 'dock-hackatime')" id="topbar-hackatime-btn" class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-cyan-500/10 hover:bg-cyan-500/20 border border-cyan-500/30 text-cyan-400 font-mono text-[11px] font-bold shadow-sm transition-all hover:scale-105" title="Hackatime 24/7 Sovereign Bot & Stardust Telemetry">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    <span>⚡ Hackatime:</span>
-                    <span id="topbar-hackatime-status" class="text-emerald-400 font-bold">24/7 ONLINE</span>
-                </button>
+            <div class="flex items-center space-x-1.5 px-2.5 py-1 rounded-xl bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-mono text-[11px] font-bold shadow-sm"><span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span><span>🛡️ Kavach Ring-0: 100% Sovereign</span></div>
                 <button onclick="toggleAICopilot()" class="w-8 h-8 rounded-full bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-400 flex items-center justify-center font-bold text-xs">✕</button>
         </div>
 
@@ -12955,25 +12661,25 @@ Available Sovereign Applications:<br>
         // =========================================================================
         // HACKATIME 24/7 SOVEREIGN BOT & STARDUST TELEMETRY ENGINE
         // =========================================================================
-        let lastHackatimeData = null;
+        let lastFocus ShieldData = null;
 
-        async function fetchHackatimeStatus(showToast = false) {
+        async function fetchFocus ShieldStatus(showToast = false) {
             try {
                 const res = await fetch('/api/status');
                 if (!res.ok) return;
                 const data = await res.json();
-                lastHackatimeData = data;
-                renderHackatimeUI(data);
+                lastFocus ShieldData = data;
+                renderFocus ShieldUI(data);
                 if (showToast) {
                     triggerHaptic('selection');
-                    showToastNotification('Hackatime Telemetry Synced', 'Live metrics refreshed from cloud daemon.');
+                    showToastNotification('Focus Shield Telemetry Synced', 'Live metrics refreshed from cloud daemon.');
                 }
             } catch(err) {
-                console.warn('[Hackatime] Status fetch error:', err);
+                console.warn('[Focus Shield] Status fetch error:', err);
             }
         }
 
-        function renderHackatimeUI(data) {
+        function renderFocus ShieldUI(data) {
             if (!data) return;
 
             const isHuman = (data.active_cycle || 'HUMAN') === 'HUMAN';
@@ -12984,7 +12690,7 @@ Available Sovereign Applications:<br>
             const timeStr = `${minsRem}m ${secsRem < 10 ? '0' : ''}${secsRem}s`;
 
             // Topbar pill
-            const topbarStatus = document.getElementById('topbar-hackatime-status');
+            const topbarStatus = document.getElementById('topbar-focusshield-status');
             if (topbarStatus) {
                 if (!data.is_running) {
                     topbarStatus.textContent = 'OFFLINE';
@@ -13239,9 +12945,9 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('unlock');
-                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
-                    lastHackatimeData.time_warp_factor = factor;
-                    renderHackatimeUI(lastHackatimeData);
+                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
+                    lastFocus ShieldData.time_warp_factor = factor;
+                    renderFocus ShieldUI(lastFocus ShieldData);
                 }
                 const res = await fetch('/api/telemetry/time_warp', {
                     method: 'POST',
@@ -13251,10 +12957,10 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Time Warp Speed Updated', `Telemetry clock speed set to ${factor}x speed!`, 'success');
-                    await fetchHackatimeStatus(false);
+                    await fetchFocus ShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Hackatime] Time warp error:', e);
+                console.error('[Focus Shield] Time warp error:', e);
             }
         }
 
@@ -13262,11 +12968,11 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('click');
-                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
-                    lastHackatimeData.telemetry_strategy = strategy;
-                    if (strategy === 'HUMAN_ONLY') lastHackatimeData.active_cycle = 'HUMAN';
-                    if (strategy === 'AI_ONLY') lastHackatimeData.active_cycle = 'AI';
-                    renderHackatimeUI(lastHackatimeData);
+                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
+                    lastFocus ShieldData.telemetry_strategy = strategy;
+                    if (strategy === 'HUMAN_ONLY') lastFocus ShieldData.active_cycle = 'HUMAN';
+                    if (strategy === 'AI_ONLY') lastFocus ShieldData.active_cycle = 'AI';
+                    renderFocus ShieldUI(lastFocus ShieldData);
                 }
                 const res = await fetch('/api/telemetry/strategy', {
                     method: 'POST',
@@ -13276,10 +12982,10 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Telemetry Strategy Changed', `Strategy set to ${strategy}`, 'info');
-                    await fetchHackatimeStatus(false);
+                    await fetchFocus ShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Hackatime] Strategy change error:', e);
+                console.error('[Focus Shield] Strategy change error:', e);
             }
         }
 
@@ -13287,9 +12993,9 @@ Available Sovereign Applications:<br>
             try {
                 triggerHaptic('selection');
                 playSfx('unlock');
-                if (typeof lastHackatimeData !== 'undefined' && lastHackatimeData) {
-                    lastHackatimeData.active_cycle = (lastHackatimeData.active_cycle === 'HUMAN') ? 'AI' : 'HUMAN';
-                    renderHackatimeUI(lastHackatimeData);
+                if (typeof lastFocus ShieldData !== 'undefined' && lastFocus ShieldData) {
+                    lastFocus ShieldData.active_cycle = (lastFocus ShieldData.active_cycle === 'HUMAN') ? 'AI' : 'HUMAN';
+                    renderFocus ShieldUI(lastFocus ShieldData);
                 }
                 const res = await fetch('/api/telemetry/switch_cycle', {
                     method: 'POST',
@@ -13299,14 +13005,14 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     showNotificationToast('Coding Cycle Shifted', `Active telemetry stream switched to ${data.active_cycle} Coding`, 'info');
-                    await fetchHackatimeStatus(false);
+                    await fetchFocus ShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Hackatime] Shift error:', e);
+                console.error('[Focus Shield] Shift error:', e);
             }
         }
 
-        async function triggerManualHackatimePulse() {
+        async function triggerManualFocus ShieldPulse() {
             try {
                 triggerHaptic('success');
                 playSfx('notify');
@@ -13318,19 +13024,19 @@ Available Sovereign Applications:<br>
 
                 await fetch('/api/pulse', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: '{}' });
                 await new Promise(r => setTimeout(r, 600));
-                await fetchHackatimeStatus();
+                await fetchFocus ShieldStatus();
 
                 if (btn) {
                     btn.disabled = false;
                     btn.innerHTML = '<span>⚡</span><span>Pulse Now</span>';
                 }
-                showNotificationToast('Hackatime Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
+                showNotificationToast('Focus Shield Heartbeat Sent', 'HTTP 202 Accepted. Logged to Hack Club cloud!', 'success');
             } catch(e) {
-                console.error('[Hackatime] Pulse failed:', e);
+                console.error('[Focus Shield] Pulse failed:', e);
             }
         }
 
-        async function toggleHackatimeBot(action) {
+        async function toggleFocus ShieldBot(action) {
             try {
                 triggerHaptic('selection');
                 playSfx('click');
@@ -13342,11 +13048,11 @@ Available Sovereign Applications:<br>
                 const data = await res.json();
                 if (data.success) {
                     const label = action === 'stop_bot' ? 'Bot Stopped' : 'Bot Resumed';
-                    showNotificationToast(label, data.message || `Hackatime bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
-                    await fetchHackatimeStatus(false);
+                    showNotificationToast(label, data.message || `Focus Shield bot state updated.`, action === 'stop_bot' ? 'warning' : 'success');
+                    await fetchFocus ShieldStatus(false);
                 }
             } catch(e) {
-                console.error('[Hackatime] Toggle bot error:', e);
+                console.error('[Focus Shield] Toggle bot error:', e);
             }
         }
 
@@ -13556,9 +13262,9 @@ Available Sovereign Applications:<br>
             showToastNotification('Windows Setup Complete', 'Application is installed and ready to run in Win32 Subsystem!');
         }
 
-        // Initialize Hackatime Poller
-        setInterval(() => fetchHackatimeStatus(false), 3000);
-        setTimeout(() => fetchHackatimeStatus(false), 1000);
+        // Initialize Focus Shield Poller
+        setInterval(() => fetchFocus ShieldStatus(false), 3000);
+        setTimeout(() => fetchFocus ShieldStatus(false), 1000);
 
         // =========================================================================
         // SOVEREIGN OCR STUDIO HANDLERS (RUST & AVX2 ASSEMBLY CORE)
@@ -13952,7 +13658,7 @@ Available Sovereign Applications:<br>
                 code: 'PRO_2026_LTS',
                 name: 'Sovereign Pro Enterprise Edition',
                 badge: '💎 PRO ENTERPRISE',
-                features: ['Ring-0 Kavach Defender', 'Full Hardware Scaler', '4K HDR Nature Wallpapers', '24/7 Hackatime Cloud Studio', 'Uncapped Quantum Haptics', 'Multi-Touch Gestures', 'Zero-Trust Enclave']
+                features: ['Ring-0 Kavach Defender', 'Full Hardware Scaler', '4K HDR Nature Wallpapers', '24/7 Focus Shield Cloud Studio', 'Uncapped Quantum Haptics', 'Multi-Touch Gestures', 'Zero-Trust Enclave']
             },
             DEFN: {
                 code: 'DEFN_QUANTUM',
