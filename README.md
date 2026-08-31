@@ -1,114 +1,151 @@
-# BharatOS & GenAz Ecosystem
+# BharatOS
 
-An independent open-source desktop operating system in the browser along with a native standalone programming language (`GenAz`), built by **Aviral Dewangan**.
+A functional browser-based desktop operating system built with React 18, TypeScript, Vite, Tailwind CSS, Zustand, and IndexedDB.
 
----
-
-## 🌟 Overview
-
-This repository hosts two core projects:
-
-1. **BharatOS (`bharatos-app/`)**: A functional web-based desktop environment built with React 18, TypeScript, Vite, Tailwind CSS, and Zustand. It features an IndexedDB virtual filesystem, draggable/resizable window manager, terminal with shell execution, multi-app registry, and i18n support.
-2. **GenAz (`genaz/`)**: A native compiled programming language with its own tokenizer, recursive-descent AST parser, Hindley-Milner type inference, stack bytecode compiler, binary `.gbc` format, and virtual machine with green threads, channels, and 80+ standard library functions.
+BharatOS is an independent desktop environment running entirely on client-side web technologies. It is not a static landing page or mock dashboard — it is a modular desktop operating system running inside the browser with genuine window management, a persistent virtual filesystem, a terminal shell, and built-in system applications.
 
 ---
 
-## 🖥️ BharatOS Web Desktop
+## 🖥️ System Architecture & Features
 
-BharatOS is designed as a modular desktop environment that runs client-side in any modern browser without external cloud dependencies.
+### 1. Window Management & Desktop Shell
+- **Window Manager (`src/components/Window.tsx`, `src/stores/windowStore.ts`)**:
+  - Full mouse-driven dragging with titlebar collision detection.
+  - Multi-directional resizing (right, bottom, bottom-right).
+  - Window state controls: Minimize to dock, Maximize/Restore with smooth viewport scaling, and Close.
+  - Stacking context & focus management: clicking any window brings it to the top z-index.
+- **Desktop (`src/components/Desktop.tsx`)**:
+  - Grid-aligned application shortcuts.
+  - Desktop context menu (New Folder, New File, Change Wallpaper, System Settings).
+  - Dynamic wallpaper switching.
+- **Taskbar / Dock (`src/components/Taskbar.tsx`)**:
+  - Running application indicators and focus toggles.
+  - Pinned system app launchers.
+  - Live clock with date popover and notification badge indicators.
+- **Application Launcher (`src/components/Launcher.tsx`)**:
+  - Fullscreen app launcher overlay with instant fuzzy search.
+  - Category tabs: All, System, Utilities, Productivity, Media, Internet.
+  - Keyboard accessible (`Super` / `Win` / `Cmd` + `Space` shortcut).
+- **Lock Screen (`src/components/LockScreen.tsx`)**:
+  - Ambient lock screen with live clock and user profile avatar.
 
-### Core Features
+---
 
-- **Window Management**: Custom drag, resize, z-index elevation, minimize/maximize animations, and focus tracking implemented with Zustand (`windowStore.ts`).
-- **IndexedDB Virtual Filesystem**: Persistent hierarchy (`/home`, `/home/Documents`, `/home/Downloads`, etc.) supporting `createFile`, `createDir`, `readFile`, `writeFile`, `rename`, `move`, `copy`, and path normalization (`services/filesystem.ts`).
-- **Terminal Shell**: Interactive command line supporting standard utilities (`ls`, `cd`, `pwd`, `cat`, `touch`, `mkdir`, `rm`, `cp`, `mv`, `echo`, `date`, `whoami`, `neofetch`, `history`).
-- **Safe Calculator**: Arithmetic evaluator built using a hand-crafted recursive descent parser (`parser.ts`) without `eval()` or `Function()` calls.
-- **Notes App**: Multi-document scratchpad with autosaving to `~/Documents`.
-- **System Settings**: Theme switcher, accent colors (saffron, emerald, royal blue), wallpaper selector, and language toggle (English / Hindi).
-- **Web Audio Synth**: Interactive keyboard synthesizer powered by the native Web Audio API.
-- **System Monitor & App Store**: Live session metrics, storage estimation, and application catalogue.
+### 2. Virtual Filesystem (IndexedDB)
+Located at `src/services/filesystem.ts`, the virtual filesystem provides a persistent Unix-style directory tree backed by browser IndexedDB (`idb`):
+- **Standard Hierarchy**: Pre-populated with `/home`, `/home/Desktop`, `/home/Documents`, `/home/Downloads`, `/home/Pictures`, `/home/Music`, `/home/Videos`, and `/home/Trash`.
+- **File Operations**: Full asynchronous CRUD API supporting `createFile`, `createDir`, `readFile`, `writeFile`, `rename`, `moveNode`, `copyNode`, `deleteNode`, and `listDir`.
+- **Path Resolution**: Handles relative paths, parent directories (`..`), and current directory (`.`).
+- **Data Persistence**: All user files and folder modifications survive browser restarts and page refreshes.
 
-### Project Structure (BharatOS)
+---
+
+### 3. Built-in Applications
+
+BharatOS comes equipped with 10 native applications:
+
+| Application | Path | Description |
+|---|---|---|
+| **Files** | `src/apps/files/FilesApp.tsx` | Graphical file explorer with breadcrumbs, grid/list view toggles, folder navigation, and file deletion. |
+| **Terminal** | `src/apps/terminal/TerminalApp.tsx` | Unix shell emulator hooked into the virtual filesystem (`ls`, `cd`, `pwd`, `cat`, `touch`, `mkdir`, `rm`, `cp`, `mv`, `echo`, `date`, `whoami`, `neofetch`, `history`). |
+| **Notes** | `src/apps/notes/NotesApp.tsx` | Document scratchpad with automatic debounced saving to `~/Documents`. |
+| **Calculator** | `src/apps/calculator/CalculatorApp.tsx` | Safe arithmetic engine using a custom recursive descent parser (`parser.ts`) without `eval()` or `Function()`. |
+| **Settings** | `src/apps/settings/SettingsApp.tsx` | System preferences for wallpaper selection, theme toggling, accent colors, and English/Hindi language options. |
+| **Browser** | `src/apps/browser/BrowserApp.tsx` | Sandboxed web browsing viewer with navigation controls, address bar, and presets. |
+| **App Store** | `src/apps/app-store/AppStoreApp.tsx` | Catalogue and launcher for installed system utilities and packages. |
+| **Gallery** | `src/apps/gallery/GalleryApp.tsx` | Photo viewer featuring high-definition scenic wallpapers with fullscreen viewing modal. |
+| **Music** | `src/apps/music/MusicApp.tsx` | Web Audio API tone synthesizer with interactive piano keys and waveform oscillators. |
+| **System Monitor** | `src/apps/system-monitor/SystemMonitorApp.tsx` | Real-time session uptime tracking, active window counter, and storage usage metrics. |
+
+---
+
+### 4. Internationalization (i18n)
+- Comprehensive English (`src/i18n/en.ts`) and Hindi (`src/i18n/hi.ts`) translation dictionaries.
+- Dynamic `t(key)` helper that reacts immediately to language changes in System Settings.
+
+---
+
+## 📂 Project Structure
 
 ```text
 bharatos-app/
 ├── src/
 │   ├── apps/               # Built-in applications
-│   │   ├── files/          # FilesApp (IndexedDB file explorer)
-│   │   ├── terminal/       # TerminalApp (command shell emulator)
-│   │   ├── notes/          # NotesApp (editor with auto-save)
-│   │   ├── calculator/     # CalculatorApp & safe parser
-│   │   ├── settings/       # SettingsApp (themes, wallpapers, i18n)
-│   │   ├── browser/        # BrowserApp (sandboxed web viewer)
-│   │   ├── app-store/      # AppStoreApp (installed registry viewer)
-│   │   ├── gallery/        # GalleryApp (scenic image viewer)
-│   │   ├── music/          # MusicApp (Web Audio synthesizer)
-│   │   └── system-monitor/ # SystemMonitorApp (session & memory stats)
-│   ├── components/         # Shell UI (Window, Desktop, Taskbar, Launcher, LockScreen)
-│   ├── hooks/              # Custom interaction hooks (useDrag, useResize, useContextMenu)
-│   ├── i18n/               # Localization dictionaries (English, Hindi)
-│   ├── services/           # Filesystem (IndexedDB) & Shell parser
-│   ├── stores/             # Zustand stores (windows, settings, notifications, desktop)
-│   ├── styles/             # Tailwind v4 globals
-│   └── types/              # Strict TypeScript definitions
+│   │   ├── app-store/      # App Store catalog
+│   │   ├── browser/        # Web browser frame
+│   │   ├── calculator/     # Calculator & recursive descent parser
+│   │   ├── files/          # File manager
+│   │   ├── gallery/        # Scenic photo gallery
+│   │   ├── music/          # Web Audio synth
+│   │   ├── notes/          # Notes scratchpad
+│   │   ├── settings/       # System preferences & customization
+│   │   ├── system-monitor/ # Resource & uptime monitor
+│   │   ├── terminal/       # Command line shell
+│   │   └── index.ts        # App registration entry
+│   ├── components/         # Desktop shell components
+│   │   ├── ContextMenu.tsx # Right-click context menus
+│   │   ├── Desktop.tsx     # Desktop workspace & icon grid
+│   │   ├── Launcher.tsx    # App search launcher overlay
+│   │   ├── LockScreen.tsx  # Ambient lock screen
+│   │   ├── NotificationCenter.tsx # System tray toasts & drawer
+│   │   ├── Taskbar.tsx     # Bottom dock & system tray
+│   │   └── Window.tsx      # Window chrome & drag/resize container
+│   ├── hooks/              # Reusable interaction hooks (useDrag, useResize, useContextMenu)
+│   ├── i18n/               # Localization (English & Hindi dictionaries)
+│   ├── services/           # IndexedDB Virtual Filesystem & Shell Parser
+│   ├── stores/             # Zustand state management (windows, settings, notifications, desktop)
+│   ├── styles/             # Tailwind CSS v4 styling
+│   ├── types/              # Strict TypeScript interfaces
+│   ├── App.tsx             # Main OS shell layout
+│   └── main.tsx            # React root mount
 ├── public/
-│   └── wallpapers/         # Desktop background images
-└── package.json
+│   └── wallpapers/         # System wallpapers
+├── index.html              # HTML shell
+├── package.json            # App dependencies
+├── tsconfig.json           # TypeScript configuration
+└── vite.config.ts          # Vite build pipeline
 ```
 
-### Running BharatOS Locally
+---
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn
+
+### Installation & Local Development
 
 ```bash
-# Clone repository
+# Clone the repository
 git clone https://github.com/AviralDewangan14/bharatos1.0.git
 cd bharatos1.0
 
-# Install dependencies and launch dev server
-cd bharatos-app
-npm install
+# Install dependencies
+npm install --prefix bharatos-app
+
+# Start the Vite development server
 npm run dev
 ```
 
-Open `http://localhost:3000` to view the desktop.
+Open your browser at `http://localhost:3000` to interact with BharatOS.
 
----
-
-## ⚡ GenAz Programming Language
-
-`GenAz` is an independent programming language built from scratch in Python with a focus on simplicity, concurrency, and fast bytecode execution.
-
-### Toolchain
-
-- **CLI**: `python genaz/src/main.py [run|build|check|dis|ast|tokens|repl|gui]`
-- **Bytecode Compiler**: Emits `.gbc` binary files.
-- **Virtual Machine**: Stack-based execution engine with preemptive coroutines, typed channels, and math/string/file built-ins.
-- **IDE**: Native graphical code editor with syntax highlighting (`python genaz/src/main.py gui`).
-
-### Running GenAz Examples
+### Production Build
 
 ```bash
-# Run Fibonacci example
-python genaz/src/main.py run genaz/examples/02_fibonacci.gaz
-
-# Run Concurrency with channels & green threads
-python genaz/src/main.py run genaz/examples/03_concurrency.gaz
-
-# Launch the interactive REPL
-python genaz/src/main.py repl
-
-# Launch the native Desktop IDE
-python genaz/src/main.py gui
+# Build the production distribution into public/
+npm run build
 ```
 
 ---
 
-## 🛠️ Tech Stack & Decisions
+## 🛠️ Technology Stack & Engineering Choices
 
-- **React 18 + TypeScript**: Type safety across windows, filesystem nodes, and app lifecycle state.
-- **Tailwind CSS v4**: Minimal overhead styling with a deep slate/charcoal palette and warm saffron accents.
-- **Zustand**: Fast state stores without boilerplate or context provider re-render issues.
-- **IndexedDB**: Real local storage persistence for virtual files, surviving page refreshes.
-- **Lucide Icons**: Crisp vector icons throughout window chrome, launcher, and system dock.
+- **React 18 + TypeScript**: Strict types across window instances, filesystem nodes, and app registry items ensure stability without runtime type errors.
+- **Tailwind CSS v4**: Clean utility styling featuring a dark slate palette (`#0f1419`) with warm saffron accents (`#d4722a`) and backdrop blur effects.
+- **Zustand**: Lightweight, decoupled state management avoiding context provider re-rendering overhead.
+- **IndexedDB (`idb`)**: Asynchronous, high-capacity client-side storage for the entire virtual filesystem hierarchy.
+- **Lucide Icons**: Consistent vector iconography across all system components.
 
 ---
 
@@ -117,3 +154,9 @@ python genaz/src/main.py gui
 **Aviral Dewangan**  
 - GitHub: [@AviralDewangan14](https://github.com/AviralDewangan14)  
 - Email: aviral.dewangan14@gmail.com
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License.
