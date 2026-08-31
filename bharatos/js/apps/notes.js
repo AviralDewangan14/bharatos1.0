@@ -1,36 +1,32 @@
-// Notes / Text Editor with localStorage saving
+// Notes App
 function initNotes() {
-  const textarea = document.getElementById('notes-textarea');
-  if (!textarea) return;
+  const area = document.getElementById('notes-textarea');
+  if (!area) return;
   
   const saved = localStorage.getItem('bharatos_notes');
-  if (saved) {
-    textarea.value = saved;
-  }
-  updateWordCount();
+  if (saved) area.value = saved;
+  updateNotesCount();
   
-  textarea.addEventListener('input', () => {
-    localStorage.setItem('bharatos_notes', textarea.value);
-    updateWordCount();
+  area.addEventListener('input', () => {
+    localStorage.setItem('bharatos_notes', area.value);
+    updateNotesCount();
   });
 }
 
-function updateWordCount() {
-  const textarea = document.getElementById('notes-textarea');
+function updateNotesCount() {
+  const area = document.getElementById('notes-textarea');
   const countEl = document.getElementById('notes-count');
-  if (!textarea || !countEl) return;
+  if (!area || !countEl) return;
   
-  const text = textarea.value.trim();
-  const words = text ? text.split(/\s+/).length : 0;
-  const chars = text.length;
-  countEl.textContent = `${words} words, ${chars} chars`;
+  const words = area.value.trim() ? area.value.trim().split(/\s+/).length : 0;
+  countEl.textContent = words + ' words, ' + area.value.length + ' chars';
 }
 
 function newNote() {
-  const textarea = document.getElementById('notes-textarea');
-  if (textarea && confirm('Clear current note?')) {
-    textarea.value = '';
-    localStorage.removeItem('bharatos_notes');
-    updateWordCount();
+  const area = document.getElementById('notes-textarea');
+  if (area) {
+    area.value = '';
+    localStorage.setItem('bharatos_notes', '');
+    updateNotesCount();
   }
 }

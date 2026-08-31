@@ -1,7 +1,7 @@
-/* ===================================================
-   BharatOS — Web Desktop Stylesheet
-   Author: Aviral Dewangan
-   =================================================== */
+/* ==========================================================================
+   BharatOS — Web Desktop Environment
+   Hand-crafted by Aviral Dewangan
+   ========================================================================== */
 
 * {
   margin: 0;
@@ -14,23 +14,20 @@ body, html {
   width: 100%;
   height: 100%;
   overflow: hidden;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-  background-color: #0f172a;
-  color: #f8fafc;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background-color: #0b0f19;
+  color: #f1f5f9;
 }
 
 /* Background Wallpaper */
 #desktop-bg {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  z-index: 1;
-  transition: background-image 0.3s ease;
+  z-index: 0;
+  transition: background-image 0.4s ease;
 }
 
 /* Top Navigation Bar */
@@ -38,11 +35,11 @@ body, html {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 32px;
+  right: 0;
+  height: 34px;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
@@ -53,82 +50,75 @@ body, html {
   z-index: 9999;
 }
 
-.topbar-left {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
 .topbar-brand {
   font-weight: 700;
   color: #ffffff;
   display: flex;
   align-items: center;
-  gap: 6px;
-}
-
-.topbar-right {
-  display: flex;
-  align-items: center;
-  gap: 16px;
+  gap: 8px;
+  cursor: pointer;
 }
 
 .topbar-clock {
   font-family: monospace;
   font-size: 12px;
   color: #38bdf8;
+  font-weight: 600;
 }
 
 /* Desktop App Grid */
 .desktop-grid {
   position: absolute;
   top: 48px;
-  left: 16px;
+  left: 20px;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 14px;
   z-index: 2;
 }
 
-.desktop-shortcut {
-  width: 76px;
+.desktop-icon {
+  width: 78px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   padding: 8px 4px;
-  border-radius: 10px;
+  border-radius: 12px;
   cursor: pointer;
   border: 1px solid transparent;
   transition: background 0.15s, transform 0.15s;
 }
 
-.desktop-shortcut:hover {
-  background: rgba(255, 255, 255, 0.12);
+.desktop-icon:hover {
+  background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   transform: translateY(-2px);
 }
 
-.shortcut-icon {
-  font-size: 28px;
+.icon-img {
+  font-size: 30px;
   margin-bottom: 4px;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.5));
 }
 
-.shortcut-label {
+.icon-label {
   font-size: 11px;
   font-weight: 600;
   text-align: center;
   color: #ffffff;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.9);
 }
 
-/* Windows */
+/* Window System */
 .window {
   position: absolute;
   background: rgba(15, 23, 42, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6);
-  border-radius: 12px;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+  border-radius: 14px;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -136,14 +126,18 @@ body, html {
 }
 
 .window-header {
-  height: 36px;
+  height: 38px;
   background: rgba(30, 41, 59, 0.95);
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 12px;
-  cursor: move;
+  padding: 0 14px;
+  cursor: grab;
+}
+
+.window-header:active {
+  cursor: grabbing;
 }
 
 .window-controls {
@@ -159,20 +153,25 @@ body, html {
   cursor: pointer;
   border: none;
   outline: none;
+  transition: transform 0.1s, filter 0.1s;
+}
+
+.win-btn:hover {
+  transform: scale(1.15);
+  filter: brightness(1.2);
 }
 
 .win-close { background-color: #ef4444; }
 .win-min { background-color: #f59e0b; }
 .win-max { background-color: #10b981; }
 
-.win-btn:hover {
-  filter: brightness(1.2);
-}
-
 .window-title {
   font-size: 12px;
   font-weight: 600;
   color: #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   pointer-events: none;
 }
 
@@ -184,42 +183,43 @@ body, html {
   background: #090d16;
 }
 
-/* Bottom Dock */
+/* Bottom Taskbar / Dock */
 .dock {
   position: fixed;
-  bottom: 12px;
+  bottom: 14px;
   left: 50%;
   transform: translateX(-50%);
-  background: rgba(15, 23, 42, 0.88);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-  border-radius: 16px;
-  padding: 6px 12px;
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+  border-radius: 20px;
+  padding: 6px 14px;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 10px;
   z-index: 9998;
 }
 
 .dock-item {
-  width: 42px;
-  height: 42px;
-  border-radius: 10px;
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 22px;
   cursor: pointer;
-  transition: transform 0.15s, background 0.15s;
+  position: relative;
+  transition: transform 0.18s, background 0.18s;
 }
 
 .dock-item:hover {
-  transform: translateY(-4px) scale(1.1);
-  background: rgba(255, 255, 255, 0.15);
+  transform: translateY(-6px) scale(1.15);
+  background: rgba(255, 255, 255, 0.16);
   border-color: #38bdf8;
 }
 
@@ -228,40 +228,42 @@ body, html {
   background: rgba(56, 189, 248, 0.15);
 }
 
+.dock-item.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+}
+
 /* Lock Screen */
 .lockscreen {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   z-index: 10000;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: opacity 0.3s ease;
+  transition: opacity 0.35s ease;
+  overflow: hidden;
 }
 
 .lockscreen-bg {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
   background-size: cover;
   background-position: center;
-  filter: blur(20px);
-  transform: scale(1.05);
+  filter: blur(24px);
+  transform: scale(1.06);
   z-index: 1;
 }
 
 .lockscreen-overlay {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(10, 15, 29, 0.6);
+  inset: 0;
+  background: rgba(10, 15, 29, 0.55);
   z-index: 2;
 }
 
@@ -269,11 +271,11 @@ body, html {
   position: relative;
   z-index: 3;
   width: 320px;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(15, 23, 42, 0.88);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7);
-  border-radius: 20px;
-  padding: 32px 24px;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7);
+  border-radius: 24px;
+  padding: 34px 26px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -281,23 +283,25 @@ body, html {
 }
 
 .lock-clock {
-  font-size: 36px;
+  font-size: 38px;
   font-weight: 700;
   font-family: monospace;
   color: #ffffff;
-  margin: 8px 0;
+  margin: 10px 0 2px 0;
+  text-shadow: 0 2px 8px rgba(56, 189, 248, 0.4);
 }
 
 .lock-input {
   width: 100%;
-  padding: 10px 14px;
+  padding: 11px 16px;
   background: #020617;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
-  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 10px;
+  color: #ffffff;
+  font-family: monospace;
   font-size: 15px;
   text-align: center;
-  margin: 16px 0 12px 0;
+  margin: 18px 0 14px 0;
   outline: none;
 }
 
@@ -307,66 +311,25 @@ body, html {
 
 .lock-btn {
   width: 100%;
-  padding: 10px;
-  border-radius: 8px;
+  padding: 11px;
+  border-radius: 10px;
   border: none;
   background: #0284c7;
   color: #ffffff;
   font-weight: 700;
   font-size: 13px;
   cursor: pointer;
-  transition: background 0.15s;
+  transition: background 0.15s, transform 0.1s;
 }
 
 .lock-btn:hover {
   background: #0369a1;
-}
-
-/* App: Terminal */
-.term-container {
-  padding: 12px;
-  font-family: monospace;
-  font-size: 12px;
-  color: #e2e8f0;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-.term-output {
-  flex: 1;
-  overflow-y: auto;
-}
-
-.term-line {
-  margin-bottom: 4px;
-  line-height: 1.4;
-}
-
-.term-input-row {
-  display: flex;
-  align-items: center;
-  margin-top: 6px;
-}
-
-.term-prompt {
-  color: #38bdf8;
-  margin-right: 6px;
-}
-
-.term-field {
-  flex: 1;
-  background: transparent;
-  border: none;
-  outline: none;
-  color: #ffffff;
-  font-family: monospace;
-  font-size: 12px;
+  transform: translateY(-1px);
 }
 
 /* App: Paint */
 .paint-toolbar {
-  padding: 8px 12px;
+  padding: 8px 14px;
   background: #1e293b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -382,18 +345,17 @@ body, html {
 }
 
 .paint-btn {
-  padding: 4px 10px;
+  padding: 5px 12px;
   background: #334155;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #fff;
+  color: #ffffff;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 12px;
+  font-weight: 500;
 }
 
-.paint-btn:hover {
-  background: #475569;
-}
-
+.paint-btn:hover { background: #475569; }
 .paint-btn.active {
   background: #0284c7;
   border-color: #38bdf8;
@@ -402,16 +364,19 @@ body, html {
 .paint-colors {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
 }
 
 .color-dot {
-  width: 18px;
-  height: 18px;
+  width: 20px;
+  height: 20px;
   border-radius: 50%;
   cursor: pointer;
   border: 1px solid rgba(255, 255, 255, 0.3);
+  transition: transform 0.1s;
 }
+
+.color-dot:hover { transform: scale(1.2); }
 
 .paint-canvas-wrap {
   flex: 1;
@@ -425,8 +390,50 @@ body, html {
 #paint-canvas {
   background: #0f172a;
   border: 1px solid #1e293b;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: crosshair;
+}
+
+/* App: Terminal */
+.term-container {
+  padding: 14px;
+  font-family: monospace;
+  font-size: 12px;
+  color: #e2e8f0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.term-output {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.term-line {
+  margin-bottom: 5px;
+  line-height: 1.4;
+}
+
+.term-input-row {
+  display: flex;
+  align-items: center;
+  margin-top: 6px;
+}
+
+.term-prompt {
+  color: #38bdf8;
+  margin-right: 8px;
+}
+
+.term-field {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #ffffff;
+  font-family: monospace;
+  font-size: 12px;
 }
 
 /* App: Notes */
@@ -438,13 +445,13 @@ body, html {
   color: #f8fafc;
   font-size: 13px;
   line-height: 1.6;
-  padding: 14px;
+  padding: 16px;
   resize: none;
   font-family: inherit;
 }
 
 .notes-status {
-  padding: 6px 12px;
+  padding: 6px 14px;
   background: #0f172a;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
   font-size: 11px;
@@ -455,19 +462,19 @@ body, html {
 
 /* App: Calculator */
 .calc-screen {
-  padding: 14px;
+  padding: 16px;
   background: #020617;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   text-align: right;
   font-family: monospace;
-  font-size: 26px;
+  font-size: 28px;
   font-weight: 700;
   color: #38bdf8;
   overflow-x: auto;
 }
 
 .calc-grid {
-  padding: 10px;
+  padding: 12px;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 6px;
@@ -478,28 +485,23 @@ body, html {
   background: #1e293b;
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 8px;
-  color: #fff;
+  color: #ffffff;
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.calc-btn:hover {
-  background: #334155;
-}
-
+.calc-btn:hover { background: #334155; }
 .calc-btn.op {
   background: #0369a1;
-  color: #fff;
+  color: #ffffff;
 }
 
-.calc-btn.op:hover {
-  background: #0284c7;
-}
+.calc-btn.op:hover { background: #0284c7; }
 
 /* App: Synthesizer */
 .synth-top {
-  padding: 8px 12px;
+  padding: 8px 14px;
   background: #1e293b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -540,9 +542,7 @@ body, html {
   color: #334155;
 }
 
-.white-key:hover {
-  background: #f1f5f9;
-}
+.white-key:hover { background: #f1f5f9; }
 
 .black-key {
   position: absolute;
@@ -561,13 +561,11 @@ body, html {
   color: #ffffff;
 }
 
-.black-key:hover {
-  background: #1e293b;
-}
+.black-key:hover { background: #1e293b; }
 
 /* App: Snake */
 .snake-stats {
-  padding: 8px 12px;
+  padding: 8px 14px;
   background: #1e293b;
   border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   display: flex;
@@ -593,10 +591,10 @@ body, html {
 
 /* App: Settings */
 .settings-body {
-  padding: 16px;
+  padding: 18px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 16px;
   font-size: 13px;
 }
 
@@ -609,17 +607,18 @@ body, html {
 .wallpaper-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 8px;
+  gap: 10px;
 }
 
 .wall-card {
-  padding: 10px;
+  padding: 12px;
   background: #1e293b;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
   text-align: left;
   color: #f8fafc;
+  transition: border-color 0.15s;
 }
 
 .wall-card:hover {
@@ -629,11 +628,17 @@ body, html {
 
 .wall-card-title {
   font-weight: 600;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .wall-card-sub {
-  font-size: 10px;
+  font-size: 11px;
   color: #94a3b8;
   margin-top: 2px;
 }
+
+/* Custom Scrollbars */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.2); }
+::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.35); }

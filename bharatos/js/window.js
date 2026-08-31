@@ -58,16 +58,15 @@ function toggleMax(id, event) {
     win.dataset.origWidth = win.style.width;
     win.dataset.origHeight = win.style.height;
     
-    win.style.top = '40px';
+    win.style.top = '36px';
     win.style.left = '8px';
     win.style.width = 'calc(100vw - 16px)';
-    win.style.height = 'calc(100vh - 110px)';
+    win.style.height = 'calc(100vh - 100px)';
     win.dataset.max = 'true';
   }
 }
 
 function startDrag(e, winId) {
-  // Prevent dragging if clicking window control buttons or header inputs
   if (e.target.closest('.window-controls') || e.target.closest('button') || e.target.closest('select')) {
     return;
   }
@@ -93,7 +92,7 @@ function onDrag(e) {
   let y = e.clientY - mouseOffset.y;
   
   x = Math.max(0, Math.min(window.innerWidth - 80, x));
-  y = Math.max(38, Math.min(window.innerHeight - 80, y));
+  y = Math.max(34, Math.min(window.innerHeight - 80, y));
   
   activeDrag.style.left = x + 'px';
   activeDrag.style.top = y + 'px';

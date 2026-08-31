@@ -1,57 +1,49 @@
-// Web Audio Piano Synthesizer — Real AudioContext oscillators
-let audioContext = null;
-let osc = null;
-let gainNode = null;
-let currentWave = 'sine';
+// Web Audio Synthesizer
+let audioCtx = null;
+let activeOsc = null;
+let currentWaveform = 'sine';
 
-const NOTE_FREQS = {
+const noteFreqs = {
   'C4': 261.63, 'Db4': 277.18, 'D4': 293.66, 'Eb4': 311.13,
   'E4': 329.63, 'F4': 349.23, 'Gb4': 369.99, 'G4': 392.00,
   'Ab4': 415.30, 'A4': 440.00, 'Bb4': 466.16, 'B4': 493.88, 'C5': 523.25
 };
 
-function getAudio() {
-  if (!audioContext) {
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+function getAudioContext() {
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
-  if (audioContext.state === 'suspended') {
-    audioContext.resume();
-  }
-  return audioContext;
+  return audioCtx;
+}
+
+function setWaveform(wf) {
+  currentWaveform = wf;
 }
 
 function startNote(note) {
-  const ctx = getAudio();
   stopNote();
+  const ctx = getAudioContext();
+  if (ctx.state === 'suspended') ctx.resume();
   
-  const freq = NOTE_FREQS[note] || 440;
-  osc = ctx.createOscillator();
-  gainNode = ctx.createGain();
+  activeOsc = ctx.createOscillator();
+  const gain = ctx.createGain();
   
-  osc.type = currentWave;
-  osc.frequency.setValueAtTime(freq, ctx.currentTime);
+  activeOsc.type = currentWaveform;
+  activeOsc.frequency.setValueAtTime(noteFreqs[note] || 440, ctx.currentTime);
   
-  gainNode.gain.setValueAtTime(0.01, ctx.currentTime);
-  gainNode.gain.exponentialRampToValueAtTime(0.2, ctx.currentTime + 0.05);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime);
+  activeOsc.connect(gain);
+  gain.connect(ctx.destination);
   
-  osc.connect(gainNode);
-  gainNode.connect(ctx.destination);
-  
-  osc.start();
+  activeOsc.start();
 }
 
 function stopNote() {
-  if (gainNode && audioContext) {
-    gainNode.gain.exponentialRampToValueAtTime(0.0001, audioContext.currentTime + 0.08);
-    setTimeout(() => {
-      if (osc) {
-        try { osc.stop(); } catch(e) {}
-        osc = null;
-      }
-    }, 90);
+  if (activeOsc) {
+    try {
+      activeOsc.stop();
+      activeOsc.disconnect();
+    } catch(e) {}
+    activeOsc = null;
   }
-}
-
-function setWaveform(w) {
-  currentWave = w;
 }

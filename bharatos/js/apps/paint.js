@@ -1,79 +1,71 @@
-// Paint Studio — HTML5 Canvas drawing & PNG exporter
-let paintCtx = null;
-let drawing = false;
-let paintColor = '#06b6d4';
-let brushSize = 4;
-let activeTool = 'brush';
-let lastX = 0;
-let lastY = 0;
+// Paint Studio App
+let paintCanvas, paintCtx;
+let isDrawing = false;
+let currentTool = 'brush';
+let currentColor = '#38bdf8';
 
 function initPaint() {
-  const canvas = document.getElementById('paint-canvas');
-  if (!canvas) return;
+  paintCanvas = document.getElementById('paint-canvas');
+  if (!paintCanvas) return;
+  paintCtx = paintCanvas.getContext('2d');
   
-  paintCtx = canvas.getContext('2d');
   paintCtx.fillStyle = '#0f172a';
-  paintCtx.fillRect(0, 0, canvas.width, canvas.height);
+  paintCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
   
-  canvas.addEventListener('mousedown', (e) => {
-    drawing = true;
-    const r = canvas.getBoundingClientRect();
-    lastX = e.clientX - r.left;
-    lastY = e.clientY - r.top;
-    
-    if (activeTool === 'brush') {
-      paintCtx.beginPath();
-      paintCtx.arc(lastX, lastY, brushSize / 2, 0, Math.PI * 2);
-      paintCtx.fillStyle = paintColor;
-      paintCtx.fill();
-    }
-  });
+  paintCanvas.addEventListener('mousedown', startPaint);
+  paintCanvas.addEventListener('mousemove', drawPaint);
+  paintCanvas.addEventListener('mouseup', stopPaint);
+  paintCanvas.addEventListener('mouseleave', stopPaint);
+}
+
+function startPaint(e) {
+  isDrawing = true;
+  const rect = paintCanvas.getBoundingClientRect();
+  paintCtx.beginPath();
+  paintCtx.moveTo(e.clientX - rect.left, e.clientY - rect.top);
+}
+
+function drawPaint(e) {
+  if (!isDrawing) return;
+  const rect = paintCanvas.getBoundingClientRect();
   
-  canvas.addEventListener('mousemove', (e) => {
-    if (!drawing) return;
-    const r = canvas.getBoundingClientRect();
-    const curX = e.clientX - r.left;
-    const curY = e.clientY - r.top;
-    
-    paintCtx.beginPath();
-    paintCtx.moveTo(lastX, lastY);
-    paintCtx.lineTo(curX, curY);
-    paintCtx.strokeStyle = activeTool === 'eraser' ? '#0f172a' : paintColor;
-    paintCtx.lineWidth = activeTool === 'eraser' ? brushSize * 2 : brushSize;
-    paintCtx.lineCap = 'round';
-    paintCtx.stroke();
-    
-    lastX = curX;
-    lastY = curY;
-  });
-  
-  canvas.addEventListener('mouseup', () => { drawing = false; });
-  canvas.addEventListener('mouseleave', () => { drawing = false; });
+  if (currentTool === 'brush') {
+    paintCtx.strokeStyle = currentColor;
+    paintCtx.lineWidth = 3;
+  } else {
+    paintCtx.strokeStyle = '#0f172a';
+    paintCtx.lineWidth = 20;
+  }
+  paintCtx.lineCap = 'round';
+  paintCtx.lineTo(e.clientX - rect.left, e.clientY - rect.top);
+  paintCtx.stroke();
+}
+
+function stopPaint() {
+  isDrawing = false;
 }
 
 function setTool(tool) {
-  activeTool = tool;
-  document.getElementById('tool-brush')?.classList.toggle('bg-cyan-500/30', tool === 'brush');
-  document.getElementById('tool-eraser')?.classList.toggle('bg-cyan-500/30', tool === 'eraser');
+  currentTool = tool;
+  document.getElementById('tool-brush')?.classList.toggle('active', tool === 'brush');
+  document.getElementById('tool-eraser')?.classList.toggle('active', tool === 'eraser');
 }
 
 function setColor(c) {
-  paintColor = c;
+  currentColor = c;
+  setTool('brush');
 }
 
 function clearCanvas() {
-  const canvas = document.getElementById('paint-canvas');
-  if (canvas && paintCtx) {
-    paintCtx.fillStyle = '#0f172a';
-    paintCtx.fillRect(0, 0, canvas.width, canvas.height);
-  }
+  if (!paintCtx || !paintCanvas) return;
+  paintCtx.fillStyle = '#0f172a';
+  paintCtx.fillRect(0, 0, paintCanvas.width, paintCanvas.height);
 }
 
 function saveDrawing() {
-  const canvas = document.getElementById('paint-canvas');
-  if (!canvas) return;
+  if (!paintCanvas) return;
   const link = document.createElement('a');
-  link.download = `drawing-${Date.now()}.png`;
-  link.href = canvas.toDataURL();
+  link.download = 'bharatos_drawing.png';
+  link.href = paintCanvas.toDataURL();
   link.click();
 }

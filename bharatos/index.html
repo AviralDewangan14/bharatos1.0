@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BharatOS</title>
+  <title>BharatOS 1.0</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -11,59 +11,55 @@
   <!-- Desktop Wallpaper -->
   <div id="desktop-bg"></div>
 
-  <!-- Topbar -->
+  <!-- Top Bar -->
   <div class="topbar">
-    <div class="topbar-left">
-      <div class="topbar-brand">☸️ BharatOS</div>
-    </div>
-    <div class="topbar-right">
-      <span id="top-clock" class="topbar-clock">12:00 PM</span>
-    </div>
+    <div class="topbar-brand">☸️ BharatOS</div>
+    <div id="top-clock" class="topbar-clock">12:00 PM</div>
   </div>
 
   <!-- Desktop Shortcuts -->
   <div class="desktop-grid">
-    <div class="desktop-shortcut" onclick="openApp('win-paint', 'dock-paint')">
-      <div class="shortcut-icon">🎨</div>
-      <div class="shortcut-label">Paint</div>
+    <div class="desktop-icon" onclick="openApp('win-paint', 'dock-paint')">
+      <div class="icon-img">🎨</div>
+      <div class="icon-label">Paint</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-term', 'dock-term')">
-      <div class="shortcut-icon">💻</div>
-      <div class="shortcut-label">Terminal</div>
+    <div class="desktop-icon" onclick="openApp('win-term', 'dock-term')">
+      <div class="icon-img">💻</div>
+      <div class="icon-label">Terminal</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-notes', 'dock-notes')">
-      <div class="shortcut-icon">📝</div>
-      <div class="shortcut-label">Notes</div>
+    <div class="desktop-icon" onclick="openApp('win-notes', 'dock-notes')">
+      <div class="icon-img">📝</div>
+      <div class="icon-label">Notes</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-calc', 'dock-calc')">
-      <div class="shortcut-icon">🧮</div>
-      <div class="shortcut-label">Calculator</div>
+    <div class="desktop-icon" onclick="openApp('win-calc', 'dock-calc')">
+      <div class="icon-img">🧮</div>
+      <div class="icon-label">Calculator</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-synth', 'dock-synth')">
-      <div class="shortcut-icon">🎵</div>
-      <div class="shortcut-label">Synth</div>
+    <div class="desktop-icon" onclick="openApp('win-synth', 'dock-synth')">
+      <div class="icon-img">🎵</div>
+      <div class="icon-label">Synthesizer</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-snake', 'dock-snake')">
-      <div class="shortcut-icon">🐍</div>
-      <div class="shortcut-label">Snake</div>
+    <div class="desktop-icon" onclick="openApp('win-snake', 'dock-snake')">
+      <div class="icon-img">🐍</div>
+      <div class="icon-label">Snake Game</div>
     </div>
-    <div class="desktop-shortcut" onclick="openApp('win-settings', 'dock-settings')">
-      <div class="shortcut-icon">⚙️</div>
-      <div class="shortcut-label">Settings</div>
+    <div class="desktop-icon" onclick="openApp('win-settings', 'dock-settings')">
+      <div class="icon-img">⚙️</div>
+      <div class="icon-label">Settings</div>
     </div>
   </div>
 
   <!-- Windows -->
 
   <!-- 1. Paint Window -->
-  <div id="win-paint" class="window" style="width: 680px; height: 460px; top: 50px; left: 100px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-paint" class="window" style="width: 680px; height: 460px; top: 46px; left: 110px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-paint')">
       <div class="window-controls">
-        <button class="win-btn win-close" onclick="closeApp('win-paint', 'dock-paint', event)" title="Close"></button>
-        <button class="win-btn win-min" onclick="minimizeApp('win-paint', 'dock-paint', event)" title="Minimize"></button>
-        <button class="win-btn win-max" onclick="toggleMax('win-paint', event)" title="Maximize"></button>
+        <button class="win-btn win-close" onclick="closeApp('win-paint', 'dock-paint', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-paint', 'dock-paint', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-paint', event)"></button>
       </div>
-      <div class="window-title">Paint Studio</div>
+      <div class="window-title">🎨 Paint Studio</div>
       <div style="width: 40px;"></div>
     </div>
     <div class="paint-toolbar">
@@ -87,19 +83,19 @@
   </div>
 
   <!-- 2. Terminal Window -->
-  <div id="win-term" class="window" style="width: 560px; height: 380px; top: 70px; left: 140px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-term" class="window" style="width: 560px; height: 380px; top: 60px; left: 140px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-term')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-term', 'dock-term', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-term', 'dock-term', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-term', event)"></button>
       </div>
-      <div class="window-title">Terminal</div>
+      <div class="window-title">💻 Terminal</div>
       <div style="width: 40px;"></div>
     </div>
     <div class="term-container">
       <div id="term-body" class="term-output">
-        <div class="term-line" style="color: #38bdf8;">BharatOS Terminal v1.0. Type 'help' for commands.</div>
+        <div class="term-line" style="color: #38bdf8;">BharatOS Terminal v1.0. Type 'help' for available commands.</div>
       </div>
       <div class="term-input-row">
         <span class="term-prompt">aviral@bharatos:~$</span>
@@ -109,17 +105,17 @@
   </div>
 
   <!-- 3. Notes Window -->
-  <div id="win-notes" class="window" style="width: 500px; height: 380px; top: 90px; left: 180px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-notes" class="window" style="width: 500px; height: 380px; top: 80px; left: 170px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-notes')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-notes', 'dock-notes', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-notes', 'dock-notes', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-notes', event)"></button>
       </div>
-      <div class="window-title">Notes</div>
+      <div class="window-title">📝 Notes</div>
       <div style="width: 40px;"></div>
     </div>
-    <textarea id="notes-textarea" class="notes-area" placeholder="Type your notes here... (Saved automatically)"></textarea>
+    <textarea id="notes-textarea" class="notes-area" placeholder="Type your notes here... (Saved automatically to your browser)"></textarea>
     <div class="notes-status">
       <span id="notes-count">0 words</span>
       <span style="color: #10b981;">● Auto-saved</span>
@@ -127,14 +123,14 @@
   </div>
 
   <!-- 4. Calculator Window -->
-  <div id="win-calc" class="window" style="width: 300px; height: 420px; top: 110px; left: 220px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-calc" class="window" style="width: 300px; height: 420px; top: 100px; left: 200px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-calc')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-calc', 'dock-calc', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-calc', 'dock-calc', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-calc', event)"></button>
       </div>
-      <div class="window-title">Calculator</div>
+      <div class="window-title">🧮 Calculator</div>
       <div style="width: 40px;"></div>
     </div>
     <div id="calc-display" class="calc-screen">0</div>
@@ -166,19 +162,19 @@
   </div>
 
   <!-- 5. Synthesizer Window -->
-  <div id="win-synth" class="window" style="width: 580px; height: 320px; top: 130px; left: 260px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-synth" class="window" style="width: 580px; height: 320px; top: 110px; left: 230px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-synth')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-synth', 'dock-synth', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-synth', 'dock-synth', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-synth', event)"></button>
       </div>
-      <div class="window-title">Synthesizer</div>
+      <div class="window-title">🎵 Synthesizer</div>
       <div style="width: 40px;"></div>
     </div>
     <div class="synth-top">
       <span>Waveform:</span>
-      <select onchange="setWaveform(this.value)" style="background: #0f172a; color: #fff; border: 1px solid #334155; padding: 3px 6px; border-radius: 4px;">
+      <select onchange="setWaveform(this.value)" style="background: #0f172a; color: #fff; border: 1px solid #334155; padding: 4px 8px; border-radius: 4px;">
         <option value="sine">Sine</option>
         <option value="triangle">Triangle</option>
         <option value="sawtooth">Sawtooth</option>
@@ -206,15 +202,15 @@
   </div>
 
   <!-- 6. Snake Game Window -->
-  <div id="win-snake" class="window" style="width: 420px; height: 440px; top: 100px; left: 200px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-snake" class="window" style="width: 420px; height: 440px; top: 90px; left: 190px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-snake')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-snake', 'dock-snake', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-snake', 'dock-snake', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-snake', event)"></button>
       </div>
-      <div class="window-title">Snake Arcade</div>
-      <button onclick="startSnakeGame()" style="padding: 3px 8px; font-size: 11px; background: #10b981; color: #000; font-weight: 700; border: none; border-radius: 4px; cursor: pointer;">New Game</button>
+      <div class="window-title">🐍 Snake Arcade</div>
+      <button onclick="startSnakeGame()" style="padding: 4px 10px; font-size: 11px; background: #10b981; color: #000; font-weight: 700; border: none; border-radius: 4px; cursor: pointer;">New Game</button>
     </div>
     <div class="snake-stats">
       <span id="snake-score" style="color: #38bdf8;">Score: 0</span>
@@ -227,14 +223,14 @@
   </div>
 
   <!-- 7. Settings Window -->
-  <div id="win-settings" class="window" style="width: 500px; height: 380px; top: 120px; left: 220px; display: none;" onmousedown="focusWindow(this)">
+  <div id="win-settings" class="window" style="width: 500px; height: 380px; top: 100px; left: 210px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
         <button class="win-btn win-close" onclick="closeApp('win-settings', 'dock-settings', event)"></button>
         <button class="win-btn win-min" onclick="minimizeApp('win-settings', 'dock-settings', event)"></button>
         <button class="win-btn win-max" onclick="toggleMax('win-settings', event)"></button>
       </div>
-      <div class="window-title">Settings</div>
+      <div class="window-title">⚙️ Settings</div>
       <div style="width: 40px;"></div>
     </div>
     <div class="settings-body">
@@ -260,9 +256,9 @@
         </div>
       </div>
       <div style="padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08);">
-        <div class="settings-section-title">About:</div>
+        <div class="settings-section-title">About BharatOS:</div>
         <p style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
-          BharatOS 1.0 — Built by Aviral Dewangan using pure HTML, CSS, and Vanilla JavaScript with zero external frameworks.
+          Built by Aviral Dewangan using plain HTML, CSS, and JavaScript. No external frameworks or libraries.
         </p>
       </div>
     </div>
@@ -292,11 +288,11 @@
     </div>
   </div>
 
-  <!-- JavaScript Modules -->
+  <!-- Scripts -->
   <script src="js/window.js"></script>
+  <script src="js/apps/paint.js"></script>
   <script src="js/apps/terminal.js"></script>
   <script src="js/apps/notes.js"></script>
-  <script src="js/apps/paint.js"></script>
   <script src="js/apps/calculator.js"></script>
   <script src="js/apps/synth.js"></script>
   <script src="js/apps/snake.js"></script>

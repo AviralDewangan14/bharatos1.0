@@ -1,51 +1,39 @@
-// Calculator App — Simple, reliable, with keyboard support
-let calcInput = '';
+// Calculator App
+let calcExpr = '';
 
-function calcAdd(char) {
-  calcInput += char;
-  updateCalcDisplay();
+function calcAdd(val) {
+  const disp = document.getElementById('calc-display');
+  if (calcExpr === '0' && val !== '.') calcExpr = '';
+  calcExpr += val;
+  if (disp) disp.textContent = calcExpr;
 }
 
 function calcClear() {
-  calcInput = '';
-  updateCalcDisplay();
-}
-
-function calcDelete() {
-  calcInput = calcInput.slice(0, -1);
-  updateCalcDisplay();
+  calcExpr = '0';
+  const disp = document.getElementById('calc-display');
+  if (disp) disp.textContent = '0';
 }
 
 function calcEquals() {
+  const disp = document.getElementById('calc-display');
   try {
-    const clean = calcInput.replace(/[^0-9+\-*\/().Math.sqrtPIE% ]/g, '');
-    const res = Function('"use strict"; return (' + clean + ')')();
-    calcInput = String(res);
-    updateCalcDisplay();
-  } catch (e) {
-    const display = document.getElementById('calc-display');
-    if (display) display.textContent = 'Error';
-  }
-}
-
-function updateCalcDisplay() {
-  const display = document.getElementById('calc-display');
-  if (display) {
-    display.textContent = calcInput || '0';
+    calcExpr = String(eval(calcExpr));
+    if (disp) disp.textContent = calcExpr;
+  } catch(err) {
+    if (disp) disp.textContent = 'Error';
+    calcExpr = '0';
   }
 }
 
 window.addEventListener('keydown', (e) => {
-  const calcWin = document.getElementById('win-calc');
-  if (!calcWin || calcWin.style.display === 'none') return;
+  const win = document.getElementById('win-calc');
+  if (!win || win.style.display === 'none') return;
   
   if ((e.key >= '0' && e.key <= '9') || ['+', '-', '*', '/', '.', '(', ')'].includes(e.key)) {
     calcAdd(e.key);
   } else if (e.key === 'Enter') {
     calcEquals();
-  } else if (e.key === 'Backspace') {
-    calcDelete();
-  } else if (e.key === 'Escape') {
+  } else if (e.key === 'Backspace' || e.key === 'Escape') {
     calcClear();
   }
 });
