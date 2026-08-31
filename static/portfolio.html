@@ -480,7 +480,9 @@ Developed high-performance 2D/3D physics collider using spatial hash grid partit
                 row.className = 'space-y-1';
                 row.innerHTML = `
                     <div class="flex items-center justify-between text-slate-300">
-                        <span class="truncate max-w-[280px]">${p.id}</span>
+                        <a href="/project/${p.id}" class="truncate max-w-[280px] hover:text-emerald-400 transition-colors flex items-center space-x-1">
+                            <span>${p.icon}</span><span>${p.id}</span>
+                        </a>
                         <span class="text-rose-400 font-bold">${p.duration}</span>
                     </div>
                     <div class="w-full h-2.5 rounded-full bg-slate-900 overflow-hidden border border-slate-800">
@@ -507,7 +509,7 @@ Developed high-performance 2D/3D physics collider using spatial hash grid partit
                             <div class="flex items-center space-x-2.5">
                                 <span class="text-2xl">${p.icon}</span>
                                 <div>
-                                    <h3 class="font-bold text-sm text-white leading-tight">${p.title}</h3>
+                                    <a href="/project/${p.id}" class="font-bold text-sm text-white leading-tight hover:text-emerald-400 transition-colors block">${p.title}</a>
                                     <div class="text-[10px] text-slate-400">${p.category} • ${p.client}</div>
                                 </div>
                             </div>
@@ -540,6 +542,9 @@ Developed high-performance 2D/3D physics collider using spatial hash grid partit
                         <button onclick="copyProjectDevlog('${p.id}')" class="flex-1 py-1.5 rounded-xl bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs transition-all flex items-center justify-center space-x-1">
                             <span>📋</span><span>Copy Devlog</span>
                         </button>
+                        <a href="/project/${p.id}" class="px-3.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold border border-slate-700 transition-all flex items-center justify-center space-x-1">
+                            <span>⚡</span><span>Dashboard</span>
+                        </a>
                     </div>
                 `;
                 grid.appendChild(card);

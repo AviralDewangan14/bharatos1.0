@@ -646,6 +646,18 @@ class MasterDashboardHandler(SimpleHTTPRequestHandler):
                 ]
             }
             self._send_json_response(devlog_data)
+        elif self.path.startswith("/project") or self.path.startswith("/p/"):
+            project_dash_path = STATIC_DIR / "project_dashboard.html"
+            if project_dash_path.exists():
+                with open(project_dash_path, "rb") as f:
+                    content = f.read()
+                self.send_response(200)
+                self.send_header("Content-Type", "text/html; charset=utf-8")
+                self.send_header("Content-Length", str(len(content)))
+                self.end_headers()
+                self.wfile.write(content)
+            else:
+                self.send_error(404, "Project Dashboard HTML not found")
         elif self.path in ("/portfolio", "/devlog", "/showcase", "/projects"):
             portfolio_path = STATIC_DIR / "portfolio.html"
             if portfolio_path.exists():
