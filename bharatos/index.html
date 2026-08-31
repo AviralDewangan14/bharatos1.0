@@ -3,410 +3,296 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BharatOS 1.0 — Sovereign Desktop</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
+  <title>BharatOS</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
-  <!-- Home Screen Wallpaper Layer -->
+  <!-- Desktop Wallpaper -->
   <div id="desktop-bg"></div>
 
-  <!-- Top Navigation Bar -->
-  <div id="topbar">
-    <div class="flex items-center space-x-3">
-      <div class="topbar-brand">
-        <span>☸️</span> <span>BharatOS</span>
-      </div>
-      <span class="text-xs text-slate-400 font-mono">1.0 Sovereign</span>
+  <!-- Topbar -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="topbar-brand">☸️ BharatOS</div>
     </div>
-    <div class="flex items-center space-x-4">
-      <span class="text-xs text-emerald-400 font-mono flex items-center gap-1.5">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span> Atmanirbhar Bharat
-      </span>
-      <span id="top-clock" class="topbar-clock">12:00:00 PM</span>
+    <div class="topbar-right">
+      <span id="top-clock" class="topbar-clock">12:00 PM</span>
     </div>
   </div>
 
-  <!-- Desktop Shortcuts (Left Grid) -->
-  <div id="desktop-grid">
-    <div class="app-shortcut" onclick="openApp('win-paint', 'dock-paint')">
+  <!-- Desktop Shortcuts -->
+  <div class="desktop-grid">
+    <div class="desktop-shortcut" onclick="openApp('win-paint', 'dock-paint')">
       <div class="shortcut-icon">🎨</div>
       <div class="shortcut-label">Paint</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-term', 'dock-term')">
+    <div class="desktop-shortcut" onclick="openApp('win-term', 'dock-term')">
       <div class="shortcut-icon">💻</div>
       <div class="shortcut-label">Terminal</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-notes', 'dock-notes')">
+    <div class="desktop-shortcut" onclick="openApp('win-notes', 'dock-notes')">
       <div class="shortcut-icon">📝</div>
       <div class="shortcut-label">Notes</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-calc', 'dock-calc')">
+    <div class="desktop-shortcut" onclick="openApp('win-calc', 'dock-calc')">
       <div class="shortcut-icon">🧮</div>
       <div class="shortcut-label">Calculator</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-synth', 'dock-synth')">
+    <div class="desktop-shortcut" onclick="openApp('win-synth', 'dock-synth')">
       <div class="shortcut-icon">🎵</div>
-      <div class="shortcut-label">Synthesizer</div>
+      <div class="shortcut-label">Synth</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-snake', 'dock-snake')">
+    <div class="desktop-shortcut" onclick="openApp('win-snake', 'dock-snake')">
       <div class="shortcut-icon">🐍</div>
-      <div class="shortcut-label">Snake Game</div>
+      <div class="shortcut-label">Snake</div>
     </div>
-    <div class="app-shortcut" onclick="openApp('win-settings', 'dock-settings')">
+    <div class="desktop-shortcut" onclick="openApp('win-settings', 'dock-settings')">
       <div class="shortcut-icon">⚙️</div>
       <div class="shortcut-label">Settings</div>
     </div>
   </div>
 
-  <!-- =========================================================================
-       WINDOWS
-       ========================================================================= -->
+  <!-- Windows -->
 
-  <!-- 1. Paint Studio Window -->
-  <div id="win-paint" class="window w-[720px] h-[500px] top-12 left-32 hidden" onmousedown="focusWindow(this)">
+  <!-- 1. Paint Window -->
+  <div id="win-paint" class="window" style="width: 680px; height: 460px; top: 50px; left: 100px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-paint')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-paint', 'dock-paint', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-paint', 'dock-paint', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-paint', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-paint', 'dock-paint', event)" title="Close"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-paint', 'dock-paint', event)" title="Minimize"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-paint', event)" title="Maximize"></button>
       </div>
-      <div class="window-title"><span>🎨</span> Paint Studio</div>
-      <div class="flex items-center space-x-2">
-        <button onclick="clearCanvas()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200">Clear</button>
-        <button onclick="saveDrawing()" class="text-xs px-3 py-1 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold shadow">Save PNG</button>
+      <div class="window-title">Paint Studio</div>
+      <div style="width: 40px;"></div>
+    </div>
+    <div class="paint-toolbar">
+      <div class="paint-tools">
+        <button id="tool-brush" class="paint-btn active" onclick="setTool('brush')">Brush</button>
+        <button id="tool-eraser" class="paint-btn" onclick="setTool('eraser')">Eraser</button>
+        <button class="paint-btn" onclick="clearCanvas()">Clear</button>
+        <button class="paint-btn" onclick="saveDrawing()" style="background: #0284c7;">Save PNG</button>
+      </div>
+      <div class="paint-colors">
+        <div class="color-dot" style="background: #38bdf8;" onclick="setColor('#38bdf8')"></div>
+        <div class="color-dot" style="background: #ef4444;" onclick="setColor('#ef4444')"></div>
+        <div class="color-dot" style="background: #10b981;" onclick="setColor('#10b981')"></div>
+        <div class="color-dot" style="background: #f59e0b;" onclick="setColor('#f59e0b')"></div>
+        <div class="color-dot" style="background: #ffffff;" onclick="setColor('#ffffff')"></div>
       </div>
     </div>
-    <div class="p-2 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs">
-      <div class="flex items-center space-x-2">
-        <button id="tool-brush" onclick="setTool('brush')" class="px-3 py-1 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold">🖌️ Brush</button>
-        <button id="tool-eraser" onclick="setTool('eraser')" class="px-3 py-1 rounded-lg bg-slate-800 text-slate-300">🧹 Eraser</button>
-      </div>
-      <div class="flex items-center space-x-2">
-        <div onclick="setColor('#06b6d4')" class="w-5 h-5 rounded-full bg-cyan-500 cursor-pointer border border-white/20"></div>
-        <div onclick="setColor('#ef4444')" class="w-5 h-5 rounded-full bg-red-500 cursor-pointer border border-white/20"></div>
-        <div onclick="setColor('#10b981')" class="w-5 h-5 rounded-full bg-emerald-500 cursor-pointer border border-white/20"></div>
-        <div onclick="setColor('#f59e0b')" class="w-5 h-5 rounded-full bg-amber-500 cursor-pointer border border-white/20"></div>
-        <div onclick="setColor('#a855f7')" class="w-5 h-5 rounded-full bg-purple-500 cursor-pointer border border-white/20"></div>
-        <div onclick="setColor('#ffffff')" class="w-5 h-5 rounded-full bg-white cursor-pointer border border-white/20"></div>
-      </div>
-    </div>
-    <div class="window-body p-2 flex items-center justify-center">
-      <canvas id="paint-canvas" width="690" height="400" class="rounded-xl bg-slate-900 border border-slate-800 cursor-crosshair"></canvas>
+    <div class="paint-canvas-wrap">
+      <canvas id="paint-canvas" width="650" height="370"></canvas>
     </div>
   </div>
 
   <!-- 2. Terminal Window -->
-  <div id="win-term" class="window w-[580px] h-[400px] top-16 left-28 hidden" onmousedown="focusWindow(this)">
+  <div id="win-term" class="window" style="width: 560px; height: 380px; top: 70px; left: 140px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-term')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-term', 'dock-term', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-term', 'dock-term', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-term', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-term', 'dock-term', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-term', 'dock-term', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-term', event)"></button>
       </div>
-      <div class="window-title"><span>💻</span> Terminal</div>
-      <div class="w-10"></div>
+      <div class="window-title">Terminal</div>
+      <div style="width: 40px;"></div>
     </div>
-    <div id="term-scroll" class="window-body p-3 font-mono text-xs text-slate-200 overflow-y-auto">
-      <div id="term-body">
-        <div class="term-line text-cyan-400 mb-2">BharatOS Terminal v1.0. Type 'help' for available commands.</div>
+    <div class="term-container">
+      <div id="term-body" class="term-output">
+        <div class="term-line" style="color: #38bdf8;">BharatOS Terminal v1.0. Type 'help' for commands.</div>
       </div>
-      <div class="flex items-center mt-1">
-        <span class="text-cyan-400 mr-2">aviral@bharatos:~$</span>
-        <input id="term-input" type="text" class="flex-1 bg-transparent outline-none text-white font-mono" autofocus>
+      <div class="term-input-row">
+        <span class="term-prompt">aviral@bharatos:~$</span>
+        <input id="term-input" type="text" class="term-field" autofocus>
       </div>
     </div>
   </div>
 
   <!-- 3. Notes Window -->
-  <div id="win-notes" class="window w-[540px] h-[420px] top-20 left-36 hidden" onmousedown="focusWindow(this)">
+  <div id="win-notes" class="window" style="width: 500px; height: 380px; top: 90px; left: 180px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-notes')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-notes', 'dock-notes', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-notes', 'dock-notes', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-notes', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-notes', 'dock-notes', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-notes', 'dock-notes', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-notes', event)"></button>
       </div>
-      <div class="window-title"><span>📝</span> Notes</div>
-      <button onclick="newNote()" class="text-xs px-2.5 py-1 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium">New Note</button>
+      <div class="window-title">Notes</div>
+      <div style="width: 40px;"></div>
     </div>
-    <div class="window-body flex flex-col">
-      <textarea id="notes-textarea" class="flex-1 bg-transparent p-4 outline-none text-slate-100 font-sans text-sm resize-none leading-relaxed" placeholder="Type your notes here... (Auto-saved to browser localStorage)"></textarea>
-      <div class="px-4 py-2 bg-slate-900/90 border-t border-slate-800 text-[11px] text-slate-400 font-mono flex justify-between">
-        <span id="notes-count">0 words, 0 chars</span>
-        <span class="text-emerald-400 font-bold">● Auto-saved</span>
-      </div>
+    <textarea id="notes-textarea" class="notes-area" placeholder="Type your notes here... (Saved automatically)"></textarea>
+    <div class="notes-status">
+      <span id="notes-count">0 words</span>
+      <span style="color: #10b981;">● Auto-saved</span>
     </div>
   </div>
 
   <!-- 4. Calculator Window -->
-  <div id="win-calc" class="window w-[320px] h-[450px] top-24 left-52 hidden" onmousedown="focusWindow(this)">
+  <div id="win-calc" class="window" style="width: 300px; height: 420px; top: 110px; left: 220px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-calc')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-calc', 'dock-calc', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-calc', 'dock-calc', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-calc', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-calc', 'dock-calc', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-calc', 'dock-calc', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-calc', event)"></button>
       </div>
-      <div class="window-title"><span>🧮</span> Calculator</div>
-      <div class="w-10"></div>
+      <div class="window-title">Calculator</div>
+      <div style="width: 40px;"></div>
     </div>
-    <div class="p-4 bg-slate-900 border-b border-slate-800 text-right">
-      <div id="calc-display" class="text-3xl font-mono font-bold text-cyan-400 overflow-x-auto">0</div>
-    </div>
-    <div class="window-body p-2.5 grid grid-cols-4 gap-1.5 font-mono text-sm">
-      <button onclick="calcClear()" class="p-3 rounded-xl bg-rose-500/20 text-rose-300 font-bold hover:bg-rose-500/30">C</button>
-      <button onclick="calcAdd('(')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200">(</button>
-      <button onclick="calcAdd(')')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200">)</button>
-      <button onclick="calcAdd('/')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">÷</button>
+    <div id="calc-display" class="calc-screen">0</div>
+    <div class="calc-grid">
+      <button class="calc-btn" onclick="calcClear()" style="background: #991b1b;">C</button>
+      <button class="calc-btn" onclick="calcAdd('(')">(</button>
+      <button class="calc-btn" onclick="calcAdd(')')">)</button>
+      <button class="calc-btn op" onclick="calcAdd('/')">÷</button>
 
-      <button onclick="calcAdd('7')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">7</button>
-      <button onclick="calcAdd('8')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">8</button>
-      <button onclick="calcAdd('9')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">9</button>
-      <button onclick="calcAdd('*')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">×</button>
+      <button class="calc-btn" onclick="calcAdd('7')">7</button>
+      <button class="calc-btn" onclick="calcAdd('8')">8</button>
+      <button class="calc-btn" onclick="calcAdd('9')">9</button>
+      <button class="calc-btn op" onclick="calcAdd('*')">×</button>
 
-      <button onclick="calcAdd('4')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">4</button>
-      <button onclick="calcAdd('5')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">5</button>
-      <button onclick="calcAdd('6')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">6</button>
-      <button onclick="calcAdd('-')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">−</button>
+      <button class="calc-btn" onclick="calcAdd('4')">4</button>
+      <button class="calc-btn" onclick="calcAdd('5')">5</button>
+      <button class="calc-btn" onclick="calcAdd('6')">6</button>
+      <button class="calc-btn op" onclick="calcAdd('-')">−</button>
 
-      <button onclick="calcAdd('1')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">1</button>
-      <button onclick="calcAdd('2')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">2</button>
-      <button onclick="calcAdd('3')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">3</button>
-      <button onclick="calcAdd('+')" class="p-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold hover:bg-cyan-500/30">+</button>
+      <button class="calc-btn" onclick="calcAdd('1')">1</button>
+      <button class="calc-btn" onclick="calcAdd('2')">2</button>
+      <button class="calc-btn" onclick="calcAdd('3')">3</button>
+      <button class="calc-btn op" onclick="calcAdd('+')">+</button>
 
-      <button onclick="calcAdd('0')" class="col-span-2 p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">0</button>
-      <button onclick="calcAdd('.')" class="p-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold">.</button>
-      <button onclick="calcEquals()" class="p-3 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold">=</button>
+      <button class="calc-btn" style="grid-column: span 2;" onclick="calcAdd('0')">0</button>
+      <button class="calc-btn" onclick="calcAdd('.')">.</button>
+      <button class="calc-btn op" onclick="calcEquals()">=</button>
     </div>
   </div>
 
   <!-- 5. Synthesizer Window -->
-  <div id="win-synth" class="window w-[620px] h-[360px] top-28 left-60 hidden" onmousedown="focusWindow(this)">
+  <div id="win-synth" class="window" style="width: 580px; height: 320px; top: 130px; left: 260px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-synth')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-synth', 'dock-synth', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-synth', 'dock-synth', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-synth', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-synth', 'dock-synth', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-synth', 'dock-synth', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-synth', event)"></button>
       </div>
-      <div class="window-title"><span>🎵</span> Synthesizer</div>
-      <div class="w-10"></div>
+      <div class="window-title">Synthesizer</div>
+      <div style="width: 40px;"></div>
     </div>
-    <div class="p-2 bg-slate-900 border-b border-slate-800 flex items-center space-x-2 text-xs">
-      <span class="text-slate-400 font-bold">Waveform:</span>
-      <select onchange="setWaveform(this.value)" class="bg-slate-800 border border-slate-700 text-white rounded px-2 py-1">
+    <div class="synth-top">
+      <span>Waveform:</span>
+      <select onchange="setWaveform(this.value)" style="background: #0f172a; color: #fff; border: 1px solid #334155; padding: 3px 6px; border-radius: 4px;">
         <option value="sine">Sine</option>
         <option value="triangle">Triangle</option>
         <option value="sawtooth">Sawtooth</option>
         <option value="square">Square</option>
       </select>
     </div>
-    <div class="window-body p-4 flex items-center justify-center">
-      <div class="flex relative h-36 border border-slate-700 rounded-xl overflow-hidden select-none shadow-2xl">
-        <div onmousedown="startNote('C4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">C</div>
-        <div onmousedown="startNote('D4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">D</div>
-        <div onmousedown="startNote('E4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">E</div>
-        <div onmousedown="startNote('F4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">F</div>
-        <div onmousedown="startNote('G4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">G</div>
-        <div onmousedown="startNote('A4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">A</div>
-        <div onmousedown="startNote('B4')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 border-r border-slate-300 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">B</div>
-        <div onmousedown="startNote('C5')" onmouseup="stopNote()" class="w-12 h-full bg-white hover:bg-slate-200 cursor-pointer flex items-end justify-center pb-2 text-[10px] text-slate-800 font-bold">C5</div>
+    <div class="synth-keys-wrap">
+      <div class="piano">
+        <div class="white-key" onmousedown="startNote('C4')" onmouseup="stopNote()">C</div>
+        <div class="white-key" onmousedown="startNote('D4')" onmouseup="stopNote()">D</div>
+        <div class="white-key" onmousedown="startNote('E4')" onmouseup="stopNote()">E</div>
+        <div class="white-key" onmousedown="startNote('F4')" onmouseup="stopNote()">F</div>
+        <div class="white-key" onmousedown="startNote('G4')" onmouseup="stopNote()">G</div>
+        <div class="white-key" onmousedown="startNote('A4')" onmouseup="stopNote()">A</div>
+        <div class="white-key" onmousedown="startNote('B4')" onmouseup="stopNote()">B</div>
+        <div class="white-key" onmousedown="startNote('C5')" onmouseup="stopNote()">C5</div>
 
-        <div onmousedown="startNote('Db4')" onmouseup="stopNote()" class="absolute left-8 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">C#</div>
-        <div onmousedown="startNote('Eb4')" onmouseup="stopNote()" class="absolute left-20 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">D#</div>
-        <div onmousedown="startNote('Gb4')" onmouseup="stopNote()" class="absolute left-44 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">F#</div>
-        <div onmousedown="startNote('Ab4')" onmouseup="stopNote()" class="absolute left-56 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">G#</div>
-        <div onmousedown="startNote('Bb4')" onmouseup="stopNote()" class="absolute left-68 top-0 w-8 h-20 bg-slate-900 hover:bg-slate-800 text-white rounded-b cursor-pointer z-10 text-[9px] flex items-end justify-center pb-1 font-bold">A#</div>
+        <div class="black-key" style="left: 30px;" onmousedown="startNote('Db4')" onmouseup="stopNote()">C#</div>
+        <div class="black-key" style="left: 74px;" onmousedown="startNote('Eb4')" onmouseup="stopNote()">D#</div>
+        <div class="black-key" style="left: 162px;" onmousedown="startNote('Gb4')" onmouseup="stopNote()">F#</div>
+        <div class="black-key" style="left: 206px;" onmousedown="startNote('Ab4')" onmouseup="stopNote()">G#</div>
+        <div class="black-key" style="left: 250px;" onmousedown="startNote('Bb4')" onmouseup="stopNote()">A#</div>
       </div>
     </div>
   </div>
 
   <!-- 6. Snake Game Window -->
-  <div id="win-snake" class="window w-[440px] h-[480px] top-16 left-48 hidden" onmousedown="focusWindow(this)">
+  <div id="win-snake" class="window" style="width: 420px; height: 440px; top: 100px; left: 200px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-snake')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-snake', 'dock-snake', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-snake', 'dock-snake', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-snake', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-snake', 'dock-snake', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-snake', 'dock-snake', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-snake', event)"></button>
       </div>
-      <div class="window-title"><span>🐍</span> Snake Arcade</div>
-      <button onclick="startSnakeGame()" class="text-xs px-3 py-1 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-bold shadow">New Game</button>
+      <div class="window-title">Snake Arcade</div>
+      <button onclick="startSnakeGame()" style="padding: 3px 8px; font-size: 11px; background: #10b981; color: #000; font-weight: 700; border: none; border-radius: 4px; cursor: pointer;">New Game</button>
     </div>
-    <div class="px-4 py-2 bg-slate-900 border-b border-slate-800 flex justify-between text-xs font-mono">
-      <span id="snake-score" class="text-cyan-400 font-bold">Score: 0</span>
-      <span id="snake-high" class="text-slate-400 font-bold">Best: 0</span>
+    <div class="snake-stats">
+      <span id="snake-score" style="color: #38bdf8;">Score: 0</span>
+      <span id="snake-high">Best: 0</span>
     </div>
-    <div class="window-body p-2 flex flex-col items-center justify-center">
-      <canvas id="snake-canvas" width="400" height="340" class="rounded-xl bg-slate-950 border border-slate-800"></canvas>
-      <div class="text-[11px] text-slate-500 mt-2 font-mono">Use Arrow Keys on your keyboard to steer</div>
+    <div class="snake-area">
+      <canvas id="snake-canvas" width="380" height="320"></canvas>
+      <div style="font-size: 11px; color: #64748b; margin-top: 6px; font-family: monospace;">Use keyboard Arrow Keys to steer</div>
     </div>
   </div>
 
-  <!-- 7. Settings Window (Dual Wallpaper Engine, About & Display Tabs) -->
-  <div id="win-settings" class="window w-[560px] h-[460px] top-20 left-56 hidden" onmousedown="focusWindow(this)">
+  <!-- 7. Settings Window -->
+  <div id="win-settings" class="window" style="width: 500px; height: 380px; top: 120px; left: 220px; display: none;" onmousedown="focusWindow(this)">
     <div class="window-header" onmousedown="startDrag(event, 'win-settings')">
       <div class="window-controls">
-        <div class="gem-btn gem-close" onclick="closeApp('win-settings', 'dock-settings', event)" title="Close"><span>✕</span></div>
-        <div class="gem-btn gem-minimize" onclick="minimizeApp('win-settings', 'dock-settings', event)" title="Minimize"><span>−</span></div>
-        <div class="gem-btn gem-maximize" onclick="toggleMax('win-settings', event)" title="Maximize"><span>⤢</span></div>
+        <button class="win-btn win-close" onclick="closeApp('win-settings', 'dock-settings', event)"></button>
+        <button class="win-btn win-min" onclick="minimizeApp('win-settings', 'dock-settings', event)"></button>
+        <button class="win-btn win-max" onclick="toggleMax('win-settings', event)"></button>
       </div>
-      <div class="window-title"><span>⚙️</span> System Settings</div>
-      <div class="w-10"></div>
+      <div class="window-title">Settings</div>
+      <div style="width: 40px;"></div>
     </div>
-
-    <!-- Navigation Tabs -->
-    <div class="px-3 py-2 bg-slate-900/90 border-b border-slate-800 flex items-center space-x-1.5 text-xs font-medium">
-      <button id="settings-nav-wallpapers" onclick="switchSettingsTab('wallpapers')" class="px-3 py-1 rounded-lg bg-cyan-500/20 text-cyan-300 font-bold">🖼️ Wallpapers</button>
-      <button id="settings-nav-about" onclick="switchSettingsTab('about')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">💻 About BharatOS</button>
-      <button id="settings-nav-display" onclick="switchSettingsTab('display')" class="px-3 py-1 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800">🎨 Appearance</button>
-    </div>
-
-    <div class="window-body p-4 text-xs overflow-y-auto">
-      <!-- Tab 1: Wallpapers (Customizable for Home, Lock, or Both) -->
-      <div id="settings-tab-wallpapers" class="space-y-3">
-        <div class="flex items-center justify-between">
-          <span class="font-bold text-slate-200">Target Screen:</span>
-          <div class="flex items-center space-x-1 font-mono text-[11px]">
-            <button id="target-btn-home" onclick="setTargetScreen('home')" class="px-2.5 py-1 rounded-lg bg-cyan-500/30 text-cyan-300 font-bold">🏠 Home Screen</button>
-            <button id="target-btn-lock" onclick="setTargetScreen('lock')" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300">🔒 Lock Screen</button>
-            <button id="target-btn-both" onclick="setTargetScreen('both')" class="px-2.5 py-1 rounded-lg bg-slate-800 text-slate-300">⚡ Both</button>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 gap-2.5 pt-1">
-          <button onclick="applyWallpaper('wallpapers/ladakh_pangong.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🏔️ Ladakh Lake</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Pangong Tso 4K Landscape</div>
-          </button>
-          <button onclick="applyWallpaper('wallpapers/kashmir_dal.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🌸 Kashmir Valley</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Dal Lake Sunset</div>
-          </button>
-          <button onclick="applyWallpaper('wallpapers/varanasi_dawn.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🕉️ Varanasi Ghats</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Holy Ganges Sunrise</div>
-          </button>
-          <button onclick="applyWallpaper('wallpapers/thar_twilight.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🏜️ Thar Desert</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Golden Twilight Dunes</div>
-          </button>
-          <button onclick="applyWallpaper('wallpapers/munnar_hills.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🌿 Munnar Hills</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Kerala Tea Gardens</div>
-          </button>
-          <button onclick="applyWallpaper('wallpapers/andaman_beach.jpg')" class="p-2.5 rounded-xl bg-slate-900 border border-slate-800 hover:border-cyan-400 text-left font-mono transition-all">
-            <div class="font-bold text-slate-200">🏝️ Andaman Waters</div>
-            <div class="text-[10px] text-slate-400 mt-0.5">Turquoise Coral Reefs</div>
-          </button>
-        </div>
-        <div class="text-[11px] text-slate-400 font-mono mt-1">
-          💡 You can customize separate wallpapers for Home Screen vs Lock Screen!
-        </div>
-      </div>
-
-      <!-- Tab 2: About BharatOS -->
-      <div id="settings-tab-about" class="space-y-3 hidden font-mono text-xs">
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 flex items-center gap-3">
-          <div class="text-3xl">☸️</div>
-          <div>
-            <div class="text-sm font-bold text-white font-sans">BharatOS 1.0</div>
-            <div class="text-[11px] text-cyan-400">Independent Operating System for Bharat</div>
-          </div>
-        </div>
-
-        <div class="p-3 rounded-xl bg-slate-900/60 border border-slate-800/80 font-sans text-slate-300 leading-relaxed text-[11px]">
-          🇮🇳 <strong>Mission Statement:</strong> "I want to build an OS for Bharat so that India becomes independent in the OS sector, ensuring that serious proprietary OS failures (like Windows/macOS global crashes) will never affect our country's infrastructure." — <em>Aviral Dewangan</em>
-        </div>
-
-        <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800 space-y-2 text-[11px]">
-          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
-            <span class="text-slate-400">Developer:</span>
-            <span class="text-slate-200 font-bold">Aviral Dewangan (@AviralDewangan14)</span>
-          </div>
-          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
-            <span class="text-slate-400">Architecture:</span>
-            <span class="text-slate-200">100% Vanilla ES6 • Zero External Dependencies</span>
-          </div>
-          <div class="flex justify-between border-b border-slate-800/80 pb-1.5">
-            <span class="text-slate-400">Flagship Studio:</span>
-            <span class="text-slate-200 font-bold text-cyan-300">Chitram Vector Paint Studio</span>
-          </div>
-          <div class="flex justify-between">
-            <span class="text-slate-400">Digital Sovereignty:</span>
-            <span class="text-emerald-400 font-bold">100% Client-Side / 0.00% Telemetry</span>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tab 3: Appearance -->
-      <div id="settings-tab-display" class="space-y-3 hidden text-xs">
-        <div class="font-bold text-slate-200">Theme Accent Color:</div>
-        <div class="flex items-center space-x-3">
-          <div onclick="setAccentColor('#06b6d4')" class="w-7 h-7 rounded-xl bg-cyan-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Cyan Accent"></div>
-          <div onclick="setAccentColor('#3b82f6')" class="w-7 h-7 rounded-xl bg-blue-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Blue Accent"></div>
-          <div onclick="setAccentColor('#10b981')" class="w-7 h-7 rounded-xl bg-emerald-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Emerald Accent"></div>
-          <div onclick="setAccentColor('#8b5cf6')" class="w-7 h-7 rounded-xl bg-purple-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Purple Accent"></div>
-          <div onclick="setAccentColor('#f59e0b')" class="w-7 h-7 rounded-xl bg-amber-500 cursor-pointer border-2 border-white/40 hover:scale-110 transition-all" title="Amber Accent"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Dock Profile Menu (Pops up from Dock on Profile Click) -->
-  <div id="dock-profile-menu" class="hidden">
-    <div class="flex items-center gap-3 p-2 bg-slate-900/80 rounded-xl border border-slate-800">
-      <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-500 to-indigo-500 flex items-center justify-center font-bold text-white text-sm shadow-md">AD</div>
+    <div class="settings-body">
       <div>
-        <div class="text-xs font-bold text-white">Aviral Dewangan</div>
-        <div class="text-[10px] text-cyan-400 font-mono">Developer & Sovereign Admin</div>
+        <div class="settings-section-title">Change Wallpaper:</div>
+        <div class="wallpaper-grid">
+          <div class="wall-card" onclick="setWallpaper('wallpapers/ladakh_pangong.jpg')">
+            <div class="wall-card-title">🏔️ Ladakh</div>
+            <div class="wall-card-sub">Pangong Lake</div>
+          </div>
+          <div class="wall-card" onclick="setWallpaper('wallpapers/kashmir_dal.jpg')">
+            <div class="wall-card-title">🌸 Kashmir</div>
+            <div class="wall-card-sub">Dal Lake Sunset</div>
+          </div>
+          <div class="wall-card" onclick="setWallpaper('wallpapers/varanasi_dawn.jpg')">
+            <div class="wall-card-title">🕉️ Varanasi</div>
+            <div class="wall-card-sub">Ganges Ghats</div>
+          </div>
+          <div class="wall-card" onclick="setWallpaper('wallpapers/thar_twilight.jpg')">
+            <div class="wall-card-title">🏜️ Thar Desert</div>
+            <div class="wall-card-sub">Golden Dunes</div>
+          </div>
+        </div>
+      </div>
+      <div style="padding-top: 10px; border-top: 1px solid rgba(255,255,255,0.08);">
+        <div class="settings-section-title">About:</div>
+        <p style="color: #94a3b8; font-size: 12px; line-height: 1.5;">
+          BharatOS 1.0 — Built by Aviral Dewangan using pure HTML, CSS, and Vanilla JavaScript with zero external frameworks.
+        </p>
       </div>
     </div>
-    <div class="space-y-1">
-      <div class="profile-menu-item" onclick="openApp('win-paint', 'dock-paint'); toggleProfileMenu()">🎨 <span>Paint Studio</span></div>
-      <div class="profile-menu-item" onclick="openApp('win-term', 'dock-term'); toggleProfileMenu()">💻 <span>Interactive Terminal</span></div>
-      <div class="profile-menu-item" onclick="openApp('win-notes', 'dock-notes'); toggleProfileMenu()">📝 <span>Notes App</span></div>
-      <div class="profile-menu-item" onclick="openApp('win-settings', 'dock-settings'); toggleProfileMenu()">⚙️ <span>Settings & Wallpapers</span></div>
-    </div>
-    <div class="pt-2 border-t border-slate-800 flex justify-between items-center">
-      <button onclick="lockDesktop()" class="text-xs text-rose-300 hover:text-white px-2.5 py-1 rounded bg-rose-500/20 hover:bg-rose-500/30 font-mono">🔒 Lock Screen</button>
-      <span class="text-[10px] text-slate-500 font-mono">BharatOS 1.0</span>
+  </div>
+
+  <!-- Bottom Dock -->
+  <div class="dock">
+    <div id="dock-paint" class="dock-item" onclick="openApp('win-paint', 'dock-paint')" title="Paint">🎨</div>
+    <div id="dock-term" class="dock-item" onclick="openApp('win-term', 'dock-term')" title="Terminal">💻</div>
+    <div id="dock-notes" class="dock-item" onclick="openApp('win-notes', 'dock-notes')" title="Notes">📝</div>
+    <div id="dock-calc" class="dock-item" onclick="openApp('win-calc', 'dock-calc')" title="Calculator">🧮</div>
+    <div id="dock-synth" class="dock-item" onclick="openApp('win-synth', 'dock-synth')" title="Synthesizer">🎵</div>
+    <div id="dock-snake" class="dock-item" onclick="openApp('win-snake', 'dock-snake')" title="Snake Game">🐍</div>
+    <div id="dock-settings" class="dock-item" onclick="openApp('win-settings', 'dock-settings')" title="Settings">⚙️</div>
+  </div>
+
+  <!-- Lockscreen -->
+  <div id="lockscreen" class="lockscreen">
+    <div id="lockscreen-bg" class="lockscreen-bg"></div>
+    <div class="lockscreen-overlay"></div>
+    <div class="lock-card">
+      <div style="font-size: 32px;">☸️</div>
+      <div style="font-size: 18px; font-weight: 700; margin-top: 4px;">BharatOS</div>
+      <div id="lock-clock" class="lock-clock">12:00 PM</div>
+      <input id="lock-pass" type="password" placeholder="PIN (1234)" class="lock-input" onkeydown="if(event.key==='Enter') unlock()">
+      <button class="lock-btn" onclick="unlock()">Unlock</button>
     </div>
   </div>
 
-  <!-- Bottom Dock (With Profile Avatar Logo on Left) -->
-  <div id="dock">
-    <div id="dock-profile-btn" class="dock-btn" onclick="toggleProfileMenu(event)" title="Aviral Dewangan Profile">
-      <div class="dock-profile-avatar">AD</div>
-    </div>
-    <div id="dock-paint" class="dock-btn" onclick="openApp('win-paint', 'dock-paint')" title="Paint Studio">🎨</div>
-    <div id="dock-term" class="dock-btn" onclick="openApp('win-term', 'dock-term')" title="Terminal">💻</div>
-    <div id="dock-notes" class="dock-btn" onclick="openApp('win-notes', 'dock-notes')" title="Notes">📝</div>
-    <div id="dock-calc" class="dock-btn" onclick="openApp('win-calc', 'dock-calc')" title="Calculator">🧮</div>
-    <div id="dock-synth" class="dock-btn" onclick="openApp('win-synth', 'dock-synth')" title="Synthesizer">🎵</div>
-    <div id="dock-snake" class="dock-btn" onclick="openApp('win-snake', 'dock-snake')" title="Snake Game">🐍</div>
-    <div id="dock-settings" class="dock-btn" onclick="openApp('win-settings', 'dock-settings')" title="Settings">⚙️</div>
-  </div>
-
-  <!-- Lock Screen with Dedicated Frosted Wallpaper Glass -->
-  <div id="lockscreen">
-    <div id="lockscreen-bg"></div>
-    <div id="lockscreen-overlay"></div>
-    
-    <div class="lock-box">
-      <div class="text-4xl">☸️</div>
-      <h2 class="text-base font-bold text-white mt-1">BharatOS</h2>
-      <div id="lock-clock" class="lock-time">12:00:00 PM</div>
-      <div id="lock-date" class="text-xs text-slate-300 font-mono">Monday, Aug 31</div>
-      
-      <input id="lock-pass" type="password" placeholder="Passcode (1234)" class="lock-input" onkeydown="if(event.key==='Enter') unlock()">
-      <button onclick="unlock()" class="unlock-btn">⚡ UNLOCK</button>
-    </div>
-  </div>
-
-  <!-- Script Modules -->
+  <!-- JavaScript Modules -->
   <script src="js/window.js"></script>
   <script src="js/apps/terminal.js"></script>
   <script src="js/apps/notes.js"></script>
